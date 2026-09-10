@@ -1522,6 +1522,1167 @@
   </div>
 </section>
 
+<!-- ============ BLOQUE 5 · Representación de la información: numeración y cambios de base ============ -->
+
+<!-- 53 Texto: por qué el ordenador solo entiende 0 y 1 -->
+<section class="dark" data-label="Solo 0 y 1" data-notas="Arranque del apartado 1.5 (criterio e del BOCYL). La idea central: un circuito distingue con seguridad dos estados y con muchos circuitos se representa cualquier cosa. Recorrer los cuatro soportes: en los circuitos, tensión alta o baja (en los micros actuales, en torno a 1 V frente a 0 V); en un disco duro, la orientación magnética de cada zona; en un CD o DVD, los hoyos (pits) y los llanos (lands) que reflejan o no el láser, como se ve en la foto; en una SSD, celdas de memoria flash con o sin carga atrapada. Al pulsar una tecla, el teclado envía un código de varios bits: lo que viaja por el cable ya es binario. Preguntar: ¿por qué no diez estados, como nuestros dedos? Porque distinguir dos niveles es barato y fiable; distinguir diez con ruido eléctrico daría errores." style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:96px;align-items:center">
+  <div style="min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">1.5 · Representación de la información</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;text-wrap:balance">Por qué el ordenador solo entiende 0 y 1</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:#C9D6EE;margin-top:var(--gap-item)">Un circuito distingue con seguridad <b style="color:var(--white)">dos estados</b>. Cada soporte físico los materializa a su manera, pero para el ordenador siempre son lo mismo: un <b style="color:var(--white)">bit</b>, 0 o 1.</p>
+    <ul style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:14px;font-size:22px;line-height:1.4">
+      <li style="display:grid;grid-template-columns:170px 1fr;gap:20px;align-items:center;background:rgba(255,255,255,.07);border-radius:16px;padding:14px 22px"><b style="color:var(--yellow)">Circuitos</b><span>Dos niveles de tensión: hay corriente o no la hay.</span></li>
+      <li style="display:grid;grid-template-columns:170px 1fr;gap:20px;align-items:center;background:rgba(255,255,255,.07);border-radius:16px;padding:14px 22px"><b style="color:var(--yellow)">Disco duro</b><span>Dos orientaciones magnéticas en cada zona del plato.</span></li>
+      <li style="display:grid;grid-template-columns:170px 1fr;gap:20px;align-items:center;background:rgba(255,255,255,.07);border-radius:16px;padding:14px 22px"><b style="color:var(--yellow)">CD y DVD</b><span>Hoyos y llanos que reflejan o no la luz del láser.</span></li>
+      <li style="display:grid;grid-template-columns:170px 1fr;gap:20px;align-items:center;background:rgba(255,255,255,.07);border-radius:16px;padding:14px 22px"><b style="color:var(--yellow)">SSD y flash</b><span>Celdas con carga eléctrica atrapada o sin ella.</span></li>
+    </ul>
+    <p style="font-size:var(--type-caption);line-height:1.5;color:#9FB4D9;margin-top:var(--gap-item)">Cuando pulsas la tecla <b style="color:var(--white)">A</b> o la tecla <b style="color:var(--white)">9</b>, el teclado envía una combinación de bits. Todo lo que entra, se guarda o sale del ordenador está codificado en bits.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px;min-width:0;height:100%;min-height:0">
+    <figure class="foto" style="flex:1">
+      <img src="img/cd-pits.jpg" alt="Superficie de un CD vista al microscopio: pistas de hoyos alargados sobre fondo rojo" title="Foto: Jan1959 · Wikimedia Commons · CC BY 4.0">
+      <figcaption class="credito">Superficie de un CD al microscopio. Foto: Jan1959, Wikimedia Commons, <a href="https://creativecommons.org/licenses/by/4.0/deed.es">CC BY 4.0</a>. Recortada y reducida.</figcaption>
+    </figure>
+    <p style="font-size:19px;color:#9FB4D9;line-height:1.35">Figura 1.23. Los hoyos (<i>pits</i>) de un CD al microscopio: cada cambio entre hoyo y llano es un 1; cada tramo sin cambio, ceros.</p>
+  </div>
+</section>
+
+<!-- 54 Texto: datos de entrada, internos y de salida -->
+<section data-label="Datos de entrada y salida" data-notas="Los datos entran en un formato humano (teclado, ratón, micrófono), se convierten en bits, se procesan en bits y se vuelven a convertir para mostrarlos. El ejemplo del triángulo: base y altura entran por teclado, el cálculo es interno y el resultado sale por pantalla. El ejemplo del coseno es para hacerlo en clase: en una calculadora en modo grados cos(90) = 0; en la consola del navegador (F12) Math.cos(Math.PI/2) devuelve 6.123233995736766e-17, porque el ordenador trabaja en radianes y π/2 no tiene representación exacta. Es una primera pista de que los datos internos no siempre son exactos; se retoma en el apartado 1.6 con la coma flotante y el 0,1 + 0,2." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.2fr 1fr;gap:80px">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.1 · Datos</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Datos de entrada, internos y de salida</h2>
+    <svg viewBox="0 0 900 330" style="width:100%;height:auto;display:block;margin-top:var(--gap-item)" role="img" aria-label="Entrada por teclado, proceso interno en bits, salida por pantalla">
+      <defs><marker id="fl54" markerUnits="userSpaceOnUse" markerWidth="20" markerHeight="20" refX="16" refY="10" orient="auto"><path d="M0,0 L20,10 L0,20 z" fill="#4F8AE0"/></marker></defs>
+      <rect x="10" y="40" width="250" height="230" rx="20" fill="#fff" stroke="#D7DCE6" stroke-width="3"/>
+      <text x="135" y="82" text-anchor="middle" font-size="24" font-weight="800" fill="#15356B" font-family="Plus Jakarta Sans, system-ui, sans-serif">Entrada</text>
+      <text x="135" y="112" text-anchor="middle" font-size="18" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">teclado, ratón, red…</text>
+      <text x="135" y="175" text-anchor="middle" font-size="40" font-weight="700" fill="#0B4AB5" font-family="JetBrains Mono, Consolas, monospace">base 6</text>
+      <text x="135" y="230" text-anchor="middle" font-size="40" font-weight="700" fill="#0B4AB5" font-family="JetBrains Mono, Consolas, monospace">altura 4</text>
+      <line x1="268" y1="155" x2="312" y2="155" stroke="#4F8AE0" stroke-width="5" marker-end="url(#fl54)"/>
+      <rect x="325" y="40" width="250" height="230" rx="20" fill="#0B4AB5"/>
+      <text x="450" y="82" text-anchor="middle" font-size="24" font-weight="800" fill="#fff" font-family="Plus Jakarta Sans, system-ui, sans-serif">Interno</text>
+      <text x="450" y="112" text-anchor="middle" font-size="18" fill="#C9D6EE" font-family="Plus Jakarta Sans, system-ui, sans-serif">solo bits, en la RAM y el micro</text>
+      <text x="450" y="165" text-anchor="middle" font-size="26" font-weight="700" fill="#F4C20D" font-family="JetBrains Mono, Consolas, monospace">00000110</text>
+      <text x="450" y="205" text-anchor="middle" font-size="26" font-weight="700" fill="#F4C20D" font-family="JetBrains Mono, Consolas, monospace">00000100</text>
+      <text x="450" y="248" text-anchor="middle" font-size="20" fill="#C9D6EE" font-family="JetBrains Mono, Consolas, monospace">6 × 4 : 2 = 00001100</text>
+      <line x1="583" y1="155" x2="627" y2="155" stroke="#4F8AE0" stroke-width="5" marker-end="url(#fl54)"/>
+      <rect x="640" y="40" width="250" height="230" rx="20" fill="#fff" stroke="#D7DCE6" stroke-width="3"/>
+      <text x="765" y="82" text-anchor="middle" font-size="24" font-weight="800" fill="#15356B" font-family="Plus Jakarta Sans, system-ui, sans-serif">Salida</text>
+      <text x="765" y="112" text-anchor="middle" font-size="18" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">pantalla, impresora, altavoz…</text>
+      <text x="765" y="200" text-anchor="middle" font-size="56" font-weight="800" fill="#0B4AB5" font-family="JetBrains Mono, Consolas, monospace">12</text>
+      <text x="765" y="240" text-anchor="middle" font-size="18" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">área del triángulo</text>
+      <text x="450" y="315" text-anchor="middle" font-size="19" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">Figura 1.24. Los datos se convierten a bits al entrar y se vuelven a convertir al salir. Elaboración propia.</text>
+    </svg>
+    <ul style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:12px;font-size:22px;line-height:1.4">
+      <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Datos de entrada</b>: los que llegan desde fuera, en un formato que entiende una persona o un aparato.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Datos internos</b>: la misma información codificada en bits, que es lo único que el hardware maneja.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Datos de salida</b>: el resultado, convertido otra vez a algo legible: un número, un texto, un sonido.</span></li>
+    </ul>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
+    <div style="background:var(--white);border-radius:24px;padding:40px 44px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Para probar en clase</p>
+      <p style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy);margin-top:12px;line-height:1.2">¿Cuánto vale cos 90°?</p>
+      <p style="font-size:21px;line-height:1.45;color:var(--muted);margin-top:16px">En una calculadora en modo grados, <b style="color:var(--navy)">0</b>. En la consola del navegador (F12):</p>
+      <pre style="margin:16px 0 0;font-family:var(--mono);font-size:21px;line-height:1.5;background:var(--bg);border-radius:14px;padding:16px 20px;color:var(--navy)">Math.cos(Math.PI / 2)
+6.123233995736766e-17</pre>
+      <p style="font-size:21px;line-height:1.45;color:var(--muted);margin-top:16px">Por dentro, 90° se convierte a radianes (π/2 = 1,5707963…), que no cabe exacto en bits. El resultado interno es 0,0000000000000000612…, que al mostrarlo se redondea a 0. Los datos internos <b style="color:var(--navy)">no siempre son exactos</b>: lo veremos en el apartado 1.6.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 55 Definición: sistema de numeración -->
+<section class="dark" data-label="Sistema de numeración" data-notas="Definición: conjunto de símbolos y reglas para representar cantidades. Lo importante es la diferencia entre posicional y no posicional. En el sistema decimal el 2 de 222 vale 200, 20 o 2 según dónde esté; en los números romanos del reloj la X vale 10 esté donde esté (XII = 10 + 1 + 1). Preguntar cuántos símbolos tiene cada sistema: ese número es la base. Con los romanos no se puede hacer una división larga ni escribir el cero: por eso el sistema posicional, que llegó de la India a través de los árabes, se impuso en Europa a partir del siglo XIII. Todos los sistemas que usa el ordenador (binario, octal, hexadecimal) son posicionales, así que funcionan exactamente igual que el decimal, solo cambia la base." style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:96px;align-items:center">
+  <div style="min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">1.5.2 · Sistemas de numeración</p>
+    <h2 style="font-size:var(--type-hero);font-weight:800;line-height:1.02;margin-top:24px;letter-spacing:-.02em;text-wrap:balance">Sistema de numeración</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:#C9D6EE;margin-top:var(--gap-item)">Conjunto de <b style="color:var(--white)">símbolos</b> y de <b style="color:var(--white)">reglas</b> para representar cantidades. El número de símbolos distintos es la <b style="color:var(--white)">base</b>: el decimal tiene diez (0 a 9) y el binario, dos (0 y 1).</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:var(--gap-item)">
+      <div style="background:rgba(255,255,255,.07);border-radius:20px;padding:26px 30px">
+        <p style="font-size:var(--type-small);font-weight:800;color:var(--yellow)">Posicional</p>
+        <p style="font-size:21px;line-height:1.45;color:#C9D6EE;margin-top:10px">El valor de un símbolo depende de su posición. En <span style="font-family:var(--mono);color:var(--white)">222</span> el primer 2 vale 200, el segundo 20 y el tercero 2.</p>
+        <p style="font-size:19px;color:#9FB4D9;margin-top:10px">Decimal, binario, octal, hexadecimal.</p>
+      </div>
+      <div style="background:rgba(255,255,255,.07);border-radius:20px;padding:26px 30px">
+        <p style="font-size:var(--type-small);font-weight:800;color:var(--yellow)">No posicional</p>
+        <p style="font-size:21px;line-height:1.45;color:#C9D6EE;margin-top:10px">Cada símbolo vale siempre lo mismo. En <span style="font-family:var(--mono);color:var(--white)">XXX</span> cada X vale 10: treinta. No tienen cero y operar con ellos es muy difícil.</p>
+        <p style="font-size:19px;color:#9FB4D9;margin-top:10px">Números romanos.</p>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px;min-width:0;height:100%;min-height:0">
+    <figure class="foto" style="flex:1">
+      <img src="img/reloj-romanos.jpg" alt="Despertador antiguo con la esfera en números romanos" title="Foto: Ales Krivec (Unsplash) · Wikimedia Commons · CC0">
+      <figcaption class="credito">Despertador con números romanos. Foto: Ales Krivec, Unsplash, vía Wikimedia Commons, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.es">CC0</a>. Reducida.</figcaption>
+    </figure>
+    <p style="font-size:19px;color:#9FB4D9;line-height:1.35">Figura 1.25. En la esfera, la X de las diez vale lo mismo que la X de las doce (XII): el sistema romano no es posicional.</p>
+  </div>
+</section>
+
+<!-- 56 Texto: teorema fundamental de la numeración -->
+<section data-label="Teorema fundamental" data-notas="El teorema fundamental de la numeración dice que cualquier número en un sistema posicional es la suma de cada dígito multiplicado por la base elevada a su posición. Las posiciones se numeran desde la coma: 0 para las unidades, 1, 2, 3 hacia la izquierda y −1, −2, −3 hacia la derecha. Desarrollar los tres ejemplos en la pizarra con la clase y después pedir que hagan los cuatro números de la tarjeta (631, 1927, 2120,57 y 3406). Insistir en que 10 elevado a 0 es 1 y en que las potencias negativas son fracciones: 10 elevado a −1 es 0,1. El teorema es la herramienta para pasar de cualquier base a decimal, que es lo que se hace en la siguiente diapositiva con el binario." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.25fr 1fr;gap:80px">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.2 · Sistemas de numeración</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Teorema fundamental de la numeración</h2>
+    <div style="background:var(--navy);color:var(--white);border-radius:20px;padding:28px 36px;margin-top:var(--gap-item);display:grid;grid-template-columns:auto 1fr;gap:12px 40px;align-items:center">
+      <p style="font-family:var(--mono);font-size:44px;font-weight:600;color:var(--yellow);white-space:nowrap">N = Σ d<sub style="font-size:24px">i</sub> · b<sup style="font-size:26px">i</sup></p>
+      <p style="font-size:20px;line-height:1.45;color:#C9D6EE">Cada dígito <b style="color:var(--white)">d</b> se multiplica por la base <b style="color:var(--white)">b</b> elevada a su posición <b style="color:var(--white)">i</b>, y se suma todo. La posición 0 es la de las unidades; a la derecha de la coma las posiciones son negativas.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;margin-top:var(--gap-item);font-family:var(--mono);font-size:24px;line-height:1.5;color:var(--navy)">
+      <div style="background:var(--white);border-radius:16px;padding:16px 24px;box-shadow:0 2px 0 var(--line)"><b>1785</b> = 1·10³ + 7·10² + 8·10¹ + 5·10⁰ = 1000 + 700 + 80 + 5</div>
+      <div style="background:var(--white);border-radius:16px;padding:16px 24px;box-shadow:0 2px 0 var(--line)"><b>345,65</b> = 3·10² + 4·10¹ + 5·10⁰ + 6·10⁻¹ + 5·10⁻² = 300 + 40 + 5 + 0,6 + 0,05</div>
+      <div style="background:var(--white);border-radius:16px;padding:16px 24px;box-shadow:0 2px 0 var(--line)"><b>12,357</b> = 1·10¹ + 2·10⁰ + 3·10⁻¹ + 5·10⁻² + 7·10⁻³</div>
+    </div>
+    <p style="font-size:21px;line-height:1.45;color:var(--muted);margin-top:var(--gap-item)">Vale para cualquier base: en binario la base es 2 y las potencias son 1, 2, 4, 8, 16… Es la herramienta para pasar de cualquier sistema a decimal.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
+    <div style="background:var(--white);border-radius:24px;padding:40px 44px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Para la pizarra</p>
+      <p style="font-size:21px;line-height:1.45;color:var(--muted);margin-top:12px">Descompón estos números con el teorema:</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;font-family:var(--mono);font-size:40px;font-weight:600;color:var(--navy);text-align:center">
+        <div style="background:var(--bg);border-radius:14px;padding:18px">631</div>
+        <div style="background:var(--bg);border-radius:14px;padding:18px">1927</div>
+        <div style="background:var(--bg);border-radius:14px;padding:18px">2120,57</div>
+        <div style="background:var(--bg);border-radius:14px;padding:18px">3406</div>
+      </div>
+      <p style="font-size:19px;line-height:1.45;color:var(--muted);margin-top:20px">Recuerda: cualquier número elevado a 0 vale 1, y 10⁻¹ = 1/10 = 0,1.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 57 Tabla: los cuatro sistemas de la informática -->
+<section data-label="Los cuatro sistemas" data-notas="Los cuatro sistemas que se usan en informática, todos posicionales. El binario es el único que existe dentro de la máquina; el octal y el hexadecimal son formas cómodas de escribir binario para las personas, porque cada dígito octal equivale exactamente a 3 bits y cada dígito hexadecimal a 4. Ejemplos reales para que vean que esto se usa: los permisos de Linux (chmod 755, UT6), los colores de las páginas web (#FF8800), las direcciones MAC de la tarjeta de red (ipconfig /all) y las direcciones de memoria en cualquier depurador. Enseñar las dos notaciones para indicar la base: el paréntesis abierto con la base, que es la que usaremos en los ejercicios, y los prefijos 0b, 0o y 0x de los lenguajes de programación. Hacer la tabla del 0 al 15 de memoria en clase: es la que hay que saberse." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.15fr;gap:72px">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.2 · Sistemas de numeración</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Los cuatro sistemas de la informática</h2>
+    <table style="width:100%;border-collapse:collapse;margin-top:var(--gap-item);font-size:21px;background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 2px 0 var(--line);font-family:var(--mono);text-align:center">
+      <thead><tr style="background:var(--navy);color:var(--white);font-family:'Plus Jakarta Sans',system-ui,sans-serif"><th style="padding:10px 16px;font-weight:700">Decimal</th><th style="padding:10px 16px;font-weight:700">Binario</th><th style="padding:10px 16px;font-weight:700">Octal</th><th style="padding:10px 16px;font-weight:700">Hexadecimal</th></tr></thead>
+      <tbody style="color:var(--navy)">
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:5px 16px">0</td><td style="padding:5px 16px">0000</td><td style="padding:5px 16px">0</td><td style="padding:5px 16px">0</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:5px 16px">1</td><td style="padding:5px 16px">0001</td><td style="padding:5px 16px">1</td><td style="padding:5px 16px">1</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:5px 16px">2</td><td style="padding:5px 16px">0010</td><td style="padding:5px 16px">2</td><td style="padding:5px 16px">2</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:5px 16px">3</td><td style="padding:5px 16px">0011</td><td style="padding:5px 16px">3</td><td style="padding:5px 16px">3</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:5px 16px">4</td><td style="padding:5px 16px">0100</td><td style="padding:5px 16px">4</td><td style="padding:5px 16px">4</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:5px 16px">5</td><td style="padding:5px 16px">0101</td><td style="padding:5px 16px">5</td><td style="padding:5px 16px">5</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:5px 16px">6</td><td style="padding:5px 16px">0110</td><td style="padding:5px 16px">6</td><td style="padding:5px 16px">6</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:5px 16px">7</td><td style="padding:5px 16px">0111</td><td style="padding:5px 16px">7</td><td style="padding:5px 16px">7</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:5px 16px">8</td><td style="padding:5px 16px">1000</td><td style="padding:5px 16px">10</td><td style="padding:5px 16px">8</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:5px 16px">9</td><td style="padding:5px 16px">1001</td><td style="padding:5px 16px">11</td><td style="padding:5px 16px">9</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:5px 16px">10</td><td style="padding:5px 16px">1010</td><td style="padding:5px 16px">12</td><td style="padding:5px 16px;font-weight:700;color:var(--blue)">A</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:5px 16px">11</td><td style="padding:5px 16px">1011</td><td style="padding:5px 16px">13</td><td style="padding:5px 16px;font-weight:700;color:var(--blue)">B</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:5px 16px">12</td><td style="padding:5px 16px">1100</td><td style="padding:5px 16px">14</td><td style="padding:5px 16px;font-weight:700;color:var(--blue)">C</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:5px 16px">13</td><td style="padding:5px 16px">1101</td><td style="padding:5px 16px">15</td><td style="padding:5px 16px;font-weight:700;color:var(--blue)">D</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:5px 16px">14</td><td style="padding:5px 16px">1110</td><td style="padding:5px 16px">16</td><td style="padding:5px 16px;font-weight:700;color:var(--blue)">E</td></tr>
+        <tr><td style="padding:5px 16px">15</td><td style="padding:5px 16px">1111</td><td style="padding:5px 16px">17</td><td style="padding:5px 16px;font-weight:700;color:var(--blue)">F</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Tabla 1.9. Del 0 al 15 en los cuatro sistemas. Esta tabla hay que sabérsela.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;gap:18px;min-width:0">
+    <table style="width:100%;border-collapse:collapse;font-size:21px;background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 2px 0 var(--line)">
+      <thead><tr style="background:var(--navy);color:var(--white);text-align:left"><th style="padding:14px 22px;font-weight:700">Sistema</th><th style="padding:14px 22px;font-weight:700">Base</th><th style="padding:14px 22px;font-weight:700">Símbolos</th><th style="padding:14px 22px;font-weight:700">Dónde lo verás</th></tr></thead>
+      <tbody style="line-height:1.35">
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:14px 22px;font-weight:700;color:var(--navy)">Decimal</td><td style="padding:14px 22px">10</td><td style="padding:14px 22px;font-family:var(--mono)">0 … 9</td><td style="padding:14px 22px">Todo lo que ve la persona: pantalla, teclado, facturas.</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:14px 22px;font-weight:700;color:var(--navy)">Binario</td><td style="padding:14px 22px">2</td><td style="padding:14px 22px;font-family:var(--mono)">0, 1</td><td style="padding:14px 22px">Lo único que hay dentro del ordenador.</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:14px 22px;font-weight:700;color:var(--navy)">Octal</td><td style="padding:14px 22px">8</td><td style="padding:14px 22px;font-family:var(--mono)">0 … 7</td><td style="padding:14px 22px">Permisos de archivos en Linux: <span style="font-family:var(--mono)">chmod 755</span>. Cada dígito son 3 bits.</td></tr>
+        <tr><td style="padding:14px 22px;font-weight:700;color:var(--navy)">Hexadecimal</td><td style="padding:14px 22px">16</td><td style="padding:14px 22px;font-family:var(--mono)">0 … 9, A … F</td><td style="padding:14px 22px">Colores web <span style="font-family:var(--mono)">#FF8800</span>, direcciones MAC <span style="font-family:var(--mono)">3C:5A:B4:…</span>, direcciones de memoria <span style="font-family:var(--mono)">0x7FFE</span>. Cada dígito son 4 bits.</td></tr>
+      </tbody>
+    </table>
+    <div style="background:var(--white);border-radius:20px;padding:24px 30px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Cómo se indica la base</p>
+      <p style="font-size:21px;line-height:1.5;color:var(--muted);margin-top:8px">El mismo número, 27, escrito en cada sistema: <span style="font-family:var(--mono);color:var(--navy);font-weight:600">27<small>(10</small> &nbsp; 11011<small>(2</small> &nbsp; 33<small>(8</small> &nbsp; 1B<small>(16</small></span>. En los lenguajes de programación se usan prefijos: <span style="font-family:var(--mono);color:var(--navy);font-weight:600">0b11011</span>, <span style="font-family:var(--mono);color:var(--navy);font-weight:600">0o33</span>, <span style="font-family:var(--mono);color:var(--navy);font-weight:600">0x1B</span>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 58 Texto: contar en binario y la tabla de potencias -->
+<section data-label="Contar en binario" data-notas="Contar en binario funciona como el cuentakilómetros del coche: cuando una posición llega a su último símbolo (el 1) vuelve a 0 y la de su izquierda aumenta. Contar en voz alta con la clase del 0 al 16. La tabla de potencias de 2 es la herramienta de toda la unidad: para pasar a decimal, para saber cuántos valores caben en n bits (2 elevado a n) y para las unidades de información (kibibyte = 2 elevado a 10). Las potencias 16 y 32 se añaden porque aparecen en el módulo: 65.536 puertos TCP, 4 GB de memoria direccionable con 32 bits (lo vimos en los buses). Decir explícitamente que esta tabla se puede llevar escrita a mano al examen." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1fr;gap:96px">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.2 · Sistemas de numeración</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Contar en binario y la tabla de potencias</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Como el cuentakilómetros: cuando una posición agota sus símbolos vuelve a 0 y la de su izquierda aumenta 1. En binario los símbolos se agotan enseguida.</p>
+    <div style="display:grid;grid-template-columns:repeat(9,1fr);gap:8px;margin-top:var(--gap-item);text-align:center;font-family:var(--mono)">
+      <div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">0</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">1</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">2</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">3</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">4</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">5</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">6</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">7</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">8</div>
+      <div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">0</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">1</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">10</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">11</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">100</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">101</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">110</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">111</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">1000</div>
+    </div>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Figura 1.26. Del 0 al 8 en decimal (arriba) y en binario (abajo). Elaboración propia.</p>
+    <div style="background:var(--white);border-radius:20px;padding:24px 30px;box-shadow:0 2px 0 var(--line);margin-top:var(--gap-item)">
+      <p style="font-size:21px;line-height:1.5;color:var(--muted)">Con <b style="color:var(--navy)">n bits</b> se pueden representar <b style="color:var(--navy)">2ⁿ</b> valores distintos: con 8 bits, 256 (del 0 al 255); con 16 bits, 65.536; con 32 bits, 4.294.967.296.</p>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
+    <table style="width:100%;border-collapse:collapse;font-size:22px;background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 2px 0 var(--line);font-family:var(--mono);text-align:center">
+      <thead><tr style="background:var(--navy);color:var(--white);font-family:'Plus Jakarta Sans',system-ui,sans-serif"><th style="padding:12px 20px;font-weight:700">Potencia</th><th style="padding:12px 20px;font-weight:700">Valor</th><th style="padding:12px 20px;font-weight:700">Potencia</th><th style="padding:12px 20px;font-weight:700">Valor</th></tr></thead>
+      <tbody style="color:var(--navy)">
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 20px">2⁰</td><td style="padding:8px 20px;font-weight:600">1</td><td style="padding:8px 20px">2⁶</td><td style="padding:8px 20px;font-weight:600">64</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 20px">2¹</td><td style="padding:8px 20px;font-weight:600">2</td><td style="padding:8px 20px">2⁷</td><td style="padding:8px 20px;font-weight:600">128</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 20px">2²</td><td style="padding:8px 20px;font-weight:600">4</td><td style="padding:8px 20px">2⁸</td><td style="padding:8px 20px;font-weight:600">256</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 20px">2³</td><td style="padding:8px 20px;font-weight:600">8</td><td style="padding:8px 20px">2⁹</td><td style="padding:8px 20px;font-weight:600">512</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 20px">2⁴</td><td style="padding:8px 20px;font-weight:600">16</td><td style="padding:8px 20px">2¹⁰</td><td style="padding:8px 20px;font-weight:600">1024</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:8px 20px">2⁵</td><td style="padding:8px 20px;font-weight:600">32</td><td style="padding:8px 20px"></td><td style="padding:8px 20px"></td></tr>
+        <tr style="border-bottom:1px solid var(--line);background:var(--bg)"><td style="padding:8px 20px">2¹⁶</td><td style="padding:8px 20px;font-weight:600" colspan="3">65.536</td></tr>
+        <tr style="background:var(--bg)"><td style="padding:8px 20px">2³²</td><td style="padding:8px 20px;font-weight:600" colspan="3">4.294.967.296</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Tabla 1.10. Potencias de 2. Cada una es el doble de la anterior.</p>
+    <div style="display:flex;gap:20px;align-items:center;background:var(--yellow);border-radius:20px;padding:22px 30px;margin-top:var(--gap-item)">
+      <span style="font-size:40px;line-height:1">✎</span>
+      <p style="font-size:21px;line-height:1.45;color:var(--navy)"><b>Esta tabla te la puedes llevar escrita a mano al examen.</b> También la tabla 1.9 del 0 al 15. Lo que no vale es la calculadora.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 59 Texto: de binario a decimal -->
+<section data-label="De binario a decimal" data-notas="Aplicación directa del teorema fundamental con base 2. Método: escribir encima de cada bit su peso (1, 2, 4, 8, 16 de derecha a izquierda) y sumar los pesos de los bits que valen 1. Los ceros no aportan nada. Con parte fraccionaria los pesos a la derecha de la coma son 1/2, 1/4, 1/8: 0,5, 0,25, 0,125. Hacer los dos ejemplos despacio y después pasar al ejercicio interactivo, que tiene la misma estructura: fila de pesos, fila de productos y suma." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.3 · Cambios de base</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">De binario a decimal: suma los pesos de los unos</h2>
+  <div style="display:grid;grid-template-columns:1fr 1.25fr;gap:64px;margin-top:var(--gap-item);flex:1;min-height:0">
+    <div style="background:var(--white);border-radius:24px;padding:32px 40px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue)">Ejemplo 1 · 11011<small>(2</small></p>
+      <div class="sv compacta" style="grid-template-columns:120px repeat(5,74px);justify-content:start;margin-top:20px">
+        <span class="lbl">bits</span><span class="d">1</span><span class="d">1</span><span class="d">0</span><span class="d">1</span><span class="d">1</span>
+        <span class="lbl">peso 2ⁿ</span><span class="d peq">2⁴ = 16</span><span class="d peq">2³ = 8</span><span class="d peq">2² = 4</span><span class="d peq">2¹ = 2</span><span class="d peq">2⁰ = 1</span>
+        <span class="lbl">bit × peso</span><span class="d res">16</span><span class="d res">8</span><span class="d tenue">0</span><span class="d res">2</span><span class="d res">1</span>
+      </div>
+      <p style="font-family:var(--mono);font-size:30px;font-weight:600;color:var(--navy);margin-top:24px">16 + 8 + 2 + 1 = <span style="color:var(--ok)">27</span><small style="font-size:20px;color:var(--muted)"> (10</small></p>
+      <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:auto">El 0 de la posición 2 no aporta nada: solo se suman los pesos de los bits a 1.</p>
+    </div>
+    <div style="background:var(--white);border-radius:24px;padding:32px 40px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue)">Ejemplo 2 · 11,011<small>(2</small> (con parte fraccionaria)</p>
+      <div class="sv compacta" style="grid-template-columns:110px 70px 70px 30px 104px 112px 124px;justify-content:start;margin-top:20px">
+        <span class="lbl">bits</span><span class="d">1</span><span class="d">1</span><span class="d op">,</span><span class="d">0</span><span class="d">1</span><span class="d">1</span>
+        <span class="lbl">peso 2ⁿ</span><span class="d peq">2¹ = 2</span><span class="d peq">2⁰ = 1</span><span class="d"></span><span class="d peq">2⁻¹ = 0,5</span><span class="d peq">2⁻² = 0,25</span><span class="d peq">2⁻³ = 0,125</span>
+        <span class="lbl">bit × peso</span><span class="d res">2</span><span class="d res">1</span><span class="d"></span><span class="d tenue">0</span><span class="d res">0,25</span><span class="d res">0,125</span>
+      </div>
+      <p style="font-family:var(--mono);font-size:30px;font-weight:600;color:var(--navy);margin-top:24px">2 + 1 + 0,25 + 0,125 = <span style="color:var(--ok)">3,375</span><small style="font-size:20px;color:var(--muted)"> (10</small></p>
+      <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:auto">A la derecha de la coma los pesos son potencias negativas: 1/2, 1/4, 1/8… La coma no cambia de sitio.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 60 Interactivo: binario a decimal -->
+<section data-label="Practica: binario a decimal" data-notas="Ejercicio con números al azar. Se rellena la fila de pesos (de derecha a izquierda), la de productos y la suma. Pista rellena la siguiente casilla y explica por qué; Resolver lo completa todo. Las pistas y Resolver ponen la racha a cero: para la práctica 1 hay que llegar a diez aciertos seguidos sin ayuda. Recomendar que se escriban los pesos siempre en el mismo orden hasta que salgan solos." style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <div>
+    <span class="pill">Practica</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">De binario a decimal</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Escribe el peso de cada posición empezando por la derecha (1, 2, 4, 8…), multiplica cada bit por su peso y suma. Las casillas avanzan solas al escribir.</p>
+    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)"><b>Pista</b> rellena la siguiente casilla y te explica por qué. <b>Resolver</b> lo completa todo. Las dos ponen a cero tu racha de aciertos: en la práctica 1 hay que llegar a diez seguidos.</p>
+  </div>
+  <div class="ej" data-tipo="bin2dec" data-bits="8"></div>
+</section>
+
+<!-- 61 Pasos: de decimal a binario, parte entera -->
+<section data-label="De decimal a binario" data-notas="Método de las divisiones sucesivas: se divide entre 2, se apunta el resto (0 o 1), y se sigue dividiendo el cociente hasta llegar a 0. El binario se lee con los restos de abajo arriba: el primer resto es el bit de menos peso (el de la derecha). Ejemplo con 37. Comprobación con la tabla de pesos: 32 + 4 + 1 = 37. Comentar el caso de las potencias de 2: 32 es un 1 seguido de cinco ceros, no hace falta dividir. Errores típicos: leer los restos de arriba abajo, o parar cuando el cociente es 1 sin apuntar su resto." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:80px">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.3 · Cambios de base</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">De decimal a binario: la parte entera</h2>
+    <div style="display:flex;flex-direction:column;gap:20px;margin-top:var(--gap-item)">
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <span style="width:60px;height:60px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">1</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Divide entre 2 y apunta el resto</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">El resto solo puede ser 0 (el número era par) o 1 (era impar).</p></div>
+      </div>
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <span style="width:60px;height:60px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">2</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Sigue con el cociente hasta que sea 0</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">Cada fila empieza con el cociente de la anterior. La última división es siempre 1 : 2 = 0, resto 1.</p></div>
+      </div>
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <span style="width:60px;height:60px;border-radius:50%;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">3</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Lee los restos de abajo arriba</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">El primer resto es el bit de la derecha (el de menos peso); el último, el de la izquierda.</p></div>
+      </div>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:22px 30px;box-shadow:0 2px 0 var(--line);margin-top:var(--gap-item)">
+      <p style="font-size:21px;line-height:1.5;color:var(--muted)"><b style="color:var(--navy)">Comprueba con la tabla de pesos:</b> 100101<small>(2</small> = 32 + 4 + 1 = 37. Y las potencias de 2 no hace falta dividirlas: 32 = 2⁵ = <span style="font-family:var(--mono);color:var(--navy);font-weight:600">100000</span>, un 1 seguido de cinco ceros.</p>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
+    <div style="background:var(--white);border-radius:24px;padding:36px 40px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue)">Ejemplo · 37<small>(10</small> a binario</p>
+      <div class="sv compacta" style="grid-template-columns:90px 36px 50px 40px 90px 80px 62px;justify-content:start;margin-top:16px">
+        <span class="d">37</span><span class="d op">:</span><span class="d">2</span><span class="d op">=</span><span class="d">18</span><span class="lbl">resto</span><span class="d res">1</span>
+        <span class="d">18</span><span class="d op">:</span><span class="d">2</span><span class="d op">=</span><span class="d">9</span><span class="lbl">resto</span><span class="d res">0</span>
+        <span class="d">9</span><span class="d op">:</span><span class="d">2</span><span class="d op">=</span><span class="d">4</span><span class="lbl">resto</span><span class="d res">1</span>
+        <span class="d">4</span><span class="d op">:</span><span class="d">2</span><span class="d op">=</span><span class="d">2</span><span class="lbl">resto</span><span class="d res">0</span>
+        <span class="d">2</span><span class="d op">:</span><span class="d">2</span><span class="d op">=</span><span class="d">1</span><span class="lbl">resto</span><span class="d res">0</span>
+        <span class="d">1</span><span class="d op">:</span><span class="d">2</span><span class="d op">=</span><span class="d">0</span><span class="lbl">resto</span><span class="d res">1</span>
+      </div>
+      <p style="font-family:var(--mono);font-size:30px;font-weight:600;color:var(--navy);margin-top:24px">37<small style="font-size:20px;color:var(--muted)">(10</small> = <span style="color:var(--ok)">100101</span><small style="font-size:20px;color:var(--muted)">(2</small> <span style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:20px;color:var(--muted);font-weight:400">← restos leídos de abajo arriba</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 62 Interactivo: decimal a binario -->
+<section data-label="Practica: decimal a binario" data-notas="Ejercicio con números al azar entre 16 y 255. Cada fila muestra en azul el cociente que el alumno escribió en la fila anterior, como en la pizarra; si se equivoca en un cociente, arrastra el error, y Comprobar lo marca. La última casilla es el binario leído de abajo arriba. Para la práctica 1: racha de diez." style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <div>
+    <span class="pill">Practica</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">De decimal a binario</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Divide entre 2 y apunta cociente y resto. Cada fila empieza con el cociente que escribiste en la anterior. Al final, lee los restos de abajo arriba.</p>
+    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Si te equivocas en un cociente, el error se arrastra a las filas siguientes: igual que en el papel. Comprobar te dirá dónde empezó.</p>
+  </div>
+  <div class="ej" data-tipo="dec2bin" data-min="16" data-max="255"></div>
+</section>
+
+<!-- 63 Pasos: de decimal a binario, parte fraccionaria -->
+<section data-label="Fracciones a binario" data-notas="La parte fraccionaria se convierte multiplicando por 2: la parte entera del producto (0 o 1) es el siguiente dígito binario y se sigue con la parte decimal. Se termina cuando la parte decimal llega a 0. Ejemplo 0,375: los dígitos salen de arriba abajo, al contrario que en las divisiones. Un número con parte entera y fraccionaria se convierte por separado y se junta: 37,375 = 100101,011. El caso 0,1 es importante: nunca llega a 0, el resultado es periódico (0,0 0011 0011…) y hay que cortarlo, así que el ordenador guarda 0,1 con un pequeño error. Esa es la causa de que 0,1 + 0,2 no dé exactamente 0,3 en un ordenador, que se ve en el apartado 1.6." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.1fr;gap:80px">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.3 · Cambios de base</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">De decimal a binario: la parte fraccionaria</h2>
+    <div style="display:flex;flex-direction:column;gap:20px;margin-top:var(--gap-item)">
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <span style="width:60px;height:60px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">1</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Multiplica por 2</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">La parte entera del resultado (0 o 1) es el siguiente dígito binario.</p></div>
+      </div>
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <span style="width:60px;height:60px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">2</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Sigue con la parte decimal</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">Quita el entero y vuelve a multiplicar por 2, hasta que la parte decimal sea 0.</p></div>
+      </div>
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <span style="width:60px;height:60px;border-radius:50%;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">3</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Lee los enteros de arriba abajo</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">Al revés que en las divisiones: el primero va justo detrás de la coma.</p></div>
+      </div>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:22px 30px;box-shadow:0 2px 0 var(--line);margin-top:var(--gap-item)">
+      <p style="font-size:21px;line-height:1.5;color:var(--muted)">Un número con las dos partes se convierte por separado y se junta: <span style="font-family:var(--mono);color:var(--navy);font-weight:600">37,375<small>(10</small> = 100101,011<small>(2</small></span>.</p>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;gap:24px;min-width:0">
+    <div style="background:var(--white);border-radius:24px;padding:30px 40px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue)">Ejemplo · 0,375<small>(10</small> a binario</p>
+      <div class="sv compacta" style="grid-template-columns:110px 60px 40px 110px 80px 62px;justify-content:start;margin-top:16px">
+        <span class="d dec">0,375</span><span class="d op">× 2</span><span class="d op">=</span><span class="d dec">0,75</span><span class="lbl">entero</span><span class="d res">0</span>
+        <span class="d dec">0,75</span><span class="d op">× 2</span><span class="d op">=</span><span class="d dec">1,5</span><span class="lbl">entero</span><span class="d res">1</span>
+        <span class="d dec">0,5</span><span class="d op">× 2</span><span class="d op">=</span><span class="d dec">1,0</span><span class="lbl">entero</span><span class="d res">1</span>
+      </div>
+      <p style="font-family:var(--mono);font-size:30px;font-weight:600;color:var(--navy);margin-top:20px">0,375<small style="font-size:20px;color:var(--muted)">(10</small> = <span style="color:var(--ok)">0,011</span><small style="font-size:20px;color:var(--muted)">(2</small> <span style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:20px;color:var(--muted);font-weight:400">← la parte decimal llegó a 0: se acabó</span></p>
+    </div>
+    <div style="background:var(--navy);color:var(--white);border-radius:24px;padding:30px 40px">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--yellow)">Y si no termina nunca · 0,1<small>(10</small></p>
+      <p style="font-family:var(--mono);font-size:24px;line-height:1.6;margin-top:12px;color:#C9D6EE">0,1 × 2 = 0,2 → 0 &nbsp;·&nbsp; 0,2 × 2 = 0,4 → 0 &nbsp;·&nbsp; 0,4 × 2 = 0,8 → 0<br>0,8 × 2 = 1,6 → 1 &nbsp;·&nbsp; 0,6 × 2 = 1,2 → 1 &nbsp;·&nbsp; 0,2 × 2 = 0,4 → 0 …</p>
+      <p style="font-family:var(--mono);font-size:30px;font-weight:600;margin-top:12px">0,1<small style="font-size:20px;color:#9FB4D9">(10</small> = 0,0<span style="text-decoration:overline;text-decoration-color:var(--yellow);text-decoration-thickness:4px">0011</span><small style="font-size:20px;color:#9FB4D9">(2</small></p>
+      <p style="font-size:20px;line-height:1.45;color:#C9D6EE;margin-top:12px">Vuelve a salir 0,2 y el ciclo se repite para siempre: es periódico, como 1/3 = 0,333… en decimal. El ordenador tiene que cortarlo, y por eso guarda 0,1 con un pequeño error.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 64 Interactivo: fracciones a binario -->
+<section data-label="Practica: fracciones a binario" data-notas="Ejercicio con fracciones al azar que terminan (múltiplos de 1/32, así como mucho salen cinco dígitos). Cada fila muestra en azul la parte decimal del producto que se escribió en la fila anterior. Los productos se escriben con coma o con punto, da igual. La última casilla es el binario con el 0 y la coma delante." style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <div>
+    <span class="pill">Practica</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Fracciones decimales a binario</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Multiplica por 2, apunta el producto y separa su parte entera. Cada fila sigue con la parte decimal de la anterior. Al final, escribe el binario leyendo los enteros de arriba abajo.</p>
+    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Todas las fracciones de este ejercicio terminan en cinco dígitos o menos. Puedes escribir los decimales con coma o con punto.</p>
+  </div>
+  <div class="ej" data-tipo="decfrac2bin"></div>
+</section>
+
+<!-- 65 Tabla: binario y octal -->
+<section data-label="Binario y octal" data-notas="Cada dígito octal equivale exactamente a tres bits porque 8 es 2 elevado a 3. De binario a octal: se agrupan los bits de tres en tres a partir de la coma (hacia la izquierda en la parte entera, hacia la derecha en la fraccionaria), se completan los grupos incompletos con ceros y se traduce cada grupo con la tabla. De octal a binario: cada dígito se sustituye por sus tres bits, con los ceros a la izquierda que hagan falta. Hacer los cuatro ejemplos en la pizarra marcando los grupos con arcos. Es el mismo mecanismo que con el hexadecimal en la diapositiva siguiente, solo cambia el tamaño del grupo." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.5fr;gap:72px">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.3 · Cambios de base</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Binario y octal: grupos de 3 bits</h2>
+    <p style="font-size:var(--type-caption);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">8 = 2³, así que cada dígito octal es exactamente un grupo de tres bits. No hace falta pasar por el decimal.</p>
+    <table style="width:100%;border-collapse:collapse;margin-top:var(--gap-item);font-size:24px;background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 2px 0 var(--line);font-family:var(--mono);text-align:center">
+      <thead><tr style="background:var(--navy);color:var(--white);font-family:'Plus Jakarta Sans',system-ui,sans-serif"><th style="padding:12px 20px;font-weight:700">Octal</th><th style="padding:12px 20px;font-weight:700">Binario</th><th style="padding:12px 20px;font-weight:700">Octal</th><th style="padding:12px 20px;font-weight:700">Binario</th></tr></thead>
+      <tbody style="color:var(--navy)">
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:9px 20px">0</td><td style="padding:9px 20px;font-weight:600">000</td><td style="padding:9px 20px">4</td><td style="padding:9px 20px;font-weight:600">100</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:9px 20px">1</td><td style="padding:9px 20px;font-weight:600">001</td><td style="padding:9px 20px">5</td><td style="padding:9px 20px;font-weight:600">101</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:9px 20px">2</td><td style="padding:9px 20px;font-weight:600">010</td><td style="padding:9px 20px">6</td><td style="padding:9px 20px;font-weight:600">110</td></tr>
+        <tr><td style="padding:9px 20px">3</td><td style="padding:9px 20px;font-weight:600">011</td><td style="padding:9px 20px">7</td><td style="padding:9px 20px;font-weight:600">111</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Tabla 1.11. Dígitos octales y sus tres bits.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;gap:18px;min-width:0">
+    <div style="background:var(--white);border-radius:20px;padding:22px 32px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:20px;font-weight:700;color:var(--blue)">Octal → binario: cada dígito, sus tres bits</p>
+      <p style="font-family:var(--mono);font-size:26px;line-height:1.7;color:var(--navy);margin-top:8px">1342<small>(8</small> → <span style="color:var(--blue)">001</span> <span style="color:var(--navy)">011</span> <span style="color:var(--blue)">100</span> <span style="color:var(--navy)">010</span> → <b>1011100010</b><small>(2</small><br>34,03<small>(8</small> → <span style="color:var(--blue)">011</span> <span style="color:var(--navy)">100</span> , <span style="color:var(--blue)">000</span> <span style="color:var(--navy)">011</span> → <b>11100,000011</b><small>(2</small></p>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:22px 32px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:20px;font-weight:700;color:var(--blue)">Binario → octal: grupos de tres desde la coma</p>
+      <p style="font-family:var(--mono);font-size:26px;line-height:1.7;color:var(--navy);margin-top:8px">11011101<small>(2</small> → <span style="color:var(--blue)"><span style="color:#9AA6BE">0</span>11</span> <span style="color:var(--navy)">011</span> <span style="color:var(--blue)">101</span> → <b>335</b><small>(8</small><br>10001,1001<small>(2</small> → <span style="color:var(--blue)"><span style="color:#9AA6BE">0</span>10</span> <span style="color:var(--navy)">001</span> , <span style="color:var(--blue)">100</span> <span style="color:var(--navy)">1<span style="color:#9AA6BE">00</span></span> → <b>21,44</b><small>(8</small></p>
+    </div>
+    <p style="font-size:20px;line-height:1.45;color:var(--muted)">En la parte entera los grupos se cuentan hacia la izquierda; en la fraccionaria, hacia la derecha. Los ceros en gris se añaden para completar el grupo: a la izquierda en la parte entera y a la derecha en la fraccionaria.</p>
+  </div>
+</section>
+
+<!-- 66 Tabla: binario y hexadecimal -->
+<section data-label="Binario y hexadecimal" data-notas="Mismo mecanismo con grupos de cuatro bits, porque 16 es 2 elevado a 4. Es el cambio de base más usado en la práctica: un byte son exactamente dos dígitos hexadecimales, por eso las direcciones MAC, los colores y los volcados de memoria se escriben en hexadecimal. Recordar las letras: A es 10 y F es 15. Ejercicio rápido: ¿cuántos bits tiene FF? ¿Y cuánto vale? 8 bits, 255, el byte más grande. Con los cuatro ejemplos resueltos pasar al ejercicio interactivo de cambios entre bases, que mezcla octal, hexadecimal y también hexadecimal a decimal con la tabla de pesos." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.5fr;gap:72px">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.3 · Cambios de base</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Binario y hexadecimal: grupos de 4 bits</h2>
+    <p style="font-size:var(--type-caption);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">16 = 2⁴: cada dígito hexadecimal es un grupo de cuatro bits. Un byte son dos dígitos hexadecimales, de 00 a FF.</p>
+    <table style="width:100%;border-collapse:collapse;margin-top:var(--gap-item);font-size:22px;background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 2px 0 var(--line);font-family:var(--mono);text-align:center">
+      <thead><tr style="background:var(--navy);color:var(--white);font-family:'Plus Jakarta Sans',system-ui,sans-serif"><th style="padding:10px 16px;font-weight:700">Hex</th><th style="padding:10px 16px;font-weight:700">Binario</th><th style="padding:10px 16px;font-weight:700">Hex</th><th style="padding:10px 16px;font-weight:700">Binario</th></tr></thead>
+      <tbody style="color:var(--navy)">
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:6px 16px">0</td><td style="padding:6px 16px;font-weight:600">0000</td><td style="padding:6px 16px">8</td><td style="padding:6px 16px;font-weight:600">1000</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:6px 16px">1</td><td style="padding:6px 16px;font-weight:600">0001</td><td style="padding:6px 16px">9</td><td style="padding:6px 16px;font-weight:600">1001</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:6px 16px">2</td><td style="padding:6px 16px;font-weight:600">0010</td><td style="padding:6px 16px;color:var(--blue);font-weight:700">A</td><td style="padding:6px 16px;font-weight:600">1010</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:6px 16px">3</td><td style="padding:6px 16px;font-weight:600">0011</td><td style="padding:6px 16px;color:var(--blue);font-weight:700">B</td><td style="padding:6px 16px;font-weight:600">1011</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:6px 16px">4</td><td style="padding:6px 16px;font-weight:600">0100</td><td style="padding:6px 16px;color:var(--blue);font-weight:700">C</td><td style="padding:6px 16px;font-weight:600">1100</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:6px 16px">5</td><td style="padding:6px 16px;font-weight:600">0101</td><td style="padding:6px 16px;color:var(--blue);font-weight:700">D</td><td style="padding:6px 16px;font-weight:600">1101</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:6px 16px">6</td><td style="padding:6px 16px;font-weight:600">0110</td><td style="padding:6px 16px;color:var(--blue);font-weight:700">E</td><td style="padding:6px 16px;font-weight:600">1110</td></tr>
+        <tr><td style="padding:6px 16px">7</td><td style="padding:6px 16px;font-weight:600">0111</td><td style="padding:6px 16px;color:var(--blue);font-weight:700">F</td><td style="padding:6px 16px;font-weight:600">1111</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Tabla 1.12. Dígitos hexadecimales y sus cuatro bits.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;gap:18px;min-width:0">
+    <div style="background:var(--white);border-radius:20px;padding:22px 32px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:20px;font-weight:700;color:var(--blue)">Hexadecimal → binario: cada dígito, sus cuatro bits</p>
+      <p style="font-family:var(--mono);font-size:26px;line-height:1.7;color:var(--navy);margin-top:8px">3AF<small>(16</small> → <span style="color:var(--blue)">0011</span> <span style="color:var(--navy)">1010</span> <span style="color:var(--blue)">1111</span> → <b>1110101111</b><small>(2</small><br>F0,0C<small>(16</small> → <span style="color:var(--blue)">1111</span> <span style="color:var(--navy)">0000</span> , <span style="color:var(--blue)">0000</span> <span style="color:var(--navy)">1100</span> → <b>11110000,000011</b><small>(2</small></p>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:22px 32px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:20px;font-weight:700;color:var(--blue)">Binario → hexadecimal: grupos de cuatro desde la coma</p>
+      <p style="font-family:var(--mono);font-size:26px;line-height:1.7;color:var(--navy);margin-top:8px">110110010<small>(2</small> → <span style="color:var(--blue)"><span style="color:#9AA6BE">000</span>1</span> <span style="color:var(--navy)">1011</span> <span style="color:var(--blue)">0010</span> → <b>1B2</b><small>(16</small><br>101011,010001<small>(2</small> → <span style="color:var(--blue)"><span style="color:#9AA6BE">00</span>10</span> <span style="color:var(--navy)">1011</span> , <span style="color:var(--blue)">0100</span> <span style="color:var(--navy)">01<span style="color:#9AA6BE">00</span></span> → <b>2B,44</b><small>(16</small></p>
+    </div>
+    <p style="font-size:20px;line-height:1.45;color:var(--muted)">Para pasar de octal a hexadecimal (o al revés) se pasa por el binario: se deshacen los grupos de tres y se rehacen de cuatro.</p>
+  </div>
+</section>
+
+<!-- 67 Nota: dónde van los ceros -->
+<section data-label="Dónde van los ceros" data-notas="Nota breve para fijar el error más frecuente al agrupar. Los ceros de relleno van donde no cambian el valor: a la izquierda de la parte entera (007 sigue siendo 7) y a la derecha de la parte fraccionaria (0,50 sigue siendo 0,5). Poner un cero a la derecha de la parte entera multiplicaría por la base, y uno a la izquierda de la fraccionaria dividiría. Preguntar: ¿qué pasa si completo 1,1 con un cero al final de la parte entera? Se convierte en 10,1, que vale el doble." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">
+  <img class="icono" src="../assets/exclamation.png" alt="">
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:var(--gap-item);color:var(--navy);max-width:1300px;text-wrap:balance">Los ceros de relleno van donde no cambian el valor</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:var(--gap-title);max-width:1500px;width:100%">
+    <div style="background:var(--white);border-radius:24px;padding:32px 40px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue)">Parte entera: a la izquierda</p>
+      <p style="font-family:var(--mono);font-size:34px;font-weight:600;color:var(--navy);margin-top:14px"><span style="color:#9AA6BE">000</span>1 1011 0010</p>
+      <p style="font-size:21px;line-height:1.45;color:var(--muted);margin-top:12px">110110010 tiene 9 bits: el grupo de la izquierda se completa por delante. 007 sigue siendo 7.</p>
+    </div>
+    <div style="background:var(--white);border-radius:24px;padding:32px 40px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue)">Parte fraccionaria: a la derecha</p>
+      <p style="font-family:var(--mono);font-size:34px;font-weight:600;color:var(--navy);margin-top:14px">0100 01<span style="color:#9AA6BE">00</span></p>
+      <p style="font-size:21px;line-height:1.45;color:var(--muted);margin-top:12px">,010001 tiene 6 bits: el último grupo se completa por detrás. 0,50 sigue siendo 0,5.</p>
+    </div>
+  </div>
+  <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-title);max-width:1300px;text-wrap:pretty">Un cero al final de la parte entera multiplica por la base (1,1 pasaría a ser 10,1, el doble). Un cero delante de la parte fraccionaria divide. Por eso nunca se ponen ahí.</p>
+</section>
+
+<!-- 68 Interactivo: entre bases -->
+<section data-label="Practica: entre bases" data-notas="Ejercicio de cambios de base con cinco modos: binario a octal, binario a hexadecimal, octal a binario, hexadecimal a binario y hexadecimal a decimal (este último con la tabla de pesos de 16). Por defecto sale un modo al azar; con los botones se puede practicar uno solo. En los pasos de agrupar hay que escribir cada grupo completo, con sus ceros de relleno." style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <div>
+    <span class="pill">Practica</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Entre binario, octal y hexadecimal</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Primero agrupa (de 3 en 3 para octal, de 4 en 4 para hexadecimal) y después traduce cada grupo con la tabla. En el sentido contrario, cada dígito se convierte en su grupo de bits.</p>
+    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Elige un modo para practicarlo, o <b>Al azar</b> para que salgan mezclados, como en el examen. Hexadecimal a decimal se hace con la tabla de pesos, igual que el binario.</p>
+  </div>
+  <div class="ej" data-tipo="bases"></div>
+</section>
+
+<!-- 69 Quiz: sistema no posicional -->
+<section class="dark" data-label="Quiz: posicional" data-notas="Comprobación rápida del bloque de numeración. Los romanos no son posicionales: la X vale 10 esté donde esté. Decimal, binario y octal son posicionales y funcionan con el teorema fundamental de la numeración. Si fallan, volver a la diapositiva del reloj." style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
+  <div class="quiz" data-correct="2" data-ok="Correcto. En los números romanos cada símbolo vale siempre lo mismo: no hay posiciones ni base." data-ko="No. Piensa en cuál de ellos no tiene base ni pesos por posición: en él, un símbolo vale lo mismo esté donde esté." style="display:contents">
+    <div>
+      <span class="pill">Comprueba lo aprendido</span>
+      <h2 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.2;margin-top:32px;text-wrap:balance">¿Cuál de estos sistemas de numeración NO es posicional?</h2>
+      <p class="quiz-fb">Selecciona una opción.</p>
+      <button class="btn btn-ghost quiz-reset" style="margin-top:var(--gap-item)">Reiniciar</button>
+    </div>
+    <div class="quiz-opts">
+      <button class="quiz-opt"><span class="letra">A</span><span>Decimal</span></button>
+      <button class="quiz-opt"><span class="letra">B</span><span>Binario</span></button>
+      <button class="quiz-opt"><span class="letra">C</span><span>Romano</span></button>
+      <button class="quiz-opt"><span class="letra">D</span><span>Octal</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BLOQUE 6 · Operaciones en binario y complementos ============ -->
+
+<!-- 70 Texto: qué operaciones hace el ordenador -->
+<section data-label="Operaciones del ordenador" data-notas="Criterio b del BOCYL: operaciones básicas con electrónica digital. La UAL que vimos en los elementos funcionales solo hace dos familias de operaciones: aritméticas y lógicas. Con la suma y el complemento se construye la resta, con sumas repetidas la multiplicación, y así todo lo demás. Las operaciones lógicas trabajan bit a bit y se usan para todo lo que no es calcular: comparar, enmascarar, decidir. Por debajo, cada operación es un circuito hecho de puertas lógicas, como las cuatro puertas NAND del chip de la foto, un SN7400 de los años setenta; los micros actuales tienen miles de millones de puertas, pero del mismo tipo. Este bloque va de eso: cómo se suma y se resta en binario y qué hacen las puertas." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:80px">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.4 · Operaciones en binario</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Qué operaciones hace el ordenador</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">La unidad aritmético-lógica recibe uno o dos operandos en binario, la orden de qué hacer con ellos, y devuelve el resultado. Solo sabe hacer dos familias de operaciones:</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:var(--gap-item)">
+      <div style="background:var(--white);border-radius:20px;padding:24px 28px;box-shadow:0 2px 0 var(--line)">
+        <p style="font-size:var(--type-small);font-weight:800;color:var(--navy)">Aritméticas</p>
+        <p style="font-size:21px;line-height:1.45;color:var(--muted);margin-top:8px">Suma y resta. La multiplicación y la división se hacen a base de sumas, restas y desplazamientos.</p>
+      </div>
+      <div style="background:var(--white);border-radius:20px;padding:24px 28px;box-shadow:0 2px 0 var(--line)">
+        <p style="font-size:var(--type-small);font-weight:800;color:var(--navy)">Lógicas</p>
+        <p style="font-size:21px;line-height:1.45;color:var(--muted);margin-top:8px">NOT, AND, OR, XOR… Trabajan bit a bit, sin acarreos. Sirven para comparar, enmascarar y decidir.</p>
+      </div>
+    </div>
+    <svg viewBox="0 0 760 250" style="width:100%;max-width:760px;height:auto;display:block;margin-top:var(--gap-item)" role="img" aria-label="Esquema de la unidad aritmético-lógica: entran A y B y la operación, sale el resultado">
+      <defs><marker id="fl70" markerUnits="userSpaceOnUse" markerWidth="20" markerHeight="20" refX="16" refY="10" orient="auto"><path d="M0,0 L20,10 L0,20 z" fill="#4F8AE0"/></marker></defs>
+      <text x="60" y="66" font-size="22" font-weight="700" fill="#15356B" font-family="JetBrains Mono, Consolas, monospace">A = 0101</text>
+      <text x="60" y="176" font-size="22" font-weight="700" fill="#15356B" font-family="JetBrains Mono, Consolas, monospace">B = 0011</text>
+      <line x1="200" y1="58" x2="268" y2="58" stroke="#4F8AE0" stroke-width="5" marker-end="url(#fl70)"/>
+      <line x1="200" y1="168" x2="268" y2="168" stroke="#4F8AE0" stroke-width="5" marker-end="url(#fl70)"/>
+      <path d="M280,20 L440,60 L440,150 L280,200 L280,130 L310,110 L280,90 Z" fill="#0B4AB5"/>
+      <text x="372" y="112" text-anchor="middle" font-size="26" font-weight="800" fill="#fff" font-family="Plus Jakarta Sans, system-ui, sans-serif">UAL</text>
+      <rect x="315" y="212" width="120" height="32" rx="8" fill="#F4C20D"/>
+      <text x="375" y="234" text-anchor="middle" font-size="18" font-weight="800" fill="#15356B" font-family="Plus Jakarta Sans, system-ui, sans-serif">operación</text>
+      <line x1="375" y1="212" x2="375" y2="180" stroke="#F4C20D" stroke-width="5"/>
+      <line x1="452" y1="105" x2="520" y2="105" stroke="#4F8AE0" stroke-width="5" marker-end="url(#fl70)"/>
+      <text x="536" y="98" font-size="20" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">suma: 1000</text>
+      <text x="536" y="128" font-size="20" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">A AND B: 0001</text>
+      <text x="536" y="158" font-size="20" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">A XOR B: 0110</text>
+    </svg>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:8px">Figura 1.27. La UAL con los mismos operandos da un resultado distinto según la operación que le pida la unidad de control. Elaboración propia.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px;min-width:0;height:100%;min-height:0">
+    <figure class="foto" style="flex:1">
+      <img src="img/sn7400.jpg" alt="Chip SN7400N de Texas Instruments, encapsulado de catorce patillas" title="Foto: Mister rf · Wikimedia Commons · CC BY-SA 4.0">
+      <figcaption class="credito">Circuito integrado SN7400N. Foto: Mister rf, Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es">CC BY-SA 4.0</a>. Reducida.</figcaption>
+    </figure>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.28. Un SN7400: cuatro puertas NAND en un chip de los años setenta. Con puertas como estas, a miles de millones, se construye la UAL de cualquier micro actual.</p>
+  </div>
+</section>
+
+<!-- 71 Tabla: la suma, casos de una columna -->
+<section data-label="La suma en binario" data-notas="La suma en binario es igual que en decimal, pero con solo cuatro casos por columna. El único que hay que pensar es 1 + 1: son 2, que en binario se escribe 10, así que se escribe el 0 y se lleva 1 a la columna siguiente. Y si además llega un acarreo, 1 + 1 + 1 son 3, que es 11: se escribe 1 y se lleva 1. Resolver el ejemplo en la pizarra de derecha a izquierda escribiendo los acarreos encima, como en el ejercicio interactivo. Comprobar en decimal: 11 + 6 = 17." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1fr;gap:96px">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.4 · Operaciones en binario</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">La suma: los casos de una columna</h2>
+    <p style="font-size:var(--type-caption);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Se trabaja de derecha a izquierda, columna a columna, como en decimal. Solo hay que aprender qué pasa cuando salen dos o tres unos.</p>
+    <table class="tabla-reglas">
+      <thead><tr><th>Sumo</th><th>Vale</th><th>Escribo</th><th>Me llevo</th></tr></thead>
+      <tbody>
+        <tr><td>0 + 0</td><td>0</td><td>0</td><td>0</td></tr>
+        <tr><td>0 + 1</td><td>1</td><td>1</td><td>0</td></tr>
+        <tr><td>1 + 0</td><td>1</td><td>1</td><td>0</td></tr>
+        <tr><td>1 + 1</td><td>2 <small>= 10</small></td><td>0</td><td class="lleva">1</td></tr>
+        <tr><td>1 + 1 + 1</td><td>3 <small>= 11</small></td><td>1</td><td class="lleva">1</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Tabla 1.13. La última fila es la de una columna que recibe un acarreo: el 1 que me llevaba se suma como un tercer sumando.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
+    <div style="background:var(--white);border-radius:24px;padding:36px 40px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue)">Ejemplo · 1011 + 110</p>
+      <div class="sv" style="grid-template-columns:150px repeat(5,86px);justify-content:start;margin-top:12px">
+        <span class="lbl">me llevo</span><span class="d carry">1</span><span class="d carry">1</span><span class="d carry">1</span><span class="d carry">0</span><span class="d carry"></span>
+        <span class="lbl"></span><span class="d"></span><span class="d">1</span><span class="d">0</span><span class="d">1</span><span class="d">1</span>
+        <span class="lbl">+</span><span class="d"></span><span class="d"></span><span class="d">1</span><span class="d">1</span><span class="d">0</span>
+        <div class="linea"></div>
+        <span class="lbl">resultado</span><span class="d res">1</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">1</span>
+      </div>
+      <ol style="padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:20px;line-height:1.4;color:var(--muted);margin-top:20px">
+        <li>Columna 1: 1 + 0 = 1. Escribo 1.</li>
+        <li>Columna 2: 1 + 1 = 10. Escribo 0, me llevo 1.</li>
+        <li>Columna 3: 0 + 1 + 1 = 10. Escribo 0, me llevo 1.</li>
+        <li>Columna 4: 1 + 0 + 1 = 10. Escribo 0, me llevo 1.</li>
+        <li>Columna 5: solo queda el acarreo. Escribo 1.</li>
+      </ol>
+      <p style="font-family:var(--mono);font-size:24px;font-weight:600;color:var(--navy);margin-top:16px">1011 + 110 = 10001 &nbsp;<span style="color:var(--muted);font-weight:400">(11 + 6 = 17)</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 72 Interactivo: suma en binario -->
+<section data-label="Practica: suma en binario" data-notas="Ejercicio con números al azar de cinco bits. Se rellena el resultado de cada columna y el acarreo hacia la siguiente, de derecha a izquierda; las casillas avanzan solas en ese orden. Pista explica la columna. Para la práctica 1: racha de diez." style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <div>
+    <span class="pill">Practica</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Suma en binario</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Empieza por la columna de la derecha: escribe el resultado y, encima de la columna siguiente, lo que te llevas. Las casillas van avanzando en ese orden.</p>
+    <table class="tabla-reglas" style="font-size:22px">
+      <thead><tr><th>Sumo</th><th>Escribo</th><th>Me llevo</th></tr></thead>
+      <tbody>
+        <tr><td>0 + 0</td><td>0</td><td>0</td></tr>
+        <tr><td>0 + 1 &nbsp;·&nbsp; 1 + 0</td><td>1</td><td>0</td></tr>
+        <tr><td>1 + 1</td><td>0</td><td class="lleva">1</td></tr>
+        <tr><td>1 + 1 + 1</td><td>1</td><td class="lleva">1</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ej" data-tipo="sumabin" data-bits="5"></div>
+</section>
+
+<!-- 73 Tabla: la resta, casos de una columna -->
+<section data-label="La resta en binario" data-notas="La resta a mano funciona como en decimal: cuando en una columna no se puede restar (0 − 1) se pide 1 a la columna de la izquierda. Ese 1 vale 2 en la columna que lo recibe (10 en binario), así que 0 − 1 pasa a ser 10 − 1 = 1. En la columna que prestó hay que devolverlo: se resta 1 más (o, lo que es lo mismo, se suma 1 al sustraendo, como se enseña en primaria). Hacer el ejemplo en la pizarra escribiendo en la fila de arriba lo que pide cada columna. Comprobar en decimal: 13 − 6 = 7. En la siguiente diapositiva se ve qué pasa si el de abajo es mayor." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1fr;gap:96px">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.4 · Operaciones en binario</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">La resta: los casos de una columna</h2>
+    <p style="font-size:var(--type-caption);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">También de derecha a izquierda. El caso difícil es 0 − 1: no se puede, así que se pide 1 a la columna de la izquierda, y ese 1 vale 2 aquí.</p>
+    <table class="tabla-reglas">
+      <thead><tr><th>Resto</th><th>Escribo</th><th>Pido a la izquierda</th></tr></thead>
+      <tbody>
+        <tr><td>0 − 0</td><td>0</td><td>0</td></tr>
+        <tr><td>1 − 0</td><td>1</td><td>0</td></tr>
+        <tr><td>1 − 1</td><td>0</td><td>0</td></tr>
+        <tr><td>0 − 1</td><td>1 <small>(10 − 1)</small></td><td class="lleva">1</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Tabla 1.14. La columna que prestó el 1 lo devuelve: en ella se resta 1 más. Si con eso tampoco puede, vuelve a pedir.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
+    <div style="background:var(--white);border-radius:24px;padding:36px 40px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue)">Ejemplo · 1101 − 0110</p>
+      <div class="sv" style="grid-template-columns:150px repeat(4,86px);justify-content:start;margin-top:12px">
+        <span class="lbl">pido</span><span class="d carry">1</span><span class="d carry">1</span><span class="d carry">0</span><span class="d carry"></span>
+        <span class="lbl"></span><span class="d">1</span><span class="d">1</span><span class="d">0</span><span class="d">1</span>
+        <span class="lbl">−</span><span class="d">0</span><span class="d">1</span><span class="d">1</span><span class="d">0</span>
+        <div class="linea"></div>
+        <span class="lbl">resultado</span><span class="d res">0</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span>
+      </div>
+      <ol style="padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:20px;line-height:1.4;color:var(--muted);margin-top:20px">
+        <li>Columna 1: 1 − 0 = 1.</li>
+        <li>Columna 2: 0 − 1 no se puede. Pido 1: 10 − 1 = 1.</li>
+        <li>Columna 3: 1 − 1 − 1 (el que me pidieron) no se puede. Pido 1: 11 − 1 − 1 = 1.</li>
+        <li>Columna 4: 1 − 0 − 1 (el que me pidieron) = 0.</li>
+      </ol>
+      <p style="font-family:var(--mono);font-size:24px;font-weight:600;color:var(--navy);margin-top:16px">1101 − 0110 = 0111 &nbsp;<span style="color:var(--muted);font-weight:400">(13 − 6 = 7)</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 74 Texto: y si el sustraendo es mayor -->
+<section class="dark" data-label="Sustraendo mayor" data-notas="Caso que no suele explicarse y que sale en los ejercicios: si el número de abajo es mayor, la resta a mano no se puede hacer tal cual. Se hace como en decimal: se restan al revés (el mayor menos el menor) y se pone el signo menos delante. Ejemplo: 0101 − 1001 es 5 − 9 = −4. Para saber cuál es mayor, comparar de izquierda a derecha el primer bit que sea distinto. El aviso importante: esto lo hacemos las personas porque tenemos un signo menos; el ordenador solo tiene bits, no tiene ningún símbolo para el signo. Por eso resta de otra manera, con complementos, que es lo que viene después de las puertas lógicas. En el ejercicio interactivo el alumno tiene que darse cuenta solo, pulsar Invertir y marcar el signo." style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:96px;align-items:center">
+  <div style="min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">1.5.4 · Operaciones en binario</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;text-wrap:balance">Y si el sustraendo es mayor que el minuendo</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:#C9D6EE;margin-top:var(--gap-item)">Igual que en decimal: 5 − 9 no se hace directamente. Se calcula <b style="color:var(--white)">9 − 5</b> y se pone el signo menos delante: <b style="color:var(--white)">−4</b>.</p>
+    <ol style="padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:var(--gap-item);font-size:22px;line-height:1.4;color:#C9D6EE">
+      <li style="display:flex;gap:16px"><b style="color:var(--yellow)">1.</b><span>Mira cuál de los dos es mayor: compara de izquierda a derecha el primer bit que sea distinto.</span></li>
+      <li style="display:flex;gap:16px"><b style="color:var(--yellow)">2.</b><span>Si el de abajo es mayor, intercámbialos: el mayor arriba.</span></li>
+      <li style="display:flex;gap:16px"><b style="color:var(--yellow)">3.</b><span>Resta normalmente y pon el signo − delante del resultado.</span></li>
+    </ol>
+    <div style="display:flex;gap:20px;align-items:center;background:rgba(244,194,13,.15);border:2px solid var(--yellow);border-radius:20px;padding:22px 28px;margin-top:var(--gap-item)">
+      <span style="font-size:40px;line-height:1">⚠</span>
+      <p style="font-size:21px;line-height:1.45;color:var(--white)">Esto lo hacemos las personas porque tenemos un símbolo para el signo. <b>El ordenador no tiene ningún "−": solo tiene bits.</b> Por eso resta de otra forma: con el complemento a 2, que veremos enseguida.</p>
+    </div>
+  </div>
+  <div style="background:rgba(255,255,255,.07);border-radius:24px;padding:36px 40px">
+    <p style="font-size:var(--type-caption);font-weight:700;color:var(--yellow)">Ejemplo · 0101 − 1001</p>
+    <p style="font-size:20px;color:#C9D6EE;margin-top:8px">El primer bit ya es distinto: 0 arriba, 1 abajo. El de abajo es mayor.</p>
+    <div class="sv" style="grid-template-columns:150px repeat(4,86px);justify-content:start;margin-top:16px;color:var(--white)">
+      <span class="lbl" style="color:#9FB4D9">pido</span><span class="d carry" style="color:var(--yellow)">0</span><span class="d carry" style="color:var(--yellow)">0</span><span class="d carry" style="color:var(--yellow)">0</span><span class="d carry"></span>
+      <span class="lbl" style="color:#9FB4D9">mayor</span><span class="d">1</span><span class="d">0</span><span class="d">0</span><span class="d">1</span>
+      <span class="lbl" style="color:#9FB4D9">− menor</span><span class="d">0</span><span class="d">1</span><span class="d">0</span><span class="d">1</span>
+      <div class="linea" style="background:var(--yellow)"></div>
+      <span class="lbl" style="color:#9FB4D9">resultado</span><span class="d" style="color:var(--yellow)">0</span><span class="d" style="color:var(--yellow)">1</span><span class="d" style="color:var(--yellow)">0</span><span class="d" style="color:var(--yellow)">0</span>
+    </div>
+    <p style="font-family:var(--mono);font-size:28px;font-weight:600;margin-top:20px">0101 − 1001 = <span style="color:var(--yellow)">−0100</span> &nbsp;<span style="color:#9FB4D9;font-weight:400;font-size:22px">(5 − 9 = −4)</span></p>
+  </div>
+</section>
+
+<!-- 75 Interactivo: resta en binario -->
+<section data-label="Practica: resta en binario" data-notas="Ejercicio con números al azar de cinco bits. La mitad de las veces el sustraendo es mayor y el ejercicio no avisa: el alumno debe darse cuenta, pulsar Invertir (intercambia las dos filas) y marcar el signo − en la casilla del resultado. Si intenta comprobar sin invertir, el mensaje se lo indica. La fila de arriba es lo que cada columna pide a la de su izquierda." style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <div>
+    <span class="pill">Practica</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Resta en binario</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Antes de empezar, mira cuál de los dos números es mayor. Si el de abajo es mayor, pulsa <b>Invertir</b> y marca el signo − en la casilla de la izquierda del resultado.</p>
+    <table class="tabla-reglas" style="font-size:22px">
+      <thead><tr><th>Resto</th><th>Escribo</th><th>Pido</th></tr></thead>
+      <tbody>
+        <tr><td>0 − 0 &nbsp;·&nbsp; 1 − 1</td><td>0</td><td>0</td></tr>
+        <tr><td>1 − 0</td><td>1</td><td>0</td></tr>
+        <tr><td>0 − 1</td><td>1</td><td class="lleva">1</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">En la fila de arriba se escribe lo que cada columna pide a la de su izquierda; esa columna lo devuelve restando 1 más.</p>
+  </div>
+  <div class="ej" data-tipo="restabin" data-bits="5"></div>
+</section>
+
+<!-- 76 Tabla: NOT, AND, OR -->
+<section data-label="NOT, AND, OR" data-notas="Álgebra de Boole: George Boole la publicó en 1854 y Claude Shannon demostró en 1938 que servía para diseñar circuitos con relés. Cada operación lógica se define por su tabla de verdad, que da la salida para cada combinación de entradas, y se dibuja con un símbolo de puerta. NOT tiene una entrada y la invierte. AND solo da 1 si todas las entradas son 1 (como dos interruptores en serie). OR da 1 si alguna entrada es 1 (dos interruptores en paralelo). Hacer que la clase rellene las tablas antes de mostrarlas. En el ejercicio interactivo se aplican a dos bytes columna a columna." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.4 · Operaciones lógicas</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Operaciones lógicas básicas: NOT, AND y OR</h2>
+  <p style="font-size:var(--type-caption);line-height:1.5;color:var(--muted);margin-top:16px;max-width:1500px">Cada operación se define por su <b style="color:var(--navy)">tabla de verdad</b> (la salida para cada combinación de entradas) y se dibuja con el símbolo de su <b style="color:var(--navy)">puerta lógica</b>, el circuito que la hace.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:var(--gap-item);flex:1;min-height:0">
+    <div style="background:var(--white);border-radius:24px;padding:28px 36px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;align-items:center">
+      <p style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy)">NOT</p>
+      <p style="font-size:20px;color:var(--muted);margin-top:4px">Negación: invierte el bit</p>
+      <svg viewBox="0 0 200 90" style="width:240px;height:auto;margin-top:16px" role="img" aria-label="Símbolo de la puerta NOT"><line x1="10" y1="45" x2="60" y2="45" stroke="#15356B" stroke-width="4"/><path d="M60,15 L125,45 L60,75 Z" fill="#fff" stroke="#15356B" stroke-width="4"/><circle cx="133" cy="45" r="8" fill="#fff" stroke="#15356B" stroke-width="4"/><line x1="141" y1="45" x2="190" y2="45" stroke="#15356B" stroke-width="4"/><text x="22" y="36" font-size="18" font-weight="700" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">A</text><text x="160" y="36" font-size="18" font-weight="700" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">NOT A</text></svg>
+      <table style="border-collapse:collapse;font-family:var(--mono);font-size:26px;text-align:center;margin-top:20px;color:var(--navy)">
+        <thead><tr style="background:var(--navy);color:var(--white)"><th style="padding:8px 28px;font-family:'Plus Jakarta Sans',system-ui,sans-serif">A</th><th style="padding:8px 28px;font-family:'Plus Jakarta Sans',system-ui,sans-serif">NOT A</th></tr></thead>
+        <tbody><tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 28px">0</td><td style="padding:8px 28px;font-weight:600">1</td></tr><tr><td style="padding:8px 28px">1</td><td style="padding:8px 28px;font-weight:600">0</td></tr></tbody>
+      </table>
+      <p style="font-size:19px;line-height:1.4;color:var(--muted);margin-top:auto;padding-top:16px;text-align:center">Solo tiene un operando. Se escribe también Ā o ¬A.</p>
+    </div>
+    <div style="background:var(--white);border-radius:24px;padding:28px 36px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;align-items:center">
+      <p style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy)">AND</p>
+      <p style="font-size:20px;color:var(--muted);margin-top:4px">Producto lógico: 1 solo si los dos son 1</p>
+      <svg viewBox="0 0 200 90" style="width:240px;height:auto;margin-top:16px" role="img" aria-label="Símbolo de la puerta AND"><line x1="10" y1="30" x2="60" y2="30" stroke="#15356B" stroke-width="4"/><line x1="10" y1="60" x2="60" y2="60" stroke="#15356B" stroke-width="4"/><path d="M60,15 H100 A30,30 0 0 1 100,75 H60 Z" fill="#fff" stroke="#15356B" stroke-width="4"/><line x1="130" y1="45" x2="190" y2="45" stroke="#15356B" stroke-width="4"/><text x="22" y="22" font-size="18" font-weight="700" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">A</text><text x="22" y="82" font-size="18" font-weight="700" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">B</text></svg>
+      <table style="border-collapse:collapse;font-family:var(--mono);font-size:26px;text-align:center;margin-top:20px;color:var(--navy)">
+        <thead><tr style="background:var(--navy);color:var(--white)"><th style="padding:8px 24px;font-family:'Plus Jakarta Sans',system-ui,sans-serif">A</th><th style="padding:8px 24px;font-family:'Plus Jakarta Sans',system-ui,sans-serif">B</th><th style="padding:8px 24px;font-family:'Plus Jakarta Sans',system-ui,sans-serif">A AND B</th></tr></thead>
+        <tbody><tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 24px">0</td><td style="padding:8px 24px">0</td><td style="padding:8px 24px;font-weight:600">0</td></tr><tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 24px">0</td><td style="padding:8px 24px">1</td><td style="padding:8px 24px;font-weight:600">0</td></tr><tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 24px">1</td><td style="padding:8px 24px">0</td><td style="padding:8px 24px;font-weight:600">0</td></tr><tr><td style="padding:8px 24px">1</td><td style="padding:8px 24px">1</td><td style="padding:8px 24px;font-weight:600;color:var(--ok)">1</td></tr></tbody>
+      </table>
+      <p style="font-size:19px;line-height:1.4;color:var(--muted);margin-top:auto;padding-top:16px;text-align:center">Como dos interruptores en serie. Se escribe también A · B.</p>
+    </div>
+    <div style="background:var(--white);border-radius:24px;padding:28px 36px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;align-items:center">
+      <p style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy)">OR</p>
+      <p style="font-size:20px;color:var(--muted);margin-top:4px">Suma lógica: 1 si alguno es 1</p>
+      <svg viewBox="0 0 200 90" style="width:240px;height:auto;margin-top:16px" role="img" aria-label="Símbolo de la puerta OR"><line x1="10" y1="30" x2="66" y2="30" stroke="#15356B" stroke-width="4"/><line x1="10" y1="60" x2="66" y2="60" stroke="#15356B" stroke-width="4"/><path d="M58,15 Q80,45 58,75 Q100,75 130,45 Q100,15 58,15 Z" fill="#fff" stroke="#15356B" stroke-width="4"/><line x1="130" y1="45" x2="190" y2="45" stroke="#15356B" stroke-width="4"/><text x="22" y="22" font-size="18" font-weight="700" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">A</text><text x="22" y="82" font-size="18" font-weight="700" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">B</text></svg>
+      <table style="border-collapse:collapse;font-family:var(--mono);font-size:26px;text-align:center;margin-top:20px;color:var(--navy)">
+        <thead><tr style="background:var(--navy);color:var(--white)"><th style="padding:8px 24px;font-family:'Plus Jakarta Sans',system-ui,sans-serif">A</th><th style="padding:8px 24px;font-family:'Plus Jakarta Sans',system-ui,sans-serif">B</th><th style="padding:8px 24px;font-family:'Plus Jakarta Sans',system-ui,sans-serif">A OR B</th></tr></thead>
+        <tbody><tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 24px">0</td><td style="padding:8px 24px">0</td><td style="padding:8px 24px;font-weight:600">0</td></tr><tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 24px">0</td><td style="padding:8px 24px">1</td><td style="padding:8px 24px;font-weight:600;color:var(--ok)">1</td></tr><tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 24px">1</td><td style="padding:8px 24px">0</td><td style="padding:8px 24px;font-weight:600;color:var(--ok)">1</td></tr><tr><td style="padding:8px 24px">1</td><td style="padding:8px 24px">1</td><td style="padding:8px 24px;font-weight:600;color:var(--ok)">1</td></tr></tbody>
+      </table>
+      <p style="font-size:19px;line-height:1.4;color:var(--muted);margin-top:auto;padding-top:16px;text-align:center">Como dos interruptores en paralelo. Se escribe también A + B.</p>
+    </div>
+  </div>
+  <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:16px">Tabla 1.15. Tablas de verdad y símbolos de las puertas NOT, AND y OR.</p>
+</section>
+
+<!-- 77 Tabla: XOR, NAND, NOR -->
+<section data-label="XOR, NAND, NOR" data-notas="Tres operaciones que se construyen a partir de las básicas. XOR (o exclusivo) da 1 solo si las entradas son distintas: es la que suma dos bits sin acarreo y la que calcula la paridad, se verá en las dos siguientes. NAND y NOR son AND y OR con la salida negada, la bolita del símbolo; con solo puertas NAND se puede construir cualquier circuito, por eso el chip de la foto anterior es tan clásico. Fórmulas a partir de las básicas: XOR = (A OR B) AND NOT (A AND B); NAND = NOT (A AND B); NOR = NOT (A OR B)." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.4 · Operaciones lógicas</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Derivadas de las básicas: XOR, NAND y NOR</h2>
+  <p style="font-size:var(--type-caption);line-height:1.5;color:var(--muted);margin-top:16px;max-width:1500px">Se obtienen combinando NOT, AND y OR. La bolita en la salida del símbolo significa "negado".</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:var(--gap-item);flex:1;min-height:0">
+    <div style="background:var(--white);border-radius:24px;padding:28px 36px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;align-items:center">
+      <p style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy)">XOR</p>
+      <p style="font-size:20px;color:var(--muted);margin-top:4px">O exclusivo: 1 solo si son distintos</p>
+      <svg viewBox="0 0 200 90" style="width:240px;height:auto;margin-top:16px" role="img" aria-label="Símbolo de la puerta XOR"><line x1="10" y1="30" x2="56" y2="30" stroke="#15356B" stroke-width="4"/><line x1="10" y1="60" x2="56" y2="60" stroke="#15356B" stroke-width="4"/><path d="M46,15 Q68,45 46,75" fill="none" stroke="#15356B" stroke-width="4"/><path d="M58,15 Q80,45 58,75 Q100,75 130,45 Q100,15 58,15 Z" fill="#fff" stroke="#15356B" stroke-width="4"/><line x1="130" y1="45" x2="190" y2="45" stroke="#15356B" stroke-width="4"/><text x="22" y="22" font-size="18" font-weight="700" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">A</text><text x="22" y="82" font-size="18" font-weight="700" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">B</text></svg>
+      <table style="border-collapse:collapse;font-family:var(--mono);font-size:26px;text-align:center;margin-top:20px;color:var(--navy)">
+        <thead><tr style="background:var(--navy);color:var(--white)"><th style="padding:8px 24px;font-family:'Plus Jakarta Sans',system-ui,sans-serif">A</th><th style="padding:8px 24px;font-family:'Plus Jakarta Sans',system-ui,sans-serif">B</th><th style="padding:8px 24px;font-family:'Plus Jakarta Sans',system-ui,sans-serif">A XOR B</th></tr></thead>
+        <tbody><tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 24px">0</td><td style="padding:8px 24px">0</td><td style="padding:8px 24px;font-weight:600">0</td></tr><tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 24px">0</td><td style="padding:8px 24px">1</td><td style="padding:8px 24px;font-weight:600;color:var(--ok)">1</td></tr><tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 24px">1</td><td style="padding:8px 24px">0</td><td style="padding:8px 24px;font-weight:600;color:var(--ok)">1</td></tr><tr><td style="padding:8px 24px">1</td><td style="padding:8px 24px">1</td><td style="padding:8px 24px;font-weight:600">0</td></tr></tbody>
+      </table>
+      <p style="font-size:19px;line-height:1.4;color:var(--muted);margin-top:auto;padding-top:16px;text-align:center;font-family:var(--mono)">(A OR B) AND NOT (A AND B)</p>
+    </div>
+    <div style="background:var(--white);border-radius:24px;padding:28px 36px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;align-items:center">
+      <p style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy)">NAND</p>
+      <p style="font-size:20px;color:var(--muted);margin-top:4px">AND negado: 0 solo si los dos son 1</p>
+      <svg viewBox="0 0 200 90" style="width:240px;height:auto;margin-top:16px" role="img" aria-label="Símbolo de la puerta NAND"><line x1="10" y1="30" x2="60" y2="30" stroke="#15356B" stroke-width="4"/><line x1="10" y1="60" x2="60" y2="60" stroke="#15356B" stroke-width="4"/><path d="M60,15 H100 A30,30 0 0 1 100,75 H60 Z" fill="#fff" stroke="#15356B" stroke-width="4"/><circle cx="138" cy="45" r="8" fill="#fff" stroke="#15356B" stroke-width="4"/><line x1="146" y1="45" x2="190" y2="45" stroke="#15356B" stroke-width="4"/><text x="22" y="22" font-size="18" font-weight="700" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">A</text><text x="22" y="82" font-size="18" font-weight="700" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">B</text></svg>
+      <table style="border-collapse:collapse;font-family:var(--mono);font-size:26px;text-align:center;margin-top:20px;color:var(--navy)">
+        <thead><tr style="background:var(--navy);color:var(--white)"><th style="padding:8px 24px;font-family:'Plus Jakarta Sans',system-ui,sans-serif">A</th><th style="padding:8px 24px;font-family:'Plus Jakarta Sans',system-ui,sans-serif">B</th><th style="padding:8px 24px;font-family:'Plus Jakarta Sans',system-ui,sans-serif">A NAND B</th></tr></thead>
+        <tbody><tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 24px">0</td><td style="padding:8px 24px">0</td><td style="padding:8px 24px;font-weight:600;color:var(--ok)">1</td></tr><tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 24px">0</td><td style="padding:8px 24px">1</td><td style="padding:8px 24px;font-weight:600;color:var(--ok)">1</td></tr><tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 24px">1</td><td style="padding:8px 24px">0</td><td style="padding:8px 24px;font-weight:600;color:var(--ok)">1</td></tr><tr><td style="padding:8px 24px">1</td><td style="padding:8px 24px">1</td><td style="padding:8px 24px;font-weight:600">0</td></tr></tbody>
+      </table>
+      <p style="font-size:19px;line-height:1.4;color:var(--muted);margin-top:auto;padding-top:16px;text-align:center;font-family:var(--mono)">NOT (A AND B)</p>
+    </div>
+    <div style="background:var(--white);border-radius:24px;padding:28px 36px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;align-items:center">
+      <p style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy)">NOR</p>
+      <p style="font-size:20px;color:var(--muted);margin-top:4px">OR negado: 1 solo si los dos son 0</p>
+      <svg viewBox="0 0 200 90" style="width:240px;height:auto;margin-top:16px" role="img" aria-label="Símbolo de la puerta NOR"><line x1="10" y1="30" x2="66" y2="30" stroke="#15356B" stroke-width="4"/><line x1="10" y1="60" x2="66" y2="60" stroke="#15356B" stroke-width="4"/><path d="M58,15 Q80,45 58,75 Q100,75 130,45 Q100,15 58,15 Z" fill="#fff" stroke="#15356B" stroke-width="4"/><circle cx="138" cy="45" r="8" fill="#fff" stroke="#15356B" stroke-width="4"/><line x1="146" y1="45" x2="190" y2="45" stroke="#15356B" stroke-width="4"/><text x="22" y="22" font-size="18" font-weight="700" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">A</text><text x="22" y="82" font-size="18" font-weight="700" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">B</text></svg>
+      <table style="border-collapse:collapse;font-family:var(--mono);font-size:26px;text-align:center;margin-top:20px;color:var(--navy)">
+        <thead><tr style="background:var(--navy);color:var(--white)"><th style="padding:8px 24px;font-family:'Plus Jakarta Sans',system-ui,sans-serif">A</th><th style="padding:8px 24px;font-family:'Plus Jakarta Sans',system-ui,sans-serif">B</th><th style="padding:8px 24px;font-family:'Plus Jakarta Sans',system-ui,sans-serif">A NOR B</th></tr></thead>
+        <tbody><tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 24px">0</td><td style="padding:8px 24px">0</td><td style="padding:8px 24px;font-weight:600;color:var(--ok)">1</td></tr><tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 24px">0</td><td style="padding:8px 24px">1</td><td style="padding:8px 24px;font-weight:600">0</td></tr><tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 24px">1</td><td style="padding:8px 24px">0</td><td style="padding:8px 24px;font-weight:600">0</td></tr><tr><td style="padding:8px 24px">1</td><td style="padding:8px 24px">1</td><td style="padding:8px 24px;font-weight:600">0</td></tr></tbody>
+      </table>
+      <p style="font-size:19px;line-height:1.4;color:var(--muted);margin-top:auto;padding-top:16px;text-align:center;font-family:var(--mono)">NOT (A OR B)</p>
+    </div>
+  </div>
+  <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:16px">Tabla 1.16. Tablas de verdad y símbolos de XOR, NAND y NOR. Con solo puertas NAND se puede construir cualquier circuito digital.</p>
+</section>
+
+<!-- 78 Texto: el sumador está hecho de puertas -->
+<section data-label="El sumador" data-notas="Enlace entre las puertas y la aritmética: comparar la tabla de la suma de una columna con las tablas de XOR y AND. El bit de resultado coincide con A XOR B y el acarreo con A AND B: dos puertas hacen un semisumador. Para sumar una columna que además recibe acarreo se encadenan dos semisumadores (un sumador completo), y con ocho de estos en fila se suman dos bytes. La resta también: la diferencia de dos bits es A XOR B y el préstamo es NOT A AND B (se pide cuando A es 0 y B es 1). No hay nadie dentro que sepa sumar: hay circuitos que cumplen una tabla de verdad. Esta idea es la que responde a la pregunta de cómo puede calcular una máquina." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.1fr;gap:80px">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.4 · Operaciones lógicas</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Curiosidad: el sumador está hecho de puertas</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Compara la tabla de la suma de una columna con las de XOR y AND: coinciden. Con dos puertas ya se suman dos bits.</p>
+    <table style="border-collapse:collapse;font-family:var(--mono);font-size:24px;text-align:center;margin-top:var(--gap-item);color:var(--navy);background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 2px 0 var(--line);width:100%">
+      <thead><tr style="background:var(--navy);color:var(--white);font-family:'Plus Jakarta Sans',system-ui,sans-serif"><th style="padding:10px 18px">A</th><th style="padding:10px 18px">B</th><th style="padding:10px 18px">A + B</th><th style="padding:10px 18px">Escribo<br><small style="font-weight:400">= A XOR B</small></th><th style="padding:10px 18px">Me llevo<br><small style="font-weight:400">= A AND B</small></th></tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 18px">0</td><td style="padding:8px 18px">0</td><td style="padding:8px 18px">0</td><td style="padding:8px 18px;font-weight:600">0</td><td style="padding:8px 18px;font-weight:600">0</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 18px">0</td><td style="padding:8px 18px">1</td><td style="padding:8px 18px">1</td><td style="padding:8px 18px;font-weight:600;color:var(--ok)">1</td><td style="padding:8px 18px;font-weight:600">0</td></tr>
+        <tr style="border-bottom:1px solid var(--line)"><td style="padding:8px 18px">1</td><td style="padding:8px 18px">0</td><td style="padding:8px 18px">1</td><td style="padding:8px 18px;font-weight:600;color:var(--ok)">1</td><td style="padding:8px 18px;font-weight:600">0</td></tr>
+        <tr><td style="padding:8px 18px">1</td><td style="padding:8px 18px">1</td><td style="padding:8px 18px">10</td><td style="padding:8px 18px;font-weight:600">0</td><td style="padding:8px 18px;font-weight:600;color:var(--ok)">1</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:21px;line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Para la resta pasa lo mismo: la diferencia es <span style="font-family:var(--mono);color:var(--navy)">A XOR B</span> y se pide 1 cuando <span style="font-family:var(--mono);color:var(--navy)">NOT A AND B</span> (A es 0 y B es 1). Dentro del ordenador no hay nadie que sepa sumar: hay circuitos que cumplen una tabla de verdad.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
+    <svg viewBox="0 0 720 420" style="width:100%;height:auto;display:block" role="img" aria-label="Semisumador: A y B entran en una puerta XOR que da la suma y en una puerta AND que da el acarreo">
+      <text x="30" y="118" font-size="30" font-weight="800" fill="#15356B" font-family="JetBrains Mono, Consolas, monospace">A</text>
+      <text x="30" y="318" font-size="30" font-weight="800" fill="#15356B" font-family="JetBrains Mono, Consolas, monospace">B</text>
+      <line x1="70" y1="110" x2="318" y2="110" stroke="#0B4AB5" stroke-width="5"/>
+      <line x1="70" y1="310" x2="330" y2="310" stroke="#0B4AB5" stroke-width="5"/>
+      <line x1="160" y1="110" x2="160" y2="150" stroke="#0B4AB5" stroke-width="5"/><line x1="160" y1="150" x2="318" y2="150" stroke="#0B4AB5" stroke-width="5"/>
+      <line x1="220" y1="310" x2="220" y2="270" stroke="#0B4AB5" stroke-width="5"/><line x1="220" y1="270" x2="330" y2="270" stroke="#0B4AB5" stroke-width="5"/>
+      <circle cx="160" cy="110" r="8" fill="#0B4AB5"/><circle cx="220" cy="310" r="8" fill="#0B4AB5"/>
+      <line x1="220" y1="310" x2="220" y2="310" stroke="#0B4AB5" stroke-width="5"/>
+      <line x1="160" y1="150" x2="160" y2="150" stroke="#0B4AB5" stroke-width="5"/>
+      <path d="M318,80 Q345,130 318,180" fill="none" stroke="#15356B" stroke-width="5"/>
+      <path d="M332,80 Q360,130 332,180 Q400,180 440,130 Q400,80 332,80 Z" fill="#fff" stroke="#15356B" stroke-width="5"/>
+      <text x="388" y="140" text-anchor="middle" font-size="24" font-weight="800" fill="#15356B" font-family="Plus Jakarta Sans, system-ui, sans-serif">XOR</text>
+      <path d="M332,220 H390 A50,50 0 0 1 390,320 H332 Z" fill="#fff" stroke="#15356B" stroke-width="5"/>
+      <text x="378" y="279" text-anchor="middle" font-size="24" font-weight="800" fill="#15356B" font-family="Plus Jakarta Sans, system-ui, sans-serif">AND</text>
+      <line x1="330" y1="110" x2="330" y2="110"/>
+      <line x1="440" y1="130" x2="560" y2="130" stroke="#0B4AB5" stroke-width="5"/>
+      <line x1="440" y1="270" x2="560" y2="270" stroke="#0B4AB5" stroke-width="5"/>
+      <rect x="560" y="100" width="140" height="60" rx="14" fill="#1E8E5A"/><text x="630" y="140" text-anchor="middle" font-size="24" font-weight="800" fill="#fff" font-family="Plus Jakarta Sans, system-ui, sans-serif">escribo</text>
+      <rect x="560" y="240" width="140" height="60" rx="14" fill="#0B4AB5"/><text x="630" y="280" text-anchor="middle" font-size="24" font-weight="800" fill="#fff" font-family="Plus Jakarta Sans, system-ui, sans-serif">me llevo</text>
+      <text x="360" y="400" text-anchor="middle" font-size="20" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">Figura 1.29. Semisumador: dos puertas suman dos bits. Elaboración propia.</text>
+    </svg>
+    <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:8px">Para una columna que además recibe acarreo se encadenan dos de estos (sumador completo), y con ocho en fila se suman dos bytes.</p>
+  </div>
+</section>
+
+<!-- 79 Interactivo: operaciones lógicas -->
+<section data-label="Practica: operaciones lógicas" data-notas="Ejercicio con dos bytes al azar en vertical, como una suma pero sin acarreos: cada columna se opera por separado. Con los botones se elige la operación o se deja al azar. NOT solo muestra un número. Pista recuerda la regla de la operación en cada columna." style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <div>
+    <span class="pill">Practica</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Operaciones lógicas bit a bit</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Aplica la operación a cada columna por separado: en las operaciones lógicas no hay acarreos ni préstamos. Elige una operación o deja que salga al azar.</p>
+    <table class="tabla-reglas" style="font-size:21px">
+      <thead><tr><th>A B</th><th>AND</th><th>OR</th><th>XOR</th><th>NAND</th><th>NOR</th></tr></thead>
+      <tbody>
+        <tr><td>0 0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+        <tr><td>0 1</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+        <tr><td>1 0</td><td>0</td><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+        <tr><td>1 1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="ej" data-tipo="logica"></div>
+</section>
+
+<!-- 80 Texto: complementos, para qué sirven -->
+<section data-label="Complementos" data-notas="El ordenador no tiene circuito de restar: tiene un sumador. Para restar suma el complemento del sustraendo, y así un solo circuito hace las dos operaciones. Complemento a 1: invertir todos los bits (una puerta NOT por bit). Complemento a 2: complemento a 1 más 1. El complemento a 2 de un número es lo que le falta para llegar a 2 elevado a n: C2 de 9 en 8 bits es 247, y 9 + 247 = 256, que en 8 bits es 0 con un 1 que sobra. Por eso sumar el C2 equivale a restar. Truco para calcular el C2 de un vistazo: copiar los bits desde la derecha hasta el primer 1 incluido, e invertir todos los demás. Siempre hay que decir con cuántos bits se trabaja: el complemento depende del tamaño." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:80px">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.4 · Complementos</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Complementos: así resta un circuito que solo sabe sumar</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">El ordenador no tiene un circuito para restar: tiene un sumador. Para calcular A − B <b style="color:var(--navy)">suma A más el complemento de B</b>. Un solo circuito sirve para las dos operaciones.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:var(--gap-item)">
+      <div style="background:var(--white);border-radius:20px;padding:24px 28px;box-shadow:0 2px 0 var(--line)">
+        <p style="font-size:var(--type-small);font-weight:800;color:var(--navy)">Complemento a 1 (C1)</p>
+        <p style="font-size:21px;line-height:1.45;color:var(--muted);margin-top:8px">Invertir todos los bits: los 0 pasan a 1 y los 1 a 0. Es un NOT bit a bit.</p>
+      </div>
+      <div style="background:var(--white);border-radius:20px;padding:24px 28px;box-shadow:0 2px 0 var(--line)">
+        <p style="font-size:var(--type-small);font-weight:800;color:var(--navy)">Complemento a 2 (C2)</p>
+        <p style="font-size:21px;line-height:1.45;color:var(--muted);margin-top:8px">El complemento a 1 más 1. Es lo que le falta al número para llegar a 2ⁿ: por eso sumarlo equivale a restar.</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:20px;align-items:center;background:var(--yellow);border-radius:20px;padding:20px 28px;margin-top:var(--gap-item)">
+      <span style="font-size:36px;line-height:1">💡</span>
+      <p style="font-size:20px;line-height:1.45;color:var(--navy)"><b>Truco para el C2 de un vistazo:</b> de derecha a izquierda, copia los bits hasta el primer 1 incluido; a partir de ahí invierte todos los demás. Y di siempre con cuántos bits trabajas: el complemento depende del tamaño.</p>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
+    <div style="background:var(--white);border-radius:24px;padding:36px 40px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue)">Ejemplo · 9 en 8 bits</p>
+      <div class="sv compacta" style="grid-template-columns:150px repeat(8,64px);justify-content:start;margin-top:16px">
+        <span class="lbl">9 = </span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">1</span><span class="d">0</span><span class="d">0</span><span class="d">1</span>
+        <span class="lbl">C1: invierto</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">0</span><span class="d res">1</span><span class="d res">1</span><span class="d res">0</span>
+        <span class="lbl">C2 = C1 + 1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">0</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span>
+      </div>
+      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;font-size:20px;line-height:1.4;color:var(--muted);margin-top:20px">
+        <li>C1: 11110110 = 246. Fíjate: 9 + 246 = 255, todo unos.</li>
+        <li>C2: 11110110 + 1 = 11110111 = 247. Y 9 + 247 = 256 = 2⁸: en 8 bits queda 00000000 con un 1 que sobra.</li>
+        <li>Con el truco: desde la derecha, el primer 1 ya es el primer bit (se copia); el resto se invierte.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 81 Interactivo: complemento a 1 y a 2 -->
+<section data-label="Practica: complementos" data-notas="Ejercicio con un byte al azar: fila del C1 y fila del C2. El C2 se rellena de derecha a izquierda sumando 1 al C1 y llevando el acarreo; Pista explica columna a columna. Al acertar, el mensaje recuerda el truco del primer 1." style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <div>
+    <span class="pill">Practica</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Complemento a 1 y a 2</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Primero el complemento a 1: invierte cada bit. Después el complemento a 2: súmale 1 al C1 empezando por la derecha, llevando el acarreo mientras haya unos.</p>
+    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Comprueba con el truco: el C2 copia los bits del número original desde la derecha hasta el primer 1, y a partir de ahí los invierte.</p>
+  </div>
+  <div class="ej" data-tipo="c1c2" data-bits="8"></div>
+</section>
+
+<!-- 82 Pasos: resta en complemento a 1 -->
+<section data-label="Resta en C1" data-notas="Método con complemento a 1: se suma al minuendo el C1 del sustraendo. Si sobra un 1 por la izquierda (no cabe en los 8 bits), se quita de ahí y se suma al resultado: es el acarreo circular. Ejemplo 8 − 3: 00001000 + 11111100 = 1 00000100; el 1 que sobra se suma y queda 00000101 = 5. Funciona, pero tiene dos pegas: el paso extra de sumar el acarreo y que el cero tiene dos representaciones (00000000 y 11111111). Por eso los ordenadores usan el complemento a 2, que viene en la siguiente." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.15fr;gap:80px">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.4 · Complementos</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Resta en complemento a 1</h2>
+    <div style="display:flex;flex-direction:column;gap:20px;margin-top:var(--gap-item)">
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <span style="width:60px;height:60px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">1</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Complemento a 1 del sustraendo</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">Con el mismo número de bits que el minuendo.</p></div>
+      </div>
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <span style="width:60px;height:60px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">2</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Súmalo al minuendo</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">Una suma normal, columna a columna.</p></div>
+      </div>
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <span style="width:60px;height:60px;border-radius:50%;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">3</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Si sobra un 1, súmaselo al resultado</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">El bit que no cabe se quita de la izquierda y se suma por la derecha (acarreo circular).</p></div>
+      </div>
+    </div>
+    <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:var(--gap-item)">Funciona, pero tiene un paso de más y el cero queda con dos representaciones (00000000 y 11111111). Por eso los ordenadores usan el complemento a 2.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
+    <div style="background:var(--white);border-radius:24px;padding:32px 40px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue)">Ejemplo · 8 − 3 en 8 bits</p>
+      <div class="sv compacta" style="grid-template-columns:160px repeat(9,58px);justify-content:start;margin-top:14px">
+        <span class="lbl">3 =</span><span class="d"></span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">1</span><span class="d">1</span>
+        <span class="lbl">C1 de 3</span><span class="d"></span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">0</span><span class="d res">0</span>
+        <div class="linea suave"></div>
+        <span class="lbl">8 =</span><span class="d"></span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">1</span><span class="d">0</span><span class="d">0</span><span class="d">0</span>
+        <span class="lbl">+ C1 de 3</span><span class="d"></span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">0</span><span class="d">0</span>
+        <div class="linea"></div>
+        <span class="lbl">suma</span><span class="d" style="color:var(--sky)">1</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">1</span><span class="d">0</span><span class="d">0</span>
+        <span class="lbl">+ el 1 que sobra</span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d" style="color:var(--sky)">1</span>
+        <div class="linea"></div>
+        <span class="lbl">resultado</span><span class="d"></span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">1</span><span class="d res">0</span><span class="d res">1</span>
+      </div>
+      <p style="font-family:var(--mono);font-size:26px;font-weight:600;color:var(--navy);margin-top:18px">00000101 = 5 &nbsp;<span style="color:var(--muted);font-weight:400;font-size:22px">(8 − 3 = 5)</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 83 Pasos: resta en complemento a 2 -->
+<section data-label="Resta en C2" data-notas="Método con complemento a 2, que es el que usan todos los ordenadores: se suma al minuendo el C2 del sustraendo y el 1 que sobra por la izquierda se descarta sin más. Ejemplo 8 − 3: C2 de 3 es 11111101; 00001000 + 11111101 = 1 00000101; se tira el 1 y queda 5. Ventajas: un solo paso y el cero es único. El sumador hace la resta con un pequeño circuito delante que invierte los bits y mete un 1 de acarreo inicial; eso es todo. En el ejercicio interactivo se hace por pasos y también salen casos con resultado negativo, que enlazan con la diapositiva del signo." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.15fr;gap:80px">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.4 · Complementos</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Resta en complemento a 2: así resta el ordenador</h2>
+    <div style="display:flex;flex-direction:column;gap:20px;margin-top:var(--gap-item)">
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <span style="width:60px;height:60px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">1</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Complemento a 2 del sustraendo</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">Invierte los bits y suma 1, con el mismo número de bits que el minuendo.</p></div>
+      </div>
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <span style="width:60px;height:60px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">2</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Súmalo al minuendo</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">Una suma normal.</p></div>
+      </div>
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <span style="width:60px;height:60px;border-radius:50%;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">3</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">El 1 que sobra se descarta</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">No cabe en los bits del resultado y se tira. No hay nada más que hacer.</p></div>
+      </div>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:22px 30px;box-shadow:0 2px 0 var(--line);margin-top:var(--gap-item)">
+      <p style="font-size:20px;line-height:1.45;color:var(--muted)"><b style="color:var(--navy)">Un solo circuito para sumar y restar:</b> delante del sumador, un NOT por cada bit del sustraendo y un 1 de acarreo inicial. Eso es el complemento a 2 en hardware. Y el cero solo tiene una representación.</p>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
+    <div style="background:var(--white);border-radius:24px;padding:32px 40px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue)">Ejemplo · 8 − 3 en 8 bits</p>
+      <div class="sv compacta" style="grid-template-columns:160px repeat(9,58px);justify-content:start;margin-top:14px">
+        <span class="lbl">3 =</span><span class="d"></span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">1</span><span class="d">1</span>
+        <span class="lbl">C1 de 3</span><span class="d"></span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">0</span><span class="d">0</span>
+        <span class="lbl">C2 = C1 + 1</span><span class="d"></span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">0</span><span class="d res">1</span>
+        <div class="linea suave"></div>
+        <span class="lbl">8 =</span><span class="d"></span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">1</span><span class="d">0</span><span class="d">0</span><span class="d">0</span>
+        <span class="lbl">+ C2 de 3</span><span class="d"></span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">0</span><span class="d">1</span>
+        <div class="linea"></div>
+        <span class="lbl">suma</span><span class="d" style="color:#9AA6BE;text-decoration:line-through">1</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">1</span><span class="d res">0</span><span class="d res">1</span>
+      </div>
+      <p style="font-family:var(--mono);font-size:26px;font-weight:600;color:var(--navy);margin-top:18px">00000101 = 5 &nbsp;<span style="color:var(--muted);font-weight:400;font-size:22px">(8 − 3 = 5; el 1 tachado se descarta)</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- 84 Interactivo: resta en complemento a 2 -->
+<section data-label="Practica: resta en C2" data-notas="Ejercicio por pasos con dos bytes al azar: C1 y C2 del sustraendo, suma con el minuendo (el C2 que escribió el alumno se copia en azul como segundo sumando), la casilla de la izquierda para el bit que sobra y, al final, el resultado en decimal. La mitad de las veces el sustraendo es mayor: entonces no sobra ningún 1, el resultado es negativo y ya está en complemento a 2; para leerlo hay que hacerle el C2. Es el enlace con la siguiente diapositiva." style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <div>
+    <span class="pill">Practica</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Resta en complemento a 2</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Calcula el C1 y el C2 del sustraendo, súmalo al minuendo con sus acarreos y decide qué pasa con el bit de la izquierda. Al final, escribe el resultado en decimal.</p>
+    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)"><b>Ojo:</b> a veces el sustraendo es mayor. Entonces no sobra ningún 1, el resultado es negativo y lo que tienes ya está en complemento a 2. Para saber cuánto vale, hazle el C2.</p>
+  </div>
+  <div class="ej" data-tipo="restac2" data-bits="8"></div>
+</section>
+
+<!-- 85 Texto: el signo no existe, es una interpretación -->
+<section class="dark" data-label="El signo es una interpretación" data-notas="Idea clave del bloque: en la memoria solo hay bits, y el mismo byte vale una cosa u otra según cómo se lea. 11111011 es 251 si se lee sin signo y −5 si se lee en complemento a 2 de 8 bits. El bit de la izquierda parece el signo (1 negativo), pero no es un signo aparte: forma parte del número, por eso el rango es asimétrico, de −128 a 127. Para leer un negativo en C2 se le hace el C2 y se le pone el menos: C2 de 11111011 es 00000101, que es 5, así que vale −5. Enlazar con el ejercicio anterior: cuando la resta salía negativa no sobraba ningún 1 y el resultado ya estaba en C2. Es el programa el que decide cómo interpretar cada dato; si se equivoca de tipo, un número grande se convierte en negativo, que es lo que pasa en la siguiente diapositiva." style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:96px;align-items:center">
+  <div style="min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">1.5.4 · Complementos</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;text-wrap:balance">El signo no existe: es una interpretación</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:#C9D6EE;margin-top:var(--gap-item)">En la memoria solo hay bits. El mismo byte vale una cosa u otra según <b style="color:var(--white)">cómo decida leerlo el programa</b>:</p>
+    <div style="background:rgba(255,255,255,.07);border-radius:24px;padding:28px 36px;margin-top:var(--gap-item)">
+      <p style="font-family:var(--mono);font-size:52px;font-weight:600;letter-spacing:.08em;text-align:center">11111011</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:16px;text-align:center">
+        <div><p style="font-size:20px;color:#9FB4D9">leído sin signo</p><p style="font-size:var(--type-title);font-weight:800;color:var(--white)">251</p><p style="font-size:19px;color:#9FB4D9">128 + 64 + 32 + 16 + 8 + 2 + 1</p></div>
+        <div><p style="font-size:20px;color:#9FB4D9">leído en C2 de 8 bits</p><p style="font-size:var(--type-title);font-weight:800;color:var(--yellow)">−5</p><p style="font-size:19px;color:#9FB4D9">su C2 es 00000101 = 5, con signo −</p></div>
+      </div>
+    </div>
+    <ul style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:10px;font-size:21px;line-height:1.4;color:#C9D6EE">
+      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span>En C2 el bit de la izquierda <i>parece</i> el signo: 1 es negativo. Pero no es un símbolo aparte, forma parte del número.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span>Cuando una resta en C2 sale negativa no sobra ningún 1: el resultado ya está en C2. Para leerlo, hazle el C2 y ponle el signo.</span></li>
+    </ul>
+  </div>
+  <div style="min-width:0">
+    <table style="width:100%;border-collapse:collapse;font-size:22px;background:rgba(255,255,255,.07);border-radius:16px;overflow:hidden;text-align:center;font-family:var(--mono)">
+      <thead><tr style="background:rgba(255,255,255,.12);font-family:'Plus Jakarta Sans',system-ui,sans-serif"><th style="padding:14px 18px;font-weight:700">Byte</th><th style="padding:14px 18px;font-weight:700">Sin signo</th><th style="padding:14px 18px;font-weight:700">En C2</th></tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid rgba(255,255,255,.12)"><td style="padding:12px 18px">00000000</td><td style="padding:12px 18px">0</td><td style="padding:12px 18px">0</td></tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,.12)"><td style="padding:12px 18px">00000001</td><td style="padding:12px 18px">1</td><td style="padding:12px 18px">1</td></tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,.12)"><td style="padding:12px 18px">01111111</td><td style="padding:12px 18px">127</td><td style="padding:12px 18px">127</td></tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,.12);background:rgba(244,194,13,.12)"><td style="padding:12px 18px">10000000</td><td style="padding:12px 18px">128</td><td style="padding:12px 18px;color:var(--yellow)">−128</td></tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,.12)"><td style="padding:12px 18px">11111011</td><td style="padding:12px 18px">251</td><td style="padding:12px 18px;color:var(--yellow)">−5</td></tr>
+        <tr><td style="padding:12px 18px">11111111</td><td style="padding:12px 18px">255</td><td style="padding:12px 18px;color:var(--yellow)">−1</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:19px;color:#9FB4D9;line-height:1.35;margin-top:12px">Tabla 1.17. El mismo byte leído de dos maneras. Sin signo: de 0 a 255. En complemento a 2: de −128 a 127. Al pasar de 01111111 a 10000000 el valor con signo salta de 127 a −128.</p>
+  </div>
+</section>
+
+<!-- 86 Cifra: 2.147.483.647 -->
+<section data-label="Cifra: 2.147.483.647" data-notas="Dos casos reales de desbordamiento. Gangnam Style: el contador de visualizaciones de YouTube era un entero de 32 bits con signo, cuyo máximo es 2 elevado a 31 menos 1. En diciembre de 2014 el vídeo lo superó y YouTube anunció que había pasado el contador a 64 bits. Año 2038: los sistemas Unix y muchos programas cuentan el tiempo en segundos desde el 1 de enero de 1970 en un entero de 32 bits con signo; el 19 de enero de 2038 a las 03:14:07 UTC ese contador pasa de 01111111… a 10000000…, que leído en C2 es −2.147.483.648 segundos: el 13 de diciembre de 1901. Los sistemas actuales de 64 bits ya lo tienen resuelto, pero quedan sistemas embebidos y formatos de archivo con 32 bits. Enlace con la UCP: el bit O (desbordamiento) del registro de estado se activa justo cuando pasa esto en una suma. Moraleja para la práctica: elegir el tamaño de los datos tiene consecuencias." style="display:grid;grid-template-columns:1fr 1fr;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center;gap:96px">
+  <div style="min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.4 · Cuando se acaban los bits</p>
+    <p style="font-size:100px;font-weight:800;line-height:1;color:var(--blue);letter-spacing:-.04em;margin-top:16px;font-variant-numeric:tabular-nums">2.147.483.647</p>
+    <p style="font-size:var(--type-subtitle);font-weight:700;color:var(--navy);margin-top:12px;line-height:1.2">El mayor entero de 32 bits con signo: 2³¹ − 1</p>
+    <div style="display:flex;flex-direction:column;gap:18px;margin-top:var(--gap-item)">
+      <div style="background:var(--white);border-radius:20px;padding:22px 28px;box-shadow:0 2px 0 var(--line)">
+        <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Gangnam Style, diciembre de 2014</p>
+        <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:6px">El contador de visualizaciones de YouTube era un entero de 32 bits con signo. El vídeo de PSY lo superó y YouTube tuvo que pasar el contador a 64 bits (máximo 9.223.372.036.854.775.807).</p>
+      </div>
+      <div style="background:var(--white);border-radius:20px;padding:22px 28px;box-shadow:0 2px 0 var(--line)">
+        <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">19 de enero de 2038, 03:14:07 UTC</p>
+        <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:6px">Muchos sistemas cuentan el tiempo en segundos desde el 1 de enero de 1970 en 32 bits con signo. Ese día el contador pasa de 01111111… a 10000000…: leído en C2, −2.147.483.648, es decir, el 13 de diciembre de 1901.</p>
+      </div>
+    </div>
+    <p style="font-size:19px;line-height:1.45;color:var(--muted);margin-top:16px">Es el <b style="color:var(--navy)">desbordamiento</b>: el bit O del registro de estado de la UCP se activa cuando una suma se sale del tamaño. Elegir cuántos bits tiene un dato tiene consecuencias.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px;min-width:0;height:100%;min-height:0">
+    <figure class="foto" style="flex:1">
+      <img src="img/gangnam-style.png" alt="Fotograma del vídeo musical Gangnam Style, con PSY bailando" title="Fotograma del vídeo Gangnam Style © YG Entertainment · cita con fines docentes (art. 32 LPI)">
+      <figcaption class="credito">Fotograma del vídeo musical <i>Gangnam Style</i> (PSY, 2012), © YG Entertainment. Obra protegida, reproducida como cita con fines docentes (artículo 32 de la Ley de Propiedad Intelectual); no está cubierta por la licencia CC BY-SA de este material. Vía <a href="https://it.wikipedia.org/wiki/File:Gangnam_Style.png">Wikipedia en italiano</a>.</figcaption>
+    </figure>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.30. Fotograma de Gangnam Style, el primer vídeo que desbordó el contador de visualizaciones de YouTube.</p>
+  </div>
+</section>
+
+<!-- 87 Quiz: operación con un solo operando -->
+<section class="dark" data-label="Quiz: operandos" data-notas="Comprobación del bloque de operaciones lógicas. NOT es la única con un solo operando: invierte el bit. AND, OR y XOR combinan dos. Si fallan, volver a los símbolos de las puertas: NOT es la única con una sola línea de entrada." style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
+  <div class="quiz" data-correct="2" data-ok="Correcto. NOT invierte un solo bit; las demás combinan dos." data-ko="No. Mira los símbolos de las puertas: solo una tiene una única línea de entrada." style="display:contents">
+    <div>
+      <span class="pill">Comprueba lo aprendido</span>
+      <h2 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.2;margin-top:32px;text-wrap:balance">¿Qué operación lógica NO necesita dos operandos?</h2>
+      <p class="quiz-fb">Selecciona una opción.</p>
+      <button class="btn btn-ghost quiz-reset" style="margin-top:var(--gap-item)">Reiniciar</button>
+    </div>
+    <div class="quiz-opts">
+      <button class="quiz-opt"><span class="letra">A</span><span>AND</span></button>
+      <button class="quiz-opt"><span class="letra">B</span><span>OR</span></button>
+      <button class="quiz-opt"><span class="letra">C</span><span>NOT</span></button>
+      <button class="quiz-opt"><span class="letra">D</span><span>XOR</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BLOQUE 7 · Detección de errores ============ -->
+
+<!-- 88 Texto: paridad par e impar -->
+<section data-label="Bit de paridad" data-notas="Los bits se estropean: ruido en un cable, una celda de memoria defectuosa, un rayado en un disco. Para detectarlo se añade información redundante. El método más sencillo es el bit de paridad: se cuenta cuántos unos tiene el dato y se añade un bit para que el total sea par (paridad par) o impar (paridad impar). El receptor vuelve a contar; si no cuadra, hubo un error. Se calcula con XOR encadenado de todos los bits, que da 1 cuando hay un número impar de unos: una puerta por bit, muy barato. Limitaciones: detecta un error, pero no dice cuál es el bit, y si se cambian dos bits la cuenta vuelve a cuadrar. Se usó en los puertos serie y en la memoria de los PC antiguos; hoy la memoria de servidores usa ECC, que además corrige." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.1fr;gap:80px">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.5 · Detección de errores</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">El bit de paridad: par e impar</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Los bits se estropean por el camino: ruido en un cable, una celda de memoria defectuosa, un disco rayado. Para detectarlo se añade un bit de más, <b style="color:var(--navy)">redundante</b>, calculado a partir de los datos.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:var(--gap-item)">
+      <div style="background:var(--white);border-radius:20px;padding:22px 28px;box-shadow:0 2px 0 var(--line)">
+        <p style="font-size:var(--type-small);font-weight:800;color:var(--navy)">Paridad par</p>
+        <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:6px">El bit se elige para que el total de unos, contándolo a él, sea <b>par</b>.</p>
+        <p style="font-family:var(--mono);font-size:26px;color:var(--navy);margin-top:10px"><span style="color:var(--ok);font-weight:600">0</span> 1011010</p>
+      </div>
+      <div style="background:var(--white);border-radius:20px;padding:22px 28px;box-shadow:0 2px 0 var(--line)">
+        <p style="font-size:var(--type-small);font-weight:800;color:var(--navy)">Paridad impar</p>
+        <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:6px">El bit se elige para que el total de unos sea <b>impar</b>.</p>
+        <p style="font-family:var(--mono);font-size:26px;color:var(--navy);margin-top:10px"><span style="color:var(--ok);font-weight:600">1</span> 1011010</p>
+      </div>
+    </div>
+    <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:16px">El dato 1011010 tiene cuatro unos (par). Con paridad par se añade un 0; con impar, un 1. El bit se calcula con un XOR de todos los bits, que da 1 si el número de unos es impar.</p>
+    <ul style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:10px;font-size:21px;line-height:1.4">
+      <li style="display:flex;gap:16px"><span style="color:var(--ok);font-weight:800">✓</span><span>Detecta que un bit ha cambiado. Es muy barato: una puerta por bit.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--ko);font-weight:800">✗</span><span>No dice cuál es el bit erróneo, así que no puede corregirlo.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--ko);font-weight:800">✗</span><span>Si cambian dos bits, la cuenta vuelve a cuadrar y el error pasa desapercibido.</span></li>
+    </ul>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
+    <svg viewBox="0 0 800 380" style="width:100%;height:auto;display:block" role="img" aria-label="El emisor añade el bit de paridad, el canal cambia un bit y el receptor detecta que la paridad no cuadra">
+      <defs><marker id="fl88" markerUnits="userSpaceOnUse" markerWidth="20" markerHeight="20" refX="16" refY="10" orient="auto"><path d="M0,0 L20,10 L0,20 z" fill="#4F8AE0"/></marker></defs>
+      <rect x="10" y="30" width="230" height="170" rx="20" fill="#fff" stroke="#D7DCE6" stroke-width="3"/>
+      <text x="125" y="68" text-anchor="middle" font-size="22" font-weight="800" fill="#15356B" font-family="Plus Jakarta Sans, system-ui, sans-serif">Emisor</text>
+      <text x="125" y="98" text-anchor="middle" font-size="17" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">cuenta los unos: 4, par</text>
+      <text x="125" y="150" text-anchor="middle" font-size="30" font-weight="700" fill="#15356B" font-family="JetBrains Mono, Consolas, monospace"><tspan fill="#1E8E5A">0</tspan> 1011010</text>
+      <text x="125" y="182" text-anchor="middle" font-size="17" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">añade paridad par = 0</text>
+      <line x1="250" y1="115" x2="300" y2="115" stroke="#4F8AE0" stroke-width="5" marker-end="url(#fl88)"/>
+      <rect x="310" y="30" width="180" height="170" rx="20" fill="#FBEAEA" stroke="#C0392B" stroke-width="3"/>
+      <text x="400" y="68" text-anchor="middle" font-size="22" font-weight="800" fill="#C0392B" font-family="Plus Jakarta Sans, system-ui, sans-serif">Canal</text>
+      <text x="400" y="98" text-anchor="middle" font-size="17" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">ruido: un bit cambia</text>
+      <path d="M380,120 L410,120 L395,150 L425,150 L385,190 L398,160 L370,160 Z" fill="#F4C20D" stroke="#C0392B" stroke-width="2"/>
+      <line x1="500" y1="115" x2="550" y2="115" stroke="#4F8AE0" stroke-width="5" marker-end="url(#fl88)"/>
+      <rect x="560" y="30" width="230" height="170" rx="20" fill="#fff" stroke="#D7DCE6" stroke-width="3"/>
+      <text x="675" y="68" text-anchor="middle" font-size="22" font-weight="800" fill="#15356B" font-family="Plus Jakarta Sans, system-ui, sans-serif">Receptor</text>
+      <text x="675" y="98" text-anchor="middle" font-size="17" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">vuelve a contar: 5, impar</text>
+      <text x="675" y="150" text-anchor="middle" font-size="30" font-weight="700" fill="#15356B" font-family="JetBrains Mono, Consolas, monospace"><tspan fill="#1E8E5A">0</tspan> 101<tspan fill="#C0392B">1</tspan>010</text>
+      <text x="675" y="182" text-anchor="middle" font-size="17" font-weight="700" fill="#C0392B" font-family="Plus Jakarta Sans, system-ui, sans-serif">no cuadra: hay un error</text>
+      <rect x="10" y="240" width="780" height="130" rx="20" fill="#15356B"/>
+      <text x="400" y="282" text-anchor="middle" font-size="20" font-weight="700" fill="#F4C20D" font-family="Plus Jakarta Sans, system-ui, sans-serif">Cómo lo calcula el circuito</text>
+      <text x="400" y="322" text-anchor="middle" font-size="26" font-weight="600" fill="#fff" font-family="JetBrains Mono, Consolas, monospace">1 XOR 0 XOR 1 XOR 1 XOR 0 XOR 1 XOR 0 = 0</text>
+      <text x="400" y="352" text-anchor="middle" font-size="17" fill="#C9D6EE" font-family="Plus Jakarta Sans, system-ui, sans-serif">el XOR encadenado da 1 si hay un número impar de unos: ese es el bit de paridad par</text>
+    </svg>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:10px">Figura 1.31. Un error de un bit se detecta y el receptor pide que se lo reenvíen. Elaboración propia.</p>
+  </div>
+</section>
+
+<!-- 89 Interactivo: bit de paridad -->
+<section data-label="Practica: paridad" data-notas="Ejercicio con dos modos. Calcular: dado un dato de 7 bits y el tipo de paridad, contar los unos y escribir el bit, que se añade a la izquierda. Detectar: llega una palabra de 8 bits (paridad a la izquierda) y hay que contar los unos y decidir si tiene error; la mitad de las veces se ha cambiado un bit. El mensaje de acierto recuerda que la paridad detecta pero no localiza, y que dos errores pasarían desapercibidos." style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <div>
+    <span class="pill">Practica</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Bit de paridad</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)"><b>Calcular el bit:</b> cuenta los unos del dato y escribe el bit que haga que el total sea par o impar, según se pida. Se añade a la izquierda.</p>
+    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)"><b>Detectar un error:</b> te llega una palabra de 8 bits con su paridad. Cuenta los unos y decide si ha llegado bien. Pulsa el veredicto para cambiarlo.</p>
+  </div>
+  <div class="ej" data-tipo="paridad"></div>
+</section>
+
+<!-- 90 Texto: paridad bidimensional -->
+<section data-label="Paridad bidimensional" data-notas="Para localizar el bit erróneo se organiza el bloque de datos en filas y columnas y se calcula la paridad de cada fila y de cada columna (aquí paridad par). Si un bit cambia, fallan a la vez la paridad de su fila y la de su columna: el cruce dice exactamente cuál es, y como solo puede valer 0 o 1, basta con invertirlo para corregirlo. En el ejemplo el bit de la fila 2, columna 4 llegó cambiado: la fila 2 tiene 5 unos con paridad 0 (no cuadra) y la columna 4 tiene 2 unos con paridad 1 (no cuadra). Cuesta más redundancia: para 21 bits de datos se envían 11 bits de control. Las memorias ECC de los servidores y los códigos de los discos y de la telefonía móvil usan ideas parecidas, más sofisticadas." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.15fr;gap:80px">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.5 · Detección de errores</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Paridad bidimensional: localizar el error</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Los datos se colocan en filas y se calcula un bit de paridad <b style="color:var(--navy)">por fila</b> y otro <b style="color:var(--navy)">por columna</b>. Si un bit cambia, fallan a la vez la paridad de su fila y la de su columna: <b style="color:var(--navy)">el cruce señala el bit</b>.</p>
+    <ul style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:10px;font-size:21px;line-height:1.4">
+      <li style="display:flex;gap:16px"><span style="color:var(--ok);font-weight:800">✓</span><span>Localiza un error de un bit y, como solo puede valer 0 o 1, lo corrige invirtiéndolo.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--ok);font-weight:800">✓</span><span>Detecta la mayoría de los errores de dos bits.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--ko);font-weight:800">✗</span><span>Cuesta más redundancia: aquí, 11 bits de control para 21 de datos.</span></li>
+    </ul>
+    <div style="background:var(--white);border-radius:20px;padding:22px 30px;box-shadow:0 2px 0 var(--line);margin-top:var(--gap-item)">
+      <p style="font-size:20px;line-height:1.45;color:var(--muted)">En el ejemplo, el bit de la <b style="color:var(--navy)">fila 2, columna 4</b> llegó cambiado. La fila 2 tiene ahora cinco unos (no cuadra con paridad par) y la columna 4 tiene dos unos con paridad 1 (tampoco cuadra). Se invierte ese bit y el bloque queda corregido.</p>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
+    <div style="background:var(--white);border-radius:24px;padding:32px 40px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue)">Bloque recibido, paridad par por filas y columnas</p>
+      <table style="border-collapse:separate;border-spacing:6px;font-family:var(--mono);font-size:28px;font-weight:600;text-align:center;margin:16px auto 0;color:var(--navy)">
+        <tbody>
+          <tr><td style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:18px;font-weight:600;color:var(--muted);padding:0 12px">fila 1</td><td style="width:58px;height:58px;background:var(--bg);border-radius:10px">1</td><td style="width:58px;height:58px;background:var(--bg);border-radius:10px">0</td><td style="width:58px;height:58px;background:var(--bg);border-radius:10px">1</td><td style="width:58px;height:58px;background:var(--bg);border-radius:10px">1</td><td style="width:58px;height:58px;background:var(--bg);border-radius:10px">0</td><td style="width:58px;height:58px;background:var(--bg);border-radius:10px">1</td><td style="width:58px;height:58px;background:var(--bg);border-radius:10px">0</td><td style="width:16px"></td><td style="width:58px;height:58px;background:#E8F6EE;border-radius:10px;color:var(--ok)">0</td><td style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:18px;font-weight:600;color:var(--ok);padding:0 12px;text-align:left">4 unos ✓</td></tr>
+          <tr><td style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:18px;font-weight:600;color:var(--ko);padding:0 12px">fila 2</td><td style="width:58px;height:58px;background:#FBEAEA;border-radius:10px">0</td><td style="width:58px;height:58px;background:#FBEAEA;border-radius:10px">1</td><td style="width:58px;height:58px;background:#FBEAEA;border-radius:10px">1</td><td style="width:58px;height:58px;background:var(--ko);color:var(--white);border-radius:10px;box-shadow:0 0 0 4px var(--yellow)">1</td><td style="width:58px;height:58px;background:#FBEAEA;border-radius:10px">0</td><td style="width:58px;height:58px;background:#FBEAEA;border-radius:10px">1</td><td style="width:58px;height:58px;background:#FBEAEA;border-radius:10px">1</td><td></td><td style="width:58px;height:58px;background:#E8F6EE;border-radius:10px;color:var(--ok)">0</td><td style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:18px;font-weight:600;color:var(--ko);padding:0 12px;text-align:left">5 unos ✗</td></tr>
+          <tr><td style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:18px;font-weight:600;color:var(--muted);padding:0 12px">fila 3</td><td style="width:58px;height:58px;background:var(--bg);border-radius:10px">1</td><td style="width:58px;height:58px;background:var(--bg);border-radius:10px">1</td><td style="width:58px;height:58px;background:var(--bg);border-radius:10px">1</td><td style="width:58px;height:58px;background:#FBEAEA;border-radius:10px">0</td><td style="width:58px;height:58px;background:var(--bg);border-radius:10px">0</td><td style="width:58px;height:58px;background:var(--bg);border-radius:10px">1</td><td style="width:58px;height:58px;background:var(--bg);border-radius:10px">1</td><td></td><td style="width:58px;height:58px;background:#E8F6EE;border-radius:10px;color:var(--ok)">1</td><td style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:18px;font-weight:600;color:var(--ok);padding:0 12px;text-align:left">5 unos ✓</td></tr>
+          <tr><td style="height:12px"></td></tr>
+          <tr><td style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:18px;font-weight:600;color:var(--muted);padding:0 12px">paridad</td><td style="width:58px;height:58px;background:#E8F6EE;border-radius:10px;color:var(--ok)">0</td><td style="width:58px;height:58px;background:#E8F6EE;border-radius:10px;color:var(--ok)">0</td><td style="width:58px;height:58px;background:#E8F6EE;border-radius:10px;color:var(--ok)">1</td><td style="width:58px;height:58px;background:#FBEAEA;border-radius:10px;color:var(--ko)">1</td><td style="width:58px;height:58px;background:#E8F6EE;border-radius:10px;color:var(--ok)">0</td><td style="width:58px;height:58px;background:#E8F6EE;border-radius:10px;color:var(--ok)">1</td><td style="width:58px;height:58px;background:#E8F6EE;border-radius:10px;color:var(--ok)">0</td><td></td><td style="width:58px;height:58px;background:#E8F6EE;border-radius:10px;color:var(--ok)">1</td><td></td></tr>
+          <tr><td></td><td colspan="7" style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:18px;font-weight:600;color:var(--ko);padding-top:4px">columna 4: 2 unos con paridad 1 ✗</td><td></td><td></td><td></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:14px">Figura 1.32. La fila y la columna que no cuadran se cruzan en el bit erróneo (recuadro amarillo). Elaboración propia.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 91 Texto: códigos cíclicos (CRC) -->
+<section data-label="Códigos CRC" data-notas="Los códigos de redundancia cíclica son el método que se usa de verdad en redes y almacenamiento. El emisor trata el bloque de datos como un número enorme en binario, lo divide por un número fijo (el polinomio generador, que fija el estándar) y envía detrás de los datos el resto de esa división: 12, 16 o 32 bits según el CRC. El receptor repite la división; si el resto no coincide, el bloque llegó mal y se pide de nuevo. No hace falta saber hacer la división en clase: la idea es que un resto de 32 bits detecta prácticamente cualquier error de ráfaga y se calcula con un circuito de desplazamiento muy sencillo. Dónde lo ven: cada trama Ethernet y wifi lleva un CRC-32 al final; los archivos ZIP guardan el CRC-32 de cada archivo (es el error que sale al descomprimir un ZIP dañado); las imágenes PNG y los sectores de los discos duros también. Regla general de todo el apartado: más bits de control, más errores detectados y menos eficiencia, porque se transmiten bits que no son datos." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.15fr;gap:80px">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.5.5 · Detección de errores</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Códigos cíclicos: el CRC</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">El emisor trata el bloque de datos como un número binario enorme, lo <b style="color:var(--navy)">divide por un número fijo</b> (el polinomio generador, que marca el estándar) y envía el <b style="color:var(--navy)">resto</b> detrás de los datos. El receptor repite la división: si su resto no coincide, el bloque llegó mal.</p>
+    <table style="width:100%;border-collapse:collapse;margin-top:var(--gap-item);font-size:21px;background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 2px 0 var(--line)">
+      <thead><tr style="background:var(--navy);color:var(--white);text-align:left"><th style="padding:12px 22px;font-weight:700">Código</th><th style="padding:12px 22px;font-weight:700">Bits de control</th><th style="padding:12px 22px;font-weight:700">Dónde se usa</th></tr></thead>
+      <tbody style="line-height:1.35">
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:12px 22px;font-weight:700;color:var(--navy)">CRC-12</td><td style="padding:12px 22px">12</td><td style="padding:12px 22px">Telemetría y sistemas antiguos.</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:12px 22px;font-weight:700;color:var(--navy)">CRC-16</td><td style="padding:12px 22px">16</td><td style="padding:12px 22px">Buses industriales (Modbus), USB, Bluetooth.</td></tr>
+        <tr><td style="padding:12px 22px;font-weight:700;color:var(--navy)">CRC-32</td><td style="padding:12px 22px">32</td><td style="padding:12px 22px">Tramas Ethernet y wifi, archivos ZIP y PNG, sectores de disco.</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Tabla 1.18. Familias de CRC más habituales.</p>
+    <div style="display:flex;gap:20px;align-items:center;background:var(--yellow);border-radius:20px;padding:20px 28px;margin-top:var(--gap-item)">
+      <span style="font-size:36px;line-height:1">⚖</span>
+      <p style="font-size:20px;line-height:1.45;color:var(--navy)"><b>Regla general:</b> cuantos más bits de control, más errores se detectan y menos eficiencia, porque se transmiten bits que no son datos. Cada sistema elige su equilibrio.</p>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
+    <svg viewBox="0 0 800 470" style="width:100%;height:auto;display:block" role="img" aria-label="El emisor divide los datos por el generador y añade el resto; el receptor repite la división y compara">
+      <defs><marker id="fl91" markerUnits="userSpaceOnUse" markerWidth="20" markerHeight="20" refX="16" refY="10" orient="auto"><path d="M0,0 L20,10 L0,20 z" fill="#4F8AE0"/></marker></defs>
+      <text x="20" y="40" font-size="22" font-weight="800" fill="#15356B" font-family="Plus Jakarta Sans, system-ui, sans-serif">Emisor</text>
+      <rect x="20" y="56" width="440" height="70" rx="14" fill="#0B4AB5"/><text x="240" y="100" text-anchor="middle" font-size="24" font-weight="700" fill="#fff" font-family="Plus Jakarta Sans, system-ui, sans-serif">datos (miles de bits)</text>
+      <text x="480" y="100" font-size="30" font-weight="700" fill="#485168" font-family="JetBrains Mono, Consolas, monospace">÷</text>
+      <rect x="520" y="56" width="180" height="70" rx="14" fill="#fff" stroke="#15356B" stroke-width="3"/><text x="610" y="92" text-anchor="middle" font-size="19" font-weight="700" fill="#15356B" font-family="Plus Jakarta Sans, system-ui, sans-serif">generador</text><text x="610" y="114" text-anchor="middle" font-size="16" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">fijado por el estándar</text>
+      <line x1="610" y1="132" x2="610" y2="180" stroke="#4F8AE0" stroke-width="5" marker-end="url(#fl91)"/>
+      <text x="640" y="165" font-size="18" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">resto de la división</text>
+      <rect x="20" y="190" width="560" height="70" rx="14" fill="#0B4AB5"/><text x="300" y="234" text-anchor="middle" font-size="24" font-weight="700" fill="#fff" font-family="Plus Jakarta Sans, system-ui, sans-serif">datos</text>
+      <rect x="580" y="190" width="200" height="70" rx="14" fill="#F4C20D"/><text x="680" y="226" text-anchor="middle" font-size="22" font-weight="800" fill="#15356B" font-family="Plus Jakarta Sans, system-ui, sans-serif">CRC</text><text x="680" y="248" text-anchor="middle" font-size="16" fill="#15356B" font-family="Plus Jakarta Sans, system-ui, sans-serif">12, 16 o 32 bits</text>
+      <text x="400" y="292" text-anchor="middle" font-size="18" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">se transmite todo junto: los datos y, al final, el resto</text>
+      <line x1="400" y1="300" x2="400" y2="340" stroke="#4F8AE0" stroke-width="5" marker-end="url(#fl91)"/>
+      <text x="20" y="372" font-size="22" font-weight="800" fill="#15356B" font-family="Plus Jakarta Sans, system-ui, sans-serif">Receptor</text>
+      <rect x="20" y="386" width="360" height="60" rx="14" fill="#fff" stroke="#15356B" stroke-width="3"/><text x="200" y="424" text-anchor="middle" font-size="20" font-weight="700" fill="#15356B" font-family="Plus Jakarta Sans, system-ui, sans-serif">divide otra vez los datos</text>
+      <rect x="400" y="386" width="180" height="60" rx="14" fill="#E8F6EE" stroke="#1E8E5A" stroke-width="3"/><text x="490" y="412" text-anchor="middle" font-size="18" font-weight="700" fill="#1E8E5A" font-family="Plus Jakarta Sans, system-ui, sans-serif">¿mismo resto?</text><text x="490" y="434" text-anchor="middle" font-size="16" fill="#1E8E5A" font-family="Plus Jakarta Sans, system-ui, sans-serif">sí: bloque correcto</text>
+      <rect x="600" y="386" width="180" height="60" rx="14" fill="#FBEAEA" stroke="#C0392B" stroke-width="3"/><text x="690" y="412" text-anchor="middle" font-size="18" font-weight="700" fill="#C0392B" font-family="Plus Jakarta Sans, system-ui, sans-serif">resto distinto</text><text x="690" y="434" text-anchor="middle" font-size="16" fill="#C0392B" font-family="Plus Jakarta Sans, system-ui, sans-serif">error: se pide de nuevo</text>
+    </svg>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:10px">Figura 1.33. Funcionamiento de un CRC. La división se hace con un circuito de desplazamiento muy sencillo, bit a bit, a la velocidad de la red. Elaboración propia.</p>
+  </div>
+</section>
+
 </deck-stage>
 <script src="../assets/deck-stage.js"></script>
 <script src="../assets/som.js"></script>

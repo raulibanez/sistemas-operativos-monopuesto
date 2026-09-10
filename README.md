@@ -26,7 +26,9 @@ En `assets/som.js` están los generadores de ejercicios con números al azar. Se
 <div class="ej" data-tipo="dec2bin" data-min="16" data-max="255"></div>
 ```
 
-Tipos disponibles: `dec2bin`, `bin2dec`, `sumabin` (suma vertical con huecos y pistas), `restac2`. Los quiz de opción múltiple usan la clase `quiz` con `data-correct`.
+Todos se resuelven en vertical, con huecos, como en la pizarra: **Comprobar**, **Pista** (rellena la siguiente casilla y la explica), **Resolver**, **Otro ejercicio** y racha de aciertos. Tipos disponibles: `bin2dec` (tabla de pesos), `dec2bin` (divisiones entre 2), `decfrac2bin` (multiplicaciones por 2), `bases` (binario, octal, hexadecimal y decimal; `data-modo` fija uno de `bin2oct`, `bin2hex`, `oct2bin`, `hex2bin`, `hex2dec`), `sumabin`, `restabin` (con botón Invertir y signo), `logica` (`data-modo` NOT, AND, OR, XOR, NAND o NOR), `c1c2`, `restac2` (por pasos) y `paridad` (`data-modo` `calcular` o `detectar`, `data-paridad` `par` o `impar`). Atributos comunes: `data-bits`, `data-min`, `data-max`. Los quiz de opción múltiple usan la clase `quiz` con `data-correct`.
+
+Un ejemplo resuelto se maqueta con la misma rejilla sin casillas: `<div class="sv compacta" style="grid-template-columns:…">` con `<span class="lbl">`, `<span class="d">` (y `d res`, `d carry`, `d tenue`) y `<div class="linea">`.
 
 ## Pregunta a la clase
 

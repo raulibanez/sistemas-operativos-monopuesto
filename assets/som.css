@@ -242,11 +242,17 @@ deck-stage section:has(> .ej) { grid-template-rows: minmax(0, 1fr); }
   .ej-sol[hidden] { display: block; }
 }
 
-/* ---------- Suma vertical con huecos ---------- */
+/* ---------- Rejilla vertical con huecos (como en la pizarra) ----------
+   La monta som.js a partir del generador: columnas por ejercicio (grid-template-columns
+   en línea), etiquetas .lbl, datos .d, casillas .c y raya .linea. Con la clase .compacta
+   caben 8 o 9 casillas por fila. También sirve, sin casillas, para un ejemplo resuelto
+   en una diapositiva: <div class="sv" style="grid-template-columns:…"><span class="lbl">… */
 .sv {
+  --cel: 86px;
+  --fs: 52px;
   display: grid;
   grid-template-columns: 170px repeat(var(--w, 5), 86px);
-  gap: 10px 10px;
+  gap: 10px;
   align-items: center;
   justify-content: center;
   font-family: var(--mono);
@@ -261,16 +267,26 @@ deck-stage section:has(> .ej) { grid-template-rows: minmax(0, 1fr); }
   color: var(--muted);
   text-align: right;
   padding-right: 14px;
+  line-height: 1.15;
 }
-.sv .d { text-align: center; height: 86px; line-height: 86px; }
+.sv .d { text-align: center; height: var(--cel); line-height: var(--cel); white-space: nowrap; }
+.sv .d.peq { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 22px; color: var(--muted); }
+.sv .d.op { color: var(--muted); font-size: 34px; }
+.sv .d.dec, .sv .d.ancho { font-size: 34px; letter-spacing: .06em; }
+.sv .d.tenue { color: #9AA6BE; }
+.sv .d.marca { color: var(--blue); text-decoration: underline; text-decoration-color: var(--yellow); text-decoration-thickness: 5px; text-underline-offset: 8px; }
+.sv .d.res { background: #E8F6EE; border-radius: 12px; color: var(--ok); }
+.sv .d.carry { font-size: 30px; color: var(--sky); height: 44px; line-height: 44px; }
+.sv .d[data-espejo] { color: var(--sky); font-size: 34px; }
+.sv .d[data-espejo].vacio { color: #B8C2D6; }
 .sv .c {
-  width: 86px;
-  height: 86px;
-  margin: 0 auto;
+  width: 100%;
+  height: var(--cel);
+  margin: 0;
   padding: 0;
   text-align: center;
   font-family: var(--mono);
-  font-size: 52px;
+  font-size: var(--fs);
   font-weight: 600;
   color: var(--navy);
   background: var(--bg);
@@ -279,14 +295,57 @@ deck-stage section:has(> .ej) { grid-template-rows: minmax(0, 1fr); }
   outline: none;
   caret-color: var(--blue);
 }
-.sv .c.carry { width: 62px; height: 62px; font-size: 36px; border-style: dashed; }
+.sv .c.carry { width: 62px; height: 62px; margin: 0 auto; font-size: 36px; border-style: dashed; }
+.sv .c.num, .sv .c.dec { font-size: 30px; letter-spacing: 0; }
+.sv .c.bin { font-size: 30px; letter-spacing: .12em; }
+.sv .c.hex { text-transform: uppercase; }
+.sv .c.sobra { border-color: var(--sky); border-width: 4px; }
+.sv .c.par { border-color: var(--sky); border-width: 4px; }
+.sv .c.sel {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  background: var(--white);
+  cursor: pointer;
+  transition: background .15s;
+}
+.sv .c.sel:hover { background: #EEF3FB; }
 .sv .c:focus { border-color: var(--sky); box-shadow: 0 0 0 4px rgba(79,138,224,.2); }
 .sv .c.ok { border-color: var(--ok); background: #E8F6EE; }
 .sv .c.ko { border-color: var(--ko); background: #FBEAEA; }
 .sv .c.pista { border-color: var(--yellow); background: #FFF6D1; }
 .sv .linea { grid-column: 2 / -1; height: 5px; background: var(--navy); border-radius: 3px; }
+.sv .linea.suave { height: 2px; background: var(--line); margin: 6px 0; }
+.sv.compacta { --cel: 58px; --fs: 32px; gap: 8px; font-size: 36px; }
+.sv.compacta .lbl { font-size: 19px; padding-right: 10px; }
+.sv.compacta .c.carry { width: 42px; height: 42px; font-size: 24px; }
+.sv.compacta .c.num, .sv.compacta .c.dec, .sv.compacta .c.bin { font-size: 24px; }
+.sv.compacta .d.op, .sv.compacta .d.dec, .sv.compacta .d.ancho, .sv.compacta .d[data-espejo] { font-size: 26px; }
+.sv.compacta .d.carry { font-size: 22px; height: 34px; line-height: 34px; }
+.sv.compacta .c.sel { font-size: 21px; }
+.sv.mini { --cel: 50px; --fs: 28px; gap: 6px; font-size: 32px; }
+.sv.mini .lbl { font-size: 18px; }
+.sv.mini .c.carry { width: 38px; height: 38px; font-size: 22px; }
+.sv.mini .c.num, .sv.mini .c.dec, .sv.mini .c.bin { font-size: 22px; }
+.sv.mini .d.op, .sv.mini .d.dec, .sv.mini .d.ancho, .sv.mini .d[data-espejo] { font-size: 24px; }
+.sv.mini .linea.suave { margin: 2px 0; }
 .sv ~ .ej-fb { flex: 1; min-height: 0; overflow: auto; font-size: 24px; line-height: 1.45; }
 .sv ~ .ej-fila .btn { padding: 16px 30px; font-size: var(--type-caption); }
+.ej-acciones { display: contents; }
+.ej-ops { display: flex; flex-wrap: wrap; gap: 10px; margin-top: -10px; }
+.ej-ops[hidden] { display: none; }
+.ej-ops button {
+  font: 700 18px/1 'Plus Jakarta Sans', system-ui, sans-serif;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 2px solid var(--line);
+  background: var(--white);
+  color: var(--navy);
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+.ej-ops button:hover { border-color: var(--sky); }
+.ej-ops button.activo { background: var(--navy); border-color: var(--navy); color: var(--white); }
 
 /* ---------- Tabla de reglas (casos de una columna) ---------- */
 .tabla-reglas {
