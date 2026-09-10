@@ -1054,6 +1054,474 @@
   </div>
 </section>
 
+<!-- ============ BLOQUE 4 · Software, licencias y normativa ============ -->
+
+<!-- 37 Texto: qué es el software y cómo arranca el ordenador -->
+<section data-label="Qué es el software" data-notas="Arranque del apartado 1.4. Software: todo lo que no es físico, programas y datos. Insistir en el recorrido: los programas viven en la memoria auxiliar, se cargan en la RAM y el micro los ejecuta instrucción a instrucción en lenguaje máquina (enlaza con el ciclo de instrucción del apartado anterior). Orden de arranque: la UEFI que está en la ROM de la placa comprueba el hardware y busca el disco de arranque; carga el sistema operativo; el SO carga los programas que abre el usuario. Preguntar: ¿qué pasa si el disco está vacío? La UEFI se queda buscando un sistema que arrancar: se ve en la UT4 y la UT8 al instalar." style="display:grid;grid-template-columns:1fr 1.15fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.4 · Software de un sistema informático</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Qué es el software y cómo arranca el ordenador</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">El software es la parte del sistema que <b>no es física</b>: los programas y los datos. Un programa es un conjunto de instrucciones que el microprocesador ejecuta una tras otra.</p>
+    <ul style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:18px;font-size:var(--type-caption);line-height:1.4">
+      <li style="display:flex;gap:18px"><span style="color:var(--blue);font-weight:800">●</span><span>Los programas se <b>guardan</b> en la memoria auxiliar (SSD, disco duro).</span></li>
+      <li style="display:flex;gap:18px"><span style="color:var(--blue);font-weight:800">●</span><span>Para ejecutarse se <b>cargan</b> en la memoria principal (RAM).</span></li>
+      <li style="display:flex;gap:18px"><span style="color:var(--blue);font-weight:800">●</span><span>El microprocesador los lee y ejecuta <b>instrucción a instrucción</b>, siempre en lenguaje máquina.</span></li>
+      <li style="display:flex;gap:18px"><span style="color:var(--blue);font-weight:800">●</span><span>Lo primero que se ejecuta al encender es el <b>sistema operativo</b>: el conjunto de programas que controla todo el equipo.</span></li>
+    </ul>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;gap:20px;min-width:0">
+    <svg viewBox="0 0 960 330" style="width:100%;height:auto;display:block" role="img" aria-label="Los programas pasan de la memoria auxiliar a la memoria principal y de ahí al microprocesador">
+      <defs><marker id="b4flecha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#15356B"/></marker></defs>
+      <rect x="10" y="30" width="290" height="270" rx="22" fill="#fff" stroke="#D7DCE6" stroke-width="3"/>
+      <text x="155" y="74" text-anchor="middle" font-size="24" font-weight="800" fill="#15356B">Memoria auxiliar</text>
+      <text x="155" y="102" text-anchor="middle" font-size="18" fill="#485168">SSD o disco duro · no volátil</text>
+      <rect x="35" y="125" width="240" height="38" rx="9" fill="#F5F6F9"/><text x="50" y="150" font-size="18" fill="#1F2937">Sistema operativo</text>
+      <rect x="35" y="171" width="240" height="38" rx="9" fill="#F5F6F9"/><text x="50" y="196" font-size="18" fill="#1F2937">Programas instalados</text>
+      <rect x="35" y="217" width="240" height="38" rx="9" fill="#F5F6F9"/><text x="50" y="242" font-size="18" fill="#1F2937">Documentos, fotos, vídeos</text>
+      <text x="155" y="285" text-anchor="middle" font-size="16" fill="#485168">Lo que se guarda</text>
+      <line x1="305" y1="165" x2="355" y2="165" stroke="#15356B" stroke-width="4" marker-end="url(#b4flecha)"/>
+      <text x="330" y="148" text-anchor="middle" font-size="16" font-weight="700" fill="#0B4AB5">carga</text>
+      <rect x="360" y="30" width="290" height="270" rx="22" fill="#FFF6D1" stroke="#F4C20D" stroke-width="3"/>
+      <text x="505" y="74" text-anchor="middle" font-size="24" font-weight="800" fill="#15356B">Memoria principal</text>
+      <text x="505" y="102" text-anchor="middle" font-size="18" fill="#485168">RAM · volátil</text>
+      <rect x="385" y="125" width="240" height="38" rx="9" fill="#fff"/><text x="400" y="150" font-size="18" fill="#1F2937">Sistema operativo</text>
+      <rect x="385" y="171" width="240" height="38" rx="9" fill="#fff"/><text x="400" y="196" font-size="18" fill="#1F2937">Programa en ejecución</text>
+      <rect x="385" y="217" width="240" height="38" rx="9" fill="#fff"/><text x="400" y="242" font-size="18" fill="#1F2937">Sus datos</text>
+      <text x="505" y="285" text-anchor="middle" font-size="16" fill="#485168">Lo que se está usando</text>
+      <line x1="655" y1="165" x2="705" y2="165" stroke="#15356B" stroke-width="4" marker-end="url(#b4flecha)"/>
+      <text x="680" y="148" text-anchor="middle" font-size="16" font-weight="700" fill="#0B4AB5">lee</text>
+      <rect x="710" y="30" width="240" height="270" rx="22" fill="#15356B"/>
+      <text x="830" y="74" text-anchor="middle" font-size="24" font-weight="800" fill="#fff">Microprocesador</text>
+      <text x="830" y="102" text-anchor="middle" font-size="18" fill="#C9D6EE">ejecuta</text>
+      <text x="830" y="160" text-anchor="middle" font-size="22" font-family="JetBrains Mono, Consolas, monospace" fill="#F4C20D">10111000</text>
+      <text x="830" y="192" text-anchor="middle" font-size="22" font-family="JetBrains Mono, Consolas, monospace" fill="#F4C20D">00000010</text>
+      <text x="830" y="224" text-anchor="middle" font-size="22" font-family="JetBrains Mono, Consolas, monospace" fill="#F4C20D">00000000</text>
+      <text x="830" y="285" text-anchor="middle" font-size="16" fill="#C9D6EE">instrucción a instrucción</text>
+    </svg>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+      <div style="background:var(--white);border-radius:16px;padding:18px 22px;box-shadow:0 2px 0 var(--line)"><p style="font-size:20px;font-weight:800;color:var(--blue)">1 · Al encender</p><p style="font-size:18px;color:var(--muted);line-height:1.35;margin-top:6px">La UEFI, guardada en la ROM de la placa, comprueba el hardware y busca un disco con sistema.</p></div>
+      <div style="background:var(--white);border-radius:16px;padding:18px 22px;box-shadow:0 2px 0 var(--line)"><p style="font-size:20px;font-weight:800;color:var(--blue)">2 · Sistema operativo</p><p style="font-size:18px;color:var(--muted);line-height:1.35;margin-top:6px">Se carga desde el disco a la RAM y toma el control del equipo.</p></div>
+      <div style="background:var(--white);border-radius:16px;padding:18px 22px;box-shadow:0 2px 0 var(--line)"><p style="font-size:20px;font-weight:800;color:var(--blue)">3 · Programas</p><p style="font-size:18px;color:var(--muted);line-height:1.35;margin-top:6px">El sistema operativo carga cada programa que abres y le reparte memoria y procesador.</p></div>
+    </div>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.17. Recorrido de un programa desde el disco hasta el microprocesador. Elaboración propia.</p>
+  </div>
+</section>
+
+<!-- 38 Comparativa: lenguajes de bajo y alto nivel -->
+<section data-label="Lenguajes de bajo y alto nivel" data-notas="Las tres columnas hacen lo mismo: sumar 2 y 3. El código máquina y el ensamblador son los de un procesador x86 en modo de 16 bits: B8 02 00 es mov ax, 2 y 05 03 00 es add ax, 3; cada instrucción de ensamblador equivale a una de máquina, solo cambia la escritura. Lenguaje máquina: el único que el micro entiende directamente, y distinto para cada familia de procesadores. Alto nivel: el mismo programa vale para cualquier ordenador, pero hay que traducirlo (siguiente diapositiva). Que se fijen en el registro AX: es el acumulador del apartado 1.3. Enlaza con el módulo de Aplicaciones Ofimáticas y con el de Programación de 2.º si lo hay en el centro." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.4 · Software de un sistema informático</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Lenguajes de bajo y alto nivel</h2>
+  <p style="font-size:var(--type-caption);line-height:1.45;color:var(--muted);margin-top:18px">Un lenguaje de programación es un conjunto de símbolos y reglas para dar instrucciones al ordenador. Las tres columnas hacen lo mismo: sumar 2 y 3.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;margin-top:28px;flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+      <div style="background:#0B1F44;border-radius:18px;overflow:hidden;border:2px solid rgba(255,255,255,.1)">
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 22px;background:rgba(255,255,255,.06);font-size:18px;color:#9FB4D9"><span style="width:12px;height:12px;border-radius:50%;background:var(--ko);display:block"></span>Lenguaje máquina</div>
+        <pre style="margin:0;padding:22px 24px;font-family:var(--mono);font-size:21px;line-height:1.6;color:#F4C20D;white-space:pre">10111000 00000010 00000000
+00000101 00000011 00000000</pre>
+      </div>
+      <p style="font-size:22px;font-weight:800;color:var(--navy)">Bajo nivel · máquina</p>
+      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;font-size:20px;line-height:1.35">
+        <li style="display:flex;gap:12px"><span style="color:var(--ok);font-weight:800">+</span><span>El único que el microprocesador entiende directamente.</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--ko);font-weight:800">−</span><span>Solo ceros y unos: casi imposible de escribir y leer.</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--ko);font-weight:800">−</span><span>Distinto para cada familia de procesadores.</span></li>
+      </ul>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+      <div style="background:#0B1F44;border-radius:18px;overflow:hidden;border:2px solid rgba(255,255,255,.1)">
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 22px;background:rgba(255,255,255,.06);font-size:18px;color:#9FB4D9"><span style="width:12px;height:12px;border-radius:50%;background:var(--yellow);display:block"></span>Ensamblador x86</div>
+        <pre style="margin:0;padding:22px 24px;font-family:var(--mono);font-size:21px;line-height:1.6;color:#E3EBF8;white-space:pre"><span style="color:#F4C20D">mov</span> ax, 2   <span style="color:#9FB4D9">; AX = 2</span>
+<span style="color:#F4C20D">add</span> ax, 3   <span style="color:#9FB4D9">; AX = AX + 3</span></pre>
+      </div>
+      <p style="font-size:22px;font-weight:800;color:var(--navy)">Bajo nivel · ensamblador</p>
+      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;font-size:20px;line-height:1.35">
+        <li style="display:flex;gap:12px"><span style="color:var(--ok);font-weight:800">+</span><span>Cada instrucción equivale a una de máquina: se traduce rápido y controla el hardware al detalle.</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--ko);font-weight:800">−</span><span>Sigue dependiendo del procesador y es laborioso.</span></li>
+      </ul>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+      <div style="background:#0B1F44;border-radius:18px;overflow:hidden;border:2px solid rgba(255,255,255,.1)">
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 22px;background:rgba(255,255,255,.06);font-size:18px;color:#9FB4D9"><span style="width:12px;height:12px;border-radius:50%;background:var(--ok);display:block"></span>Python</div>
+        <pre style="margin:0;padding:22px 24px;font-family:var(--mono);font-size:21px;line-height:1.6;color:#E3EBF8;white-space:pre">total = 2 + 3
+<span style="color:#F4C20D">print</span>(total)</pre>
+      </div>
+      <p style="font-size:22px;font-weight:800;color:var(--navy)">Alto nivel</p>
+      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;font-size:20px;line-height:1.35">
+        <li style="display:flex;gap:12px"><span style="color:var(--ok);font-weight:800">+</span><span>Se parece al lenguaje humano y es portable: el mismo programa vale para cualquier ordenador.</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--ko);font-weight:800">−</span><span>Hay que traducirlo a lenguaje máquina: compilar o interpretar.</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--blue);font-weight:800">●</span><span>Python, Java, C, C++, C#, JavaScript, PHP, Go, Rust.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 39 Comparativa: compilar o interpretar -->
+<section data-label="Compilar o interpretar" data-notas="Compilar: un programa (el compilador) traduce todo el código fuente a código máquina una sola vez y genera un ejecutable; después se ejecuta directamente, y rápido, todas las veces que haga falta. Interpretar: otro programa (el intérprete) va traduciendo y ejecutando el código fuente línea a línea cada vez que se lanza; más lento, pero se prueba al instante y funciona en cualquier equipo que tenga el intérprete. Java y C# son un caso intermedio: se compilan a un código intermedio (bytecode) que ejecuta una máquina virtual. Ejemplo cercano: el navegador lleva dentro un intérprete de JavaScript, y por eso una página web se ejecuta en cualquier ordenador. Enlace con la práctica 2: un ejecutable compilado para Windows no funciona en Linux sin más; un script de Python sí, si está instalado el intérprete." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.4 · Software de un sistema informático</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Compilar o interpretar</h2>
+  <p style="font-size:var(--type-caption);line-height:1.45;color:var(--muted);margin-top:18px">Un programa de alto nivel no lo entiende el microprocesador. Hay dos formas de traducirlo a lenguaje máquina.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:28px;flex:1;min-height:0">
+    <div style="background:var(--navy);color:var(--white);border-radius:24px;padding:36px 44px;display:flex;flex-direction:column;gap:22px">
+      <h3 style="font-size:var(--type-subtitle);font-weight:800">Compilar</h3>
+      <p style="font-size:21px;line-height:1.4;color:#C9D6EE">Traducir <b style="color:var(--white)">todo el programa</b> a código máquina <b style="color:var(--white)">una sola vez</b>. El resultado es un ejecutable que se lanza directamente.</p>
+      <div style="display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700;flex-wrap:wrap">
+        <span style="background:rgba(255,255,255,.1);border-radius:12px;padding:12px 16px">Código fuente</span><span style="color:var(--yellow);font-size:26px">→</span>
+        <span style="background:var(--yellow);color:var(--navy);border-radius:12px;padding:12px 16px">Compilador</span><span style="color:var(--yellow);font-size:26px">→</span>
+        <span style="background:rgba(255,255,255,.1);border-radius:12px;padding:12px 16px">Ejecutable (.exe)</span><span style="color:var(--yellow);font-size:26px">→</span>
+        <span style="background:rgba(255,255,255,.1);border-radius:12px;padding:12px 16px">Se ejecuta N veces</span>
+      </div>
+      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;font-size:20px;line-height:1.35;color:#E3EBF8">
+        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">+</span><span>Ejecución rápida: ya está en código máquina.</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">+</span><span>No hace falta entregar el código fuente.</span></li>
+        <li style="display:flex;gap:12px"><span style="color:#9FB4D9;font-weight:800">−</span><span>Cada cambio obliga a compilar de nuevo; el ejecutable solo vale para un sistema (Windows, Linux, macOS).</span></li>
+      </ul>
+      <p style="font-size:19px;color:#9FB4D9;margin-top:auto;line-height:1.35"><b style="color:var(--white)">Lenguajes compilados:</b> C, C++, Go, Rust, Pascal.</p>
+    </div>
+    <div style="background:var(--white);border:3px solid var(--line);border-radius:24px;padding:36px 44px;display:flex;flex-direction:column;gap:22px">
+      <h3 style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy)">Interpretar</h3>
+      <p style="font-size:21px;line-height:1.4;color:var(--muted)">Traducir y ejecutar el programa <b style="color:var(--ink)">línea a línea</b>, <b style="color:var(--ink)">cada vez</b> que se lanza. No se genera ningún ejecutable.</p>
+      <div style="display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700;flex-wrap:wrap;color:var(--navy)">
+        <span style="background:var(--bg);border-radius:12px;padding:12px 16px">Código fuente</span><span style="color:var(--blue);font-size:26px">→</span>
+        <span style="background:var(--blue);color:var(--white);border-radius:12px;padding:12px 16px">Intérprete</span><span style="color:var(--blue);font-size:26px">→</span>
+        <span style="background:var(--bg);border-radius:12px;padding:12px 16px">Traduce y ejecuta línea 1, línea 2…</span>
+      </div>
+      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;font-size:20px;line-height:1.35">
+        <li style="display:flex;gap:12px"><span style="color:var(--ok);font-weight:800">+</span><span>Se prueba al instante y el mismo código funciona donde haya intérprete.</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--ko);font-weight:800">−</span><span>Más lento: se traduce en cada ejecución.</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--ko);font-weight:800">−</span><span>El código fuente viaja con el programa.</span></li>
+      </ul>
+      <p style="font-size:19px;color:var(--muted);margin-top:auto;line-height:1.35"><b style="color:var(--navy)">Lenguajes interpretados:</b> Python, JavaScript, PHP, Bash. <b style="color:var(--navy)">Mixtos:</b> Java y C# se compilan a un código intermedio que ejecuta una máquina virtual.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 40 Pregunta: ¿sabéis programar? -->
+<section data-label="¿Sabéis programar?" data-notas="Preguntar quién ha programado algo (Scratch, Arduino, una macro, un bot de Discord) y qué lenguajes conocen de oídas. Al revelar aparece el ranking de la encuesta anual de Stack Overflow de 2025 (apartado Technology, lenguajes de programación, scripting y marcado, todos los encuestados): la pregunta que responden es con qué lenguajes han hecho trabajo de desarrollo extenso en el último año, así que mide uso, no fama. Es solo información, no hay tarea: sirve para que vean que los lenguajes que más se usan son de alto nivel y que JavaScript, HTML/CSS, SQL y Python están arriba porque están detrás de la web, los datos y la IA. Clic en el gráfico para verlo grande con scroll: comentar Bash y PowerShell (los verán en este módulo), el ensamblador con un 7 %, y abajo del todo COBOL (1 %) y Fortran, de los años cincuenta y todavía en bancos y ciencia. Recordar que los datos de una encuesta dependen de quién responde: son desarrolladores que usan Stack Overflow." style="display:grid;grid-template-columns:1fr 1.25fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
+  <div>
+    <img class="icono" src="../assets/question.png" alt="">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-top:var(--gap-item)">Pregunta a la clase</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.12;margin-top:20px;color:var(--navy);text-wrap:balance">¿Sabéis programar? ¿Cuáles son los lenguajes más usados?</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">¿Dónde se puede consultar un dato así con una fuente fiable? Pista: la mayor comunidad de programadores publica una encuesta cada año.</p>
+  </div>
+  <div class="revela" style="padding:32px 36px">
+    <div class="revela-cuerpo" style="display:flex;flex-direction:column;gap:18px;height:100%">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Stack Overflow Developer Survey 2025</p>
+      <figure class="foto scroll" style="height:520px;flex:none">
+        <img src="img/lenguajes-2025.png" alt="Ranking de lenguajes de programación de la encuesta de Stack Overflow de 2025: JavaScript, HTML/CSS, SQL, Python, Bash, TypeScript, Java, C#, C++, PowerShell, C, PHP, Go, Rust y otros" title="Gráfico: Stack Overflow Developer Survey 2025 · datos ODbL" style="object-fit:cover;object-position:center top">
+        <figcaption class="credito"><b>Programming, scripting, and markup languages</b>, todos los encuestados. Gráfico: <a href="https://survey.stackoverflow.co/2025/technology" target="_blank" rel="noopener">Stack Overflow Developer Survey 2025</a>, © Stack Overflow; datos con licencia <a href="https://opendatacommons.org/licenses/odbl/" target="_blank" rel="noopener">ODbL</a>. Uso educativo. Haz scroll para ver el ranking completo.</figcaption>
+      </figure>
+      <p style="font-size:20px;line-height:1.4;color:var(--muted)">Lenguajes con los que los encuestados han trabajado en el último año. Encuesta anual a decenas de miles de desarrolladores de todo el mundo. Todos son de alto nivel; el ensamblador aparece por debajo del 10 %. Haz clic en el gráfico y baja hasta el final: COBOL y Fortran siguen ahí.</p>
+    </div>
+    <button class="btn btn-primary revela-btn">Ver la respuesta</button>
+  </div>
+</section>
+
+<!-- 41 Tabla: tipos de software según su función -->
+<section data-label="Tipos de software" data-notas="Criterio c del BOCYL: tipos de software. Tres capas entre el hardware y el usuario. Software de base: hace que el hardware sea utilizable y oculta sus detalles; el sistema operativo es el ejemplo principal (Windows 11, Ubuntu, Android, iOS) y también los controladores o drivers, que enseñan al sistema a manejar cada dispositivo. Software de programación: herramientas para crear programas (compiladores, intérpretes y entornos de desarrollo integrados como Visual Studio, VS Code, Eclipse, IntelliJ o Android Studio). Software de aplicación: lo que usa el usuario final para su tarea. Preguntar dónde va un antivirus (aplicación), un driver de la impresora (base) o el propio navegador (aplicación, aunque hoy sea casi un sistema operativo). En el esquema, cada capa se apoya en la de abajo." style="display:grid;grid-template-columns:520px 1fr;gap:72px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.4.1 · Tipos de software</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Tipos de software según su función</h2>
+    <svg viewBox="0 0 520 470" style="width:100%;height:auto;display:block;margin-top:var(--gap-item)" role="img" aria-label="Capas: hardware, software de base, software de programación, software de aplicación y usuario">
+      <rect x="10" y="10" width="500" height="64" rx="16" fill="#F4C20D"/><text x="260" y="51" text-anchor="middle" font-size="24" font-weight="800" fill="#15356B">Usuario</text>
+      <rect x="10" y="92" width="500" height="92" rx="16" fill="#fff" stroke="#D7DCE6" stroke-width="3"/><text x="260" y="130" text-anchor="middle" font-size="24" font-weight="800" fill="#15356B">Software de aplicación</text><text x="260" y="162" text-anchor="middle" font-size="18" fill="#485168">ofimática, navegador, juegos, antivirus</text>
+      <rect x="10" y="202" width="500" height="92" rx="16" fill="#fff" stroke="#D7DCE6" stroke-width="3"/><text x="260" y="240" text-anchor="middle" font-size="24" font-weight="800" fill="#15356B">Software de programación</text><text x="260" y="272" text-anchor="middle" font-size="18" fill="#485168">compiladores, intérpretes, IDE</text>
+      <rect x="10" y="312" width="500" height="92" rx="16" fill="#0B4AB5"/><text x="260" y="350" text-anchor="middle" font-size="24" font-weight="800" fill="#fff">Software de base</text><text x="260" y="382" text-anchor="middle" font-size="18" fill="#C9D6EE">sistema operativo y controladores</text>
+      <rect x="10" y="422" width="500" height="44" rx="12" fill="#15356B"/><text x="260" y="451" text-anchor="middle" font-size="20" font-weight="800" fill="#F4C20D">Hardware</text>
+    </svg>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:14px">Figura 1.18. Cada capa se apoya en la de abajo. Elaboración propia.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
+    <table style="width:100%;border-collapse:collapse;font-size:22px;background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 2px 0 var(--line)">
+      <thead><tr style="background:var(--navy);color:var(--white);text-align:left"><th style="padding:18px 26px;font-weight:700">Tipo</th><th style="padding:18px 26px;font-weight:700">Para qué sirve</th><th style="padding:18px 26px;font-weight:700">Ejemplos</th></tr></thead>
+      <tbody style="line-height:1.35">
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:18px 26px;font-weight:700;color:var(--navy);white-space:nowrap">De base</td><td style="padding:18px 26px">Hace utilizable el ordenador y oculta los detalles del hardware al resto de programas</td><td style="padding:18px 26px">Sistemas operativos: Windows 11, Ubuntu, macOS, Android, iOS. Controladores (<i>drivers</i>) de la gráfica, la impresora, la wifi</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:18px 26px;font-weight:700;color:var(--navy);white-space:nowrap">De programación</td><td style="padding:18px 26px">Herramientas para crear otros programas</td><td style="padding:18px 26px">Compiladores e intérpretes (GCC, Python). Entornos de desarrollo (IDE): Visual Studio, VS Code, Eclipse, IntelliJ, Android Studio</td></tr>
+        <tr><td style="padding:18px 26px;font-weight:700;color:var(--navy);white-space:nowrap">De aplicación</td><td style="padding:18px 26px">Lo que usa la persona para hacer una tarea concreta</td><td style="padding:18px 26px">Ofimática (Word, LibreOffice), navegadores, juegos, antivirus, diseño (Photoshop, GIMP, Blender), programas a medida para una empresa</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:16px">Tabla 1.6. Tipos de software según su función. Los ejemplos son de 2026; una misma empresa puede fabricar software de los tres tipos.</p>
+  </div>
+</section>
+
+<!-- 42 Definición: software propietario, copyright y copyleft -->
+<section class="dark" data-label="Software propietario" data-notas="Criterio c del BOCYL. Una licencia es un contrato: el fabricante conserva la propiedad y te concede un permiso de uso con condiciones (número de equipos, tiempo, uso comercial o no). Al instalar cualquier programa se acepta un contrato de licencia (EULA) que casi nadie lee: pedir que abran el de algún programa que tengan. Copiar, distribuir o modificar sin permiso es infracción de la Ley de Propiedad Intelectual, con responsabilidad civil y, en casos graves, penal. Copyright y copyleft: el segundo es un juego de palabras (right, derecho o derecha; left, izquierda o dejado) y su símbolo es la C al revés. Ojo: el copyleft no renuncia a los derechos de autor, los usa para obligar a mantener las libertades. La C invertida no es un símbolo legal, es una marca del movimiento." style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.1fr;gap:100px;align-items:center">
+  <div>
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">1.4.2 · Licencias de software</p>
+    <h2 style="font-size:var(--type-hero);font-weight:800;line-height:1.02;margin-top:24px;letter-spacing:-.02em;text-wrap:balance">Software propietario</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:#C9D6EE;margin-top:var(--gap-item)">Pertenece a una empresa o a un autor y se usa bajo <b style="color:var(--white)">licencia</b>: un contrato que dice qué puedes hacer con él y qué no. Está protegido por los <b style="color:var(--white)">derechos de autor</b>, igual que un libro, una canción o una película.</p>
+    <p style="font-size:var(--type-caption);line-height:1.5;color:#9FB4D9;margin-top:var(--gap-item)">Copiarlo, distribuirlo o modificarlo sin permiso es una infracción de la Ley de Propiedad Intelectual. Al instalarlo aceptas el contrato de licencia (EULA), aunque no lo leas.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:28px">
+    <div style="display:grid;grid-template-columns:150px 1fr;gap:32px;align-items:center;background:rgba(255,255,255,.07);border-radius:24px;padding:32px 36px">
+      <span style="width:150px;height:150px;border-radius:50%;background:var(--white);color:var(--navy);display:grid;place-items:center;font-size:96px;font-weight:800;line-height:1">©</span>
+      <div><p style="font-size:var(--type-subtitle);font-weight:800">Copyright</p><p style="font-size:var(--type-caption);color:#C9D6EE;line-height:1.45;margin-top:8px">"Derecho de copia". Todos los derechos reservados: solo el autor decide quién puede copiar, distribuir o modificar la obra. Es lo que protege al software propietario.</p></div>
+    </div>
+    <div style="display:grid;grid-template-columns:150px 1fr;gap:32px;align-items:center;background:rgba(255,255,255,.07);border-radius:24px;padding:32px 36px">
+      <span style="width:150px;height:150px;border-radius:50%;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-size:96px;font-weight:800;line-height:1"><span style="display:inline-block;transform:scaleX(-1)">©</span></span>
+      <div><p style="font-size:var(--type-subtitle);font-weight:800">Copyleft</p><p style="font-size:var(--type-caption);color:#C9D6EE;line-height:1.45;margin-top:8px">"Permiso de copia". El autor usa sus derechos para permitir usar, copiar, distribuir y modificar la obra, con una condición: las versiones derivadas mantienen las mismas condiciones.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 43 Tabla: clasificación con ejemplos -->
+<section data-label="Clasificación por licencia" data-notas="La tabla cruza dos cosas que se confunden: pagar o no pagar, y tener o no libertad sobre el código. Gratis no es lo mismo que libre: CPU-Z es gratis, pero su licencia prohíbe redistribuirlo y no hay código; Red Hat Enterprise Linux es libre (GPL) y se paga la suscripción con soporte. Unreal Engine: se puede descargar y ver el código, pero es propietario y cobra un porcentaje a partir de cierta facturación. Código publicado sin licencia: por defecto todos los derechos son del autor, así que se puede leer pero no reutilizar; por eso GitHub insiste en añadir un archivo LICENSE (choosealicense.com). Vocabulario que aparece en anuncios y descargas: freeware (gratis, propietario), shareware (prueba gratuita, luego se paga), open source (código abierto). Enlaza con la práctica 2: la tabla de software por puesto lleva estas columnas." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.4.2 · Licencias de software</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Gratis no es lo mismo que libre</h2>
+  <table style="width:100%;border-collapse:collapse;margin-top:28px;font-size:21px;background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 2px 0 var(--line)">
+    <thead>
+      <tr style="background:var(--navy);color:var(--white);text-align:left">
+        <th style="padding:16px 24px;font-weight:700">Tipo</th>
+        <th style="padding:16px 24px;font-weight:700;text-align:center">¿Se paga?</th>
+        <th style="padding:16px 24px;font-weight:700;text-align:center">¿Código visible y modificable?</th>
+        <th style="padding:16px 24px;font-weight:700;text-align:center">¿Se puede redistribuir?</th>
+        <th style="padding:16px 24px;font-weight:700">Ejemplos</th>
+      </tr>
+    </thead>
+    <tbody style="line-height:1.3">
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:14px 24px;font-weight:700;color:var(--navy)">Propietario gratuito <span style="font-weight:400;color:var(--muted)">(<i>freeware</i>)</span></td><td style="padding:14px 24px;text-align:center;color:var(--ok);font-weight:800">No</td><td style="padding:14px 24px;text-align:center;color:var(--ko);font-weight:800">No</td><td style="padding:14px 24px;text-align:center;color:var(--ko);font-weight:800">Normalmente no</td><td style="padding:14px 24px">CPU-Z, Chrome, WhatsApp, Unreal Engine (gratis hasta cierta facturación)</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:14px 24px;font-weight:700;color:var(--navy)">Propietario de prueba <span style="font-weight:400;color:var(--muted)">(<i>shareware</i>)</span></td><td style="padding:14px 24px;text-align:center;color:var(--navy);font-weight:800">Tras la prueba</td><td style="padding:14px 24px;text-align:center;color:var(--ko);font-weight:800">No</td><td style="padding:14px 24px;text-align:center;color:var(--ko);font-weight:800">No</td><td style="padding:14px 24px">WinRAR, Sublime Text, versiones de prueba de antivirus</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:14px 24px;font-weight:700;color:var(--navy)">Propietario de pago</td><td style="padding:14px 24px;text-align:center;color:var(--navy);font-weight:800">Sí</td><td style="padding:14px 24px;text-align:center;color:var(--ko);font-weight:800">No</td><td style="padding:14px 24px;text-align:center;color:var(--ko);font-weight:800">No</td><td style="padding:14px 24px">Windows 11, Microsoft 365, Photoshop, la mayoría de los videojuegos</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:14px 24px;font-weight:700;color:var(--navy)">Libre gratuito</td><td style="padding:14px 24px;text-align:center;color:var(--ok);font-weight:800">No</td><td style="padding:14px 24px;text-align:center;color:var(--ok);font-weight:800">Sí</td><td style="padding:14px 24px;text-align:center;color:var(--ok);font-weight:800">Sí</td><td style="padding:14px 24px">Linux (Ubuntu, Debian), Blender, LibreOffice, VLC, GIMP</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:14px 24px;font-weight:700;color:var(--navy)">Libre de pago</td><td style="padding:14px 24px;text-align:center;color:var(--navy);font-weight:800">Sí, por soporte</td><td style="padding:14px 24px;text-align:center;color:var(--ok);font-weight:800">Sí</td><td style="padding:14px 24px;text-align:center;color:var(--ok);font-weight:800">Sí</td><td style="padding:14px 24px">Red Hat Enterprise Linux (RHEL), SUSE Linux Enterprise</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:14px 24px;font-weight:700;color:var(--navy)">Abierto <span style="font-weight:400;color:var(--muted)">(<i>open source</i>)</span></td><td style="padding:14px 24px;text-align:center;color:var(--ok);font-weight:800">No</td><td style="padding:14px 24px;text-align:center;color:var(--ok);font-weight:800">Sí</td><td style="padding:14px 24px;text-align:center;color:var(--ok);font-weight:800">Sí</td><td style="padding:14px 24px">Firefox, Android (AOSP), VS Code, Python. En la práctica, casi lo mismo que libre</td></tr>
+      <tr><td style="padding:14px 24px;font-weight:700;color:var(--navy)">Código publicado sin licencia</td><td style="padding:14px 24px;text-align:center;color:var(--muted);font-weight:800">—</td><td style="padding:14px 24px;text-align:center;color:var(--navy);font-weight:800">Ver sí, modificar no</td><td style="padding:14px 24px;text-align:center;color:var(--ko);font-weight:800">No</td><td style="padding:14px 24px">Un repositorio de GitHub sin archivo LICENSE: todos los derechos siguen siendo del autor</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:16px">Tabla 1.7. Clasificación del software por licencia. Las columnas responden a la licencia de cada programa en 2026; comprueba siempre la del producto concreto antes de usarlo en una empresa.</p>
+</section>
+
+<!-- 44 Texto + galería: GPL y las cuatro libertades -->
+<section data-label="GPL y las cuatro libertades" data-notas="Richard Stallman funda el proyecto GNU en 1983 y la Free Software Foundation en 1985, y escribe la GPL (1989; versión 2 en 1991, versión 3 en 2007). La definición de software libre son las cuatro libertades, numeradas de 0 a 3. Copyleft: la GPL obliga a que cualquier versión modificada que se distribuya lleve también la GPL y su código fuente; así nadie puede cerrar el programa. Linus Torvalds publica el núcleo Linux en 1991 y lo pasa a GPL versión 2 en 1992: la combinación GNU/Linux es el ejemplo más extendido de software libre. Licencias libres sin copyleft (permisivas): MIT, BSD, Apache 2.0; permiten incluso reutilizar el código en un producto propietario. Este detalle cae en el quiz y en el giro de la práctica 2 (el plugin construido sobre un tema GPL). Las flechas de la galería cambian de foto; clic para ampliar." style="display:grid;grid-template-columns:1fr 640px;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.4.2 · Licencias de software</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Software libre: la GPL y las cuatro libertades</h2>
+    <p style="font-size:var(--type-caption);line-height:1.45;color:var(--muted);margin-top:20px">Un programa es <b>libre</b> cuando su licencia garantiza a cualquier usuario estas cuatro libertades. La <b>GPL</b> (<i>GNU General Public License</i>) es la licencia libre más conocida.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px">
+      <div data-ir="1" style="display:flex;gap:16px;align-items:flex-start;background:var(--white);border-radius:16px;padding:16px 20px;box-shadow:0 2px 0 var(--line)"><span style="width:48px;height:48px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:22px;font-weight:800;flex:none">0</span><div><p style="font-size:21px;font-weight:700;color:var(--navy);line-height:1.25">Ejecutar</p><p style="font-size:18px;color:var(--muted);line-height:1.35;margin-top:4px">El programa, con cualquier propósito.</p></div></div>
+      <div data-ir="1" style="display:flex;gap:16px;align-items:flex-start;background:var(--white);border-radius:16px;padding:16px 20px;box-shadow:0 2px 0 var(--line)"><span style="width:48px;height:48px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:22px;font-weight:800;flex:none">1</span><div><p style="font-size:21px;font-weight:700;color:var(--navy);line-height:1.25">Estudiar y modificar</p><p style="font-size:18px;color:var(--muted);line-height:1.35;margin-top:4px">Cómo funciona y adaptarlo. Exige tener el código fuente.</p></div></div>
+      <div data-ir="1" style="display:flex;gap:16px;align-items:flex-start;background:var(--white);border-radius:16px;padding:16px 20px;box-shadow:0 2px 0 var(--line)"><span style="width:48px;height:48px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:22px;font-weight:800;flex:none">2</span><div><p style="font-size:21px;font-weight:700;color:var(--navy);line-height:1.25">Distribuir copias</p><p style="font-size:18px;color:var(--muted);line-height:1.35;margin-top:4px">Para ayudar a otros, gratis o cobrando.</p></div></div>
+      <div data-ir="1" style="display:flex;gap:16px;align-items:flex-start;background:var(--white);border-radius:16px;padding:16px 20px;box-shadow:0 2px 0 var(--line)"><span style="width:48px;height:48px;border-radius:50%;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-size:22px;font-weight:800;flex:none">3</span><div><p style="font-size:21px;font-weight:700;color:var(--navy);line-height:1.25">Mejorar y publicar las mejoras</p><p style="font-size:18px;color:var(--muted);line-height:1.35;margin-top:4px">Para que toda la comunidad se beneficie.</p></div></div>
+    </div>
+    <div data-ir="2" style="margin-top:22px;background:var(--navy);color:var(--white);border-radius:16px;padding:20px 26px;font-size:20px;line-height:1.4">
+      <p><b style="color:var(--yellow)">Copyleft.</b> La GPL añade una condición: si distribuyes una versión modificada, tiene que llevar la misma licencia y su código fuente. Así nadie puede cerrar lo que era libre. Linux, LibreOffice, GIMP y WordPress usan la GPL.</p>
+      <p style="margin-top:10px;color:#C9D6EE"><b style="color:var(--white)">Licencias libres sin copyleft</b> (permisivas): MIT, BSD, Apache 2.0. Permiten reutilizar el código incluso en un programa propietario.</p>
+    </div>
+  </div>
+  <div class="galeria" style="--galeria-alto:560px;--galeria-flex:none;justify-content:center">
+    <figure class="foto" data-pie="<b>Figura 1.19.</b> Richard Stallman, fundador del proyecto GNU (1983) y de la Free Software Foundation (1985), y autor de la GPL. En 2015, en la fiesta del 30.º aniversario de la FSF.">
+      <img src="img/stallman.jpg" alt="Retrato en blanco y negro de Richard Stallman" title="Foto: Frank Karlitschek · Wikimedia Commons · CC BY-SA 3.0">
+      <figcaption class="credito"><b>Richard Stallman</b> en Boston, octubre de 2015. Foto: Frank Karlitschek, <a href="https://commons.wikimedia.org/wiki/File:Richard_Stallman_(124442297).jpeg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.es" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Reducida.</figcaption>
+    </figure>
+    <figure class="foto" data-pie="<b>Figura 1.20.</b> Linus Torvalds, creador del núcleo Linux (1991), publicado bajo la GPL versión 2 desde 1992. Sigue coordinando su desarrollo.">
+      <img src="img/torvalds.jpg" alt="Linus Torvalds sonriendo durante una charla" title="Foto: Krd, recorte de Sprat · Wikimedia Commons · CC BY-SA 4.0" style="object-fit:cover;object-position:center 20%">
+      <figcaption class="credito"><b>Linus Torvalds</b> en LinuxCon Europe, Düsseldorf, 2014. Foto: Krd (recorte de Sprat), <a href="https://commons.wikimedia.org/wiki/File:LinuxCon_Europe_Linus_Torvalds_03_(cropped).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Reducida.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 45 Tabla: Creative Commons -->
+<section data-label="Creative Commons" data-notas="Creative Commons (2001) traslada la idea del copyleft a las obras creativas: textos, fotos, música, vídeo, apuntes. Cuatro condiciones que se combinan en seis licencias, de más a menos permisiva, más CC0 (dominio público). Ejemplos cercanos: las fotos de Wikimedia Commons de esta presentación son CC BY-SA, y estas mismas diapositivas están publicadas con CC BY-SA 4.0. Creative Commons desaconseja sus licencias para software: para eso están la GPL, MIT o Apache. Para buscar imágenes reutilizables: Wikimedia Commons, Openverse, o el filtro de licencia del buscador de imágenes. Lo que se hereda de este bloque a la práctica 2: cualquier imagen o texto que se use en un trabajo lleva autor y licencia." style="display:grid;grid-template-columns:1fr 1.25fr;gap:72px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.4.2 · Licencias</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Creative Commons: licencias para obras creativas</h2>
+    <p style="font-size:var(--type-caption);line-height:1.45;color:var(--muted);margin-top:20px">Para textos, fotos, música, vídeo o apuntes, no para software. El autor elige qué condiciones pone y las combina.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px">
+      <div style="display:flex;gap:16px;align-items:center;background:var(--white);border-radius:16px;padding:14px 18px;box-shadow:0 2px 0 var(--line)"><span style="width:64px;height:64px;border-radius:50%;background:var(--navy);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">BY</span><div><p style="font-size:20px;font-weight:700;color:var(--navy);line-height:1.2">Atribución</p><p style="font-size:17px;color:var(--muted);line-height:1.3;margin-top:3px">Hay que citar al autor. Está en todas.</p></div></div>
+      <div style="display:flex;gap:16px;align-items:center;background:var(--white);border-radius:16px;padding:14px 18px;box-shadow:0 2px 0 var(--line)"><span style="width:64px;height:64px;border-radius:50%;background:var(--navy);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">NC</span><div><p style="font-size:20px;font-weight:700;color:var(--navy);line-height:1.2">No comercial</p><p style="font-size:17px;color:var(--muted);line-height:1.3;margin-top:3px">No se puede usar para ganar dinero.</p></div></div>
+      <div style="display:flex;gap:16px;align-items:center;background:var(--white);border-radius:16px;padding:14px 18px;box-shadow:0 2px 0 var(--line)"><span style="width:64px;height:64px;border-radius:50%;background:var(--navy);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">ND</span><div><p style="font-size:20px;font-weight:700;color:var(--navy);line-height:1.2">Sin obras derivadas</p><p style="font-size:17px;color:var(--muted);line-height:1.3;margin-top:3px">Se copia tal cual, sin modificarla.</p></div></div>
+      <div style="display:flex;gap:16px;align-items:center;background:var(--white);border-radius:16px;padding:14px 18px;box-shadow:0 2px 0 var(--line)"><span style="width:64px;height:64px;border-radius:50%;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">SA</span><div><p style="font-size:20px;font-weight:700;color:var(--navy);line-height:1.2">Compartir igual</p><p style="font-size:17px;color:var(--muted);line-height:1.3;margin-top:3px">Las obras derivadas llevan la misma licencia (copyleft).</p></div></div>
+    </div>
+    <p style="font-size:19px;line-height:1.4;color:var(--muted);margin-top:auto;padding-top:20px">Estas diapositivas se publican con <b>CC BY-SA 4.0</b>, y las fotos de Wikimedia Commons que llevan son CC BY-SA. Creative Commons desaconseja sus licencias para software.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
+    <table style="width:100%;border-collapse:collapse;font-size:21px;background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 2px 0 var(--line)">
+      <thead><tr style="background:var(--navy);color:var(--white);text-align:left"><th style="padding:16px 24px;font-weight:700">Licencia</th><th style="padding:16px 24px;font-weight:700">Qué permite</th><th style="padding:16px 24px;font-weight:700">Típica de</th></tr></thead>
+      <tbody style="line-height:1.3">
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:14px 24px;font-weight:700;color:var(--navy);white-space:nowrap">CC0</td><td style="padding:14px 24px">Todo, sin condiciones: el autor renuncia a sus derechos (dominio público)</td><td style="padding:14px 24px">Bancos de fotos, datos públicos</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:14px 24px;font-weight:700;color:var(--navy);white-space:nowrap">CC BY</td><td style="padding:14px 24px">Copiar, modificar y vender, citando al autor</td><td style="padding:14px 24px">Artículos científicos en abierto</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:14px 24px;font-weight:700;color:var(--navy);white-space:nowrap">CC BY-SA</td><td style="padding:14px 24px">Lo mismo, pero las obras derivadas mantienen la licencia</td><td style="padding:14px 24px">Wikipedia, Wikimedia Commons, estas diapositivas</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:14px 24px;font-weight:700;color:var(--navy);white-space:nowrap">CC BY-NC</td><td style="padding:14px 24px">Copiar y modificar, sin fines comerciales</td><td style="padding:14px 24px">Apuntes, música independiente</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:14px 24px;font-weight:700;color:var(--navy);white-space:nowrap">CC BY-NC-SA</td><td style="padding:14px 24px">Sin fines comerciales y compartiendo igual</td><td style="padding:14px 24px">Recursos educativos abiertos</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:14px 24px;font-weight:700;color:var(--navy);white-space:nowrap">CC BY-ND</td><td style="padding:14px 24px">Copiar y difundir tal cual, incluso con fines comerciales</td><td style="padding:14px 24px">Comunicados, informes oficiales</td></tr>
+        <tr><td style="padding:14px 24px;font-weight:700;color:var(--navy);white-space:nowrap">CC BY-NC-ND</td><td style="padding:14px 24px">Solo copiar y difundir tal cual, sin fines comerciales: la más restrictiva</td><td style="padding:14px 24px">Fotografía y diseño de autor</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:16px">Tabla 1.8. Las licencias Creative Commons, de más a menos permisiva. Fuente: <a href="https://creativecommons.org/share-your-work/cclicenses/" target="_blank" rel="noopener">creativecommons.org</a>.</p>
+  </div>
+</section>
+
+<!-- 46 Pregunta: debate sobre licencias -->
+<section data-label="Debate: licencias" data-notas="Cuatro preguntas para debatir en grupos de tres o cuatro antes de revelar; cada grupo defiende una respuesta en voz alta. Respuestas de apoyo: 1) copyright reserva todos los derechos al autor; copyleft usa esos mismos derechos para obligar a que las copias y versiones sigan siendo libres. 2) Libre (FSF, 1985) pone el acento en la ética y las cuatro libertades del usuario; abierto (OSI, 1998) en las ventajas prácticas de desarrollar con el código a la vista. Casi todas las licencias cumplen las dos definiciones; la diferencia es el discurso, no el papel. 3) Las permisivas (MIT, BSD, Apache) dan más libertad a quien desarrolla, porque puede cerrar el resultado; la GPL da más garantías a quien usa, porque el programa nunca deja de ser libre. No hay respuesta única: depende de a quién se proteja. 4) Para obras creativas, Creative Commons; para software, GPL, MIT o Apache." style="display:grid;grid-template-columns:1fr 1.3fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
+  <div>
+    <img class="icono" src="../assets/question.png" alt="">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-top:var(--gap-item)">Debate en grupos</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.12;margin-top:20px;color:var(--navy);text-wrap:balance">Cuatro preguntas sobre licencias</h2>
+    <ol style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:16px;font-size:var(--type-caption);line-height:1.4">
+      <li style="display:flex;gap:16px"><b style="color:var(--blue)">1</b><span>¿Qué diferencia hay entre <b>copyright</b> y <b>copyleft</b>?</span></li>
+      <li style="display:flex;gap:16px"><b style="color:var(--blue)">2</b><span>¿Y entre software <b>libre</b> y software <b>abierto</b>?</span></li>
+      <li style="display:flex;gap:16px"><b style="color:var(--blue)">3</b><span>¿Qué tipo de licencia da <b>más libertad</b> a quien desarrolla y a quien usa?</span></li>
+      <li style="display:flex;gap:16px"><b style="color:var(--blue)">4</b><span>¿Qué licencia elegirías para una <b>obra creativa</b>: una foto, una canción, unos apuntes?</span></li>
+    </ol>
+  </div>
+  <div class="revela" style="padding:36px 44px">
+    <div class="revela-cuerpo" style="display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;gap:18px"><span style="width:44px;height:44px;border-radius:50%;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">1</span><p style="font-size:20px;line-height:1.4"><b>Copyright</b> reserva todos los derechos al autor. <b>Copyleft</b> usa esos mismos derechos para permitir copiar y modificar, con la condición de que el resultado siga siendo libre.</p></div>
+      <div style="display:flex;gap:18px"><span style="width:44px;height:44px;border-radius:50%;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">2</span><p style="font-size:20px;line-height:1.4"><b>Libre</b> (Free Software Foundation, 1985) habla de ética y de las cuatro libertades del usuario. <b>Abierto</b> (Open Source Initiative, 1998) habla de las ventajas prácticas de desarrollar con el código a la vista. Casi todas las licencias cumplen las dos definiciones: cambia el discurso, no el papel.</p></div>
+      <div style="display:flex;gap:18px"><span style="width:44px;height:44px;border-radius:50%;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">3</span><p style="font-size:20px;line-height:1.4">Depende de a quién se proteja. Las <b>permisivas</b> (MIT, BSD, Apache) dan más libertad a quien desarrolla, que puede incluso cerrar el resultado. La <b>GPL</b> da más garantías a quien usa: el programa nunca dejará de ser libre.</p></div>
+      <div style="display:flex;gap:18px"><span style="width:44px;height:44px;border-radius:50%;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">4</span><p style="font-size:20px;line-height:1.4">Una <b>Creative Commons</b>: CC BY si quieres la máxima difusión, CC BY-SA si quieres que lo derivado siga abierto, CC BY-NC-ND si solo quieres que se comparta tal cual. Para software, GPL, MIT o Apache.</p></div>
+    </div>
+    <button class="btn btn-primary revela-btn">Ver las respuestas</button>
+  </div>
+</section>
+
+<!-- 47 Pregunta: licencias e inteligencia artificial -->
+<section data-label="Licencias en 2026: IA" data-notas="Debate actual, sin respuesta cerrada. Pesos abiertos: modelos que se pueden descargar y ejecutar (Llama, Mistral, Gemma, DeepSeek) pero cuya licencia suele poner condiciones de uso, o que no publican los datos ni el código de entrenamiento. La Open Source Initiative publicó en octubre de 2024 la Open Source AI Definition 1.0: para ser IA de código abierto hay que poder usar, estudiar, modificar y compartir el sistema, y para eso hacen falta el código, los parámetros (pesos) e información suficientemente detallada sobre los datos de entrenamiento. Con ese criterio la mayoría de los modelos de pesos abiertos no son de código abierto. Código generado por un asistente: quién es el autor es una cuestión abierta en los tribunales; en la Ley de Propiedad Intelectual española el autor es la persona natural que crea la obra (artículo 5). En la práctica: leer las condiciones del servicio, revisar que el asistente no haya reproducido código con licencia y responsabilizarse de lo que se entrega. Enlaza con la práctica 2: el apartado de qué se pidió a la IA y qué se comprobó." style="display:grid;grid-template-columns:1fr 1.3fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
+  <div>
+    <img class="icono" src="../assets/question.png" alt="">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-top:var(--gap-item)">Pregunta a la clase · 2026</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.12;margin-top:20px;color:var(--navy);text-wrap:balance">¿Es software libre un modelo de IA de "pesos abiertos"?</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Y otra: ¿de quién es el código que te escribe un asistente de IA? ¿Puedes usarlo en un programa que vas a vender?</p>
+  </div>
+  <div class="revela" style="padding:36px 44px">
+    <div class="revela-cuerpo" style="display:flex;flex-direction:column;gap:20px">
+      <div style="background:var(--bg);border-radius:16px;padding:20px 24px">
+        <p style="font-size:20px;font-weight:800;color:var(--navy)">Pesos abiertos no es lo mismo que código abierto</p>
+        <p style="font-size:19px;line-height:1.4;margin-top:8px">Un modelo de "pesos abiertos" se puede descargar y ejecutar, pero su licencia suele poner condiciones de uso y no incluye ni los datos ni el código con los que se entrenó. La <b>Open Source Initiative</b> publicó en 2024 su definición de IA de código abierto: hacen falta el <b>código</b>, los <b>pesos</b> e <b>información suficiente sobre los datos de entrenamiento</b> para poder usar, estudiar, modificar y compartir el sistema. Con ese criterio, la mayoría de los modelos de pesos abiertos no lo cumplen.</p>
+      </div>
+      <div style="background:var(--bg);border-radius:16px;padding:20px 24px">
+        <p style="font-size:20px;font-weight:800;color:var(--navy)">El código que genera un asistente</p>
+        <p style="font-size:19px;line-height:1.4;margin-top:8px">Depende de las <b>condiciones del servicio</b> que uses y de lo que el asistente reproduzca: si copia fragmentos de código con licencia, esa licencia sigue mandando. La autoría de lo generado por una máquina es una cuestión abierta: la Ley de Propiedad Intelectual solo considera autor a la persona natural que crea la obra. Quien entrega el programa responde de lo que contiene.</p>
+      </div>
+      <p style="font-size:18px;color:var(--muted);line-height:1.35">Fuente: Open Source Initiative, <a href="https://opensource.org/ai/open-source-ai-definition" target="_blank" rel="noopener">Open Source AI Definition 1.0</a> (octubre de 2024); Real Decreto Legislativo 1/1996, artículo 5.</p>
+    </div>
+    <button class="btn btn-primary revela-btn">Ver ideas</button>
+  </div>
+</section>
+
+<!-- 48 Cita: propiedad intelectual -->
+<section class="dark" data-label="Propiedad intelectual" data-notas="Criterio c del BOCYL: legislación. La Ley de Propiedad Intelectual (texto refundido, Real Decreto Legislativo 1/1996, de 12 de abril) dedica el Título VII del Libro I a los programas de ordenador: los protege como obras literarias, con derechos exclusivos de reproducción, transformación y distribución para el autor (artículo 99) y con la copia de seguridad permitida a quien tiene licencia (artículo 100). Idea fuerza: todo lo que alguien crea tiene autor desde el momento en que lo crea, sin registrarlo: una foto, un texto, un programa, un vídeo. En España no existe el uso razonable de EE. UU. (fair use, sección 107 de la ley de copyright); solo caben excepciones concretas: la cita con fines docentes o de investigación (artículo 32), la parodia (artículo 39) y la copia privada (artículo 31) con sus límites. Mensaje práctico: en un trabajo, cada imagen y cada párrafo ajeno lleva su fuente y su licencia." style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.2fr 1fr;gap:96px;align-items:center">
+  <div>
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">1.4.3 · Normativa legal</p>
+    <span style="display:block;font-size:160px;line-height:.6;color:var(--yellow);font-weight:800;margin-top:40px">“</span>
+    <p style="font-size:30px;font-weight:600;line-height:1.4;margin-top:24px;text-wrap:pretty">Se entenderá por programa de ordenador toda secuencia de instrucciones o indicaciones destinadas a utilizarse, directa o indirectamente, en un sistema informático para realizar una función o una tarea o para obtener un resultado determinado, cualquiera que fuere su forma de expresión y fijación.</p>
+    <p style="font-size:var(--type-caption);color:#D4E1F7;margin-top:28px;line-height:1.4">Ley de Propiedad Intelectual, artículo 96.1 · Real Decreto Legislativo 1/1996, de 12 de abril · Libro I, Título VII, "Programas de ordenador"</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:20px">
+    <div style="background:rgba(255,255,255,.07);border-radius:20px;padding:24px 30px"><p style="font-size:22px;font-weight:800;color:var(--yellow)">Todo lo creado tiene autor</p><p style="font-size:20px;line-height:1.4;color:#E3EBF8;margin-top:8px">Un programa, una foto, un texto o un vídeo están protegidos desde que se crean, sin registrarlos. Los derechos de explotación son del autor o de quien él autorice.</p></div>
+    <div style="background:rgba(255,255,255,.07);border-radius:20px;padding:24px 30px"><p style="font-size:22px;font-weight:800;color:var(--yellow)">En España: solo excepciones concretas</p><p style="font-size:20px;line-height:1.4;color:#E3EBF8;margin-top:8px">La <b>cita</b> con fines docentes o de investigación (artículo 32), la <b>parodia</b> (artículo 39) y la <b>copia privada</b> con límites (artículo 31). Fuera de ahí, hace falta permiso o licencia.</p></div>
+    <div style="background:rgba(255,255,255,.07);border-radius:20px;padding:24px 30px"><p style="font-size:22px;font-weight:800;color:var(--yellow)">En Estados Unidos: <i>fair use</i></p><p style="font-size:20px;line-height:1.4;color:#E3EBF8;margin-top:8px">El "uso razonable" permite usar una parte pequeña de una obra según el propósito, la cantidad y el efecto en el mercado (sección 107 de la ley de copyright). No existe en la ley española.</p></div>
+  </div>
+</section>
+
+<!-- 49 Texto: protección de datos -->
+<section data-label="Protección de datos" data-notas="Segunda parte de la normativa: los datos de las personas. RGPD: Reglamento (UE) 2016/679, aplicable desde el 25 de mayo de 2018 en toda la Unión; en España lo desarrolla la Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD). Dato personal: cualquier información sobre una persona física identificada o identificable (artículo 4 del RGPD): también una IP, una matrícula o una foto. Autoridad en España: la Agencia Española de Protección de Datos (AEPD), que inspecciona y sanciona (multas de hasta 20 millones de euros o el 4 % de la facturación mundial). Cookies: el aviso viene de la Ley de Servicios de la Sociedad de la Información (artículo 22.2 de la Ley 34/2002): las cookies que no son necesarias exigen consentimiento, y rechazar tiene que ser tan fácil como aceptar; el banner de la derecha es un ejemplo bien hecho. Transferencias internacionales: los datos solo pueden salir de la UE a países con decisión de adecuación de la Comisión o con garantías equivalentes (capítulo V del RGPD). Esto último es el caso de la siguiente diapositiva." style="display:grid;grid-template-columns:1.15fr 1fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.4.3 · Normativa legal</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Protección de datos personales</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px">
+      <div style="background:var(--navy);color:var(--white);border-radius:16px;padding:20px 24px"><p style="font-size:26px;font-weight:800;color:var(--yellow)">RGPD</p><p style="font-size:19px;line-height:1.35;color:#E3EBF8;margin-top:6px">Reglamento General de Protección de Datos de la Unión Europea (2016/679). Se aplica desde el 25 de mayo de 2018 en todos los países de la UE.</p></div>
+      <div style="background:var(--white);border:3px solid var(--line);border-radius:16px;padding:20px 24px"><p style="font-size:26px;font-weight:800;color:var(--navy)">LOPDGDD</p><p style="font-size:19px;line-height:1.35;color:var(--muted);margin-top:6px">Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales. Adapta el RGPD a España.</p></div>
+    </div>
+    <ul style="list-style:none;padding:0;margin-top:22px;display:flex;flex-direction:column;gap:14px;font-size:21px;line-height:1.4">
+      <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Dato personal</b>: toda información sobre una persona física identificada o identificable (artículo 4 del RGPD). Nombre, DNI, correo, teléfono, dirección IP, matrícula, foto, ubicación, huella dactilar.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Quien trata datos</b> tiene que informar, pedir consentimiento cuando haga falta, guardarlos con seguridad y borrarlos cuando ya no sirvan.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Cookies</b>: las que no son necesarias exigen consentimiento, y rechazar tiene que ser tan fácil como aceptar (artículo 22.2 de la Ley 34/2002, LSSI).</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Fuera de la UE</b>: los datos solo pueden salir a países con un nivel de protección equivalente, reconocido por la Comisión Europea o garantizado por contrato (capítulo V del RGPD).</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Autoridad</b>: la Agencia Española de Protección de Datos (AEPD) inspecciona y sanciona: hasta 20 millones de euros o el 4 % de la facturación mundial.</span></li>
+    </ul>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;gap:20px;min-width:0">
+    <div style="background:var(--white);border-radius:20px;box-shadow:0 2px 0 var(--line);overflow:hidden">
+      <div style="display:flex;align-items:center;gap:10px;padding:14px 20px;background:var(--bg);border-bottom:2px solid var(--line)"><span style="width:14px;height:14px;border-radius:50%;background:var(--ko);display:block"></span><span style="width:14px;height:14px;border-radius:50%;background:var(--yellow);display:block"></span><span style="width:14px;height:14px;border-radius:50%;background:var(--ok);display:block"></span><span style="flex:1;margin-left:14px;background:var(--white);border-radius:8px;padding:6px 14px;font-size:17px;color:var(--muted)">https://www.tienda-ejemplo.es</span></div>
+      <div style="padding:26px 30px;display:flex;flex-direction:column;gap:14px">
+        <div style="height:14px;border-radius:7px;background:var(--bg);width:70%"></div>
+        <div style="height:14px;border-radius:7px;background:var(--bg);width:90%"></div>
+        <div style="height:14px;border-radius:7px;background:var(--bg);width:55%"></div>
+        <div style="margin-top:10px;border:3px solid var(--line);border-radius:16px;padding:22px 26px;background:var(--white);box-shadow:0 10px 30px rgba(21,53,107,.14)">
+          <p style="font-size:21px;font-weight:800;color:var(--navy)">🍪 Esta web usa cookies</p>
+          <p style="font-size:17px;line-height:1.4;color:var(--muted);margin-top:8px">Usamos cookies propias y de terceros para analizar la navegación y mostrarte publicidad personalizada. Puedes aceptarlas, rechazarlas o configurarlas. <u>Política de cookies</u>.</p>
+          <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap">
+            <span style="background:var(--blue);color:var(--white);border-radius:10px;padding:10px 20px;font-size:17px;font-weight:700">Aceptar todas</span>
+            <span style="background:var(--blue);color:var(--white);border-radius:10px;padding:10px 20px;font-size:17px;font-weight:700">Rechazar todas</span>
+            <span style="border:2px solid var(--line);border-radius:10px;padding:10px 20px;font-size:17px;font-weight:700;color:var(--navy)">Configurar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:19px;color:var(--muted);line-height:1.4">Figura 1.21. Un aviso de cookies correcto: informa, permite rechazar con la misma facilidad que aceptar y enlaza a la política. Elaboración propia.</p>
+  </div>
+</section>
+
+<!-- 50 Caso real: TCS y Telefónica -->
+<section data-label="Caso real: TCS y Telefónica" data-notas="Caso real contado en clase. Tata Consultancy Services gana el contrato de gestión de los sistemas de información de Telefónica (redes, bases de datos, sistemas operativos, soporte de infraestructura crítica), con la idea de prestar parte del servicio desde India. La AEPD no permite conectarse a los sistemas de producción, que contienen datos de clientes, desde India, porque India no ofrece un nivel de protección equivalente al europeo; con la ley de entonces había que pedir autorización expresa al director de la AEPD para cada transferencia. Con el RGPD actual el mecanismo son las decisiones de adecuación de la Comisión Europea (India no la tiene) o las garantías adecuadas, como las cláusulas contractuales tipo, más una evaluación del riesgo. Dos moralejas: la protección de datos condiciona cómo se puede prestar un servicio (dónde están las personas que acceden a los datos, no solo dónde está el servidor), y una mala previsión en el soporte de un servicio crítico sale muy cara. Se retoma en el giro de la práctica 2: un cliente exige por contrato que sus datos no salgan de la UE. La foto es del Distrito Telefónica, la sede de la empresa en Madrid; clic para ampliar." style="display:grid;grid-template-columns:1fr 820px;gap:72px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.4.3 · Normativa legal · Caso real</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Cuando la ley decide desde dónde se trabaja</h2>
+    <div style="display:flex;flex-direction:column;gap:16px;margin-top:24px">
+      <div style="display:flex;gap:20px;align-items:flex-start"><span style="width:52px;height:52px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:22px;font-weight:800;flex:none">1</span><p style="font-size:21px;line-height:1.4"><b>El contrato.</b> Una consultora india, Tata Consultancy Services (TCS), gana la gestión de los sistemas de información de Telefónica: redes, bases de datos, sistemas operativos y soporte de infraestructura crítica. Parte del servicio se prestaría desde India, con un coste menor.</p></div>
+      <div style="display:flex;gap:20px;align-items:flex-start"><span style="width:52px;height:52px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:22px;font-weight:800;flex:none">2</span><p style="font-size:21px;line-height:1.4"><b>El problema.</b> Los sistemas de producción contienen datos de millones de clientes. Conectarse a ellos desde India es una transferencia internacional de datos, e India no ofrece un nivel de protección equivalente al de la Unión Europea.</p></div>
+      <div style="display:flex;gap:20px;align-items:flex-start"><span style="width:52px;height:52px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:22px;font-weight:800;flex:none">3</span><p style="font-size:21px;line-height:1.4"><b>La consecuencia.</b> La AEPD no permitió el acceso a producción desde India sin autorización expresa. El servicio tuvo que reorganizarse: qué se hace desde dónde, y con qué garantías.</p></div>
+    </div>
+    <div style="margin-top:auto;background:var(--navy);color:var(--white);border-radius:16px;padding:20px 26px;font-size:20px;line-height:1.4"><b style="color:var(--yellow)">Moraleja.</b> La protección de datos condiciona cómo se presta un servicio: importa dónde están las personas que acceden a los datos, no solo dónde está el servidor. Y planificar mal el soporte de un servicio crítico sale muy caro.</div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:18px;min-height:0">
+    <figure class="foto" style="flex:1">
+      <img src="img/distrito-telefonica.jpg" alt="Edificios de cristal del Distrito Telefónica en Madrid, con banderas en la entrada" title="Foto: Luis García (Zaqarbal) · Wikimedia Commons · CC BY-SA 3.0">
+      <figcaption class="credito"><b>Distrito Telefónica</b>, sede de la empresa en Madrid, 2011. Foto: Luis García (Zaqarbal), <a href="https://commons.wikimedia.org/wiki/File:Distrito_Telef%C3%B3nica_(Madrid)_01.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.es" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Reducida.</figcaption>
+    </figure>
+    <p style="font-size:19px;color:var(--muted);line-height:1.4">Figura 1.22. Distrito Telefónica, Madrid. Los datos de los clientes de una operadora son datos personales: el RGPD limita a quién y desde dónde se puede acceder a ellos.</p>
+  </div>
+</section>
+
+<!-- 51 Quiz: qué licencia obliga a publicar el código -->
+<section class="dark" data-label="Quiz: licencias" data-notas="Comprobación del bloque de licencias. La GPL es copyleft: la versión modificada que se distribuya tiene que llevar la GPL y su código fuente. MIT es libre pero permisiva: no obliga a nada más que a mantener el aviso de copyright. La propietaria no permite ni modificar. CC BY-ND es para obras creativas y prohíbe las obras derivadas. Si fallan, volver a la diapositiva de las cuatro libertades y el copyleft." style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
+  <div class="quiz" data-correct="1" data-ok="Correcto. La GPL es copyleft: si distribuyes una versión modificada, tiene que llevar la misma licencia y su código fuente." data-ko="No. Busca la licencia con copyleft: la que obliga a que las versiones derivadas sigan siendo libres y publiquen su código." style="display:contents">
+    <div>
+      <span class="pill">Comprueba lo aprendido</span>
+      <h2 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.2;margin-top:32px;text-wrap:balance">Modificas un programa y lo distribuyes. ¿Qué licencia te obliga a publicar el código de tu versión?</h2>
+      <p class="quiz-fb">Selecciona una opción.</p>
+      <button class="btn btn-ghost quiz-reset" style="margin-top:var(--gap-item)">Reiniciar</button>
+    </div>
+    <div class="quiz-opts">
+      <button class="quiz-opt"><span class="letra">A</span><span>MIT</span></button>
+      <button class="quiz-opt"><span class="letra">B</span><span>GPL</span></button>
+      <button class="quiz-opt"><span class="letra">C</span><span>Propietaria</span></button>
+      <button class="quiz-opt"><span class="letra">D</span><span>CC BY-ND</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- 52 Ejercicio: práctica 2, propuesta para un cliente -->
+<section data-label="Práctica: propuesta para un cliente" data-notas="Presentación de la práctica 2. El enunciado completo (los cuatro puestos con sus equipos, el presupuesto, el almacenamiento, el plugin y el CRM) va en las diapositivas finales de la unidad y en el aula virtual. En casa se puede usar IA, pero hay que documentar qué se le pidió y qué se comprobó después en la web del fabricante. La nota fuerte no es el documento: el día de la entrega hay un giro en clase de 30 minutos, individual y por escrito, con un cambio de requisitos (baja el presupuesto, edición 4K, el plugin resulta ser GPL, un cliente exige que los datos no salgan de la UE, la agencia pasa a software libre). Se puntúa la coherencia con la propuesta original, la corrección técnica, el realismo y la justificación. Anunciar la fecha de entrega en clase y apuntarla en la pizarra." style="display:grid;grid-template-columns:1fr 1fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <span class="pill" style="align-self:flex-start">Práctica 2 · Individual</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Propuesta de software para un cliente</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item)">Una agencia de marketing de Valladolid con cuatro puestos de trabajo te pide una propuesta de software para el próximo año: qué programas, con qué licencia, cuánto cuestan, si sus equipos los aguantan y dónde guardar sus datos.</p>
+    <ul style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:14px;font-size:21px;line-height:1.4">
+      <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Presupuesto</b>: 4.000 € para el primer año, licencias y renovación de equipos incluidas.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Condicionantes</b>: dos equipos con Windows 10 sin soporte, un CRM con datos de clientes (RGPD), 40 GB de vídeo al mes que hay que conservar dos años con copia, y un plugin de WordPress que quieren vender.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>IA permitida en casa</b>, con un apartado obligatorio: qué le pediste y qué comprobaste después en la web del fabricante.</span></li>
+    </ul>
+  </div>
+  <div style="background:var(--white);border-radius:24px;padding:44px 48px;display:flex;flex-direction:column;gap:28px;box-shadow:0 2px 0 var(--line)">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;font-size:var(--type-caption)">
+      <div><p style="color:var(--muted);font-size:20px">Entrega</p><p style="font-weight:700;color:var(--navy);margin-top:4px">Documento de 2 a 3 páginas</p></div>
+      <div><p style="color:var(--muted);font-size:20px">Plazo</p><p style="font-weight:700;color:var(--navy);margin-top:4px">Se anuncia en clase</p></div>
+      <div><p style="color:var(--muted);font-size:20px">En clase, el día de la entrega</p><p style="font-weight:700;color:var(--navy);margin-top:4px">Giro de 30 minutos, por escrito</p></div>
+      <div><p style="color:var(--muted);font-size:20px">Cubre</p><p style="font-weight:700;color:var(--navy);margin-top:4px">Criterios c, d y e del RA1</p></div>
+    </div>
+    <div style="height:2px;background:var(--line)"></div>
+    <ol style="padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;font-size:20px;line-height:1.35">
+      <li style="display:flex;gap:16px"><span style="font-weight:800;color:var(--blue)">1.</span><span>Tabla de software por puesto: programa, tipo, licencia, precio para uso comercial, periodicidad.</span></li>
+      <li style="display:flex;gap:16px"><span style="font-weight:800;color:var(--blue)">2.</span><span>Presupuesto detallado comparado con los 4.000 €.</span></li>
+      <li style="display:flex;gap:16px"><span style="font-weight:800;color:var(--blue)">3.</span><span>Requisitos mínimos de cada programa frente al equipo en el que se instala.</span></li>
+      <li style="display:flex;gap:16px"><span style="font-weight:800;color:var(--blue)">4.</span><span>Cálculo del almacenamiento necesario y solución propuesta con su coste.</span></li>
+      <li style="display:flex;gap:16px"><span style="font-weight:800;color:var(--blue)">5.</span><span>Licencia del plugin y dónde se alojan los datos del CRM, y por qué.</span></li>
+      <li style="display:flex;gap:16px"><span style="font-weight:800;color:var(--blue)">6.</span><span>Apartado "Qué le pedí a la IA y qué comprobé después".</span></li>
+    </ol>
+    <p style="font-size:19px;color:var(--muted);line-height:1.4;margin-top:auto"><b style="color:var(--navy)">El giro pesa más que el documento.</b> El día de la entrega recibirás un cambio de requisitos y tendrás que adaptar tu propuesta justificando cada modificación. Enunciado completo al final de la unidad.</p>
+  </div>
+</section>
+
 </deck-stage>
 <script src="../assets/deck-stage.js"></script>
 <script src="../assets/som.js"></script>

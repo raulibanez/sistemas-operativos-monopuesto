@@ -50,6 +50,15 @@ Toda foto ajena va dentro de una figura con su crédito. La marca © es visible 
 </figure>
 ```
 
+Una imagen mucho más alta que ancha (una infografía, un ranking largo) se recorta en la diapositiva con `object-fit:cover` y, con la clase `scroll`, el visor la abre a todo el ancho y con scroll vertical en vez de encogerla para que quepa entera:
+
+```html
+<figure class="foto scroll" style="height:520px">
+  <img src="img/ranking.png" alt="…" style="object-fit:cover;object-position:center top">
+  <figcaption class="credito">…</figcaption>
+</figure>
+```
+
 ## Marcadores numerados sobre una foto
 
 Para una foto anotada (una placa base, un panel de conectores): números sobre la imagen y una lista al lado. Al pasar el ratón por un elemento de la lista se resalta su número en la foto, y al revés. La figura debe tener el mismo `aspect-ratio` que la imagen para que los porcentajes coincidan:

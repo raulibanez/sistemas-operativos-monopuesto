@@ -549,6 +549,26 @@ deck-stage section:has(> .ej) { grid-template-rows: minmax(0, 1fr); }
   text-align: center;
 }
 .visor .visor-pie a { color: #F4C20D; }
+/* Visor con scroll: para imágenes mucho más altas que anchas (.foto.scroll).
+   La imagen ocupa el ancho disponible y se baja con la rueda o las flechas. */
+.visor.visor-scroll {
+  justify-content: flex-start;
+  overflow-y: auto;
+  cursor: default;
+  animation: none;
+}
+.visor.visor-scroll img {
+  max-height: none;
+  width: min(100vw, 1100px);
+  cursor: zoom-out;
+}
+.visor.visor-scroll .visor-pie {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  margin-top: auto;
+}
+.visor.visor-scroll .visor-cerrar { position: fixed; }
 .visor .visor-cerrar {
   position: absolute;
   top: 16px; right: 20px;

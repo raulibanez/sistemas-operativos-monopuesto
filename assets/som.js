@@ -12,6 +12,8 @@
  *  4. Galería de fotos en el mismo hueco, con flechas y pie que cambia:
  *       <div class="galeria"> <figure class="foto" data-pie="Figura 1.2. …">…</figure> … </div>
  *     Un elemento de la misma diapositiva con data-ir="2" salta a la segunda foto.
+ *     Una <figure class="foto scroll"> (imagen mucho más alta que ancha) se abre en el visor
+ *     a todo el ancho y con scroll vertical, en vez de encogida para caber entera.
  *  5. Ejercicio generado con números al azar:
  *       <div class="ej" data-tipo="dec2bin"></div>
  *     Tipos disponibles en SOM.generadores (dec2bin, bin2dec, sumabin, restac2).
@@ -376,13 +378,21 @@
     const img = fig.querySelector('img');
     const cred = fig.querySelector('.credito');
     const v = document.createElement('div');
-    v.className = 'visor';
+    v.className = 'visor' + (fig.classList.contains('scroll') ? ' visor-scroll' : '');
     v.innerHTML = '<img alt=""><div class="visor-pie"></div><button class="visor-cerrar" aria-label="Cerrar">×</button>';
     v.querySelector('img').src = img.currentSrc || img.src;
     v.querySelector('img').alt = img.alt;
     if (cred) v.querySelector('.visor-pie').innerHTML = cred.innerHTML; else v.querySelector('.visor-pie').remove();
     const cierra = () => { v.remove(); document.removeEventListener('keydown', tecla, true); };
-    const tecla = (e) => { if (e.key === 'Escape') { e.stopPropagation(); cierra(); } };
+    const tecla = (e) => {
+      if (e.key === 'Escape') { e.stopPropagation(); cierra(); return; }
+      // En el modo con scroll, las teclas de desplazamiento mueven la imagen, no la presentación
+      if (!v.classList.contains('visor-scroll')) return;
+      const paso = { ArrowDown: 80, ArrowUp: -80, PageDown: v.clientHeight * .9, PageUp: -v.clientHeight * .9, ' ': v.clientHeight * .9 }[e.key];
+      if (paso === undefined) return;
+      e.stopPropagation(); e.preventDefault();
+      v.scrollBy({ top: paso, behavior: 'smooth' });
+    };
     v.addEventListener('click', (e) => { if (!e.target.closest('a')) cierra(); });
     document.addEventListener('keydown', tecla, true);
     document.body.appendChild(v);
