@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Presentación del módulo · SOM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/som.css">
+</head>
+<body>
+<deck-stage width="1920" height="1080">
+
+<!-- 01 Portada del módulo -->
+<section class="dark" data-label="Portada del módulo" data-notas="Primera sesión del curso." style="background:var(--navy);color:var(--white);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:0;overflow:hidden">
+  <div style="position:relative;z-index:1;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column;justify-content:space-between">
+    <div style="display:flex;align-items:center;gap:20px">
+      <span style="width:16px;height:16px;border-radius:50%;background:var(--yellow);display:block"></span>
+      <span style="font-size:var(--type-small);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#C9D6EE">Ciclo Formativo de Grado Medio</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--gap-title)">
+      <p style="font-size:var(--type-small);font-weight:600;color:var(--yellow)">Módulo profesional 0222</p>
+      <h1 style="font-size:var(--type-hero);font-weight:800;line-height:1.02;letter-spacing:-.02em;text-wrap:balance">Sistemas Operativos Monopuesto</h1>
+      <p style="font-size:var(--type-body);color:#C9D6EE;line-height:1.4;max-width:680px">Sistemas Microinformáticos y Redes · Primer curso</p>
+    </div>
+    <div style="display:flex;gap:56px;font-size:var(--type-caption);color:#C9D6EE">
+      <span>Contenidos actualizados para el curso 2026 / 2027</span>
+    </div>
+  </div>
+  <div style="position:relative;min-width:0;z-index:0">
+    <figure class="foto credito-dcha" style="position:absolute;top:0;bottom:0;right:0;left:-30%;width:auto;height:auto;border-radius:0;background:var(--navy)">
+      <img src="img/portada.png" alt="Ordenador de sobremesa rodeado de memoria USB, usuario, engranaje, sincronización, escudo, carpetas, disco externo, teclado y ratón" title="Imagen: elaboración propia" style="position:absolute;top:-9%;right:0;height:118%;width:auto;max-width:none;object-fit:contain">
+      <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(to right, #15356B 0%, #15356B 19.5%, rgba(21,53,107,.55) 25%, rgba(21,53,107,0) 34%)"></div>
+      <figcaption class="credito">Imagen: elaboración propia.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 02 Pregunta: qué es un SOM -->
+<section data-label="¿Qué es un SO monopuesto?" data-notas="Lanzar la pregunta antes de explicar nada. Recoger respuestas y revelar." style="display:grid;grid-template-columns:1fr 1.1fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
+  <div>
+    <img class="icono" src="../assets/question.png" alt="">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-top:var(--gap-item)">Pregunta a la clase</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.12;margin-top:20px;color:var(--navy);text-wrap:balance">¿Qué es un sistema operativo monopuesto?</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Es el nombre del módulo. ¿Qué os sugiere la palabra <em>monopuesto</em>?</p>
+  </div>
+  <div class="revela">
+    <div class="revela-cuerpo">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Ideas</p>
+      <ul style="list-style:none;padding:0;margin-top:24px;display:flex;flex-direction:column;gap:22px;font-size:var(--type-small);line-height:1.35">
+        <li style="display:flex;gap:20px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Monopuesto</b>: el sistema operativo que gobierna <b>un solo equipo</b>, el de tu mesa. Lo contrario es un sistema operativo en red o de servidor, que da servicio a muchos equipos: eso es el módulo <b>Sistemas Operativos en Red</b>, de segundo curso.</span></li>
+        <li style="display:flex;gap:20px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Qué haremos</b>: entender cómo funciona un ordenador por dentro, instalar Windows y Linux, configurarlos, administrarlos y montar máquinas virtuales.</span></li>
+        <li style="display:flex;gap:20px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Para qué sirve</b>: es el trabajo diario del técnico de sistemas microinformáticos: soporte, instalación, mantenimiento y resolución de incidencias.</span></li>
+      </ul>
+    </div>
+    <button class="btn btn-primary revela-btn">Ver ideas</button>
+  </div>
+</section>
+
+<!-- 03 Pregunta: qué SO tenéis -->
+<section data-label="¿Qué SO tenéis?" data-notas="Levantar la mano por sistema. Contar la experiencia propia con Linux en el Ministerio de Política Territorial." style="display:grid;grid-template-columns:1fr 1.1fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
+  <div>
+    <img class="icono" src="../assets/question.png" alt="">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-top:var(--gap-item)">Pregunta a la clase</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.12;margin-top:20px;color:var(--navy);text-wrap:balance">¿Qué sistema operativo tenéis? ¿Habéis usado Linux?</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">En el ordenador, en el móvil, en la consola, en la tele.</p>
+  </div>
+  <div class="revela">
+    <div class="revela-cuerpo">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Ideas</p>
+      <ul style="list-style:none;padding:0;margin-top:24px;display:flex;flex-direction:column;gap:22px;font-size:var(--type-small);line-height:1.35">
+        <li style="display:flex;gap:20px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Windows, macOS, Android, iOS</b>: todos son sistemas operativos. Usáis varios cada día sin pensarlo.</span></li>
+        <li style="display:flex;gap:20px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Linux está en todas partes</b>: en la mayoría de los servidores de internet, dentro de Android, en routers, televisores, coches y superordenadores.</span></li>
+        <li style="display:flex;gap:20px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>En la empresa y en la Administración</b> pública se usa Linux a diario en servidores y puestos técnicos, junto a Windows.</span></li>
+      </ul>
+    </div>
+    <button class="btn btn-primary revela-btn">Ver ideas</button>
+  </div>
+</section>
+
+<!-- 04 Qué dice el currículo -->
+<section data-label="Qué es este módulo" data-notas="Adaptación para el alumno del currículo oficial: Decreto de Castilla y León, BOCYL de 9 de septiembre de 2009. Insistir en la orientación práctica." style="display:grid;grid-template-columns:1fr 1.2fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
+  <div>
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Presentación del módulo</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Qué es este módulo, según el currículo oficial</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Lo que se enseña en cada módulo no lo decide el profesor: está publicado en el boletín oficial. En Castilla y León, en el BOCYL del 9 de septiembre de 2009.</p>
+    <p style="font-size:var(--type-caption);line-height:1.45;color:var(--ink);margin-top:var(--gap-item);border-left:5px solid var(--yellow);padding-left:20px">"El módulo se centra en la instalación, configuración y mantenimiento de sistemas operativos propietarios y libres." <span style="color:var(--muted)">Orientaciones metodológicas, módulo 0222.</span></p>
+  </div>
+  <div style="background:var(--white);border-radius:24px;padding:48px 56px;box-shadow:0 2px 0 var(--line)">
+    <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Cómo se trabaja, según el currículo</p>
+    <ol style="list-style:none;padding:0;margin-top:24px;display:flex;flex-direction:column;gap:22px;font-size:var(--type-small);line-height:1.4">
+      <li style="display:flex;gap:20px"><span style="font-weight:800;color:var(--blue)">1.</span><span><b>Exposición de conceptos</b>: estas diapositivas, que son también el material de estudio.</span></li>
+      <li style="display:flex;gap:20px"><span style="font-weight:800;color:var(--blue)">2.</span><span><b>Demostración práctica</b> del profesor: se hace delante de vosotros.</span></li>
+      <li style="display:flex;gap:20px"><span style="font-weight:800;color:var(--blue)">3.</span><span><b>Supuestos prácticos</b> que resolvéis vosotros, buscando e interpretando documentación técnica y documentando lo que hacéis.</span></li>
+      <li style="display:flex;gap:20px"><span style="font-weight:800;color:var(--blue)">4.</span><span><b>Prácticas reales</b> de instalación y configuración de sistemas operativos.</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 05 Los cinco resultados de aprendizaje -->
+<section data-label="Resultados de aprendizaje" data-notas="Explicar qué es un RA y que la nota se calcula por RA, no por examen. Cada RA tiene sus criterios de evaluación en el BOCYL." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Presentación del módulo</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Los cinco resultados de aprendizaje</h2>
+  <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:20px;max-width:1500px">Un <b>resultado de aprendizaje (RA)</b> es algo que tienes que saber hacer al terminar el módulo. Cada RA tiene una lista de <b>criterios de evaluación</b>, que son lo que se comprueba en exámenes y prácticas. La nota del módulo se calcula por RA, no por unidad.</p>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:24px;margin-top:32px">
+    <div style="background:var(--white);border-radius:20px;padding:32px 30px;display:flex;flex-direction:column;gap:14px;box-shadow:0 2px 0 var(--line)">
+      <span style="width:56px;height:56px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800">RA1</span>
+      <p style="font-size:var(--type-small);font-weight:700;line-height:1.25;color:var(--navy)">Sistemas de archivos</p>
+      <p style="font-size:20px;color:var(--muted);line-height:1.45">Reconoces cómo funciona un ordenador y cómo guarda la información: hardware, binario, procesos, memoria, archivos y permisos.</p>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:32px 30px;display:flex;flex-direction:column;gap:14px;box-shadow:0 2px 0 var(--line)">
+      <span style="width:56px;height:56px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800">RA2</span>
+      <p style="font-size:var(--type-small);font-weight:700;line-height:1.25;color:var(--navy)">Instalación</p>
+      <p style="font-size:20px;color:var(--muted);line-height:1.45">Instalas sistemas operativos eligiendo el adecuado para el hardware, con su plan de instalación, particiones, arranque y licencias.</p>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:32px 30px;display:flex;flex-direction:column;gap:14px;box-shadow:0 2px 0 var(--line)">
+      <span style="width:56px;height:56px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800">RA3</span>
+      <p style="font-size:var(--type-small);font-weight:700;line-height:1.25;color:var(--navy)">Configuración básica</p>
+      <p style="font-size:20px;color:var(--muted);line-height:1.45">Configuras el sistema: entorno, actualizaciones, dispositivos, red, aplicaciones, tareas automáticas, recuperación y acceso remoto.</p>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:32px 30px;display:flex;flex-direction:column;gap:14px;box-shadow:0 2px 0 var(--line)">
+      <span style="width:56px;height:56px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800">RA4</span>
+      <p style="font-size:var(--type-small);font-weight:700;line-height:1.25;color:var(--navy)">Administración</p>
+      <p style="font-size:20px;color:var(--muted);line-height:1.45">Administras el sistema: usuarios y grupos, procesos, servicios, memoria, discos, impresoras, recursos compartidos y scripts.</p>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:32px 30px;display:flex;flex-direction:column;gap:14px;box-shadow:0 2px 0 var(--line)">
+      <span style="width:56px;height:56px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800">RA5</span>
+      <p style="font-size:var(--type-small);font-weight:700;line-height:1.25;color:var(--navy)">Máquinas virtuales</p>
+      <p style="font-size:20px;color:var(--muted);line-height:1.45">Creas y configuras máquinas virtuales con software libre y propietario, y las relacionas con el sistema anfitrión.</p>
+    </div>
+  </div>
+  <p style="font-size:var(--type-caption);color:var(--muted);margin-top:24px">Los nombres cortos son nuestros. Los enunciados completos y sus criterios están en el BOCYL de 9 de septiembre de 2009, módulo 0222.</p>
+</section>
+
+<!-- 06 Tabla: el módulo en un vistazo -->
+<section data-label="Las diez unidades" data-notas="Recorrido rápido por las diez unidades y el trimestre en que caen." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Presentación del módulo</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Las diez unidades de trabajo</h2>
+  <table style="width:100%;border-collapse:collapse;margin-top:32px;font-size:var(--type-caption);background:var(--white);border-radius:20px;overflow:hidden">
+    <thead>
+      <tr style="background:var(--navy);color:var(--white);text-align:left">
+        <th style="padding:14px 28px;font-weight:700;width:90px">UT</th>
+        <th style="padding:14px 28px;font-weight:700">Unidad de trabajo</th>
+        <th style="padding:14px 28px;font-weight:700;width:360px">Resultado de aprendizaje</th>
+        <th style="padding:14px 28px;font-weight:700;width:120px">Horas</th>
+        <th style="padding:14px 28px;font-weight:700;width:170px">Evaluación</th>
+      </tr>
+    </thead>
+    <tbody style="line-height:1.25">
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 28px;font-weight:800;color:var(--navy)">1</td><td style="padding:11px 28px">El sistema informático: hardware, software y representación</td><td style="padding:11px 28px">RA1 Sistemas de archivos</td><td style="padding:11px 28px">26</td><td style="padding:11px 28px">1.ª</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 28px;font-weight:800;color:var(--navy)">2</td><td style="padding:11px 28px">Sistemas operativos: estructura, funciones y sistemas de archivos</td><td style="padding:11px 28px">RA1 Sistemas de archivos</td><td style="padding:11px 28px">16</td><td style="padding:11px 28px">1.ª</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 28px;font-weight:800;color:var(--navy)">3</td><td style="padding:11px 28px">Virtualización y máquinas virtuales</td><td style="padding:11px 28px">RA5 Máquinas virtuales</td><td style="padding:11px 28px">20</td><td style="padding:11px 28px">1.ª</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 28px;font-weight:800;color:var(--navy)">4</td><td style="padding:11px 28px">Linux: instalación de Ubuntu</td><td style="padding:11px 28px">RA2 Instalación</td><td style="padding:11px 28px">24</td><td style="padding:11px 28px">1.ª</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 28px;font-weight:800;color:var(--navy)">5</td><td style="padding:11px 28px">Linux: uso y configuración del sistema</td><td style="padding:11px 28px">RA3 Configuración básica</td><td style="padding:11px 28px">32</td><td style="padding:11px 28px">1.ª / 2.ª</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 28px;font-weight:800;color:var(--navy)">6</td><td style="padding:11px 28px">Linux: usuarios, grupos, permisos y procesos</td><td style="padding:11px 28px">RA4 Administración</td><td style="padding:11px 28px">20</td><td style="padding:11px 28px">2.ª</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 28px;font-weight:800;color:var(--navy)">7</td><td style="padding:11px 28px">Linux: servicios, scripts, paquetes, tareas e impresión</td><td style="padding:11px 28px">RA4 Administración</td><td style="padding:11px 28px">20</td><td style="padding:11px 28px">2.ª</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 28px;font-weight:800;color:var(--navy)">8</td><td style="padding:11px 28px">Windows: instalación de Windows 11</td><td style="padding:11px 28px">RA2 Instalación</td><td style="padding:11px 28px">18</td><td style="padding:11px 28px">2.ª / 3.ª</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 28px;font-weight:800;color:var(--navy)">9</td><td style="padding:11px 28px">Windows: uso y configuración del sistema</td><td style="padding:11px 28px">RA3 Configuración básica</td><td style="padding:11px 28px">25</td><td style="padding:11px 28px">3.ª</td></tr>
+      <tr><td style="padding:11px 28px;font-weight:800;color:var(--navy)">10</td><td style="padding:11px 28px">Windows: administración</td><td style="padding:11px 28px">RA4 Administración</td><td style="padding:11px 28px">30</td><td style="padding:11px 28px">3.ª</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:var(--type-caption);color:var(--muted);margin-top:20px">231 horas en el centro. Primero Linux y después Windows: lo que aprendas en uno lo reconocerás en el otro.</p>
+</section>
+
+<!-- 07 Pesos de los RA -->
+<section data-label="Cómo se calcula la nota" data-notas="Cada RA vale un porcentaje fijo de la nota final. Una UT aporta a su RA. La columna FFE es la parte del RA4 que se evalúa en la formación en empresa (5 %)." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Presentación del módulo</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Cuánto pesa cada cosa en la nota final</h2>
+  <table style="width:100%;border-collapse:collapse;margin-top:28px;font-size:22px;background:var(--white);border-radius:20px;overflow:hidden;text-align:center">
+    <thead>
+      <tr style="background:var(--navy);color:var(--white)">
+        <th style="padding:14px 22px;font-weight:700;text-align:left">Resultado de aprendizaje</th>
+        <th style="padding:14px 10px;font-weight:700">UT1</th><th style="padding:14px 10px;font-weight:700">UT2</th><th style="padding:14px 10px;font-weight:700">UT3</th><th style="padding:14px 10px;font-weight:700">UT4</th><th style="padding:14px 10px;font-weight:700">UT5</th><th style="padding:14px 10px;font-weight:700">UT6</th><th style="padding:14px 10px;font-weight:700">UT7</th><th style="padding:14px 10px;font-weight:700">UT8</th><th style="padding:14px 10px;font-weight:700">UT9</th><th style="padding:14px 10px;font-weight:700">UT10</th>
+        <th style="padding:14px 10px;font-weight:700;background:var(--blue)">FFE</th>
+        <th style="padding:14px 18px;font-weight:700;background:var(--yellow);color:var(--navy)">% RA</th>
+      </tr>
+    </thead>
+    <tbody style="line-height:1.2">
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:12px 22px;text-align:left;font-weight:700;color:var(--navy)">RA1 Sistemas de archivos</td><td>10</td><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background:#EEF3FB"></td><td style="background:#FFF6D1;font-weight:800;color:var(--navy)">17 %</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:12px 22px;text-align:left;font-weight:700;color:var(--navy)">RA2 Instalación</td><td></td><td></td><td></td><td>10</td><td></td><td></td><td></td><td>8</td><td></td><td></td><td style="background:#EEF3FB"></td><td style="background:#FFF6D1;font-weight:800;color:var(--navy)">18 %</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:12px 22px;text-align:left;font-weight:700;color:var(--navy)">RA3 Configuración básica</td><td></td><td></td><td></td><td></td><td>14</td><td></td><td></td><td></td><td>11</td><td></td><td style="background:#EEF3FB"></td><td style="background:#FFF6D1;font-weight:800;color:var(--navy)">25 %</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:12px 22px;text-align:left;font-weight:700;color:var(--navy)">RA4 Administración</td><td></td><td></td><td></td><td></td><td></td><td>8</td><td>8</td><td></td><td></td><td>10</td><td style="background:#EEF3FB;font-weight:700;color:var(--blue)">5</td><td style="background:#FFF6D1;font-weight:800;color:var(--navy)">31 %</td></tr>
+      <tr style="border-bottom:3px solid var(--navy)"><td style="padding:12px 22px;text-align:left;font-weight:700;color:var(--navy)">RA5 Máquinas virtuales</td><td></td><td></td><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td style="background:#EEF3FB"></td><td style="background:#FFF6D1;font-weight:800;color:var(--navy)">9 %</td></tr>
+      <tr style="border-bottom:2px solid var(--line);background:var(--bg)"><td style="padding:12px 22px;text-align:left;font-weight:700;color:var(--navy)">% de la nota</td><td>10</td><td>7</td><td>9</td><td>10</td><td>14</td><td>8</td><td>8</td><td>8</td><td>11</td><td>10</td><td style="font-weight:700;color:var(--blue)">5</td><td style="font-weight:800;color:var(--navy)">100 %</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:12px 22px;text-align:left;font-weight:700;color:var(--navy)">Horas</td><td>26</td><td>16</td><td>20</td><td>24</td><td>32</td><td>20</td><td>20</td><td>18</td><td>25</td><td>30</td><td style="color:var(--muted)">—</td><td style="font-weight:700">231</td></tr>
+      <tr><td style="padding:12px 22px;text-align:left;font-weight:700;color:var(--navy)">Evaluación</td><td>1.ª</td><td>1.ª</td><td>1.ª</td><td>1.ª</td><td>1.ª/2.ª</td><td>2.ª</td><td>2.ª</td><td>2.ª/3.ª</td><td>3.ª</td><td>3.ª</td><td style="color:var(--muted)">—</td><td></td></tr>
+    </tbody>
+  </table>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:22px;font-size:22px;line-height:1.4;color:var(--muted)">
+    <p><b style="color:var(--navy)">Cómo leerla.</b> Cada fila es un RA y su porcentaje de la nota final. Los números de cada casilla son lo que aporta esa unidad a ese RA. Ejemplo: aprobar el RA4 depende de las UT6, UT7 y UT10 y de la formación en empresa.</p>
+    <p><b style="color:var(--navy)">FFE.</b> Fase de formación en empresa: una parte del RA4, el 5 % de la nota, se evalúa por lo que hagas en la empresa, no en el aula. Por eso la fila de horas no la cuenta.</p>
+  </div>
+</section>
+
+<!-- 08 Cómo se evalúa -->
+<section data-label="Cómo se evalúa" data-notas="Norma general del módulo: examen 60 %, trabajos 40 %. Los detalles de cada unidad se explican al empezarla." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Presentación del módulo</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Cómo se evalúa</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:var(--gap-title)">
+    <div style="background:var(--white);border-radius:20px;padding:48px 44px;display:flex;flex-direction:column;gap:22px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:120px;font-weight:800;line-height:1;color:var(--blue);letter-spacing:-.03em">60 %</p>
+      <p style="font-size:var(--type-body);font-weight:700;line-height:1.25;color:var(--navy)">Examen</p>
+      <p style="font-size:var(--type-small);color:var(--muted);line-height:1.45">Una parte de teoría y una parte práctica. La práctica es hacer: convertir, calcular, instalar, configurar, según la unidad.</p>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:48px 44px;display:flex;flex-direction:column;gap:22px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:120px;font-weight:800;line-height:1;color:var(--blue);letter-spacing:-.03em">40 %</p>
+      <p style="font-size:var(--type-body);font-weight:700;line-height:1.25;color:var(--navy)">Trabajos</p>
+      <p style="font-size:var(--type-small);color:var(--muted);line-height:1.45">Prácticas y actividades de cada unidad. Al empezar cada unidad se explica cuáles son y cómo se entregan.</p>
+    </div>
+  </div>
+  <div style="display:flex;gap:28px;align-items:center;margin-top:var(--gap-title);background:#FFF6D1;border-radius:20px;padding:28px 40px">
+    <img src="../assets/exclamation.png" alt="" style="width:72px;height:72px;object-fit:contain;flex:none">
+    <p style="font-size:var(--type-small);line-height:1.45;color:var(--navy)"><b>Norma general.</b> Estos porcentajes se aplican dentro de cada resultado de aprendizaje, y la nota final se calcula con los pesos de la tabla anterior.</p>
+  </div>
+</section>
+
+<!-- 09 Material y herramientas -->
+<section data-label="Material y herramientas" data-notas="Dónde está todo. Enlace de GitHub Pages pendiente de publicar." style="display:grid;grid-template-columns:1fr 1.3fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
+  <div>
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Presentación del módulo</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Con qué vamos a trabajar</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Todo el material de estudio está en estas presentaciones. Se pueden abrir en cualquier navegador, en el aula, en casa o en el móvil.</p>
+  </div>
+  <ul style="padding:0;list-style:none;display:flex;flex-direction:column;font-size:var(--type-small);line-height:1.4">
+    <li style="display:grid;grid-template-columns:260px 1fr;gap:32px;padding:26px 0;border-bottom:2px solid var(--line)"><span style="font-weight:700;color:var(--blue)">Presentaciones</span><span>Una por unidad, con ejercicios interactivos para practicar en casa. Flechas para avanzar, Ctrl+P para guardar en PDF.</span></li>
+    <li style="display:grid;grid-template-columns:260px 1fr;gap:32px;padding:26px 0;border-bottom:2px solid var(--line)"><span style="font-weight:700;color:var(--blue)">Máquinas virtuales</span><span>Linux y Windows se instalan y se rompen en máquinas virtuales, sin riesgo para el equipo del aula.</span></li>    <li style="display:grid;grid-template-columns:260px 1fr;gap:32px;padding:26px 0;border-bottom:2px solid var(--line)"><span style="font-weight:700;color:var(--blue)">Aula virtual</span><span>Entregas, avisos y calificaciones.</span></li>
+    <li style="display:grid;grid-template-columns:260px 1fr;gap:32px;padding:26px 0"><span style="font-weight:700;color:var(--blue)">Inteligencia artificial</span><span>No está permitida en clase, salvo que se indique lo contrario.</span></li>
+  </ul>
+</section>
+
+<!-- 10 Cierre -->
+<section class="dark" data-label="Empezamos" data-notas="Pasar a la UT1." style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column;justify-content:space-between">
+  <div style="display:flex;align-items:center;gap:20px">
+    <span style="width:16px;height:16px;border-radius:50%;background:var(--yellow);display:block"></span>
+    <span style="font-size:var(--type-small);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#C9D6EE">Presentación del módulo</span>
+  </div>
+  <h1 style="font-size:var(--type-hero);font-weight:800;line-height:1.02;letter-spacing:-.02em;max-width:1400px">¿Dudas? Empezamos.</h1>
+  <div style="display:flex;gap:56px;font-size:var(--type-caption);color:#C9D6EE">
+    <span>A continuación: UT1. El sistema informático</span>
+    <span>Aula virtual · Materiales del módulo</span>
+  </div>
+</section>
+
+</deck-stage>
+<script src="../assets/deck-stage.js"></script>
+<script src="../assets/som.js"></script>
+</body>
+</html>

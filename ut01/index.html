@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UT1 · El sistema informático · SOM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/som.css">
+</head>
+<body>
+<deck-stage width="1920" height="1080">
+
+<!-- ============ BLOQUE 0 · Presentación del módulo y de la unidad ============ -->
+
+<!-- 01 Portada -->
+<section class="dark" data-label="Portada UT1" data-notas="Portada de la unidad. La presentación del módulo está en la UT0." style="background:var(--navy);color:var(--white);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);position:relative;overflow:hidden">
+  <div style="position:absolute;right:-120px;top:-160px;width:760px;height:760px;border-radius:50%;background:var(--blue);opacity:.45"></div>
+  <div style="position:absolute;right:220px;bottom:-300px;width:560px;height:560px;border-radius:50%;background:var(--sky);opacity:.25"></div>
+  <div style="position:absolute;left:var(--pad-x);top:var(--pad-top);display:flex;align-items:center;gap:20px">
+    <span style="width:16px;height:16px;border-radius:50%;background:var(--yellow);display:block"></span>
+    <span style="font-size:var(--type-small);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#C9D6EE">Sistemas Operativos Monopuesto · 0222</span>
+  </div>
+  <p style="position:relative;font-size:180px;font-weight:800;line-height:1;color:var(--yellow);letter-spacing:-.04em">UT 1</p>
+  <h1 style="position:relative;font-size:var(--type-title);font-weight:700;line-height:1.12;max-width:1300px;margin-top:24px;text-wrap:balance">El sistema informático</h1>
+  <p style="position:relative;font-size:var(--type-body);color:#D4E1F7;margin-top:32px;max-width:1200px;line-height:1.4">Hardware, software y representación de la información.</p>
+</section>
+
+<!-- 02 Índice -->
+<section data-label="Índice" data-notas="Seis apartados: tres de conocer y tres de calcular." style="display:grid;grid-template-columns:1fr 1.4fr;gap:120px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div>
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Unidad 1</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Contenidos de la unidad</h2>
+    <p style="font-size:var(--type-small);color:var(--muted);line-height:1.5;margin-top:var(--gap-title)">Seis apartados. Los tres primeros son de conocer; los tres últimos, de calcular y practicar.</p>
+  </div>
+  <ol style="list-style:none;padding:0;display:flex;flex-direction:column">
+    <li style="display:grid;grid-template-columns:96px 1fr;align-items:center;padding:24px 0;border-bottom:2px solid var(--line);font-size:var(--type-body)"><span style="font-weight:800;color:var(--blue)">1.1</span><span>El sistema informático</span></li>
+    <li style="display:grid;grid-template-columns:96px 1fr;align-items:center;padding:24px 0;border-bottom:2px solid var(--line);font-size:var(--type-body)"><span style="font-weight:800;color:var(--blue)">1.2</span><span>Evolución histórica de la informática</span></li>
+    <li style="display:grid;grid-template-columns:96px 1fr;align-items:center;padding:24px 0;border-bottom:2px solid var(--line);font-size:var(--type-body)"><span style="font-weight:800;color:var(--blue)">1.3</span><span>Componentes hardware</span></li>
+    <li style="display:grid;grid-template-columns:96px 1fr;align-items:center;padding:24px 0;border-bottom:2px solid var(--line);font-size:var(--type-body)"><span style="font-weight:800;color:var(--blue)">1.4</span><span>Software de un sistema informático</span></li>
+    <li style="display:grid;grid-template-columns:96px 1fr;align-items:center;padding:24px 0;border-bottom:2px solid var(--line);font-size:var(--type-body)"><span style="font-weight:800;color:var(--blue)">1.5</span><span>Representación de la información</span></li>
+    <li style="display:grid;grid-template-columns:96px 1fr;align-items:center;padding:24px 0;font-size:var(--type-body)"><span style="font-weight:800;color:var(--blue)">1.6</span><span>Codificación de la información</span></li>
+  </ol>
+</section>
+
+<!-- 03 Objetivos -->
+<section data-label="Qué vas a saber hacer" data-notas="Son los criterios de evaluación a, b, c, d, e y k del RA1 en lenguaje de alumno." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Resultado de aprendizaje 1</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Qué vas a saber hacer al terminar</h2>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:var(--gap-title)">
+    <div style="background:var(--white);border-radius:20px;padding:34px 36px;display:flex;flex-direction:column;gap:16px;box-shadow:0 2px 0 var(--line)">
+      <span style="width:56px;height:56px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800">a</span>
+      <p style="font-size:var(--type-small);font-weight:700;line-height:1.25;color:var(--navy)">Manejar los conceptos básicos de la informática</p>
+      <p style="font-size:var(--type-caption);color:var(--muted);line-height:1.45">Qué es un sistema informático, de qué se compone y de dónde viene.</p>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:34px 36px;display:flex;flex-direction:column;gap:16px;box-shadow:0 2px 0 var(--line)">
+      <span style="width:56px;height:56px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800">b</span>
+      <p style="font-size:var(--type-small);font-weight:700;line-height:1.25;color:var(--navy)">Operar con electrónica digital básica</p>
+      <p style="font-size:var(--type-caption);color:var(--muted);line-height:1.45">Puertas lógicas y tablas de verdad: NOT, AND, OR, XOR y cómo el ordenador suma con ellas.</p>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:34px 36px;display:flex;flex-direction:column;gap:16px;box-shadow:0 2px 0 var(--line)">
+      <span style="width:56px;height:56px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800">c</span>
+      <p style="font-size:var(--type-small);font-weight:700;line-height:1.25;color:var(--navy)">Distinguir tipos de software y su legislación</p>
+      <p style="font-size:var(--type-caption);color:var(--muted);line-height:1.45">Propietario, libre, abierto; licencias, propiedad intelectual y protección de datos.</p>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:34px 36px;display:flex;flex-direction:column;gap:16px;box-shadow:0 2px 0 var(--line)">
+      <span style="width:56px;height:56px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800">d</span>
+      <p style="font-size:var(--type-small);font-weight:700;line-height:1.25;color:var(--navy)">Identificar los elementos funcionales de un ordenador</p>
+      <p style="font-size:var(--type-caption);color:var(--muted);line-height:1.45">Procesador, memoria, buses, entrada/salida y periféricos, y cómo se relacionan.</p>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:34px 36px;display:flex;flex-direction:column;gap:16px;box-shadow:0 2px 0 var(--line)">
+      <span style="width:56px;height:56px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800">e</span>
+      <p style="font-size:var(--type-small);font-weight:700;line-height:1.25;color:var(--navy)">Codificar la información en distintos sistemas</p>
+      <p style="font-size:var(--type-caption);color:var(--muted);line-height:1.45">Binario, octal, hexadecimal; sumas, restas y complementos; ASCII, Unicode, unidades y formatos.</p>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:34px 36px;display:flex;flex-direction:column;gap:16px;box-shadow:0 2px 0 var(--line)">
+      <span style="width:56px;height:56px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800">k</span>
+      <p style="font-size:var(--type-small);font-weight:700;line-height:1.25;color:var(--navy)">Describir el ciclo de instrucción</p>
+      <p style="font-size:var(--type-caption);color:var(--muted);line-height:1.45">Qué hace el procesador con cada instrucción: buscarla, decodificarla y ejecutarla.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BLOQUE 1 · El sistema informático ============ -->
+
+<!-- 04 Definición -->
+<section class="dark" data-label="Sistema informático" data-notas="Las tres patas: hardware, software y personal. Los datos son software." style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1fr;gap:120px;align-items:center">
+  <div>
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">1.1 · Concepto clave</p>
+    <h2 style="font-size:var(--type-hero);font-weight:800;line-height:1.02;margin-top:24px;letter-spacing:-.02em;text-wrap:balance">Sistema informático</h2>
+  </div>
+  <div style="border-left:6px solid var(--yellow);padding-left:56px">
+    <p style="font-size:var(--type-body);line-height:1.5;color:#E3EBF8">Conjunto de componentes <b>físicos</b> (hardware) y <b>lógicos</b> (software) cuya función es procesar y automatizar la información. El elemento central es el ordenador.</p>
+    <p style="font-size:var(--type-small);line-height:1.5;color:#9FB4D9;margin-top:var(--gap-item)">También forma parte del sistema el <b>personal</b> que lo hace funcionar y lo mantiene. Y los datos (documentos, fotos, contraseñas) son software: no se pueden tocar.</p>
+  </div>
+</section>
+
+<!-- 05 Comparativa hardware / software -->
+<section data-label="Hardware frente a software" data-notas="Regla rápida: si se puede tocar, es hardware. Un archivo de texto o un certificado digital son software aunque estén en un disco." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.1 · El sistema informático</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Hardware frente a software</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:var(--gap-title);flex:1">
+    <div style="background:var(--navy);color:var(--white);border-radius:24px;padding:48px 56px">
+      <h3 style="font-size:var(--type-subtitle);font-weight:800">Hardware</h3>
+      <p style="font-size:var(--type-caption);color:#9FB4D9;margin-top:8px">Lo físico: electrónico y mecánico. Se puede tocar.</p>
+      <ul style="padding:0;list-style:none;display:flex;flex-direction:column;gap:22px;margin-top:32px;font-size:var(--type-small);line-height:1.4;color:#E3EBF8">
+        <li style="display:flex;gap:20px"><span style="color:var(--yellow)">●</span><span>La carcasa y los circuitos internos</span></li>
+        <li style="display:flex;gap:20px"><span style="color:var(--yellow)">●</span><span>El microprocesador y la memoria</span></li>
+        <li style="display:flex;gap:20px"><span style="color:var(--yellow)">●</span><span>Dispositivos de entrada y salida: pantalla, teclado, ratón, impresora</span></li>
+        <li style="display:flex;gap:20px"><span style="color:var(--yellow)">●</span><span>Elementos de comunicación: tarjeta de red, módem, wifi</span></li>
+      </ul>
+    </div>
+    <div style="background:var(--white);border:3px solid var(--line);border-radius:24px;padding:48px 56px">
+      <h3 style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy)">Software</h3>
+      <p style="font-size:var(--type-caption);color:var(--muted);margin-top:8px">Lo lógico: programas y datos. No se puede tocar.</p>
+      <ul style="padding:0;list-style:none;display:flex;flex-direction:column;gap:22px;margin-top:32px;font-size:var(--type-small);line-height:1.4">
+        <li style="display:flex;gap:20px"><span style="color:var(--blue)">●</span><span>El sistema operativo</span></li>
+        <li style="display:flex;gap:20px"><span style="color:var(--blue)">●</span><span>Los programas de aplicación</span></li>
+        <li style="display:flex;gap:20px"><span style="color:var(--blue)">●</span><span>Los datos almacenados: documentos, vídeos, fotografías</span></li>
+        <li style="display:flex;gap:20px"><span style="color:var(--blue)">●</span><span>Una contraseña, un certificado digital</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 06 Tabla: tipos de sistemas informáticos -->
+<section data-label="Tipos de sistemas informáticos" data-notas="De mayor a menor tamaño, precio y potencia. Los ejemplos son actuales: MareNostrum 5 y IBM z16." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.1 · El sistema informático</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Tipos de sistemas informáticos</h2>
+  <table style="width:100%;border-collapse:collapse;margin-top:var(--gap-title);font-size:var(--type-small);background:var(--white);border-radius:20px;overflow:hidden">
+    <thead>
+      <tr style="background:var(--navy);color:var(--white);text-align:left">
+        <th style="padding:22px 32px;font-weight:700">Tipo</th>
+        <th style="padding:22px 32px;font-weight:700">Quién lo usa</th>
+        <th style="padding:22px 32px;font-weight:700">Para qué</th>
+        <th style="padding:22px 32px;font-weight:700">Ejemplo</th>
+      </tr>
+    </thead>
+    <tbody style="line-height:1.3">
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:22px 32px;font-weight:700;color:var(--navy)">Superordenador</td><td style="padding:22px 32px">Grandes organismos científicos o militares</td><td style="padding:22px 32px">Cálculo masivo: clima, medicina, IA</td><td style="padding:22px 32px">MareNostrum 5 (Barcelona)</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:22px 32px;font-weight:700;color:var(--navy)">Mainframe</td><td style="padding:22px 32px">Bancos, aseguradoras, administraciones</td><td style="padding:22px 32px">Cientos de usuarios a la vez, sin parar nunca</td><td style="padding:22px 32px">IBM z16, unos 200 núcleos</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:22px 32px;font-weight:700;color:var(--navy)">Servidor y estación de trabajo</td><td style="padding:22px 32px">Empresas de cualquier tamaño</td><td style="padding:22px 32px">Dar servicio a otros equipos de la red; trabajo exigente</td><td style="padding:22px 32px">Servidor en rack; estación de diseño o vídeo</td></tr>
+      <tr><td style="padding:22px 32px;font-weight:700;color:var(--navy)">Ordenador personal</td><td style="padding:22px 32px">Todos, en casa y en el trabajo</td><td style="padding:22px 32px">Uso general</td><td style="padding:22px 32px">Sobremesa, portátil, tablet, smartphone</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:var(--type-caption);color:var(--muted);margin-top:24px">Ordenados de mayor a menor precio, tamaño, potencia y velocidad. El primer superordenador que superó 1 teraflops (ASCI Red, 1997) rendía menos que la GPU de un smartphone actual.</p>
+</section>
+
+<!-- 07 Cifra: MareNostrum 5 -->
+<section data-label="MareNostrum 5" data-notas="Pasar el ratón por la foto muestra la atribución; clic para ampliarla. Cifras de la guía; revisar en la web del BSC." style="display:grid;grid-template-columns:1fr 1fr;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center;gap:100px">
+  <div>
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">El superordenador de España</p>
+    <p style="font-size:170px;font-weight:800;line-height:1;color:var(--blue);letter-spacing:-.04em;margin-top:12px">725.000</p>
+    <p style="font-size:var(--type-subtitle);font-weight:700;color:var(--navy);margin-top:8px">núcleos de procesador</p>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:24px">MareNostrum 5, en el Barcelona Supercomputing Center. Instalado en una antigua capilla del campus de la UPC. Se usa para simular el clima, diseñar fármacos y entrenar modelos de inteligencia artificial.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px 28px;margin-top:28px;font-size:20px;line-height:1.3;color:#6B7690">
+      <div><b style="display:block;font-size:26px;color:var(--sky)">7.528 nodos</b>6.408 de cálculo y 1.120 con GPU</div>
+      <div><b style="display:block;font-size:26px;color:var(--sky)">112 núcleos</b>por nodo: 2 Intel Sapphire Rapids de 56</div>
+      <div><b style="display:block;font-size:26px;color:var(--sky)">256 GB RAM</b>por nodo, DDR5; unos 1,6 PB en la partición general</div>
+      <div><b style="display:block;font-size:26px;color:var(--sky)">4.480 GPU</b>Nvidia Hopper H100 en la partición acelerada</div>
+      <div><b style="display:block;font-size:26px;color:var(--sky)">960 GB NVMe</b>de disco local por nodo</div>
+      <div><b style="display:block;font-size:26px;color:var(--sky)">306 PFlops</b>de pico: 306 mil billones de operaciones por segundo</div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:20px;height:100%;min-height:0">
+    <figure class="foto" style="flex:1">
+      <img src="img/marenostrum5.jpg" alt="Superordenador MareNostrum 5 en la capilla de Torre Girona, Barcelona" title="Foto: Barcelona Supercomputing Center (BSC-CNS), galería multimedia, 2023 · © BSC">
+      <figcaption class="credito"><b>MareNostrum 5</b> en la capilla de Torre Girona, diciembre de 2023. Foto: <a href="https://www.bsc.es/discover-bsc/multimedia-gallery/pictures" target="_blank" rel="noopener">Barcelona Supercomputing Center (BSC-CNS)</a>, galería multimedia. © BSC, uso educativo sin ánimo de lucro.</figcaption>
+    </figure>
+    <p style="font-size:var(--type-caption);color:var(--muted);line-height:1.4">Figura 1.1. MareNostrum 5 en la capilla de Torre Girona. Haz clic en la foto para verla en grande. Tu ordenador tiene entre 4 y 16 núcleos.</p>
+  </div>
+</section>
+
+<!-- 08 Pregunta: más tipos -->
+<section data-label="¿Más tipos de sistemas?" data-notas="Dejar que propongan. Cualquier cosa con procesador y programa es un sistema informático. Al revelar, señalar cada aparato de la imagen; clic en la foto para ampliarla." style="display:grid;grid-template-columns:1fr 1.15fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
+  <div>
+    <img class="icono" src="../assets/question.png" alt="">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-top:var(--gap-item)">Pregunta a la clase</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.12;margin-top:20px;color:var(--navy);text-wrap:balance">¿Existen más tipos de sistemas informáticos?</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">La tabla anterior se queda corta. ¿Qué aparatos de vuestra casa llevan un ordenador dentro?</p>
+  </div>
+  <div class="revela" style="padding:28px">
+    <div class="revela-cuerpo" style="display:flex;flex-direction:column;gap:20px">
+      <figure class="foto" style="aspect-ratio:4/3;height:auto">
+        <img src="img/mas-sistemas.png" alt="Videoconsola, rig de minado, coche eléctrico, placa Raspberry Pi y portátil" title="Imagen: elaboración propia">
+        <figcaption class="credito">Videoconsola, rig de minado con tarjetas gráficas, coche eléctrico, placa Raspberry Pi y portátil. Imagen: elaboración propia.</figcaption>
+      </figure>
+      <div style="display:flex;flex-wrap:wrap;gap:10px 12px;font-size:22px;line-height:1.3">
+        <span style="background:var(--bg);border-radius:999px;padding:8px 18px"><b style="color:var(--navy)">Videoconsola</b>: hardware a medida y sistema cerrado</span>
+        <span style="background:var(--bg);border-radius:999px;padding:8px 18px"><b style="color:var(--navy)">Rig de minado</b>: muchas GPU, sistema mínimo</span>
+        <span style="background:var(--bg);border-radius:999px;padding:8px 18px"><b style="color:var(--navy)">Coche</b>: decenas de ordenadores en red</span>
+        <span style="background:var(--bg);border-radius:999px;padding:8px 18px"><b style="color:var(--navy)">IoT</b>: placas como la Raspberry Pi, sensores, domótica</span>
+        <span style="background:var(--bg);border-radius:999px;padding:8px 18px"><b style="color:var(--navy)">Smartphones y tablets</b>: ordenadores de bolsillo</span>
+      </div>
+    </div>
+    <button class="btn btn-primary revela-btn">Ver la respuesta</button>
+  </div>
+</section>
+
+<!-- 09 Pregunta: qué es la información -->
+<section data-label="¿Qué es la información?" data-notas="Informática viene de INFORmación autoMÁTICA. La pirámide DIKW de Ackoff (1989): los datos solos no valen nada; la sabiduría es conocimiento verdadero aplicado para bien. Cerrar con la definición de la RAE." style="display:grid;grid-template-columns:1fr 1.45fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
+  <div>
+    <img class="icono" src="../assets/question.png" alt="">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-top:var(--gap-item)">Pregunta a la clase</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.12;margin-top:20px;color:var(--navy);text-wrap:balance">¿Qué es la información?</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">La palabra <b>informática</b> viene de <b>infor</b>mación auto<b>mática</b>: procesar información sin intervención humana. Pero ¿un número suelto es información?</p>
+  </div>
+  <div class="revela" style="padding:40px 48px">
+    <div class="revela-cuerpo">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">La pirámide <a href="https://en.wikipedia.org/wiki/DIKW_pyramid" target="_blank" rel="noopener" style="color:var(--blue);text-decoration:underline;text-underline-offset:4px">DIKW</a>, con la medicina como ejemplo</p>
+      <div style="display:grid;grid-template-columns:230px 1fr;gap:12px 24px;margin-top:18px;font-size:23px;line-height:1.3;align-items:center">
+        <span style="background:var(--navy);color:var(--white);border-radius:12px;padding:14px 20px;font-weight:800;text-align:center">Sabiduría</span><span>Decidir bien y para bien: cuándo tratar, cuándo no, cómo prevenir. Conocimiento verdadero al servicio de la sociedad.<br><span style="color:var(--muted);font-size:19px">Lo hacen las personas.</span></span>
+        <span style="background:var(--blue);color:var(--white);border-radius:12px;padding:14px 20px;font-weight:800;text-align:center">Conocimiento</span><span>Fiebre alta con dolor de garganta suele ser una infección, y se trata así.<br><span style="color:var(--muted);font-size:19px">Personas y sistemas de inteligencia artificial.</span></span>
+        <span style="background:var(--sky);color:var(--white);border-radius:12px;padding:14px 20px;font-weight:800;text-align:center">Información</span><span>Este paciente tiene 39 °C y 110 pulsaciones: fiebre y taquicardia.<br><span style="color:var(--muted);font-size:19px">Sistemas de información.</span></span>
+        <span style="background:var(--yellow);color:var(--navy);border-radius:12px;padding:14px 20px;font-weight:800;text-align:center">Datos</span><span>39, 110, 1015. Cifras sueltas, sin contexto.<br><span style="color:var(--muted);font-size:19px">Los ordenadores, desde el principio.</span></span>
+      </div>
+      <p style="font-size:var(--type-caption);color:var(--ink);margin-top:18px;line-height:1.45;border-left:5px solid var(--yellow);padding-left:20px"><b>Información.</b> 2. f. Conjunto de datos que se dan a conocer o son objeto de información. <span style="color:var(--muted)">Real Academia Española, <i>Diccionario del estudiante</i>.</span></p>
+    </div>
+    <button class="btn btn-primary revela-btn">Ver la respuesta</button>
+  </div>
+</section>
+
+<!-- 10 Quiz -->
+<section class="dark" data-label="Quiz: hardware o software" data-notas="Comprobación rápida del bloque 1." style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
+  <div class="quiz" data-correct="1" data-ok="Correcto. Un certificado digital es un archivo: es software aunque esté guardado en un disco o en una tarjeta." data-ko="No. Piensa en la regla: si se puede tocar, es hardware." style="display:contents">
+    <div>
+      <span class="pill">Comprueba lo aprendido</span>
+      <h2 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.2;margin-top:32px;text-wrap:balance">¿Cuál de estos elementos NO es hardware?</h2>
+      <p class="quiz-fb">Selecciona una opción.</p>
+      <button class="btn btn-ghost quiz-reset" style="margin-top:var(--gap-item)">Reiniciar</button>
+    </div>
+    <div class="quiz-opts">
+      <button class="quiz-opt"><span class="letra">A</span><span>La tarjeta de red</span></button>
+      <button class="quiz-opt"><span class="letra">B</span><span>Un certificado digital</span></button>
+      <button class="quiz-opt"><span class="letra">C</span><span>La fuente de alimentación</span></button>
+      <button class="quiz-opt"><span class="letra">D</span><span>La webcam</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BLOQUE 2 · Evolución histórica de la informática ============ -->
+
+<!-- 11 Pasos: máquinas de calcular -->
+<section data-label="Máquinas de calcular" data-notas="Antecedentes del ordenador: instrumentos para acelerar el cálculo. El ábaco ya es posicional, enlazar con el apartado 1.5. Pascal construyó la Pascalina con 19 años para ayudar a su padre, recaudador de impuestos. La foto es de una Pascalina original del Musée des Arts et Métiers de París; clic para ampliar." style="display:grid;grid-template-columns:1fr 700px;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.2 · Evolución histórica</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Antes del ordenador: máquinas de calcular</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">La informática avanza a la par que la mecánica y la electrónica. Durante siglos, calcular fue una tarea manual, y estas máquinas la aceleraron.</p>
+    <div style="display:flex;flex-direction:column;gap:26px;margin-top:var(--gap-item)">
+      <div data-ir="1" style="display:flex;gap:28px;align-items:flex-start;padding:10px 14px;margin:-10px -14px">
+        <span style="width:64px;height:64px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">1</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">El ábaco · Antigüedad y Edad Media</p><p style="font-size:var(--type-caption);color:var(--muted);line-height:1.45;margin-top:6px">Un marco con varillas y cuentas. Cada varilla es una posición: unidades, decenas, centenas. En el ábaco chino, las cuentas de arriba valen 5 y las de abajo, 1. Sirve para sumar y restar.</p></div>
+      </div>
+      <div data-ir="2" style="display:flex;gap:28px;align-items:flex-start;padding:10px 14px;margin:-10px -14px">
+        <span style="width:64px;height:64px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">2</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">La Pascalina · Blaise Pascal, 1642</p><p style="font-size:var(--type-caption);color:var(--muted);line-height:1.45;margin-top:6px">Calculadora mecánica de ruedas dentadas. Suma y resta directamente; multiplica a base de sumas repetidas.</p></div>
+      </div>
+      <div data-ir="3" style="display:flex;gap:28px;align-items:flex-start;padding:10px 14px;margin:-10px -14px">
+        <span style="width:64px;height:64px;border-radius:50%;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">3</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">La calculadora de Leibniz · 1673</p><p style="font-size:var(--type-caption);color:var(--muted);line-height:1.45;margin-top:6px">Más potente: añade la multiplicación y la división. Su mecanismo de cilindro escalonado se siguió usando en calculadoras hasta el siglo XX.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="galeria" style="--galeria-alto:500px;--galeria-flex:none;justify-content:center">
+    <figure class="foto" data-pie="<b>Figura 1.2.</b> Ábaco chino (suanpan). Cada varilla es una posición decimal: las dos cuentas de arriba valen 5 y las cinco de abajo, 1. Se cuenta lo que está pegado a la barra central.">
+      <img src="img/abaco.jpg" alt="Ábaco chino de madera con nueve varillas" title="Foto: Dave Fischer · Wikimedia Commons · CC BY-SA 3.0">
+      <figcaption class="credito"><b>Ábaco chino</b>. Foto: Dave Fischer, <a href="https://commons.wikimedia.org/wiki/File:Chinese-abacus.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.es" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Reducida.</figcaption>
+    </figure>
+    <figure class="foto" data-pie="<b>Figura 1.3.</b> Pascalina original conservada en el Musée des Arts et Métiers de París. Cada rueda es una cifra; al pasar de 9 a 0 arrastra la siguiente: el acarreo, hecho con engranajes.">
+      <img src="img/pascalina.jpg" alt="Pascalina original expuesta en el Musée des Arts et Métiers de París" title="Foto: David Monniaux · Wikimedia Commons · CC BY-SA 3.0" style="object-fit:contain">
+      <figcaption class="credito"><b>Pascalina</b> original en el Musée des Arts et Métiers (París). Foto: David Monniaux, <a href="https://commons.wikimedia.org/wiki/File:Arts_et_Metiers_Pascaline_dsc03869.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.es" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Reducida.</figcaption>
+    </figure>
+    <figure class="foto" data-pie="<b>Figura 1.4.</b> Réplica de la calculadora de Leibniz (Technische Sammlungen, Dresde). El cilindro escalonado, a la izquierda, y la manivela permiten multiplicar y dividir repitiendo sumas y restas.">
+      <img src="img/leibniz.jpg" alt="Réplica de la calculadora de Leibniz, de latón, con su cilindro escalonado y manivela" title="Foto: Kolossos · Wikimedia Commons · CC BY-SA 3.0">
+      <figcaption class="credito"><b>Calculadora de Leibniz</b> (réplica de 1988, Technische Sammlungen Dresden). Foto: Kolossos, <a href="https://commons.wikimedia.org/wiki/File:Leibnitzrechenmaschine.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.es" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Reducida.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 12 Pasos: tarjetas perforadas -->
+<section data-label="Las tarjetas perforadas" data-notas="La idea clave: separar la máquina del programa. Jacquard: los tejedores de Lyon (canuts) destruyeron telares por miedo a perder el trabajo; mismo fenómeno que con otras máquinas de la Revolución Industrial. Babbage: nunca terminó su máquina, la mecánica de precisión de la época no daba para tanto. Hollerith: el censo de 1880 tardó unos 8 años en tabularse; con sus máquinas, el de 1890 se tabuló en unos 2 años y medio. La foto es de una tabuladora de Hollerith en el Computer History Museum." style="display:grid;grid-template-columns:1fr 700px;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.2 · Evolución histórica</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Las tarjetas perforadas</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Una cartulina con agujeros puede guardar instrucciones o datos. Es la primera forma de separar la máquina de lo que hace.</p>
+    <div style="display:flex;flex-direction:column;gap:22px;margin-top:var(--gap-item)">
+      <div data-ir="1" style="display:flex;gap:28px;align-items:flex-start;padding:10px 14px;margin:-10px -14px">
+        <span style="width:64px;height:64px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">1</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Telar de Jacquard · 1804</p><p style="font-size:var(--type-caption);color:var(--muted);line-height:1.45;margin-top:6px">Una cadena de tarjetas perforadas le dice al telar qué hilos levantar en cada pasada. El dibujo de la tela está en las tarjetas: cambiar de dibujo es cambiar de tarjetas. Es un telar programable.</p></div>
+      </div>
+      <div data-ir="2" style="display:flex;gap:28px;align-items:flex-start;padding:10px 14px;margin:-10px -14px">
+        <span style="width:64px;height:64px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">2</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Máquina Analítica · Charles Babbage, 1837</p><p style="font-size:var(--type-caption);color:var(--muted);line-height:1.45;margin-top:6px">Diseño de una máquina de cálculo de propósito general con memoria para guardar números, una unidad que calcula y entrada y salida por tarjetas. Nunca llegó a funcionar del todo.</p></div>
+      </div>
+      <div data-ir="3" style="display:flex;gap:28px;align-items:flex-start;padding:10px 14px;margin:-10px -14px">
+        <span style="width:64px;height:64px;border-radius:50%;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">3</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Máquina tabuladora · Herman Hollerith, 1890</p><p style="font-size:var(--type-caption);color:var(--muted);line-height:1.45;margin-top:6px">Lee tarjetas perforadas con contactos eléctricos para el censo de Estados Unidos. La empresa que fundó Hollerith en 1896 pasó a llamarse IBM en 1924.</p></div>
+      </div>
+    </div>
+    <p data-ir="4" style="font-size:var(--type-caption);line-height:1.45;margin-top:var(--gap-item);border-left:5px solid var(--yellow);padding:6px 20px;color:var(--ink)">Las tarjetas perforadas se usaron para introducir datos y programas en los ordenadores hasta finales de los años setenta: una tarjeta, una línea de programa.</p>
+  </div>
+  <div class="galeria">
+    <figure class="foto" data-pie="<b>Figura 1.5.</b> Mecanismo Jacquard de 1883 (Musée des Arts et Métiers, París). El dibujo está perforado en la tira de papel que cuelga; las agujas del cabezal leen los agujeros y levantan los hilos.">
+      <img src="img/jacquard.jpg" alt="Mecanismo Jacquard con una tira de papel perforado colgando" title="Foto: David Monniaux · Wikimedia Commons · CC BY-SA 3.0">
+      <figcaption class="credito"><b>Mecanismo Jacquard</b> de tipo Verdol (1883), Musée des Arts et Métiers, París. Foto: David Monniaux, <a href="https://commons.wikimedia.org/wiki/File:Jacquard_loom_p1040320.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.es" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Reducida.</figcaption>
+    </figure>
+    <figure class="foto" data-pie="<b>Figura 1.6.</b> Parte de la Máquina Analítica de Babbage, montada tras su muerte y expuesta en el Science Museum de Londres. Las columnas de ruedas dentadas guardan números: cada rueda, una cifra.">
+      <img src="img/babbage.jpg" alt="Fragmento de la Máquina Analítica de Babbage en una vitrina del Science Museum de Londres" title="Foto: Bruno Barral (ByB) · Wikimedia Commons · CC BY-SA 2.5">
+      <figcaption class="credito"><b>Máquina Analítica</b> de Charles Babbage, Science Museum, Londres. Foto: Bruno Barral (ByB), <a href="https://commons.wikimedia.org/wiki/File:AnalyticalMachine_Babbage_London.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/2.5/deed.es" target="_blank" rel="noopener">CC BY-SA 2.5</a>. Reducida.</figcaption>
+    </figure>
+    <figure class="foto" data-pie="<b>Figura 1.7.</b> Tabuladora de Hollerith (Computer History Museum, California). Cada esfera cuenta las tarjetas con un agujero en una posición: sexo, edad, oficio.">
+      <img src="img/hollerith.jpg" alt="Máquina tabuladora de Hollerith con sus contadores de esfera, en el Computer History Museum" title="Foto: Adam Schuster · Flickr / Wikimedia Commons · CC BY 2.0">
+      <figcaption class="credito"><b>Tabuladora de Hollerith</b> (hacia 1890) en el Computer History Museum, California. Foto: Adam Schuster, <a href="https://commons.wikimedia.org/wiki/File:HollerithMachine.CHM.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by/2.0/deed.es" target="_blank" rel="noopener">CC BY 2.0</a>. Reducida.</figcaption>
+    </figure>
+    <figure class="foto" data-pie="<b>Figura 1.8.</b> Tarjeta perforada IBM de 80 columnas con una línea de un programa en Fortran. Cada columna es un carácter: los agujeros codifican la letra o la cifra que hay impresa arriba." style="background:var(--white)">
+      <img src="img/tarjeta.jpg" alt="Tarjeta perforada IBM de 80 columnas con una línea de Fortran" title="Foto: Pete Birkinshaw · Wikimedia Commons · CC BY 2.0" style="object-fit:contain">
+      <figcaption class="credito"><b>Tarjeta perforada</b> IBM de 80 columnas. Foto: Pete Birkinshaw, <a href="https://commons.wikimedia.org/wiki/File:Used_Punchcard_(5151286161).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by/2.0/deed.es" target="_blank" rel="noopener">CC BY 2.0</a>. Reducida.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 13 Nota: QWERTY -->
+<section data-label="Curiosidad: QWERTY" data-notas="La explicación de que QWERTY separa las letras frecuentes para evitar atascos es la tradicional; hay historiadores que la discuten (Yasuoka, 2011, la relaciona con los operadores de telégrafo). Pedirles que busquen TYPEWRITER en la fila de arriba. Dvorak (1936) no se impuso: el coste de reaprender es mayor que la ganancia." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">
+  <img class="icono" src="../assets/exclamation.png" alt="">
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:var(--gap-title);color:var(--navy);max-width:1400px;text-wrap:balance">Curiosidad: por qué el teclado es QWERTY</h2>
+  <p style="font-size:var(--type-body);line-height:1.5;color:var(--muted);margin-top:var(--gap-item);max-width:1400px;text-wrap:pretty">El teclado desciende de la máquina de escribir de Christopher Sholes, patentada en 1868 y fabricada por Remington desde 1873. Su distribución se llama QWERTY por las seis primeras letras de la fila superior. Según la explicación tradicional, separa las letras que se pulsan seguidas para que las varillas no se atascaran, porque las máquinas eran lentas.</p>
+  <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item);max-width:1300px;text-wrap:pretty">Ha llegado hasta hoy aunque existen distribuciones más eficientes, como la Dvorak (1936). Un detalle: la palabra TYPEWRITER se escribe entera con la fila superior.</p>
+  <div style="display:flex;gap:10px;margin-top:var(--gap-title);font-family:var(--mono);font-size:var(--type-small);font-weight:600;color:var(--navy)">
+    <span style="background:var(--yellow);border-radius:12px;padding:16px 0;width:76px">Q</span><span style="background:var(--yellow);border-radius:12px;padding:16px 0;width:76px">W</span><span style="background:var(--yellow);border-radius:12px;padding:16px 0;width:76px">E</span><span style="background:var(--yellow);border-radius:12px;padding:16px 0;width:76px">R</span><span style="background:var(--yellow);border-radius:12px;padding:16px 0;width:76px">T</span><span style="background:var(--yellow);border-radius:12px;padding:16px 0;width:76px">Y</span><span style="background:var(--white);border-radius:12px;padding:16px 0;width:76px;box-shadow:0 2px 0 var(--line)">U</span><span style="background:var(--white);border-radius:12px;padding:16px 0;width:76px;box-shadow:0 2px 0 var(--line)">I</span><span style="background:var(--white);border-radius:12px;padding:16px 0;width:76px;box-shadow:0 2px 0 var(--line)">O</span><span style="background:var(--white);border-radius:12px;padding:16px 0;width:76px;box-shadow:0 2px 0 var(--line)">P</span>
+  </div>
+</section>
+
+<!-- 14 Vídeo: Ada Lovelace -->
+<section data-label="Vídeo: Ada Lovelace" data-notas="Vídeo de la guía: Ada Lovelace for Kids, canal Bedtime History, unos 6 minutos, en inglés: activar los subtítulos automáticos en español. Ada, hija de lord Byron, fue alumna de matemáticas y amiga de Babbage. Sus notas (1843) a la traducción del artículo de Menabrea triplican la longitud del original. El segundo martes de octubre se celebra el Ada Lovelace Day, dedicado a las mujeres en ciencia y tecnología." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:minmax(0,1fr) 600px;gap:80px">
+  <div style="display:flex;flex-direction:column;gap:20px;min-width:0">
+    <div style="flex:1;background:#0B1F44;border-radius:20px;overflow:hidden;position:relative">
+      <iframe src="https://www.youtube-nocookie.com/embed/QTCW2UyaRno" title="Ada Lovelace for Kids · Bedtime History" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
+    </div>
+    <p style="font-size:var(--type-caption);color:var(--muted)">Vídeo 1.1. <i>Ada Lovelace for Kids</i>, Bedtime History (YouTube). Duración: 6 min. En inglés: activa los subtítulos en español.</p>
+  </div>
+  <div>
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.2 · Vídeo</p>
+    <h2 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.15;margin-top:20px;color:var(--navy);text-wrap:balance">Ada Lovelace, la primera programadora</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Trabajó con Babbage sobre la Máquina Analítica sin que la máquina existiera. Tres ideas que debes sacar del vídeo:</p>
+    <ul style="padding:0;list-style:none;display:flex;flex-direction:column;gap:20px;margin-top:var(--gap-item);font-size:var(--type-caption);line-height:1.45">
+      <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800;flex:none">1</span><span><b>Las notas (1843).</b> Tradujo un artículo sobre la Máquina Analítica y le añadió unas notas más largas que el propio artículo.</span></li>
+      <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800;flex:none">2</span><span><b>El primer programa.</b> En la nota G describe paso a paso cómo la máquina calcularía los números de Bernoulli: se considera el primer algoritmo publicado para una máquina.</span></li>
+      <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800;flex:none">3</span><span><b>Más allá del cálculo.</b> Entendió que la máquina podía manejar símbolos, no solo números, y que podría llegar a componer música. El lenguaje Ada (1980) lleva su nombre.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 15 Texto: el programa interno -->
+<section data-label="El programa interno" data-notas="Momento clave del bloque: el ordenador nace cuando el programa está dentro de la máquina. Las calculadoras mecánicas y electromecánicas hacían una operación cada vez; el ordenador ejecuta una secuencia de instrucciones guardada. La arquitectura de programa almacenado la describió John von Neumann en 1945 (informe sobre el EDVAC); enlaza con los elementos funcionales del apartado 1.3." style="display:grid;grid-template-columns:1fr 1fr;gap:100px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
+  <div>
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.2 · Evolución histórica</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Cuándo hay ordenador: el programa interno</h2>
+    <p style="font-size:var(--type-body);line-height:1.5;margin-top:var(--gap-title)">Con la electrónica, las máquinas mecánicas se sustituyen por máquinas electrónicas. Pero el ordenador aparece cuando surge el <b>programa interno</b>: la máquina guarda un programa, recibe unos datos de entrada, los procesa y produce unos datos de salida.</p>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Cambiar de tarea ya no es cambiar de máquina ni recablearla: es cargar otro programa. Esta idea, con el programa guardado en la misma memoria que los datos, la formalizó John von Neumann en 1945 y sigue siendo la base de tu ordenador y de tu móvil.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:28px">
+    <div style="display:grid;grid-template-columns:1fr 64px 1fr 64px 1fr;align-items:center;gap:8px">
+      <div style="background:var(--white);border:3px solid var(--line);border-radius:20px;padding:36px 24px;text-align:center"><p style="font-size:var(--type-small);font-weight:800;color:var(--navy)">Datos de entrada</p><p style="font-size:var(--type-caption);color:var(--muted);margin-top:10px;line-height:1.4">Teclado, tarjetas, sensores, red</p></div>
+      <span style="font-size:56px;color:var(--yellow);text-align:center;line-height:1">→</span>
+      <div style="background:var(--navy);color:var(--white);border-radius:20px;padding:36px 24px;text-align:center"><p style="font-size:var(--type-small);font-weight:800">Proceso</p><p style="font-size:var(--type-caption);color:#C9D6EE;margin-top:10px;line-height:1.4">El programa, dentro de la máquina, dice qué hacer con los datos</p></div>
+      <span style="font-size:56px;color:var(--yellow);text-align:center;line-height:1">→</span>
+      <div style="background:var(--white);border:3px solid var(--line);border-radius:20px;padding:36px 24px;text-align:center"><p style="font-size:var(--type-small);font-weight:800;color:var(--navy)">Datos de salida</p><p style="font-size:var(--type-caption);color:var(--muted);margin-top:10px;line-height:1.4">Pantalla, impresora, altavoces, red</p></div>
+    </div>
+    <p style="font-size:var(--type-caption);color:var(--muted);line-height:1.4;text-align:center">Figura 1.9. Esquema básico de funcionamiento de un ordenador. Elaboración propia.</p>
+  </div>
+</section>
+
+<!-- 16 Tabla: las cinco generaciones -->
+<section data-label="Las cinco generaciones" data-notas="Los años de cada generación son orientativos; cada fuente los mueve algo. Lo que separa cada generación es el componente que hace el cálculo: válvula, transistor, chip, microprocesador. Esta tabla resume las tres diapositivas siguientes; en el examen se pide relacionar generación, tecnología y algún hito." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.2.1 · Generaciones de ordenadores</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Las cinco generaciones</h2>
+  <table style="width:100%;border-collapse:collapse;margin-top:var(--gap-title);font-size:var(--type-caption);background:var(--white);border-radius:20px;overflow:hidden">
+    <thead>
+      <tr style="background:var(--navy);color:var(--white);text-align:left">
+        <th style="padding:18px 26px;font-weight:700">Generación</th>
+        <th style="padding:18px 26px;font-weight:700">Años</th>
+        <th style="padding:18px 26px;font-weight:700">Tecnología</th>
+        <th style="padding:18px 26px;font-weight:700">Hitos</th>
+        <th style="padding:18px 26px;font-weight:700">Lenguajes</th>
+      </tr>
+    </thead>
+    <tbody style="line-height:1.35">
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:18px 26px;font-weight:700;color:var(--navy)">1.ª</td><td style="padding:18px 26px">1940-1959</td><td style="padding:18px 26px">Válvulas de vacío. Uso científico y militar</td><td style="padding:18px 26px">Mark I (1944), ENIAC (1946), UNIVAC I (1951). Nace el sistema operativo</td><td style="padding:18px 26px">Ensamblador, Fortran, LISP</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:18px 26px;font-weight:700;color:var(--navy)">2.ª</td><td style="padding:18px 26px">1960-1965</td><td style="padding:18px 26px">Transistor. Más pequeños y baratos</td><td style="padding:18px 26px">Aparece el concepto de periférico</td><td style="padding:18px 26px">Algol, COBOL</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:18px 26px;font-weight:700;color:var(--navy)">3.ª</td><td style="padding:18px 26px">1966-1971</td><td style="padding:18px 26px">Circuito integrado (chip): transistores miniaturizados</td><td style="padding:18px 26px">Ordenadores para empresas; escalas SSI, MSI, LSI</td><td style="padding:18px 26px">BASIC, Pascal, C</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:18px 26px;font-weight:700;color:var(--navy)">4.ª</td><td style="padding:18px 26px">1971-1981</td><td style="padding:18px 26px">Microprocesador: toda la CPU en un chip (LSI, VLSI)</td><td style="padding:18px 26px">Intel 4004 (1971), Apple II (1977). Primer ordenador personal. CP/M y Unix</td><td style="padding:18px 26px">PROLOG, Smalltalk</td></tr>
+      <tr><td style="padding:18px 26px;font-weight:700;color:var(--navy)">5.ª</td><td style="padding:18px 26px">1981-hoy</td><td style="padding:18px 26px">El PC: integración masiva, más velocidad y memoria</td><td style="padding:18px 26px">IBM PC y MS-DOS (1981), Macintosh (1984), Windows (1985), Linux (1991)</td><td style="padding:18px 26px">C++, Java, C#, Python</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:var(--type-caption);color:var(--muted);margin-top:24px">Tabla 1.2. Generaciones según el grado de integración de los componentes. Los años de cada generación son orientativos: cada fuente los mueve un poco. Las fechas de los hitos son las de presentación de cada máquina.</p>
+</section>
+
+<!-- 17 Texto: 1.ª y 2.ª generación -->
+<section data-label="1.ª y 2.ª generación" data-notas="ENIAC: 17.468 válvulas, unas 27 toneladas, 150 kW; las válvulas se fundían a diario. En la foto, Betty Snyder y Glen Beck programándolo cableando paneles: las primeras programadoras del ENIAC fueron seis mujeres. El ENIAC se terminó a finales de 1945 y se presentó en febrero de 1946; algunas fuentes lo fechan en 1944, cuando empezó a construirse. El transistor lo inventaron Bardeen, Brattain y Shockley en los Laboratorios Bell en 1947 (Nobel 1956)." style="display:grid;grid-template-columns:1fr 720px;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.2.1 · Generaciones de ordenadores</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">1.ª y 2.ª generación</h2>
+    <div style="margin-top:var(--gap-title)">
+      <p style="font-size:var(--type-small);font-weight:800;color:var(--navy)">1.ª generación (1940-1959) · válvulas de vacío</p>
+      <ul style="padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:14px;font-size:var(--type-caption);line-height:1.45">
+        <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span>Uso exclusivo científico y militar. Ocupaban una habitación y calculaban menos que una calculadora de bolsillo.</span></li>
+        <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Mark I</b> (Aiken con IBM, 1944), basado en las ideas de Babbage. Se programaba con interruptores: más calculadora que ordenador.</span></li>
+        <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>ENIAC</b> (1946): el primer ordenador electrónico de uso práctico. Sus válvulas se fundían continuamente.</span></li>
+        <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>UNIVAC I</b> (1951): empiezan los ordenadores comerciales. Aparecen el <b>sistema operativo</b> y los primeros lenguajes: ensamblador, Fortran, LISP.</span></li>
+      </ul>
+    </div>
+    <div style="margin-top:var(--gap-item)">
+      <p style="font-size:var(--type-small);font-weight:800;color:var(--navy)">2.ª generación (1960-1965) · el transistor</p>
+      <ul style="padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:14px;font-size:var(--type-caption);line-height:1.45">
+        <li style="display:flex;gap:18px"><span style="color:var(--blue);font-weight:800">●</span><span>El transistor (Laboratorios Bell, 1947) sustituye a la válvula: ordenadores más pequeños, fiables y económicos.</span></li>
+        <li style="display:flex;gap:18px"><span style="color:var(--blue);font-weight:800">●</span><span>Aparece el concepto de <b>periférico</b>. Nuevos lenguajes: Algol y COBOL. El programa se escribe y la máquina lo traduce a lenguaje máquina.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:20px;min-height:0">
+    <figure class="foto" style="flex:1">
+      <img src="img/eniac.jpg" alt="Dos personas programan el ENIAC cableando sus paneles" title="Foto: U.S. Army · Wikimedia Commons · dominio público">
+      <figcaption class="credito"><b>ENIAC</b> en el Ballistic Research Laboratory (EE. UU.), programado por Betty Snyder y Glen Beck, hacia 1947-1955. Foto: U.S. Army, <a href="https://commons.wikimedia.org/wiki/File:Eniac.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, dominio público.</figcaption>
+    </figure>
+    <p style="font-size:var(--type-caption);color:var(--muted);line-height:1.4">Figura 1.10. Programar el ENIAC era cablear paneles: 17.468 válvulas y unas 27 toneladas.</p>
+  </div>
+</section>
+
+<!-- 18 Texto: 3.ª y 4.ª generación -->
+<section data-label="3.ª y 4.ª generación" data-notas="Chip: Jack Kilby (Texas Instruments, 1958) y Robert Noyce (Fairchild, 1959). Intel 4004 (noviembre de 1971): 2.300 transistores, 4 bits, diseñado para una calculadora japonesa. Intel hizo los micros del IBM PC; después surgieron AMD y Cyrix. El Z80 de Zilog movía el ZX Spectrum (1982) y los Amstrad CPC; los Motorola, los Commodore, Atari y primeros Apple; los Macintosh pasaron después a PowerPC, a Intel (2006) y hoy a chips propios de Apple (2020)." style="display:grid;grid-template-columns:1fr 640px;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.2.1 · Generaciones de ordenadores</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">3.ª y 4.ª generación</h2>
+    <div style="margin-top:var(--gap-title)">
+      <p style="font-size:var(--type-small);font-weight:800;color:var(--navy)">3.ª generación (1966-1971) · el circuito integrado</p>
+      <ul style="padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:14px;font-size:var(--type-caption);line-height:1.45">
+        <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span>El <b>chip</b>: muchos transistores miniaturizados en una pastilla de silicio. Menos tamaño, coste y consumo, y más capacidad: los ordenadores se venden a empresas.</span></li>
+        <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span>Escalas de integración según los transistores por chip: SSI, MSI, LSI, VLSI y ULSI (de <i>small</i> a <i>ultra large scale integration</i>).</span></li>
+        <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span>Lenguajes: BASIC, Pascal, C.</span></li>
+      </ul>
+    </div>
+    <div style="margin-top:var(--gap-item)">
+      <p style="font-size:var(--type-small);font-weight:800;color:var(--navy)">4.ª generación (1971-1981) · el microprocesador</p>
+      <ul style="padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:14px;font-size:var(--type-caption);line-height:1.45">
+        <li style="display:flex;gap:18px"><span style="color:var(--blue);font-weight:800">●</span><span>Toda la unidad central de proceso en un solo chip (LSI y VLSI). El primero, el <b>Intel 4004</b> (1971), con 2.300 transistores.</span></li>
+        <li style="display:flex;gap:18px"><span style="color:var(--blue);font-weight:800">●</span><span>Baja tanto el coste que nace el <b>ordenador personal o doméstico</b>: por primera vez un particular puede comprar uno.</span></li>
+        <li style="display:flex;gap:18px"><span style="color:var(--blue);font-weight:800">●</span><span>Sistemas operativos <b>CP/M</b> y <b>Unix</b>; programas de gestión; PROLOG para inteligencia artificial. Micros Intel, Zilog (ZX Spectrum, Amstrad) y Motorola (Commodore, Atari, Apple).</span></li>
+      </ul>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-rows:1fr 1fr;gap:20px;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:12px;min-height:0">
+      <figure class="foto" style="flex:1">
+        <img src="img/intel-4004.jpg" alt="Microprocesador Intel C4004 en encapsulado cerámico" title="Foto: Thomas Nguyen · Wikimedia Commons · CC BY-SA 4.0">
+        <figcaption class="credito"><b>Intel C4004</b>, el primer microprocesador comercial (1971). Foto: Thomas Nguyen, <a href="https://commons.wikimedia.org/wiki/File:Intel_C4004.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Reducida.</figcaption>
+      </figure>
+      <p style="font-size:20px;color:var(--muted);line-height:1.3">Figura 1.11. Intel 4004 (1971): 2.300 transistores, 4 bits.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;min-height:0">
+      <figure class="foto" style="flex:1">
+        <img src="img/zx-spectrum.jpg" alt="Ordenador doméstico Sinclair ZX Spectrum de 48 K" title="Foto: Bill Bertram · Wikimedia Commons · CC BY-SA 2.5">
+        <figcaption class="credito"><b>Sinclair ZX Spectrum</b> 48K (1982), con microprocesador Zilog Z80. Foto: Bill Bertram, <a href="https://commons.wikimedia.org/wiki/File:ZXSpectrum48k.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/2.5/deed.es" target="_blank" rel="noopener">CC BY-SA 2.5</a>. Reducida.</figcaption>
+      </figure>
+      <p style="font-size:20px;color:var(--muted);line-height:1.3">Figura 1.12. ZX Spectrum (1982): el ordenador doméstico más popular en España en los años ochenta.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 19 Texto: 5.ª generación, el PC -->
+<section data-label="5.ª generación: el PC" data-notas="IBM PC 5150, presentado el 12 de agosto de 1981: Intel 8088 a 4,77 MHz, 16 KB de RAM ampliables, PC DOS (el MS-DOS de Microsoft). IBM publicó las especificaciones y el resto de fabricantes hizo compatibles: de ahí que hoy cualquier PC arranque Windows o Linux. Apple siguió el camino contrario: hardware y sistema cerrados. Preguntar: ¿vuestro móvil es de la 5.ª generación o de otra? No hay respuesta cerrada: la clasificación clásica por generaciones se para en el PC." style="display:grid;grid-template-columns:1fr 680px;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.2.1 · Generaciones de ordenadores</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">5.ª generación: el PC</h2>
+    <ul style="padding:0;list-style:none;display:flex;flex-direction:column;gap:16px;margin-top:var(--gap-title);font-size:var(--type-caption);line-height:1.45">
+      <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>1981: IBM presenta el PC</b>, con el sistema operativo <b>MS-DOS</b> de Microsoft, en modo texto. Más adelante llega <b>Windows</b>, con interfaz gráfica.</span></li>
+      <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span>Su éxito crea un <b>estándar</b>: otras marcas venden ordenadores compatibles, y aparece el <b>clónico</b>, montado con piezas sueltas y sin marca.</span></li>
+      <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Apple</b> sigue otro camino con el <b>Macintosh</b> (1984) y su sistema Mac OS: no es compatible con el PC y destaca por su interfaz gráfica.</span></li>
+      <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span>A principios de los noventa nace <b>Linux</b> (1991), una versión de Unix para el PC.</span></li>
+      <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span>Se impone la <b>programación orientada a objetos</b>: C++, Java, C#, y entornos de desarrollo gráficos.</span></li>
+    </ul>
+    <p style="font-size:var(--type-caption);line-height:1.45;margin-top:var(--gap-item);border-left:5px solid var(--yellow);padding-left:20px;color:var(--ink)"><b>¿Existe de verdad una 5.ª generación?</b> Desde 1981 no ha habido una ruptura en el diseño como las anteriores: solo más integración, velocidad y memoria. Por eso algunos autores la niegan. Otros fijan su inicio en el momento en que el ordenador sale del ámbito militar, universitario y empresarial y entra en las casas.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:20px;min-height:0">
+    <figure class="foto" style="flex:1;background:var(--white)">
+      <img src="img/ibm-pc.jpg" alt="IBM PC modelo 5150 con monitor y teclado" title="Foto: Ruben de Rijcke · Wikimedia Commons · CC BY-SA 3.0" style="object-fit:contain">
+      <figcaption class="credito"><b>IBM PC 5150</b> (1981) con su monitor y teclado. Foto: Ruben de Rijcke, <a href="https://commons.wikimedia.org/wiki/File:Ibm_pc_5150.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.es" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Reducida.</figcaption>
+    </figure>
+    <p style="font-size:var(--type-caption);color:var(--muted);line-height:1.4">Figura 1.13. IBM PC 5150: procesador Intel 8088 a 4,77 MHz y dos disqueteras de 5¼ pulgadas.</p>
+  </div>
+</section>
+
+<!-- 20 Vídeo: de la Ley de Moore a la Ley de Huang -->
+<section data-label="Vídeo: Moore y Huang" data-notas="Vídeo de la guía: Data Coffee #14 del canal Dot CSV (Carlos Santana), 2020, unos 20 minutos. Explica la Ley de Moore, por qué se frena y qué propone Nvidia con la Ley de Huang. Es largo: decidir si se pone entero o hasta el minuto que interese. La siguiente diapositiva resume las dos leyes y la de después abre el debate sobre 2026." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:minmax(0,1fr) 600px;gap:80px">
+  <div style="display:flex;flex-direction:column;gap:20px;min-width:0">
+    <div style="flex:1;background:#0B1F44;border-radius:20px;overflow:hidden;position:relative">
+      <iframe src="https://www.youtube-nocookie.com/embed/Jlbxj182bhg" title="¿La Ley de Huang es la nueva Ley de Moore? · Dot CSV" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
+    </div>
+    <p style="font-size:var(--type-caption);color:var(--muted)">Vídeo 1.2. <i>¿La Ley de Huang es la nueva Ley de Moore?</i>, Data Coffee #14, Dot CSV (YouTube, 2020). Duración: 20 min.</p>
+  </div>
+  <div>
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.2 · Vídeo</p>
+    <h2 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.15;margin-top:20px;color:var(--navy);text-wrap:balance">De la Ley de Moore a la Ley de Huang</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Durante cincuenta años los chips han doblado su capacidad cada dos años. El vídeo cuenta por qué eso se está acabando y qué viene después.</p>
+    <ul style="padding:0;list-style:none;display:flex;flex-direction:column;gap:20px;margin-top:var(--gap-title);font-size:var(--type-caption);line-height:1.45">
+      <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">—</span><span>Duración: 20 minutos. El vídeo es de 2020: fíjate en qué ha cambiado desde entonces.</span></li>
+      <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">—</span><span>Anota: qué dice exactamente la Ley de Moore, por qué se frena y qué propone Nvidia.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 21 Texto + gráfica: Moore y Huang -->
+<section data-label="De Moore a Huang" data-notas="Moore publicó la observación en la revista Electronics en 1965 (duplicación anual) y la corrigió en 1975 a cada dos años. La gráfica es de elaboración propia con los recuentos de transistores de Wikipedia (Transistor count): 4004 2.300; 8086 29.000; 386 275.000; Pentium 3,1 millones; Pentium 4 42 millones; Core 2 Duo 291 millones; Core i7 2600K 1.160 millones; Apple M1 16.000 millones; Apple M2 Ultra 134.000 millones; Nvidia Blackwell 208.000 millones. La linea discontinua es la duplicación cada dos años desde el 4004. Ley de Huang: el nombre lo puso el Wall Street Journal en septiembre de 2020 (Christopher Mims). Frecuencia: desde 2005 los micros de sobremesa rondan los 3-5 GHz porque el calor no permite subir más." style="display:grid;grid-template-columns:1fr 900px;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.2 · Evolución histórica</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">De la Ley de Moore a la Ley de Huang</h2>
+    <div style="display:flex;flex-direction:column;gap:16px;margin-top:var(--gap-item);font-size:22px;line-height:1.4">
+      <div style="background:var(--white);border-radius:20px;padding:22px 28px;box-shadow:0 2px 0 var(--line)">
+        <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Ley de Moore (1965, revisada en 1975)</p>
+        <p style="margin-top:6px">Gordon Moore, cofundador de Intel, observó que el número de transistores de un chip <b>se duplica cada dos años</b>. No es una ley física: es una tendencia que la industria ha cumplido durante cincuenta años (gráfica).</p>
+      </div>
+      <div style="background:var(--white);border-radius:20px;padding:22px 28px;box-shadow:0 2px 0 var(--line)">
+        <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Por qué se frena</p>
+        <p style="margin-top:6px">Los transistores actuales se fabrican en procesos de <b>2 nanómetros</b> (TSMC, 2025), cerca de los límites físicos del silicio. Y la <b>frecuencia</b> lleva estancada en 3-5 GHz desde 2005: subir más genera demasiado calor.</p>
+      </div>
+      <div style="background:var(--navy);color:var(--white);border-radius:20px;padding:22px 28px">
+        <p style="font-size:var(--type-caption);font-weight:800;color:var(--yellow)">Ley de Huang (2020)</p>
+        <p style="margin-top:6px;color:#E3EBF8">Jensen Huang, director de Nvidia: el rendimiento de las <b>GPU</b> se duplica con creces cada dos años gracias al <b>paralelismo</b> (miles de núcleos sencillos trabajando a la vez) y a hardware especializado, no a más frecuencia. Es la base de la inteligencia artificial actual.</p>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px;min-height:0;justify-content:center">
+    <div style="background:var(--white);border-radius:20px;padding:28px 32px 20px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--navy)">Transistores por chip, 1971-2024 <span style="font-weight:400;color:var(--muted)">· escala logarítmica</span></p>
+      <svg viewBox="0 0 880 510" style="width:100%;height:auto;margin-top:8px" role="img" aria-label="Gráfica del número de transistores por chip entre 1971 y 2024 en escala logarítmica, con la línea de la Ley de Moore">
+        <g stroke="#D7DCE6" stroke-width="1.5">
+          <line x1="170" y1="460" x2="860" y2="460"/><line x1="170" y1="320" x2="860" y2="320"/><line x1="170" y1="180" x2="860" y2="180"/><line x1="170" y1="40" x2="860" y2="40"/>
+        </g>
+        <g font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="17" fill="#485168" text-anchor="end">
+          <text x="158" y="466">mil</text><text x="158" y="326">1 millón</text><text x="158" y="186">1.000 millones</text><text x="158" y="46">1 billón</text>
+        </g>
+        <g font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="17" fill="#485168" text-anchor="middle">
+          <text x="170" y="492">1970</text><text x="293" y="492">1980</text><text x="416" y="492">1990</text><text x="539" y="492">2000</text><text x="663" y="492">2010</text><text x="786" y="492">2020</text>
+        </g>
+        <line x1="182" y1="443" x2="835" y2="71" stroke="#485168" stroke-width="2" stroke-dasharray="8 8"/>
+        <text x="400" y="292" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="17" fill="#485168" transform="rotate(-29.7 400 292)">Ley de Moore: el doble cada dos años</text>
+        <polyline fill="none" stroke="#0B4AB5" stroke-width="2.5" stroke-linejoin="round" points="182,443 269,392 355,346 453,297 540,244 614,205 675,177 786,124 823,81 835,72"/>
+        <g stroke="#D7DCE6" stroke-width="1.5">
+          <line x1="786" y1="134" x2="786" y2="286"/><line x1="835" y1="82" x2="835" y2="366"/>
+        </g>
+        <g fill="#0B4AB5" stroke="#FFFFFF" stroke-width="2">
+          <circle cx="182" cy="443" r="6"><title>Intel 4004 (1971): 2.300</title></circle>
+          <circle cx="269" cy="392" r="6"><title>Intel 8086 (1978): 29.000</title></circle>
+          <circle cx="355" cy="346" r="6"><title>Intel 386 (1985): 275.000</title></circle>
+          <circle cx="453" cy="297" r="6"><title>Intel Pentium (1993): 3,1 millones</title></circle>
+          <circle cx="540" cy="244" r="6"><title>Intel Pentium 4 (2000): 42 millones</title></circle>
+          <circle cx="614" cy="205" r="6"><title>Intel Core 2 Duo (2006): 291 millones</title></circle>
+          <circle cx="675" cy="177" r="6"><title>Intel Core i7 2600K (2011): 1.160 millones</title></circle>
+          <circle cx="786" cy="124" r="6"><title>Apple M1 (2020): 16.000 millones</title></circle>
+          <circle cx="823" cy="81" r="6"><title>Apple M2 Ultra (2023): 134.000 millones</title></circle>
+          <circle cx="835" cy="72" r="6"><title>Nvidia Blackwell (2024): 208.000 millones</title></circle>
+        </g>
+        <g font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="17" fill="#1F2937">
+          <text x="196" y="448">Intel 4004 · 2.300</text>
+          <text x="467" y="326">Pentium · 3,1 millones</text>
+          <text x="800" y="306" text-anchor="end">Apple M1 (2020) · 16.000 millones</text>
+          <text x="850" y="386" text-anchor="end">Nvidia Blackwell (2024) · 208.000 millones</text>
+        </g>
+      </svg>
+    </div>
+    <p style="font-size:20px;color:var(--muted);line-height:1.4">Figura 1.14. Elaboración propia con datos de <a href="https://es.wikipedia.org/wiki/Ley_de_Moore" target="_blank" rel="noopener">Ley de Moore</a> y <a href="https://en.wikipedia.org/wiki/Transistor_count" target="_blank" rel="noopener">Transistor count</a> (Wikipedia, consultados en septiembre de 2026). Pasa el ratón por cada punto para ver el chip.</p>
+  </div>
+</section>
+
+<!-- 22 Pregunta: ¿sigue cumpliéndose la Ley de Huang en 2026? -->
+<section data-label="¿Ley de Huang en 2026?" data-notas="Debate abierto tras el vídeo, que es de 2020. El panel es apoyo para ti, no una respuesta cerrada. Ideas: entrenar un modelo y usarlo (inferencia) piden hardware distinto; los tensor cores y las NPU de portátiles y móviles son hardware específico; DLSS y el reescalado por IA generan píxeles en vez de calcularlos; los grandes saltos vienen de conectar miles de GPU en un centro de datos. Pregunta final: ¿es más rendimiento o son trampas inteligentes? Que argumenten." style="display:grid;grid-template-columns:1fr 1.25fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
+  <div>
+    <img class="icono" src="../assets/question.png" alt="">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-top:var(--gap-item)">Pregunta a la clase</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.12;margin-top:20px;color:var(--navy);text-wrap:balance">¿Sigue cumpliéndose la Ley de Huang en 2026?</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">El vídeo es de 2020. Desde entonces han llegado ChatGPT, las NPU en los portátiles y los móviles, y centros de datos con cientos de miles de GPU. ¿De dónde sale hoy el rendimiento?</p>
+  </div>
+  <div class="revela" style="padding:40px 48px">
+    <div class="revela-cuerpo">
+      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Ideas para el debate</p>
+      <ul style="list-style:none;padding:0;margin-top:20px;display:flex;flex-direction:column;gap:18px;font-size:var(--type-caption);line-height:1.4">
+        <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Entrenar no es lo mismo que usar.</b> Entrenar un modelo de IA necesita miles de GPU durante semanas; usarlo (inferencia) se hace en un chip pequeño. Cada tarea pide un hardware distinto.</span></li>
+        <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Hardware específico.</b> Los <i>tensor cores</i> de las GPU y las NPU de portátiles y móviles hacen una sola cosa (multiplicar matrices), pero la hacen muchísimo más rápido que un núcleo general.</span></li>
+        <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Generar en vez de calcular.</b> DLSS y el reescalado por IA dibujan parte de los píxeles de un juego con una red neuronal en lugar de calcularlos: más imágenes por segundo sin más potencia bruta.</span></li>
+        <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Muchas GPU juntas.</b> Los grandes saltos ya no vienen de un chip, sino de conectar decenas de miles en un centro de datos.</span></li>
+        <li style="display:flex;gap:18px"><span style="color:var(--blue);font-weight:800">?</span><span><b>Para discutir:</b> ¿es más rendimiento de verdad o son trampas inteligentes? ¿Se puede seguir llamando "ley" a algo que solo se cumple para una tarea?</span></li>
+      </ul>
+    </div>
+    <button class="btn btn-primary revela-btn">Ver ideas</button>
+  </div>
+</section>
+
+<!-- 23 Quiz: generación del IBM PC -->
+<section class="dark" data-label="Quiz: generaciones" data-notas="Comprobación rápida del bloque 2. Si fallan, volver a la tabla de generaciones." style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
+  <div class="quiz" data-correct="3" data-ok="Correcto. El PC de IBM (1981) abre la 5.ª generación: la del ordenador en casa." data-ko="No. Piensa en qué generación empieza justo con el PC de IBM, en 1981." style="display:contents">
+    <div>
+      <span class="pill">Comprueba lo aprendido</span>
+      <h2 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.2;margin-top:32px;text-wrap:balance">¿En qué generación apareció el PC de IBM?</h2>
+      <p class="quiz-fb">Selecciona una opción.</p>
+      <button class="btn btn-ghost quiz-reset" style="margin-top:var(--gap-item)">Reiniciar</button>
+    </div>
+    <div class="quiz-opts">
+      <button class="quiz-opt"><span class="letra">A</span><span>2.ª generación, la del transistor</span></button>
+      <button class="quiz-opt"><span class="letra">B</span><span>3.ª generación, la del circuito integrado</span></button>
+      <button class="quiz-opt"><span class="letra">C</span><span>4.ª generación, la del microprocesador</span></button>
+      <button class="quiz-opt"><span class="letra">D</span><span>5.ª generación, la del ordenador personal</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BLOQUE 3 · Componentes hardware ============ -->
+
+<!-- 24 Pregunta: ¿qué ordenador tenéis? -->
+<section data-label="¿Qué ordenador tenéis?" data-notas="Arranque del apartado 1.3. Que cada uno diga qué ordenador tiene y qué sabe de él: casi nadie conoce los núcleos o si el disco es SSD. Al revelar, abrir en el proyector Configuración › Sistema › Acerca de y el Administrador de tareas › Rendimiento; en una máquina Linux, lscpu y free -h. Apuntar en la pizarra los datos de dos o tres ordenadores de la clase: se reutilizan en la práctica 2 al comprobar requisitos mínimos." style="display:grid;grid-template-columns:1fr 1.35fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
+  <div>
+    <img class="icono" src="../assets/question.png" alt="">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-top:var(--gap-item)">Pregunta a la clase</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.12;margin-top:20px;color:var(--navy);text-wrap:balance">¿Qué ordenador tenéis? ¿Qué características tiene?</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">La marca y el modelo no bastan. ¿Sabéis qué procesador lleva, cuánta memoria tiene o si el disco es un SSD?</p>
+  </div>
+  <div class="revela" style="padding:40px 48px">
+    <div class="revela-cuerpo">
+      <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:40px">
+        <div>
+          <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Qué mirar</p>
+          <ul style="list-style:none;padding:0;margin-top:18px;display:flex;flex-direction:column;gap:14px;font-size:22px;line-height:1.35">
+            <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Procesador</b>: modelo, núcleos e hilos, frecuencia.</span></li>
+            <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Memoria RAM</b>: cuántos GB.</span></li>
+            <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Disco</b>: HDD o SSD, y su capacidad.</span></li>
+            <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Gráfica</b>: integrada en el micro o tarjeta dedicada.</span></li>
+            <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Sistema operativo</b>: versión y si es de 64 bits.</span></li>
+          </ul>
+        </div>
+        <div>
+          <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Dónde mirarlo</p>
+          <p style="font-size:22px;font-weight:800;color:var(--navy);margin-top:18px">Windows 11</p>
+          <ul style="list-style:none;padding:0;margin-top:8px;display:flex;flex-direction:column;gap:10px;font-size:21px;line-height:1.35">
+            <li>Configuración › Sistema › <b>Acerca de</b></li>
+            <li>Administrador de tareas › <b>Rendimiento</b> <span style="color:var(--muted)">(Ctrl + Mayús + Esc)</span></li>
+            <li>Win + R y escribir <code style="font-family:var(--mono);background:var(--bg);padding:2px 12px;border-radius:8px">msinfo32</code> o <code style="font-family:var(--mono);background:var(--bg);padding:2px 12px;border-radius:8px">dxdiag</code></li>
+          </ul>
+          <p style="font-size:22px;font-weight:800;color:var(--navy);margin-top:20px">Linux, en un terminal</p>
+          <ul style="list-style:none;padding:0;margin-top:8px;display:flex;flex-direction:column;gap:10px;font-size:21px;line-height:1.35">
+            <li><code style="font-family:var(--mono);background:var(--bg);padding:2px 12px;border-radius:8px">lscpu</code> procesador, núcleos e hilos</li>
+            <li><code style="font-family:var(--mono);background:var(--bg);padding:2px 12px;border-radius:8px">free -h</code> memoria RAM</li>
+            <li><code style="font-family:var(--mono);background:var(--bg);padding:2px 12px;border-radius:8px">lsblk</code> discos y particiones</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary revela-btn">Ver la respuesta</button>
+  </div>
+</section>
+
+<!-- 25 Texto: elementos físicos -->
+<section data-label="Elementos físicos" data-notas="Hardware: lo electrónico, mecánico y electromecánico; todo lo tangible. Tres grupos: carcasa, periféricos y memorias auxiliares. Puesto al día: gráfica, red y sonido suelen venir integrados en la placa o en el micro; los puertos serie y paralelo han desaparecido; la unidad de CD/DVD ya no se monta en los equipos nuevos." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.3.1 · Elementos físicos</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Los elementos físicos de un ordenador</h2>
+  <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item);max-width:1500px">El hardware es el conjunto de componentes electrónicos, mecánicos y electromecánicos: todo lo material, lo que se puede tocar. Desde el punto de vista físico se distinguen tres grupos.</p>
+  <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:28px;margin-top:var(--gap-item);flex:1">
+    <div style="background:var(--navy);color:var(--white);border-radius:20px;padding:32px 36px;display:flex;flex-direction:column;gap:12px">
+      <span style="width:56px;height:56px;border-radius:14px;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800">1</span>
+      <p style="font-size:var(--type-small);font-weight:800;line-height:1.25">Dentro de la carcasa</p>
+      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:9px;font-size:22px;line-height:1.35;color:#E3EBF8">
+        <li style="display:flex;gap:14px"><span style="color:var(--yellow)">●</span><span>La <b>placa base</b>, que conecta todo lo demás</span></li>
+        <li style="display:flex;gap:14px"><span style="color:var(--yellow)">●</span><span>El <b>microprocesador</b> y la <b>memoria RAM</b></span></li>
+        <li style="display:flex;gap:14px"><span style="color:var(--yellow)">●</span><span>Tarjetas de expansión: gráfica, red, sonido, captura</span></li>
+        <li style="display:flex;gap:14px"><span style="color:var(--yellow)">●</span><span>Conectores para el exterior: USB, HDMI, red, audio</span></li>
+        <li style="display:flex;gap:14px"><span style="color:var(--yellow)">●</span><span>La <b>fuente de alimentación</b></span></li>
+        <li style="display:flex;gap:14px"><span style="color:var(--yellow)">●</span><span>Las unidades de disco: SSD y disco duro</span></li>
+      </ul>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:32px 36px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;gap:12px">
+      <span style="width:56px;height:56px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800">2</span>
+      <p style="font-size:var(--type-small);font-weight:800;line-height:1.25;color:var(--navy)">Periféricos</p>
+      <p style="font-size:22px;line-height:1.4;color:var(--muted)">Dispositivos externos que introducen información en el ordenador o la sacan de él.</p>
+      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:9px;font-size:22px;line-height:1.35">
+        <li style="display:flex;gap:14px"><span style="color:var(--blue)">●</span><span>De <b>entrada</b>: teclado, ratón, webcam</span></li>
+        <li style="display:flex;gap:14px"><span style="color:var(--blue)">●</span><span>De <b>salida</b>: monitor, impresora, altavoces</span></li>
+        <li style="display:flex;gap:14px"><span style="color:var(--blue)">●</span><span>De <b>entrada y salida</b>: pantalla táctil</span></li>
+      </ul>
+      <p style="font-size:20px;line-height:1.35;color:var(--muted);margin-top:auto">Se conectan por USB, HDMI o el conector de audio, o sin cable por Bluetooth y wifi.</p>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:32px 36px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;gap:12px">
+      <span style="width:56px;height:56px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800">3</span>
+      <p style="font-size:var(--type-small);font-weight:800;line-height:1.25;color:var(--navy)">Memorias auxiliares</p>
+      <p style="font-size:22px;line-height:1.4;color:var(--muted)">Guardan la información de forma permanente, con el ordenador apagado.</p>
+      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:9px;font-size:22px;line-height:1.35">
+        <li style="display:flex;gap:14px"><span style="color:var(--blue)">●</span><span>Discos externos por USB</span></li>
+        <li style="display:flex;gap:14px"><span style="color:var(--blue)">●</span><span>Tarjetas SD y microSD</span></li>
+        <li style="display:flex;gap:14px"><span style="color:var(--blue)">●</span><span>Memorias USB (pendrives)</span></li>
+        <li style="display:flex;gap:14px"><span style="color:var(--blue)">●</span><span>Y también los discos de dentro de la carcasa</span></li>
+      </ul>
+      <p style="font-size:20px;line-height:1.35;color:var(--muted);margin-top:auto">Como meten y sacan información, también pueden considerarse periféricos de entrada y salida.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 26 Imagen: la placa base por dentro -->
+<section data-label="La placa base por dentro" data-notas="Foto real de una placa ATX de 2019-2021 con el micro y el SSD montados, sin disipador. Pasar el ratón por cada elemento de la lista para localizarlo en la foto; clic en la foto para ampliarla. Ojo: en la foto el panel trasero de conectores queda en el borde inferior. Preguntar dónde iría la tarjeta gráfica (ranura 4, la larga) y por qué el zócalo está rodeado de agujeros (anclaje del disipador). El chipset (5) es el chip que comunica el micro con USB, SATA y las ranuras cortas." style="display:grid;grid-template-columns:1060px 1fr;gap:60px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:start">
+  <figure class="foto" style="aspect-ratio:1600/1312;height:auto">
+    <img src="img/placa-base.jpg" alt="Placa base ATX MSI X470 vista desde arriba, con el procesador AMD Ryzen montado, dos módulos de RAM y un SSD NVMe" title="Foto: Michael Wolf · Wikimedia Commons · CC BY-SA 3.0">
+    <span class="marca" style="left:29.2%;top:45.7%">1</span>
+    <span class="marca" style="left:29.2%;top:16.8%">2</span>
+    <span class="marca" style="left:52.6%;top:49.6%">3</span>
+    <span class="marca" style="left:60.4%;top:61%">4</span>
+    <span class="marca" style="left:74%;top:15.9%">5</span>
+    <span class="marca" style="left:78.1%;top:5.7%">6</span>
+    <span class="marca" style="left:37.5%;top:4.8%">7</span>
+    <span class="marca" style="left:4.9%;top:73.1%">8</span>
+    <span class="marca" style="left:31.3%;top:92.1%">9</span>
+    <span class="marca" style="left:67.7%;top:48.3%">10</span>
+    <figcaption class="credito"><b>MSI X470 Gaming Plus Max</b> con un AMD Ryzen 7 3700X y un SSD NVMe Samsung 960 Pro. Foto: Michael Wolf, <a href="https://commons.wikimedia.org/wiki/File:MSI_X470_Gaming_Plus_Max_18509.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.es" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Reducida; los números están superpuestos y no forman parte de la foto.</figcaption>
+  </figure>
+  <div style="display:flex;flex-direction:column;min-width:0;height:100%">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.3.1 · Elementos físicos</p>
+    <h2 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.12;margin-top:16px;color:var(--navy)">La placa base por dentro</h2>
+    <ol style="list-style:none;padding:0;margin-top:22px;display:flex;flex-direction:column;gap:4px;font-size:20px;line-height:1.3">
+      <li data-marca="1" style="display:flex;gap:14px;padding:6px 10px;margin:0 -10px"><b style="color:var(--blue);flex:none;width:30px">1</b><span><b>Zócalo del microprocesador</b> (Socket AM4) con el micro puesto; encima irá el disipador.</span></li>
+      <li data-marca="2" style="display:flex;gap:14px;padding:6px 10px;margin:0 -10px"><b style="color:var(--blue);flex:none;width:30px">2</b><span><b>Ranuras de memoria RAM</b>: cuatro, dos ocupadas con módulos DDR4.</span></li>
+      <li data-marca="3" style="display:flex;gap:14px;padding:6px 10px;margin:0 -10px"><b style="color:var(--blue);flex:none;width:30px">3</b><span><b>SSD NVMe en ranura M.2</b>: el disco del sistema, del tamaño de un chicle.</span></li>
+      <li data-marca="4" style="display:flex;gap:14px;padding:6px 10px;margin:0 -10px"><b style="color:var(--blue);flex:none;width:30px">4</b><span><b>Ranuras PCI Express</b>: la larga (x16) para la tarjeta gráfica; las cortas, para otras tarjetas.</span></li>
+      <li data-marca="5" style="display:flex;gap:14px;padding:6px 10px;margin:0 -10px"><b style="color:var(--blue);flex:none;width:30px">5</b><span><b>Chipset</b>, bajo el disipador con el logotipo: comunica el micro con el resto de la placa.</span></li>
+      <li data-marca="6" style="display:flex;gap:14px;padding:6px 10px;margin:0 -10px"><b style="color:var(--blue);flex:none;width:30px">6</b><span><b>Conectores SATA</b> para discos duros y SSD de 2,5 y 3,5 pulgadas.</span></li>
+      <li data-marca="7" style="display:flex;gap:14px;padding:6px 10px;margin:0 -10px"><b style="color:var(--blue);flex:none;width:30px">7</b><span><b>Conector de alimentación</b> ATX de 24 pines, desde la fuente.</span></li>
+      <li data-marca="8" style="display:flex;gap:14px;padding:6px 10px;margin:0 -10px"><b style="color:var(--blue);flex:none;width:30px">8</b><span><b>Alimentación del micro</b>, de 8 pines.</span></li>
+      <li data-marca="9" style="display:flex;gap:14px;padding:6px 10px;margin:0 -10px"><b style="color:var(--blue);flex:none;width:30px">9</b><span><b>Panel trasero de conectores</b>: USB, red, HDMI, audio. En la foto queda abajo.</span></li>
+      <li data-marca="10" style="display:flex;gap:14px;padding:6px 10px;margin:0 -10px"><b style="color:var(--blue);flex:none;width:30px">10</b><span><b>Pila de botón</b> (CR2032): conserva la hora y la configuración con el equipo apagado.</span></li>
+    </ol>
+    <p style="font-size:20px;color:var(--muted);line-height:1.35;margin-top:auto;padding-top:16px">Figura 1.15. Placa base ATX con el micro y el SSD montados. Pasa el ratón por la lista para localizar cada pieza; clic en la foto para ampliarla.</p>
+  </div>
+</section>
+
+<!-- 27 Tabla: periféricos -->
+<section data-label="Periféricos" data-notas="Preguntar antes de mostrar: ¿un mando de consola? ¿unas gafas de realidad virtual? ¿la pantalla táctil del móvil? Regla: entrada si mete información, salida si la saca, E/S si hace las dos cosas. Curiosidad: los relieves de las teclas F y J y del 5 del teclado numérico sirven para situar las manos sin mirar, y ayudan a las personas ciegas." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.3.1 · Elementos físicos</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Periféricos: entrada, salida y las dos cosas</h2>
+  <table style="width:100%;border-collapse:collapse;margin-top:var(--gap-title);font-size:var(--type-small);background:var(--white);border-radius:20px;overflow:hidden">
+    <thead>
+      <tr style="background:var(--navy);color:var(--white);text-align:left">
+        <th style="padding:22px 32px;font-weight:700">Tipo</th>
+        <th style="padding:22px 32px;font-weight:700">Qué hace</th>
+        <th style="padding:22px 32px;font-weight:700">Ejemplos</th>
+      </tr>
+    </thead>
+    <tbody style="line-height:1.35">
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:26px 32px;font-weight:700;color:var(--navy)">De entrada</td><td style="padding:26px 32px">Introduce información en el ordenador desde el exterior</td><td style="padding:26px 32px">Teclado, ratón, escáner, micrófono, webcam, mando de juegos, lector de huellas</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:26px 32px;font-weight:700;color:var(--navy)">De salida</td><td style="padding:26px 32px">Saca información del ordenador hacia el exterior</td><td style="padding:26px 32px">Monitor, proyector, impresora, altavoces, auriculares</td></tr>
+      <tr><td style="padding:26px 32px;font-weight:700;color:var(--navy)">De entrada y salida</td><td style="padding:26px 32px">Hace las dos cosas</td><td style="padding:26px 32px">Pantalla táctil, impresora multifunción (imprime y escanea), cascos con micrófono, gafas de realidad virtual, router</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:var(--type-caption);color:var(--muted);margin-top:24px;line-height:1.4">Tabla 1.3. Clasificación de los periféricos según el sentido de la información. Las memorias auxiliares también meten y sacan información, así que pueden considerarse periféricos de entrada y salida.</p>
+  <p style="font-size:var(--type-caption);line-height:1.45;margin-top:auto;border-left:5px solid var(--yellow);padding-left:20px;color:var(--ink)"><b>Curiosidad.</b> Los relieves de las teclas F y J, y del 5 del teclado numérico, sirven de referencia para escribir sin mirar al teclado y ayudan a las personas ciegas a situar las manos.</p>
+</section>
+
+<!-- 28 Texto: memorias auxiliares -->
+<section data-label="Memorias auxiliares" data-notas="El Blu-ray (2006) llegó como sucesor del DVD, pero hoy el lector óptico ha desaparecido de los equipos nuevos. Las velocidades son de lectura secuencial y orientativas: lo importante es el orden de magnitud entre HDD, SSD SATA y NVMe. Preguntar: ¿la nube es una memoria auxiliar? Sí, pero en el ordenador de otro: enlaza con la protección de datos del apartado 1.4 y con la práctica 2 (dónde se guardan los vídeos y las copias)." style="display:grid;grid-template-columns:1fr 1.5fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.3.1 · Elementos físicos</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Memorias auxiliares</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-title)">Guardan programas y datos de forma <b>permanente</b>: no pierden su contenido al apagar el ordenador. Son <b>no volátiles</b>, tienen mucha más capacidad que la memoria principal y son más lentas que ella.</p>
+    <p style="font-size:var(--type-caption);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Cuentan tanto las que van fuera de la carcasa (discos USB, tarjetas, pendrives) como las que van dentro (el SSD o el disco duro del sistema).</p>
+    <p style="font-size:var(--type-caption);line-height:1.45;margin-top:var(--gap-item);border-left:5px solid var(--yellow);padding-left:20px;color:var(--ink)"><b>Puesto al día.</b> El Blu-ray se presentó en 2006 como sucesor del DVD, pero el lector óptico ha desaparecido de los ordenadores nuevos: hoy la información viaja por USB y por la red.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-content:center">
+    <div style="background:var(--white);border-radius:18px;padding:22px 26px;box-shadow:0 2px 0 var(--line)"><p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Disco duro (HDD)</p><p style="font-size:20px;line-height:1.4;color:var(--muted);margin-top:6px">Platos magnéticos que giran. Barato por GB, lento y con partes móviles. Unos 150 MB/s.</p></div>
+    <div style="background:var(--white);border-radius:18px;padding:22px 26px;box-shadow:0 2px 0 var(--line)"><p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">SSD SATA</p><p style="font-size:20px;line-height:1.4;color:var(--muted);margin-top:6px">Memoria flash, sin partes móviles, con el mismo conector que un disco duro. Unos 550 MB/s.</p></div>
+    <div style="background:var(--navy);color:var(--white);border-radius:18px;padding:22px 26px"><p style="font-size:var(--type-caption);font-weight:800;color:var(--yellow)">SSD NVMe (M.2)</p><p style="font-size:20px;line-height:1.4;color:#E3EBF8;margin-top:6px">Flash conectada directamente al bus PCI Express. De 3.000 a 14.000 MB/s. Es el disco de los portátiles actuales.</p></div>
+    <div style="background:var(--white);border-radius:18px;padding:22px 26px;box-shadow:0 2px 0 var(--line)"><p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Flash extraíble</p><p style="font-size:20px;line-height:1.4;color:var(--muted);margin-top:6px">Pendrives USB y tarjetas SD y microSD: cámaras, móviles, placas como la Raspberry Pi.</p></div>
+    <div style="background:var(--white);border-radius:18px;padding:22px 26px;box-shadow:0 2px 0 var(--line)"><p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Disco óptico</p><p style="font-size:20px;line-height:1.4;color:var(--muted);margin-top:6px">CD (700 MB), DVD (4,7 GB) y Blu-ray (25 GB por capa). Casi han desaparecido de los ordenadores.</p></div>
+    <div style="background:var(--white);border-radius:18px;padding:22px 26px;box-shadow:0 2px 0 var(--line)"><p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Almacenamiento en la nube</p><p style="font-size:20px;line-height:1.4;color:var(--muted);margin-top:6px">OneDrive, Google Drive, Dropbox: una memoria auxiliar remota, en el ordenador de otro. Necesita red.</p></div>
+    <p style="grid-column:1 / -1;font-size:20px;color:var(--muted);line-height:1.35;margin-top:4px">Velocidades orientativas de lectura secuencial. Lo que importa es el orden de magnitud: un NVMe es decenas de veces más rápido que un disco duro.</p>
+  </div>
+</section>
+
+<!-- 29 Imagen: elementos funcionales -->
+<section data-label="Elementos funcionales" data-notas="Esquema propio. El fondo amarillo marca lo que está en la placa base: CPU, memoria principal, buses y unidad de E/S. Fuera quedan los periféricos y la memoria auxiliar, que se comunican con el micro a través de la unidad de E/S. Insistir: la memoria principal guarda el programa que se está ejecutando y sus datos; la auxiliar, lo que queremos conservar. Las tres diapositivas siguientes desmenuzan los buses, la UC y la UAL. Los registros van como bloque propio de la CPU (UC + UAL + registros, arquitectura de Von Neumann); en las dos diapositivas siguientes se explican junto a la UC (RI, CP) y a la UAL (datos, AC, RE), que son las unidades que los usan, pero conviene decir que son registros del micro. Matiz de vocabulario: CPU (en algunos textos, UCP) es la función; microprocesador, su implementación en un circuito integrado; en la práctica se usan como sinónimos." style="display:grid;grid-template-columns:1fr 1000px;gap:72px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.3.2 · Elementos funcionales</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Las partes funcionales de un ordenador</h2>
+    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item)">Por su función, no por su forma, un ordenador se compone de:</p>
+    <ul style="list-style:none;padding:0;margin-top:18px;display:flex;flex-direction:column;gap:12px;font-size:var(--type-caption);line-height:1.4">
+      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Unidad central de proceso (CPU)</b>, el microprocesador: unidad de control (UC), unidad aritmético-lógica (UAL) y registros.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Memoria principal (MP)</b>: RAM y ROM.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Bus del sistema</b>, que lo interconecta todo: bus de datos + bus de direcciones + bus de control.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Unidad de entrada/salida</b>, puente hacia el exterior.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Periféricos</b> y <b>memoria auxiliar</b>, fuera de la placa base.</span></li>
+    </ul>
+    <p style="font-size:20px;color:var(--muted);line-height:1.4;margin-top:auto;padding-top:20px">Figura 1.16. Esquema de las partes funcionales. El fondo amarillo señala lo que está en la placa base. Elaboración propia.</p>
+  </div>
+  <div style="background:var(--white);border-radius:20px;padding:24px 28px;box-shadow:0 2px 0 var(--line);display:flex;align-items:center">
+    <svg viewBox="0 0 1000 600" style="width:100%;height:auto" role="img" aria-label="Esquema de las partes funcionales de un ordenador: en la placa base, la CPU con la unidad de control, la unidad aritmético-lógica y los registros, la memoria principal, los tres buses y la unidad de entrada/salida; fuera, los periféricos y la memoria auxiliar">
+      <rect x="14" y="14" width="694" height="572" rx="24" fill="#FFF6D1" stroke="#F4C20D" stroke-width="3"/>
+      <text x="40" y="50" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="18" font-weight="800" fill="#15356B" letter-spacing="1">PLACA BASE</text>
+      <rect x="40" y="72" width="380" height="204" rx="16" fill="#15356B"/>
+      <text x="230" y="104" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="20" font-weight="800" fill="#F4C20D">CPU · microprocesador</text>
+      <rect x="48" y="122" width="116" height="136" rx="12" fill="#0B4AB5"/>
+      <text x="106" y="156" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="24" font-weight="800" fill="#FFFFFF">UC</text>
+      <text x="106" y="180" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="12" fill="#E3EBF8">Unidad de</text>
+      <text x="106" y="196" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="12" fill="#E3EBF8">control</text>
+      <text x="106" y="218" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="12" fill="#C9D6EE">decodificador</text>
+      <text x="106" y="234" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="12" fill="#C9D6EE">secuenciador</text>
+      <text x="106" y="250" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="12" fill="#C9D6EE">reloj</text>
+      <rect x="172" y="122" width="116" height="136" rx="12" fill="#0B4AB5"/>
+      <text x="230" y="156" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="24" font-weight="800" fill="#FFFFFF">UAL</text>
+      <text x="230" y="180" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="12" fill="#E3EBF8">Unidad</text>
+      <text x="230" y="196" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="12" fill="#E3EBF8">aritmético-lógica</text>
+      <text x="230" y="218" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="12" fill="#C9D6EE">suma · resta</text>
+      <text x="230" y="234" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="12" fill="#C9D6EE">lógica · compara</text>
+      <rect x="296" y="122" width="116" height="136" rx="12" fill="#0B4AB5"/>
+      <text x="354" y="156" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="20" font-weight="800" fill="#FFFFFF">Registros</text>
+      <text x="354" y="180" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="12" fill="#E3EBF8">memorias diminutas</text>
+      <text x="354" y="196" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="12" fill="#E3EBF8">y muy rápidas</text>
+      <text x="354" y="218" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="12" fill="#C9D6EE">CP · RI</text>
+      <text x="354" y="234" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="12" fill="#C9D6EE">AC · RE</text>
+      <rect x="440" y="72" width="240" height="204" rx="16" fill="#0B4AB5"/>
+      <text x="560" y="104" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="20" font-weight="800" fill="#F4C20D">Memoria principal (MP)</text>
+      <rect x="448" y="122" width="224" height="62" rx="12" fill="#4F8AE0"/>
+      <text x="560" y="148" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="19" font-weight="800" fill="#FFFFFF">RAM · volátil</text>
+      <text x="560" y="172" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="13" fill="#FFFFFF">programa y datos en ejecución</text>
+      <rect x="448" y="194" width="224" height="64" rx="12" fill="#4F8AE0"/>
+      <text x="560" y="221" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="19" font-weight="800" fill="#FFFFFF">ROM / flash · no volátil</text>
+      <text x="560" y="246" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="13" fill="#FFFFFF">firmware de arranque (BIOS/UEFI)</text>
+      <g stroke="#485168" stroke-width="5" stroke-linecap="round"><line x1="230" y1="276" x2="230" y2="404"/><line x1="560" y1="276" x2="560" y2="446"/></g>
+      <rect x="40" y="318" width="640" height="24" rx="12" fill="#0B4AB5"/>
+      <rect x="40" y="349" width="640" height="24" rx="12" fill="#4F8AE0"/>
+      <rect x="40" y="380" width="640" height="24" rx="12" fill="#15356B"/>
+      <text x="40" y="306" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="13" font-weight="800" fill="#485168" letter-spacing="1">BUS DEL SISTEMA</text>
+      <text x="60" y="335" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">BUS DE DATOS · lleva datos e instrucciones</text>
+      <text x="60" y="366" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">BUS DE DIRECCIONES · indica dónde leer o escribir</text>
+      <text x="60" y="397" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">BUS DE CONTROL · señales de control: lectura, escritura, interrupciones</text>
+      <rect x="380" y="446" width="300" height="118" rx="16" fill="#15356B"/>
+      <text x="530" y="492" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="22" font-weight="800" fill="#F4C20D">Unidad de entrada/salida</text>
+      <text x="530" y="520" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="15" fill="#E3EBF8">Comunica el micro con los periféricos</text>
+      <text x="530" y="541" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="15" fill="#E3EBF8">y con la memoria auxiliar</text>
+      <path d="M680 505 H734 V174 H760 M734 505 V464 H760" fill="none" stroke="#485168" stroke-width="5"/>
+      <rect x="760" y="72" width="226" height="204" rx="16" fill="#FFFFFF" stroke="#D7DCE6" stroke-width="3"/>
+      <text x="873" y="112" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="22" font-weight="800" fill="#15356B">Periféricos</text>
+      <text x="873" y="150" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="16" fill="#485168">de entrada: teclado, ratón</text>
+      <text x="873" y="178" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="16" fill="#485168">de salida: monitor, impresora</text>
+      <text x="873" y="206" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="16" fill="#485168">de E/S: pantalla táctil</text>
+      <rect x="760" y="362" width="226" height="204" rx="16" fill="#FFFFFF" stroke="#D7DCE6" stroke-width="3"/>
+      <text x="873" y="402" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="22" font-weight="800" fill="#15356B">Memoria auxiliar</text>
+      <text x="873" y="440" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="16" fill="#485168">SSD, disco duro,</text>
+      <text x="873" y="468" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="16" fill="#485168">pendrive, tarjeta SD</text>
+      <text x="873" y="504" text-anchor="middle" font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="16" font-weight="700" fill="#15356B">No volátil</text>
+    </svg>
+  </div>
+</section>
+
+<!-- 30 Tabla: los tres buses -->
+<section data-label="Los tres buses" data-notas="Un bus es un conjunto de líneas eléctricas compartidas. El de datos es bidireccional; el de direcciones sale siempre de la CPU; el de control lleva las señales de la UC (leer, escribir, reloj, interrupciones). El ancho del bus de direcciones limita la memoria que se puede usar: con 32 bits, 2 elevado a 32 direcciones, 4 GB. Por eso un Windows de 32 bits no aprovecha más de 4 GB de RAM: es el caso del portátil del comercial en la práctica 2. Se retoma en el apartado 1.6 con las unidades." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.3.2 · Elementos funcionales</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Los tres buses</h2>
+  <table style="width:100%;border-collapse:collapse;margin-top:var(--gap-title);font-size:var(--type-small);background:var(--white);border-radius:20px;overflow:hidden">
+    <thead>
+      <tr style="background:var(--navy);color:var(--white);text-align:left">
+        <th style="padding:22px 32px;font-weight:700">Bus</th>
+        <th style="padding:22px 32px;font-weight:700">Qué lleva</th>
+        <th style="padding:22px 32px;font-weight:700">Sentido</th>
+        <th style="padding:22px 32px;font-weight:700">Ejemplo</th>
+      </tr>
+    </thead>
+    <tbody style="line-height:1.35">
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:20px 32px;font-weight:700;color:var(--navy)"><span style="display:inline-block;width:18px;height:18px;border-radius:50%;background:var(--blue);margin-right:14px;vertical-align:middle"></span>De datos</td><td style="padding:20px 32px">La información: datos e instrucciones, entre los distintos componentes</td><td style="padding:20px 32px">En los dos sentidos</td><td style="padding:20px 32px">La instrucción viaja de la memoria al registro de instrucción</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:20px 32px;font-weight:700;color:var(--navy)"><span style="display:inline-block;width:18px;height:18px;border-radius:50%;background:var(--sky);margin-right:14px;vertical-align:middle"></span>De direcciones</td><td style="padding:20px 32px">La dirección de memoria (o de E/S) donde se va a leer o escribir</td><td style="padding:20px 32px">De la CPU hacia la memoria y la E/S</td><td style="padding:20px 32px">El contador de programa pone la dirección de la siguiente instrucción</td></tr>
+      <tr><td style="padding:20px 32px;font-weight:700;color:var(--navy)"><span style="display:inline-block;width:18px;height:18px;border-radius:50%;background:var(--navy);margin-right:14px;vertical-align:middle"></span>De control</td><td style="padding:20px 32px">Señales de control de la unidad de control a cada elemento: leer, escribir, reloj, interrupciones</td><td style="padding:20px 32px">Desde la UC hacia todos</td><td style="padding:20px 32px">"Memoria, lee la dirección que hay en el bus de direcciones"</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:var(--type-caption);color:var(--muted);margin-top:24px;line-height:1.4">Tabla 1.4. Los buses interconectan todos los elementos del ordenador. Un bus es un conjunto de líneas eléctricas compartidas: su <b>ancho</b> (número de bits que lleva a la vez) es una de las cifras que más pesan en el rendimiento.</p>
+  <p style="font-size:var(--type-caption);line-height:1.45;margin-top:auto;border-left:5px solid var(--yellow);padding-left:20px;color:var(--ink)"><b>Por qué "64 bits".</b> Con un bus de direcciones de 32 bits solo hay 2<sup>32</sup> direcciones distintas: 4 GB. Por eso un sistema operativo de 32 bits no puede aprovechar más de 4 GB de memoria RAM. Con 64 bits el límite deja de ser un problema.</p>
+</section>
+
+<!-- 31 Texto: la unidad de control -->
+<section data-label="La unidad de control" data-notas="La UC es el director de orquesta: interpreta cada instrucción y manda a los demás qué hacer por el bus de control. Registros: memorias diminutas dentro del micro, las más rápidas del ordenador. Insistir en el formato de la instrucción (código de operación, modo de direccionamiento, dato o dirección): es lo que el decodificador interpreta. El reloj se detalla dos diapositivas más adelante." style="display:grid;grid-template-columns:1fr 1.25fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.3.2 · Elementos funcionales</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">La unidad de control (UC)</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-title)">Es la parte del microprocesador que <b>interpreta las instrucciones</b> y envía señales a cada elemento del ordenador, por el bus de control, para decirle cuándo debe actuar.</p>
+    <p style="font-size:var(--type-caption);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Para trabajar usa <b>registros</b>: memorias diminutas dentro del propio micro, las más rápidas de todo el ordenador, donde guarda los datos intermedios que necesita.</p>
+    <div style="margin-top:var(--gap-item);background:var(--white);border-radius:18px;padding:22px 26px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:20px;font-weight:700;color:var(--muted)">Así es una instrucción dentro del registro de instrucción</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1.6fr;gap:8px;margin-top:14px;font-family:var(--mono);font-size:20px;font-weight:600;text-align:center">
+        <span style="background:var(--navy);color:var(--yellow);border-radius:10px;padding:14px 8px">CO<br><span style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-weight:500;font-size:16px;color:#E3EBF8">código de operación</span></span>
+        <span style="background:var(--blue);color:var(--white);border-radius:10px;padding:14px 8px">MD<br><span style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-weight:500;font-size:16px;color:#E3EBF8">modo de direccionamiento</span></span>
+        <span style="background:var(--sky);color:var(--white);border-radius:10px;padding:14px 8px">dato o dirección<br><span style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-weight:500;font-size:16px;color:#F5F6F9">sobre lo que se opera</span></span>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px;justify-content:center">
+    <div style="display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:center;background:var(--white);border-radius:18px;padding:20px 26px;box-shadow:0 2px 0 var(--line)"><p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Registro de instrucción <span style="color:var(--blue)">(RI)</span></p><p style="font-size:21px;line-height:1.4;color:var(--muted)">Contiene la instrucción que se está ejecutando en este momento: su código de operación, el modo de direccionamiento y el dato o la dirección donde está.</p></div>
+    <div style="display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:center;background:var(--white);border-radius:18px;padding:20px 26px;box-shadow:0 2px 0 var(--line)"><p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Contador de programa <span style="color:var(--blue)">(CP)</span></p><p style="font-size:21px;line-height:1.4;color:var(--muted)">Guarda la dirección de memoria de la <b>siguiente</b> instrucción que hay que ejecutar.</p></div>
+    <div style="display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:center;background:var(--white);border-radius:18px;padding:20px 26px;box-shadow:0 2px 0 var(--line)"><p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Decodificador</p><p style="font-size:21px;line-height:1.4;color:var(--muted)">Interpreta el código de operación del registro de instrucción: averigua qué hay que hacer.</p></div>
+    <div style="display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:center;background:var(--white);border-radius:18px;padding:20px 26px;box-shadow:0 2px 0 var(--line)"><p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Secuenciador</p><p style="font-size:21px;line-height:1.4;color:var(--muted)">Sincronizado por el reloj, genera las <b>microórdenes</b>: las órdenes elementales que ejecutan la instrucción paso a paso.</p></div>
+    <div style="display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:center;background:var(--navy);color:var(--white);border-radius:18px;padding:20px 26px"><p style="font-size:var(--type-caption);font-weight:800;color:var(--yellow)">Reloj</p><p style="font-size:21px;line-height:1.4;color:#E3EBF8">Genera los pulsos que sincronizan todo el sistema. Cuantos más pulsos por segundo, más rápido trabaja el ordenador.</p></div>
+  </div>
+</section>
+
+<!-- 32 Texto: la unidad aritmético-lógica -->
+<section data-label="La unidad aritmético-lógica" data-notas="La UAL hace las cuentas: sumas, restas, comparaciones y operaciones lógicas (NOT, AND, OR). El registro de estado es el que hay que retener: Z (cero), S (signo), C (acarreo) y O (desbordamiento) los vamos a ver de verdad en el apartado 1.5 al sumar y restar en binario, y O es la explicación del contador de Gangnam Style. Que se queden con la idea de que el micro solo sabe sumar y comparar: todo lo demás se construye a partir de ahí. Registros de datos, acumulador y registro de estado son registros del micro que usa la UAL; en el esquema funcional van en el bloque Registros." style="display:grid;grid-template-columns:1fr 1.25fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.3.2 · Elementos funcionales</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">La unidad aritmético-lógica (UAL)</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-title)">Realiza todas las <b>operaciones aritméticas</b> (sumar, restar, comparar) y <b>lógicas</b> (NOT, AND, OR) que hace el ordenador. Trabaja con estos registros.</p>
+    <p style="font-size:var(--type-caption);line-height:1.45;margin-top:var(--gap-item);border-left:5px solid var(--yellow);padding-left:20px;color:var(--ink)"><b>Guarda en la cabeza los bits C y O</b> del registro de estado. Volverán en el apartado 1.5, cuando sumemos y restemos en binario, y explican por qué el contador de visitas de <i>Gangnam Style</i> se rompió.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:16px;justify-content:center">
+    <div style="display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:center;background:var(--white);border-radius:18px;padding:20px 26px;box-shadow:0 2px 0 var(--line)"><p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Registros de datos</p><p style="font-size:21px;line-height:1.4;color:var(--muted)">Contienen los <b>operandos</b>: los datos de entrada sobre los que se va a operar.</p></div>
+    <div style="display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:center;background:var(--white);border-radius:18px;padding:20px 26px;box-shadow:0 2px 0 var(--line)"><p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Acumulador <span style="color:var(--blue)">(AC)</span></p><p style="font-size:21px;line-height:1.4;color:var(--muted)">Almacena el <b>resultado</b> de la operación que se acaba de realizar.</p></div>
+    <div style="background:var(--navy);color:var(--white);border-radius:18px;padding:22px 26px">
+      <div style="display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:center"><p style="font-size:var(--type-caption);font-weight:800;color:var(--yellow)">Registro de estado <span style="color:#C9D6EE">(RE)</span></p><p style="font-size:21px;line-height:1.4;color:#E3EBF8">Guarda las condiciones de la última operación mediante bits llamados <b>indicadores</b> o <i>flags</i>:</p></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px;text-align:center">
+        <div style="background:rgba(255,255,255,.1);border-radius:12px;padding:14px 8px"><p style="font-family:var(--mono);font-size:34px;font-weight:600;color:var(--yellow)">Z</p><p style="font-size:18px;color:#E3EBF8;margin-top:4px">el resultado fue cero</p></div>
+        <div style="background:rgba(255,255,255,.1);border-radius:12px;padding:14px 8px"><p style="font-family:var(--mono);font-size:34px;font-weight:600;color:var(--yellow)">S</p><p style="font-size:18px;color:#E3EBF8;margin-top:4px">el resultado fue negativo (signo)</p></div>
+        <div style="background:rgba(255,255,255,.1);border-radius:12px;padding:14px 8px"><p style="font-family:var(--mono);font-size:34px;font-weight:600;color:var(--yellow)">C</p><p style="font-size:18px;color:#E3EBF8;margin-top:4px">hubo acarreo (me llevo una)</p></div>
+        <div style="background:rgba(255,255,255,.1);border-radius:12px;padding:14px 8px"><p style="font-family:var(--mono);font-size:34px;font-weight:600;color:var(--yellow)">O</p><p style="font-size:18px;color:#E3EBF8;margin-top:4px">desbordamiento: el resultado no cabe</p></div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:center;background:var(--white);border-radius:18px;padding:20px 26px;box-shadow:0 2px 0 var(--line)"><p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Circuito operacional</p><p style="font-size:21px;line-height:1.4;color:var(--muted)">Los circuitos electrónicos que hacen las operaciones. Están construidos con <b>puertas lógicas</b>: lo veremos en el apartado 1.5.</p></div>
+  </div>
+</section>
+
+<!-- 33 Pasos: el ciclo de instrucción -->
+<section data-label="El ciclo de instrucción" data-notas="Criterio k del BOCYL: describir el ciclo de instrucción y los elementos que intervienen. Solo teoría, sin práctica. Contar el ciclo señalando en el esquema funcional quién hace cada cosa: CP y bus de direcciones, memoria y bus de datos, RI, decodificador, secuenciador, UAL y acumulador. Detalle para quien pregunte: en los micros reales el CP se incrementa nada más leer la instrucción, y un salto lo sobrescribe durante la ejecución; y desde los años noventa el micro solapa los ciclos de varias instrucciones (segmentación). El orden buscar, decodificar, ejecutar, avanzar es el que hay que saber. Los modos de direccionamiento entran solo como concepto: qué lleva la instrucción en cada caso." style="display:grid;grid-template-columns:1.15fr 1fr;gap:72px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.3.2 · Elementos funcionales</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">El ciclo de instrucción</h2>
+    <p style="font-size:var(--type-caption);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">El microprocesador repite estos cuatro pasos miles de millones de veces por segundo, una instrucción tras otra, desde que el ordenador arranca hasta que se apaga.</p>
+    <div style="display:flex;flex-direction:column;gap:18px;margin-top:var(--gap-item)">
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <span style="width:60px;height:60px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">1</span>
+        <div><p style="font-size:var(--type-caption);font-weight:700;color:var(--navy);line-height:1.25">Buscar la instrucción</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">La UC pone la dirección que hay en el <b>CP</b> en el bus de direcciones. La memoria devuelve por el bus de datos la instrucción, que se guarda en el <b>RI</b>.</p></div>
+      </div>
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <span style="width:60px;height:60px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">2</span>
+        <div><p style="font-size:var(--type-caption);font-weight:700;color:var(--navy);line-height:1.25">Decodificar</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">El <b>decodificador</b> interpreta el código de operación y el modo de direccionamiento: ya sabe qué hay que hacer y dónde están los datos.</p></div>
+      </div>
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <span style="width:60px;height:60px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">3</span>
+        <div><p style="font-size:var(--type-caption);font-weight:700;color:var(--navy);line-height:1.25">Ejecutar</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">El <b>secuenciador</b>, al ritmo del reloj, genera las microórdenes: la <b>UAL</b> opera, o se lee o escribe en memoria, o se accede a la E/S. El resultado va al <b>acumulador</b> y se actualiza el <b>registro de estado</b>.</p></div>
+      </div>
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <span style="width:60px;height:60px;border-radius:50%;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">4</span>
+        <div><p style="font-size:var(--type-caption);font-weight:700;color:var(--navy);line-height:1.25">Avanzar</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">El <b>CP</b> pasa a apuntar a la siguiente instrucción (CP + 1) y el ciclo vuelve a empezar. Si la instrucción era un salto, el CP toma la dirección de destino.</p></div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;gap:16px">
+    <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Modos de direccionamiento</p>
+    <p style="font-size:21px;line-height:1.4;color:var(--muted)">El campo MD de la instrucción dice qué significa lo que viene después: si es el dato en sí o dónde encontrarlo.</p>
+    <table style="width:100%;border-collapse:collapse;font-size:21px;background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 2px 0 var(--line)">
+      <thead><tr style="background:var(--navy);color:var(--white);text-align:left"><th style="padding:14px 22px;font-weight:700">Modo</th><th style="padding:14px 22px;font-weight:700">La instrucción lleva</th><th style="padding:14px 22px;font-weight:700">Esquema</th></tr></thead>
+      <tbody style="line-height:1.35">
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:14px 22px;font-weight:700;color:var(--navy)">Inmediato</td><td style="padding:14px 22px">El dato sobre el que se opera</td><td style="padding:14px 22px;font-family:var(--mono);font-size:19px;white-space:nowrap">SUMA 5</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:14px 22px;font-weight:700;color:var(--navy)">Directo</td><td style="padding:14px 22px">La dirección de memoria donde está el dato</td><td style="padding:14px 22px;font-family:var(--mono);font-size:19px;white-space:nowrap">SUMA [200]</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:14px 22px;font-weight:700;color:var(--navy)">Indirecto</td><td style="padding:14px 22px">Una dirección donde está la dirección del dato</td><td style="padding:14px 22px;font-family:var(--mono);font-size:19px;white-space:nowrap">SUMA [[200]]</td></tr>
+        <tr><td style="padding:14px 22px;font-weight:700;color:var(--navy)">Relativo o indexado</td><td style="padding:14px 22px">Una dirección a la que se suma un valor fijo o índice</td><td style="padding:14px 22px;font-family:var(--mono);font-size:19px;white-space:nowrap">SUMA [200 + i]</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Tabla 1.5. Modos de direccionamiento. Los esquemas son ilustrativos: cada procesador escribe sus instrucciones a su manera.</p>
+  </div>
+</section>
+
+<!-- 34 Texto: el reloj y la frecuencia -->
+<section data-label="El reloj y la frecuencia" data-notas="Ciclos, no instrucciones: es habitual leer que 3 GHz son 3.000 millones de operaciones por segundo; en rigor son ciclos de reloj. Una instrucción puede tardar varios ciclos y un micro moderno ejecuta varias instrucciones por ciclo en cada núcleo. IBM PC 5150 (1981): Intel 8088 a 4,77 MHz. Datos del Ryzen 7 3700X (el micro de la foto de la placa): 8 núcleos, 16 hilos, 3,6 GHz base, 4,4 GHz máximo, según la ficha de AMD. Enseñar en el Administrador de tareas › Rendimiento › CPU: velocidad base, núcleos, procesadores lógicos y la frecuencia subiendo y bajando en tiempo real." style="display:grid;grid-template-columns:1fr 1fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.3.2 · Elementos funcionales</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">El reloj y la frecuencia</h2>
+    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item)">Un cristal de cuarzo genera pulsos que marcan el ritmo de todo el sistema. Cada pulso es un <b>ciclo</b>; la <b>frecuencia</b> es el número de ciclos por segundo y se mide en <b>hercios</b> (Hz).</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:var(--gap-item);text-align:center">
+      <div style="background:var(--white);border-radius:14px;padding:16px 8px;box-shadow:0 2px 0 var(--line)"><p style="font-size:26px;font-weight:800;color:var(--navy)">1 Hz</p><p style="font-size:18px;color:var(--muted);margin-top:4px">1 ciclo por segundo</p></div>
+      <div style="background:var(--white);border-radius:14px;padding:16px 8px;box-shadow:0 2px 0 var(--line)"><p style="font-size:26px;font-weight:800;color:var(--navy)">1 kHz</p><p style="font-size:18px;color:var(--muted);margin-top:4px">10<sup>3</sup> Hz, mil</p></div>
+      <div style="background:var(--white);border-radius:14px;padding:16px 8px;box-shadow:0 2px 0 var(--line)"><p style="font-size:26px;font-weight:800;color:var(--navy)">1 MHz</p><p style="font-size:18px;color:var(--muted);margin-top:4px">10<sup>6</sup> Hz, un millón</p></div>
+      <div style="background:var(--white);border-radius:14px;padding:16px 8px;box-shadow:0 2px 0 var(--line)"><p style="font-size:26px;font-weight:800;color:var(--navy)">1 GHz</p><p style="font-size:18px;color:var(--muted);margin-top:4px">10<sup>9</sup> Hz, mil millones</p></div>
+    </div>
+    <p style="font-size:96px;font-weight:800;line-height:1;color:var(--blue);letter-spacing:-.03em;margin-top:var(--gap-title)">3 GHz</p>
+    <p style="font-size:var(--type-small);font-weight:700;color:var(--navy);margin-top:8px">= 3 · 10<sup>9</sup> = 3.000.000.000 ciclos por segundo</p>
+    <p style="font-size:var(--type-caption);line-height:1.45;color:var(--muted);margin-top:16px">El primer PC de IBM (1981) trabajaba a <b>4,77 MHz</b>. Un micro actual a 3,6 GHz da unos 750 ciclos por cada uno de aquel.</p>
+    <p style="font-size:20px;line-height:1.4;color:var(--muted);margin-top:auto;padding-top:16px">Ciclos, no instrucciones: una instrucción puede necesitar varios ciclos, y un micro moderno ejecuta varias instrucciones en cada ciclo.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;gap:16px">
+    <div style="background:var(--navy);color:var(--white);border-radius:20px;padding:32px 36px">
+      <p style="font-size:var(--type-small);font-weight:800;color:var(--yellow)">Hoy no cuenta solo la frecuencia</p>
+      <p style="font-size:21px;line-height:1.45;color:#E3EBF8;margin-top:10px">Desde 2005 los micros rondan los 3-5 GHz: subir más genera demasiado calor. El rendimiento crece por otros caminos:</p>
+      <ul style="list-style:none;padding:0;margin-top:14px;display:flex;flex-direction:column;gap:10px;font-size:21px;line-height:1.4;color:#E3EBF8">
+        <li style="display:flex;gap:16px"><span style="color:var(--yellow)">●</span><span><b>Núcleos</b>: varios procesadores completos en el mismo chip, cada uno con su ciclo de instrucción.</span></li>
+        <li style="display:flex;gap:16px"><span style="color:var(--yellow)">●</span><span><b>Hilos</b>: cada núcleo puede atender dos tareas a la vez.</span></li>
+        <li style="display:flex;gap:16px"><span style="color:var(--yellow)">●</span><span><b>Frecuencia base y turbo</b>: el micro sube el reloj cuando hace falta y lo baja para ahorrar energía.</span></li>
+        <li style="display:flex;gap:16px"><span style="color:var(--yellow)">●</span><span><b>Memoria caché</b>: una memoria pequeña y muy rápida dentro del micro para no esperar a la RAM.</span></li>
+      </ul>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:24px 32px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:20px;font-weight:700;color:var(--muted)">Ejemplo: el micro de la foto de la placa base</p>
+      <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy);margin-top:6px">AMD Ryzen 7 3700X (2019)</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px;text-align:center">
+        <div><p style="font-size:30px;font-weight:800;color:var(--blue)">8</p><p style="font-size:18px;color:var(--muted)">núcleos</p></div>
+        <div><p style="font-size:30px;font-weight:800;color:var(--blue)">16</p><p style="font-size:18px;color:var(--muted)">hilos</p></div>
+        <div><p style="font-size:30px;font-weight:800;color:var(--blue)">3,6 GHz</p><p style="font-size:18px;color:var(--muted)">frecuencia base</p></div>
+        <div><p style="font-size:30px;font-weight:800;color:var(--blue)">4,4 GHz</p><p style="font-size:18px;color:var(--muted)">máxima (turbo)</p></div>
+      </div>
+      <p style="font-size:18px;color:var(--muted);margin-top:12px;line-height:1.35">Fuente: ficha técnica de <a href="https://www.amd.com/es/products/processors/desktops/ryzen/3000-series/amd-ryzen-7-3700x.html" target="_blank" rel="noopener">AMD</a>. Mira los mismos datos de tu ordenador en Administrador de tareas › Rendimiento › CPU.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 35 Comparativa: RAM y ROM -->
+<section data-label="Memoria principal: RAM y ROM" data-notas="RAM: donde está el programa que se ejecuta y sus datos; se borra al apagar. Sus tres elementos: registro de direcciones, registro de intercambio y selector de memoria (el que lee o escribe la celda). ROM: no se modifica en el uso normal; guarda lo necesario para arrancar; EPROM y EEPROM se pueden reprogramar y hoy la BIOS/UEFI está en memoria flash y se actualiza desde el propio fabricante. Curiosidad: los ordenadores domésticos de los ochenta (Spectrum, Amstrad, Commodore) traían el sistema y el BASIC en ROM y cargaban los juegos desde cinta de casete. Enlazar con la foto de la placa: la RAM son los módulos de la ranura 2; la ROM es un chip pequeño de la placa." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">1.3.2 · Elementos funcionales</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Memoria principal: RAM y ROM</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:var(--gap-title);flex:1">
+    <div style="background:var(--navy);color:var(--white);border-radius:24px;padding:40px 48px;display:flex;flex-direction:column">
+      <h3 style="font-size:var(--type-subtitle);font-weight:800">RAM</h3>
+      <p style="font-size:var(--type-caption);color:#9FB4D9;margin-top:6px"><i>Random Access Memory</i>, memoria de acceso aleatorio. <b style="color:var(--yellow)">Volátil</b>: se borra al apagar.</p>
+      <ul style="padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:24px;font-size:22px;line-height:1.4;color:#E3EBF8">
+        <li style="display:flex;gap:18px"><span style="color:var(--yellow)">●</span><span>Guarda las instrucciones y los datos del <b>programa que se está ejecutando</b>, cargados desde la memoria auxiliar.</span></li>
+        <li style="display:flex;gap:18px"><span style="color:var(--yellow)">●</span><span><b>Registro de direcciones</b>: la dirección sobre la que se va a leer o escribir.</span></li>
+        <li style="display:flex;gap:18px"><span style="color:var(--yellow)">●</span><span><b>Registro de intercambio</b>: el dato que se va a escribir o que se acaba de leer.</span></li>
+        <li style="display:flex;gap:18px"><span style="color:var(--yellow)">●</span><span><b>Selector de memoria</b>: localiza la dirección y mueve el dato entre la memoria y el registro de intercambio.</span></li>
+      </ul>
+      <p style="font-size:20px;line-height:1.4;color:#9FB4D9;margin-top:auto;padding-top:20px">Hoy: módulos DDR4 o DDR5 de 8 a 64 GB. Si la RAM se llena, el sistema tira de la memoria auxiliar, mucho más lenta, y el ordenador "se arrastra".</p>
+    </div>
+    <div style="background:var(--white);border:3px solid var(--line);border-radius:24px;padding:40px 48px;display:flex;flex-direction:column">
+      <h3 style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy)">ROM</h3>
+      <p style="font-size:var(--type-caption);color:var(--muted);margin-top:6px"><i>Read Only Memory</i>, memoria de solo lectura. <b style="color:var(--navy)">No volátil</b>: conserva su contenido sin corriente.</p>
+      <ul style="padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:24px;font-size:22px;line-height:1.4">
+        <li style="display:flex;gap:18px"><span style="color:var(--blue)">●</span><span>No se modifica en el uso normal. Guarda lo necesario para el <b>arranque</b> del sistema (BIOS o UEFI) y el funcionamiento de ciertos dispositivos.</span></li>
+        <li style="display:flex;gap:18px"><span style="color:var(--blue)">●</span><span><b>EPROM</b> y <b>EEPROM</b>: variantes que se pueden reprogramar (con luz ultravioleta o eléctricamente). Se siguen llamando ROM porque se cambian muy pocas veces.</span></li>
+        <li style="display:flex;gap:18px"><span style="color:var(--blue)">●</span><span>Hoy la BIOS/UEFI está en memoria <b>flash</b> y el fabricante publica actualizaciones.</span></li>
+      </ul>
+      <p style="font-size:20px;line-height:1.4;color:var(--muted);margin-top:auto;padding-top:20px"><b>Curiosidad.</b> Los ordenadores domésticos de los ochenta (Spectrum, Amstrad, Commodore) traían el sistema y el lenguaje BASIC en ROM; los juegos se cargaban desde cintas de casete.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 36 Quiz: ¿cuál NO almacena información? -->
+<section class="dark" data-label="Quiz: almacenar o transportar" data-notas="Comprobación rápida del bloque 3. Si dudan, volver al esquema funcional: los buses solo comunican; registros, memoria principal y memoria auxiliar guardan." style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
+  <div class="quiz" data-correct="2" data-ok="Correcto. El bus de datos solo transporta: lleva datos e instrucciones de un elemento a otro, pero no los guarda." data-ko="No. Piensa cuál de los cuatro no guarda nada, solo lleva la información de un sitio a otro." style="display:contents">
+    <div>
+      <span class="pill">Comprueba lo aprendido</span>
+      <h2 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.2;margin-top:32px;text-wrap:balance">¿Cuál de estos elementos NO almacena información?</h2>
+      <p class="quiz-fb">Selecciona una opción.</p>
+      <button class="btn btn-ghost quiz-reset" style="margin-top:var(--gap-item)">Reiniciar</button>
+    </div>
+    <div class="quiz-opts">
+      <button class="quiz-opt"><span class="letra">A</span><span>El registro acumulador</span></button>
+      <button class="quiz-opt"><span class="letra">B</span><span>El disco duro</span></button>
+      <button class="quiz-opt"><span class="letra">C</span><span>El bus de datos</span></button>
+      <button class="quiz-opt"><span class="letra">D</span><span>Un pendrive</span></button>
+    </div>
+  </div>
+</section>
+
+</deck-stage>
+<script src="../assets/deck-stage.js"></script>
+<script src="../assets/som.js"></script>
+</body>
+</html>

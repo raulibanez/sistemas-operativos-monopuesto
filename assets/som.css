@@ -1,0 +1,561 @@
+/* Estilos comunes de las presentaciones de Sistemas Operativos Monopuesto.
+   Lienzo de diseño: 1920 x 1080. Todas las medidas están pensadas para ese tamaño;
+   deck-stage.js escala el lienzo al tamaño de la ventana. */
+
+:root {
+  --type-hero: 104px;
+  --type-title: 64px;
+  --type-subtitle: 44px;
+  --type-body: 34px;
+  --type-small: 28px;
+  --type-caption: 24px;
+  --pad-top: 96px;
+  --pad-bottom: 96px;
+  --pad-x: 120px;
+  --gap-title: 48px;
+  --gap-item: 28px;
+  --navy: #15356B;
+  --blue: #0B4AB5;
+  --sky: #4F8AE0;
+  --yellow: #F4C20D;
+  --bg: #F5F6F9;
+  --ink: #1F2937;
+  --muted: #485168;
+  --line: #D7DCE6;
+  --white: #FFFFFF;
+  --ok: #1E8E5A;
+  --ko: #C0392B;
+  --mono: 'JetBrains Mono', Consolas, monospace;
+}
+
+body {
+  margin: 0;
+  background: #0d1f3f;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  color: var(--ink);
+}
+a { color: var(--blue); }
+a:hover { color: var(--navy); }
+
+deck-stage:not(:defined) { visibility: hidden; }
+
+deck-stage section {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  box-sizing: border-box;
+}
+deck-stage section * { box-sizing: border-box; }
+deck-stage section p,
+deck-stage section h1,
+deck-stage section h2,
+deck-stage section h3,
+deck-stage section ul,
+deck-stage section ol { margin: 0; }
+
+/* Numeración de diapositivas (la añade som.js) */
+[data-slide-num] {
+  position: absolute;
+  right: 120px;
+  bottom: 44px;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  pointer-events: none;
+  color: var(--muted);
+}
+section.dark [data-slide-num] { color: #C9D6EE; }
+
+/* Hueco de imagen pendiente de captura */
+.img-slot {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  border: 3px dashed var(--sky);
+  border-radius: 20px;
+  background: rgba(79, 138, 224, .08);
+  color: var(--blue);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 32px;
+  font-size: var(--type-small);
+  font-weight: 600;
+}
+.img-slot.rect { border-radius: 0; }
+
+/* Píldora de etiqueta ("Comprueba lo aprendido", "Actividad 3.2"...) */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--yellow);
+  color: var(--navy);
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-size: var(--type-caption);
+  font-weight: 700;
+}
+
+/* Botones */
+.btn {
+  border: 0;
+  border-radius: 14px;
+  padding: 20px 40px;
+  font-size: var(--type-small);
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform .1s, background .2s;
+}
+.btn:active { transform: scale(.97); }
+.btn-primary { background: var(--blue); color: var(--white); }
+.btn-primary:hover { background: var(--navy); }
+.btn-ghost { background: transparent; color: var(--navy); border: 3px solid var(--line); }
+.btn-ghost:hover { border-color: var(--sky); }
+.dark .btn-ghost { color: var(--white); border-color: rgba(255,255,255,.4); }
+
+/* ---------- Quiz de opción múltiple ---------- */
+.quiz-opts { display: flex; flex-direction: column; gap: 24px; }
+.quiz-opt {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  text-align: left;
+  padding: 28px 36px;
+  border-radius: 16px;
+  border: 3px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.08);
+  color: var(--white);
+  font-size: var(--type-body);
+  font-family: inherit;
+  cursor: pointer;
+  transition: all .2s;
+}
+.quiz-opt .letra {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.12);
+  display: grid;
+  place-items: center;
+  font-size: var(--type-small);
+  font-weight: 800;
+  flex: none;
+}
+.quiz-opt:hover { border-color: rgba(255,255,255,.5); }
+.quiz[data-answered] .quiz-opt { cursor: default; }
+.quiz-opt.correct { background: var(--yellow); border-color: var(--yellow); color: var(--navy); }
+.quiz-opt.correct .letra { background: rgba(21,53,107,.15); }
+.quiz-opt.wrong { border-color: var(--sky); background: rgba(255,255,255,.06); color: #9FB4D9; }
+.quiz-fb {
+  font-size: var(--type-small);
+  line-height: 1.5;
+  color: #C9D6EE;
+  margin-top: var(--gap-item);
+  min-height: 2.8em;
+}
+
+/* ---------- Ejercicio generado (números al azar) ---------- */
+.ej {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 48px 56px;
+  box-shadow: 0 2px 0 var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+/* La fila de la rejilla no debe crecer con el contenido de la tarjeta */
+deck-stage section:has(> .ej) { grid-template-rows: minmax(0, 1fr); }
+.ej-enunciado {
+  font-size: var(--type-small);
+  color: var(--muted);
+}
+.ej-dato {
+  font-family: var(--mono);
+  font-size: 72px;
+  font-weight: 600;
+  color: var(--navy);
+  letter-spacing: .04em;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+.ej-dato.largo { font-size: 48px; letter-spacing: .02em; }
+.ej-dato small {
+  font-size: 32px;
+  color: var(--muted);
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-weight: 600;
+  vertical-align: baseline;
+}
+.ej-fila { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+.ej-input {
+  flex: 1;
+  min-width: 360px;
+  font-family: var(--mono);
+  font-size: 44px;
+  padding: 16px 24px;
+  border: 3px solid var(--line);
+  border-radius: 14px;
+  color: var(--navy);
+  background: var(--bg);
+  outline: none;
+}
+.ej-input:focus { border-color: var(--sky); }
+.ej-input.ok { border-color: var(--ok); }
+.ej-input.ko { border-color: var(--ko); }
+.ej-fb {
+  font-size: var(--type-small);
+  font-weight: 700;
+  min-height: 1.4em;
+}
+.ej-fb { white-space: pre-line; }
+.ej-fb.ok { color: var(--ok); }
+.ej-fb.ko { color: var(--ko); }
+.ej-sol {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 26px;
+  line-height: 1.5;
+  background: var(--bg);
+  border-radius: 14px;
+  padding: 20px 28px;
+  color: var(--ink);
+  white-space: pre-wrap;
+  overflow: auto;
+  flex: 1;
+  min-height: 0;
+}
+.ej-sol[hidden] { display: none; }
+.ej-racha {
+  font-size: var(--type-caption);
+  color: var(--muted);
+  margin-left: auto;
+}
+.ej-racha b { color: var(--blue); }
+
+@media print {
+  .ej-sol[hidden] { display: block; }
+}
+
+/* ---------- Suma vertical con huecos ---------- */
+.sv {
+  display: grid;
+  grid-template-columns: 170px repeat(var(--w, 5), 86px);
+  gap: 10px 10px;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 60px;
+  color: var(--navy);
+  margin: 8px 0;
+}
+.sv .lbl {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: right;
+  padding-right: 14px;
+}
+.sv .d { text-align: center; height: 86px; line-height: 86px; }
+.sv .c {
+  width: 86px;
+  height: 86px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 52px;
+  font-weight: 600;
+  color: var(--navy);
+  background: var(--bg);
+  border: 3px solid var(--line);
+  border-radius: 12px;
+  outline: none;
+  caret-color: var(--blue);
+}
+.sv .c.carry { width: 62px; height: 62px; font-size: 36px; border-style: dashed; }
+.sv .c:focus { border-color: var(--sky); box-shadow: 0 0 0 4px rgba(79,138,224,.2); }
+.sv .c.ok { border-color: var(--ok); background: #E8F6EE; }
+.sv .c.ko { border-color: var(--ko); background: #FBEAEA; }
+.sv .c.pista { border-color: var(--yellow); background: #FFF6D1; }
+.sv .linea { grid-column: 2 / -1; height: 5px; background: var(--navy); border-radius: 3px; }
+.sv ~ .ej-fb { flex: 1; min-height: 0; overflow: auto; font-size: 24px; line-height: 1.45; }
+.sv ~ .ej-fila .btn { padding: 16px 30px; font-size: var(--type-caption); }
+
+/* ---------- Tabla de reglas (casos de una columna) ---------- */
+.tabla-reglas {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--gap-item);
+  font-size: var(--type-small);
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 0 var(--line);
+}
+.tabla-reglas th { background: var(--navy); color: var(--white); font-weight: 700; padding: 16px 24px; text-align: center; }
+.tabla-reglas th:first-child { text-align: left; }
+.tabla-reglas td { padding: 14px 24px; text-align: center; border-bottom: 2px solid var(--line); font-family: var(--mono); font-weight: 600; color: var(--navy); }
+.tabla-reglas td:first-child { text-align: left; }
+.tabla-reglas tr:last-child td { border-bottom: 0; }
+.tabla-reglas td small { font-size: 20px; color: var(--muted); font-weight: 400; }
+.tabla-reglas td.lleva { color: var(--white); background: var(--blue); }
+
+/* ---------- Pregunta a la clase con panel que se revela ---------- */
+.interrogante {
+  width: 112px;
+  height: 112px;
+  border-radius: 28px;
+  background: var(--yellow);
+  color: var(--navy);
+  display: grid;
+  place-items: center;
+  font-size: 72px;
+  font-weight: 800;
+  box-shadow: 0 6px 0 rgba(21,53,107,.18);
+}
+.revela {
+  position: relative;
+  background: var(--white);
+  border-radius: 24px;
+  padding: 48px 56px;
+  box-shadow: 0 2px 0 var(--line);
+  overflow: hidden;
+}
+.revela-cuerpo {
+  transition: filter .5s ease, opacity .5s ease;
+}
+.revela:not([data-revelado]) .revela-cuerpo {
+  filter: blur(22px);
+  opacity: .35;
+  pointer-events: none;
+  user-select: none;
+}
+.revela-btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 10px 30px rgba(11,74,181,.35);
+  transition: opacity .3s;
+}
+.revela[data-revelado] .revela-cuerpo { padding-bottom: 64px; }
+.revela[data-revelado] .revela-btn {
+  top: auto;
+  bottom: 20px;
+  left: auto;
+  right: 24px;
+  transform: none;
+  box-shadow: none;
+  padding: 10px 20px;
+  font-size: 20px;
+  background: transparent;
+  color: var(--muted);
+  border: 2px solid var(--line);
+}
+@media print {
+  .revela:not([data-revelado]) .revela-cuerpo { filter: none; opacity: 1; }
+  .revela-btn { display: none; }
+}
+
+/* Iconos 3D (assets/question.png, assets/exclamation.png) */
+.icono { width: 150px; height: 150px; object-fit: contain; display: block; filter: drop-shadow(0 10px 18px rgba(21,53,107,.18)); }
+
+/* ---------- Foto con atribución al pasar el ratón ---------- */
+.foto {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--navy);
+}
+.foto img { width: 100%; height: 100%; object-fit: cover; display: block; cursor: zoom-in; }
+.foto .credito {
+  position: absolute;
+  z-index: 2;
+  left: 0; right: 0; bottom: 0;
+  padding: 20px 28px 20px 84px;
+  background: linear-gradient(to top, rgba(11,31,68,.92), rgba(11,31,68,.75));
+  color: #E3EBF8;
+  font-size: 20px;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .25s, transform .25s;
+  pointer-events: none;
+}
+.foto .credito a { color: var(--yellow); }
+.foto::after {
+  content: '©';
+  position: absolute;
+  left: 20px; bottom: 16px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(11,31,68,.75);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  transition: opacity .25s;
+}
+.foto:hover .credito, .foto:focus-within .credito { opacity: 1; transform: none; pointer-events: auto; }
+@media print { .foto .credito { opacity: 1; transform: none; } }
+
+/* Crédito y marca © a la derecha: para fotos a sangre cuya izquierda queda
+   bajo el texto de la diapositiva (portadas con degradado). */
+.foto.credito-dcha::after { left: auto; right: 20px; }
+.foto.credito-dcha .credito { padding: 20px 84px 20px 28px; text-align: right; }
+
+/* ---------- Marcadores numerados sobre una foto ----------
+   <figure class="foto">
+     <img …>
+     <span class="marca" style="left:29%;top:46%">1</span>
+     …
+   </figure>
+   left/top en % de la foto (la imagen debe llenar la figura: aspect-ratio igual al de la
+   imagen). Un elemento de la misma diapositiva con data-marca="1" resalta el marcador 1
+   al pasar el ratón o pulsarlo, y al revés. */
+.foto .marca {
+  position: absolute;
+  z-index: 1;
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--yellow);
+  border: 3px solid var(--white);
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .45);
+  transition: transform .2s, background .2s, color .2s;
+  cursor: default;
+}
+.foto .marca.activa, .foto .marca:hover { transform: scale(1.3); background: var(--yellow); color: var(--navy); }
+[data-marca] { cursor: pointer; border-radius: 12px; transition: background .2s; }
+[data-marca]:hover, [data-marca].activa { background: rgba(244, 194, 13, .18); }
+
+/* ---------- Galería: varias fotos en el mismo hueco, con flechas y pie que cambia ----------
+   <div class="galeria">
+     <figure class="foto" data-pie="Figura 1.2. …">…</figure>
+     <figure class="foto" data-pie="Figura 1.3. …">…</figure>
+   </div>
+   som.js crea el marco, el pie y las flechas. Un elemento de la misma diapositiva con
+   data-ir="2" salta a la segunda foto al pulsarlo. */
+.galeria {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  height: 100%;
+  min-height: 0;
+}
+.galeria-marco { position: relative; flex: var(--galeria-flex, 1 1 auto); height: var(--galeria-alto, auto); min-height: 0; }
+.galeria-marco > .foto {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .35s ease;
+  pointer-events: none;
+}
+.galeria-marco > .foto.activa { opacity: 1; pointer-events: auto; }
+.galeria-abajo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: start;
+}
+.galeria-pie {
+  font-size: var(--type-caption);
+  color: var(--muted);
+  line-height: 1.4;
+  min-height: 2.8em;
+}
+.galeria-nav { display: flex; align-items: center; gap: 12px; }
+.galeria-nav button {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 3px solid var(--line);
+  background: var(--white);
+  color: var(--navy);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color .2s, background .2s;
+}
+.galeria-nav button:hover { border-color: var(--sky); background: var(--bg); }
+.galeria-nav .galeria-cont {
+  min-width: 80px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+  font-variant-numeric: tabular-nums;
+}
+[data-ir] { cursor: pointer; border-radius: 12px; transition: background .2s; }
+[data-ir]:hover { background: rgba(79, 138, 224, .08); }
+[data-ir].activa { background: rgba(244, 194, 13, .12); }
+[data-ir].activa > span:first-child { box-shadow: 0 0 0 5px rgba(244, 194, 13, .45); }
+@media print {
+  .galeria-marco { position: static; }
+  .galeria-marco > .foto { position: static; opacity: 1; margin-bottom: 12px; height: 360px; }
+  .galeria-nav { display: none; }
+}
+
+/* ---------- Visor de imagen a pantalla completa (clic en una .foto) ---------- */
+.visor {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  background: rgba(5, 12, 28, .96);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+  animation: visor-in .2s ease;
+}
+@keyframes visor-in { from { opacity: 0 } to { opacity: 1 } }
+.visor img {
+  max-width: 100vw;
+  max-height: 100vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+.visor .visor-pie {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 14px 24px;
+  background: rgba(5,12,28,.7);
+  color: #E3EBF8;
+  font: 400 15px/1.4 'Plus Jakarta Sans', system-ui, sans-serif;
+  text-align: center;
+}
+.visor .visor-pie a { color: #F4C20D; }
+.visor .visor-cerrar {
+  position: absolute;
+  top: 16px; right: 20px;
+  width: 44px; height: 44px;
+  border: 0; border-radius: 50%;
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  font-size: 26px;
+  cursor: pointer;
+}

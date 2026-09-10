@@ -1,0 +1,6 @@
+plantilla/_*.html
+*.tmp
+.DS_Store
+Thumbs.db
+
+guiones/*
