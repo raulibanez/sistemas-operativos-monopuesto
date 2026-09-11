@@ -27,9 +27,9 @@
  *      On touch devices, tapping the left/right half of the stage goes
  *      prev/next — taps on links, buttons and other interactive slide
  *      content are left alone.
- *  (c) press P (or the overlay button) to toggle browser fullscreen;
- *      entering it switches the deck to presenting mode (rail hidden),
- *      leaving it (Esc) restores the editor chrome.
+ *  (c) press P (or the overlay button) to toggle fullscreen. Fullscreen
+ *      enters presenting mode: the thumbnail rail is hidden and the
+ *      overlay becomes pointer-summoned only. Esc / P leaves it.
  *  (d) bottom-center overlay showing slide count + hints, fades out on
  *      idle; hovering or focusing its controls pins it visible until the
  *      pointer/focus leaves. While presenting it is pointer-summoned only:
@@ -41,7 +41,16 @@
  *  (f) print — `@media print` lays every slide out as its own page at the
  *      design size, so the browser's Print → Save as PDF produces a clean
  *      one-page-per-slide PDF with no extra setup.
- *  (g) thumbnail rail — resizable left-hand column of per-slide thumbnails
+ *  (g) thumbnail rail — resizable left-hand column of per-slide thumbnails.
+ *      A slide carrying `data-deck-section="1.1"` gets that text painted
+ *      as a small pill on the top-right corner of its thumbnail, so the
+ *      rail shows where each section starts.
+ *  (i) wheel navigation — a vertical wheel/trackpad gesture over the stage
+ *      steps one slide (debounced so a single flick is a single step).
+ *      Scrollable slide content keeps the wheel; set `no-wheel` to disable.
+ *  (h) deep links — `#<n>` (1-based) or `#<id>` where a slide carries
+ *      `data-deck-id="<id>"`; honoured on load and on hashchange, so an
+ *      in-deck <a href="#id"> (an agenda slide) jumps to that slide.
  *      (static clones). Click to navigate — the clicked slide becomes the
  *      selected (highlighted) slide; shift-click selects a range and
  *      cmd/ctrl-click toggles slides in and out of the selection
@@ -387,6 +396,26 @@
       cursor: pointer;
       user-select: none;
     }
+    /* Section pill: small badge pinned to the thumbnail's top-right
+       corner, only when the slide carries data-deck-section. */
+    .thumb .sec {
+      position: absolute;
+      top: -6px;
+      right: -4px;
+      z-index: 1;
+      padding: 2px 7px;
+      background: var(--deck-section-bg, #A5E070);
+      color: var(--deck-section-fg, #041C3F);
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      line-height: 1.4;
+      white-space: nowrap;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+      pointer-events: none;
+    }
+    .thumb .sec:empty { display: none; }
     .thumb .num {
       width: 16px;
       flex-shrink: 0;
@@ -688,6 +717,8 @@
       this._onTap = this._onTap.bind(this);
       this._onMessage = this._onMessage.bind(this);
       this._onFullscreenChange = this._onFullscreenChange.bind(this);
+      this._onHashChange = this._onHashChange.bind(this);
+      this._onWheel = this._onWheel.bind(this);
       // Capture-phase close so a click anywhere dismisses the menu, but
       // ignore clicks that land inside the menu itself — otherwise the
       // capture handler runs before the menu's own (bubble) handler and
@@ -720,6 +751,8 @@
       window.addEventListener('mousemove', this._onMouseMove, { passive: true });
       window.addEventListener('message', this._onMessage);
       document.addEventListener('fullscreenchange', this._onFullscreenChange);
+      window.addEventListener('hashchange', this._onHashChange);
+      window.addEventListener('wheel', this._onWheel, { passive: true });
       window.addEventListener('click', this._onDocClick, true);
       this.addEventListener('click', this._onTap);
       // Print lays every slide out as its own page, so [data-deck-active]-
@@ -1049,6 +1082,8 @@
       window.removeEventListener('mousemove', this._onMouseMove);
       window.removeEventListener('message', this._onMessage);
       document.removeEventListener('fullscreenchange', this._onFullscreenChange);
+      window.removeEventListener('hashchange', this._onHashChange);
+      window.removeEventListener('wheel', this._onWheel);
       window.removeEventListener('click', this._onDocClick, true);
       window.removeEventListener('beforeprint', this._onBeforePrint);
       window.removeEventListener('afterprint', this._onAfterPrint);
@@ -1118,14 +1153,14 @@
       const overlay = document.createElement('div');
       overlay.className = 'overlay export-hidden';
       overlay.setAttribute('role', 'toolbar');
-      overlay.setAttribute('aria-label', 'Deck controls');
+      overlay.setAttribute('aria-label', 'Controles de la presentación');
       overlay.setAttribute('data-omelette-chrome', '');
       overlay.innerHTML = `
-        <button class="btn prev" type="button" aria-label="Previous slide" title="Previous (←)">
+        <button class="btn prev" type="button" aria-label="Diapositiva anterior" title="Anterior (←)">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg>
         </button>
         <span class="count" aria-live="polite"><span class="current">1</span><span class="sep">/</span><span class="total">1</span></span>
-        <button class="btn next" type="button" aria-label="Next slide" title="Next (→)">
+        <button class="btn next" type="button" aria-label="Diapositiva siguiente" title="Siguiente (→)">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg>
         </button>
         <span class="divider"></span>
@@ -1212,12 +1247,12 @@
       menu.className = 'ctxmenu export-hidden';
       menu.setAttribute('data-omelette-chrome', '');
       menu.innerHTML = `
-        <button type="button" data-act="skip">Skip slide</button>
-        <button type="button" data-act="up">Move up</button>
-        <button type="button" data-act="down">Move down</button>
-        <button type="button" data-act="duplicate">Duplicate slide</button>
+        <button type="button" data-act="skip">Omitir diapositiva</button>
+        <button type="button" data-act="up">Subir</button>
+        <button type="button" data-act="down">Bajar</button>
+        <button type="button" data-act="duplicate">Duplicar diapositiva</button>
         <hr>
-        <button type="button" data-act="delete">Delete slide</button>
+        <button type="button" data-act="delete">Eliminar diapositiva</button>
       `;
       menu.addEventListener('click', (e) => {
         const act = e.target && e.target.getAttribute && e.target.getAttribute('data-act');
@@ -1262,12 +1297,12 @@
       confirm.innerHTML = `
         <div class="confirm" role="dialog" aria-modal="true">
           <div class="body">
-            <div class="title">Delete slide?</div>
-            <div class="msg">This slide will be removed from the deck.</div>
+            <div class="title">¿Eliminar la diapositiva?</div>
+            <div class="msg">Se quitará de la presentación.</div>
           </div>
           <div class="footer">
-            <button type="button" class="cancel">Cancel</button>
-            <button type="button" class="danger">Delete</button>
+            <button type="button" class="cancel">Cancelar</button>
+            <button type="button" class="danger">Eliminar</button>
           </div>
         </div>
       `;
@@ -1495,11 +1530,29 @@
       // The host's ?slide= param is delivered as a #<int> hash (1-indexed) on
       // the iframe src. No hash → slide 1; the deck itself keeps no position
       // state across loads.
-      const h = (location.hash || '').match(/^#(\d+)$/);
-      if (h) {
-        const n = parseInt(h[1], 10) - 1;
-        if (n >= 0 && n < this._slides.length) this._index = n;
+      const n = this._indexFromHash(location.hash);
+      if (n != null) this._index = n;
+    }
+
+    /** Resolve a location hash to a slide index: `#<n>` (1-based) or
+     *  `#<id>` matching a slide's data-deck-id. null when it names nothing. */
+    _indexFromHash(hash) {
+      const h = String(hash || '');
+      if (h.length < 2) return null;
+      const num = h.match(/^#(\d+)$/);
+      if (num) {
+        const n = parseInt(num[1], 10) - 1;
+        return (n >= 0 && n < this._slides.length) ? n : null;
       }
+      let id = h.slice(1);
+      try { id = decodeURIComponent(id); } catch (e) {}
+      const i = this._slides.findIndex((s) => s.getAttribute('data-deck-id') === id);
+      return i >= 0 ? i : null;
+    }
+
+    _onHashChange() {
+      const n = this._indexFromHash(location.hash);
+      if (n != null) this._go(n, 'api');
     }
 
     _applyIndex({ showOverlay = true, broadcast = true, reason = 'init' } = {}) {
@@ -1624,60 +1677,16 @@
       this._flashOverlay('pointer');
     }
 
-    /** Enter/leave presenting mode: rail hidden, overlay pointer-summoned
-     *  only. Shared by the host's __omelette_presenting message and the
-     *  standalone fullscreen toggle (P key / overlay button).
-     *  Unchanged value → idempotent re-delivery (the guest bundle re-posts
-     *  when a deck mounts mid-presentation, and host + bundle can both
-     *  deliver at entry). Skip the resets: re-running the entry work on
-     *  every delivery would dismiss the pointer-summoned overlay under a
-     *  hovering cursor and close menus on every slide change. */
-    _setPresenting(on) {
-      on = !!on;
-      if (on === !!this._presenting) return;
-      this._presenting = on;
-      // A presenting transition invalidates interaction pins: carried
-      // across the flip, a stale pin would hold the first summoned
-      // overlay open with no pointer anywhere near it. Hide on BOTH
-      // transitions: entry cleans the audience's screen, and on exit a
-      // pin-skipped hide timeout may have left data-visible set with
-      // no timer armed — without this, the footer would linger in the
-      // editor until the next mousemove. The next interaction
-      // re-summons it either way.
-      this._overlayHover = false;
-      this._overlayFocus = false;
-      if (this._overlay) {
-        this._overlay.removeAttribute('data-visible');
-        if (this._hideTimer) clearTimeout(this._hideTimer);
-      }
-      this._syncRailHidden();
-      this._closeMenu();
-      this._closeConfirm();
-      this._fit();
-      this._scaleThumbs();
-    }
-
-    /** P key / overlay button: ask the browser for fullscreen (or leave
-     *  it). Presenting mode itself is flipped by _onFullscreenChange, so
-     *  leaving via Esc takes the same path as leaving via P. */
-    _toggleFullscreen() {
-      const doc = document;
-      try {
-        if (doc.fullscreenElement) {
-          if (doc.exitFullscreen) doc.exitFullscreen();
-        } else if (doc.documentElement.requestFullscreen) {
-          doc.documentElement.requestFullscreen();
-        }
-      } catch (err) {}
-    }
-
-    _onFullscreenChange() {
-      this._setPresenting(!!document.fullscreenElement);
-    }
-
     _onMessage(e) {
       const d = e.data;
       if (d && typeof d.__omelette_presenting === 'boolean') {
+        // Unchanged value → idempotent re-delivery (the guest bundle
+        // re-posts when a deck mounts mid-presentation, and host + bundle
+        // can both deliver at entry). Skip the resets: re-running the
+        // entry work on every delivery would dismiss the pointer-summoned
+        // overlay under a hovering cursor and close menus on every slide
+        // change. Mirrors the preview_mode branch's unchanged-value guard
+        // below.
         this._setPresenting(d.__omelette_presenting);
       }
       // Host's Preview segment (ViewerMode='none'): the rail's drag-reorder /
@@ -1733,6 +1742,49 @@
       if (d && d.type === '__omelette_rail_enabled') this._enableRail();
     }
 
+    /** Enter/leave presenting mode: rail hidden, overlay pointer-summoned
+     *  only. Shared by the host's __omelette_presenting message and the
+     *  standalone fullscreen toggle (P key / overlay button). */
+    _setPresenting(on) {
+      on = !!on;
+      if (on === !!this._presenting) return;
+      this._presenting = on;
+      // A presenting transition invalidates interaction pins: carried
+      // across the flip, a stale pin would hold the first summoned
+      // overlay open with no pointer anywhere near it. Hide on BOTH
+      // transitions: entry cleans the audience's screen, and on exit a
+      // pin-skipped hide timeout may have left data-visible set with
+      // no timer armed — without this, the footer would linger in the
+      // editor until the next mousemove. The next interaction
+      // re-summons it either way.
+      this._overlayHover = false;
+      this._overlayFocus = false;
+      if (this._overlay) {
+        this._overlay.removeAttribute('data-visible');
+        if (this._hideTimer) clearTimeout(this._hideTimer);
+      }
+      this._syncRailHidden();
+      this._closeMenu();
+      this._closeConfirm();
+      this._fit();
+      this._scaleThumbs();
+    }
+
+    _toggleFullscreen() {
+      const doc = document;
+      try {
+        if (doc.fullscreenElement) {
+          if (doc.exitFullscreen) doc.exitFullscreen();
+        } else if (doc.documentElement.requestFullscreen) {
+          doc.documentElement.requestFullscreen();
+        }
+      } catch (err) {}
+    }
+
+    _onFullscreenChange() {
+      this._setPresenting(!!document.fullscreenElement);
+    }
+
     _syncRailHidden() {
       if (!this._rail) return;
       // data-presenting is the hard hide (display:none) for flag-off,
@@ -1748,6 +1800,47 @@
       // translateX hide leaves thumbs (tabIndex=0) in the tab order —
       // inert keeps them unfocusable while the rail is off-screen.
       this._rail.inert = hard || !this._railVisible;
+    }
+
+    _onWheel(e) {
+      if (this.hasAttribute('no-wheel') || e.ctrlKey) return; // ctrl+wheel = zoom
+      if (this.hasAttribute('noscale')) return;
+      const path = e.composedPath();
+      if (!this._stage || !path.includes(this._stage)) return; // rail, overlay, menus
+      // Slide content that scrolls keeps the wheel.
+      for (const n of path) {
+        if (n === this._stage) break;
+        if (!(n instanceof Element)) continue;
+        if (n.scrollHeight > n.clientHeight + 1) {
+          const ov = getComputedStyle(n).overflowY;
+          if (ov === 'auto' || ov === 'scroll') return;
+        }
+      }
+      const dy = e.deltaMode === 1 ? e.deltaY * 40 : e.deltaMode === 2 ? e.deltaY * 800 : e.deltaY;
+      if (!dy) return;
+      const now = Date.now();
+      const gap = now - (this._wheelLast || 0);
+      this._wheelLast = now;
+      if (Math.abs(dy) >= 50) {
+        // Discrete mouse-wheel notch (Chrome/Edge deliver ~100 per notch):
+        // one step per notch, with a short cooldown so a fast spin still
+        // steps at a readable pace instead of racing to the end.
+        if (now - (this._wheelStepAt || 0) < 120) return;
+        this._wheelStepAt = now;
+        this._wheelAcc = 0;
+        this._wheelDone = true;
+        this._advance(dy > 0 ? 1 : -1, 'keyboard');
+        return;
+      }
+      // Trackpad: small deltas in a burst that may carry on with inertia.
+      // A pause starts a new gesture; each gesture steps at most once.
+      if (gap > 200) { this._wheelAcc = 0; this._wheelDone = false; }
+      if (this._wheelDone) return;
+      this._wheelAcc += dy;
+      if (Math.abs(this._wheelAcc) < 60) return;
+      this._wheelDone = true;
+      this._wheelStepAt = now;
+      this._advance(this._wheelAcc > 0 ? 1 : -1, 'keyboard');
     }
 
     _onTap(e) {
@@ -1918,6 +2011,8 @@
         const at = this._rail.children[i];
         if (at !== want) this._rail.insertBefore(want, at || null);
         t.i = i;
+        const secLabel = t.slide.getAttribute('data-deck-section') || '';
+        if (t.sec.textContent !== secLabel) t.sec.textContent = secLabel;
         if (t.slide.hasAttribute('data-deck-skip')) t.thumb.setAttribute('data-skip', '');
         else t.thumb.removeAttribute('data-skip');
         if (this._selected.has(t.slide)) t.thumb.setAttribute('data-selected', '');
@@ -1965,13 +2060,15 @@
       const thumb = document.createElement('div');
       thumb.className = 'thumb';
       thumb.tabIndex = 0;
+      const sec = document.createElement('div');
+      sec.className = 'sec';
       const num = document.createElement('div');
       num.className = 'num';
       const frame = document.createElement('div');
       frame.className = 'frame';
-      thumb.append(num, frame);
+      thumb.append(sec, num, frame);
 
-      const entry = { thumb, num, frame, slide, clone: null, host: null, i: -1 };
+      const entry = { thumb, sec, num, frame, slide, clone: null, host: null, i: -1 };
       // entry.i is refreshed on every _renderRail reconcile pass, so
       // handlers read the thumb's current position without an O(N) scan.
       const idx = () => entry.i;
@@ -2550,11 +2647,11 @@
         el.style.display = bulk ? 'none' : '';
       });
       const skip = slide && slide.hasAttribute('data-deck-skip');
-      this._menu.querySelector('[data-act="skip"]').textContent = skip ? 'Unskip slide' : 'Skip slide';
+      this._menu.querySelector('[data-act="skip"]').textContent = skip ? 'Volver a mostrar' : 'Omitir diapositiva';
       this._menu.querySelector('[data-act="up"]').disabled = i <= 0;
       this._menu.querySelector('[data-act="down"]').disabled = i >= this._slides.length - 1;
       const del = this._menu.querySelector('[data-act="delete"]');
-      del.textContent = bulk ? 'Delete ' + sel.length + ' slides' : 'Delete slide';
+      del.textContent = bulk ? 'Eliminar ' + sel.length + ' diapositivas' : 'Eliminar diapositiva';
       del.disabled = bulk ? sel.length >= this._slides.length : this._slides.length <= 1;
       // Place, then clamp to viewport after it's measurable.
       this._menu.style.left = x + 'px';
@@ -2589,8 +2686,8 @@
         ? (lbl ? 'Delete slide ' + lbl + '?' : 'Delete skipped slide?')
         : 'Delete ' + list.length + ' slides?';
       this._confirm.querySelector('.msg').textContent = list.length === 1
-        ? 'This slide will be removed from the deck.'
-        : 'These slides will be removed from the deck.';
+        ? 'Se quitará de la presentación.'
+        : 'Se quitarán de la presentación.';
       this._confirm.setAttribute('data-open', '');
       const btn = this._confirm.querySelector('.danger');
       if (btn && btn.focus) btn.focus();

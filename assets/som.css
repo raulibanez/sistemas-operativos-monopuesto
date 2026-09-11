@@ -26,6 +26,15 @@
   --ok: #1E8E5A;
   --ko: #C0392B;
   --mono: 'JetBrains Mono', Consolas, monospace;
+  /* Pastillas de sección (índice, número arriba a la derecha y carril de miniaturas):
+     el mismo color que la píldora .pill del módulo. */
+  --pill-bg: var(--yellow);
+  --pill-fg: var(--navy);
+}
+/* Pastilla de sección en las miniaturas del carril (data-deck-section, la pinta deck-stage.js) */
+deck-stage {
+  --deck-section-bg: var(--pill-bg);
+  --deck-section-fg: var(--pill-fg);
 }
 
 body {
@@ -96,6 +105,100 @@ section.dark [data-slide-num] { color: #C9D6EE; }
   font-size: var(--type-caption);
   font-weight: 700;
 }
+
+/* Píldora pequeña en línea ("PRÁCTICA" delante de una entrada del índice) */
+.pill-mini {
+  display: inline-block;
+  vertical-align: middle;
+  background: var(--pill-bg);
+  color: var(--pill-fg);
+  padding: 4px 16px 5px;
+  margin-right: 18px;
+  border-radius: 999px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  position: relative;
+  top: -3px;
+}
+
+/* Número de sección: pastilla arriba a la derecha de cada diapositiva de contenido
+   (atributo data-seccion en el <section>). Las diapositivas las posiciona deck-stage
+   en absoluto, así que el pseudo-elemento se ancla a ellas sin tocar su HTML. */
+deck-stage section[data-seccion]::after {
+  content: attr(data-seccion);
+  position: absolute;
+  top: 40px;
+  right: 48px;
+  z-index: 5;
+  background: var(--pill-bg);
+  color: var(--pill-fg);
+  padding: 6px 22px 7px;
+  border-radius: 999px;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  line-height: 1.2;
+  pointer-events: none;
+}
+
+/* Pista de teclas de la portada */
+.pista-teclas {
+  font-size: var(--type-caption);
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pista-teclas kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 2px solid var(--line);
+  border-bottom-width: 4px;
+  background: var(--white);
+  color: var(--navy);
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: 700;
+}
+.pista-teclas .sep { margin: 0 8px; opacity: .5; }
+.dark .pista-teclas { color: #9FB4D9; }
+.dark .pista-teclas kbd {
+  background: rgba(255,255,255,.1);
+  border-color: rgba(255,255,255,.28);
+  color: var(--white);
+}
+
+/* Índice de la unidad: cada entrada salta a su sección (data-deck-id) */
+.indice-enlace {
+  display: grid;
+  grid-template-columns: 96px 1fr 56px;
+  align-items: center;
+  padding: 20px 24px;
+  margin: 0 -24px;
+  border-radius: 16px;
+  color: inherit;
+  text-decoration: none;
+  transition: background .15s ease;
+}
+.indice-enlace::after {
+  content: '→';
+  justify-self: end;
+  color: var(--blue);
+  font-weight: 800;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity .15s ease, transform .15s ease;
+}
+.indice-enlace:hover { background: rgba(11, 74, 181, .07); color: inherit; }
+.indice-enlace:hover::after { opacity: 1; transform: translateX(0); }
 
 /* Botones */
 .btn {
