@@ -17,8 +17,8 @@
  *  5. Ejercicio generado con números al azar, resuelto en vertical con huecos:
  *       <div class="ej" data-tipo="dec2bin" data-min="16" data-max="255"></div>
  *     Tipos disponibles en SOM.generadores: bin2dec, dec2bin, decfrac2bin, bases, sumabin,
- *     restabin, logica, c1c2, restac2, paridad. Atributos: data-bits, data-min, data-max,
- *     data-modo (modo fijo de los que tienen modos) y data-paridad (par | impar).
+ *     restabin, logica, c1c2, restac2, paridad, unidades, ascii, ieee754. Atributos: data-bits,
+ *     data-min, data-max, data-modo (modo fijo de los que tienen modos) y data-paridad (par | impar).
  */
 (function () {
   'use strict';
@@ -502,6 +502,197 @@
               expl: `${ut} unos es ${ut % 2 ? 'impar' : 'par'}. Con paridad ${tipo} ${(ut % 2 === 0) === (tipo === 'par') ? 'cuadra: no se detecta ningún error' : 'no cuadra: hay un error'}` }]
           ],
           correcto: err ? `Correcto: hay un error (se cambió el bit ${8 - pos} contando desde la derecha). La paridad lo detecta, pero no dice cuál es.` : `Correcto: la paridad cuadra. Ojo: si hubieran cambiado dos bits, también cuadraría y el error pasaría desapercibido.`
+        };
+      }
+    }
+,
+
+    /* 3.10 unidades de información: bits y bytes, unidades binarias y disco del fabricante */
+    unidades: {
+      titulo: 'Unidades de información',
+      rejilla: true,
+      modos: [{ t: 'Bits y bytes', v: 'bits' }, { t: 'Entre unidades', v: 'binario' }, { t: 'Disco del fabricante', v: 'fabricante' }, { t: 'Al azar', v: null }],
+      generar(cfg) {
+        const modo = cfg.modo || ['bits', 'binario', 'fabricante'][rnd(0, 2)];
+        const miles = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        const sinSep = (v) => String(v).replace(/[\s.]/g, '');
+        if (modo === 'bits') {
+          const aBits = rnd(0, 1) === 1;
+          const nB = rnd(2, 64), nb = nB * 8;
+          return {
+            enunciado: aBits ? 'Pasa de bytes a bits. Elige la operación y escribe el resultado.' : 'Pasa de bits a bytes. Elige la operación y escribe el resultado.',
+            columnas: '190px 200px 140px', clase: 'compacta',
+            filas: [
+              [{ lbl: 'dato' }, { d: aBits ? String(nB) : String(nb), clase: 'ancho' }, { d: aBits ? 'bytes' : 'bits', clase: 'peq' }],
+              [{ lbl: 'operación' }, { sel: ['× 8', '÷ 8'], c: aBits ? '× 8' : '÷ 8', n: 0,
+                expl: aBits ? 'Un byte son 8 bits: de bytes a bits se multiplica por 8' : 'Un byte son 8 bits: de bits a bytes se divide entre 8' }, { d: '' }],
+              { linea: true },
+              [{ lbl: 'resultado' }, { c: aBits ? String(nb) : String(nB), clase: 'num', max: 4, filtro: /[^0-9]/g, n: 1,
+                expl: aBits ? `${nB} × 8 = ${nb} bits` : `${nb} ÷ 8 = ${nB} bytes` }, { d: aBits ? 'bits' : 'bytes', clase: 'peq' }]
+            ],
+            correcto: aBits ? `Correcto: ${nB} bytes son ${nb} bits.` : `Correcto: ${nb} bits son ${nB} bytes.`
+          };
+        }
+        if (modo === 'binario') {
+          const U = ['B', 'KiB', 'MiB', 'GiB', 'TiB'];
+          const sube = rnd(0, 1) === 1;                        // sube: a una unidad mayor (se divide)
+          const pasos = sube ? 1 : rnd(1, 2);                  // dividir dos veces sin calculadora es demasiado
+          const i = sube ? rnd(0, U.length - 1 - pasos) : rnd(pasos, U.length - 1);
+          const k = rnd(1, 12);
+          const valor = sube ? k * Math.pow(1024, pasos) : k;
+          const filas = [[{ lbl: 'dato' }, { d: miles(valor), clase: 'ancho' }, { d: '' }, { d: U[i], clase: 'peq' }]];
+          let v = valor, u = i;
+          for (let p = 0; p < pasos; p++) {
+            const nu = sube ? u + 1 : u - 1, nv = sube ? v / 1024 : v * 1024;
+            filas.push([{ lbl: pasos > 1 ? `paso ${p + 1}` : 'operación' },
+              { sel: ['× 1024', '÷ 1024'], c: sube ? '÷ 1024' : '× 1024', n: 2 * p,
+                expl: `1 ${U[Math.max(u, nu)]} son 1024 ${U[Math.min(u, nu)]}: de ${U[u]} a ${U[nu]} se ${sube ? 'divide entre' : 'multiplica por'} 1024` },
+              { c: String(nv), clase: 'num', max: 9, filtro: /[^0-9]/g, n: 2 * p + 1, cmp: (x) => sinSep(x) === String(nv),
+                expl: `${miles(v)} ${sube ? '÷' : '×'} 1024 = ${miles(nv)} ${U[nu]}` },
+              { d: U[nu], clase: 'peq' }]);
+            v = nv; u = nu;
+          }
+          return {
+            enunciado: `Pasa de ${U[i]} a ${U[u]}. Cada paso entre unidades vecinas es multiplicar o dividir por 1024 (2¹⁰).`,
+            columnas: '150px 170px 210px 90px', clase: 'compacta',
+            filas,
+            correcto: `Correcto: ${miles(valor)} ${U[i]} = ${miles(v)} ${U[u]}. Regla: hacia una unidad mayor se divide, hacia una menor se multiplica.`
+          };
+        }
+        // fabricante: GB o TB decimales -> GiB que muestra el sistema
+        const enTB = rnd(0, 1) === 1;
+        const n = enTB ? [1, 2, 4, 8][rnd(0, 3)] : [120, 240, 250, 256, 480, 500, 512, 1000, 2000][rnd(0, 8)];
+        const bytes = n * (enTB ? 1e12 : 1e9);
+        const gib = bytes / Math.pow(2, 30);
+        const gibTxt = numES(gib.toFixed(1));
+        return {
+          enunciado: `El fabricante anuncia ${n} ${enTB ? 'TB' : 'GB'} (prefijos decimales) y el sistema mide en GiB (2³⁰ bytes). Este modo se hace con calculadora.`,
+          columnas: '210px 330px 110px', clase: 'compacta',
+          filas: [
+            [{ lbl: 'anunciado' }, { d: `${n} ${enTB ? 'TB' : 'GB'}`, clase: 'ancho' }, { d: '' }],
+            [{ lbl: 'en bytes' }, { c: String(bytes), clase: 'num', max: 16, filtro: /[^0-9\s.]/g, n: 0, cmp: (x) => sinSep(x) === String(bytes),
+              expl: `${enTB ? 'T' : 'G'} decimal es 10${enTB ? '¹²' : '⁹'}: ${n} × 10${enTB ? '¹²' : '⁹'} = ${miles(bytes)} bytes` }, { d: 'bytes', clase: 'peq' }],
+            [{ lbl: '1 GiB' }, { d: '1 073 741 824', clase: 'dec' }, { d: 'bytes', clase: 'peq' }],
+            { linea: true },
+            [{ lbl: 'GiB que verás' }, { c: gibTxt, clase: 'num dec', max: 8, filtro: /[^0-9.,]/g, n: 1,
+              cmp: (x) => Math.abs(aNum(x) - gib) <= gib * 0.01,
+              expl: `${miles(bytes)} ÷ 1 073 741 824 = ${gibTxt} GiB (vale con un decimal o redondeado)` }, { d: 'GiB', clase: 'peq' }]
+          ],
+          correcto: `Correcto: ${n} ${enTB ? 'TB' : 'GB'} anunciados son ${gibTxt} GiB. No falta espacio: son dos formas de contar los mismos ${miles(bytes)} bytes.`
+        };
+      }
+    },
+
+    /* 3.12 código ASCII: carácter -> código, código -> carácter, mayúscula <-> minúscula */
+    ascii: {
+      titulo: 'Código ASCII',
+      rejilla: true,
+      modos: [{ t: 'Carácter → código', v: 'codigo' }, { t: 'Código → carácter', v: 'caracter' }, { t: 'Mayúscula ↔ minúscula', v: 'caso' }, { t: 'Al azar', v: null }],
+      generar(cfg) {
+        const modo = cfg.modo || ['codigo', 'caracter', 'caso'][rnd(0, 2)];
+        const RANGOS = [
+          { nombre: 'mayúsculas', base: 65, primero: 'A', n: 26, sel: 'mayúsculas 65–90' },
+          { nombre: 'minúsculas', base: 97, primero: 'a', n: 26, sel: 'minúsculas 97–122' },
+          { nombre: 'dígitos', base: 48, primero: '0', n: 10, sel: 'dígitos 48–57' }
+        ];
+        const r = RANGOS[modo === 'caso' ? rnd(0, 1) : rnd(0, 2)];
+        const pos = rnd(0, r.n - 1), cod = r.base + pos, ch = String.fromCharCode(cod);
+        const b8 = bin(cod, 8), hx = cod.toString(16).toUpperCase();
+        const filtroChar = /[^0-9A-Za-z]/g;
+        const exBase = `${ch} es ${r.nombre === 'dígitos' ? 'un dígito' : 'una letra ' + r.nombre.slice(0, -1)}: ${r.nombre === 'dígitos' ? 'los dígitos empiezan' : 'las ' + r.nombre + ' empiezan'} en ${r.primero} = ${r.base}`;
+        const exPos = r.nombre === 'dígitos' ? `El dígito ${ch} está ${pos} posiciones después del 0` : `Contando ${r.primero} = 0, ${ch} es la posición ${pos} del alfabeto (sin ñ)`;
+        const exBin = `${cod} en binario de 8 bits: ${b8.match(/.{4}/g).join(' ')}`;
+        const exHex = `${b8.slice(0, 4)} = ${hx[0]}, ${b8.slice(4)} = ${hx[1]} → ${hx}`;
+        if (modo === 'codigo') {
+          return {
+            enunciado: 'Del carácter a su código ASCII. Basta con recordar tres anclas: A = 65, a = 97 y 0 = 48.',
+            columnas: '210px 200px 1fr', clase: 'compacta mini',
+            filas: [
+              [{ lbl: 'carácter' }, { d: ch, clase: 'ancho' }, { d: '' }],
+              [{ lbl: 'código base' }, { c: String(r.base), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 0, expl: exBase }, { d: 'A = 65 · a = 97 · 0 = 48', clase: 'peq' }],
+              [{ lbl: 'posición' }, { c: String(pos), clase: 'num', max: 2, filtro: /[^0-9]/g, n: 1, expl: exPos }, { d: 'contando desde 0', clase: 'peq' }],
+              [{ lbl: 'decimal' }, { c: String(cod), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 2, expl: `${r.base} + ${pos} = ${cod}` }, { d: 'base + posición', clase: 'peq' }],
+              [{ lbl: 'binario' }, { c: b8, clase: 'bin', max: 8, filtro: /[^01]/g, n: 3, expl: exBin }, { d: '8 bits', clase: 'peq' }],
+              [{ lbl: 'hexadecimal' }, { c: hx, clase: 'hex', max: 2, filtro: /[^0-9a-fA-F]/g, n: 4, expl: exHex }, { d: 'grupos de 4 bits', clase: 'peq' }]
+            ],
+            correcto: `Correcto: «${ch}» = ${cod} = ${b8} = ${hx} (16.`
+          };
+        }
+        if (modo === 'caracter') {
+          return {
+            enunciado: 'Del código ASCII al carácter. Primero decide en qué rango cae el número.',
+            columnas: '210px 240px 1fr', clase: 'compacta',
+            filas: [
+              [{ lbl: 'código' }, { d: b8, clase: 'ancho' }, { d: 'binario', clase: 'peq' }],
+              [{ lbl: 'decimal' }, { c: String(cod), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 0, expl: `${b8} = ${b8.split('').map((x, i) => x === '1' ? 1 << (7 - i) : 0).filter(Boolean).join(' + ')} = ${cod}` }, { d: 'suma de pesos', clase: 'peq' }],
+              [{ lbl: 'rango' }, { sel: RANGOS.map((x) => x.sel), c: r.sel, n: 1, expl: `${cod} está entre ${r.base} y ${r.base + r.n - 1}: ${r.nombre}` }, { d: 'pulsa para cambiar', clase: 'peq' }],
+              [{ lbl: 'posición' }, { c: String(pos), clase: 'num', max: 2, filtro: /[^0-9]/g, n: 2, expl: `${cod} − ${r.base} = ${pos}` }, { d: `código − ${r.base}`, clase: 'peq' }],
+              [{ lbl: 'carácter' }, { c: ch, max: 1, filtro: filtroChar, n: 3, cmp: (v) => v === ch, expl: `${pos} posiciones después de ${r.primero}: ${ch}` }, { d: r.nombre === 'dígitos' ? '0 1 2 3 4 5 6 7 8 9' : (r.nombre === 'mayúsculas' ? 'A B C D E F G H I J K L M…' : 'a b c d e f g h i j k l m…'), clase: 'peq' }]
+            ],
+            correcto: `Correcto: ${b8} (${cod}) es el carácter «${ch}».`
+          };
+        }
+        // caso: mayúscula <-> minúscula (solo letras)
+        const aMayus = r.base === 97;                 // la letra dada es minúscula: hay que restar 32
+        const cod2 = aMayus ? cod - 32 : cod + 32, ch2 = String.fromCharCode(cod2), b2 = bin(cod2, 8);
+        return {
+          enunciado: `Pasa «${ch}» a ${aMayus ? 'mayúscula' : 'minúscula'}. Las dos letras se diferencian en 32, que es un solo bit.`,
+          columnas: '210px 240px 1fr', clase: 'compacta mini',
+          filas: [
+            [{ lbl: 'carácter' }, { d: ch, clase: 'ancho' }, { d: '' }],
+            [{ lbl: 'código' }, { c: String(cod), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 0, expl: exBase + `, y ${ch} está ${pos} después: ${cod}` }, { d: 'A = 65 · a = 97', clase: 'peq' }],
+            [{ lbl: 'operación' }, { sel: ['− 32', '+ 32'], c: aMayus ? '− 32' : '+ 32', n: 1, expl: aMayus ? 'La mayúscula está 32 por debajo de la minúscula: se resta 32' : 'La minúscula está 32 por encima de la mayúscula: se suma 32' }, { d: 'pulsa para cambiar', clase: 'peq' }],
+            [{ lbl: 'nuevo código' }, { c: String(cod2), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 2, expl: `${cod} ${aMayus ? '−' : '+'} 32 = ${cod2}` }, { d: '' }],
+            [{ lbl: 'carácter' }, { c: ch2, max: 1, filtro: filtroChar, n: 3, cmp: (v) => v === ch2, expl: `${cod2} es «${ch2}»` }, { d: aMayus ? 'en mayúscula' : 'en minúscula', clase: 'peq' }],
+            [{ lbl: `${ch} en binario` }, { d: b8, clase: 'ancho' }, { d: 'el tercer bit por la izquierda vale 32', clase: 'peq' }],
+            [{ lbl: `${ch2} en binario` }, { c: b2, clase: 'bin', max: 8, filtro: /[^01]/g, n: 4, expl: `Solo cambia el bit de peso 32 (el tercero por la izquierda): ${b8} → ${b2}` }, { d: 'solo cambia un bit', clase: 'peq' }]
+          ],
+          correcto: `Correcto: «${ch}» (${cod}) y «${ch2}» (${cod2}) solo se diferencian en el bit de peso 32.`
+        };
+      }
+    },
+
+    /* 3.11 IEEE 754 de simple precisión, por campos */
+    ieee754: {
+      titulo: 'IEEE 754 simple precisión',
+      rejilla: true,
+      generar(cfg) {
+        const POOL = [10.5, -6.25, 0.375, 12, -0.75, 5.5, 100, -18.125, 0.1875, 3.75, 7, -40, 0.5, -1, 2.5, 22, 0.0625, 13.25, -9.5, 1.5, 6, -0.625, 20, 33, 4.5, -3.125, 0.25, 11.5, -14, 9.75, 0.875, -2.75, 64, 17.5];
+        const x = POOL[rnd(0, POOL.length - 1)];
+        const neg = x < 0, a = Math.abs(x);
+        const ent = Math.floor(a), frac = a - ent;
+        let fb = '';
+        for (let f = frac, k = 0; f > 0 && k < 12; k++) { f *= 2; fb += f >= 1 ? '1' : '0'; if (f >= 1) f -= 1; }
+        const eb = ent.toString(2);
+        const binTxt = (ent ? eb : '0') + (fb ? ',' + fb : '');
+        // normalizar: 1,xxx × 2^e
+        const todo = (ent ? eb : '') + fb;                       // todos los bits sin coma
+        const primer1 = todo.indexOf('1');
+        const e = ent ? eb.length - 1 : -(fb.indexOf('1') + 1);
+        const mant = todo.slice(primer1 + 1).replace(/0+$/, '');
+        const mant23 = mant.padEnd(23, '0');
+        const E = e + 127, E8 = bin(E, 8);
+        const bits32 = (neg ? '1' : '0') + E8 + mant23;
+        const hex = parseInt(bits32, 2).toString(16).toUpperCase().padStart(8, '0');
+        const norm = '1' + (mant ? ',' + mant : '') + ' × 2' + sup(String(Math.abs(e))).replace(/^/, e < 0 ? '⁻' : '');
+        const xTxt = numES(a);
+        return {
+          enunciado: 'Binario, normalizar (1,… × 2ᵉ), exponente + 127 y mantisa de 23 bits sin el 1 implícito.',
+          columnas: '230px 120px 1fr', clase: 'compacta mini',
+          filas: [
+            [{ lbl: 'número' }, { d: numES(x), clase: 'ancho', span: 2 }],
+            [{ lbl: 'signo' }, { c: neg ? '1' : '0', n: 0, expl: neg ? 'Es negativo: el bit de signo vale 1' : 'Es positivo: el bit de signo vale 0' }, { d: '0 positivo · 1 negativo', clase: 'peq' }],
+            [{ lbl: 'en binario' }, { c: binTxt, clase: 'bin', max: 16, filtro: /[^01.,]/g, span: 2, n: 1, cmp: (v) => v.replace('.', ',') === binTxt,
+              expl: `Parte entera ${ent} = ${ent ? eb : '0'}` + (fb ? `; parte decimal ${numES(frac)} = 0,${fb} (multiplicando por 2)` : '') + ` → ${binTxt}` }],
+            [{ lbl: 'exponente' }, { c: String(e), clase: 'num', max: 3, filtro: /[^0-9\-−]/g, n: 2, cmp: (v) => aNum(v) === e,
+              expl: `Muevo la coma hasta dejar un solo 1 delante: ${norm}. ` + (e >= 0 ? `La coma se ha movido ${e} posiciones a la izquierda` : `La coma se ha movido ${-e} posiciones a la derecha, así que el exponente es negativo`) }, { d: `${xTxt} = ${norm}`, clase: 'peq' }],
+            [{ lbl: 'exponente + 127' }, { c: String(E), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 3, expl: `${e} + 127 = ${E} (el sesgo evita guardar exponentes negativos)` }, { d: 'sesgo 127', clase: 'peq' }],
+            [{ lbl: 'exponente 8 bits' }, { c: E8, clase: 'bin', max: 8, filtro: /[^01]/g, n: 4, span: 2, expl: `${E} en binario de 8 bits: ${E8}` }],
+            [{ lbl: 'mantisa 23 bits' }, { c: mant23, clase: 'bin', max: 23, filtro: /[^01]/g, n: 5, span: 2, expl: `Lo que queda detrás de la coma en ${norm.split(' ×')[0]} sin el 1 implícito: ${mant || '(nada)'}, y ceros hasta completar 23 bits` }],
+            { linea: true },
+            [{ lbl: 'hexadecimal' }, { c: hex, clase: 'hex', max: 8, filtro: /[^0-9a-fA-F]/g, n: 6, span: 2, expl: `${bits32.match(/.{4}/g).join(' ')} → ${hex}` }]
+          ],
+          correcto: `Correcto: ${numES(x)} = ${neg ? '−' : ''}${norm} → ${hex.match(/.{2}/g).join(' ')} en hexadecimal.`
         };
       }
     }
