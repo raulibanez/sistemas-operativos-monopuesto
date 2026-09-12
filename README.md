@@ -32,6 +32,16 @@ Todos se resuelven en vertical, con huecos, como en la pizarra: **Comprobar**, *
 
 Un ejemplo resuelto se maqueta con la misma rejilla sin casillas: `<div class="sv compacta" style="grid-template-columns:…">` con `<span class="lbl">`, `<span class="d">` (y `d res`, `d carry`, `d tenue`) y `<div class="linea">`.
 
+## Título con letra animada
+
+Un título con la clase `letra` se pinta palabra a palabra al entrar en la diapositiva con la técnica de las letras sincronizadas de Apple Music (la de [am-lyrics](https://github.com/binimum/am-lyrics)): el texto es transparente y se colorea con `background-clip: text`; un degradado con el borde difuminado barre cada palabra de izquierda a derecha, y el tiempo de cada una depende de su longitud. Las palabras dentro de `<b>` se pintan carácter a carácter y cada letra, al pasar el barrido, crece un poco, sube y brilla con un halo ancho que se apaga despacio. El halo es del color de `--letra-glow` (blanco sobre fondo oscuro, que es donde luce; en claro es azul y más discreto). Se reinicia cada vez que se vuelve a la diapositiva y se desactiva con `prefers-reduced-motion`:
+
+```html
+<h2 class="letra">Test <b>masivo</b> en clase</h2>
+```
+
+Variables opcionales en el elemento: `--letra-off` (color apagado), `--letra-on` (encendido), `--letra-glow` (brillo) y `--letra-pluma` (anchura del borde difuminado, 0,75 em). Sobre fondo oscuro (`.dark`) se pinta en blanco.
+
 ## Pregunta a la clase
 
 Diapositiva con una pregunta y un panel de ideas que se revela al pulsar (texto, imágenes o una sola imagen):

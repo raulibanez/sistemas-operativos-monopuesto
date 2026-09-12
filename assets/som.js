@@ -1078,6 +1078,95 @@
     muestra(0);
   }
 
+  /* ---------- título con letra animada (técnica de am-lyrics: barrido con background-clip) ---------- */
+  function montaLetra(el) {
+    const frag = document.createDocumentFragment();
+    [...el.childNodes].forEach((nd) => {
+      const hl = nd.nodeType === 1;
+      if (nd.nodeType !== 3 && nd.nodeType !== 1) return;
+      nd.textContent.split(/\s+/).filter(Boolean).forEach((texto) => {
+        const w = document.createElement('span');
+        w.className = 'w' + (hl ? ' hl' : '');
+        if (!hl) w.textContent = texto;
+        else texto.split('').forEach((ch) => {
+          const c = document.createElement('span'); c.className = 'ch'; c.dataset.c = ch;   // ::before pinta el halo con data-c
+          const f = document.createElement('span'); f.className = 'f'; f.textContent = ch; // .f lleva el relleno del barrido
+          c.appendChild(f); w.appendChild(c);
+        });
+        frag.appendChild(w);
+      });
+    });
+    el.innerHTML = '';
+    el.appendChild(frag);
+    tiemposLetra(el);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => tiemposLetra(el));   // anchuras con la fuente definitiva
+  }
+  /* Un solo frente recorre todo el título a velocidad continua: rápida en las palabras normales,
+     lenta en la destacada, y sin pararse en los espacios. Cada palabra y cada letra reciben su
+     instante según la posición que ocupan (medida en píxeles), de modo que el final de una y el
+     principio de la siguiente encajan aunque sus animaciones se solapen. El frente es el centro
+     de la pluma: en una palabra normal va de −pluma/2 antes de su borde a +pluma/2 después; en
+     cada letra de la destacada cruza la letra de lado a lado (la primera empieza con la pluma fuera). */
+  function tiemposLetra(el) {
+    const cs = getComputedStyle(el);
+    const em = parseFloat(cs.fontSize) || 64;
+    const pl = (parseFloat(cs.getPropertyValue('--letra-pluma')) || .8) * em;
+    const words = [...el.querySelectorAll('.w')];
+    if (!words.length) return;
+    // posiciones en píxeles de maqueta respecto al título (getBoundingClientRect va escalado por deck-stage; offsetLeft
+    // no sirve porque las letras se miden respecto a su palabra y las palabras respecto al título)
+    const r0 = el.getBoundingClientRect(), k = r0.width ? el.offsetWidth / r0.width : 1;
+    const X = (e) => (e.getBoundingClientRect().left - r0.left) * k, AN = (e) => e.getBoundingClientRect().width * k || 1;
+    const info = words.map((w) => {
+      const n = w.textContent.length, hl = w.classList.contains('hl'), x0 = X(w), W = AN(w);
+      // es un titular, no una canción: unos 45 ms por letra en las palabras normales y 120 ms en la destacada
+      const v = hl ? W / (120 * n) : (W + pl) / (120 + 45 * n);        // px por ms
+      return { w, n, hl, x0, W, v };
+    });
+    // tramos de velocidad: dentro de cada palabra la suya; en los espacios, la de la palabra anterior
+    const seg = [];
+    info.forEach((k, i) => {
+      if (i === 0) seg.push({ a: k.x0 - pl, b: k.x0, v: k.v });
+      else if (k.x0 > seg[seg.length - 1].b) seg.push({ a: seg[seg.length - 1].b, b: k.x0, v: info[i - 1].v });
+      seg.push({ a: k.x0, b: k.x0 + k.W, v: k.v });
+    });
+    const T = (p) => { let t = 0; for (const s of seg) { if (p <= s.a) break; t += (Math.min(p, s.b) - s.a) / s.v; } if (p > seg[seg.length - 1].b) t += (p - seg[seg.length - 1].b) / seg[seg.length - 1].v; return t; };
+    const ms = (x) => Math.round(x) + 'ms';
+    info.forEach((k) => {
+      if (!k.hl) {
+        const a = T(k.x0 - pl / 2), b = T(k.x0 + k.W + pl / 2);
+        k.w.style.setProperty('--ini', ms(a)); k.w.style.setProperty('--dur', ms(b - a));
+        return;
+      }
+      const durHl = k.W / k.v, t0 = T(k.x0);
+      [...k.w.children].forEach((c, i) => {
+        const c0 = X(c), cw = AN(c);
+        const a = T(i === 0 ? c0 - pl / 2 : c0), b = T(c0 + cw);
+        const esc = 1 + (k.n <= 3 ? .09 : .08);
+        const pos = k.n > 1 ? i / (k.n - 1) : .5;
+        c.style.setProperty('--ini', ms(a));
+        c.style.setProperty('--dur', ms(b - a));
+        c.style.setProperty('--kf', i === 0 ? 'letra-char-wipe-1' : 'letra-char-wipe');
+        // onda de crecimiento y halo (grow-dynamic de am-lyrics): desfase del 9 % por letra, 2,2 veces la palabra
+        c.style.setProperty('--gini', ms(t0 + i * durHl * .09));
+        c.style.setProperty('--gdur', ms(durHl * 2.2));
+        c.style.setProperty('--esc', esc.toFixed(3));
+        c.style.setProperty('--dx', ((pos - .5) * 2 * ((esc - 1) * 25)).toFixed(2) + 'px');
+      });
+    });
+  }
+  function enciendeLetras(slide) {
+    if (!slide) return;
+    slide.querySelectorAll('.letra').forEach((l) => {
+      l.classList.remove('on');
+      void l.offsetWidth;            // reinicia las animaciones
+      l.classList.add('on');         // sin esperar al siguiente fotograma
+    });
+  }
+  function apagaLetras(slide) {
+    if (slide) slide.querySelectorAll('.letra').forEach((l) => l.classList.remove('on'));
+  }
+
   /* ---------- numeración ---------- */
   function numera(stage) {
     const secs = [...stage.querySelectorAll(':scope > section')];
@@ -1101,6 +1190,10 @@
     document.querySelectorAll('.galeria').forEach(montaGaleria);
     document.querySelectorAll('.foto').forEach(montaFoto);
     document.querySelectorAll('deck-stage > section').forEach(montaMarcas);
+    document.querySelectorAll('.letra').forEach(montaLetra);
+    stage.addEventListener('slidechange', (e) => { apagaLetras(e.detail.previousSlide); enciendeLetras(e.detail.slide); });
+    // el slidechange inicial se dispara antes de que este script escuche: se enciende la actual a mano
+    customElements.whenDefined('deck-stage').then(() => { const secs = stage.querySelectorAll(':scope > section'); enciendeLetras(secs[stage.index || 0]); });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

@@ -741,3 +741,117 @@ deck-stage section:has(> .ej) { grid-template-rows: minmax(0, 1fr); }
   font-size: 26px;
   cursor: pointer;
 }
+
+/* ---------- Título con letra animada (técnica de las letras de Apple Music) ----------
+   <h2 class="letra">Test <b>masivo</b> en clase</h2>
+   Misma técnica que am-lyrics (github.com/binimum/am-lyrics): el texto es transparente y se
+   pinta con background-clip: text. El color apagado es un fondo plano; el encendido es un
+   degradado con un borde difuminado (--letra-pluma) que barre cada palabra de izquierda a
+   derecha animando background-size. Las palabras marcadas con <b> se pintan carácter a
+   carácter y cada carácter, al pasar el barrido, crece, sube 2 px y brilla (drop-shadow),
+   escalonado, y se asienta con una subida residual de 1 px. som.js reparte los tiempos
+   (--ini, --dur) según la longitud de cada palabra. Se reinicia al volver a la diapositiva. */
+.letra {
+  --letra-on: var(--navy);
+  --letra-off: color-mix(in srgb, var(--letra-on), transparent 45%);   /* como am-lyrics: el color encendido al 55 % */
+  --letra-glow: var(--blue);
+  --letra-pluma: .8em;                                     /* anchura del frente difuminado: una letra, como en la demo */
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: .26em;
+  transform: scale(.98);
+  transform-origin: left center;
+  transition: transform .4s ease;
+}
+.letra.on { transform: scale(1); }
+.dark .letra { --letra-on: var(--white); --letra-glow: #FFFFFF; }
+.letra .w {
+  display: inline-block;
+  white-space: pre;
+  color: transparent;
+  background-color: var(--letra-off);
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-repeat: no-repeat;
+  transform: translate3d(0, 0, 0);
+  transition: transform .7s ease;
+}
+/* palabra normal: barrido con el borde difuminado por delante */
+.letra .w:not(.hl) {
+  background-image: linear-gradient(90deg, var(--letra-on) 0%, var(--letra-on) calc(100% - var(--letra-pluma)), #0000 100%);
+  background-size: 0% 100%;
+  background-position: left;
+}
+.letra.on .w:not(.hl) {
+  animation: letra-wipe var(--dur, .7s) linear var(--ini, 0s) forwards;
+  transform: translate3d(0, -1.12px, 0);
+  transition-delay: var(--ini, 0s);
+}
+@keyframes letra-wipe {
+  from { background-size: 0% 100%; }
+  to { background-size: calc(100% + var(--letra-pluma)) 100%; }
+}
+/* palabra destacada: cada carácter es una caja .ch con dos capas: detrás, ::before con una copia
+   de la letra y un text-shadow blanco cuya opacidad se anima (el halo); delante, .f con el relleno
+   del barrido (pluma que avanza + relleno que crece). Sin filter: drop-shadow, que sobre
+   background-clip: text pinta rectángulos negros en Chrome con algunas GPU de Windows. */
+.letra .w.hl { background: none; color: transparent; }
+.letra .w.hl .ch {
+  position: relative;
+  display: inline-block;
+  transform-origin: 50% 80%;
+}
+.letra .w.hl .ch::before {
+  content: attr(data-c);
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: transparent;
+  text-shadow: 0 0 .38em var(--letra-glow);
+  opacity: 0;
+  pointer-events: none;
+}
+.letra .w.hl .ch .f {
+  position: relative;
+  display: inline-block;
+  color: transparent;
+  background-color: var(--letra-off);
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-repeat: no-repeat;
+  background-image:
+    linear-gradient(90deg, #0000 0%, var(--letra-on) 50%, #0000 100%),
+    linear-gradient(90deg, var(--letra-on) 100%, #0000 100%);
+  background-size: var(--letra-pluma) 100%, 0% 100%;
+  background-position: calc(-1 * var(--letra-pluma)) 0%, left;
+}
+.letra.on .w.hl .ch { animation: letra-grow var(--gdur, 1s) ease-in-out var(--gini, 0s) forwards; }
+.letra.on .w.hl .ch::before { animation: letra-glow var(--gdur, 1s) ease-in-out var(--gini, 0s) forwards; }
+.letra.on .w.hl .ch .f { animation: var(--kf, letra-char-wipe) var(--dur, .2s) linear var(--ini, 0s) forwards; }
+/* primera letra: la pluma entra desde fuera; las demás: ya asoma media pluma, que es donde la dejó la letra anterior */
+@keyframes letra-char-wipe-1 {
+  from { background-size: var(--letra-pluma) 100%, 0% 100%; background-position: calc(-1 * var(--letra-pluma)) 0%, left; }
+  to { background-size: var(--letra-pluma) 100%, 100% 100%; background-position: calc(100% + var(--letra-pluma) / 2) 0%, left; }
+}
+@keyframes letra-char-wipe {
+  from { background-size: var(--letra-pluma) 100%, 0% 100%; background-position: calc(-1 * var(--letra-pluma) / 2) 0%, left; }
+  to { background-size: var(--letra-pluma) 100%, 100% 100%; background-position: calc(100% + var(--letra-pluma) / 2) 0%, left; }
+}
+/* grow-dynamic de am-lyrics: la letra sube y crece con pico al 25-35 % y vuelve despacio */
+@keyframes letra-grow {
+  0% { transform: translate3d(0, 0, 0) scale3d(1, 1, 1); }
+  25%, 35% { transform: translate3d(var(--dx, 0px), -2px, 0) scale3d(var(--esc, 1.08), var(--esc, 1.08), 1); }
+  100% { transform: translate3d(0, -1.12px, 0) scale3d(1, 1, 1); }
+}
+/* el halo: sube con la letra y se apaga despacio */
+@keyframes letra-glow {
+  0% { opacity: 0; }
+  25%, 35% { opacity: .8; }
+  60% { opacity: .45; }
+  100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce), print {
+  .letra, .letra .w, .letra .w.hl .ch, .letra .w.hl .ch .f, .letra .w.hl .ch::before { animation: none !important; transition: none !important; transform: none !important; }
+  .letra .w:not(.hl), .letra .w.hl .ch .f { background-image: none; background-color: var(--letra-on); }
+  .letra .w.hl .ch::before { display: none; }
+}
