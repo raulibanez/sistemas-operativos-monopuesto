@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hoja de ejercicios de planificación · UT2 · SOM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/som.css">
+<style>
+/* Hoja de ejercicios en papel generada por semilla (número de lista del alumno).
+   Usa los mismos generadores de assets/som.js que los ejercicios interactivos de la UT2, con
+   Math.random sustituido por un generador con semilla: la misma hoja sale siempre igual para
+   el mismo número, y cada alumno recibe una distinta. Con solucionario. */
+body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; margin: 0; }
+.panel { background: var(--navy); color: var(--white); padding: 22px 32px; display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: flex-end; font-size: 15px; }
+.panel h1 { font-size: 20px; font-weight: 800; margin: 0 0 4px; width: 100%; }
+.panel h1 small { font-weight: 400; color: #C9D6EE; margin-left: 12px; }
+.panel label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; }
+.panel input[type=text], .panel input[type=number] { font: inherit; padding: 8px 10px; border-radius: 8px; border: 0; width: 90px; }
+.panel input[type=text] { width: 320px; }
+.panel .tipos { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px 18px; width: 100%; }
+.panel .tipos label { flex-direction: row; align-items: center; gap: 8px; font-weight: 500; }
+.panel .tipos input { width: 54px; padding: 5px 6px; }
+.panel .btn { padding: 12px 22px; font-size: 16px; }
+.panel .check { flex-direction: row; align-items: center; gap: 8px; }
+.aviso { padding: 10px 32px; font-size: 14px; color: var(--muted); background: #fff; border-bottom: 1px solid var(--line); }
+.aviso code { font-family: var(--mono); background: var(--bg); padding: 1px 6px; border-radius: 4px; }
+
+.hoja { width: 190mm; min-height: 250mm; margin: 24px auto; padding: 12mm 12mm 10mm; background: #fff; box-shadow: 0 2px 12px rgba(21,53,107,.12); box-sizing: border-box; page-break-after: always; }
+.hoja header { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; border-bottom: 3px solid var(--navy); padding-bottom: 8px; }
+.hoja header .modulo { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); }
+.hoja header h2 { font-size: 19px; font-weight: 800; color: var(--navy); margin: 2px 0 0; }
+.hoja header .alumno { text-align: right; font-size: 12px; color: var(--muted); }
+.hoja header .alumno b { display: block; font-size: 26px; color: var(--navy); line-height: 1; margin-bottom: 4px; }
+.hoja .datos { display: flex; gap: 24px; font-size: 12px; margin: 8px 0 4px; color: var(--muted); }
+.hoja .datos span { flex: 1; border-bottom: 1px solid var(--line); padding-bottom: 3px; }
+.hoja .normas { font-size: 11px; color: var(--muted); margin: 0 0 6px; }
+.hoja .lista { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 18px; }
+.ej-hoja { break-inside: avoid; padding: 8px 0 6px; border-bottom: 1px solid var(--line); }
+.ej-hoja.ancho { grid-column: 1 / -1; }
+.ej-hoja .cab { display: flex; gap: 8px; align-items: baseline; }
+.ej-hoja .num { font-weight: 800; color: var(--white); background: var(--navy); border-radius: 6px; padding: 1px 7px; font-size: 12px; }
+.ej-hoja .tit { font-weight: 700; color: var(--navy); font-size: 13px; }
+.ej-hoja .enun { font-size: 11.5px; color: var(--muted); line-height: 1.35; margin: 3px 0 0; }
+.ej-hoja .sv { zoom: .38; justify-content: start; margin: 14px 0 4px; }
+.ej-hoja.ancho .sv { zoom: .66; }
+.ej-hoja .sv .c { display: flex; align-items: center; justify-content: center; background: #fff; border: 3px solid var(--navy); min-width: 0; }
+.ej-hoja .sv.plan .c { border-width: 2px; }
+.ej-hoja .sv .c.sel { font-size: 24px; color: var(--muted); }
+.ej-hoja .sv .c.txt.sel { font-size: 20px; }
+.ej-hoja .sv .d[data-espejo] { color: var(--navy); }
+.sol .ej-hoja .sv .c { color: var(--ok); border-color: var(--ok); background: #F3FAF6; }
+.sol .ej-hoja .sv .c.sel { color: var(--ok); }
+.ej-hoja .resp { font-size: 11px; color: var(--ok); line-height: 1.35; margin: 2px 0 0; white-space: pre-line; }
+.hoja footer { font-size: 10px; color: var(--muted); margin-top: 10px; display: flex; justify-content: space-between; }
+.vacio { text-align: center; color: var(--muted); padding: 60px 20px; }
+@media print {
+  body { background: #fff; }
+  .panel, .aviso { display: none; }
+  .hoja { width: auto; min-height: 0; margin: 0; padding: 0; box-shadow: none; }
+  .hoja:last-child { page-break-after: auto; }
+  .sv.plan .d.celda.on, .sv.plan .d.ph { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+@page { size: A4; margin: 12mm 12mm 10mm; }
+</style>
+</head>
+<body>
+<div class="panel">
+  <h1>Hoja de ejercicios de planificación <small>UT2 · Sistemas Operativos Monopuesto</small></h1>
+  <label>Título de la hoja <input type="text" id="titulo" value="Práctica 2.6 · Planificación de procesos"></label>
+  <label>Del alumno n.º <input type="number" id="desde" min="1" max="99" value="1"></label>
+  <label>al n.º <input type="number" id="hasta" min="1" max="99" value="1"></label>
+  <label class="check"><input type="checkbox" id="sol"> Añadir el solucionario al final</label>
+  <button class="btn btn-primary" id="generar">Generar</button>
+  <button class="btn btn-ghost" id="imprimir" style="color:#fff;border-color:rgba(255,255,255,.5)">Imprimir o guardar en PDF</button>
+  <div class="tipos" id="tipos"></div>
+</div>
+<p class="aviso">La misma hoja sale siempre igual para el mismo número y el mismo título; con otro título salen otros ejercicios. En clase, cada alumno hace la de su número de lista y el profesor imprime todas de una vez con el solucionario. En los cronogramas, escribe en la fila CPU el proceso de cada unidad de tiempo y colorea su fila. La dirección de la página guarda la configuración: <code id="url"></code></p>
+<div id="hojas"><p class="vacio">Pulsa Generar.</p></div>
+
+<script src="../assets/som.js"></script>
+<script>
+(function () {
+  'use strict';
+  const TIPOS = [
+    { k: 'fifo', gen: 'planificacion', modo: 'fifo', t: 'Cronograma FIFO', n: 1, ancho: true },
+    { k: 'sjf', gen: 'planificacion', modo: 'sjf', t: 'Cronograma SJF', n: 1, ancho: true },
+    { k: 'srtf', gen: 'planificacion', modo: 'srtf', t: 'Cronograma SRTF', n: 0, ancho: true },
+    { k: 'pne', gen: 'planificacion', modo: 'pne', t: 'Prioridades no expulsivo', n: 0, ancho: true },
+    { k: 'pe', gen: 'planificacion', modo: 'pe', t: 'Prioridades expulsivo', n: 1, ancho: true },
+    { k: 'rr', gen: 'planificacion', modo: 'rr', t: 'Round Robin (q = 2)', n: 1, ancho: true },
+    { k: 'estados', gen: 'estados', t: 'Estados de un proceso', n: 0 },
+    { k: 'paginacion', gen: 'paginacion', t: 'Paginación y fragmentación', n: 0 },
+    { k: 'arranque', gen: 'arranque', t: 'Ordena el arranque', n: 0 },
+    { k: 'sistemas-archivos', gen: 'sistemas-archivos', t: 'Qué sistema de archivos', n: 0 }
+  ];
+  const $ = (s) => document.querySelector(s);
+
+  /* generador con semilla (mulberry32) que sustituye a Math.random mientras se genera */
+  function mulberry32(a) { return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function conSemilla(seed, fn) { const orig = Math.random; Math.random = mulberry32(seed); try { return fn(); } finally { Math.random = orig; } }
+  const hash = (s) => { let h = 7; for (const ch of s) h = (h * 31 + ch.charCodeAt(0)) | 0; return Math.abs(h) % 997; };
+
+  function generaHoja(alumno, plan, titulo) {
+    const ejs = [];
+    const ht = hash(titulo || '');          // el título forma parte de la semilla: otro título, otra hoja
+    plan.forEach((p) => {
+      const tipo = TIPOS.find((x) => x.k === p.k);
+      for (let j = 0; j < p.n; j++) {
+        const seed = alumno * 1000003 + ht * 1009 + hash(p.k) * 101 + j;
+        const g = conSemilla(seed, () => SOM.generadores[tipo.gen].generar(tipo.modo ? { modo: tipo.modo } : {}));
+        ejs.push({ tipo, g });
+      }
+    });
+    return ejs;
+  }
+
+  function pintaRejilla(g, sol) {
+    const sv = document.createElement('div');
+    sv.className = 'sv' + (g.clase ? ' ' + g.clase : '');
+    sv.style.gridTemplateColumns = g.columnas || '';
+    const valores = {};
+    g.filas.forEach((f) => { if (!f.linea) f.forEach((it) => { if (it.c !== undefined && it.id) valores[it.id] = it.c; }); });
+    g.filas.forEach((f) => {
+      if (f.linea) {
+        const l = document.createElement('div');
+        l.className = 'linea' + (f.clase ? ' ' + f.clase : '');
+        l.style.gridColumn = (f.desde || 2) + ' / -1';
+        sv.appendChild(l);
+        return;
+      }
+      f.forEach((it) => {
+        let x;
+        if (it.lbl !== undefined) { x = document.createElement('span'); x.className = 'lbl'; x.textContent = it.lbl; }
+        else if (it.sel) { x = document.createElement('div'); x.className = 'c sel' + (it.clase ? ' ' + it.clase : ''); x.textContent = sol ? it.c : it.sel.filter((o) => o !== '?').join(' / '); }
+        else if (it.c !== undefined) { x = document.createElement('div'); x.className = 'c' + (it.clase ? ' ' + it.clase : ''); x.textContent = sol ? it.c : ''; }
+        else {
+          x = document.createElement('span'); x.className = 'd' + (it.clase ? ' ' + it.clase : '');
+          if (it.espejo) { x.dataset.espejo = it.espejo; x.textContent = sol ? (g.espejo ? g.espejo(it.espejo, valores[it.espejo]) : valores[it.espejo]) : ''; }
+          else x.textContent = it.d || '';
+        }
+        if (it.span) x.style.gridColumn = 'span ' + it.span;
+        sv.appendChild(x);
+      });
+    });
+    if (sol && g.alEscribir) g.alEscribir(sv);   // colorea el cronograma en el solucionario
+    return sv;
+  }
+
+  function pintaHoja(alumno, ejs, titulo, sol) {
+    const h = document.createElement('article');
+    h.className = 'hoja' + (sol ? ' sol' : '');
+    h.innerHTML =
+      '<header><div><p class="modulo">Sistemas Operativos Monopuesto · UT2 · Sistemas operativos</p><h2></h2></div>' +
+      '<div class="alumno"><b></b>' + (sol ? 'solucionario' : 'número de lista') + '</div></header>' +
+      (sol ? '' : '<div class="datos"><span>Nombre y apellidos:</span><span>Grupo:</span><span>Fecha:</span></div>' +
+        '<p class="normas">Sin material. En cada cronograma escribe en la fila CPU el proceso que se ejecuta en cada unidad de tiempo, colorea su fila y calcula respuesta (fin − llegada), espera (respuesta − ejecución) y las medias. Reglas de empate: FIFO; en SRTF y prioridades expulsivo sigue el que está; en Round Robin, el que llega entra en la cola antes que el que agota su quantum. Prioridad 1 es la más alta.</p>') +
+      '<div class="lista"></div>' +
+      '<footer><span>Hoja generada con el número ' + alumno + '. Compruébala en casa en la presentación de la unidad, sección 2.5.</span><span>' + (sol ? 'Solucionario' : 'Ejercicios: ' + ejs.length) + '</span></footer>';
+    h.querySelector('h2').textContent = titulo + (sol ? ' · Solucionario' : '');
+    h.querySelector('.alumno b').textContent = alumno;
+    const lista = h.querySelector('.lista');
+    ejs.forEach((e, i) => {
+      const g = e.g;
+      const d = document.createElement('div');
+      d.className = 'ej-hoja' + (e.tipo.ancho ? ' ancho' : '');
+      d.innerHTML = '<div class="cab"><span class="num">' + (i + 1) + '</span><span class="tit"></span></div><p class="enun"></p>';
+      d.querySelector('.tit').textContent = e.tipo.t;
+      d.querySelector('.enun').textContent = g.enunciado || '';
+      d.appendChild(pintaRejilla(g, sol));
+      if (sol) { const r = document.createElement('p'); r.className = 'resp'; r.textContent = typeof g.correcto === 'function' ? g.correcto() : (g.correcto || ''); d.appendChild(r); }
+      lista.appendChild(d);
+    });
+    return h;
+  }
+
+  function leePlan() { return TIPOS.map((t) => ({ k: t.k, n: Math.max(0, Math.min(6, parseInt($('#n_' + t.k).value, 10) || 0)) })).filter((p) => p.n > 0); }
+
+  function generar() {
+    const titulo = $('#titulo').value.trim() || 'Planificación de procesos';
+    let desde = parseInt($('#desde').value, 10) || 1, hasta = parseInt($('#hasta').value, 10) || desde;
+    if (hasta < desde) hasta = desde;
+    if (hasta - desde > 60) hasta = desde + 60;
+    const sol = $('#sol').checked, plan = leePlan();
+    const cont = $('#hojas');
+    cont.innerHTML = '';
+    if (!plan.length) { cont.innerHTML = '<p class="vacio">Elige al menos un tipo de ejercicio.</p>'; return; }
+    const todas = [];
+    for (let a = desde; a <= hasta; a++) {
+      const ejs = generaHoja(a, plan, titulo);
+      todas.push({ a, ejs });
+      cont.appendChild(pintaHoja(a, ejs, titulo, false));
+    }
+    if (sol) todas.forEach((h) => cont.appendChild(pintaHoja(h.a, generaHoja(h.a, plan, titulo), titulo, true)));
+    const q = new URLSearchParams();
+    q.set('t', titulo); q.set('desde', desde); q.set('hasta', hasta); if (sol) q.set('sol', '1');
+    plan.forEach((p) => q.set(p.k, p.n));
+    history.replaceState(null, '', '?' + q.toString());
+    $('#url').textContent = location.href;
+  }
+
+  TIPOS.forEach((t) => {
+    const l = document.createElement('label');
+    l.innerHTML = '<input type="number" min="0" max="6" id="n_' + t.k + '" value="' + t.n + '"> ' + t.t;
+    $('#tipos').appendChild(l);
+  });
+  const q = new URLSearchParams(location.search);
+  if (q.has('t')) $('#titulo').value = q.get('t');
+  if (q.has('desde')) $('#desde').value = q.get('desde');
+  if (q.has('hasta')) $('#hasta').value = q.get('hasta');
+  if (q.has('sol')) $('#sol').checked = q.get('sol') === '1';
+  if ([...q.keys()].some((k) => TIPOS.some((t) => t.k === k))) TIPOS.forEach((t) => { $('#n_' + t.k).value = q.has(t.k) ? q.get(t.k) : 0; });
+  $('#generar').addEventListener('click', generar);
+  $('#imprimir').addEventListener('click', () => window.print());
+  generar();
+})();
+</script>
+</body>
+</html>

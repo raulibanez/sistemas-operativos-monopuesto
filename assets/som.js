@@ -17,7 +17,8 @@
  *  5. Ejercicio generado con números al azar, resuelto en vertical con huecos:
  *       <div class="ej" data-tipo="dec2bin" data-min="16" data-max="255"></div>
  *     Tipos disponibles en SOM.generadores: bin2dec, dec2bin, decfrac2bin, bases, sumabin,
- *     restabin, logica, c1c2, restac2, paridad, unidades, ascii, ieee754. Atributos: data-bits,
+ *     restabin, logica, c1c2, restac2, paridad, unidades, ascii, ieee754 (UT1); estados, planificacion,
+ *     paginacion, arranque, sistemas-archivos (UT2). Atributos: data-bits,
  *     data-min, data-max, data-modo (modo fijo de los que tienen modos) y data-paridad (par | impar).
  *  6. Simulador visual de planificación de procesos, paso a paso:
  *       <div class="sim-entrada"></div> (datos) y <div class="sim" data-algo="fifo"></div> (cronograma)
@@ -184,10 +185,33 @@
     bases: {
       titulo: 'Entre bases',
       rejilla: true,
-      modos: [{ t: 'Binario → octal', v: 'bin2oct' }, { t: 'Binario → hexadecimal', v: 'bin2hex' }, { t: 'Octal → binario', v: 'oct2bin' }, { t: 'Hexadecimal → binario', v: 'hex2bin' }, { t: 'Hexadecimal → decimal', v: 'hex2dec' }, { t: 'Al azar', v: null }],
+      modos: [{ t: 'Binario → octal', v: 'bin2oct' }, { t: 'Binario → hexadecimal', v: 'bin2hex' }, { t: 'Octal → binario', v: 'oct2bin' }, { t: 'Hexadecimal → binario', v: 'hex2bin' }, { t: 'Hexadecimal → decimal', v: 'hex2dec' }, { t: 'Decimal → hexadecimal', v: 'dec2hex' }, { t: 'Al azar', v: null }],
       generar(cfg) {
         const modo = cfg.modo || ['bin2oct', 'bin2hex', 'oct2bin', 'hex2bin', 'hex2dec'][rnd(0, 4)];
         const base = modo.includes('oct') ? 8 : 16, gr = base === 8 ? 3 : 4;
+        if (modo === 'dec2hex') {
+          const n = rnd(256, 65535);
+          const pasos = [];
+          let q = n;
+          while (q > 0) { pasos.push({ q, c: Math.floor(q / 16), r: q % 16 }); q = Math.floor(q / 16); }
+          const hx = (r) => r.toString(16).toUpperCase();
+          const filas = pasos.map((p, k) => [
+            k === 0 ? { d: String(n), clase: 'dec' } : { d: '', espejo: 'q' + (k - 1) },
+            { d: ':', clase: 'op' }, { d: '16', clase: 'dec' }, { d: '=', clase: 'op' },
+            { c: String(p.c), clase: 'num', id: 'q' + k, max: 4, filtro: /[^0-9]/g, n: 2 * k, expl: `${p.q} entre 16 son ${p.c} (${p.c} × 16 = ${16 * p.c}) y sobran ${p.r}` },
+            { lbl: 'resto' },
+            { c: hx(p.r), clase: 'hex', max: 1, filtro: /[^0-9a-fA-F]/g, n: 2 * k + 1, expl: `${p.q} − ${16 * p.c} = ${p.r}` + (p.r > 9 ? `, que en hexadecimal es la letra ${hx(p.r)} (A = 10, B = 11, C = 12, D = 13, E = 14, F = 15)` : '') }
+          ]);
+          const h = n.toString(16).toUpperCase();
+          filas.push({ linea: true });
+          filas.push([{ lbl: 'de abajo arriba' }, { c: h, clase: 'hex', max: 4, filtro: /[^0-9a-fA-F]/g, span: 6, n: 100, expl: `Los restos leídos del último al primero: ${h}` }]);
+          return {
+            enunciado: 'Decimal a hexadecimal: divide entre 16 sucesivamente y lee los restos de abajo arriba. Es lo que hace falta para pasar un PID de decimal a hexadecimal.',
+            columnas: '130px 40px 70px 40px 120px 90px 90px', clase: 'compacta',
+            filas,
+            correcto: `Correcto: ${n} (10 = ${h} (16`
+          };
+        }
         if (modo === 'hex2dec') {
           const k = rnd(2, 3);
           const n = rnd(Math.pow(16, k - 1) + 1, Math.pow(16, k) - 1);
@@ -698,7 +722,257 @@
           correcto: `Correcto: ${numES(x)} = ${neg ? '−' : ''}${norm} → ${hex.match(/.{2}/g).join(' ')} en hexadecimal.`
         };
       }
-    }
+    },
+
+    /* ---------- UT2 · estados de un proceso ---------- */
+    estados: {
+      titulo: 'Estados de un proceso',
+      rejilla: true,
+      generar() {
+        const OPC = ['?', 'nuevo', 'listo', 'en ejecución', 'bloqueado', 'terminado'];
+        const TR = ['?', '1', '2', '3', '4', 'ninguna'];
+        const S = [
+          { t: 'El proceso pide leer un archivo del disco y tiene que esperar a que llegue el dato.', de: 'en ejecución', a: 'bloqueado', tr: '1', e: 'Pide una E/S: suelta la CPU y espera el recurso. Es la única transición que inicia el propio proceso.' },
+          { t: 'En Round Robin, el proceso agota su quantum sin haber terminado.', de: 'en ejecución', a: 'listo', tr: '2', e: 'El sistema le quita la CPU sin que haya terminado: vuelve a la cola de listos.' },
+          { t: 'En prioridades expulsivo llega un proceso más prioritario y lo desaloja.', de: 'en ejecución', a: 'listo', tr: '2', e: 'Lo expulsan: no ha terminado ni espera nada, así que sigue listo, en la cola.' },
+          { t: 'El planificador lo elige y entra en la CPU.', de: 'listo', a: 'en ejecución', tr: '3', e: 'Estaba listo, esperando turno, y el planificador le da la CPU.' },
+          { t: 'Llega del disco el dato que estaba esperando.', de: 'bloqueado', a: 'listo', tr: '4', e: 'Ya tiene lo que esperaba, pero la CPU está ocupada: va al final de la cola de listos, nunca directo a ejecución.' },
+          { t: 'El usuario pulsa la tecla que el proceso llevaba un rato esperando.', de: 'bloqueado', a: 'listo', tr: '4', e: 'Llega el recurso (la tecla): pasa a listo y espera turno en la cola.' },
+          { t: 'Manda una página a la impresora y tiene que esperar a que la cola la acepte.', de: 'en ejecución', a: 'bloqueado', tr: '1', e: 'Espera un recurso de E/S: se bloquea hasta que esté disponible.' },
+          { t: 'Ejecuta su última instrucción.', de: 'en ejecución', a: 'terminado', tr: 'ninguna', e: 'Solo se puede terminar desde la CPU. No es ninguna de las cuatro transiciones entre los tres estados.' },
+          { t: 'Llega por la red el paquete que el proceso esperaba.', de: 'bloqueado', a: 'listo', tr: '4', e: 'Ya tiene lo que esperaba: a la cola de listos, al final.' },
+          { t: 'En SRTF llega otro proceso al que le queda menos tiempo que a él.', de: 'en ejecución', a: 'listo', tr: '2', e: 'SRTF es expulsivo: el nuevo lo desaloja y él vuelve a la cola de listos.' },
+          { t: 'El sistema acaba de crearlo y lo admite en la cola.', de: 'nuevo', a: 'listo', tr: 'ninguna', e: 'Un proceso recién creado entra en la cola de listos. No es ninguna de las cuatro transiciones entre los tres estados.' },
+          { t: 'Termina de escribirse en el disco lo que había pedido guardar.', de: 'bloqueado', a: 'listo', tr: '4', e: 'La E/S que esperaba ha terminado: pasa a listo y espera turno.' },
+          { t: 'La CPU queda libre y él es el primero de la cola de listos (FIFO).', de: 'listo', a: 'en ejecución', tr: '3', e: 'El planificador elige al primero de la cola y le da la CPU.' },
+          { t: 'Pide leer del teclado y todavía no hay nada escrito.', de: 'en ejecución', a: 'bloqueado', tr: '1', e: 'No puede seguir sin el dato: se bloquea hasta que el usuario escriba.' },
+          { t: 'En prioridades no expulsivo termina el proceso que estaba en la CPU y él es el más prioritario de los que esperan.', de: 'listo', a: 'en ejecución', tr: '3', e: 'Al quedar libre la CPU, el planificador elige al más prioritario de los listos.' }
+        ];
+        const s = S[rnd(0, S.length - 1)];
+        return {
+          enunciado: 'Lee lo que le pasa al proceso y elige el estado de origen, el de destino y el número de la transición en la figura.',
+          columnas: '190px 640px', clase: 'texto',
+          filas: [
+            [{ lbl: 'qué pasa' }, { d: s.t, clase: 'texto' }],
+            [{ lbl: 'estaba en' }, { sel: OPC, c: s.de, clase: 'txt', n: 0, expl: `Estaba en ${s.de}. ${s.e}` }],
+            [{ lbl: 'pasa a' }, { sel: OPC, c: s.a, clase: 'txt', n: 1, expl: `Pasa a ${s.a}. ${s.e}` }],
+            [{ lbl: 'transición' }, { sel: TR, c: s.tr, clase: 'txt', n: 2, expl: s.tr === 'ninguna' ? s.e : `Es la transición ${s.tr} de la figura: ${s.de} → ${s.a}.` }]
+          ],
+          correcto: `Correcto: ${s.de} → ${s.a}` + (s.tr === 'ninguna' ? '.' : ` (transición ${s.tr}).`)
+        };
+      }
+    },
+
+    /* ---------- UT2 · planificación de procesos (el ejercicio del examen) ---------- */
+    planificacion: {
+      titulo: 'Planificación de procesos',
+      rejilla: true,
+      modos: [{ t: 'FIFO', v: 'fifo' }, { t: 'SJF', v: 'sjf' }, { t: 'SRTF', v: 'srtf' }, { t: 'Prio. no exp.', v: 'pne' }, { t: 'Prio. exp.', v: 'pe' }, { t: 'RR q = 2', v: 'rr' }, { t: 'Al azar', v: null }],
+      generar(cfg) {
+        const ALGOS = ['fifo', 'sjf', 'srtf', 'pne', 'pe', 'rr'];
+        const NOM = { fifo: 'FIFO', sjf: 'SJF', srtf: 'SRTF', pne: 'prioridades no expulsivo', pe: 'prioridades expulsivo', rr: 'Round Robin con q = 2' };
+        const algo = cfg.modo || ALGOS[rnd(0, 5)];
+        const q = 2, N = 4;
+        const prs = [1, 2, 3, 4].sort(() => Math.random() - .5);
+        const procs = [];
+        for (let i = 0; i < N; i++) procs.push({ ll: i === 0 ? 0 : rnd(1, 6), ej: rnd(2, 5), pr: prs[i] });
+        procs.sort((a, b) => a.ll - b.ll);
+        procs[0].ll = 0;
+        const R = simulaPlan(procs, algo, q);
+        const T = R.T, W = 1 + T;
+        const conPrio = algo === 'pne' || algo === 'pe';
+        const P = (i) => 'P' + (i + 1);
+        const fill = (row) => { const usado = row.reduce((a, it) => a + (it.span || 1), 0); if (usado < W) row.push({ d: '', span: W - usado }); return row; };
+        const lista = (ids) => ids.map(P).join(' y ');
+        const motivo = (ev) => {
+          const p = [];
+          if (ev.llegan.length) p.push(`llega ${lista(ev.llegan)}`);
+          if (ev.requeue !== null) p.push(`${P(ev.requeue)} agota su quantum y vuelve al final de la cola`);
+          if (ev.expulsa) p.push(`${P(ev.expulsa.entra)} expulsa a ${P(ev.expulsa.sale)} (${algo === 'srtf' ? `le quedan ${ev.expulsa.kEntra} frente a ${ev.expulsa.kSale}` : `prioridad ${ev.expulsa.kEntra} frente a ${ev.expulsa.kSale}`})`);
+          if (ev.ocioso) { p.push('nadie está listo: la CPU queda libre (escribe −)'); return p.join('; ') + '.'; }
+          if (ev.entra !== null) {
+            const i = ev.entra, solo = ev.colaAntes.length === 1;
+            const por = { fifo: 'el primero de la cola', sjf: `el de menor ejecución (${procs[i].ej})`, srtf: `el que menos tiempo tiene pendiente (${ev.claveEntra})`, pne: `el de mayor prioridad (${procs[i].pr})`, pe: `el de mayor prioridad (${procs[i].pr})`, rr: 'el primero de la cola' }[algo];
+            p.push(`entra ${P(i)}, ${solo ? 'el único que espera' : por}`);
+          } else p.push(`sigue ${P(ev.ejecuta)}` + (ev.llegan.length && !['srtf', 'pe', 'rr'].includes(algo) ? ' (no expulsivo)' : ''));
+          return p.join('; ') + `. Entre t = ${ev.t} y t = ${ev.t + 1} se ejecuta ${P(ev.ejecuta)}.`;
+        };
+        const fmt = (x) => String(Math.round(x * 100) / 100).replace('.', ',');
+        const cmpMedia = (suma) => (v) => { const s = String(v).replace(/\s+/g, ''); return s === `${suma}/${N}` || Math.abs(aNum(s) - suma / N) < 0.001; };
+        const sumEsp = R.esp.reduce((a, b) => a + b, 0), sumResp = R.resp.reduce((a, b) => a + b, 0);
+        const filas = [];
+        filas.push(fill([{ lbl: 'proceso' }, ...procs.map((p, i) => ({ d: P(i), clase: 'ph p' + (i + 1) }))]));
+        filas.push(fill([{ lbl: 'llegada' }, ...procs.map((p) => ({ d: String(p.ll), clase: 'dato' }))]));
+        filas.push(fill([{ lbl: 'ejecución' }, ...procs.map((p) => ({ d: String(p.ej), clase: 'dato' }))]));
+        if (conPrio) filas.push(fill([{ lbl: 'prioridad' }, ...procs.map((p) => ({ d: String(p.pr), clase: 'dato' }))]));
+        filas.push({ linea: true, clase: 'suave', desde: 1 });
+        filas.push([{ lbl: 't' }, ...R.units.map((ev) => ({ d: String(ev.t), clase: 'peq' }))]);
+        filas.push([{ lbl: 'CPU' }, ...R.units.map((ev, u) => ({ c: ev.ocioso ? '−' : String(ev.ejecuta + 1), clase: 'cpu', max: 1, filtro: /[^1-4−-]/g, n: u, cmp: ev.ocioso ? (v) => v === '−' || v === '-' : null, expl: `t = ${ev.t}: ` + motivo(ev) }))]);
+        procs.forEach((p, i) => filas.push([{ lbl: P(i) }, ...R.units.map(() => ({ d: '', clase: 'celda' }))]));
+        filas.push({ linea: true, clase: 'suave', desde: 1 });
+        filas.push(fill([{ lbl: 'respuesta' }, ...procs.map((p, i) => ({ c: String(R.resp[i]), clase: 'num', max: 2, filtro: /[^0-9]/g, n: 100 + i, expl: `${P(i)} termina en t = ${R.fin[i]}: respuesta = fin − llegada = ${R.fin[i]} − ${p.ll} = ${R.resp[i]}` }))]));
+        filas.push(fill([{ lbl: 'espera' }, ...procs.map((p, i) => ({ c: String(R.esp[i]), clase: 'num', max: 2, filtro: /[^0-9]/g, n: 200 + i, expl: `${P(i)}: espera = respuesta − ejecución = ${R.resp[i]} − ${p.ej} = ${R.esp[i]}` }))]));
+        filas.push(fill([{ lbl: 'respuesta media' }, { c: `${sumResp}/${N}`, clase: 'dec', max: 7, filtro: /[^0-9,./]/g, span: 3, n: 300, cmp: cmpMedia(sumResp), expl: `(${R.resp.join(' + ')}) / ${N} = ${sumResp}/${N} = ${fmt(sumResp / N)}` }]));
+        filas.push(fill([{ lbl: 'espera media' }, { c: `${sumEsp}/${N}`, clase: 'dec', max: 7, filtro: /[^0-9,./]/g, span: 3, n: 301, cmp: cmpMedia(sumEsp), expl: `(${R.esp.join(' + ')}) / ${N} = ${sumEsp}/${N} = ${fmt(sumEsp / N)}` }]));
+        return {
+          enunciado: `${NOM[algo][0].toUpperCase() + NOM[algo].slice(1)}. Fila CPU: el proceso (1 a 4) de cada unidad de tiempo; luego los tiempos y las medias (fracción o coma).`,
+          columnas: `118px repeat(${T}, ${T > 16 ? 36 : 42}px)`, clase: 'plan' + (T > 16 ? ' xs' : ''),
+          filas,
+          alEscribir(sv) {
+            const cpu = [...sv.querySelectorAll('.cpu')], celdas = [...sv.querySelectorAll('.d.celda')];
+            celdas.forEach((c) => { c.className = 'd celda'; });
+            cpu.forEach((inp, u) => {
+              const v = parseInt(inp.value !== undefined ? inp.value : inp.textContent, 10);
+              if (v >= 1 && v <= N && celdas[(v - 1) * T + u]) celdas[(v - 1) * T + u].classList.add('on', 'p' + v);
+            });
+          },
+          correcto: `Correcto. ${NOM[algo][0].toUpperCase() + NOM[algo].slice(1)}: orden ${R.units.map((ev) => (ev.ocioso ? '−' : P(ev.ejecuta))).join(' ')}; espera media ${sumEsp}/${N} = ${fmt(sumEsp / N)}, respuesta media ${sumResp}/${N} = ${fmt(sumResp / N)}.`
+        };
+      }
+    },
+
+    /* ---------- UT2 · paginación y fragmentación ---------- */
+    paginacion: {
+      titulo: 'Paginación y fragmentación',
+      rejilla: true,
+      modos: [{ t: 'Páginas', v: 'paginas' }, { t: 'Huecos', v: 'huecos' }, { t: 'Memoria virtual', v: 'virtual' }, { t: 'Al azar', v: null }],
+      generar(cfg) {
+        const modo = cfg.modo || ['paginas', 'huecos', 'virtual'][rnd(0, 2)];
+        const SN = ['?', 'sí', 'no'];
+        if (modo === 'paginas') {
+          const pag = [1, 2, 4, 8][rnd(0, 3)];
+          let tam = rnd(5, 200); if (tam % pag === 0) tam += 1;
+          const np = Math.ceil(tam / pag), ocupa = np * pag, frag = ocupa - tam;
+          return {
+            enunciado: 'Un proceso se reparte en páginas de tamaño fijo. Calcula cuántas necesita, cuánto ocupa en total y cuánto se pierde en la última página.',
+            columnas: '300px 150px 90px',
+            filas: [
+              [{ lbl: 'tamaño del proceso' }, { d: String(tam), clase: 'dato' }, { lbl: 'KiB' }],
+              [{ lbl: 'tamaño de página' }, { d: String(pag), clase: 'dato' }, { lbl: 'KiB' }],
+              [{ lbl: 'páginas necesarias' }, { c: String(np), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 0, expl: `${tam} / ${pag} = ${(tam / pag).toFixed(2).replace('.', ',')}: se redondea hacia arriba, porque una página a medias también hay que tenerla. ${np} páginas.` }, { lbl: '' }],
+              [{ lbl: 'ocupa en memoria' }, { c: String(ocupa), clase: 'num', max: 4, filtro: /[^0-9]/g, n: 1, expl: `${np} páginas × ${pag} KiB = ${ocupa} KiB.` }, { lbl: 'KiB' }],
+              [{ lbl: 'fragmentación interna' }, { c: String(frag), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 2, expl: `Ocupa ${ocupa} KiB para guardar ${tam} KiB: ${ocupa} − ${tam} = ${frag} KiB perdidos dentro de la última página.` }, { lbl: 'KiB' }]
+            ],
+            correcto: `Correcto: ${np} páginas, ${ocupa} KiB ocupados y ${frag} KiB de fragmentación interna.`
+          };
+        }
+        if (modo === 'huecos') {
+          const k = rnd(3, 4);
+          const huecos = Array.from({ length: k }, () => rnd(2, 9));
+          const total = huecos.reduce((a, b) => a + b, 0);
+          const mayor = Math.max(...huecos);
+          const cabe = Math.random() < 0.5;
+          const tam = cabe ? rnd(2, mayor) : rnd(mayor + 1, Math.max(mayor + 1, total));
+          const idx = huecos.findIndex((h) => h >= tam);
+          const enHueco = idx >= 0 ? String(idx + 1) : 'ninguno';
+          const HU = ['?', ...huecos.map((h, i) => String(i + 1)), 'ninguno'];
+          const FEN = ['?', 'fragmentación externa', 'fragmentación interna', 'no hay fragmentación'];
+          const fen = tam <= mayor ? 'no hay fragmentación' : (tam <= total ? 'fragmentación externa' : 'no hay fragmentación');
+          const fenExpl = tam > mayor && tam <= total ? `Hay ${total} KiB libres en total pero ningún hueco de ${tam} KiB seguidos: fragmentación externa (habría que compactar).` : (tam <= mayor ? 'Cabe en un hueco: no hay fragmentación que impida cargarlo.' : `Ni juntando todos los huecos (${total} KiB) cabe: falta memoria, no es fragmentación.`);
+          return {
+            enunciado: 'Con particiones de tamaño variable, un proceso solo cabe en un hueco igual o mayor que él, aunque la suma de los huecos sea suficiente.',
+            columnas: `300px repeat(${k}, 90px)`,
+            filas: [
+              [{ lbl: 'huecos libres (KiB)' }, ...huecos.map((h) => ({ d: String(h), clase: 'dato' }))],
+              [{ lbl: 'proceso que quiere entrar' }, { d: String(tam) + ' KiB', clase: 'dato', span: k }],
+              [{ lbl: 'memoria libre en total' }, { c: String(total), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 0, expl: `${huecos.join(' + ')} = ${total} KiB libres en total.`, span: k }],
+              [{ lbl: '¿cabe?' }, { sel: SN, c: tam <= mayor ? 'sí' : 'no', clase: 'txt', n: 1, expl: tam <= mayor ? `Sí: el hueco ${idx + 1} tiene ${huecos[idx]} KiB y el proceso necesita ${tam}.` : `No: el hueco mayor tiene ${mayor} KiB y el proceso necesita ${tam} seguidos.`, span: k }],
+              [{ lbl: 'en el hueco' }, { sel: HU, c: enHueco, clase: 'txt', n: 2, expl: idx >= 0 ? `El primero en el que cabe es el hueco ${idx + 1} (${huecos[idx]} KiB).` : 'No cabe en ninguno.', span: k }],
+              [{ lbl: 'fenómeno' }, { sel: FEN, c: fen, clase: 'txt', n: 3, expl: fenExpl, span: k }]
+            ],
+            correcto: `Correcto. ${fenExpl}`
+          };
+        }
+        const pag = [2, 4, 8][rnd(0, 2)];
+        const tam = rnd(20, 200);
+        const np = Math.ceil(tam / pag);
+        const marcos = Math.random() < 0.5 ? rnd(np, np + 10) : rnd(Math.max(1, np - 12), np - 1);
+        const cabe = marcos >= np;
+        const faltan = cabe ? 0 : np - marcos;
+        return {
+          enunciado: 'Con memoria virtual, en la RAM solo tiene que estar la parte del proceso que se usa. Calcula si cabe entero o cuántas páginas quedan en el disco.',
+          columnas: '300px 150px 90px',
+          filas: [
+            [{ lbl: 'tamaño del proceso' }, { d: String(tam), clase: 'dato' }, { lbl: 'KiB' }],
+            [{ lbl: 'tamaño de página' }, { d: String(pag), clase: 'dato' }, { lbl: 'KiB' }],
+            [{ lbl: 'marcos libres en la RAM' }, { d: String(marcos), clase: 'dato' }, { lbl: '' }],
+            [{ lbl: 'páginas del proceso' }, { c: String(np), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 0, expl: `${tam} / ${pag}, redondeado hacia arriba: ${np} páginas.` }, { lbl: '' }],
+            [{ lbl: '¿cabe entero?' }, { sel: SN, c: cabe ? 'sí' : 'no', clase: 'txt', n: 1, expl: cabe ? `Sí: ${np} páginas y ${marcos} marcos libres.` : `No: ${np} páginas y solo ${marcos} marcos libres.` }, { lbl: '' }],
+            [{ lbl: 'páginas que quedan en disco' }, { c: String(faltan), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 2, expl: cabe ? 'Cabe entero: ninguna. La memoria virtual no hace falta.' : `${np} − ${marcos} = ${faltan} páginas se quedan en el disco y se traen cuando el proceso las toca (fallo de página).` }, { lbl: '' }]
+          ],
+          correcto: cabe ? `Correcto: ${np} páginas caben en ${marcos} marcos.` : `Correcto: ${np} páginas, ${marcos} marcos: ${faltan} páginas esperan en el disco.`
+        };
+      }
+    },
+
+    /* ---------- UT2 · ordena el arranque ---------- */
+    arranque: {
+      titulo: 'Ordena el arranque',
+      rejilla: true,
+      modos: [{ t: 'UEFI y GPT', v: 'uefi' }, { t: 'BIOS y MBR', v: 'bios' }, { t: 'Al azar', v: null }],
+      generar(cfg) {
+        const modo = cfg.modo || ['uefi', 'bios'][rnd(0, 1)];
+        const uefi = modo === 'uefi';
+        const PASOS = [
+          { t: uefi ? 'El procesador ejecuta el firmware UEFI guardado en la flash de la placa' : 'El procesador ejecuta la BIOS guardada en la flash de la placa', e: 'Lo primero al dar corriente: el procesador solo sabe ejecutar lo que hay en la memoria de la placa.' },
+          { t: 'POST: se comprueban memoria, procesador, teclado y gráfica', e: 'El firmware comprueba el hardware antes de buscar nada en el disco.' },
+          { t: 'Se busca un dispositivo de arranque según el orden configurado', e: 'Disco, USB, DVD o red: el primero de la lista que tenga algo arrancable.' },
+          { t: uefi ? 'Se ejecuta el cargador (.efi) de la partición EFI' : 'Se ejecuta el código del MBR, el sector 0 del disco', e: uefi ? 'El firmware UEFI lee un archivo de la partición EFI (FAT32): Windows Boot Manager o GRUB.' : 'La BIOS carga el sector 0 y le pasa el control: ahí está el cargador y la tabla de particiones.' },
+          { t: 'El cargador lleva el núcleo del sistema operativo a la memoria', e: 'Es el momento en que el sistema operativo empieza a existir en la RAM.' },
+          { t: 'El núcleo comprueba el sistema de archivos y arranca los servicios', e: 'Con el núcleo en marcha se montan los discos y arrancan los procesos del sistema.' },
+          { t: 'Aparece la pantalla de inicio de sesión', e: 'El equipo está listo y espera al usuario.' }
+        ];
+        const orden = PASOS.map((p, i) => i).sort(() => Math.random() - .5);
+        const filas = orden.map((i) => [{ d: PASOS[i].t, clase: 'texto', span: 4 }, { c: String(i + 1), clase: 'num', max: 1, filtro: /[^1-7]/g, n: i, expl: `Paso ${i + 1}: ${PASOS[i].t}. ${PASOS[i].e}` }]);
+        return {
+          enunciado: `Arranque con ${uefi ? 'UEFI y GPT' : 'BIOS y MBR'}: escribe junto a cada paso su número de orden, del 1 (al dar corriente) al 7 (equipo listo).`,
+          columnas: 'repeat(4, 185px) 84px', clase: 'texto',
+          filas,
+          correcto: 'Correcto: ' + PASOS.map((p, i) => `${i + 1} ${p.t.split(':')[0].split(' ').slice(0, 4).join(' ')}…`).join(' · ')
+        };
+      }
+    },
+
+    /* ---------- UT2 · qué sistema de archivos ---------- */
+    'sistemas-archivos': {
+      titulo: '¿Qué sistema de archivos?',
+      rejilla: true,
+      generar() {
+        const SN = ['?', 'sí', 'no'];
+        const FS = ['?', 'FAT32', 'exFAT', 'NTFS', 'ext4', 'APFS', 'UDF'];
+        const C = [
+          { t: 'El disco interno donde vas a instalar Windows 11.', varios: 'no', grande: 'sí', permisos: 'sí', sistema: 'sí', fs: ['NTFS'], e: 'Es el disco del sistema: el nativo de Windows, con permisos y journaling.' },
+          { t: 'El disco interno donde vas a instalar Ubuntu.', varios: 'no', grande: 'sí', permisos: 'sí', sistema: 'sí', fs: ['ext4'], e: 'Es el disco del sistema: el nativo de Linux, con permisos y journaling.' },
+          { t: 'Un pendrive de 16 GB para llevar apuntes y presentaciones al aula, que se enchufa en cualquier PC.', varios: 'sí', grande: 'no', permisos: 'no', sistema: 'no', fs: ['FAT32', 'exFAT'], e: 'Lo tiene que leer todo y los archivos son pequeños: FAT32 (o exFAT).' },
+          { t: 'Un pendrive para ver películas en la tele del salón; algunas películas ocupan 6 GB.', varios: 'sí', grande: 'sí', permisos: 'no', sistema: 'no', fs: ['exFAT'], e: 'Varios aparatos y archivos de más de 4 GiB: exFAT. FAT32 no admite ese tamaño.' },
+          { t: 'Un disco externo para mover vídeos entre un portátil con Windows y un Mac.', varios: 'sí', grande: 'sí', permisos: 'no', sistema: 'no', fs: ['exFAT'], e: 'Windows y Mac escriben los dos en exFAT; NTFS en Mac es solo lectura.' },
+          { t: 'Un disco externo para las copias de seguridad de un PC con Windows.', varios: 'no', grande: 'sí', permisos: 'sí', sistema: 'no', fs: ['NTFS'], e: 'Solo Windows, archivos grandes y conviene conservar permisos y journaling: NTFS.' },
+          { t: 'La tarjeta microSD de 32 GB de una cámara de fotos antigua.', varios: 'sí', grande: 'no', permisos: 'no', sistema: 'no', fs: ['FAT32'], e: 'Las cámaras piden FAT32 en tarjetas de hasta 32 GB.' },
+          { t: 'La tarjeta de 128 GB de una consola portátil.', varios: 'sí', grande: 'sí', permisos: 'no', sistema: 'no', fs: ['exFAT'], e: 'A partir de 64 GB los aparatos usan exFAT.' },
+          { t: 'Un DVD que vas a grabar con las fotos del viaje.', varios: 'sí', grande: 'no', permisos: 'no', sistema: 'no', fs: ['UDF'], e: 'Los discos ópticos grabados van en UDF.' },
+          { t: 'El disco de un MacBook donde va instalado macOS.', varios: 'no', grande: 'sí', permisos: 'sí', sistema: 'sí', fs: ['APFS'], e: 'Es el disco del sistema de un Mac: APFS.' },
+          { t: 'Una partición de datos compartida en un PC que tiene Windows y Ubuntu instalados.', varios: 'sí', grande: 'sí', permisos: 'no', sistema: 'no', fs: ['exFAT', 'NTFS'], e: 'Los dos sistemas la tienen que escribir: exFAT, o NTFS (Linux lo escribe con su driver).' },
+          { t: 'Un pendrive con la imagen de instalación de Windows (un archivo de 5 GB) para arrancar un PC.', varios: 'sí', grande: 'sí', permisos: 'no', sistema: 'no', fs: ['exFAT', 'NTFS'], e: 'Un archivo de más de 4 GiB descarta FAT32: exFAT o NTFS, según lo que admita el firmware.' },
+          { t: 'Un pendrive para el USB del coche, que solo reproduce música.', varios: 'sí', grande: 'no', permisos: 'no', sistema: 'no', fs: ['FAT32'], e: 'Los reproductores antiguos solo leen FAT32 y las canciones son pequeñas.' },
+          { t: 'El disco de un servidor Linux con las carpetas personales de veinte usuarios.', varios: 'no', grande: 'sí', permisos: 'sí', sistema: 'sí', fs: ['ext4'], e: 'Permisos por usuario, journaling y disco de trabajo: ext4.' },
+          { t: 'Un disco externo de 4 TB solo para un PC con Windows, con vídeos de más de 10 GB.', varios: 'no', grande: 'sí', permisos: 'no', sistema: 'no', fs: ['NTFS', 'exFAT'], e: 'Solo Windows y archivos enormes: NTFS (o exFAT si no hacen falta permisos).' }
+        ];
+        const c = C[rnd(0, C.length - 1)];
+        return {
+          enunciado: 'Lee el caso, contesta a las cuatro preguntas y elige el sistema de archivos. Si hay dos opciones válidas, cualquiera de las dos vale.',
+          columnas: '330px 470px', clase: 'texto',
+          filas: [
+            [{ lbl: 'caso' }, { d: c.t, clase: 'texto' }],
+            [{ lbl: '¿lo leerán varios sistemas o aparatos?' }, { sel: SN, c: c.varios, clase: 'txt', n: 0, expl: c.varios === 'sí' ? 'Sí: tiene que leerlo más de un sistema o aparato, así que hay que buscar uno que entiendan todos.' : 'No: lo usa un solo sistema, así que puede llevar su sistema de archivos nativo.' }],
+            [{ lbl: '¿archivos de más de 4 GiB?' }, { sel: SN, c: c.grande, clase: 'txt', n: 1, expl: c.grande === 'sí' ? 'Sí: eso descarta FAT32, que no admite archivos de 4 GiB o más.' : 'No: FAT32 sirve.' }],
+            [{ lbl: '¿permisos y seguridad?' }, { sel: SN, c: c.permisos, clase: 'txt', n: 2, expl: c.permisos === 'sí' ? 'Sí: hacen falta permisos, así que NTFS, ext4 o APFS.' : 'No: no hacen falta permisos.' }],
+            [{ lbl: '¿es el disco del sistema o de trabajo?' }, { sel: SN, c: c.sistema, clase: 'txt', n: 3, expl: c.sistema === 'sí' ? 'Sí: journaling obligatorio, nunca FAT.' : 'No: puede ir sin journaling.' }],
+            [{ lbl: 'sistema de archivos' }, { sel: FS, c: c.fs[0], clase: 'txt', n: 4, cmp: (v) => c.fs.includes(v), expl: c.e }]
+          ],
+          correcto: `Correcto: ${c.fs.join(' o ')}. ${c.e}`
+        };
+      }
+    },
   };
 
 
@@ -732,6 +1006,7 @@
     const mensaje = (t, clase) => { fb.textContent = t; fb.className = 'ej-fb' + (clase ? ' ' + clase : ''); };
 
     function espejos() {
+      if (g && g.alEscribir) g.alEscribir(sv);
       sv.querySelectorAll('[data-espejo]').forEach((s) => {
         const c = celdas.find((x) => x.dataset.id === s.dataset.espejo);
         const v = c ? valorDe(c) : '';

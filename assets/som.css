@@ -934,3 +934,32 @@ deck-stage section:has(> .sim) { grid-template-rows: minmax(0, 1fr); }
   transition: background .15s, border-color .15s;
 }
 .sim-botones button:hover { border-color: var(--sky); }
+
+/* ---------- Ejercicios de la UT2: texto en las casillas, cronograma y selector ancho ---------- */
+.sv.texto { font-size: 30px; gap: 12px 14px; }
+.sv .d.texto { height: auto; line-height: 1.3; white-space: normal; text-align: left; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 23px; color: var(--ink); padding: 6px 0; }
+.sv .c.txt { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 24px; height: 60px; letter-spacing: 0; text-transform: none; }
+.sv.texto .lbl { font-size: 21px; }
+.sv.texto .c.num { height: 60px; font-size: 30px; }
+.sv .d.dato { font-size: 30px; }
+.sv.plan { --cel: 32px; --fs: 21px; gap: 3px; font-size: 24px; margin: 0; }
+.sv.plan.xs { --cel: 28px; --fs: 19px; }
+.ej:has(> .sv.plan) { padding: 24px 32px 22px; gap: 12px; }
+.ej:has(> .sv.plan) .ej-enunciado { font-size: 22px; line-height: 1.3; }
+.ej:has(> .sv.plan) .ej-ops { margin-top: -4px; }
+.ej:has(> .sv.plan) .ej-ops button { font-size: 16px; padding: 7px 14px; }
+.ej:has(> .sv.plan) .ej-fila .btn { padding: 12px 24px; font-size: 21px; }
+.ej:has(> .sv.plan) .ej-fb { font-size: 21px; }
+.sv.plan .lbl { font-size: 16px; padding-right: 8px; line-height: 1.05; }
+.sv.plan .c { border-width: 2px; border-radius: 8px; }
+.sv.plan .c.num { font-size: 22px; }
+.sv.plan .c.dec { font-size: 21px; letter-spacing: 0; }
+.sv.plan .d.peq { font-size: 14px; height: 20px; line-height: 20px; }
+.sv.plan .d.dato { font-size: 21px; height: 26px; line-height: 26px; }
+.sv.plan .d.ph { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 20px; font-weight: 800; }
+.sv.plan .d.ph.p1 { color: #0B4AB5; } .sv.plan .d.ph.p2 { color: #1E8E5A; } .sv.plan .d.ph.p3 { color: #E67E22; } .sv.plan .d.ph.p4 { color: #8E44AD; }
+.sv.plan .d.celda { height: var(--cel); background: var(--white); border: 2px solid var(--line); border-radius: 6px; }
+.sv.plan .d.celda.on { border-color: transparent; }
+.sv.plan .d.celda.p1 { background: #0B4AB5; } .sv.plan .d.celda.p2 { background: #1E8E5A; } .sv.plan .d.celda.p3 { background: #E67E22; } .sv.plan .d.celda.p4 { background: #8E44AD; }
+.sv.plan .linea.suave { margin: 2px 0; }
+.sv.plan .c.cpu { font-weight: 800; }
