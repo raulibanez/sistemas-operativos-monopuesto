@@ -30,6 +30,8 @@ Todos se resuelven en vertical, con huecos, como en la pizarra: **Comprobar**, *
 
 `ut01/hoja.html` genera hojas de ejercicios en papel con los mismos generadores y un número de lista como semilla (la misma hoja sale siempre igual para el mismo número): título, rango de alumnos, cuántos ejercicios de cada tipo y solucionario opcional al final; la configuración queda en la dirección de la página para imprimir toda la clase de una vez.
 
+`assets/som.js` incluye también un **simulador visual de planificación de procesos**, paso a paso, para explicar los algoritmos de la UT2: en la misma diapositiva van `<div class="sim-entrada"></div>` (datos de entrada editables y tabla de tiempos) y `<div class="sim" data-algo="fifo"></div>` (cronograma, cola de listos, CPU y explicación de cada instante). Algoritmos: `fifo`, `sjf`, `srtf`, `pne` y `pe` (prioridades no expulsivo y expulsivo, 1 = la más alta) y `rr` (con `data-q`); `data-procesos="0/7,2/4,3/3,5/2"` fija los datos iniciales. Reglas de empate: FIFO; en SRTF y prioridades expulsivo sigue el que está; en Round Robin el que llega entra en la cola antes que el que agota su quantum. Hay un ejemplo en `plantilla/`.
+
 Un ejemplo resuelto se maqueta con la misma rejilla sin casillas: `<div class="sv compacta" style="grid-template-columns:…">` con `<span class="lbl">`, `<span class="d">` (y `d res`, `d carry`, `d tenue`) y `<div class="linea">`.
 
 ## Título con letra animada

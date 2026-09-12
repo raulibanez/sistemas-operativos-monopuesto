@@ -19,6 +19,9 @@
  *     Tipos disponibles en SOM.generadores: bin2dec, dec2bin, decfrac2bin, bases, sumabin,
  *     restabin, logica, c1c2, restac2, paridad, unidades, ascii, ieee754. Atributos: data-bits,
  *     data-min, data-max, data-modo (modo fijo de los que tienen modos) y data-paridad (par | impar).
+ *  6. Simulador visual de planificación de procesos, paso a paso:
+ *       <div class="sim-entrada"></div> (datos) y <div class="sim" data-algo="fifo"></div> (cronograma)
+ *     en la misma diapositiva. Algoritmos: fifo, sjf, srtf, pne, pe, rr (data-q). SOM.simulaPlan expone el motor.
  */
 (function () {
   'use strict';
@@ -1167,6 +1170,245 @@
     if (slide) slide.querySelectorAll('.letra').forEach((l) => l.classList.remove('on'));
   }
 
+  /* ---------- simulador visual de planificación de procesos ----------
+   *   En la misma diapositiva, dos elementos:
+   *     <div class="sim-entrada"></div>                    (datos de entrada y tabla de tiempos)
+   *     <div class="sim" data-algo="fifo" data-q="2"></div> (cronograma, cola, CPU y explicación)
+   *   Algoritmos: fifo, sjf, srtf, pne (prioridades no expulsivo), pe (prioridades expulsivo), rr.
+   *   Reglas de empate: FIFO; en SRTF y PE sigue el que está si empata con el que llega;
+   *   en RR el que llega entra en la cola antes que el que agota su quantum en el mismo instante.
+   *   data-procesos="0/7,2/4,3/3,5/2" (llegada/ejecución[/prioridad]) fija los datos iniciales.
+   */
+  const SIM_COLORES = ['#0B4AB5', '#1E8E5A', '#E67E22', '#8E44AD', '#C0392B', '#16A085'];
+  const SIM_NOMBRES = { fifo: 'FIFO', sjf: 'SJF', srtf: 'SRTF', pne: 'prioridades no expulsivo', pe: 'prioridades expulsivo', rr: 'Round Robin' };
+  const SIM_EJEMPLO = [[0, 7, 4], [2, 4, 2], [3, 3, 1], [5, 2, 3]];
+  const coma = (x) => String(Math.round(x * 100) / 100).replace('.', ',');
+
+  function simulaPlan(procs, algo, q) {
+    const N = procs.length;
+    const rem = procs.map((p) => p.ej);
+    const fin = Array(N).fill(null);
+    const queue = [];
+    const llegado = new Set();
+    const units = [];
+    let t = 0, cur = null, usado = 0;
+    const clave = algo === 'srtf' ? (i) => rem[i] : algo === 'sjf' ? (i) => procs[i].ej : (i) => procs[i].pr;
+    const conClave = algo === 'sjf' || algo === 'srtf' || algo === 'pne' || algo === 'pe';
+    const mejor = () => queue.reduce((b, i) => (clave(i) < clave(b) ? i : b), queue[0]);
+    while (fin.some((f) => f === null) && t < 400) {
+      const ev = { t, llegan: [], fin: [], requeue: null, expulsa: null, entra: null, ejecuta: null, ocioso: false };
+      procs.forEach((p, i) => { if (p.ll === t && !llegado.has(i)) { llegado.add(i); queue.push(i); ev.llegan.push(i); } });
+      if (algo === 'rr' && cur !== null && usado === q && rem[cur] > 0) { queue.push(cur); ev.requeue = cur; cur = null; }
+      if ((algo === 'srtf' || algo === 'pe') && cur !== null && queue.length) {
+        const b = mejor();
+        if (clave(b) < clave(cur)) { queue.push(cur); ev.expulsa = { sale: cur, entra: b, kSale: clave(cur), kEntra: clave(b) }; cur = null; }
+      }
+      ev.colaAntes = queue.slice();
+      if (cur === null && queue.length) {
+        const e = conClave ? mejor() : queue[0];
+        queue.splice(queue.indexOf(e), 1);
+        cur = e; usado = 0; ev.entra = e; ev.claveEntra = clave(e);
+      }
+      ev.cola = queue.slice();
+      if (cur === null) { ev.ocioso = true; t++; units.push(ev); continue; }
+      ev.ejecuta = cur; rem[cur]--; usado++; t++; ev.quedan = rem[cur];
+      if (rem[cur] === 0) { fin[cur] = t; ev.fin.push(cur); cur = null; }
+      units.push(ev);
+    }
+    const resp = procs.map((p, i) => fin[i] - p.ll);
+    const esp = procs.map((p, i) => resp[i] - p.ej);
+    const media = (a) => a.reduce((x, y) => x + y, 0) / N;
+    return { units, fin, resp, esp, T: t, mediaEsp: media(esp), mediaResp: media(resp) };
+  }
+  SOM.simulaPlan = simulaPlan;
+
+  function montaSimulador(el) {
+    const sec = el.closest('section');
+    const entrada = sec && sec.querySelector('.sim-entrada');
+    if (!entrada) { el.textContent = 'Falta el elemento .sim-entrada en la diapositiva.'; return; }
+    const algo = el.dataset.algo || 'fifo';
+    const q = parseInt(el.dataset.q || '2', 10);
+    const conPrio = algo === 'pne' || algo === 'pe';
+    const expulsivo = algo === 'srtf' || algo === 'pe' || algo === 'rr';
+    const MAX = 5, MIN = 2;
+    let procs = [];
+    let R = null, paso = 0;
+    const iniciales = el.dataset.procesos
+      ? el.dataset.procesos.split(',').map((s) => s.split('/').map(Number))
+      : SIM_EJEMPLO;
+    const nombre = (i) => 'P' + (i + 1);
+    const color = (i) => SIM_COLORES[i % SIM_COLORES.length];
+    const P = (i) => `<b style="color:${color(i)}">${nombre(i)}</b>`;
+    const lista = (ids) => ids.map(P).join(ids.length > 2 ? ', ' : ' y ').replace(/, ([^,]*)$/, ' y $1');
+
+    /* ----- entrada ----- */
+    entrada.innerHTML = `
+      <table class="sim-tabla sim-in"><thead><tr><th>Proceso</th><th>Llegada</th><th>Ejecución</th>${conPrio ? '<th>Prioridad</th>' : ''}</tr></thead><tbody></tbody></table>
+      <div class="sim-botones"><button type="button" data-a="azar">Al azar</button><button type="button" data-a="ejemplo">Ejemplo</button><button type="button" data-a="mas">+ proceso</button><button type="button" data-a="menos">− proceso</button></div>
+      <table class="sim-tabla sim-out"><thead><tr><th>Proceso</th><th>Tiempo de espera</th><th>Tiempo de respuesta</th></tr></thead><tbody></tbody></table>`;
+    const tbIn = entrada.querySelector('.sim-in tbody');
+    const tbOut = entrada.querySelector('.sim-out tbody');
+
+    function pintaEntrada() {
+      entrada.classList.toggle('cinco', procs.length >= 5);
+      tbIn.innerHTML = procs.map((p, i) => `<tr><td class="nombre" style="color:${color(i)}">${nombre(i)}</td>
+        <td><input type="number" min="0" max="30" data-i="${i}" data-k="ll" value="${p.ll}"></td>
+        <td><input type="number" min="1" max="30" data-i="${i}" data-k="ej" value="${p.ej}"></td>
+        ${conPrio ? `<td><input type="number" min="1" max="9" data-i="${i}" data-k="pr" value="${p.pr}"></td>` : ''}</tr>`).join('');
+      tbIn.querySelectorAll('input').forEach((inp) => inp.addEventListener('input', () => {
+        const p = procs[+inp.dataset.i]; const k = inp.dataset.k;
+        let v = parseInt(inp.value, 10); if (isNaN(v)) v = k === 'll' ? 0 : 1;
+        if (k === 'll') v = Math.max(0, Math.min(30, v)); else if (k === 'ej') v = Math.max(1, Math.min(30, v)); else v = Math.max(1, Math.min(9, v));
+        p[k] = v; recalcula();
+      }));
+    }
+    function pintaSalida() {
+      const done = (i) => R && R.fin[i] !== null && R.fin[i] <= paso;
+      const fin = R && paso >= R.T;
+      const media = (v) => `${v.reduce((a, b) => a + b, 0)}/${v.length}`;
+      tbOut.innerHTML = procs.map((p, i) => `<tr class="${done(i) ? 'hecho' : ''}"><td class="nombre" style="color:${color(i)}">${nombre(i)}</td>
+        <td>${done(i) ? R.esp[i] : '·'}</td><td>${done(i) ? R.resp[i] : '·'}</td></tr>`).join('')
+        + `<tr class="medias"><td>Medias</td><td>${fin ? media(R.esp) : '·'}</td><td>${fin ? media(R.resp) : '·'}</td></tr>`;
+    }
+    entrada.querySelector('.sim-botones').addEventListener('click', (e) => {
+      const b = e.target.closest('button'); if (!b) return;
+      const a = b.dataset.a;
+      if (a === 'azar') {
+        const n = procs.length;
+        const prs = [...Array(n).keys()].map((x) => x + 1).sort(() => Math.random() - .5);
+        procs = procs.map((p, i) => ({ ll: i === 0 ? 0 : rnd(1, n + 2), ej: rnd(2, 7), pr: prs[i] }));
+      } else if (a === 'ejemplo') {
+        procs = SIM_EJEMPLO.map(([ll, ej, pr]) => ({ ll, ej, pr }));
+      } else if (a === 'mas' && procs.length < MAX) {
+        procs.push({ ll: rnd(1, procs.length + 2), ej: rnd(2, 7), pr: procs.length + 1 });
+      } else if (a === 'menos' && procs.length > MIN) {
+        procs.pop();
+      } else return;
+      pintaEntrada(); recalcula();
+    });
+
+    /* ----- salida ----- */
+    el.innerHTML = `
+      <div class="sim-cab"><div class="sim-t">t = <b>0</b></div>
+        <div class="sim-acciones"><button type="button" class="btn btn-ghost" data-a="ant">Anterior</button><button type="button" class="btn btn-primary" data-a="sig">Siguiente paso</button><button type="button" class="btn btn-ghost" data-a="fin">Hasta el final</button><button type="button" class="btn btn-ghost" data-a="ini">Reiniciar</button></div></div>
+      <div class="sim-gantt"></div>
+      <p class="sim-leyenda"><span><i class="run"></i>en ejecución</span><span><i class="wait"></i>espera en la cola</span><span><svg viewBox="0 0 24 24" width="24" height="24"><path d="M3 3 L15 15" stroke="#0B4AB5" stroke-width="3" stroke-linecap="round"/><path d="M19 19 L9 17 L17 9 Z" fill="#0B4AB5"/></svg>llega</span>${expulsivo ? '<span><svg viewBox="0 0 24 24" width="24" height="24"><path d="M9 15 L21 3" stroke="#0B4AB5" stroke-width="3" stroke-linecap="round"/><path d="M5 19 L7 9 L15 17 Z" fill="#0B4AB5"/></svg>sale expulsado</span>' : ''}<span><i class="fin"></i>termina</span><span><i class="ahora"></i>instante actual</span></p>
+      <div class="sim-estado"><div><span class="lbl">Cola de listos</span><div class="sim-chips" data-z="cola"></div></div><div><span class="lbl">CPU</span><div class="sim-chips" data-z="cpu"></div></div><div><span class="lbl">Terminados</span><div class="sim-chips" data-z="fin"></div></div></div>
+      <div class="sim-msg"></div>`;
+    const tEl = el.querySelector('.sim-t b');
+    const gantt = el.querySelector('.sim-gantt');
+    const zonas = { cola: el.querySelector('[data-z="cola"]'), cpu: el.querySelector('[data-z="cpu"]'), fin: el.querySelector('[data-z="fin"]') };
+    const msg = el.querySelector('.sim-msg');
+    const botones = {};
+    el.querySelectorAll('.sim-acciones button').forEach((b) => { botones[b.dataset.a] = b; });
+    el.querySelector('.sim-acciones').addEventListener('click', (e) => {
+      const b = e.target.closest('button'); if (!b) return;
+      const a = b.dataset.a;
+      if (a === 'sig') paso = Math.min(R.T, paso + 1);
+      else if (a === 'ant') paso = Math.max(0, paso - 1);
+      else if (a === 'fin') paso = R.T;
+      else paso = 0;
+      pinta();
+    });
+
+    function chips(zona, ids) {
+      zona.innerHTML = ids.length ? ids.map((i) => `<span class="sim-chip" style="background:${color(i)}">${nombre(i)}</span>`).join('') : '<span class="sim-chip vacio">vacía</span>';
+    }
+
+    // flecha en diagonal por la esquina superior de la casilla: dir -1 entra (llegada), dir 1 sale (expulsión)
+    function flecha(x, y, dir, c) {
+      const L = 11, h = 7;
+      if (dir < 0) return `<path d="M${x - L - 3} ${y - L - 3} L${x - 5} ${y - 5}" stroke="${c}" stroke-width="3" stroke-linecap="round"/><path d="M${x} ${y} L${x - h - 2} ${y - 2} L${x - 2} ${y - h - 2} Z" fill="${c}"/>`;
+      return `<path d="M${x + 5} ${y - 5} L${x + L - 2} ${y - L + 2}" stroke="${c}" stroke-width="3" stroke-linecap="round"/><path d="M${x + L + 3} ${y - L - 3} L${x + L + 1} ${y - L + h + 1} L${x + L - h - 1} ${y - L - 1} Z" fill="${c}"/>`;
+    }
+    function pintaGantt() {
+      const W = 1020, LBL = 76, top = 24, rh = procs.length > 4 ? 48 : 56, gap = 20, T = Math.max(R.T, 1);
+      const cw = Math.min(64, Math.floor((W - LBL - 24) / T));
+      const H = top + procs.length * (rh + gap) + 44;
+      const x = (k) => LBL + k * cw;
+      let s = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="Plus Jakarta Sans, system-ui, sans-serif">`;
+      procs.forEach((p, i) => {
+        const y = top + i * (rh + gap);
+        s += `<text x="${LBL - 16}" y="${y + rh / 2 + 9}" text-anchor="end" font-size="26" font-weight="800" fill="${color(i)}">${nombre(i)}</text>`;
+        s += `<rect x="${x(0)}" y="${y}" width="${cw * T}" height="${rh}" fill="#FFFFFF" stroke="#D7DCE6" stroke-width="2"/>`;
+        for (let u = 0; u < paso && u < R.units.length; u++) {
+          const ev = R.units[u];
+          const activo = p.ll <= ev.t && (R.fin[i] === null || R.fin[i] > ev.t);
+          if (!activo) continue;
+          if (ev.ejecuta === i) s += `<rect x="${x(u) + 1}" y="${y + 1}" width="${cw - 2}" height="${rh - 2}" fill="${color(i)}"/>`;
+          else s += `<rect x="${x(u) + 1}" y="${y + 1}" width="${cw - 2}" height="${rh - 2}" fill="#E7EBF3"/><rect x="${x(u) + 7}" y="${y + rh / 2 - 3}" width="${cw - 14}" height="6" rx="3" fill="#B7C2D6"/>`;
+        }
+        if (p.ll < paso) s += flecha(x(p.ll), y, -1, color(i));  // la flecha aparece al dar el paso siguiente
+        for (let u = 0; u < paso && u < R.units.length; u++) {
+          const ev = R.units[u];
+          if (ev.requeue === i || (ev.expulsa && ev.expulsa.sale === i)) s += flecha(x(ev.t), y, 1, color(i));
+        }
+        if (R.fin[i] !== null && R.fin[i] <= paso) s += `<rect x="${x(R.fin[i]) - 3}" y="${y - 4}" width="6" height="${rh + 8}" rx="2" fill="${color(i)}"/>`;
+      });
+      const yAxis = top + procs.length * (rh + gap) + 4;
+      for (let k = 0; k <= T; k++) {
+        s += `<line x1="${x(k)}" y1="${top - 2}" x2="${x(k)}" y2="${yAxis + 6}" stroke="#D7DCE6" stroke-width="1"/>`;
+        s += `<text x="${x(k)}" y="${yAxis + 32}" text-anchor="middle" font-size="22" font-weight="600" fill="#485168" font-family="JetBrains Mono, Consolas, monospace">${k}</text>`;
+      }
+      s += `<line x1="${x(paso)}" y1="${top - 20}" x2="${x(paso)}" y2="${yAxis + 8}" stroke="#F4C20D" stroke-width="5" stroke-linecap="round"/>`;
+      s += '</svg>';
+      gantt.innerHTML = s;
+    }
+
+    function texto() {
+      if (paso === 0) {
+        return `Cronograma de <b>${SIM_NOMBRES[algo]}</b>${algo === 'rr' ? ` con quantum ${q}` : ''}. Pulsa <b>Siguiente paso</b> para avanzar una unidad de tiempo y ver quién llega, quién entra en la CPU y quién espera en la cola.`;
+      }
+      const ev = R.units[paso - 1];
+      const partes = [];
+      if (ev.llegan.length) partes.push(`${ev.llegan.length > 1 ? 'Llegan' : 'Llega'} ${lista(ev.llegan)} en t = ${ev.t} y ${ev.llegan.length > 1 ? 'se ponen' : 'se pone'} en la cola de listos.`);
+      if (ev.requeue !== null) partes.push(`${P(ev.requeue)} agota su quantum de ${q} y vuelve al final de la cola.`);
+      if (ev.expulsa) {
+        const e = ev.expulsa;
+        partes.push(`${P(e.entra)} expulsa a ${P(e.sale)}: ${algo === 'srtf' ? `le quedan ${e.kEntra} frente a ${e.kSale}` : `tiene prioridad ${e.kEntra} frente a ${e.kSale}`}.`);
+      }
+      if (ev.entra !== null) {
+        const i = ev.entra;
+        const solo = ev.colaAntes.length === 1;
+        const motivo = {
+          fifo: solo ? 'la cola solo lo tenía a él' : 'el primero que llegó de los que esperaban',
+          sjf: solo ? 'la cola solo lo tenía a él' : `el de menor tiempo de ejecución (${procs[i].ej})`,
+          srtf: solo ? 'la cola solo lo tenía a él' : `el que menos tiempo tiene pendiente (${ev.claveEntra})`,
+          pne: solo ? 'la cola solo lo tenía a él' : `el de mayor prioridad (${procs[i].pr})`,
+          pe: solo ? 'la cola solo lo tenía a él' : `el de mayor prioridad (${procs[i].pr})`,
+          rr: solo ? 'la cola solo lo tenía a él' : 'el primero de la cola',
+        }[algo];
+        partes.push(`${ev.expulsa ? 'Entra' : 'La CPU está libre: entra'} ${P(i)}, ${motivo}${algo === 'rr' ? `, con un quantum de ${q}` : ''}.`);
+      } else if (ev.llegan.length && ev.ejecuta !== null) {
+        const noExp = algo === 'fifo' || algo === 'sjf' || algo === 'pne';
+        partes.push(`La CPU está ocupada por ${P(ev.ejecuta)}${noExp ? ', que no se expulsa' : ''}: ${lista(ev.llegan)} ${ev.llegan.length > 1 ? 'esperan' : 'espera'}.`);
+      }
+      if (ev.ocioso) partes.push(`No hay ningún proceso listo entre t = ${ev.t} y t = ${ev.t + 1}: la CPU queda libre.`);
+      else partes.push(`Entre t = ${ev.t} y t = ${ev.t + 1} se ejecuta ${P(ev.ejecuta)}${ev.quedan ? ` (le quedan ${ev.quedan})` : ''}.`);
+      ev.fin.forEach((i) => partes.push(`${P(i)} termina en t = ${R.fin[i]}: respuesta = ${R.fin[i]} − ${procs[i].ll} = <b>${R.resp[i]}</b>; espera = ${R.resp[i]} − ${procs[i].ej} = <b>${R.esp[i]}</b>.`));
+      if (paso >= R.T) partes.push(`<b>Fin.</b> Tiempo medio de espera <b>${coma(R.mediaEsp)}</b> y de respuesta <b>${coma(R.mediaResp)}</b>.`);
+      return partes.join(' ');
+    }
+
+    function pinta() {
+      tEl.textContent = paso;
+      pintaGantt();
+      const ev = paso > 0 ? R.units[paso - 1] : null;
+      chips(zonas.cola, ev ? ev.cola : []);
+      chips(zonas.cpu, ev && ev.ejecuta !== null && !ev.fin.includes(ev.ejecuta) ? [ev.ejecuta] : []);
+      chips(zonas.fin, procs.map((p, i) => i).filter((i) => R.fin[i] !== null && R.fin[i] <= paso));
+      msg.innerHTML = texto();
+      botones.ant.disabled = paso === 0; botones.ini.disabled = paso === 0;
+      botones.sig.disabled = paso >= R.T; botones.fin.disabled = paso >= R.T;
+      pintaSalida();
+    }
+    function recalcula() { R = simulaPlan(procs, algo, q); paso = 0; pinta(); }
+
+    procs = iniciales.map(([ll, ej, pr], i) => ({ ll: ll || 0, ej: ej || 1, pr: pr || i + 1 }));
+    pintaEntrada();
+    recalcula();
+  }
+
   /* ---------- numeración ---------- */
   function numera(stage) {
     const secs = [...stage.querySelectorAll(':scope > section')];
@@ -1185,6 +1427,7 @@
     if (!stage) return;
     numera(stage);
     document.querySelectorAll('.ej[data-tipo]').forEach(montaEjercicio);
+    document.querySelectorAll('.sim').forEach(montaSimulador);
     document.querySelectorAll('.quiz').forEach(montaQuiz);
     document.querySelectorAll('.revela').forEach(montaRevela);
     document.querySelectorAll('.galeria').forEach(montaGaleria);

@@ -855,3 +855,82 @@ deck-stage section:has(> .ej) { grid-template-rows: minmax(0, 1fr); }
   .letra .w:not(.hl), .letra .w.hl .ch .f { background-image: none; background-color: var(--letra-on); }
   .letra .w.hl .ch::before { display: none; }
 }
+
+/* ---------- Simulador visual de planificación de procesos (.sim y .sim-entrada) ---------- */
+.sim {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 30px 36px 32px;
+  box-shadow: 0 2px 0 var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+deck-stage section:has(> .sim) { grid-template-rows: minmax(0, 1fr); }
+.sim-cab { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.sim-t { font: 700 30px/1 var(--mono); color: var(--muted); letter-spacing: .02em; }
+.sim-t b { font-size: 44px; color: var(--navy); font-weight: 700; }
+.sim-acciones { display: flex; gap: 12px; flex-wrap: wrap; }
+.sim .btn { padding: 14px 26px; font-size: 22px; border-radius: 12px; }
+.sim .btn:disabled { opacity: .45; cursor: default; transform: none; }
+.sim .btn-primary:disabled:hover { background: var(--blue); }
+.sim-gantt svg { display: block; width: 100%; height: auto; }
+.sim-leyenda { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 19px; color: var(--muted); align-items: center; }
+.sim-leyenda span { display: inline-flex; align-items: center; gap: 8px; }
+.sim-leyenda i { display: inline-block; width: 28px; height: 18px; border-radius: 4px; }
+.sim-leyenda i.run { background: var(--blue); }
+.sim-leyenda i.wait { background: #E7EBF3; position: relative; }
+.sim-leyenda i.wait::after { content: ''; position: absolute; left: 5px; right: 5px; top: 6px; height: 6px; border-radius: 3px; background: #B7C2D6; }
+.sim-leyenda i.fin { width: 6px; height: 22px; background: var(--blue); border-radius: 2px; }
+.sim-leyenda i.ahora { width: 6px; height: 22px; background: var(--yellow); border-radius: 3px; }
+.sim-estado { display: grid; grid-template-columns: 1.7fr .8fr 1.3fr; gap: 16px; }
+.sim-estado > div { background: var(--bg); border-radius: 16px; padding: 12px 18px 14px; }
+.sim-estado .lbl { display: block; font-size: 17px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.sim-chips { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; min-height: 44px; align-items: center; }
+.sim-chip { padding: 7px 18px; border-radius: 999px; color: var(--white); font: 700 22px/1.2 'Plus Jakarta Sans', system-ui, sans-serif; }
+.sim-chip.vacio { color: var(--muted); background: transparent; border: 2px dashed var(--line); font-weight: 600; }
+.sim-msg {
+  font-size: 24px;
+  line-height: 1.45;
+  color: var(--ink);
+  background: #FFF6D1;
+  border-left: 8px solid var(--yellow);
+  border-radius: 12px;
+  padding: 16px 22px;
+  min-height: 118px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.sim-msg b { font-weight: 800; }
+.sim-entrada { margin-top: 18px; display: flex; flex-direction: column; gap: 12px; }
+.sim-entrada.cinco .sim-in td { height: 40px; padding: 3px 8px; }
+.sim-entrada.cinco .sim-out td { height: 31px; font-size: 21px; }
+.sim-entrada.cinco .sim-tabla input { font-size: 22px; padding: 3px 4px; }
+.sim-entrada.cinco .sim-tabla th { padding: 8px 8px; }
+.sim-tabla { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 24px; background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: 0 2px 0 var(--line); }
+.sim-tabla th { background: var(--navy); color: var(--white); font-size: 17px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; padding: 11px 8px; text-align: center; }
+.sim-tabla td { padding: 6px 8px; text-align: center; border-top: 1px solid var(--line); font-family: var(--mono); font-weight: 600; color: var(--navy); height: 42px; }
+.sim-tabla td.nombre { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 800; }
+.sim-tabla input { width: 92px; font: 600 24px/1 var(--mono); text-align: center; border: 3px solid var(--line); border-radius: 10px; padding: 3px 4px; color: var(--navy); background: var(--white); -moz-appearance: textfield; }
+.sim-tabla input::-webkit-outer-spin-button, .sim-tabla input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.sim-tabla input:focus { outline: 0; border-color: var(--sky); box-shadow: 0 0 0 4px rgba(79,138,224,.2); }
+.sim-tabla tr.hecho td { background: #E8F6EE; }
+.sim-tabla tr.medias td { font-weight: 700; background: #FFF6D1; }
+.sim-tabla tr.medias td:first-child { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-weight: 800; }
+.sim-out td { height: 34px; padding: 3px 8px; }
+.sim-botones { display: flex; flex-wrap: wrap; gap: 10px; }
+.sim-botones button {
+  font: 700 18px/1 'Plus Jakarta Sans', system-ui, sans-serif;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 2px solid var(--line);
+  background: var(--white);
+  color: var(--navy);
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+.sim-botones button:hover { border-color: var(--sky); }

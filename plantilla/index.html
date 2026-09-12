@@ -376,6 +376,75 @@ sda    500G disk
   <div class="ej" data-tipo="restac2" data-bits="8"></div>
 </section>
 
+<!-- 12h Simulador visual de planificación (paso a paso). A la izquierda los datos de entrada y la
+     tabla de tiempos; a la derecha el cronograma, la cola de listos, la CPU y la explicación de cada
+     instante. data-algo: fifo | sjf | srtf | pne | pe | rr (con data-q). data-procesos fija los datos
+     iniciales como llegada/ejecución[/prioridad] separados por comas. -->
+<section data-label="Simulador: planificación FIFO" data-seccion="3.3" data-notas="Simulador paso a paso del algoritmo FIFO. Pulsar Siguiente paso una unidad de tiempo cada vez y comentar quién llega, quién entra en la CPU y quién espera. Se pueden cambiar los datos de entrada y pulsar Al azar para otro caso." style="display:grid;grid-template-columns:540px minmax(0,1fr);gap:56px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <div style="min-height:0">
+    <span class="pill">Simulador</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:16px;color:var(--navy);text-wrap:balance">Planificación FIFO</h2>
+    <p style="font-size:var(--type-caption);line-height:1.4;margin-top:12px;color:var(--muted)">Cambia llegada y ejecución y avanza el tiempo paso a paso. Respuesta = fin − llegada; espera = respuesta − ejecución.</p>
+    <div class="sim-entrada"></div>
+  </div>
+  <div class="sim" data-algo="fifo"></div>
+</section>
+
+<!-- 12i Simulador con un algoritmo expulsivo (SRTF): mismo componente, data-algo="srtf". -->
+<section data-label="Simulador: planificación SRTF" data-seccion="3.3" data-notas="Simulador paso a paso del algoritmo SRTF (expulsivo). Fijarse en las expulsiones: cuando llega un proceso con menos tiempo pendiente que el que está en la CPU, lo desaloja y sale por la esquina con una flecha. Empate: sigue el que está." style="display:grid;grid-template-columns:540px minmax(0,1fr);gap:56px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <div style="min-height:0">
+    <span class="pill">Simulador</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:16px;color:var(--navy);text-wrap:balance">Planificación SRTF</h2>
+    <p style="font-size:var(--type-caption);line-height:1.4;margin-top:12px;color:var(--muted)">Expulsivo: entra siempre el que menos tiempo tiene pendiente, aunque haya que desalojar al que está en la CPU. Si empatan, sigue el que está.</p>
+    <div class="sim-entrada"></div>
+  </div>
+  <div class="sim" data-algo="srtf"></div>
+</section>
+
+<!-- 12j Simulador: SJF. -->
+<section data-label="Simulador: planificación SJF" data-seccion="3.3" data-notas="Simulador paso a paso de SJF. Fijarse en que no expulsa: aunque llegue uno más corto, el que está en la CPU termina." style="display:grid;grid-template-columns:540px minmax(0,1fr);gap:56px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <div style="min-height:0">
+    <span class="pill">Simulador</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:16px;color:var(--navy);text-wrap:balance">Planificación SJF</h2>
+    <p style="font-size:var(--type-caption);line-height:1.4;margin-top:12px;color:var(--muted)">No expulsivo: cuando la CPU queda libre entra el proceso de menor tiempo de ejecución de los que esperan. Si empatan, el que llegó antes.</p>
+    <div class="sim-entrada"></div>
+  </div>
+  <div class="sim" data-algo="sjf"></div>
+</section>
+
+<!-- 12k Simulador: prioridades no expulsivo. -->
+<section data-label="Simulador: planificación prioridades no expulsivo" data-seccion="3.3" data-notas="Simulador paso a paso de prioridades no expulsivo. La columna Prioridad se puede editar; 1 es la más alta." style="display:grid;grid-template-columns:540px minmax(0,1fr);gap:56px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <div style="min-height:0">
+    <span class="pill">Simulador</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:16px;color:var(--navy);text-wrap:balance">Prioridades no expulsivo</h2>
+    <p style="font-size:var(--type-caption);line-height:1.4;margin-top:12px;color:var(--muted)">La prioridad 1 es la más alta. Cuando la CPU queda libre entra el de mayor prioridad de los que esperan; si empatan, el que llegó antes.</p>
+    <div class="sim-entrada"></div>
+  </div>
+  <div class="sim" data-algo="pne"></div>
+</section>
+
+<!-- 12l Simulador: prioridades expulsivo. -->
+<section data-label="Simulador: planificación prioridades expulsivo" data-seccion="3.3" data-notas="Simulador paso a paso de prioridades expulsivo. Cada expulsión se ve con la flecha de salida." style="display:grid;grid-template-columns:540px minmax(0,1fr);gap:56px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <div style="min-height:0">
+    <span class="pill">Simulador</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:16px;color:var(--navy);text-wrap:balance">Prioridades expulsivo</h2>
+    <p style="font-size:var(--type-caption);line-height:1.4;margin-top:12px;color:var(--muted)">La prioridad 1 es la más alta. Si llega un proceso más prioritario que el que está en la CPU, lo desaloja. Si empatan, sigue el que está.</p>
+    <div class="sim-entrada"></div>
+  </div>
+  <div class="sim" data-algo="pe"></div>
+</section>
+
+<!-- 12m Simulador: Round Robin. -->
+<section data-label="Simulador: planificación Round Robin" data-seccion="3.3" data-notas="Simulador paso a paso de Round Robin con q = 2 (data-q). Comentar por qué el que agota el quantum se pone detrás del que acaba de llegar." style="display:grid;grid-template-columns:540px minmax(0,1fr);gap:56px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <div style="min-height:0">
+    <span class="pill">Simulador</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:16px;color:var(--navy);text-wrap:balance">Round Robin, quantum 2</h2>
+    <p style="font-size:var(--type-caption);line-height:1.4;margin-top:12px;color:var(--muted)">Expulsivo: cada proceso usa la CPU como mucho un quantum y vuelve al final de la cola. Si en el mismo instante llega uno y otro agota su quantum, entra antes en la cola el que llega.</p>
+    <div class="sim-entrada"></div>
+  </div>
+  <div class="sim" data-algo="rr" data-q="2"></div>
+</section>
+
 <!-- 13 Cifra -->
 <section data-label="Cifra destacada" data-seccion="3.6" data-deck-id="configuracion" data-deck-section="3.6" data-notas="Dato destacado en grande." style="display:grid;grid-template-columns:1fr 1fr;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center;gap:120px">
   <div>
