@@ -23,6 +23,9 @@
  *  6. Simulador visual de planificación de procesos, paso a paso:
  *       <div class="sim-entrada"></div> (datos) y <div class="sim" data-algo="fifo"></div> (cronograma)
  *     en la misma diapositiva. Algoritmos: fifo, sjf, srtf, pne, pe, rr (data-q). SOM.simulaPlan expone el motor.
+ *  7. Notas del profesor: cada sección lleva un <aside class="notas">…</aside> como primer hijo
+ *     (HTML, oculto por CSS). La tecla N abre assets/notas.html en una ventana aparte con las
+ *     notas de la diapositiva actual; se actualiza al cambiar de diapositiva.
  */
 (function () {
   'use strict';
@@ -1684,6 +1687,69 @@
     recalcula();
   }
 
+  /* ---------- notas del profesor (tecla N) ----------
+   * La ventana assets/notas.html se abre con window.open y habla con esta página por postMessage:
+   *   ventana -> deck   {som:'hola'}            pide el estado (al abrir y cada segundo, por si el deck se recarga)
+   *                     {som:'ir', index}       salta a una diapositiva
+   *   deck -> ventana   {som:'estado', ...}     deck, título, índice actual y lista de diapositivas con sus notas
+   *                     {som:'diapo', index}    ha cambiado la diapositiva actual
+   */
+  const URL_NOTAS = (document.currentScript && document.currentScript.src || '../assets/som.js').replace(/som\.js.*$/, 'notas.html');
+  let ventanaNotas = null;
+
+  function idDeck() {
+    // /ut01/, /ut01/index.html o /ut01/otra.html -> 'ut01'
+    return location.pathname.replace(/\/[^/]*\.html?$/, '').replace(/\/$/, '').split('/').pop() || 'deck';
+  }
+
+  function estadoNotas(stage) {
+    const secs = [...stage.querySelectorAll(':scope > section')];
+    return {
+      som: 'estado',
+      deck: idDeck(),
+      titulo: document.title,
+      index: stage.index || 0,
+      diapos: secs.map((s, i) => {
+        const aside = s.querySelector(':scope > aside.notas');
+        return {
+          n: i + 1,
+          label: s.dataset.label || ('Diapositiva ' + (i + 1)),
+          seccion: s.dataset.seccion || '',
+          criterio: s.dataset.criterio || '',
+          notas: aside ? aside.innerHTML.trim() : '',
+        };
+      }),
+    };
+  }
+
+  function enviaNotas(msg) {
+    if (!ventanaNotas || ventanaNotas.closed) return;
+    try { ventanaNotas.postMessage(msg, '*'); } catch (e) {}
+  }
+
+  function abreNotas() {
+    if (ventanaNotas && !ventanaNotas.closed) { ventanaNotas.focus(); return; }
+    ventanaNotas = window.open(URL_NOTAS, 'som-notas', 'popup,width=980,height=760');
+  }
+
+  function montaNotas(stage) {
+    window.addEventListener('keydown', (e) => {
+      if ((e.key !== 'n' && e.key !== 'N') || e.ctrlKey || e.metaKey || e.altKey) return;
+      const t = e.composedPath ? e.composedPath()[0] : e.target;
+      if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+      e.preventDefault();
+      abreNotas();
+    });
+    window.addEventListener('message', (e) => {
+      const d = e.data;
+      if (!d || typeof d !== 'object' || !d.som) return;
+      if (d.som === 'hola') { ventanaNotas = e.source; enviaNotas(estadoNotas(stage)); }
+      else if (d.som === 'ir' && typeof d.index === 'number') stage.goTo(d.index);
+    });
+    stage.addEventListener('slidechange', (e) => enviaNotas({ som: 'diapo', index: e.detail.index }));
+  }
+  SOM.abreNotas = abreNotas;
+
   /* ---------- numeración ---------- */
   function numera(stage) {
     const secs = [...stage.querySelectorAll(':scope > section')];
@@ -1709,6 +1775,7 @@
     document.querySelectorAll('.foto').forEach(montaFoto);
     document.querySelectorAll('deck-stage > section').forEach(montaMarcas);
     document.querySelectorAll('.letra').forEach(montaLetra);
+    montaNotas(stage);
     stage.addEventListener('slidechange', (e) => { apagaLetras(e.detail.previousSlide); enciendeLetras(e.detail.slide); });
     // el slidechange inicial se dispara antes de que este script escuche: se enciende la actual a mano
     customElements.whenDefined('deck-stage').then(() => { const secs = stage.querySelectorAll(':scope > section'); enciendeLetras(secs[stage.index || 0]); });

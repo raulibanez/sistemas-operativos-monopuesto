@@ -62,6 +62,10 @@ deck-stage section h3,
 deck-stage section ul,
 deck-stage section ol { margin: 0; }
 
+/* Notas del profesor: <aside class="notas"> como primer hijo de cada sección.
+   No se ven en la diapositiva; las muestra la ventana de notas (tecla N, som.js). */
+deck-stage section > aside.notas { display: none; }
+
 /* Numeración de diapositivas (la añade som.js) */
 [data-slide-num] {
   position: absolute;

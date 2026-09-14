@@ -12,7 +12,8 @@
 <deck-stage width="1920" height="1080">
 
 <!-- 01 Portada de módulo -->
-<section class="dark" data-label="Portada módulo" data-notas="Plantilla de portada del módulo. Sustituir ciclo, módulo y curso." style="background:var(--navy);color:var(--white);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:0;overflow:hidden">
+<section class="dark" data-label="Portada módulo" style="background:var(--navy);color:var(--white);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:0;overflow:hidden">
+  <aside class="notas">Plantilla de portada del módulo. Sustituir ciclo, módulo y curso.</aside>
   <div style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column;justify-content:space-between">
     <div style="display:flex;align-items:center;gap:20px">
       <span style="width:16px;height:16px;border-radius:50%;background:var(--yellow);display:block"></span>
@@ -32,7 +33,8 @@
 </section>
 
 <!-- 02 Portada de unidad -->
-<section class="dark" data-label="Portada unidad" data-notas="Separador de unidad de trabajo." style="background:var(--navy);color:var(--white);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);position:relative;overflow:hidden">
+<section class="dark" data-label="Portada unidad" style="background:var(--navy);color:var(--white);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);position:relative;overflow:hidden">
+  <aside class="notas">Separador de unidad de trabajo.</aside>
   <div style="position:absolute;right:-120px;top:-160px;width:760px;height:760px;border-radius:50%;background:var(--blue);opacity:.45"></div>
   <div style="position:absolute;right:220px;bottom:-300px;width:560px;height:560px;border-radius:50%;background:var(--sky);opacity:.25"></div>
   <p style="position:relative;font-size:180px;font-weight:800;line-height:1;color:var(--yellow);letter-spacing:-.04em">UT 3</p>
@@ -48,7 +50,8 @@
      data-deck-id="<id>" (identificador corto y estable, nunca el número de diapositiva) y
      data-deck-section="3.x" (pastilla en el carril de miniaturas). Las prácticas llevan la
      pastilla <span class="pill-mini">Práctica</span> delante del texto. Cada entrada debe caber en una línea. -->
-<section data-label="Índice" data-notas="Índice de contenidos de la unidad. Cada entrada salta a su sección." style="display:grid;grid-template-columns:1fr 1.4fr;gap:120px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+<section data-label="Índice" style="display:grid;grid-template-columns:1fr 1.4fr;gap:120px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <aside class="notas">Índice de contenidos de la unidad. Cada entrada salta a su sección.</aside>
   <div>
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Unidad 3</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Contenidos de la unidad</h2>
@@ -65,7 +68,8 @@
 </section>
 
 <!-- 04 Objetivos -->
-<section data-label="Objetivos" data-notas="Resultados de aprendizaje de la unidad." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+<section data-label="Objetivos" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <aside class="notas">Resultados de aprendizaje de la unidad.</aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Resultados de aprendizaje</p>
   <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Objetivos de la unidad</h2>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:var(--gap-title)">
@@ -90,7 +94,8 @@
 <!-- 05 Texto + imagen. Toda diapositiva de contenido lleva data-seccion="3.x" (pastilla con el
      número arriba a la derecha, la pinta som.css); el rótulo pequeño lleva solo el nombre del
      bloque, sin número. La primera diapositiva de cada sección añade data-deck-id y data-deck-section. -->
-<section data-label="Requisitos" data-seccion="3.1" data-deck-id="requisitos" data-deck-section="3.1" data-notas="Plantilla estándar de contenido con imagen a la derecha." style="display:grid;grid-template-columns:1fr 760px;gap:100px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+<section data-label="Requisitos" data-seccion="3.1" data-deck-id="requisitos" data-deck-section="3.1" style="display:grid;grid-template-columns:1fr 760px;gap:100px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <aside class="notas">Plantilla estándar de contenido con imagen a la derecha.</aside>
   <div style="display:flex;flex-direction:column">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Requisitos hardware</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Funciones del sistema operativo</h2>
@@ -108,7 +113,8 @@
 </section>
 
 <!-- 06 Definición -->
-<section class="dark" data-label="Definición" data-seccion="3.3" data-deck-id="particionado" data-deck-section="3.3" data-notas="Concepto clave en grande." style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1fr;gap:120px;align-items:center">
+<section class="dark" data-label="Definición" data-seccion="3.3" data-deck-id="particionado" data-deck-section="3.3" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1fr;gap:120px;align-items:center">
+  <aside class="notas">Concepto clave en grande.</aside>
   <div>
     <p style="font-size:var(--type-small);font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">Concepto clave</p>
     <h2 style="font-size:var(--type-hero);font-weight:800;line-height:1.02;margin-top:24px;letter-spacing:-.02em">Partición</h2>
@@ -120,7 +126,8 @@
 </section>
 
 <!-- 07 Pasos -->
-<section data-label="Pasos" data-seccion="3.4" data-deck-id="instalacion" data-deck-section="3.4" data-notas="Procedimiento en pasos numerados." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+<section data-label="Pasos" data-seccion="3.4" data-deck-id="instalacion" data-deck-section="3.4" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <aside class="notas">Procedimiento en pasos numerados.</aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Proceso de instalación</p>
   <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Proceso de instalación limpia</h2>
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:var(--gap-title)">
@@ -148,7 +155,8 @@
 </section>
 
 <!-- 08 Tabla -->
-<section data-label="Tabla" data-seccion="3.3" data-notas="Plantilla de tabla comparativa." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+<section data-label="Tabla" data-seccion="3.3" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <aside class="notas">Plantilla de tabla comparativa.</aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Particionado del disco</p>
   <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Sistemas de archivos</h2>
   <table style="width:100%;border-collapse:collapse;margin-top:var(--gap-title);font-size:var(--type-small);background:var(--white);border-radius:20px;overflow:hidden">
@@ -171,7 +179,8 @@
 </section>
 
 <!-- 09 Comparativa -->
-<section data-label="Comparativa" data-seccion="3.4" data-notas="Dos columnas enfrentadas." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+<section data-label="Comparativa" data-seccion="3.4" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <aside class="notas">Dos columnas enfrentadas.</aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Proceso de instalación</p>
   <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Instalación limpia frente a actualización</h2>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:var(--gap-title);flex:1">
@@ -195,7 +204,8 @@
 </section>
 
 <!-- 10 Código -->
-<section class="dark" data-label="Código" data-seccion="3.3" data-notas="Snippet de terminal con explicación." style="background:var(--navy);color:var(--white);display:grid;grid-template-columns:1fr 1.25fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+<section class="dark" data-label="Código" data-seccion="3.3" style="background:var(--navy);color:var(--white);display:grid;grid-template-columns:1fr 1.25fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <aside class="notas">Snippet de terminal con explicación.</aside>
   <div>
     <p style="font-size:var(--type-small);font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">Particionado del disco</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;text-wrap:balance">Gestión de particiones desde terminal</h2>
@@ -219,7 +229,8 @@ sda    500G disk
 </section>
 
 <!-- 11 Imagen completa -->
-<section data-label="Imagen completa" data-seccion="3.4" data-notas="Imagen a sangre con título en placa." style="position:relative;padding:0;overflow:hidden;background:var(--navy)">
+<section data-label="Imagen completa" data-seccion="3.4" style="position:relative;padding:0;overflow:hidden;background:var(--navy)">
+  <aside class="notas">Imagen a sangre con título en placa.</aside>
   <div style="position:absolute;inset:0"><div class="img-slot rect">Imagen a pantalla completa</div></div>
   <div style="position:absolute;left:var(--pad-x);bottom:var(--pad-bottom);background:var(--navy);color:var(--white);padding:40px 56px;border-radius:20px;max-width:1000px;pointer-events:none">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">Figura 3.4</p>
@@ -228,7 +239,8 @@ sda    500G disk
 </section>
 
 <!-- 12 Dos imágenes -->
-<section data-label="Dos imágenes" data-seccion="3.2" data-deck-id="medios" data-deck-section="3.2" data-notas="Dos figuras con pie." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+<section data-label="Dos imágenes" data-seccion="3.2" data-deck-id="medios" data-deck-section="3.2" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <aside class="notas">Dos figuras con pie.</aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Medios de instalación</p>
   <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Tipos de arranque</h2>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:var(--gap-title);flex:1;min-height:0">
@@ -244,7 +256,8 @@ sda    500G disk
 </section>
 
 <!-- 12b Vídeo -->
-<section data-label="Vídeo" data-seccion="3.4" data-notas="Vídeo embebido. Sustituir la URL del iframe." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:minmax(0,1fr) 560px;gap:80px">
+<section data-label="Vídeo" data-seccion="3.4" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:minmax(0,1fr) 560px;gap:80px">
+  <aside class="notas">Vídeo embebido. Sustituir la URL del iframe.</aside>
   <div style="display:flex;flex-direction:column;gap:20px;min-width:0">
     <div style="flex:1;background:#0B1F44;border-radius:20px;overflow:hidden;position:relative">
       <iframe src="https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ" title="Vídeo de la unidad" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true" style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
@@ -264,7 +277,8 @@ sda    500G disk
 
 
 <!-- 12c Quiz -->
-<section class="dark" data-label="Quiz" data-seccion="3.4" data-notas="Pregunta interactiva. Pulsar una opción muestra la corrección." style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
+<section class="dark" data-label="Quiz" data-seccion="3.4" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
+  <aside class="notas">Pregunta interactiva. Pulsar una opción muestra la corrección.</aside>
   <div class="quiz" data-correct="1" data-ok="Correcto. FAT32 no admite archivos de más de 4 GB." data-ko="Incorrecto. Revisa la tabla de sistemas de archivos." style="display:contents">
     <div>
       <span class="pill">Comprueba lo aprendido</span>
@@ -282,7 +296,8 @@ sda    500G disk
 </section>
 
 <!-- 12h Pregunta a la clase (texto) -->
-<section data-label="Pregunta a la clase" data-seccion="3.1" data-notas="Lanzar la pregunta, dejar que respondan y revelar las ideas del profesor." style="display:grid;grid-template-columns:1fr 1.1fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
+<section data-label="Pregunta a la clase" data-seccion="3.1" style="display:grid;grid-template-columns:1fr 1.1fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
+  <aside class="notas">Lanzar la pregunta, dejar que respondan y revelar las ideas del profesor.</aside>
   <div>
     <img class="icono" src="../assets/question.png" alt="">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-top:var(--gap-item)">Pregunta a la clase</p>
@@ -304,7 +319,8 @@ sda    500G disk
 </section>
 
 <!-- 12i Pregunta a la clase (imagen) -->
-<section data-label="Pregunta a la clase (imagen)" data-seccion="3.1" data-notas="Variante con una imagen como respuesta." style="display:flex;flex-direction:column;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);gap:var(--gap-title)">
+<section data-label="Pregunta a la clase (imagen)" data-seccion="3.1" style="display:flex;flex-direction:column;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);gap:var(--gap-title)">
+  <aside class="notas">Variante con una imagen como respuesta.</aside>
   <div style="display:flex;align-items:center;gap:40px">
     <img class="icono" src="../assets/question.png" alt="" style="flex:none;width:120px;height:120px">
     <div>
@@ -325,7 +341,8 @@ sda    500G disk
 </section>
 
 <!-- 12d Ejercicio generado: decimal a binario -->
-<section data-label="Practica: decimal a binario" data-seccion="3.3" data-notas="Ejercicio con números al azar. El alumno responde y comprueba." style="display:grid;grid-template-columns:1fr 1.3fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+<section data-label="Practica: decimal a binario" data-seccion="3.3" style="display:grid;grid-template-columns:1fr 1.3fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <aside class="notas">Ejercicio con números al azar. El alumno responde y comprueba.</aside>
   <div>
     <span class="pill">Ejercicio interactivo</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">De decimal a binario</h2>
@@ -336,7 +353,8 @@ sda    500G disk
 </section>
 
 <!-- 12e Ejercicio generado: binario a decimal -->
-<section data-label="Practica: binario a decimal" data-seccion="3.3" data-notas="Ejercicio con números al azar." style="display:grid;grid-template-columns:1fr 1.3fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+<section data-label="Practica: binario a decimal" data-seccion="3.3" style="display:grid;grid-template-columns:1fr 1.3fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <aside class="notas">Ejercicio con números al azar.</aside>
   <div>
     <span class="pill">Ejercicio interactivo</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">De binario a decimal</h2>
@@ -346,7 +364,8 @@ sda    500G disk
 </section>
 
 <!-- 12f Ejercicio generado: suma binaria -->
-<section data-label="Practica: suma binaria" data-seccion="3.3" data-notas="Ejercicio con números al azar." style="display:grid;grid-template-columns:1fr 1.3fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+<section data-label="Practica: suma binaria" data-seccion="3.3" style="display:grid;grid-template-columns:1fr 1.3fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <aside class="notas">Ejercicio con números al azar.</aside>
   <div>
     <span class="pill">Ejercicio interactivo</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Suma en binario</h2>
@@ -367,7 +386,8 @@ sda    500G disk
 </section>
 
 <!-- 12g Ejercicio generado: resta en complemento a 2 -->
-<section data-label="Practica: resta en C2" data-seccion="3.3" data-notas="Ejercicio con números al azar." style="display:grid;grid-template-columns:1fr 1.3fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+<section data-label="Practica: resta en C2" data-seccion="3.3" style="display:grid;grid-template-columns:1fr 1.3fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <aside class="notas">Ejercicio con números al azar.</aside>
   <div>
     <span class="pill">Ejercicio interactivo</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Resta en complemento a 2</h2>
@@ -380,7 +400,8 @@ sda    500G disk
      tabla de tiempos; a la derecha el cronograma, la cola de listos, la CPU y la explicación de cada
      instante. data-algo: fifo | sjf | srtf | pne | pe | rr (con data-q). data-procesos fija los datos
      iniciales como llegada/ejecución[/prioridad] separados por comas. -->
-<section data-label="Simulador: planificación FIFO" data-seccion="3.3" data-notas="Simulador paso a paso del algoritmo FIFO. Pulsar Siguiente paso una unidad de tiempo cada vez y comentar quién llega, quién entra en la CPU y quién espera. Se pueden cambiar los datos de entrada y pulsar Al azar para otro caso." style="display:grid;grid-template-columns:540px minmax(0,1fr);gap:56px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+<section data-label="Simulador: planificación FIFO" data-seccion="3.3" style="display:grid;grid-template-columns:540px minmax(0,1fr);gap:56px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <aside class="notas">Simulador paso a paso del algoritmo FIFO. Pulsar Siguiente paso una unidad de tiempo cada vez y comentar quién llega, quién entra en la CPU y quién espera. Se pueden cambiar los datos de entrada y pulsar Al azar para otro caso.</aside>
   <div style="min-height:0">
     <span class="pill">Simulador</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:16px;color:var(--navy);text-wrap:balance">Planificación FIFO</h2>
@@ -391,7 +412,8 @@ sda    500G disk
 </section>
 
 <!-- 12i Simulador con un algoritmo expulsivo (SRTF): mismo componente, data-algo="srtf". -->
-<section data-label="Simulador: planificación SRTF" data-seccion="3.3" data-notas="Simulador paso a paso del algoritmo SRTF (expulsivo). Fijarse en las expulsiones: cuando llega un proceso con menos tiempo pendiente que el que está en la CPU, lo desaloja y sale por la esquina con una flecha. Empate: sigue el que está." style="display:grid;grid-template-columns:540px minmax(0,1fr);gap:56px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+<section data-label="Simulador: planificación SRTF" data-seccion="3.3" style="display:grid;grid-template-columns:540px minmax(0,1fr);gap:56px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <aside class="notas">Simulador paso a paso del algoritmo SRTF (expulsivo). Fijarse en las expulsiones: cuando llega un proceso con menos tiempo pendiente que el que está en la CPU, lo desaloja y sale por la esquina con una flecha. Empate: sigue el que está.</aside>
   <div style="min-height:0">
     <span class="pill">Simulador</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:16px;color:var(--navy);text-wrap:balance">Planificación SRTF</h2>
@@ -402,7 +424,8 @@ sda    500G disk
 </section>
 
 <!-- 12j Simulador: SJF. -->
-<section data-label="Simulador: planificación SJF" data-seccion="3.3" data-notas="Simulador paso a paso de SJF. Fijarse en que no expulsa: aunque llegue uno más corto, el que está en la CPU termina." style="display:grid;grid-template-columns:540px minmax(0,1fr);gap:56px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+<section data-label="Simulador: planificación SJF" data-seccion="3.3" style="display:grid;grid-template-columns:540px minmax(0,1fr);gap:56px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <aside class="notas">Simulador paso a paso de SJF. Fijarse en que no expulsa: aunque llegue uno más corto, el que está en la CPU termina.</aside>
   <div style="min-height:0">
     <span class="pill">Simulador</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:16px;color:var(--navy);text-wrap:balance">Planificación SJF</h2>
@@ -413,7 +436,8 @@ sda    500G disk
 </section>
 
 <!-- 12k Simulador: prioridades no expulsivo. -->
-<section data-label="Simulador: planificación prioridades no expulsivo" data-seccion="3.3" data-notas="Simulador paso a paso de prioridades no expulsivo. La columna Prioridad se puede editar; 1 es la más alta." style="display:grid;grid-template-columns:540px minmax(0,1fr);gap:56px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+<section data-label="Simulador: planificación prioridades no expulsivo" data-seccion="3.3" style="display:grid;grid-template-columns:540px minmax(0,1fr);gap:56px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <aside class="notas">Simulador paso a paso de prioridades no expulsivo. La columna Prioridad se puede editar; 1 es la más alta.</aside>
   <div style="min-height:0">
     <span class="pill">Simulador</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:16px;color:var(--navy);text-wrap:balance">Prioridades no expulsivo</h2>
@@ -424,7 +448,8 @@ sda    500G disk
 </section>
 
 <!-- 12l Simulador: prioridades expulsivo. -->
-<section data-label="Simulador: planificación prioridades expulsivo" data-seccion="3.3" data-notas="Simulador paso a paso de prioridades expulsivo. Cada expulsión se ve con la flecha de salida." style="display:grid;grid-template-columns:540px minmax(0,1fr);gap:56px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+<section data-label="Simulador: planificación prioridades expulsivo" data-seccion="3.3" style="display:grid;grid-template-columns:540px minmax(0,1fr);gap:56px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <aside class="notas">Simulador paso a paso de prioridades expulsivo. Cada expulsión se ve con la flecha de salida.</aside>
   <div style="min-height:0">
     <span class="pill">Simulador</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:16px;color:var(--navy);text-wrap:balance">Prioridades expulsivo</h2>
@@ -435,7 +460,8 @@ sda    500G disk
 </section>
 
 <!-- 12m Simulador: Round Robin. -->
-<section data-label="Simulador: planificación Round Robin" data-seccion="3.3" data-notas="Simulador paso a paso de Round Robin con q = 2 (data-q). Comentar por qué el que agota el quantum se pone detrás del que acaba de llegar." style="display:grid;grid-template-columns:540px minmax(0,1fr);gap:56px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+<section data-label="Simulador: planificación Round Robin" data-seccion="3.3" style="display:grid;grid-template-columns:540px minmax(0,1fr);gap:56px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <aside class="notas">Simulador paso a paso de Round Robin con q = 2 (data-q). Comentar por qué el que agota el quantum se pone detrás del que acaba de llegar.</aside>
   <div style="min-height:0">
     <span class="pill">Simulador</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:16px;color:var(--navy);text-wrap:balance">Round Robin, quantum 2</h2>
@@ -446,7 +472,8 @@ sda    500G disk
 </section>
 
 <!-- 13 Cifra -->
-<section data-label="Cifra destacada" data-seccion="3.6" data-deck-id="configuracion" data-deck-section="3.6" data-notas="Dato destacado en grande." style="display:grid;grid-template-columns:1fr 1fr;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center;gap:120px">
+<section data-label="Cifra destacada" data-seccion="3.6" data-deck-id="configuracion" data-deck-section="3.6" style="display:grid;grid-template-columns:1fr 1fr;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center;gap:120px">
+  <aside class="notas">Dato destacado en grande.</aside>
   <div>
     <p style="font-size:220px;font-weight:800;line-height:1;color:var(--blue);letter-spacing:-.04em">64<span style="font-size:var(--type-title);color:var(--navy);margin-left:16px">GB</span></p>
     <p style="font-size:var(--type-subtitle);font-weight:700;color:var(--navy);margin-top:16px">Espacio mínimo en disco</p>
@@ -461,7 +488,8 @@ sda    500G disk
 </section>
 
 <!-- 14 Cita / normativa -->
-<section class="dark" data-label="Cita" data-seccion="3.6" data-notas="Cita o referencia normativa." style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column;justify-content:center">
+<section class="dark" data-label="Cita" data-seccion="3.6" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column;justify-content:center">
+  <aside class="notas">Cita o referencia normativa.</aside>
   <span style="font-size:200px;line-height:.6;color:var(--yellow);font-weight:800">“</span>
   <p style="font-size:var(--type-subtitle);font-weight:600;line-height:1.35;max-width:1500px;margin-top:40px;text-wrap:pretty">La instalación y configuración de sistemas operativos monopuesto se realizará atendiendo a la documentación técnica y a los requisitos del equipo.</p>
   <p style="font-size:var(--type-small);color:#D4E1F7;margin-top:var(--gap-title)">Real Decreto 1691/2007 · Currículo del título de Técnico en Sistemas Microinformáticos y Redes</p>
@@ -469,7 +497,8 @@ sda    500G disk
 
 <!-- 15 Práctica. El rótulo es la pastilla .pill con el texto "Práctica", sin número: el número va en la
      pastilla de sección (data-seccion) y en el índice. -->
-<section data-label="Práctica: instalación en máquina virtual" data-seccion="3.5" data-deck-id="practica-3-5" data-deck-section="3.5" data-notas="Práctica de la unidad. Ocupa su propio número en la secuencia de secciones." style="display:grid;grid-template-columns:1fr 1fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+<section data-label="Práctica: instalación en máquina virtual" data-seccion="3.5" data-deck-id="practica-3-5" data-deck-section="3.5" style="display:grid;grid-template-columns:1fr 1fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <aside class="notas">Práctica de la unidad. Ocupa su propio número en la secuencia de secciones.</aside>
   <div>
     <span class="pill">Práctica</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Instalación en máquina virtual</h2>
@@ -492,14 +521,16 @@ sda    500G disk
 </section>
 
 <!-- 16 Nota -->
-<section data-label="Nota" data-seccion="3.6" data-notas="Advertencia o nota importante." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">
+<section data-label="Nota" data-seccion="3.6" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">
+  <aside class="notas">Advertencia o nota importante.</aside>
   <img class="icono" src="../assets/exclamation.png" alt="">
   <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:var(--gap-title);color:var(--navy);max-width:1300px;text-wrap:balance">Antes de particionar, realiza una copia de seguridad</h2>
   <p style="font-size:var(--type-body);line-height:1.5;color:var(--muted);margin-top:var(--gap-item);max-width:1200px;text-wrap:pretty">El particionado elimina de forma irreversible los datos de la partición afectada. Comprueba que la copia se ha completado antes de continuar.</p>
 </section>
 
 <!-- 17 Resumen -->
-<section class="dark" data-label="Resumen" data-deck-id="resumen" data-deck-section="Fin" data-notas="Ideas clave de la unidad." style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+<section class="dark" data-label="Resumen" data-deck-id="resumen" data-deck-section="Fin" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <aside class="notas">Ideas clave de la unidad.</aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">Unidad 3</p>
   <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px">Resumen de la unidad</h2>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px 80px;margin-top:var(--gap-title)">
@@ -511,7 +542,8 @@ sda    500G disk
 </section>
 
 <!-- 18 Recursos -->
-<section data-label="Recursos" data-notas="Bibliografía y enlaces." style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.4fr;gap:120px">
+<section data-label="Recursos" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.4fr;gap:120px">
+  <aside class="notas">Bibliografía y enlaces.</aside>
   <div>
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Para ampliar</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Recursos y bibliografía</h2>
@@ -525,7 +557,8 @@ sda    500G disk
 </section>
 
 <!-- 19 Cierre -->
-<section class="dark" data-label="Cierre" data-notas="Cierre de sesión." style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column;justify-content:space-between">
+<section class="dark" data-label="Cierre" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column;justify-content:space-between">
+  <aside class="notas">Cierre de sesión.</aside>
   <div style="display:flex;align-items:center;gap:20px">
     <span style="width:16px;height:16px;border-radius:50%;background:var(--yellow);display:block"></span>
     <span style="font-size:var(--type-small);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#C9D6EE">Fin de la unidad 3</span>
