@@ -247,10 +247,10 @@ input[type=file] { display: none; }
   function pinta() { pintaCabecera(); pintaEditores(); pintaPendientes(); }
 
   /* ---------- edición ---------- */
-  let temporizador = null;
+  const temporizadores = {};   // uno por editor: editar en otro no cancela el guardado pendiente
   function alEditar(cual) {
-    clearTimeout(temporizador);
-    temporizador = setTimeout(() => {
+    clearTimeout(temporizadores[cual]);
+    temporizadores[cual] = setTimeout(() => {
       const d = actual();
       if (!d) return;
       const t = Date.now();
