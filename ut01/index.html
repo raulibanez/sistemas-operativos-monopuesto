@@ -29,7 +29,7 @@
 <!-- 02 Índice. Una sola secuencia (1.1 a 1.12), prácticas y examen incluidos. Cada entrada enlaza con la
      primera diapositiva de su sección (data-deck-id). -->
 <section data-label="Índice" style="display:grid;grid-template-columns:1fr 1.4fr;gap:120px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
-  <aside class="notas"><p><b>Recorrer el índice.</b> Ocho apartados de teoría, tres prácticas (1.5 propuesta, 1.10 ejercicios, 1.11 test) y el examen (1.12).</p></aside>
+  <aside class="notas"><p><b>Recorrer el índice.</b> Ocho apartados de teoría, tres prácticas (1.5 licencias, 1.10 ejercicios, 1.11 test) y el examen (1.12).</p></aside>
   <div>
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Unidad 1</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Contenidos de la unidad</h2>
@@ -40,7 +40,7 @@
     <li style="border-bottom:2px solid var(--line);font-size:var(--type-body)"><a class="indice-enlace" style="padding:14px 24px" href="#historia"><span style="font-weight:800;color:var(--blue)">1.2</span><span>Evolución histórica de la informática</span></a></li>
     <li style="border-bottom:2px solid var(--line);font-size:var(--type-body)"><a class="indice-enlace" style="padding:14px 24px" href="#hardware"><span style="font-weight:800;color:var(--blue)">1.3</span><span>Componentes hardware</span></a></li>
     <li style="border-bottom:2px solid var(--line);font-size:var(--type-body)"><a class="indice-enlace" style="padding:14px 24px" href="#software"><span style="font-weight:800;color:var(--blue)">1.4</span><span>Software, licencias y normativa</span></a></li>
-    <li style="border-bottom:2px solid var(--line);font-size:var(--type-body)"><a class="indice-enlace" style="padding:14px 24px" href="#practica-1-5"><span style="font-weight:800;color:var(--blue)">1.5</span><span><span class="pill-mini">Práctica</span>Propuesta para un cliente</span></a></li>
+    <li style="border-bottom:2px solid var(--line);font-size:var(--type-body)"><a class="indice-enlace" style="padding:14px 24px" href="#practica-1-5"><span style="font-weight:800;color:var(--blue)">1.5</span><span><span class="pill-mini">Práctica</span>Licencias explicadas por vosotros</span></a></li>
     <li style="border-bottom:2px solid var(--line);font-size:var(--type-body)"><a class="indice-enlace" style="padding:14px 24px" href="#numeracion"><span style="font-weight:800;color:var(--blue)">1.6</span><span>Numeración y cambios de base</span></a></li>
     <li style="border-bottom:2px solid var(--line);font-size:var(--type-body)"><a class="indice-enlace" style="padding:14px 24px" href="#operaciones"><span style="font-weight:800;color:var(--blue)">1.7</span><span>Operaciones en binario y complementos</span></a></li>
     <li style="border-bottom:2px solid var(--line);font-size:var(--type-body)"><a class="indice-enlace" style="padding:14px 24px" href="#errores"><span style="font-weight:800;color:var(--blue)">1.8</span><span>Detección de errores</span></a></li>
@@ -134,11 +134,61 @@
   </div>
 </section>
 
-<!-- 06 Tabla: tipos de sistemas informáticos -->
+<!-- 06 Tarjetas: tipos de sistemas informáticos -->
 <section data-label="Tipos de sistemas informáticos" data-seccion="1.1" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
-  <aside class="notas"><p>De mayor a menor tamaño, precio y potencia.</p><ul><li>Ejemplos: MareNostrum 5 (supercomputador) e IBM z16 (mainframe, 2022).</li></ul><p><b>Preguntar:</b> ¿dónde encaja el móvil? Se resuelve dos diapositivas más adelante.</p></aside>
+  <aside class="notas"><p><b>Preguntar antes: ¿un superordenador y un mainframe son lo mismo?</b> Suelen decir que sí. La clave está en para quién trabaja cada uno.</p><ul><li>Superordenador: un problema gigante repartido entre miles de procesadores.</li><li>Mainframe: millones de operaciones pequeñas de muchos usuarios, sin fallar nunca (bancos).</li><li>Servidor: trabaja para otros equipos. Estación de trabajo y PC: para una persona.</li></ul><p>La tabla de la siguiente diapositiva lo resume.</p></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">El sistema informático</p>
   <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Tipos de sistemas informáticos</h2>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:var(--gap-title);flex:1;min-height:0">
+    <div style="background:var(--white);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 0 var(--line)">
+      <div style="background:var(--navy);color:var(--white);padding:26px 30px;min-height:172px">
+        <p style="font-size:var(--type-caption);font-weight:700;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">Superordenador</p>
+        <p style="font-size:var(--type-small);font-weight:800;line-height:1.2;margin-top:8px;text-wrap:balance">Trabaja para un solo problema enorme</p>
+      </div>
+      <div style="padding:26px 30px;display:flex;flex-direction:column;gap:18px;font-size:23px;line-height:1.4">
+        <p>No se compra hecho: se fabrica a medida para grandes organizaciones nacionales o internacionales, para tareas científicas, militares o tecnológicas muy avanzadas.</p>
+        <p style="color:var(--muted)"><b style="color:var(--navy)">Tamaño:</b> una sala entera, con miles de procesadores calculando en paralelo.</p>
+      </div>
+    </div>
+    <div style="background:var(--white);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 0 var(--line)">
+      <div style="background:var(--navy);color:var(--white);padding:26px 30px;min-height:172px">
+        <p style="font-size:var(--type-caption);font-weight:700;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">Mainframe</p>
+        <p style="font-size:var(--type-small);font-weight:800;line-height:1.2;margin-top:8px;text-wrap:balance">Trabaja para cientos de usuarios a la vez</p>
+      </div>
+      <div style="padding:26px 30px;display:flex;flex-direction:column;gap:18px;font-size:23px;line-height:1.4">
+        <p>Macroordenador que da servicio a cientos de usuarios al mismo tiempo. Procesa millones de operaciones pequeñas, como las transacciones de un banco, y está hecho para no parar nunca.</p>
+        <p style="color:var(--muted)"><b style="color:var(--navy)">Tamaño:</b> uno o varios armarios.</p>
+      </div>
+    </div>
+    <div style="background:var(--white);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 0 var(--line)">
+      <div style="background:var(--navy);color:var(--white);padding:26px 30px;min-height:172px">
+        <p style="font-size:var(--type-caption);font-weight:700;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">Server / Workstation</p>
+        <p style="font-size:var(--type-small);font-weight:800;line-height:1.2;margin-top:8px;text-wrap:balance">Trabaja para los demás equipos de la red</p>
+      </div>
+      <div style="padding:26px 30px;display:flex;flex-direction:column;gap:18px;font-size:23px;line-height:1.4">
+        <p>El <b>servidor</b> ofrece servicios a los otros ordenadores de la red: internet, impresoras, bases de datos compartidas. La <b>estación de trabajo</b> es para un profesional con tareas exigentes: más potente que un PC, no mucho más grande.</p>
+        <p style="color:var(--muted)"><b style="color:var(--navy)">Tamaño:</b> cajas apiladas en un armario (rack) o una torre grande.</p>
+      </div>
+    </div>
+    <div style="background:var(--white);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 0 var(--line)">
+      <div style="background:var(--navy);color:var(--white);padding:26px 30px;min-height:172px">
+        <p style="font-size:var(--type-caption);font-weight:700;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">Ordenador personal</p>
+        <p style="font-size:var(--type-small);font-weight:800;line-height:1.2;margin-top:8px;text-wrap:balance">Trabaja para una sola persona</p>
+      </div>
+      <div style="padding:26px 30px;display:flex;flex-direction:column;gap:18px;font-size:23px;line-height:1.4">
+        <p>Nació con el microprocesador. Un ordenador para una persona, en casa o en el trabajo, de uso general: sobremesa, portátil, tablet o smartphone.</p>
+        <p style="color:var(--muted)"><b style="color:var(--navy)">Tamaño:</b> cabe en la mesa, en la mochila o en el bolsillo.</p>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:var(--type-caption);color:var(--muted);margin-top:24px;line-height:1.4">Para distinguirlos, pregunta <b>para quién trabaja</b>: un problema, muchos usuarios, otros equipos o una persona. La diferencia entre servidor y estación de trabajo no es el tamaño sino el uso.</p>
+</section>
+
+<!-- 07 Tabla: resumen de los tipos -->
+<section data-label="Tipos: resumen" data-seccion="1.1" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <aside class="notas"><p>De mayor a menor tamaño, precio y potencia.</p><ul><li>Ejemplos: MareNostrum 5 (supercomputador) e IBM z16 (mainframe, 2022).</li></ul><p><b>Preguntar:</b> ¿dónde encaja el móvil? Se resuelve tres diapositivas más adelante.</p></aside>
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">El sistema informático</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Resumen</h2>
   <table style="width:100%;border-collapse:collapse;margin-top:var(--gap-title);font-size:var(--type-small);background:var(--white);border-radius:20px;overflow:hidden">
     <thead>
       <tr style="background:var(--navy);color:var(--white);text-align:left">
@@ -155,10 +205,10 @@
       <tr><td style="padding:22px 32px;font-weight:700;color:var(--navy)">Ordenador personal</td><td style="padding:22px 32px">Todos, en casa y en el trabajo</td><td style="padding:22px 32px">Uso general</td><td style="padding:22px 32px">Sobremesa, portátil, tablet, smartphone</td></tr>
     </tbody>
   </table>
-  <p style="font-size:var(--type-caption);color:var(--muted);margin-top:24px">Ordenados de mayor a menor precio, tamaño, potencia y velocidad. El primer superordenador que superó 1 teraflops (ASCI Red, 1997) rendía menos que la GPU de un smartphone actual.</p>
+  <p style="font-size:var(--type-caption);color:var(--muted);margin-top:24px">Ordenados de mayor a menor precio, tamaño, potencia y velocidad. El primer superordenador que superó 1 teraflops (ASCI Red, 1997) rendía menos que la GPU de un smartphone actual: el <a href="https://en.wikipedia.org/wiki/Apple_A19" target="_blank" rel="noopener" style="color:var(--blue);text-decoration:underline;text-underline-offset:4px">Apple A19 Pro</a> del iPhone 17 Pro Max (2025) llega a 2,488 teraflops.</p>
 </section>
 
-<!-- 07 Cifra: MareNostrum 5 -->
+<!-- 08 Cifra: MareNostrum 5 -->
 <section data-label="MareNostrum 5" data-seccion="1.1" style="display:grid;grid-template-columns:1fr 1fr;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center;gap:100px">
   <aside class="notas"><p>Barcelona Supercomputing Center, en la capilla de Torre Girona; inaugurado en diciembre de 2023.</p><ul><li>Cifras de la diapositiva: nodos, núcleos por nodo, GPU y 306 PFlops de pico.</li><li>Las cifras vienen de la guía: contrastar en bsc.es si alguien pregunta por el puesto en el Top500.</li></ul></aside>
   <div>
@@ -184,7 +234,32 @@
   </div>
 </section>
 
-<!-- 08 Pregunta: más tipos -->
+<!-- 09 Fotos: mainframe IBM z15/z16 y servidor en rack -->
+<section data-label="Mainframe y servidor en rack" data-seccion="1.1" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <aside class="notas"><p><b>Señalar el tamaño: por fuera, un mainframe y un rack se parecen.</b> La diferencia está dentro: el mainframe es una sola máquina con todo redundante, que se repara en marcha; el rack son muchos servidores normales apilados, y si uno falla otro lo sustituye.</p><ul><li>Rack de 19 pulgadas: 42 U de alto, cada U mide 4,45 cm; un servidor ocupa 1 o 2 U.</li><li>No hay foto libre del z16 en Wikimedia Commons; el z15 es el mismo armario.</li></ul></aside>
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">El sistema informático</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Un mainframe y un servidor en rack</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:var(--gap-title);flex:1;min-height:0">
+    <div style="display:flex;flex-direction:column;gap:14px;min-height:0">
+      <p style="font-size:var(--type-small);font-weight:800;color:var(--navy)">Mainframe <span style="color:var(--muted);font-weight:500">· una sola máquina en un armario</span></p>
+      <figure class="foto" style="flex:1">
+        <img src="img/ibm-z15.jpg" alt="Mainframe IBM z15 en un solo armario de 19 pulgadas" title="Foto: Agiorgio · Wikimedia Commons · CC BY-SA 4.0" style="object-position:center 30%">
+        <figcaption class="credito"><b>IBM z15</b> en su configuración mínima, un solo armario (2019). Foto: Agiorgio, <a href="https://commons.wikimedia.org/wiki/File:IBM_Z15_mainframe.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Reducida.</figcaption>
+      </figure>
+      <p style="font-size:20px;color:var(--muted);line-height:1.35">Figura 1.2. IBM z15 (2019), el modelo anterior al z16: un armario de 19 pulgadas, ampliable hasta cuatro. El z16 (2022) tiene la misma forma y llega a 200 núcleos y 40 TB de memoria. Por fuera parece un rack; la diferencia está dentro.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;min-height:0">
+      <p style="font-size:var(--type-small);font-weight:800;color:var(--navy)">Servidores en rack <span style="color:var(--muted);font-weight:500">· muchas máquinas apiladas</span></p>
+      <figure class="foto" style="flex:1">
+        <img src="img/servidor-rack.jpg" alt="Rack de 19 pulgadas con diez servidores de 2U apilados" title="Foto: Btrs · Wikimedia Commons · CC BY-SA 4.0">
+        <figcaption class="credito"><b>Rack con diez servidores Cisco HyperFlex</b> de 2 U (2023). Foto: Btrs, <a href="https://commons.wikimedia.org/wiki/File:Rack_of_Cisco_Hyperflex_HXAF_240c_M5_nodes.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Reducida.</figcaption>
+      </figure>
+      <p style="font-size:20px;color:var(--muted);line-height:1.35">Figura 1.3. Diez servidores de 2 U apilados en un rack de 19 pulgadas. Cada uno lleva dos procesadores de 18 núcleos y 768 GB de RAM; juntos forman un clúster de máquinas virtuales. Si uno falla, los demás siguen dando el servicio.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10 Pregunta: más tipos -->
 <section data-label="¿Más tipos de sistemas?" data-seccion="1.1" style="display:grid;grid-template-columns:1fr 1.15fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
   <aside class="notas"><p><b>Dejar que propongan antes de revelar.</b> Cualquier cosa con procesador y programa es un sistema informático: lavadora, coche, router, reloj, cámara.</p><p>Al revelar, señalar cada aparato de la imagen.</p></aside>
   <div>
@@ -211,7 +286,7 @@
   </div>
 </section>
 
-<!-- 09 Pregunta: qué es la información -->
+<!-- 11 Pregunta: qué es la información -->
 <section data-label="¿Qué es la información?" data-seccion="1.1" style="display:grid;grid-template-columns:1fr 1.45fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
   <aside class="notas"><p><b>Preguntar: ¿de dónde viene la palabra informática?</b> INFORmación autoMÁTICA.</p><ul><li>Pirámide DIKW (Ackoff, 1989): dato, información, conocimiento, sabiduría.</li><li>Los datos solos no valen nada; la sabiduría es conocimiento aplicado para bien.</li></ul><p>Cerrar con la definición de la RAE.</p></aside>
   <div>
@@ -235,7 +310,7 @@
   </div>
 </section>
 
-<!-- 10 Quiz -->
+<!-- 12 Quiz -->
 <section class="dark" data-label="Quiz: hardware o software" data-seccion="1.1" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Respuesta: B, el certificado digital.</b> Tarjeta de red, fuente y webcam se tocan.</p><p>Si fallan, volver a la regla de "si se puede tocar".</p></aside>
   <div class="quiz" data-correct="1" data-ok="Correcto. Un certificado digital es un archivo: es software aunque esté guardado en un disco o en una tarjeta." data-ko="No. Piensa en la regla: si se puede tocar, es hardware." style="display:contents">
@@ -256,7 +331,7 @@
 
 <!-- ============ BLOQUE 2 · Sección 1.2 · Evolución histórica de la informática ============ -->
 
-<!-- 11 Pasos: máquinas de calcular -->
+<!-- 13 Pasos: máquinas de calcular -->
 <section data-label="Máquinas de calcular" data-seccion="1.2" data-deck-id="historia" data-deck-section="1.2" style="display:grid;grid-template-columns:1fr 700px;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
   <aside class="notas"><p>Instrumentos para acelerar el cálculo, antes del ordenador.</p><ul><li>El ábaco ya es posicional: enlaza con el apartado 1.6.</li><li>Pascal construyó la Pascalina con 19 años para ayudar a su padre, recaudador de impuestos.</li><li>La foto es una Pascalina original del Musée des Arts et Métiers de París.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -279,22 +354,22 @@
     </div>
   </div>
   <div class="galeria" style="--galeria-alto:500px;--galeria-flex:none;justify-content:center">
-    <figure class="foto" data-pie="<b>Figura 1.2.</b> Ábaco chino (suanpan). Cada varilla es una posición decimal: las dos cuentas de arriba valen 5 y las cinco de abajo, 1. Se cuenta lo que está pegado a la barra central.">
+    <figure class="foto" data-pie="<b>Figura 1.4.</b> Ábaco chino (suanpan). Cada varilla es una posición decimal: las dos cuentas de arriba valen 5 y las cinco de abajo, 1. Se cuenta lo que está pegado a la barra central.">
       <img src="img/abaco.jpg" alt="Ábaco chino de madera con nueve varillas" title="Foto: Dave Fischer · Wikimedia Commons · CC BY-SA 3.0">
       <figcaption class="credito"><b>Ábaco chino</b>. Foto: Dave Fischer, <a href="https://commons.wikimedia.org/wiki/File:Chinese-abacus.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.es" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Reducida.</figcaption>
     </figure>
-    <figure class="foto" data-pie="<b>Figura 1.3.</b> Pascalina original conservada en el Musée des Arts et Métiers de París. Cada rueda es una cifra; al pasar de 9 a 0 arrastra la siguiente: el acarreo, hecho con engranajes.">
+    <figure class="foto" data-pie="<b>Figura 1.5.</b> Pascalina original conservada en el Musée des Arts et Métiers de París. Cada rueda es una cifra; al pasar de 9 a 0 arrastra la siguiente: el acarreo, hecho con engranajes.">
       <img src="img/pascalina.jpg" alt="Pascalina original expuesta en el Musée des Arts et Métiers de París" title="Foto: David Monniaux · Wikimedia Commons · CC BY-SA 3.0" style="object-fit:contain">
       <figcaption class="credito"><b>Pascalina</b> original en el Musée des Arts et Métiers (París). Foto: David Monniaux, <a href="https://commons.wikimedia.org/wiki/File:Arts_et_Metiers_Pascaline_dsc03869.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.es" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Reducida.</figcaption>
     </figure>
-    <figure class="foto" data-pie="<b>Figura 1.4.</b> Réplica de la calculadora de Leibniz (Technische Sammlungen, Dresde). El cilindro escalonado, a la izquierda, y la manivela permiten multiplicar y dividir repitiendo sumas y restas.">
+    <figure class="foto" data-pie="<b>Figura 1.6.</b> Réplica de la calculadora de Leibniz (Technische Sammlungen, Dresde). El cilindro escalonado, a la izquierda, y la manivela permiten multiplicar y dividir repitiendo sumas y restas.">
       <img src="img/leibniz.jpg" alt="Réplica de la calculadora de Leibniz, de latón, con su cilindro escalonado y manivela" title="Foto: Kolossos · Wikimedia Commons · CC BY-SA 3.0">
       <figcaption class="credito"><b>Calculadora de Leibniz</b> (réplica de 1988, Technische Sammlungen Dresden). Foto: Kolossos, <a href="https://commons.wikimedia.org/wiki/File:Leibnitzrechenmaschine.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.es" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Reducida.</figcaption>
     </figure>
   </div>
 </section>
 
-<!-- 12 Pasos: tarjetas perforadas -->
+<!-- 14 Pasos: tarjetas perforadas -->
 <section data-label="Las tarjetas perforadas" data-seccion="1.2" style="display:grid;grid-template-columns:1fr 700px;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
   <aside class="notas"><p><b>Idea clave:</b> separar la máquina del programa.</p><ul><li>Jacquard: los tejedores de Lyon destruyeron telares por miedo a perder el trabajo.</li><li>Babbage nunca terminó su máquina: la mecánica de precisión no daba para tanto.</li><li>Hollerith: el censo de 1880 tardó unos 8 años en tabularse; el de 1890, con sus máquinas, dos y medio.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -318,26 +393,26 @@
     <p data-ir="4" style="font-size:var(--type-caption);line-height:1.45;margin-top:var(--gap-item);border-left:5px solid var(--yellow);padding:6px 20px;color:var(--ink)">Las tarjetas perforadas se usaron para introducir datos y programas en los ordenadores hasta finales de los años setenta: una tarjeta, una línea de programa.</p>
   </div>
   <div class="galeria">
-    <figure class="foto" data-pie="<b>Figura 1.5.</b> Mecanismo Jacquard de 1883 (Musée des Arts et Métiers, París). El dibujo está perforado en la tira de papel que cuelga; las agujas del cabezal leen los agujeros y levantan los hilos.">
+    <figure class="foto" data-pie="<b>Figura 1.7.</b> Mecanismo Jacquard de 1883 (Musée des Arts et Métiers, París). El dibujo está perforado en la tira de papel que cuelga; las agujas del cabezal leen los agujeros y levantan los hilos.">
       <img src="img/jacquard.jpg" alt="Mecanismo Jacquard con una tira de papel perforado colgando" title="Foto: David Monniaux · Wikimedia Commons · CC BY-SA 3.0">
       <figcaption class="credito"><b>Mecanismo Jacquard</b> de tipo Verdol (1883), Musée des Arts et Métiers, París. Foto: David Monniaux, <a href="https://commons.wikimedia.org/wiki/File:Jacquard_loom_p1040320.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.es" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Reducida.</figcaption>
     </figure>
-    <figure class="foto" data-pie="<b>Figura 1.6.</b> Parte de la Máquina Analítica de Babbage, montada tras su muerte y expuesta en el Science Museum de Londres. Las columnas de ruedas dentadas guardan números: cada rueda, una cifra.">
+    <figure class="foto" data-pie="<b>Figura 1.8.</b> Parte de la Máquina Analítica de Babbage, montada tras su muerte y expuesta en el Science Museum de Londres. Las columnas de ruedas dentadas guardan números: cada rueda, una cifra.">
       <img src="img/babbage.jpg" alt="Fragmento de la Máquina Analítica de Babbage en una vitrina del Science Museum de Londres" title="Foto: Bruno Barral (ByB) · Wikimedia Commons · CC BY-SA 2.5">
       <figcaption class="credito"><b>Máquina Analítica</b> de Charles Babbage, Science Museum, Londres. Foto: Bruno Barral (ByB), <a href="https://commons.wikimedia.org/wiki/File:AnalyticalMachine_Babbage_London.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/2.5/deed.es" target="_blank" rel="noopener">CC BY-SA 2.5</a>. Reducida.</figcaption>
     </figure>
-    <figure class="foto" data-pie="<b>Figura 1.7.</b> Tabuladora de Hollerith (Computer History Museum, California). Cada esfera cuenta las tarjetas con un agujero en una posición: sexo, edad, oficio.">
+    <figure class="foto" data-pie="<b>Figura 1.9.</b> Tabuladora de Hollerith (Computer History Museum, California). Cada esfera cuenta las tarjetas con un agujero en una posición: sexo, edad, oficio.">
       <img src="img/hollerith.jpg" alt="Máquina tabuladora de Hollerith con sus contadores de esfera, en el Computer History Museum" title="Foto: Adam Schuster · Flickr / Wikimedia Commons · CC BY 2.0">
       <figcaption class="credito"><b>Tabuladora de Hollerith</b> (hacia 1890) en el Computer History Museum, California. Foto: Adam Schuster, <a href="https://commons.wikimedia.org/wiki/File:HollerithMachine.CHM.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by/2.0/deed.es" target="_blank" rel="noopener">CC BY 2.0</a>. Reducida.</figcaption>
     </figure>
-    <figure class="foto" data-pie="<b>Figura 1.8.</b> Tarjeta perforada IBM de 80 columnas con una línea de un programa en Fortran. Cada columna es un carácter: los agujeros codifican la letra o la cifra que hay impresa arriba." style="background:var(--white)">
+    <figure class="foto" data-pie="<b>Figura 1.10.</b> Tarjeta perforada IBM de 80 columnas con una línea de un programa en Fortran. Cada columna es un carácter: los agujeros codifican la letra o la cifra que hay impresa arriba." style="background:var(--white)">
       <img src="img/tarjeta.jpg" alt="Tarjeta perforada IBM de 80 columnas con una línea de Fortran" title="Foto: Pete Birkinshaw · Wikimedia Commons · CC BY 2.0" style="object-fit:contain">
       <figcaption class="credito"><b>Tarjeta perforada</b> IBM de 80 columnas. Foto: Pete Birkinshaw, <a href="https://commons.wikimedia.org/wiki/File:Used_Punchcard_(5151286161).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by/2.0/deed.es" target="_blank" rel="noopener">CC BY 2.0</a>. Reducida.</figcaption>
     </figure>
   </div>
 </section>
 
-<!-- 13 Nota: QWERTY -->
+<!-- 15 Nota: QWERTY -->
 <section data-label="Curiosidad: QWERTY" data-seccion="1.2" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">
   <aside class="notas"><p><b>Pedirles que busquen TYPEWRITER en la fila de arriba.</b></p><ul><li>La explicación de los atascos es la tradicional; Yasuoka (2011) la relaciona con los operadores de telégrafo.</li><li>Dvorak (1936) no se impuso: reaprender cuesta más de lo que se gana.</li></ul></aside>
   <img class="icono" src="../assets/exclamation.png" alt="">
@@ -349,7 +424,7 @@
   </div>
 </section>
 
-<!-- 14 Vídeo: Ada Lovelace -->
+<!-- 16 Vídeo: Ada Lovelace -->
 <section data-label="Vídeo: Ada Lovelace" data-seccion="1.2" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:minmax(0,1fr) 600px;gap:80px">
   <aside class="notas"><p><b>Vídeo: Ada Lovelace for Kids (Bedtime History), 6 min, en inglés.</b> Activar subtítulos automáticos en español.</p><ul><li>Hija de lord Byron, alumna de matemáticas y amiga de Babbage.</li><li>Sus notas (1843) a la traducción de Menabrea triplican el original.</li><li>Ada Lovelace Day: segundo martes de octubre.</li></ul></aside>
   <div style="display:flex;flex-direction:column;gap:20px;min-width:0">
@@ -370,7 +445,7 @@
   </div>
 </section>
 
-<!-- 15 Texto: el programa interno -->
+<!-- 17 Texto: el programa interno -->
 <section data-label="El programa interno" data-seccion="1.2" style="display:grid;grid-template-columns:1fr 1fr;gap:100px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
   <aside class="notas"><p><b>Momento clave del bloque:</b> el ordenador nace cuando el programa está dentro de la máquina.</p><ul><li>Las calculadoras hacían una operación cada vez; el ordenador ejecuta una secuencia guardada.</li><li>Von Neumann la describió en 1945 (informe sobre el EDVAC).</li></ul><p>Enlaza con los elementos funcionales del 1.3.</p></aside>
   <div>
@@ -387,11 +462,11 @@
       <span style="font-size:56px;color:var(--yellow);text-align:center;line-height:1">→</span>
       <div style="background:var(--white);border:3px solid var(--line);border-radius:20px;padding:36px 24px;text-align:center"><p style="font-size:var(--type-small);font-weight:800;color:var(--navy)">Datos de salida</p><p style="font-size:var(--type-caption);color:var(--muted);margin-top:10px;line-height:1.4">Pantalla, impresora, altavoces, red</p></div>
     </div>
-    <p style="font-size:var(--type-caption);color:var(--muted);line-height:1.4;text-align:center">Figura 1.9. Esquema básico de funcionamiento de un ordenador. Elaboración propia.</p>
+    <p style="font-size:var(--type-caption);color:var(--muted);line-height:1.4;text-align:center">Figura 1.11. Esquema básico de funcionamiento de un ordenador. Elaboración propia.</p>
   </div>
 </section>
 
-<!-- 16 Tabla: las cinco generaciones -->
+<!-- 18 Tabla: las cinco generaciones -->
 <section data-label="Las cinco generaciones" data-seccion="1.2" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p>Lo que separa cada generación es el componente que calcula: válvula, transistor, chip, microprocesador.</p><ul><li>Los años son orientativos; cada fuente los mueve algo.</li><li>Esta tabla resume las tres diapositivas siguientes.</li></ul><p>Examen: relacionar generación, tecnología y algún hito.</p></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Evolución histórica</p>
@@ -417,9 +492,9 @@
   <p style="font-size:var(--type-caption);color:var(--muted);margin-top:24px">Tabla 1.2. Generaciones según el grado de integración de los componentes. Los años de cada generación son orientativos: cada fuente los mueve un poco. Las fechas de los hitos son las de presentación de cada máquina.</p>
 </section>
 
-<!-- 17 Texto: 1.ª y 2.ª generación -->
+<!-- 19 Texto: 1.ª y 2.ª generación -->
 <section data-label="1.ª y 2.ª generación" data-seccion="1.2" style="display:grid;grid-template-columns:1fr 720px;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
-  <aside class="notas"><ul><li>ENIAC: 17.468 válvulas, 27 toneladas, 150 kW; se fundían válvulas a diario. Terminado a finales de 1945, presentado en febrero de 1946.</li><li>En la foto, Betty Snyder y Glen Beck programándolo con cables: las seis primeras programadoras del ENIAC fueron mujeres.</li><li>Transistor: Bardeen, Brattain y Shockley, Bell Labs, 1947 (Nobel 1956).</li></ul></aside>
+  <aside class="notas"><ul><li>ENIAC: 17.468 válvulas, 27 toneladas, 150 kW; se fundían válvulas a diario. Terminado a finales de 1945, presentado en febrero de 1946.</li><li>En la foto, Betty Snyder y Glen Beck programándolo con cables: las seis primeras programadoras del ENIAC fueron mujeres.</li><li><b>Válvula frente a transistor.</b> La válvula es una bombilla con rejilla: un filamento al rojo emite electrones en el vacío y la tensión de la rejilla deja pasar o corta la corriente. Necesita calentarse (segundos), gasta vatios y el filamento se funde como el de una bombilla. El transistor hace lo mismo con un semiconductor (germanio, luego silicio): una corriente pequeña en la base controla otra grande, sin vacío, sin calentar ni desgaste. Por eso: menor, más fiable, menos consumo, más barato.</li><li>Transistor: Bardeen, Brattain y Shockley, Bell Labs, 1947 (Nobel 1956).</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Evolución histórica</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">1.ª y 2.ª generación</h2>
@@ -445,11 +520,11 @@
       <img src="img/eniac.jpg" alt="Dos personas programan el ENIAC cableando sus paneles" title="Foto: U.S. Army · Wikimedia Commons · dominio público">
       <figcaption class="credito"><b>ENIAC</b> en el Ballistic Research Laboratory (EE. UU.), programado por Betty Snyder y Glen Beck, hacia 1947-1955. Foto: U.S. Army, <a href="https://commons.wikimedia.org/wiki/File:Eniac.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, dominio público.</figcaption>
     </figure>
-    <p style="font-size:var(--type-caption);color:var(--muted);line-height:1.4">Figura 1.10. Programar el ENIAC era cablear paneles: 17.468 válvulas y unas 27 toneladas.</p>
+    <p style="font-size:var(--type-caption);color:var(--muted);line-height:1.4">Figura 1.12. Programar el ENIAC era cablear paneles: 17.468 válvulas y unas 27 toneladas.</p>
   </div>
 </section>
 
-<!-- 18 Texto: 3.ª y 4.ª generación -->
+<!-- 20 Texto: 3.ª y 4.ª generación -->
 <section data-label="3.ª y 4.ª generación" data-seccion="1.2" style="display:grid;grid-template-columns:1fr 640px;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
   <aside class="notas"><ul><li>Chip: Kilby (Texas Instruments, 1958) y Noyce (Fairchild, 1959).</li><li>Intel 4004 (noviembre de 1971): 2.300 transistores, 4 bits, para una calculadora japonesa.</li><li>AMD fabricaba x86 bajo licencia de Intel desde 1982; Cyrix llegó en 1988.</li><li>Z80 de Zilog: ZX Spectrum y Amstrad CPC. Motorola: Commodore, Atari y primeros Apple. Mac: PowerPC, Intel (2006), chips propios (2020).</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -478,19 +553,19 @@
         <img src="img/intel-4004.jpg" alt="Microprocesador Intel C4004 en encapsulado cerámico" title="Foto: Thomas Nguyen · Wikimedia Commons · CC BY-SA 4.0">
         <figcaption class="credito"><b>Intel C4004</b>, el primer microprocesador comercial (1971). Foto: Thomas Nguyen, <a href="https://commons.wikimedia.org/wiki/File:Intel_C4004.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Reducida.</figcaption>
       </figure>
-      <p style="font-size:20px;color:var(--muted);line-height:1.3">Figura 1.11. Intel 4004 (1971): 2.300 transistores, 4 bits.</p>
+      <p style="font-size:20px;color:var(--muted);line-height:1.3">Figura 1.13. Intel 4004 (1971): 2.300 transistores, 4 bits.</p>
     </div>
     <div style="display:flex;flex-direction:column;gap:12px;min-height:0">
       <figure class="foto" style="flex:1">
         <img src="img/zx-spectrum.jpg" alt="Ordenador doméstico Sinclair ZX Spectrum de 48 K" title="Foto: Bill Bertram · Wikimedia Commons · CC BY-SA 2.5">
         <figcaption class="credito"><b>Sinclair ZX Spectrum</b> 48K (1982), con microprocesador Zilog Z80. Foto: Bill Bertram, <a href="https://commons.wikimedia.org/wiki/File:ZXSpectrum48k.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/2.5/deed.es" target="_blank" rel="noopener">CC BY-SA 2.5</a>. Reducida.</figcaption>
       </figure>
-      <p style="font-size:20px;color:var(--muted);line-height:1.3">Figura 1.12. ZX Spectrum (1982): el ordenador doméstico más popular en España en los años ochenta.</p>
+      <p style="font-size:20px;color:var(--muted);line-height:1.3">Figura 1.14. ZX Spectrum (1982): el ordenador doméstico más popular en España en los años ochenta.</p>
     </div>
   </div>
 </section>
 
-<!-- 19 Texto: 5.ª generación, el PC -->
+<!-- 21 Texto: 5.ª generación, el PC -->
 <section data-label="5.ª generación: el PC" data-seccion="1.2" style="display:grid;grid-template-columns:1fr 680px;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
   <aside class="notas"><ul><li>IBM PC 5150, 12 de agosto de 1981: Intel 8088 a 4,77 MHz, 16 KB de RAM, PC DOS.</li><li>IBM publicó las especificaciones y nacieron los compatibles: por eso cualquier PC arranca Windows o Linux. Apple hizo lo contrario.</li></ul><p><b>Preguntar:</b> ¿vuestro móvil es de la 5.ª generación? No hay respuesta cerrada: la clasificación se para en el PC.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -510,11 +585,11 @@
       <img src="img/ibm-pc.jpg" alt="IBM PC modelo 5150 con monitor y teclado" title="Foto: Ruben de Rijcke · Wikimedia Commons · CC BY-SA 3.0" style="object-fit:contain">
       <figcaption class="credito"><b>IBM PC 5150</b> (1981) con su monitor y teclado. Foto: Ruben de Rijcke, <a href="https://commons.wikimedia.org/wiki/File:Ibm_pc_5150.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.es" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Reducida.</figcaption>
     </figure>
-    <p style="font-size:var(--type-caption);color:var(--muted);line-height:1.4">Figura 1.13. IBM PC 5150: procesador Intel 8088 a 4,77 MHz y dos disqueteras de 5¼ pulgadas.</p>
+    <p style="font-size:var(--type-caption);color:var(--muted);line-height:1.4">Figura 1.15. IBM PC 5150: procesador Intel 8088 a 4,77 MHz y dos disqueteras de 5¼ pulgadas.</p>
   </div>
 </section>
 
-<!-- 20 Vídeo: de la Ley de Moore a la Ley de Huang -->
+<!-- 22 Vídeo: de la Ley de Moore a la Ley de Huang -->
 <section data-label="Vídeo: Moore y Huang" data-seccion="1.2" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:minmax(0,1fr) 600px;gap:80px">
   <aside class="notas"><p><b>Vídeo: Data Coffee #14, Dot CSV (Carlos Santana), 2020, 20 min.</b> Es largo: decidir hasta qué minuto se pone.</p><p>La siguiente diapositiva resume las dos leyes; la de después abre el debate sobre 2026.</p></aside>
   <div style="display:flex;flex-direction:column;gap:20px;min-width:0">
@@ -534,7 +609,7 @@
   </div>
 </section>
 
-<!-- 21 Texto + gráfica: Moore y Huang -->
+<!-- 23 Texto + gráfica: Moore y Huang -->
 <section data-label="De Moore a Huang" data-seccion="1.2" style="display:grid;grid-template-columns:1fr 900px;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
   <aside class="notas"><ul><li>Moore, revista Electronics, 1965: duplicación anual; en 1975 la corrigió a cada dos años.</li><li>Gráfica propia con los recuentos de Wikipedia: 4004 2.300; Pentium 3,1 M; Core i7 2600K 1.160 M; Apple M2 Ultra 134.000 M; Nvidia Blackwell 208.000 M. Línea discontinua: duplicación cada dos años desde el 4004.</li><li>Ley de Huang: nombre del Wall Street Journal, septiembre de 2020.</li><li>Desde 2005 los micros rondan 3-5 GHz: el calor no deja subir más.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -594,11 +669,11 @@
         </g>
       </svg>
     </div>
-    <p style="font-size:20px;color:var(--muted);line-height:1.4">Figura 1.14. Elaboración propia con datos de <a href="https://es.wikipedia.org/wiki/Ley_de_Moore" target="_blank" rel="noopener">Ley de Moore</a> y <a href="https://en.wikipedia.org/wiki/Transistor_count" target="_blank" rel="noopener">Transistor count</a> (Wikipedia, consultados en septiembre de 2026). Pasa el ratón por cada punto para ver el chip.</p>
+    <p style="font-size:20px;color:var(--muted);line-height:1.4">Figura 1.16. Elaboración propia con datos de <a href="https://es.wikipedia.org/wiki/Ley_de_Moore" target="_blank" rel="noopener">Ley de Moore</a> y <a href="https://en.wikipedia.org/wiki/Transistor_count" target="_blank" rel="noopener">Transistor count</a> (Wikipedia, consultados en septiembre de 2026). Pasa el ratón por cada punto para ver el chip.</p>
   </div>
 </section>
 
-<!-- 22 Pregunta: ¿sigue cumpliéndose la Ley de Huang en 2026? -->
+<!-- 24 Pregunta: ¿sigue cumpliéndose la Ley de Huang en 2026? -->
 <section data-label="¿Ley de Huang en 2026?" data-seccion="1.2" style="display:grid;grid-template-columns:1fr 1.25fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
   <aside class="notas"><p><b>Debate abierto</b> tras un vídeo de 2020. El panel es apoyo, no respuesta cerrada.</p><ul><li>Entrenar y usar (inferencia) piden hardware distinto; tensor cores y NPU son hardware específico.</li><li>DLSS genera píxeles en vez de calcularlos; los grandes saltos vienen de conectar miles de GPU.</li></ul><p><b>Pregunta final:</b> ¿más rendimiento o trampas inteligentes? Que argumenten.</p></aside>
   <div>
@@ -622,7 +697,7 @@
   </div>
 </section>
 
-<!-- 23 Quiz: generación del IBM PC -->
+<!-- 25 Quiz: generación del IBM PC -->
 <section class="dark" data-label="Quiz: generaciones" data-seccion="1.2" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Respuesta: D, 5.ª generación.</b> El PC (1981) abre la quinta; el microprocesador es la cuarta.</p><p>Si fallan, volver a la tabla de generaciones.</p></aside>
   <div class="quiz" data-correct="3" data-ok="Correcto. El PC de IBM (1981) abre la 5.ª generación: la del ordenador en casa." data-ko="No. Piensa en qué generación empieza justo con el PC de IBM, en 1981." style="display:contents">
@@ -643,9 +718,9 @@
 
 <!-- ============ BLOQUE 3 · Sección 1.3 · Componentes hardware ============ -->
 
-<!-- 24 Pregunta: ¿qué ordenador tenéis? -->
+<!-- 26 Pregunta: ¿qué ordenador tenéis? -->
 <section data-label="¿Qué ordenador tenéis?" data-seccion="1.3" data-deck-id="hardware" data-deck-section="1.3" style="display:grid;grid-template-columns:1fr 1.35fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
-  <aside class="notas"><p><b>Que cada uno diga qué ordenador tiene y qué sabe de él.</b> Casi nadie sabe los núcleos ni si el disco es SSD.</p><p><b>Demo al revelar:</b> Configuración › Sistema › Acerca de, y Administrador de tareas › Rendimiento. En Linux: <code>lscpu</code>, <code>free -h</code>, <code>lsblk</code>.</p><p>Apuntar en la pizarra dos o tres equipos: se reutilizan en la práctica 1.5.</p></aside>
+  <aside class="notas"><p><b>Que cada uno diga qué ordenador tiene y qué sabe de él.</b> Casi nadie sabe los núcleos ni si el disco es SSD.</p><p><b>Demo al revelar:</b> Configuración › Sistema › Acerca de, y Administrador de tareas › Rendimiento. En Linux: <code>lscpu</code>, <code>free -h</code>, <code>lsblk</code>. Si hay tiempo, abrir HWiNFO en modo resumen: lo enseña todo, sensores incluidos; CPU-Z es más sencillo.</p></aside>
   <div>
     <img class="icono" src="../assets/question.png" alt="">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-top:var(--gap-item)">Pregunta a la clase</p>
@@ -672,6 +747,7 @@
             <li>Configuración › Sistema › <b>Acerca de</b></li>
             <li>Administrador de tareas › <b>Rendimiento</b> <span style="color:var(--muted)">(Ctrl + Mayús + Esc)</span></li>
             <li>Win + R y escribir <code style="font-family:var(--mono);background:var(--bg);padding:2px 12px;border-radius:8px">msinfo32</code> o <code style="font-family:var(--mono);background:var(--bg);padding:2px 12px;border-radius:8px">dxdiag</code></li>
+            <li>Programas gratuitos que lo dan todo: <a href="https://www.hwinfo.com/" style="color:var(--blue);text-decoration:underline;text-underline-offset:4px" target="_blank" rel="noopener">HWiNFO</a> (temperatura) o <a href="https://www.cpuid.com/softwares/cpu-z.html" style="color:var(--blue);text-decoration:underline;text-underline-offset:4px" target="_blank" rel="noopener">CPU-Z</a></li>
           </ul>
           <p style="font-size:22px;font-weight:800;color:var(--navy);margin-top:20px">Linux, en un terminal</p>
           <ul style="list-style:none;padding:0;margin-top:8px;display:flex;flex-direction:column;gap:10px;font-size:21px;line-height:1.35">
@@ -686,7 +762,7 @@
   </div>
 </section>
 
-<!-- 25 Texto: elementos físicos -->
+<!-- 27 Texto: elementos físicos -->
 <section data-label="Elementos físicos" data-seccion="1.3" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p>Tres grupos: carcasa, periféricos y memorias auxiliares.</p><ul><li>Hoy gráfica, red y sonido suelen ir integrados en la placa o el micro.</li><li>Los puertos serie y paralelo han desaparecido; la unidad de DVD ya no se monta.</li></ul></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Componentes hardware</p>
@@ -731,9 +807,9 @@
   </div>
 </section>
 
-<!-- 26 Imagen: la placa base por dentro -->
+<!-- 28 Imagen: la placa base por dentro -->
 <section data-label="La placa base por dentro" data-seccion="1.3" style="display:grid;grid-template-columns:1060px 1fr;gap:60px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:start">
-  <aside class="notas"><p><b>Pasar el ratón por cada elemento de la lista</b> para localizarlo en la foto (placa ATX de 2019-2021, micro y SSD montados, sin disipador). El panel trasero queda abajo.</p><p><b>Preguntar:</b> ¿dónde iría la gráfica? Ranura 4, la larga. ¿Por qué hay agujeros alrededor del zócalo? Anclaje del disipador.</p><p>El chipset (5) comunica el micro con USB, SATA y las ranuras cortas.</p></aside>
+  <aside class="notas"><p><b>Pasar el ratón por cada elemento de la lista</b> para localizarlo en la foto (placa ATX de 2019-2021, micro y SSD montados, sin disipador). El panel trasero queda abajo.</p><p><b>Preguntar:</b> ¿dónde iría la gráfica? Ranura 4, la larga. ¿Por qué hay agujeros alrededor del zócalo? Anclaje del disipador.</p><p><b>Chipset (5), para qué sirve:</b> el micro solo tiene conexiones directas para la RAM, la gráfica y un SSD; todo lo demás (USB, SATA, red, sonido, wifi, ranuras cortas) pasa por el chipset, que hace de conmutador y reparte esas conexiones. Antes eran dos chips, puente norte y puente sur; el norte se ha metido dentro del micro y solo queda el sur, que ahora se llama chipset. Marca el zócalo y las prestaciones de la placa: para AM4 los hay B450, B550 o X570; el chipset decide cuántos USB y SATA hay y si se puede subir la frecuencia del micro. Va bajo el disipador con el logotipo porque se calienta.</p></aside>
   <figure class="foto" style="aspect-ratio:1600/1312;height:auto">
     <img src="img/placa-base.jpg" alt="Placa base ATX MSI X470 vista desde arriba, con el procesador AMD Ryzen montado, dos módulos de RAM y un SSD NVMe" title="Foto: Michael Wolf · Wikimedia Commons · CC BY-SA 3.0">
     <span class="marca" style="left:29.2%;top:45.7%">1</span>
@@ -763,11 +839,11 @@
       <li data-marca="9" style="display:flex;gap:14px;padding:6px 10px;margin:0 -10px"><b style="color:var(--blue);flex:none;width:30px">9</b><span><b>Panel trasero de conectores</b>: USB, red, HDMI, audio. En la foto queda abajo.</span></li>
       <li data-marca="10" style="display:flex;gap:14px;padding:6px 10px;margin:0 -10px"><b style="color:var(--blue);flex:none;width:30px">10</b><span><b>Pila de botón</b> (CR2032): conserva la hora y la configuración con el equipo apagado.</span></li>
     </ol>
-    <p style="font-size:20px;color:var(--muted);line-height:1.35;margin-top:auto;padding-top:16px">Figura 1.15. Placa base ATX con el micro y el SSD montados. Pasa el ratón por la lista para localizar cada pieza; clic en la foto para ampliarla.</p>
+    <p style="font-size:20px;color:var(--muted);line-height:1.35;margin-top:auto;padding-top:16px">Figura 1.17. Placa base ATX con el micro y el SSD montados. Pasa el ratón por la lista para localizar cada pieza; clic en la foto para ampliarla.</p>
   </div>
 </section>
 
-<!-- 27 Tabla: periféricos -->
+<!-- 29 Tabla: periféricos -->
 <section data-label="Periféricos" data-seccion="1.3" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p><b>Preguntar antes de mostrar:</b> ¿un mando de consola? ¿unas gafas de realidad virtual? ¿la pantalla táctil?</p><p>Regla: entrada si mete información, salida si la saca, E/S si hace las dos.</p><p>Curiosidad: los relieves de F, J y el 5 numérico sirven para situar las manos sin mirar.</p></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Componentes hardware</p>
@@ -790,9 +866,9 @@
   <p style="font-size:var(--type-caption);line-height:1.45;margin-top:auto;border-left:5px solid var(--yellow);padding-left:20px;color:var(--ink)"><b>Curiosidad.</b> Los relieves de las teclas F y J, y del 5 del teclado numérico, sirven de referencia para escribir sin mirar al teclado y ayudan a las personas ciegas a situar las manos.</p>
 </section>
 
-<!-- 28 Texto: memorias auxiliares -->
+<!-- 30 Texto: memorias auxiliares -->
 <section data-label="Memorias auxiliares" data-seccion="1.3" style="display:grid;grid-template-columns:1fr 1.5fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
-  <aside class="notas"><ul><li>Las velocidades son de lectura secuencial y orientativas: lo que importa es el orden de magnitud HDD, SSD SATA, NVMe.</li><li>El Blu-ray (2006) sucedió al DVD, pero el lector óptico ha desaparecido de los equipos nuevos.</li></ul><p><b>Preguntar:</b> ¿la nube es una memoria auxiliar? Sí, pero en el ordenador de otro. Enlaza con protección de datos (1.4) y con la práctica 1.5.</p></aside>
+  <aside class="notas"><ul><li>Las velocidades son de lectura secuencial y orientativas: lo que importa es el orden de magnitud HDD, SSD SATA, NVMe.</li><li>El Blu-ray (2006) sucedió al DVD, pero el lector óptico ha desaparecido de los equipos nuevos.</li></ul><p><b>Preguntar:</b> ¿la nube es una memoria auxiliar? Sí, pero en el ordenador de otro. Enlaza con protección de datos (1.4).</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Componentes hardware</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Memorias auxiliares</h2>
@@ -811,7 +887,7 @@
   </div>
 </section>
 
-<!-- 29 Imagen: elementos funcionales -->
+<!-- 31 Imagen: elementos funcionales -->
 <section data-label="Elementos funcionales" data-seccion="1.3" style="display:grid;grid-template-columns:1fr 1000px;gap:72px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
   <aside class="notas"><p><b>Contar el esquema:</b> el fondo amarillo es lo que está en la placa (CPU, memoria principal, buses, E/S); fuera quedan periféricos y memoria auxiliar.</p><ul><li>Memoria principal: el programa en ejecución y sus datos. Auxiliar: lo que se conserva.</li><li>Registros: bloque propio de la CPU (UC + UAL + registros); en las dos siguientes se explican junto a la unidad que los usa.</li><li>CPU es la función; microprocesador, su chip. En la práctica, sinónimos.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -825,7 +901,7 @@
       <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Unidad de entrada/salida</b>, puente hacia el exterior.</span></li>
       <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Periféricos</b> y <b>memoria auxiliar</b>, fuera de la placa base.</span></li>
     </ul>
-    <p style="font-size:20px;color:var(--muted);line-height:1.4;margin-top:auto;padding-top:20px">Figura 1.16. Esquema de las partes funcionales. El fondo amarillo señala lo que está en la placa base. Elaboración propia.</p>
+    <p style="font-size:20px;color:var(--muted);line-height:1.4;margin-top:auto;padding-top:20px">Figura 1.18. Esquema de las partes funcionales. El fondo amarillo señala lo que está en la placa base. Elaboración propia.</p>
   </div>
   <div style="background:var(--white);border-radius:20px;padding:24px 28px;box-shadow:0 2px 0 var(--line);display:flex;align-items:center">
     <svg viewBox="0 0 1000 600" style="width:100%;height:auto" role="img" aria-label="Esquema de las partes funcionales de un ordenador: en la placa base, la CPU con la unidad de control, la unidad aritmético-lógica y los registros, la memoria principal, los tres buses y la unidad de entrada/salida; fuera, los periféricos y la memoria auxiliar">
@@ -887,9 +963,9 @@
   </div>
 </section>
 
-<!-- 30 Tabla: los tres buses -->
+<!-- 32 Tabla: los tres buses -->
 <section data-label="Los tres buses" data-seccion="1.3" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
-  <aside class="notas"><ul><li>Datos: bidireccional. Direcciones: siempre sale de la CPU. Control: señales de la UC (leer, escribir, reloj, interrupciones).</li><li>El ancho del bus de direcciones limita la memoria: 32 bits, 2<sup>32</sup> direcciones, 4 GB. Por eso un Windows de 32 bits no aprovecha más de 4 GB: el portátil del comercial en la práctica 1.5.</li></ul><p>Se retoma en el 1.9 con las unidades.</p></aside>
+  <aside class="notas"><ul><li>Datos: bidireccional. Direcciones: siempre sale de la CPU. Control: señales de la UC (leer, escribir, reloj, interrupciones).</li><li>El ancho del bus de direcciones limita la memoria: 32 bits, 2<sup>32</sup> direcciones, 4 GB. Por eso un Windows de 32 bits no aprovecha más de 4 GB.</li></ul><p>Se retoma en el 1.9 con las unidades.</p></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Componentes hardware</p>
   <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Los tres buses</h2>
   <table style="width:100%;border-collapse:collapse;margin-top:var(--gap-title);font-size:var(--type-small);background:var(--white);border-radius:20px;overflow:hidden">
@@ -911,7 +987,7 @@
   <p style="font-size:var(--type-caption);line-height:1.45;margin-top:auto;border-left:5px solid var(--yellow);padding-left:20px;color:var(--ink)"><b>Por qué "64 bits".</b> Con un bus de direcciones de 32 bits solo hay 2<sup>32</sup> direcciones distintas: 4 GB. Por eso un sistema operativo de 32 bits no puede aprovechar más de 4 GB de memoria RAM. Con 64 bits el límite deja de ser un problema.</p>
 </section>
 
-<!-- 31 Texto: la unidad de control -->
+<!-- 33 Texto: la unidad de control -->
 <section data-label="La unidad de control" data-seccion="1.3" style="display:grid;grid-template-columns:1fr 1.25fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
   <aside class="notas"><p>La UC es el director de orquesta: interpreta cada instrucción y manda por el bus de control.</p><ul><li>Registros: memorias diminutas dentro del micro, las más rápidas del ordenador.</li><li><b>Insistir en el formato de la instrucción:</b> código de operación, modo de direccionamiento, dato o dirección. Es lo que interpreta el decodificador.</li></ul><p>El reloj va dos diapositivas más adelante.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -937,7 +1013,7 @@
   </div>
 </section>
 
-<!-- 32 Texto: la unidad aritmético-lógica -->
+<!-- 34 Texto: la unidad aritmético-lógica -->
 <section data-label="La unidad aritmético-lógica" data-seccion="1.3" style="display:grid;grid-template-columns:1fr 1.25fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
   <aside class="notas"><p>El micro solo sabe sumar y comparar: todo lo demás se construye a partir de ahí.</p><ul><li>Registro de estado, el que hay que retener: Z (cero), S (signo), C (acarreo), O (desbordamiento). Se ven de verdad en el 1.7.</li><li>O es la explicación del contador de Gangnam Style (1.7).</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -962,7 +1038,7 @@
   </div>
 </section>
 
-<!-- 33 Pasos: el ciclo de instrucción -->
+<!-- 35 Pasos: el ciclo de instrucción -->
 <section data-label="El ciclo de instrucción" data-criterio="k" data-seccion="1.3" style="display:grid;grid-template-columns:1.15fr 1fr;gap:72px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
   <aside class="notas"><p><b>Contarlo señalando en el esquema funcional</b> quién hace cada cosa: CP y bus de direcciones, memoria y bus de datos, RI, decodificador, secuenciador, UAL y acumulador.</p><ul><li>Lo que hay que saber: buscar, decodificar, ejecutar, avanzar.</li><li>Si preguntan: en los micros reales el CP se incrementa nada más leer, y un salto lo sobrescribe; desde los noventa se solapan ciclos (segmentación).</li><li>Modos de direccionamiento solo como concepto.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -1004,7 +1080,7 @@
   </div>
 </section>
 
-<!-- 34 Texto: el reloj y la frecuencia -->
+<!-- 36 Texto: el reloj y la frecuencia -->
 <section data-label="El reloj y la frecuencia" data-seccion="1.3" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
   <aside class="notas"><p><b>Ciclos, no instrucciones:</b> 3 GHz son 3.000 millones de ciclos; una instrucción puede tardar varios y un núcleo moderno ejecuta varias por ciclo.</p><p><b>Demo:</b> Administrador de tareas › Rendimiento › CPU: velocidad base, núcleos, procesadores lógicos y la frecuencia subiendo y bajando.</p><ul><li>IBM PC (1981): 8088 a 4,77 MHz. Ryzen 7 3700X (el de la foto de la placa): 8 núcleos, 16 hilos, 3,6-4,4 GHz.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -1047,7 +1123,7 @@
   </div>
 </section>
 
-<!-- 35 Comparativa: RAM y ROM -->
+<!-- 37 Comparativa: RAM y ROM -->
 <section data-label="Memoria principal: RAM y ROM" data-seccion="1.3" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><ul><li>RAM: el programa en ejecución y sus datos; se borra al apagar. Tres elementos: registro de direcciones, registro de intercambio, selector.</li><li>ROM: guarda lo necesario para arrancar. Hoy la BIOS/UEFI está en flash y se actualiza desde el fabricante.</li><li>En la foto de la placa: la RAM son los módulos de la ranura 2; la ROM, un chip pequeño.</li></ul><p>Curiosidad: Spectrum, Amstrad y Commodore traían sistema y BASIC en ROM y cargaban de casete.</p></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Componentes hardware</p>
@@ -1077,7 +1153,7 @@
   </div>
 </section>
 
-<!-- 36 Quiz: ¿cuál NO almacena información? -->
+<!-- 38 Quiz: ¿cuál NO almacena información? -->
 <section class="dark" data-label="Quiz: almacenar o transportar" data-seccion="1.3" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Respuesta: C, el bus de datos.</b> Los buses solo comunican; acumulador, disco y pendrive guardan.</p><p>Si dudan, volver al esquema funcional.</p></aside>
   <div class="quiz" data-correct="2" data-ok="Correcto. El bus de datos solo transporta: lleva datos e instrucciones de un elemento a otro, pero no los guarda." data-ko="No. Piensa cuál de los cuatro no guarda nada, solo lleva la información de un sitio a otro." style="display:contents">
@@ -1098,7 +1174,7 @@
 
 <!-- ============ BLOQUE 4 · Sección 1.4 · Software, licencias y normativa ============ -->
 
-<!-- 37 Texto: qué es el software y cómo arranca el ordenador -->
+<!-- 39 Texto: qué es el software y cómo arranca el ordenador -->
 <section data-label="Qué es el software" data-seccion="1.4" data-deck-id="software" data-deck-section="1.4" style="display:grid;grid-template-columns:1fr 1.15fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
   <aside class="notas"><p>Recorrido que hay que fijar: el programa vive en la memoria auxiliar, se carga en la RAM y el micro lo ejecuta instrucción a instrucción (ciclo de instrucción, 1.3).</p><ul><li>Arranque: la UEFI (ROM de la placa) comprueba el hardware y busca el disco; carga el SO; el SO carga los programas.</li></ul><p><b>Preguntar:</b> ¿y si el disco está vacío? La UEFI se queda buscando. Se ve en la UT4 y la UT8.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -1146,11 +1222,11 @@
       <div style="background:var(--white);border-radius:16px;padding:18px 22px;box-shadow:0 2px 0 var(--line)"><p style="font-size:20px;font-weight:800;color:var(--blue)">2 · Sistema operativo</p><p style="font-size:18px;color:var(--muted);line-height:1.35;margin-top:6px">Se carga desde el disco a la RAM y toma el control del equipo.</p></div>
       <div style="background:var(--white);border-radius:16px;padding:18px 22px;box-shadow:0 2px 0 var(--line)"><p style="font-size:20px;font-weight:800;color:var(--blue)">3 · Programas</p><p style="font-size:18px;color:var(--muted);line-height:1.35;margin-top:6px">El sistema operativo carga cada programa que abres y le reparte memoria y procesador.</p></div>
     </div>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.17. Recorrido de un programa desde el disco hasta el microprocesador. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.19. Recorrido de un programa desde el disco hasta el microprocesador. Elaboración propia.</p>
   </div>
 </section>
 
-<!-- 38 Comparativa: lenguajes de bajo y alto nivel -->
+<!-- 40 Comparativa: lenguajes de bajo y alto nivel -->
 <section data-label="Lenguajes de bajo y alto nivel" data-seccion="1.4" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p>Las tres columnas hacen lo mismo: sumar 2 y 3.</p><ul><li>Código máquina y ensamblador son x86 de 16 bits: <code>B8 02 00</code> es <code>mov ax, 2</code> y <code>05 03 00</code> es <code>add ax, 3</code>. Una instrucción de ensamblador por una de máquina.</li><li>Que se fijen en AX: es el acumulador del 1.3.</li><li>Lenguaje máquina: distinto para cada familia de procesadores. Alto nivel: el mismo programa para cualquier ordenador, pero hay que traducirlo.</li></ul></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Software, licencias y normativa</p>
@@ -1198,9 +1274,9 @@
   </div>
 </section>
 
-<!-- 39 Comparativa: compilar o interpretar -->
+<!-- 41 Comparativa: compilar o interpretar -->
 <section data-label="Compilar o interpretar" data-seccion="1.4" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
-  <aside class="notas"><ul><li>Java y C#: caso intermedio, se compilan a bytecode que ejecuta una máquina virtual.</li><li>Ejemplo cercano: el navegador lleva un intérprete de JavaScript, por eso una web se ejecuta en cualquier ordenador.</li></ul><p>Enlace con la práctica 1.5: un ejecutable compilado para Windows no funciona en Linux; un script de Python sí, si está el intérprete.</p></aside>
+  <aside class="notas"><ul><li>Java y C#: caso intermedio, se compilan a bytecode que ejecuta una máquina virtual.</li><li>Ejemplo cercano: el navegador lleva un intérprete de JavaScript, por eso una web se ejecuta en cualquier ordenador.</li></ul><p>Un ejecutable compilado para Windows no funciona en Linux; un script de Python sí, si está el intérprete.</p></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Software, licencias y normativa</p>
   <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Compilar o interpretar</h2>
   <p style="font-size:var(--type-caption);line-height:1.45;color:var(--muted);margin-top:18px">Un programa de alto nivel no lo entiende el microprocesador. Hay dos formas de traducirlo a lenguaje máquina.</p>
@@ -1239,7 +1315,7 @@
   </div>
 </section>
 
-<!-- 40 Pregunta: ¿sabéis programar? -->
+<!-- 42 Pregunta: ¿sabéis programar? -->
 <section data-label="¿Sabéis programar?" data-seccion="1.4" style="display:grid;grid-template-columns:1fr 1.25fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
   <aside class="notas"><p><b>Preguntar quién ha programado algo</b> (Scratch, Arduino, una macro, un bot de Discord).</p><ul><li>Al revelar: encuesta Stack Overflow 2025, lenguajes con los que han trabajado el último año. Mide uso, no fama, y solo entre quienes usan Stack Overflow.</li><li>Clic en el gráfico para verlo con scroll: comentar Bash y PowerShell (este módulo), ensamblador 7 %, COBOL 1 % y Fortran, de los cincuenta y aún en bancos y ciencia.</li></ul><p>Solo información, no hay tarea.</p></aside>
   <div>
@@ -1261,7 +1337,7 @@
   </div>
 </section>
 
-<!-- 41 Tabla: tipos de software según su función -->
+<!-- 43 Tabla: tipos de software según su función -->
 <section data-label="Tipos de software" data-criterio="c" data-seccion="1.4" style="display:grid;grid-template-columns:520px 1fr;gap:72px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
   <aside class="notas"><p>Tres capas; cada una se apoya en la de abajo.</p><p><b>Preguntar dónde va:</b> un antivirus (aplicación), el driver de la impresora (base), el navegador (aplicación, aunque hoy sea casi un sistema operativo).</p><ul><li>Software de programación: compiladores, intérpretes y entornos como VS Code, IntelliJ o Android Studio.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -1274,7 +1350,7 @@
       <rect x="10" y="312" width="500" height="92" rx="16" fill="#0B4AB5"/><text x="260" y="350" text-anchor="middle" font-size="24" font-weight="800" fill="#fff">Software de base</text><text x="260" y="382" text-anchor="middle" font-size="18" fill="#C9D6EE">sistema operativo y controladores</text>
       <rect x="10" y="422" width="500" height="44" rx="12" fill="#15356B"/><text x="260" y="451" text-anchor="middle" font-size="20" font-weight="800" fill="#F4C20D">Hardware</text>
     </svg>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:14px">Figura 1.18. Cada capa se apoya en la de abajo. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:14px">Figura 1.20. Cada capa se apoya en la de abajo. Elaboración propia.</p>
   </div>
   <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
     <table style="width:100%;border-collapse:collapse;font-size:22px;background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 2px 0 var(--line)">
@@ -1289,9 +1365,43 @@
   </div>
 </section>
 
-<!-- 42 Definición: software propietario, copyright y copyleft -->
+<!-- ============ SECCIÓN 1.5 · Práctica: las licencias, explicadas por vosotros (aula invertida) ============ -->
+
+<!-- 44 Práctica 1.5: las licencias, explicadas por vosotros -->
+<section data-label="Práctica: licencias explicadas por vosotros" data-criterio="c" data-seccion="1.5" data-deck-id="practica-1-5" data-deck-section="1.5" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <aside class="notas"><p><b>Aula invertida: presentar la práctica 1.5 antes de explicar las licencias.</b> Hoy se forman los cinco grupos de cuatro, se sortean las licencias y se anuncia en la pizarra la fecha de las exposiciones.</p><ul><li>Material de estudio: las diapositivas 45 a 54, choosealicense.com y la web de cada licencia. IA permitida en casa, con el apartado de qué se pidió y qué se comprobó.</li><li>Se evalúa en clase con cinco criterios: contenido (3), presentación (2) y formato (1) son nota de grupo; dominio ante las preguntas (2) y trabajo observado en la sesión de preparación (2) son individuales.</li><li>Cada grupo entrega tres preguntas de test con su respuesta: van al banco del test masivo 1.11 y pueden caer en el examen.</li></ul><p>Después de las exposiciones, 45 y 47 se pasan en un minuto; lo que queda por hacer son las tablas (46, 48), el debate (49), la IA (50) y el quiz (54). Guion completo en las diapositivas finales y en el aula virtual.</p></aside>
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <span class="pill" style="align-self:flex-start">Práctica</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Las licencias, explicadas por vosotros</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item)">Antes de que yo explique nada, cada grupo se prepara una licencia y se la explica al resto de la clase: qué permite, qué obliga, quién la usa y cómo se ve en un programa real.</p>
+    <ul style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:14px;font-size:21px;line-height:1.4">
+      <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Cinco grupos de cuatro</b>, una licencia por grupo, sorteada hoy en clase.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Preparación en casa, IA permitida</b>, con un apartado obligatorio: qué le pedisteis y qué comprobasteis después en la web de la licencia o en choosealicense.com.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Se evalúa en clase</b>: la exposición, lo que respondáis a mis preguntas y cómo trabajáis en la sesión de preparación. La nota es individual.</span></li>
+    </ul>
+  </div>
+  <div style="background:var(--white);border-radius:24px;padding:44px 48px;display:flex;flex-direction:column;gap:28px;box-shadow:0 2px 0 var(--line)">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;font-size:var(--type-caption)">
+      <div><p style="color:var(--muted);font-size:20px">Formato</p><p style="font-weight:700;color:var(--navy);margin-top:4px">Exposición en grupo, con pantalla</p></div>
+      <div><p style="color:var(--muted);font-size:20px">Fecha de exposición</p><p style="font-weight:700;color:var(--navy);margin-top:4px">Se anuncia en clase</p></div>
+      <div><p style="color:var(--muted);font-size:20px">Además</p><p style="font-weight:700;color:var(--navy);margin-top:4px">Tres preguntas de test por grupo</p></div>
+      <div><p style="color:var(--muted);font-size:20px">Cubre</p><p style="font-weight:700;color:var(--navy);margin-top:4px">Criterio c del RA1</p></div>
+    </div>
+    <div style="height:2px;background:var(--line)"></div>
+    <ol style="padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;font-size:20px;line-height:1.35">
+      <li style="display:flex;gap:16px"><span style="font-weight:800;color:var(--blue)">1.</span><span><b>GPL</b>, la licencia libre con copyleft: Linux, WordPress, GIMP.</span></li>
+      <li style="display:flex;gap:16px"><span style="font-weight:800;color:var(--blue)">2.</span><span><b>MIT</b>, la permisiva más corta: React, Node.js, el código de VS Code.</span></li>
+      <li style="display:flex;gap:16px"><span style="font-weight:800;color:var(--blue)">3.</span><span><b>Apache 2.0</b>, permisiva con patentes: Android, Kubernetes, TensorFlow.</span></li>
+      <li style="display:flex;gap:16px"><span style="font-weight:800;color:var(--blue)">4.</span><span><b>Creative Commons</b>, para obras y no para software: Wikipedia, Wikimedia Commons, estas diapositivas.</span></li>
+      <li style="display:flex;gap:16px"><span style="font-weight:800;color:var(--blue)">5.</span><span><b>Propietario con EULA</b>: Windows 11, Microsoft 365, Adobe Creative Cloud.</span></li>
+    </ol>
+    <p style="font-size:19px;color:var(--muted);line-height:1.4;margin-top:auto"><b style="color:var(--navy)">Lo que cuenta es que sepáis de lo que habláis.</b> Las cinco licencias entran en el test masivo y en el examen, así que el resto de la clase toma notas. Guion completo al final de la unidad.</p>
+  </div>
+</section>
+
+<!-- 45 Definición: software propietario, copyright y copyleft -->
 <section class="dark" data-label="Software propietario" data-criterio="c" data-seccion="1.4" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.1fr;gap:100px;align-items:center">
-  <aside class="notas"><p>Una licencia es un contrato: el fabricante conserva la propiedad y concede un permiso de uso con condiciones.</p><p><b>Pedir que abran el EULA de algún programa que tengan.</b> Nadie lo lee.</p><ul><li>Copiar o modificar sin permiso: infracción de la Ley de Propiedad Intelectual, civil y en casos graves penal.</li><li>Copyleft: juego de palabras con right/left. La C invertida no es un símbolo legal. No renuncia a los derechos de autor: los usa para obligar a mantener las libertades.</li></ul></aside>
+  <aside class="notas"><p>Una licencia es un contrato: el fabricante conserva la propiedad y concede un permiso de uso con condiciones.</p><p><b>Pedir que abran el EULA de algún programa que tengan.</b> Nadie lo lee.</p><ul><li>Copiar o modificar sin permiso: infracción de la Ley de Propiedad Intelectual, civil y en casos graves penal.</li><li>Copyleft: juego de palabras con right/left. La C invertida no es un símbolo legal. No renuncia a los derechos de autor: los usa para obligar a mantener las libertades.</li></ul><p>Si los grupos de la práctica 1.5 ya han expuesto, esta diapositiva y la 47 se pasan en un minuto.</p></aside>
   <div>
     <p style="font-size:var(--type-small);font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">Software, licencias y normativa</p>
     <h2 style="font-size:var(--type-hero);font-weight:800;line-height:1.02;margin-top:24px;letter-spacing:-.02em;text-wrap:balance">Software propietario</h2>
@@ -1310,9 +1420,9 @@
   </div>
 </section>
 
-<!-- 43 Tabla: clasificación con ejemplos -->
+<!-- 46 Tabla: clasificación con ejemplos -->
 <section data-label="Clasificación por licencia" data-seccion="1.4" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
-  <aside class="notas"><p><b>Gratis no es lo mismo que libre.</b> La tabla cruza pagar o no con tener o no libertad sobre el código.</p><ul><li>CPU-Z: gratis, sin código, prohíbe redistribuir. Red Hat: GPL, se paga la suscripción. Unreal Engine: código visible, propietario, cobra a partir de cierta facturación.</li><li>Código sin licencia: todos los derechos del autor; por eso GitHub insiste en el archivo LICENSE (choosealicense.com).</li><li>Vocabulario de descargas: freeware, shareware, open source.</li></ul><p>La tabla de software de la práctica 1.5 lleva estas columnas.</p></aside>
+  <aside class="notas"><p><b>Gratis no es lo mismo que libre.</b> La tabla cruza pagar o no con tener o no libertad sobre el código.</p><ul><li>CPU-Z: gratis, sin código, prohíbe redistribuir. Red Hat: GPL, se paga la suscripción. Unreal Engine: código visible, propietario, cobra a partir de cierta facturación.</li><li>Código sin licencia: todos los derechos del autor; por eso GitHub insiste en el archivo LICENSE (choosealicense.com).</li><li>Vocabulario de descargas: freeware, shareware, open source.</li></ul><p>Los grupos de la práctica 1.5 ya han explicado GPL, MIT, Apache, Creative Commons y EULA: colocar cada una en su fila de la tabla y preguntarles.</p></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Software, licencias y normativa</p>
   <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Gratis no es lo mismo que libre</h2>
   <table style="width:100%;border-collapse:collapse;margin-top:28px;font-size:21px;background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 2px 0 var(--line)">
@@ -1338,9 +1448,9 @@
   <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:16px">Tabla 1.7. Clasificación del software por licencia. Las columnas responden a la licencia de cada programa en 2026; comprueba siempre la del producto concreto antes de usarlo en una empresa.</p>
 </section>
 
-<!-- 44 Texto + galería: GPL y las cuatro libertades -->
+<!-- 47 Texto + galería: GPL y las cuatro libertades -->
 <section data-label="GPL y las cuatro libertades" data-seccion="1.4" style="display:grid;grid-template-columns:1fr 640px;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
-  <aside class="notas"><ul><li>Stallman: proyecto GNU 1983, FSF 1985, GPL 1989 (v2 1991, v3 2007). Libertades numeradas de 0 a 3.</li><li>Copyleft: toda versión modificada que se distribuya lleva GPL y código fuente.</li><li>Torvalds publica Linux en 1991 y lo pasa a GPL v2 en 1992.</li><li>Permisivas (MIT, BSD, Apache): permiten cerrar el resultado. <b>Cae en el quiz y en el giro de la práctica 1.5</b> (el plugin sobre un tema GPL).</li></ul></aside>
+  <aside class="notas"><ul><li>Stallman: proyecto GNU 1983, FSF 1985, GPL 1989 (v2 1991, v3 2007). Libertades numeradas de 0 a 3.</li><li>Copyleft: toda versión modificada que se distribuya lleva GPL y código fuente.</li><li>Torvalds publica Linux en 1991 y lo pasa a GPL v2 en 1992.</li><li>Permisivas (MIT, BSD, Apache): permiten cerrar el resultado. <b>Cae en el quiz.</b> El grupo de la GPL debería haberlo contado en la práctica 1.5: preguntarles.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Software, licencias y normativa</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Software libre: la GPL y las cuatro libertades</h2>
@@ -1357,20 +1467,20 @@
     </div>
   </div>
   <div class="galeria" style="--galeria-alto:560px;--galeria-flex:none;justify-content:center">
-    <figure class="foto" data-pie="<b>Figura 1.19.</b> Richard Stallman, fundador del proyecto GNU (1983) y de la Free Software Foundation (1985), y autor de la GPL. En 2015, en la fiesta del 30.º aniversario de la FSF.">
+    <figure class="foto" data-pie="<b>Figura 1.21.</b> Richard Stallman, fundador del proyecto GNU (1983) y de la Free Software Foundation (1985), y autor de la GPL. En 2015, en la fiesta del 30.º aniversario de la FSF.">
       <img src="img/stallman.jpg" alt="Retrato en blanco y negro de Richard Stallman" title="Foto: Frank Karlitschek · Wikimedia Commons · CC BY-SA 3.0">
       <figcaption class="credito"><b>Richard Stallman</b> en Boston, octubre de 2015. Foto: Frank Karlitschek, <a href="https://commons.wikimedia.org/wiki/File:Richard_Stallman_(124442297).jpeg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.es" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Reducida.</figcaption>
     </figure>
-    <figure class="foto" data-pie="<b>Figura 1.20.</b> Linus Torvalds, creador del núcleo Linux (1991), publicado bajo la GPL versión 2 desde 1992. Sigue coordinando su desarrollo.">
+    <figure class="foto" data-pie="<b>Figura 1.22.</b> Linus Torvalds, creador del núcleo Linux (1991), publicado bajo la GPL versión 2 desde 1992. Sigue coordinando su desarrollo.">
       <img src="img/torvalds.jpg" alt="Linus Torvalds sonriendo durante una charla" title="Foto: Krd, recorte de Sprat · Wikimedia Commons · CC BY-SA 4.0" style="object-fit:cover;object-position:center 20%">
       <figcaption class="credito"><b>Linus Torvalds</b> en LinuxCon Europe, Düsseldorf, 2014. Foto: Krd (recorte de Sprat), <a href="https://commons.wikimedia.org/wiki/File:LinuxCon_Europe_Linus_Torvalds_03_(cropped).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Reducida.</figcaption>
     </figure>
   </div>
 </section>
 
-<!-- 45 Tabla: Creative Commons -->
+<!-- 48 Tabla: Creative Commons -->
 <section data-label="Creative Commons" data-seccion="1.4" style="display:grid;grid-template-columns:1fr 1.25fr;gap:72px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
-  <aside class="notas"><ul><li>Creative Commons (2001): el copyleft llevado a textos, fotos, música, apuntes. Cuatro condiciones, seis licencias, más CC0.</li><li>Ejemplo cercano: las fotos de Wikimedia Commons de esta presentación son CC BY-SA, y estas diapositivas también (4.0).</li><li>CC desaconseja sus licencias para software: para eso GPL, MIT o Apache.</li><li>Buscar imágenes reutilizables: Wikimedia Commons, Openverse, filtro de licencia del buscador.</li></ul><p>Para la práctica 1.5: cada imagen o texto ajeno lleva autor y licencia.</p></aside>
+  <aside class="notas"><ul><li>Creative Commons (2001): el copyleft llevado a textos, fotos, música, apuntes. Cuatro condiciones, seis licencias, más CC0.</li><li>Ejemplo cercano: las fotos de Wikimedia Commons de esta presentación son CC BY-SA, y estas diapositivas también (4.0).</li><li>CC desaconseja sus licencias para software: para eso GPL, MIT o Apache.</li><li>Buscar imágenes reutilizables: Wikimedia Commons, Openverse, filtro de licencia del buscador.</li></ul><p>El grupo de Creative Commons ya lo ha expuesto en la práctica 1.5: repasar solo la tabla. Recordatorio: cada imagen o texto ajeno lleva autor y licencia.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Software, licencias y normativa</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Creative Commons: licencias para obras creativas</h2>
@@ -1400,7 +1510,7 @@
   </div>
 </section>
 
-<!-- 46 Pregunta: debate sobre licencias -->
+<!-- 49 Pregunta: debate sobre licencias -->
 <section data-label="Debate: licencias" data-seccion="1.4" style="display:grid;grid-template-columns:1fr 1.3fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
   <aside class="notas"><p><b>Grupos de tres o cuatro, cada uno defiende una respuesta en voz alta antes de revelar.</b></p><ul><li>1) Copyright reserva los derechos; copyleft los usa para que las copias sigan siendo libres.</li><li>2) Libre (FSF, 1985): ética y cuatro libertades. Abierto (OSI, 1998): ventajas prácticas. Casi todas las licencias cumplen ambas; cambia el discurso.</li><li>3) Permisivas: más libertad a quien desarrolla. GPL: más garantías a quien usa. Sin respuesta única.</li><li>4) Obras creativas, CC; software, GPL, MIT o Apache.</li></ul></aside>
   <div>
@@ -1425,9 +1535,9 @@
   </div>
 </section>
 
-<!-- 47 Pregunta: licencias e inteligencia artificial -->
+<!-- 50 Pregunta: licencias e inteligencia artificial -->
 <section data-label="Licencias en 2026: IA" data-seccion="1.4" style="display:grid;grid-template-columns:1fr 1.3fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
-  <aside class="notas"><p><b>Debate actual, sin respuesta cerrada.</b></p><ul><li>Pesos abiertos (Llama, Mistral, Gemma, DeepSeek): se descargan, pero la licencia pone condiciones y no publican datos ni código de entrenamiento.</li><li>OSI, Open Source AI Definition 1.0 (octubre de 2024): exige código, pesos e información suficiente sobre los datos. Con ese criterio la mayoría no son código abierto.</li><li>Código generado por IA: la LPI española dice que el autor es la persona natural (artículo 5); en los tribunales sigue abierto.</li></ul><p>Práctica 1.5: apartado de qué se pidió a la IA y qué se comprobó.</p></aside>
+  <aside class="notas"><p><b>Debate actual, sin respuesta cerrada.</b></p><ul><li>Pesos abiertos (Llama, Mistral, Gemma, DeepSeek): se descargan, pero la licencia pone condiciones y no publican datos ni código de entrenamiento.</li><li>OSI, Open Source AI Definition 1.0 (octubre de 2024): exige código, pesos e información suficiente sobre los datos. Con ese criterio la mayoría no son código abierto.</li><li>Código generado por IA: la LPI española dice que el autor es la persona natural (artículo 5); en los tribunales sigue abierto.</li></ul><p>En la práctica 1.5 se pidió lo mismo: qué se le pidió a la IA y qué se comprobó después.</p></aside>
   <div>
     <img class="icono" src="../assets/question.png" alt="">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-top:var(--gap-item)">Pregunta a la clase · 2026</p>
@@ -1450,7 +1560,7 @@
   </div>
 </section>
 
-<!-- 48 Cita: propiedad intelectual -->
+<!-- 51 Cita: propiedad intelectual -->
 <section class="dark" data-label="Propiedad intelectual" data-criterio="c" data-seccion="1.4" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.2fr 1fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Idea fuerza:</b> todo lo que alguien crea tiene autor desde que lo crea, sin registrarlo.</p><ul><li>LPI: Real Decreto Legislativo 1/1996. Programas de ordenador: Título VII del Libro I; artículo 99 (derechos exclusivos) y 100 (copia de seguridad permitida).</li><li>En España no hay fair use; excepciones concretas: cita docente (art. 32), parodia (art. 39), copia privada (art. 31).</li></ul><p>Mensaje práctico: en un trabajo, cada imagen y párrafo ajeno lleva fuente y licencia.</p></aside>
   <div>
@@ -1466,7 +1576,7 @@
   </div>
 </section>
 
-<!-- 49 Texto: protección de datos -->
+<!-- 52 Texto: protección de datos -->
 <section data-label="Protección de datos" data-seccion="1.4" style="display:grid;grid-template-columns:1.15fr 1fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
   <aside class="notas"><ul><li>RGPD: Reglamento (UE) 2016/679, aplicable desde el 25 de mayo de 2018. En España, LOPDGDD (Ley Orgánica 3/2018).</li><li>Dato personal (art. 4): también una IP, una matrícula o una foto.</li><li>AEPD: multas de hasta 20 millones o el 4 % de la facturación mundial.</li><li>Cookies: artículo 22.2 de la Ley 34/2002; rechazar tan fácil como aceptar. El banner de la derecha está bien hecho.</li><li>Transferencias fuera de la UE: solo con decisión de adecuación o garantías equivalentes (capítulo V). Es el caso de la siguiente.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -1502,13 +1612,13 @@
         </div>
       </div>
     </div>
-    <p style="font-size:19px;color:var(--muted);line-height:1.4">Figura 1.21. Un aviso de cookies correcto: informa, permite rechazar con la misma facilidad que aceptar y enlaza a la política. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.4">Figura 1.23. Un aviso de cookies correcto: informa, permite rechazar con la misma facilidad que aceptar y enlaza a la política. Elaboración propia.</p>
   </div>
 </section>
 
-<!-- 50 Caso real: TCS y Telefónica -->
+<!-- 53 Caso real: TCS y Telefónica -->
 <section data-label="Caso real: TCS y Telefónica" data-seccion="1.4" style="display:grid;grid-template-columns:1fr 820px;gap:72px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
-  <aside class="notas"><p><b>Contarlo como caso vivido.</b> TCS gana la gestión de sistemas de Telefónica con idea de dar parte del servicio desde India; la AEPD no permite acceder a producción (datos de clientes) desde India, sin nivel de protección equivalente.</p><ul><li>Hoy el mecanismo son las decisiones de adecuación (India no la tiene) o cláusulas contractuales tipo más evaluación de riesgo.</li><li>Dos moralejas: importa dónde están las personas que acceden, no solo el servidor; y una mala previsión en un servicio crítico sale muy cara.</li></ul><p>Se retoma en el giro de la práctica 1.5. La foto es el Distrito Telefónica.</p></aside>
+  <aside class="notas"><p><b>Contarlo como caso vivido.</b> TCS gana la gestión de sistemas de Telefónica con idea de dar parte del servicio desde India; la AEPD no permite acceder a producción (datos de clientes) desde India, sin nivel de protección equivalente.</p><ul><li>Hoy el mecanismo son las decisiones de adecuación (India no la tiene) o cláusulas contractuales tipo más evaluación de riesgo.</li><li>Dos moralejas: importa dónde están las personas que acceden, no solo el servidor; y una mala previsión en un servicio crítico sale muy cara.</li></ul><p>La foto es el Distrito Telefónica.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Software, licencias y normativa</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Cuando la ley decide desde dónde se trabaja</h2>
@@ -1524,11 +1634,11 @@
       <img src="img/distrito-telefonica.jpg" alt="Edificios de cristal del Distrito Telefónica en Madrid, con banderas en la entrada" title="Foto: Luis García (Zaqarbal) · Wikimedia Commons · CC BY-SA 3.0">
       <figcaption class="credito"><b>Distrito Telefónica</b>, sede de la empresa en Madrid, 2011. Foto: Luis García (Zaqarbal), <a href="https://commons.wikimedia.org/wiki/File:Distrito_Telef%C3%B3nica_(Madrid)_01.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.es" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Reducida.</figcaption>
     </figure>
-    <p style="font-size:19px;color:var(--muted);line-height:1.4">Figura 1.22. Distrito Telefónica, Madrid. Los datos de los clientes de una operadora son datos personales: el RGPD limita a quién y desde dónde se puede acceder a ellos.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.4">Figura 1.24. Distrito Telefónica, Madrid. Los datos de los clientes de una operadora son datos personales: el RGPD limita a quién y desde dónde se puede acceder a ellos.</p>
   </div>
 </section>
 
-<!-- 51 Quiz: qué licencia obliga a publicar el código -->
+<!-- 54 Quiz: qué licencia obliga a publicar el código -->
 <section class="dark" data-label="Quiz: licencias" data-seccion="1.4" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Respuesta: B, GPL.</b> Es copyleft: la versión modificada que se distribuya lleva GPL y código. MIT solo obliga a mantener el aviso; la propietaria no deja ni modificar; CC BY-ND prohíbe obras derivadas.</p><p>Si fallan, volver a las cuatro libertades.</p></aside>
   <div class="quiz" data-correct="1" data-ok="Correcto. La GPL es copyleft: si distribuyes una versión modificada, tiene que llevar la misma licencia y su código fuente." data-ko="No. Busca la licencia con copyleft: la que obliga a que las versiones derivadas sigan siendo libres y publiquen su código." style="display:contents">
@@ -1547,44 +1657,9 @@
   </div>
 </section>
 
-<!-- ============ SECCIÓN 1.5 · Práctica: propuesta para un cliente ============ -->
-
-<!-- 52 Práctica 1.5: propuesta para un cliente -->
-<section data-label="Práctica: propuesta para un cliente" data-seccion="1.5" data-deck-id="practica-1-5" data-deck-section="1.5" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
-  <aside class="notas"><p><b>Presentar la práctica 1.5 y anunciar la fecha de entrega en la pizarra.</b> El enunciado completo está en las diapositivas finales y en el aula virtual.</p><ul><li>En casa se puede usar IA, documentando qué se pidió y qué se comprobó en la web del fabricante.</li><li>La nota fuerte es el giro: el día de la entrega, 30 minutos en clase, individual y por escrito, con un cambio de requisitos.</li><li>Se puntúa coherencia con la propuesta original, corrección técnica, realismo y justificación.</li></ul></aside>
-  <div style="display:flex;flex-direction:column;min-width:0">
-    <span class="pill" style="align-self:flex-start">Práctica</span>
-    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Propuesta de software para un cliente</h2>
-    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item)">Una agencia de marketing de Valladolid con cuatro puestos de trabajo te pide una propuesta de software para el próximo año: qué programas, con qué licencia, cuánto cuestan, si sus equipos los aguantan y dónde guardar sus datos.</p>
-    <ul style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:14px;font-size:21px;line-height:1.4">
-      <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Presupuesto</b>: 4.000 € para el primer año, licencias y renovación de equipos incluidas.</span></li>
-      <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Condicionantes</b>: dos equipos con Windows 10 sin soporte, un CRM con datos de clientes (RGPD), 40 GB de vídeo al mes que hay que conservar dos años con copia, y un plugin de WordPress que quieren vender.</span></li>
-      <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>IA permitida en casa</b>, con un apartado obligatorio: qué le pediste y qué comprobaste después en la web del fabricante.</span></li>
-    </ul>
-  </div>
-  <div style="background:var(--white);border-radius:24px;padding:44px 48px;display:flex;flex-direction:column;gap:28px;box-shadow:0 2px 0 var(--line)">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;font-size:var(--type-caption)">
-      <div><p style="color:var(--muted);font-size:20px">Entrega</p><p style="font-weight:700;color:var(--navy);margin-top:4px">Documento de 2 a 3 páginas, individual</p></div>
-      <div><p style="color:var(--muted);font-size:20px">Plazo</p><p style="font-weight:700;color:var(--navy);margin-top:4px">Se anuncia en clase</p></div>
-      <div><p style="color:var(--muted);font-size:20px">En clase, el día de la entrega</p><p style="font-weight:700;color:var(--navy);margin-top:4px">Giro de 30 minutos, por escrito</p></div>
-      <div><p style="color:var(--muted);font-size:20px">Cubre</p><p style="font-weight:700;color:var(--navy);margin-top:4px">Criterios c, d y e del RA1</p></div>
-    </div>
-    <div style="height:2px;background:var(--line)"></div>
-    <ol style="padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;font-size:20px;line-height:1.35">
-      <li style="display:flex;gap:16px"><span style="font-weight:800;color:var(--blue)">1.</span><span>Tabla de software por puesto: programa, tipo, licencia, precio para uso comercial, periodicidad.</span></li>
-      <li style="display:flex;gap:16px"><span style="font-weight:800;color:var(--blue)">2.</span><span>Presupuesto detallado comparado con los 4.000 €.</span></li>
-      <li style="display:flex;gap:16px"><span style="font-weight:800;color:var(--blue)">3.</span><span>Requisitos mínimos de cada programa frente al equipo en el que se instala.</span></li>
-      <li style="display:flex;gap:16px"><span style="font-weight:800;color:var(--blue)">4.</span><span>Cálculo del almacenamiento necesario y solución propuesta con su coste.</span></li>
-      <li style="display:flex;gap:16px"><span style="font-weight:800;color:var(--blue)">5.</span><span>Licencia del plugin y dónde se alojan los datos del CRM, y por qué.</span></li>
-      <li style="display:flex;gap:16px"><span style="font-weight:800;color:var(--blue)">6.</span><span>Apartado "Qué le pedí a la IA y qué comprobé después".</span></li>
-    </ol>
-    <p style="font-size:19px;color:var(--muted);line-height:1.4;margin-top:auto"><b style="color:var(--navy)">El giro pesa más que el documento.</b> El día de la entrega recibirás un cambio de requisitos y tendrás que adaptar tu propuesta justificando cada modificación. Enunciado completo al final de la unidad.</p>
-  </div>
-</section>
-
 <!-- ============ BLOQUE 5 · Sección 1.6 · Numeración y cambios de base ============ -->
 
-<!-- 53 Texto: por qué el ordenador solo entiende 0 y 1 -->
+<!-- 55 Texto: por qué el ordenador solo entiende 0 y 1 -->
 <section class="dark" data-label="Solo 0 y 1" data-criterio="e" data-seccion="1.6" data-deck-id="numeracion" data-deck-section="1.6" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Recorrer los cuatro soportes:</b> tensión alta o baja (en torno a 1 V frente a 0 V), orientación magnética, hoyos y llanos del CD (foto), celdas flash con o sin carga.</p><p>Al pulsar una tecla ya viaja binario por el cable.</p><p><b>Preguntar:</b> ¿por qué no diez estados, como los dedos? Distinguir dos niveles es barato y fiable; diez con ruido daría errores.</p></aside>
   <div style="min-width:0">
@@ -1604,11 +1679,11 @@
       <img src="img/cd-pits.jpg" alt="Superficie de un CD vista al microscopio: pistas de hoyos alargados sobre fondo rojo" title="Foto: Jan1959 · Wikimedia Commons · CC BY 4.0">
       <figcaption class="credito">Superficie de un CD al microscopio. Foto: Jan1959, Wikimedia Commons, <a href="https://creativecommons.org/licenses/by/4.0/deed.es">CC BY 4.0</a>. Recortada y reducida.</figcaption>
     </figure>
-    <p style="font-size:19px;color:#9FB4D9;line-height:1.35">Figura 1.23. Los hoyos (<i>pits</i>) de un CD al microscopio: cada cambio entre hoyo y llano es un 1; cada tramo sin cambio, ceros.</p>
+    <p style="font-size:19px;color:#9FB4D9;line-height:1.35">Figura 1.25. Los hoyos (<i>pits</i>) de un CD al microscopio: cada cambio entre hoyo y llano es un 1; cada tramo sin cambio, ceros.</p>
   </div>
 </section>
 
-<!-- 54 Texto: datos de entrada, internos y de salida -->
+<!-- 56 Texto: datos de entrada, internos y de salida -->
 <section data-label="Datos de entrada y salida" data-seccion="1.6" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.2fr 1fr;gap:80px">
   <aside class="notas"><p><b>Hacer en clase el coseno:</b> calculadora en grados, cos(90) = 0; consola del navegador (F12), <code>Math.cos(Math.PI/2)</code> devuelve 6.12e-17, porque trabaja en radianes y π/2 no tiene representación exacta.</p><p>Primera pista de que los datos internos no siempre son exactos: se retoma en el 1.9 con 0,1 + 0,2.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -1634,7 +1709,7 @@
       <text x="765" y="112" text-anchor="middle" font-size="18" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">pantalla, impresora, altavoz…</text>
       <text x="765" y="200" text-anchor="middle" font-size="56" font-weight="800" fill="#0B4AB5" font-family="JetBrains Mono, Consolas, monospace">12</text>
       <text x="765" y="240" text-anchor="middle" font-size="18" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">área del triángulo</text>
-      <text x="450" y="315" text-anchor="middle" font-size="19" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">Figura 1.24. Los datos se convierten a bits al entrar y se vuelven a convertir al salir. Elaboración propia.</text>
+      <text x="450" y="315" text-anchor="middle" font-size="19" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">Figura 1.26. Los datos se convierten a bits al entrar y se vuelven a convertir al salir. Elaboración propia.</text>
     </svg>
     <ul style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:12px;font-size:22px;line-height:1.4">
       <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Datos de entrada</b>: los que llegan desde fuera, en un formato que entiende una persona o un aparato.</span></li>
@@ -1654,7 +1729,7 @@
   </div>
 </section>
 
-<!-- 55 Definición: sistema de numeración -->
+<!-- 57 Definición: sistema de numeración -->
 <section class="dark" data-label="Sistema de numeración" data-seccion="1.6" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Preguntar cuántos símbolos tiene cada sistema:</b> ese número es la base.</p><ul><li>Posicional: el 2 de 222 vale 200, 20 o 2. En el reloj romano la X vale 10 esté donde esté.</li><li>Con romanos no hay cero ni división larga; el posicional llegó de la India vía árabes y se impuso en Europa desde el siglo XIII.</li></ul><p>Binario, octal y hexadecimal son posicionales: funcionan igual que el decimal, solo cambia la base.</p></aside>
   <div style="min-width:0">
@@ -1679,11 +1754,11 @@
       <img src="img/reloj-romanos.jpg" alt="Despertador antiguo con la esfera en números romanos" title="Foto: Ales Krivec (Unsplash) · Wikimedia Commons · CC0">
       <figcaption class="credito">Despertador con números romanos. Foto: Ales Krivec, Unsplash, vía Wikimedia Commons, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.es">CC0</a>. Reducida.</figcaption>
     </figure>
-    <p style="font-size:19px;color:#9FB4D9;line-height:1.35">Figura 1.25. En la esfera, la X de las diez vale lo mismo que la X de las doce (XII): el sistema romano no es posicional.</p>
+    <p style="font-size:19px;color:#9FB4D9;line-height:1.35">Figura 1.27. En la esfera, la X de las diez vale lo mismo que la X de las doce (XII): el sistema romano no es posicional.</p>
   </div>
 </section>
 
-<!-- 56 Texto: teorema fundamental de la numeración -->
+<!-- 58 Texto: teorema fundamental de la numeración -->
 <section data-label="Teorema fundamental" data-seccion="1.6" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.25fr 1fr;gap:80px">
   <aside class="notas"><p><b>Desarrollar los tres ejemplos en la pizarra</b> y después que hagan los cuatro de la tarjeta (631, 1927, 2120,57 y 3406).</p><ul><li>Posiciones desde la coma: 0 unidades, 1, 2, 3 a la izquierda; −1, −2 a la derecha.</li><li>Insistir: 10<sup>0</sup> es 1; 10<sup>−1</sup> es 0,1.</li></ul><p>Es la herramienta para pasar cualquier base a decimal.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -1715,7 +1790,7 @@
   </div>
 </section>
 
-<!-- 57 Tabla: los cuatro sistemas de la informática -->
+<!-- 59 Tabla: los cuatro sistemas de la informática -->
 <section data-label="Los cuatro sistemas" data-seccion="1.6" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.15fr;gap:72px">
   <aside class="notas"><p><b>Hacer la tabla del 0 al 15 de memoria en clase:</b> es la que hay que saberse.</p><ul><li>Octal: 1 dígito = 3 bits. Hexadecimal: 1 dígito = 4 bits.</li><li>Dónde lo verán: <code>chmod 755</code> (UT6), colores <code>#FF8800</code>, direcciones MAC (<code>ipconfig /all</code>), direcciones de memoria.</li><li>Notaciones de base: el paréntesis con subíndice (la de los ejercicios) y los prefijos 0b, 0o, 0x de los lenguajes.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -1761,7 +1836,7 @@
   </div>
 </section>
 
-<!-- 58 Texto: contar en binario y la tabla de potencias -->
+<!-- 60 Texto: contar en binario y la tabla de potencias -->
 <section data-label="Contar en binario" data-seccion="1.6" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1fr;gap:96px">
   <aside class="notas"><p><b>Contar en voz alta con la clase del 0 al 16.</b> Como el cuentakilómetros: cuando una posición llega al 1 vuelve a 0 y sube la de la izquierda.</p><ul><li>La tabla de potencias de 2 es la herramienta de toda la unidad; 2<sup>16</sup> y 2<sup>32</sup> están porque aparecen en el módulo (65.536 puertos, 4 GB con 32 bits).</li></ul><p><b>Decir que esta tabla se puede llevar escrita a mano al examen.</b></p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -1772,7 +1847,7 @@
       <div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">0</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">1</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">2</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">3</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">4</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">5</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">6</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">7</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">8</div>
       <div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">0</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">1</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">10</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">11</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">100</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">101</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">110</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">111</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">1000</div>
     </div>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Figura 1.26. Del 0 al 8 en decimal (arriba) y en binario (abajo). Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Figura 1.28. Del 0 al 8 en decimal (arriba) y en binario (abajo). Elaboración propia.</p>
     <div style="background:var(--white);border-radius:20px;padding:24px 30px;box-shadow:0 2px 0 var(--line);margin-top:var(--gap-item)">
       <p style="font-size:21px;line-height:1.5;color:var(--muted)">Con <b style="color:var(--navy)">n bits</b> se pueden representar <b style="color:var(--navy)">2ⁿ</b> valores distintos: con 8 bits, 256 (del 0 al 255); con 16 bits, 65.536; con 32 bits, 4.294.967.296.</p>
     </div>
@@ -1799,7 +1874,7 @@
   </div>
 </section>
 
-<!-- 59 Texto: de binario a decimal -->
+<!-- 61 Texto: de binario a decimal -->
 <section data-label="De binario a decimal" data-seccion="1.6" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p><b>Hacer los dos ejemplos despacio en la pizarra:</b> peso encima de cada bit (1, 2, 4, 8, 16 de derecha a izquierda) y sumar los pesos de los unos.</p><ul><li>Con coma: pesos 1/2, 1/4, 1/8 a la derecha.</li></ul><p>Después, el ejercicio interactivo, que tiene la misma estructura.</p></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Numeración y cambios de base</p>
@@ -1828,7 +1903,7 @@
   </div>
 </section>
 
-<!-- 60 Interactivo: binario a decimal -->
+<!-- 62 Interactivo: binario a decimal -->
 <section data-deck-id="ej-bin2dec" data-label="Practica: binario a decimal" data-seccion="1.6" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p>Se rellena la fila de pesos (de derecha a izquierda), la de productos y la suma.</p><p>Recomendar que escriban los pesos siempre en el mismo orden hasta que salgan solos.</p></aside>
   <div>
@@ -1840,7 +1915,7 @@
   <div class="ej" data-tipo="bin2dec" data-bits="8"></div>
 </section>
 
-<!-- 61 Pasos: de decimal a binario, parte entera -->
+<!-- 63 Pasos: de decimal a binario, parte entera -->
 <section data-label="De decimal a binario" data-seccion="1.6" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:80px">
   <aside class="notas"><p><b>Ejemplo 37 en la pizarra.</b> Dividir entre 2, apuntar el resto, seguir con el cociente hasta 0; leer los restos de abajo arriba. Comprobar con pesos: 32 + 4 + 1.</p><ul><li>Potencias de 2: 32 es un 1 y cinco ceros, sin dividir.</li></ul><p><b>Errores típicos:</b> leer los restos de arriba abajo; parar en cociente 1 sin apuntar su resto.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -1880,7 +1955,7 @@
   </div>
 </section>
 
-<!-- 62 Interactivo: decimal a binario -->
+<!-- 64 Interactivo: decimal a binario -->
 <section data-deck-id="ej-dec2bin" data-label="Practica: decimal a binario" data-seccion="1.6" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p>Números entre 16 y 255. Cada fila muestra en azul el cociente escrito en la anterior: un cociente mal arrastra el error y Comprobar lo marca. La última casilla es el binario leído de abajo arriba.</p></aside>
   <div>
@@ -1892,7 +1967,7 @@
   <div class="ej" data-tipo="dec2bin" data-min="16" data-max="255"></div>
 </section>
 
-<!-- 63 Pasos: de decimal a binario, parte fraccionaria -->
+<!-- 65 Pasos: de decimal a binario, parte fraccionaria -->
 <section data-label="Fracciones a binario" data-seccion="1.6" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.1fr;gap:80px">
   <aside class="notas"><p><b>Ejemplo 0,375 en la pizarra:</b> multiplicar por 2, la parte entera es el siguiente dígito; los dígitos salen de arriba abajo, al revés que en las divisiones.</p><ul><li>37,375 = 100101,011: entera y fraccionaria por separado.</li><li><b>El caso 0,1 es importante:</b> nunca llega a 0, es periódico (0,0 0011 0011…) y hay que cortarlo. Por eso 0,1 + 0,2 no da 0,3 (1.9).</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -1935,7 +2010,7 @@
   </div>
 </section>
 
-<!-- 64 Interactivo: fracciones a binario -->
+<!-- 66 Interactivo: fracciones a binario -->
 <section data-deck-id="ej-decfrac2bin" data-label="Practica: fracciones a binario" data-seccion="1.6" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p>Fracciones que terminan (múltiplos de 1/32, cinco dígitos como mucho). Cada fila muestra en azul la parte decimal del producto anterior. Coma o punto, da igual.</p></aside>
   <div>
@@ -1947,7 +2022,7 @@
   <div class="ej" data-tipo="decfrac2bin"></div>
 </section>
 
-<!-- 65 Tabla: binario y octal -->
+<!-- 67 Tabla: binario y octal -->
 <section data-label="Binario y octal" data-seccion="1.6" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.5fr;gap:72px">
   <aside class="notas"><p><b>Hacer los cuatro ejemplos en la pizarra marcando los grupos con arcos.</b></p><ul><li>Grupos de tres a partir de la coma: hacia la izquierda en la entera, hacia la derecha en la fraccionaria; completar con ceros.</li><li>Octal a binario: cada dígito, sus tres bits, con ceros a la izquierda.</li></ul><p>Mismo mecanismo que el hexadecimal en la siguiente, con grupos de cuatro.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -1978,7 +2053,7 @@
   </div>
 </section>
 
-<!-- 66 Tabla: binario y hexadecimal -->
+<!-- 68 Tabla: binario y hexadecimal -->
 <section data-label="Binario y hexadecimal" data-seccion="1.6" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.5fr;gap:72px">
   <aside class="notas"><p><b>Ejercicio rápido:</b> ¿cuántos bits tiene FF? ¿Cuánto vale? 8 bits, 255, el byte más grande.</p><ul><li>Un byte son exactamente dos dígitos hexadecimales: por eso MAC, colores y volcados van en hex.</li><li>Recordar las letras: A es 10, F es 15.</li></ul><p>Después, el ejercicio de cambios entre bases.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2013,7 +2088,7 @@
   </div>
 </section>
 
-<!-- 67 Nota: dónde van los ceros -->
+<!-- 69 Nota: dónde van los ceros -->
 <section data-label="Dónde van los ceros" data-seccion="1.6" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">
   <aside class="notas"><p><b>El error más frecuente al agrupar.</b> Los ceros de relleno van donde no cambian el valor: a la izquierda de la entera (007 es 7) y a la derecha de la fraccionaria (0,50 es 0,5).</p><p><b>Preguntar:</b> ¿qué pasa si completo 1,1 con un cero al final de la parte entera? Se convierte en 10,1, el doble.</p></aside>
   <img class="icono" src="../assets/exclamation.png" alt="">
@@ -2033,7 +2108,7 @@
   <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-title);max-width:1300px;text-wrap:pretty">Un cero al final de la parte entera multiplica por la base (1,1 pasaría a ser 10,1, el doble). Un cero delante de la parte fraccionaria divide. Por eso nunca se ponen ahí.</p>
 </section>
 
-<!-- 68 Interactivo: entre bases -->
+<!-- 70 Interactivo: entre bases -->
 <section data-deck-id="ej-bases" data-label="Practica: entre bases" data-seccion="1.6" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p>Cinco modos: binario a octal, binario a hex, octal a binario, hex a binario y hex a decimal (con tabla de pesos de 16). Por defecto sale uno al azar; con los botones se practica uno solo.</p><p>En los pasos de agrupar hay que escribir cada grupo completo, con sus ceros.</p></aside>
   <div>
@@ -2045,7 +2120,7 @@
   <div class="ej" data-tipo="bases"></div>
 </section>
 
-<!-- 69 Quiz: sistema no posicional -->
+<!-- 71 Quiz: sistema no posicional -->
 <section class="dark" data-label="Quiz: posicional" data-seccion="1.6" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Respuesta: C, romano.</b> La X vale 10 esté donde esté. Decimal, binario y octal siguen el teorema fundamental.</p><p>Si fallan, volver a la diapositiva del reloj.</p></aside>
   <div class="quiz" data-correct="2" data-ok="Correcto. En los números romanos cada símbolo vale siempre lo mismo: no hay posiciones ni base." data-ko="No. Piensa en cuál de ellos no tiene base ni pesos por posición: en él, un símbolo vale lo mismo esté donde esté." style="display:contents">
@@ -2066,7 +2141,7 @@
 
 <!-- ============ BLOQUE 6 · Sección 1.7 · Operaciones en binario y complementos ============ -->
 
-<!-- 70 Texto: qué operaciones hace el ordenador -->
+<!-- 72 Texto: qué operaciones hace el ordenador -->
 <section data-label="Operaciones del ordenador" data-criterio="b" data-seccion="1.7" data-deck-id="operaciones" data-deck-section="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:80px">
   <aside class="notas"><p>La UAL solo hace dos familias: aritméticas y lógicas. Con suma y complemento se construye la resta; con sumas repetidas, la multiplicación.</p><ul><li>Las lógicas trabajan bit a bit: comparar, enmascarar, decidir.</li><li>La foto es un SN7400 de los setenta: cuatro puertas NAND. Los micros actuales tienen miles de millones, del mismo tipo.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2099,18 +2174,18 @@
       <text x="536" y="128" font-size="20" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">A AND B: 0001</text>
       <text x="536" y="158" font-size="20" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">A XOR B: 0110</text>
     </svg>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:8px">Figura 1.27. La UAL con los mismos operandos da un resultado distinto según la operación que le pida la unidad de control. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:8px">Figura 1.29. La UAL con los mismos operandos da un resultado distinto según la operación que le pida la unidad de control. Elaboración propia.</p>
   </div>
   <div style="display:flex;flex-direction:column;gap:16px;min-width:0;height:100%;min-height:0">
     <figure class="foto" style="flex:1">
       <img src="img/sn7400.jpg" alt="Chip SN7400N de Texas Instruments, encapsulado de catorce patillas" title="Foto: Mister rf · Wikimedia Commons · CC BY-SA 4.0">
       <figcaption class="credito">Circuito integrado SN7400N. Foto: Mister rf, Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es">CC BY-SA 4.0</a>. Reducida.</figcaption>
     </figure>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.28. Un SN7400: cuatro puertas NAND en un chip de los años setenta. Con puertas como estas, a miles de millones, se construye la UAL de cualquier micro actual.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.30. Un SN7400: cuatro puertas NAND en un chip de los años setenta. Con puertas como estas, a miles de millones, se construye la UAL de cualquier micro actual.</p>
   </div>
 </section>
 
-<!-- 71 Tabla: la suma, casos de una columna -->
+<!-- 73 Tabla: la suma, casos de una columna -->
 <section data-label="La suma en binario" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1fr;gap:96px">
   <aside class="notas"><p><b>Resolver el ejemplo en la pizarra</b> de derecha a izquierda, con los acarreos encima. Comprobar en decimal: 11 + 6 = 17.</p><ul><li>El único caso que hay que pensar: 1 + 1 = 10, se escribe 0 y se lleva 1.</li><li>1 + 1 + 1 = 11: se escribe 1 y se lleva 1.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2151,7 +2226,7 @@
   </div>
 </section>
 
-<!-- 72 Interactivo: suma en binario -->
+<!-- 74 Interactivo: suma en binario -->
 <section data-deck-id="ej-sumabin" data-label="Practica: suma en binario" data-seccion="1.7" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p>Cinco bits. Se rellena el resultado de cada columna y el acarreo hacia la siguiente, de derecha a izquierda; las casillas avanzan solas.</p></aside>
   <div>
@@ -2171,7 +2246,7 @@
   <div class="ej" data-tipo="sumabin" data-bits="5"></div>
 </section>
 
-<!-- 73 Tabla: la resta, casos de una columna -->
+<!-- 75 Tabla: la resta, casos de una columna -->
 <section data-label="La resta en binario" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1fr;gap:96px">
   <aside class="notas"><p><b>Hacer el ejemplo en la pizarra</b> escribiendo en la fila de arriba lo que pide cada columna. Comprobar en decimal: 13 − 6 = 7.</p><ul><li>0 − 1: se pide 1 a la izquierda, que vale 2 en esta columna: 10 − 1 = 1.</li><li>En la columna que prestó se resta 1 más (o se suma 1 al sustraendo, como en primaria).</li></ul><p>La siguiente: qué pasa si el de abajo es mayor.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2210,7 +2285,7 @@
   </div>
 </section>
 
-<!-- 74 Texto: y si el sustraendo es mayor -->
+<!-- 76 Texto: y si el sustraendo es mayor -->
 <section class="dark" data-label="Sustraendo mayor" data-seccion="1.7" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Caso que no suele explicarse y sale en los ejercicios.</b> Si el de abajo es mayor, se restan al revés y se pone el signo: 0101 − 1001 es 5 − 9 = −4.</p><ul><li>Para saber cuál es mayor: comparar de izquierda a derecha el primer bit distinto.</li><li><b>Aviso:</b> esto lo hacemos las personas; el ordenador no tiene signo menos, solo bits. Por eso resta con complementos.</li></ul><p>En el ejercicio el alumno tiene que darse cuenta solo, pulsar Invertir y marcar el signo.</p></aside>
   <div style="min-width:0">
@@ -2241,7 +2316,7 @@
   </div>
 </section>
 
-<!-- 75 Interactivo: resta en binario -->
+<!-- 77 Interactivo: resta en binario -->
 <section data-deck-id="ej-restabin" data-label="Practica: resta en binario" data-seccion="1.7" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p>Cinco bits. La mitad de las veces el sustraendo es mayor y el ejercicio no avisa: hay que pulsar Invertir (intercambia las filas) y marcar el signo −. Si comprueba sin invertir, el mensaje lo indica.</p></aside>
   <div>
@@ -2261,7 +2336,7 @@
   <div class="ej" data-tipo="restabin" data-bits="5"></div>
 </section>
 
-<!-- 76 Tabla: NOT, AND, OR -->
+<!-- 78 Tabla: NOT, AND, OR -->
 <section data-label="NOT, AND, OR" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p><b>Que la clase rellene las tablas antes de mostrarlas.</b></p><ul><li>AND: interruptores en serie. OR: en paralelo.</li><li>Boole publicó el álgebra en 1854; Shannon demostró en 1938 que servía para circuitos con relés.</li></ul></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Operaciones en binario y complementos</p>
@@ -2302,7 +2377,7 @@
   <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:16px">Tabla 1.15. Tablas de verdad y símbolos de las puertas NOT, AND y OR.</p>
 </section>
 
-<!-- 77 Tabla: XOR, NAND, NOR -->
+<!-- 79 Tabla: XOR, NAND, NOR -->
 <section data-label="XOR, NAND, NOR" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><ul><li>XOR: 1 solo si las entradas son distintas. Suma dos bits sin acarreo y calcula la paridad (las dos siguientes).</li><li>NAND y NOR: AND y OR negadas, la bolita del símbolo. Con solo NAND se construye cualquier circuito: por eso el chip de la foto anterior es tan clásico.</li><li>XOR = (A OR B) AND NOT (A AND B).</li></ul></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Operaciones en binario y complementos</p>
@@ -2343,7 +2418,7 @@
   <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:16px">Tabla 1.16. Tablas de verdad y símbolos de XOR, NAND y NOR. Con solo puertas NAND se puede construir cualquier circuito digital.</p>
 </section>
 
-<!-- 78 Texto: el sumador está hecho de puertas -->
+<!-- 80 Texto: el sumador está hecho de puertas -->
 <section data-label="El sumador" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.1fr;gap:80px">
   <aside class="notas"><p><b>Comparar en la pizarra</b> la tabla de la suma de una columna con las de XOR y AND: resultado = A XOR B, acarreo = A AND B. Dos puertas son un semisumador; dos semisumadores, un sumador completo; ocho en fila suman dos bytes.</p><ul><li>Resta: diferencia A XOR B, préstamo NOT A AND B.</li></ul><p>Idea que responde a "cómo puede calcular una máquina": nadie dentro sabe sumar, hay circuitos que cumplen una tabla.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2382,13 +2457,13 @@
       <line x1="440" y1="270" x2="560" y2="270" stroke="#0B4AB5" stroke-width="5"/>
       <rect x="560" y="100" width="140" height="60" rx="14" fill="#1E8E5A"/><text x="630" y="140" text-anchor="middle" font-size="24" font-weight="800" fill="#fff" font-family="Plus Jakarta Sans, system-ui, sans-serif">escribo</text>
       <rect x="560" y="240" width="140" height="60" rx="14" fill="#0B4AB5"/><text x="630" y="280" text-anchor="middle" font-size="24" font-weight="800" fill="#fff" font-family="Plus Jakarta Sans, system-ui, sans-serif">me llevo</text>
-      <text x="360" y="400" text-anchor="middle" font-size="20" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">Figura 1.29. Semisumador: dos puertas suman dos bits. Elaboración propia.</text>
+      <text x="360" y="400" text-anchor="middle" font-size="20" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">Figura 1.31. Semisumador: dos puertas suman dos bits. Elaboración propia.</text>
     </svg>
     <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:8px">Para una columna que además recibe acarreo se encadenan dos de estos (sumador completo), y con ocho en fila se suman dos bytes.</p>
   </div>
 </section>
 
-<!-- 79 Interactivo: operaciones lógicas -->
+<!-- 81 Interactivo: operaciones lógicas -->
 <section data-deck-id="ej-logica" data-label="Practica: operaciones lógicas" data-seccion="1.7" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p>Dos bytes en vertical sin acarreos: cada columna por separado. Con los botones se elige la operación o se deja al azar. NOT solo muestra un número.</p></aside>
   <div>
@@ -2408,7 +2483,7 @@
   <div class="ej" data-tipo="logica"></div>
 </section>
 
-<!-- 80 Texto: complementos, para qué sirven -->
+<!-- 82 Texto: complementos, para qué sirven -->
 <section data-label="Complementos" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:80px">
   <aside class="notas"><p>El ordenador no tiene circuito de restar: suma el complemento del sustraendo.</p><ul><li>C1: invertir bits. C2: C1 más 1.</li><li>C2 de 9 en 8 bits es 247; 9 + 247 = 256, que en 8 bits es 0 con un 1 que sobra. Por eso sumar el C2 equivale a restar.</li><li><b>Truco:</b> copiar desde la derecha hasta el primer 1 incluido e invertir el resto.</li></ul><p>Siempre decir con cuántos bits se trabaja.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2447,7 +2522,7 @@
   </div>
 </section>
 
-<!-- 81 Interactivo: complemento a 1 y a 2 -->
+<!-- 83 Interactivo: complemento a 1 y a 2 -->
 <section data-deck-id="ej-c1c2" data-label="Practica: complementos" data-seccion="1.7" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p>Un byte al azar: fila del C1 y fila del C2. El C2 se rellena de derecha a izquierda sumando 1 al C1 con acarreo. Al acertar, el mensaje recuerda el truco del primer 1.</p></aside>
   <div>
@@ -2459,7 +2534,7 @@
   <div class="ej" data-tipo="c1c2" data-bits="8"></div>
 </section>
 
-<!-- 82 Pasos: resta en complemento a 1 -->
+<!-- 84 Pasos: resta en complemento a 1 -->
 <section data-label="Resta en C1" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.15fr;gap:80px">
   <aside class="notas"><p><b>Ejemplo 8 − 3:</b> 00001000 + 11111100 = 1 00000100; el 1 que sobra se suma (acarreo circular) y queda 00000101 = 5.</p><ul><li>Dos pegas: el paso extra y que el cero tiene dos representaciones (00000000 y 11111111).</li></ul><p>Por eso los ordenadores usan C2, en la siguiente.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2501,7 +2576,7 @@
   </div>
 </section>
 
-<!-- 83 Pasos: resta en complemento a 2 -->
+<!-- 85 Pasos: resta en complemento a 2 -->
 <section data-label="Resta en C2" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.15fr;gap:80px">
   <aside class="notas"><p><b>Ejemplo 8 − 3:</b> C2 de 3 es 11111101; 00001000 + 11111101 = 1 00000101; se tira el 1 y queda 5.</p><ul><li>Un solo paso y cero único. El sumador lleva delante un circuito que invierte los bits y mete un 1 de acarreo inicial.</li></ul><p>En el ejercicio salen casos negativos, que enlazan con la diapositiva del signo.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2543,7 +2618,7 @@
   </div>
 </section>
 
-<!-- 84 Interactivo: resta en complemento a 2 -->
+<!-- 86 Interactivo: resta en complemento a 2 -->
 <section data-deck-id="ej-restac2" data-label="Practica: resta en C2" data-seccion="1.7" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p>Por pasos: C1 y C2 del sustraendo, suma con el minuendo (el C2 escrito se copia en azul), casilla del bit que sobra y resultado en decimal.</p><p>La mitad de las veces el sustraendo es mayor: no sobra ningún 1, el resultado es negativo y ya está en C2; para leerlo hay que hacerle el C2.</p></aside>
   <div>
@@ -2555,7 +2630,7 @@
   <div class="ej" data-tipo="restac2" data-bits="8"></div>
 </section>
 
-<!-- 85 Texto: el signo no existe, es una interpretación -->
+<!-- 87 Texto: el signo no existe, es una interpretación -->
 <section class="dark" data-label="El signo es una interpretación" data-seccion="1.7" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Idea clave del bloque:</b> en memoria solo hay bits; el mismo byte vale una cosa u otra según cómo se lea. 11111011 es 251 sin signo y −5 en C2.</p><ul><li>El bit de la izquierda no es un signo aparte: forma parte del número; por eso el rango es de −128 a 127.</li><li>Leer un negativo: hacerle el C2 y poner el menos.</li></ul><p>Si el programa se equivoca de tipo, un número grande se vuelve negativo: la siguiente.</p></aside>
   <div style="min-width:0">
@@ -2590,7 +2665,7 @@
   </div>
 </section>
 
-<!-- 86 Cifra: 2.147.483.647 -->
+<!-- 88 Cifra: 2.147.483.647 -->
 <section data-label="Cifra: 2.147.483.647" data-seccion="1.7" style="display:grid;grid-template-columns:1fr 1fr;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center;gap:96px">
   <aside class="notas"><ul><li>Gangnam Style: el contador de YouTube era un entero de 32 bits con signo (máximo 2<sup>31</sup> − 1). En diciembre de 2014 lo superó y YouTube pasó a 64 bits.</li><li>Año 2038: Unix cuenta segundos desde el 1 de enero de 1970 en 32 bits con signo; el 19 de enero de 2038 a las 03:14:07 UTC pasa a 10000000…, que en C2 es el 13 de diciembre de 1901. Quedan sistemas embebidos y formatos con 32 bits.</li></ul><p>El bit O del registro de estado se activa justo aquí.</p></aside>
   <div style="min-width:0">
@@ -2614,11 +2689,11 @@
       <img src="img/gangnam-style.png" alt="Fotograma del vídeo musical Gangnam Style, con PSY bailando" title="Fotograma del vídeo Gangnam Style © YG Entertainment · cita con fines docentes (art. 32 LPI)">
       <figcaption class="credito">Fotograma del vídeo musical <i>Gangnam Style</i> (PSY, 2012), © YG Entertainment. Obra protegida, reproducida como cita con fines docentes (artículo 32 de la Ley de Propiedad Intelectual); no está cubierta por la licencia CC BY-SA de este material. Vía <a href="https://it.wikipedia.org/wiki/File:Gangnam_Style.png">Wikipedia en italiano</a>.</figcaption>
     </figure>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.30. Fotograma de Gangnam Style, el primer vídeo que desbordó el contador de visualizaciones de YouTube.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.32. Fotograma de Gangnam Style, el primer vídeo que desbordó el contador de visualizaciones de YouTube.</p>
   </div>
 </section>
 
-<!-- 87 Quiz: operación con un solo operando -->
+<!-- 89 Quiz: operación con un solo operando -->
 <section class="dark" data-label="Quiz: operandos" data-seccion="1.7" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Respuesta: C, NOT.</b> La única con un operando: invierte el bit. AND, OR y XOR combinan dos.</p><p>Si fallan, volver a los símbolos: NOT es la única con una línea de entrada.</p></aside>
   <div class="quiz" data-correct="2" data-ok="Correcto. NOT invierte un solo bit; las demás combinan dos." data-ko="No. Mira los símbolos de las puertas: solo una tiene una única línea de entrada." style="display:contents">
@@ -2639,7 +2714,7 @@
 
 <!-- ============ BLOQUE 7 · Sección 1.8 · Detección de errores ============ -->
 
-<!-- 88 Texto: paridad par e impar -->
+<!-- 90 Texto: paridad par e impar -->
 <section data-label="Bit de paridad" data-seccion="1.8" data-deck-id="errores" data-deck-section="1.8" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.1fr;gap:80px">
   <aside class="notas"><p>Los bits se estropean (ruido, celda defectuosa, rayado); se añade redundancia para detectarlo.</p><ul><li>Se calcula con XOR encadenado: una puerta por bit.</li><li>Limitaciones: detecta un error pero no dice cuál; dos errores pasan desapercibidos.</li><li>Se usó en puertos serie y RAM antigua; hoy los servidores usan ECC, que además corrige.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2689,11 +2764,11 @@
       <text x="400" y="322" text-anchor="middle" font-size="26" font-weight="600" fill="#fff" font-family="JetBrains Mono, Consolas, monospace">1 XOR 0 XOR 1 XOR 1 XOR 0 XOR 1 XOR 0 = 0</text>
       <text x="400" y="352" text-anchor="middle" font-size="17" fill="#C9D6EE" font-family="Plus Jakarta Sans, system-ui, sans-serif">el XOR encadenado da 1 si hay un número impar de unos: ese es el bit de paridad par</text>
     </svg>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:10px">Figura 1.31. Un error de un bit se detecta y el receptor pide que se lo reenvíen. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:10px">Figura 1.33. Un error de un bit se detecta y el receptor pide que se lo reenvíen. Elaboración propia.</p>
   </div>
 </section>
 
-<!-- 89 Interactivo: bit de paridad -->
+<!-- 91 Interactivo: bit de paridad -->
 <section data-deck-id="ej-paridad" data-label="Practica: paridad" data-seccion="1.8" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p>Dos modos. Calcular: dato de 7 bits y tipo de paridad, escribir el bit (se añade a la izquierda). Detectar: palabra de 8 bits, decidir si tiene error; la mitad de las veces hay un bit cambiado.</p></aside>
   <div>
@@ -2705,7 +2780,7 @@
   <div class="ej" data-tipo="paridad"></div>
 </section>
 
-<!-- 90 Texto: paridad bidimensional -->
+<!-- 92 Texto: paridad bidimensional -->
 <section data-label="Paridad bidimensional" data-seccion="1.8" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.15fr;gap:80px">
   <aside class="notas"><p><b>Recorrer el ejemplo:</b> el bit de la fila 2, columna 4 llegó cambiado; la fila 2 tiene 5 unos con paridad 0 y la columna 4 tiene 2 unos con paridad 1. El cruce dice cuál es, y basta invertirlo.</p><ul><li>Coste: para 21 bits de datos, 11 de control.</li><li>ECC, discos y telefonía móvil usan ideas parecidas, más sofisticadas.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2734,12 +2809,12 @@
           <tr><td></td><td colspan="7" style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:18px;font-weight:600;color:var(--ko);padding-top:4px">columna 4: 2 unos con paridad 1 ✗</td><td></td><td></td><td></td></tr>
         </tbody>
       </table>
-      <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:14px">Figura 1.32. La fila y la columna que no cuadran se cruzan en el bit erróneo (recuadro amarillo). Elaboración propia.</p>
+      <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:14px">Figura 1.34. La fila y la columna que no cuadran se cruzan en el bit erróneo (recuadro amarillo). Elaboración propia.</p>
     </div>
   </div>
 </section>
 
-<!-- 91 Texto: códigos cíclicos (CRC) -->
+<!-- 93 Texto: códigos cíclicos (CRC) -->
 <section data-label="Códigos CRC" data-seccion="1.8" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.15fr;gap:80px">
   <aside class="notas"><p>Lo que se usa de verdad en redes y almacenamiento: dividir el bloque por un polinomio fijo y enviar el resto (12, 16 o 32 bits). No hace falta hacer la división en clase.</p><ul><li>Dónde lo ven: cada trama Ethernet y wifi lleva CRC-32; los ZIP guardan el CRC de cada archivo (el error de un ZIP dañado); PNG y sectores de disco.</li></ul><p>Regla del apartado: más bits de control, más errores detectados, menos eficiencia.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2778,13 +2853,13 @@
       <rect x="400" y="386" width="180" height="60" rx="14" fill="#E8F6EE" stroke="#1E8E5A" stroke-width="3"/><text x="490" y="412" text-anchor="middle" font-size="18" font-weight="700" fill="#1E8E5A" font-family="Plus Jakarta Sans, system-ui, sans-serif">¿mismo resto?</text><text x="490" y="434" text-anchor="middle" font-size="16" fill="#1E8E5A" font-family="Plus Jakarta Sans, system-ui, sans-serif">sí: bloque correcto</text>
       <rect x="600" y="386" width="180" height="60" rx="14" fill="#FBEAEA" stroke="#C0392B" stroke-width="3"/><text x="690" y="412" text-anchor="middle" font-size="18" font-weight="700" fill="#C0392B" font-family="Plus Jakarta Sans, system-ui, sans-serif">resto distinto</text><text x="690" y="434" text-anchor="middle" font-size="16" fill="#C0392B" font-family="Plus Jakarta Sans, system-ui, sans-serif">error: se pide de nuevo</text>
     </svg>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:10px">Figura 1.33. Funcionamiento de un CRC. La división se hace con un circuito de desplazamiento muy sencillo, bit a bit, a la velocidad de la red. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:10px">Figura 1.35. Funcionamiento de un CRC. La división se hace con un circuito de desplazamiento muy sencillo, bit a bit, a la velocidad de la red. Elaboración propia.</p>
   </div>
 </section>
 
 <!-- ============ BLOQUE 8 · Sección 1.9 · Codificación de la información ============ -->
 
-<!-- 92 Comparativa: códigos de longitud fija y variable -->
+<!-- 94 Comparativa: códigos de longitud fija y variable -->
 <section data-label="Longitud fija y variable" data-seccion="1.9" data-deck-id="codificacion" data-deck-section="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p><b>Pedir que codifiquen SOS en Morse.</b></p><ul><li>Fija: fácil saber dónde empieza cada símbolo (ASCII, EBCDIC, BCD, UTF-32).</li><li>Variable: lo frecuente corto, lo raro largo; el Morse (E un punto, J cuatro signos), UTF-8 (1 a 4 bytes) y la compresión (Huffman en ZIP, JPG, MP3).</li></ul></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Codificación de la información</p>
@@ -2826,7 +2901,7 @@
   </div>
 </section>
 
-<!-- 93 Tabla: unidades de información -->
+<!-- 95 Tabla: unidades de información -->
 <section data-label="Unidades de información" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.25fr;gap:72px">
   <aside class="notas"><p><b>Todo esto entra en el examen.</b></p><ul><li>Decimales (SI): kilo 1000. Binarios (IEC 80000-13, 2008): kibi 1024; KiB, MiB, GiB, TiB.</li><li>Los fabricantes de discos usan decimales; Windows mide en binario pero etiqueta GB: un disco de 1 TB aparece como 931 GB. No falta nada.</li><li>La RAM se fabrica en potencias de 2: 16 GB son 16 GiB exactos.</li><li>Bits y bytes: la red va en bits; una fibra de 1 Gb/s descarga como mucho 125 MB/s.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2871,7 +2946,7 @@
   </div>
 </section>
 
-<!-- 94 Interactivo: unidades -->
+<!-- 96 Interactivo: unidades -->
 <section data-deck-id="ej-unidades" data-label="Practica: unidades" data-seccion="1.9" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p>Tres modos. Bits y bytes: por 8. Entre unidades: cada paso es 1024, hacia arriba se divide; puede haber dos pasos. Disco del fabricante: de GB decimales a GiB; necesita calculadora y no cae en el examen práctico, aunque sí la pregunta de por qué 1 TB muestra 931 GB.</p></aside>
   <div>
@@ -2883,7 +2958,7 @@
   <div class="ej" data-tipo="unidades"></div>
 </section>
 
-<!-- 95 Texto: enteros en decimal empaquetado -->
+<!-- 97 Texto: enteros en decimal empaquetado -->
 <section data-label="Decimal empaquetado" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:80px">
   <aside class="notas"><p><b>Ejemplo +13457 en la pizarra:</b> cinco dígitos más signo, seis cuartetos, tres bytes: 0001 0011 0100 0101 0111 1100.</p><ul><li>Signo en el último cuarteto: C positivo, D negativo. Cuartetos impares: rellenar con 0000 a la izquierda.</li><li>No es binario: 13457 en binario puro cabría en 14 bits. A cambio, los decimales salen exactos: mainframes IBM y COBOL en bancos.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2919,11 +2994,11 @@
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px;text-align:center;font-size:18px;color:var(--muted)"><span style="border-top:3px solid var(--sky);padding-top:6px">byte 1 · 13</span><span style="border-top:3px solid var(--sky);padding-top:6px">byte 2 · 45</span><span style="border-top:3px solid var(--sky);padding-top:6px">byte 3 · 7D</span></div>
     </div>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.34. El mismo número con los dos signos en decimal empaquetado. En hexadecimal se lee directamente: 13 45 7C y 13 45 7D. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.36. El mismo número con los dos signos en decimal empaquetado. En hexadecimal se lee directamente: 13 45 7C y 13 45 7D. Elaboración propia.</p>
   </div>
 </section>
 
-<!-- 96 Texto: enteros en decimal desempaquetado -->
+<!-- 98 Texto: enteros en decimal desempaquetado -->
 <section data-label="Decimal desempaquetado" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:80px">
   <aside class="notas"><p><b>Ejemplo +3457:</b> cuatro bytes, 1111 0011, 1111 0100, 1111 0101, 1100 0111. El signo va en el cuarteto izquierdo del último byte.</p><ul><li>El relleno 1111 no es casual: en EBCDIC los dígitos van de F0 a F9, así que un número desempaquetado es a la vez su texto (PACK y UNPK en los mainframes).</li><li>Comparar con el empaquetado: 03 45 7C, tres bytes.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2957,11 +3032,11 @@
       </div>
       <p style="font-size:20px;line-height:1.4;color:var(--muted);margin-top:14px">Cuatro dígitos y el signo son cinco cuartetos: se rellena con 0000 por la izquierda. En hexadecimal, 03 45 7C.</p>
     </div>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.35. El mismo número en los dos formatos decimales. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.37. El mismo número en los dos formatos decimales. Elaboración propia.</p>
   </div>
 </section>
 
-<!-- 97 Texto: binario puro con signo -->
+<!-- 99 Texto: binario puro con signo -->
 <section data-label="Binario puro con signo" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.15fr 1fr;gap:80px">
   <aside class="notas"><p>Signo y magnitud: primer bit el signo, 31 restantes el valor. Máximo 2<sup>31</sup> − 1.</p><ul><li>15678 = 0000 0000 0000 0000 0011 1101 0011 1110. −25896547 = 81 8B 26 63.</li><li>Dos ceros y hay que mirar los signos antes de sumar: los procesadores usan C2 (−25896547 = FE 74 D9 9D).</li><li>Sobrevive en la coma flotante, que sí lleva bit de signo separado.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2997,7 +3072,7 @@
   </div>
 </section>
 
-<!-- 98 Definición: coma flotante -->
+<!-- 100 Definición: coma flotante -->
 <section class="dark" data-label="Coma flotante" data-seccion="1.9" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Preguntar:</b> ¿cuántos bits para la distancia a la estrella más cercana en metros (4 × 10<sup>16</sup>) con precisión de un metro? En entero, 56; en float, 32, pero solo con 7 cifras.</p><ul><li>Signo, mantisa y exponente, como la notación científica: 6,022 × 10<sup>23</sup>.</li><li>Precisión: 7 cifras en simple (float), 16 en doble (double).</li></ul><p>Siguiente: la mantisa se normaliza.</p></aside>
   <div style="min-width:0">
@@ -3032,7 +3107,7 @@
   </div>
 </section>
 
-<!-- 99 Texto: notación científica normalizada -->
+<!-- 101 Texto: notación científica normalizada -->
 <section data-label="Notación científica" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1fr;gap:80px">
   <aside class="notas"><p><b>Para la pizarra:</b> 0,00052 (5,2 × 10<sup>−4</sup>), 93 000 000 (9,3 × 10<sup>7</sup>) y 1100,1 en binario (1,1001 × 2<sup>3</sup>).</p><ul><li>Criterio de la clase: siempre una cifra distinta de cero delante de la coma (hay libros que normalizan 0,345 × 10<sup>15</sup>; aquí no).</li><li>En binario la única cifra distinta de cero es el 1: no hace falta guardarlo. Es el bit implícito de IEEE 754.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3066,7 +3141,7 @@
   </div>
 </section>
 
-<!-- 100 Texto: el formato IEEE 754 -->
+<!-- 102 Texto: el formato IEEE 754 -->
 <section data-label="IEEE 754" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><ul><li>Norma de 1985, revisada en 2008 y 2019. Simple: 1 + 8 + 23. Doble: 1 + 11 + 52.</li><li>Exponente con sesgo 127 (1023 en doble): 2<sup>5</sup> se guarda como 132; 2<sup>−2</sup>, como 125.</li><li>La mantisa guarda solo lo de detrás de la coma: 24 bits reales de precisión.</li><li>Especiales: exponente todo ceros con mantisa cero es 0 (hay +0 y −0); todo unos es infinito o NaN (0 entre 0).</li></ul></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Codificación de la información</p>
@@ -3086,7 +3161,7 @@
     <rect x="318" y="230" width="1362" height="60" rx="8" fill="#15356B"/><text x="999" y="268" text-anchor="middle" font-size="22" font-weight="700" fill="#fff" font-family="Plus Jakarta Sans, system-ui, sans-serif">mantisa · 52 bits</text>
     <text x="13" y="316" text-anchor="middle" font-size="19" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">1</text><text x="172" y="316" text-anchor="middle" font-size="19" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">e + 1023 (de 1 a 2046)</text><text x="999" y="316" text-anchor="middle" font-size="19" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">53 bits de precisión con el 1 implícito: 15 o 16 cifras decimales</text>
   </svg>
-  <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:8px">Figura 1.36. Los tres campos de un número IEEE 754 en simple y en doble precisión. Elaboración propia.</p>
+  <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:8px">Figura 1.38. Los tres campos de un número IEEE 754 en simple y en doble precisión. Elaboración propia.</p>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:22px">
     <div style="background:var(--white);border-radius:20px;padding:22px 28px;box-shadow:0 2px 0 var(--line)">
       <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Valor que representa</p>
@@ -3104,7 +3179,7 @@
   </div>
 </section>
 
-<!-- 101 Pasos: IEEE 754 paso a paso -->
+<!-- 103 Pasos: IEEE 754 paso a paso -->
 <section data-label="IEEE 754 paso a paso" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.2fr 1fr;gap:72px">
   <aside class="notas"><p><b>Hacer 48,297 con ellos.</b> 48 = 110000; 0,297 por el método de multiplicar: 0 1 0 0 1 1 0… y no termina. Normalizado: 1,100000100110000001… × 2<sup>5</sup>. Exponente 5 + 127 = 132 = 10000100. Mantisa: los 23 bits que siguen al 1. Resultado 42 41 30 21.</p><ul><li>Lo guardado vale 48,297000885…: la coma flotante redondea. Es el origen del 0,1 + 0,2.</li><li>Segundo ejemplo, −0,0000011: exponente −20, 107 = 01101011, resultado B5 93 A3 B6.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3137,7 +3212,7 @@
   </div>
 </section>
 
-<!-- 102 Interactivo: IEEE 754 -->
+<!-- 104 Interactivo: IEEE 754 -->
 <section data-deck-id="ej-ieee754" data-label="Practica: IEEE 754" data-seccion="1.9" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p><b>Cae siempre en el examen:</b> insistir en la racha de diez.</p><p>Números con expansión corta (10,5; −6,25; 0,375; 100). Orden: signo, binario con coma, exponente al normalizar (puede ser negativo), más 127, en 8 bits, mantisa de 23 sin el 1 implícito, hexadecimal.</p><p><b>Errores típicos:</b> contar mal las posiciones al normalizar; escribir el 1 implícito en la mantisa.</p></aside>
   <div>
@@ -3149,7 +3224,7 @@
   <div class="ej" data-tipo="ieee754"></div>
 </section>
 
-<!-- 103 Pregunta: ¿cuánto es 0,1 + 0,2? -->
+<!-- 105 Pregunta: ¿cuánto es 0,1 + 0,2? -->
 <section data-label="¿Cuánto es 0,1 + 0,2?" data-seccion="1.9" style="display:grid;grid-template-columns:1fr 1.25fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
   <aside class="notas"><p><b>Hacerlo en directo:</b> F12, Consola, <code>0.1 + 0.2</code> da 0.30000000000000004 y <code>0.1 + 0.2 === 0.3</code> da false. En Python igual.</p><ul><li>Causa: 0,1 en binario es periódico (como 1/3 en decimal), se corta en 52 bits y se redondea; al sumar, los errores asoman en la cifra 17.</li><li>No es fallo del lenguaje: es IEEE 754, que usan todos.</li></ul><p>Consecuencia: un programa que sume precios con float puede cobrar un céntimo de más. Enlaza con el coseno del 1.6.</p></aside>
   <div>
@@ -3166,14 +3241,14 @@
 <span style="color:#569CD6">false</span>
 <span style="color:#808080">&gt;</span> 0.1 + 0.7
 <span style="color:#B5CEA8">0.7999999999999999</span></pre>
-      <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.37. Consola de JavaScript de un navegador. En Python, Java o una hoja de cálculo pasa lo mismo, aunque a veces lo redondeen al mostrarlo. Elaboración propia.</p>
+      <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.39. Consola de JavaScript de un navegador. En Python, Java o una hoja de cálculo pasa lo mismo, aunque a veces lo redondeen al mostrarlo. Elaboración propia.</p>
       <p style="font-size:21px;line-height:1.45;color:var(--muted)"><b style="color:var(--navy)">0,1 no existe en binario.</b> Es periódico, 0,0<span style="text-decoration:overline">0011</span>…, igual que 1/3 = 0,333… en decimal. Se corta en 52 bits y se redondea; 0,2 también. Al sumar, los dos redondeos asoman en la cifra 17. No es un fallo del lenguaje: es el formato IEEE 754 que usan todos.</p>
     </div>
     <button class="btn btn-primary revela-btn">Ver la respuesta</button>
   </div>
 </section>
 
-<!-- 104 Texto: cómo se resuelve el problema de los decimales -->
+<!-- 106 Texto: cómo se resuelve el problema de los decimales -->
 <section data-label="Cómo se resuelve" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><ul><li>Dinero en enteros: céntimos, la coma solo al mostrar; Stripe recibe 1999 para 19,99 €.</li><li>Tipos decimales exactos: DECIMAL en bases de datos, BigDecimal en Java, decimal en Python y C#. IEEE 754 de 2008 añadió formatos decimales por esto.</li><li>Nunca comparar decimales con igualdad: diferencia menor que una tolerancia.</li><li>Dónde sí vale float: gráficos, física, sensores, IA.</li></ul></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Codificación de la información</p>
@@ -3204,7 +3279,7 @@
   <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:16px">La revisión de 2008 de la norma IEEE 754 añadió formatos <b>decimales</b> en coma flotante (decimal64, decimal128) pensados justo para importes; los usan los mainframes y algunas bases de datos.</p>
 </section>
 
-<!-- 105 Tabla: tipos de caracteres -->
+<!-- 107 Tabla: tipos de caracteres -->
 <section data-label="Tipos de caracteres" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:72px">
   <aside class="notas"><p><b>Insistir:</b> el carácter «2» es el código 50, no el número 2; «2» + «2» como texto da «22».</p><ul><li>Control: tabulador, salto de línea, escape, el NUL que cierra las cadenas en C.</li><li>Salto de línea: Windows usa CR y LF (13 y 10), Linux solo LF. Por eso un texto de Linux salía en una línea en el Bloc de notas antiguo.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3238,7 +3313,7 @@
   </div>
 </section>
 
-<!-- 106 Tabla: códigos históricos -->
+<!-- 108 Tabla: códigos históricos -->
 <section data-label="Códigos históricos" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p>Lo que importa: sin acuerdo sobre la tabla, los mismos bytes se leen como caracteres distintos.</p><ul><li>BCD de 6 bits (IBM, años cincuenta): no confundir con el decimal empaquetado. FIELDATA: ejército de EE. UU., UNIVAC.</li><li>EBCDIC: IBM 1964, sigue en los mainframes; dígitos de F0 a F9.</li><li>ASCII: 7 bits, 1963, base de todo. ISO 8859: años ochenta. Unicode 1991, UTF-8 1993.</li></ul></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Codificación de la información</p>
@@ -3265,7 +3340,7 @@
   <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:16px">Tabla 1.22. Códigos de caracteres. El BCD de 6 bits es un código de caracteres; no confundirlo con el decimal empaquetado, que comparte las siglas. Sin acuerdo sobre la tabla, los mismos bytes se leen como caracteres distintos.</p>
 </section>
 
-<!-- 107 Tabla: ASCII -->
+<!-- 109 Tabla: ASCII -->
 <section data-label="ASCII" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p><b>Tres anclas para el examen:</b> «0» = 48, «A» = 65, «a» = 97.</p><ul><li>Mayúscula y minúscula se diferencian en 32, un solo bit: A es 01000001, a es 01100001. Pasar a mayúsculas es una operación lógica.</li><li>0-31 y 127 son de control; 32 es el espacio; 95 imprimibles.</li><li>Sin ñ ni tildes en 7 bits.</li></ul><p>Truco: Alt + 64 en el teclado numérico es la arroba.</p></aside>
   <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
@@ -3284,7 +3359,7 @@
   </div>
 </section>
 
-<!-- 108 Interactivo: ASCII -->
+<!-- 110 Interactivo: ASCII -->
 <section data-deck-id="ej-ascii" data-label="Practica: ASCII" data-seccion="1.9" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p>Tres modos. Carácter a código: desde el ancla, contar la posición, escribir decimal, binario de 8 bits y hex. Código a carácter: binario a decimal, elegir el rango con el botón, restar la base. Mayúscula y minúscula: ±32, solo cambia el bit de peso 32.</p><p>Al examen se puede llevar la tabla de anclas escrita a mano, no la tabla ASCII completa.</p></aside>
   <div>
@@ -3296,7 +3371,7 @@
   <div class="ej" data-tipo="ascii"></div>
 </section>
 
-<!-- 109 Tabla: ISO 8859 y Windows-1252 -->
+<!-- 111 Tabla: ISO 8859 y Windows-1252 -->
 <section data-label="ISO 8859 y Windows-1252" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.3fr;gap:72px">
   <aside class="notas"><p><b>Señalar la fila resaltada:</b> el mismo byte F1 es ñ en Latin-1, ń en la centroeuropea, ё en cirílico y ρ en griego. Sin decir la tabla, el receptor lo lee mal.</p><ul><li>Latin-1 (1987) no tiene el euro; Latin-9 lo añade en A4.</li><li>Windows-1252: Latin-1 más 27 signos en 128-159 (euro en 80, comillas tipográficas). Todavía sale en CSV y textos antiguos.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3334,7 +3409,7 @@
   </div>
 </section>
 
-<!-- 110 Texto: Unicode y UTF-8 -->
+<!-- 112 Texto: Unicode y UTF-8 -->
 <section data-label="Unicode y UTF-8" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:72px">
   <aside class="notas"><ul><li>Punto de código: U+ y hexadecimal; ñ es U+00F1, euro U+20AC. Unicode 17.0 (2025): 159 801 caracteres.</li><li>UTF-8: ASCII ocupa un byte idéntico; ñ y tildes dos (C3 B1); euro y chino tres; emojis cuatro. Los bits de cabecera dicen cuántos bytes tiene el carácter.</li><li>UTF-16 es lo que usan Windows, Java y JavaScript por dentro.</li><li>Caracteres raros: UTF-8 leído como Latin-1 da Ã±; al revés, un rombo. Cambiar la codificación en el editor, no reescribir.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3368,7 +3443,7 @@
   </div>
 </section>
 
-<!-- 111 Quiz: página web en muchos idiomas -->
+<!-- 113 Quiz: página web en muchos idiomas -->
 <section class="dark" data-label="Quiz: código para la web" data-seccion="1.9" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Respuesta: C, Unicode (UTF-8).</b> FIELDATA y BCD son de 6 bits y solo mayúsculas; EBCDIC no tiene alfabetos no latinos ni lo entiende un navegador.</p><p>Si fallan, volver a la tabla de UTF-8.</p></aside>
   <div class="quiz" data-correct="2" data-ok="Correcto. Unicode tiene todos los alfabetos y UTF-8 es cómo se transmite: más del 98 % de la web." data-ko="No. Los códigos de 6 y 8 bits solo tienen un alfabeto (y a veces ni minúsculas). Busca el que tiene más de 150 000 caracteres." style="display:contents">
@@ -3387,7 +3462,7 @@
   </div>
 </section>
 
-<!-- 112 Tabla: formatos de texto -->
+<!-- 114 Tabla: formatos de texto -->
 <section data-label="Formatos de texto" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p><b>Demo si hay tiempo:</b> cambiar la extensión de un .docx a .zip y abrirlo: XML e imágenes dentro.</p><ul><li>Texto plano: programas, configuraciones, CSV. Markdown: los README de GitHub.</li><li>DOCX: ISO/IEC 29500. ODT: ISO/IEC 26300, el que exigen muchas administraciones. PDF: ISO 32000, para entregar, no para editar.</li></ul></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Codificación de la información</p>
@@ -3415,7 +3490,7 @@
   <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:14px">Tabla 1.26. Formatos de texto. Para verlo en clase: cambia la extensión de un .docx a .zip y ábrelo; dentro están los XML.</p>
 </section>
 
-<!-- 113 Comparativa: imágenes de mapa de bits y vectoriales -->
+<!-- 115 Comparativa: imágenes de mapa de bits y vectoriales -->
 <section data-label="Imágenes" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:64px">
   <aside class="notas"><ul><li>Full HD sin comprimir: 1920 × 1080 × 3 bytes, 6,2 MB. Por eso se comprime.</li><li>Sin pérdida (PNG, WebP): idéntica. Con pérdida (JPG, AVIF): diez veces menos, y cada guardado pierde un poco más.</li><li>La tabla es real: la foto de la Pascalina a 1600 × 877 en cada formato.</li><li>Vectorial: instrucciones de dibujo, se amplía sin perder. Todos los esquemas de estas diapositivas son SVG.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3453,11 +3528,11 @@
         <tr><td style="padding:11px 22px;font-weight:700;color:var(--navy)">JPG</td><td style="padding:11px 22px;color:var(--ko);font-weight:600">Con pérdida, calidad 20 (se nota)</td><td style="padding:11px 22px;text-align:right;font-family:var(--mono)">63 kB</td></tr>
       </tbody>
     </table>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Tabla 1.27. La misma foto (la Pascalina de la figura 1.3, a 1600 × 877 píxeles) guardada en cada formato. Elaboración propia. Con pérdida, cada nuevo guardado descarta algo más: la foto original se conserva en RAW o PNG.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Tabla 1.27. La misma foto (la Pascalina de la figura 1.5, a 1600 × 877 píxeles) guardada en cada formato. Elaboración propia. Con pérdida, cada nuevo guardado descarta algo más: la foto original se conserva en RAW o PNG.</p>
   </div>
 </section>
 
-<!-- 114 Tabla: audio y vídeo -->
+<!-- 116 Tabla: audio y vídeo -->
 <section data-label="Audio y vídeo" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1fr;gap:64px">
   <aside class="notas"><ul><li>CD: 44 100 muestras por segundo, 16 bits, dos canales: 1411 kb/s, 10,6 MB por minuto.</li><li>Opus es el de WhatsApp, Discord y las videollamadas.</li><li><b>Vídeo: separar contenedor (MP4, MKV, WebM) de códec (H.264, H.265, VP9, AV1).</b> Dos MP4 pueden no abrirse igual: depende del códec.</li><li>1080p a 30 fps sin comprimir: 187 MB por segundo; comprimido, 5-8 Mb/s.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3492,7 +3567,7 @@
   </div>
 </section>
 
-<!-- 115 Tabla: otros formatos -->
+<!-- 117 Tabla: otros formatos -->
 <section data-label="Otros formatos" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><ul><li>xlsx y ods: ZIP con XML. csv: texto plano, el formato universal para mover datos.</li><li>sqlite: un solo archivo, lo lleva cada móvil dentro.</li><li>Ejecutables: exe y msi, deb y rpm, apk. Un exe no funciona en Linux (compilar, 1.4).</li><li>iso: copia byte a byte de un disco; así se descargan los sistemas de las UT3 y UT4.</li></ul></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Codificación de la información</p>
@@ -3517,7 +3592,7 @@
   <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:14px">Tabla 1.29. Otros formatos habituales. Los archivos comprimidos (zip, 7z, rar, tar.gz) van en la siguiente diapositiva.</p>
 </section>
 
-<!-- 116 Comparativa: comprimir y empaquetar -->
+<!-- 118 Comparativa: comprimir y empaquetar -->
 <section data-label="Comprimir y empaquetar" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.25fr;gap:64px">
   <aside class="notas"><ul><li>Empaquetar: varios archivos en uno. Comprimir: menos bytes, sin perder nada.</li><li>Un texto o un BMP bajan mucho; un JPG o un MP4 ya están comprimidos y casi no bajan.</li><li>Unix las separa: <code>tar</code> empaqueta (tape archive), <code>gzip</code>, <code>bzip2</code> o <code>xz</code> comprimen; de ahí el .tar.gz.</li><li>Windows 11 abre 7z, rar y tar desde 2023. RAR es propietario; crear archivos exige WinRAR.</li></ul><p>Ojo: comprimir no es cifrar, aunque el ZIP admita contraseña.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3553,7 +3628,7 @@
   </div>
 </section>
 
-<!-- 117 Quiz: formato para una canción -->
+<!-- 119 Quiz: formato para una canción -->
 <section class="dark" data-label="Quiz: formatos" data-seccion="1.9" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Respuesta: B, MP3.</b> JPG es imagen, ODF documentos de oficina, PDF documento compuesto.</p><p>Si fallan, volver a la tabla de audio y vídeo.</p></aside>
   <div class="quiz" data-correct="1" data-ok="Correcto. MP3 es audio comprimido con pérdida: una décima parte del tamaño del CD." data-ko="No. JPG es una imagen, ODF son documentos de oficina y PDF es un documento compuesto. Busca el formato de audio." style="display:contents">
@@ -3574,60 +3649,63 @@
 
 <!-- ============ BLOQUE 9 · Prácticas, evaluación y cierre ============ -->
 
-<!-- 118 Práctica 1.5: el cliente y sus puestos (enunciado completo, primera parte) -->
-<section data-label="Práctica 1.5: el cliente" data-seccion="1.5" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
-  <aside class="notas"><p><b>Leer la tabla con ellos y que apunten lo que salta a la vista:</b> dos Windows 10 sin soporte, un Celeron con 4 GB y Windows de 32 bits, un disco mecánico en el puesto de vídeo.</p><ul><li>Los condicionantes obligan a razonar: presupuesto cerrado, RGPD en el CRM, 40 GB de vídeo al mes con copia, plugin quizá sobre GPL.</li><li>Conecta con 1.3 (requisitos), 1.4 (licencias y normativa) y 1.9 (unidades).</li></ul><p>El enunciado está en el aula virtual.</p></aside>
+<!-- 120 Práctica 1.5: las cinco licencias y el guion de la exposición -->
+<section data-label="Práctica 1.5: las cinco licencias" data-seccion="1.5" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <aside class="notas"><p><b>Leer la tabla con los grupos ya formados.</b> Cada fila es una licencia y su columna "Dónde verla" es lo que tienen que enseñar en pantalla: no vale un resumen de la IA sin el archivo real delante.</p><ul><li>Fechas: GPL 1989 (v3 2007), MIT finales de los ochenta (X Window), Apache 2.0 en 2004, Creative Commons 2001 (4.0 en 2013).</li><li>Detalle que da juego: el repositorio de VS Code es MIT, pero el programa que se descarga lleva licencia propietaria de Microsoft. Y el núcleo de Android es GPL aunque Android sea Apache.</li><li>La tarjeta 4 es la que más se prepara y la que más se aprende: el resto de la clase tiene que responder.</li></ul><p>Herramientas: choosealicense.com, la web de cada licencia, GitHub. El enunciado está en el aula virtual.</p></aside>
   <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
     <div>
       <span class="pill">Práctica</span>
-      <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:24px;color:var(--navy)">El cliente: Duero Creativa</h2>
+      <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:24px;color:var(--navy)">Las cinco licencias</h2>
     </div>
-    <p style="font-size:20px;line-height:1.4;color:var(--muted);max-width:820px">Agencia de marketing de Valladolid. Cuatro personas, cuatro puestos de trabajo y un año por delante. Te piden qué software instalar en cada puesto, con qué licencia, cuánto cuesta y si sus equipos lo aguantan.</p>
+    <p style="font-size:20px;line-height:1.4;color:var(--muted);max-width:820px">Una por grupo, sorteada en clase. Preparadla con las diapositivas de la sección 1.4, <a href="https://choosealicense.com/" target="_blank" rel="noopener">choosealicense.com</a> y la web de la propia licencia. Lo que enseñéis en pantalla tiene que ser real: el archivo de licencia de un repositorio, la página de una obra, los términos de un programa.</p>
   </div>
   <table style="width:100%;border-collapse:collapse;margin-top:24px;font-size:20px;background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 2px 0 var(--line)">
-    <thead><tr style="background:var(--navy);color:var(--white);text-align:left"><th style="padding:13px 22px;font-weight:700">Puesto</th><th style="padding:13px 22px;font-weight:700">Qué hace</th><th style="padding:13px 22px;font-weight:700">Equipo actual</th></tr></thead>
+    <thead><tr style="background:var(--navy);color:var(--white);text-align:left"><th style="padding:13px 22px;font-weight:700">Licencia</th><th style="padding:13px 22px;font-weight:700">Quién y cuándo</th><th style="padding:13px 22px;font-weight:700">Rasgo clave</th><th style="padding:13px 22px;font-weight:700">Dónde verla en pantalla</th></tr></thead>
     <tbody style="line-height:1.3">
-      <tr style="border-bottom:2px solid var(--line)"><td style="padding:12px 22px;font-weight:700;color:var(--navy)">Dirección</td><td style="padding:12px 22px">Ofimática, correo, videollamadas, facturación y contabilidad, firma digital con la Administración.</td><td style="padding:12px 22px">Portátil de 2022, i5, 8 GB de RAM, SSD de 256 GB, Windows 11.</td></tr>
-      <tr style="border-bottom:2px solid var(--line)"><td style="padding:12px 22px;font-weight:700;color:var(--navy)">Creativo</td><td style="padding:12px 22px">Diseño gráfico, retoque fotográfico, edición de vídeo para redes, tipografías.</td><td style="padding:12px 22px">Sobremesa de 2019, i7, 16 GB de RAM, gráfica GTX 1050, HDD de 1 TB, <b style="color:var(--ko)">Windows 10</b>.</td></tr>
-      <tr style="border-bottom:2px solid var(--line)"><td style="padding:12px 22px;font-weight:700;color:var(--navy)">Desarrollo</td><td style="padding:12px 22px">Páginas web de clientes, mantenimiento de WordPress, un plugin propio que quieren vender.</td><td style="padding:12px 22px">Portátil de 2021, Ryzen 5, 8 GB de RAM, SSD de 512 GB, Windows 11.</td></tr>
-      <tr><td style="padding:12px 22px;font-weight:700;color:var(--navy)">Comercial</td><td style="padding:12px 22px">CRM con datos de clientes, presupuestos, presentaciones; mucho trabajo fuera de la oficina.</td><td style="padding:12px 22px">Portátil de 2016, Celeron, 4 GB de RAM, HDD de 500 GB, <b style="color:var(--ko)">Windows 10 de 32 bits</b>.</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:12px 22px;font-weight:700;color:var(--navy);white-space:nowrap">GPL</td><td style="padding:12px 22px">Free Software Foundation, 1989; versión 3 en 2007.</td><td style="padding:12px 22px"><b>Copyleft</b>: las versiones modificadas que se distribuyen llevan la misma licencia y su código fuente.</td><td style="padding:12px 22px">Archivo COPYING del repositorio de Linux en GitHub; license.txt de WordPress.</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:12px 22px;font-weight:700;color:var(--navy);white-space:nowrap">MIT</td><td style="padding:12px 22px">Instituto Tecnológico de Massachusetts, finales de los ochenta.</td><td style="padding:12px 22px"><b>Permisiva</b>: se puede usar, copiar, modificar y vender, incluso en un programa propietario, citando la licencia. Sin garantía.</td><td style="padding:12px 22px">Archivo LICENSE de React o de Node.js: cabe en una pantalla. El código de VS Code también es MIT.</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:12px 22px;font-weight:700;color:var(--navy);white-space:nowrap">Apache 2.0</td><td style="padding:12px 22px">Apache Software Foundation, 2004.</td><td style="padding:12px 22px"><b>Permisiva con patentes</b>: quien contribuye concede permiso sobre sus patentes; hay que conservar los avisos e indicar qué se ha cambiado.</td><td style="padding:12px 22px">Archivo LICENSE de Kubernetes o de TensorFlow; el aviso de licencias de un móvil Android.</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:12px 22px;font-weight:700;color:var(--navy);white-space:nowrap">Creative Commons</td><td style="padding:12px 22px">Creative Commons, 2001; versión 4.0 en 2013.</td><td style="padding:12px 22px"><b>Para obras, no para software</b>: el autor combina cuatro condiciones (BY, NC, ND, SA) y salen seis licencias, más CC0.</td><td style="padding:12px 22px">La página de una foto en Wikimedia Commons; el pie de Wikipedia; el archivo LICENSE de estas diapositivas.</td></tr>
+      <tr><td style="padding:12px 22px;font-weight:700;color:var(--navy);white-space:nowrap">Propietario con EULA</td><td style="padding:12px 22px">Cada fabricante escribe la suya: Microsoft, Adobe, Valve.</td><td style="padding:12px 22px"><b>Se compra el uso, no el programa</b>: número de equipos, perpetua o por suscripción, sin copiar, modificar ni revender.</td><td style="padding:12px 22px">Windows: Configuración › Sistema › Acerca de › Términos de licencia. Los términos de Adobe Creative Cloud o el acuerdo de Steam.</td></tr>
     </tbody>
   </table>
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:22px">
-    <div style="background:var(--white);border-radius:18px;padding:18px 22px;box-shadow:0 2px 0 var(--line)"><p style="font-size:19px;font-weight:800;color:var(--navy)">Presupuesto</p><p style="font-size:18px;line-height:1.4;color:var(--muted);margin-top:4px">4.000 € para el primer año: software, licencias (renovaciones incluidas) y, si hace falta, renovar algún equipo.</p></div>
-    <div style="background:var(--white);border-radius:18px;padding:18px 22px;box-shadow:0 2px 0 var(--line)"><p style="font-size:19px;font-weight:800;color:var(--navy)">Windows 10 sin soporte</p><p style="font-size:18px;line-height:1.4;color:var(--muted);margin-top:4px">Dos equipos lo llevan. Hay que decidir qué se hace con ellos: actualizar, sustituir o cambiar de sistema.</p></div>
-    <div style="background:var(--white);border-radius:18px;padding:18px 22px;box-shadow:0 2px 0 var(--line)"><p style="font-size:19px;font-weight:800;color:var(--navy)">Datos y almacenamiento</p><p style="font-size:18px;line-height:1.4;color:var(--muted);margin-top:4px">El CRM guarda datos de clientes: RGPD, dónde se alojan. Y 40 GB de vídeo al mes que hay que conservar dos años con copia de seguridad.</p></div>
-    <div style="background:var(--yellow);border-radius:18px;padding:18px 22px"><p style="font-size:19px;font-weight:800;color:var(--navy)">El plugin</p><p style="font-size:18px;line-height:1.4;color:var(--navy);margin-top:4px">Quieren venderlo a otras agencias: con qué licencia se puede, y qué implica si está construido sobre código GPL.</p></div>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:22px">
+    <div style="background:var(--white);border-radius:18px;padding:18px 22px;box-shadow:0 2px 0 var(--line)"><p style="font-size:19px;font-weight:800;color:var(--navy)">1. Qué es y de dónde viene</p><p style="font-size:18px;line-height:1.4;color:var(--muted);margin-top:4px">Quién la creó, cuándo y qué problema quería resolver.</p></div>
+    <div style="background:var(--white);border-radius:18px;padding:18px 22px;box-shadow:0 2px 0 var(--line)"><p style="font-size:19px;font-weight:800;color:var(--navy)">2. Qué permite y qué obliga</p><p style="font-size:18px;line-height:1.4;color:var(--muted);margin-top:4px">Usar, copiar, modificar, distribuir, vender. Atribución, copyleft, patentes, garantía.</p></div>
+    <div style="background:var(--white);border-radius:18px;padding:18px 22px;box-shadow:0 2px 0 var(--line)"><p style="font-size:19px;font-weight:800;color:var(--navy)">3. Tres programas u obras</p><p style="font-size:18px;line-height:1.4;color:var(--muted);margin-top:4px">Conocidos, que la usen, con la licencia enseñada en pantalla.</p></div>
+    <div style="background:var(--yellow);border-radius:18px;padding:18px 22px"><p style="font-size:19px;font-weight:800;color:var(--navy)">4. ¿Puedo o no puedo?</p><p style="font-size:18px;line-height:1.4;color:var(--navy);margin-top:4px">Un caso real que planteáis al resto de la clase y resolvéis.</p></div>
+    <div style="background:var(--white);border-radius:18px;padding:18px 22px;box-shadow:0 2px 0 var(--line)"><p style="font-size:19px;font-weight:800;color:var(--navy)">5. Fuentes e IA</p><p style="font-size:18px;line-height:1.4;color:var(--muted);margin-top:4px">Qué consultasteis, qué le pedisteis a la IA y qué comprobasteis después.</p></div>
   </div>
 </section>
 
-<!-- 119 Práctica 1.5: el giro en clase -->
-<section data-label="Práctica 1.5: el giro" data-seccion="1.5" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.25fr;gap:72px">
-  <aside class="notas"><p><b>El giro:</b> el día de la entrega, 30 minutos, individual, por escrito, sin preparación. Cada alumno recibe uno de los cinco cambios al azar; no se dice cuál antes.</p><ul><li>Pesa más porque no lo puede hacer una IA en casa.</li><li>4K a 60 fps sin comprimir: más de 1,4 GB por segundo. GPL: cuatro libertades. Datos en la UE: caso TCS.</li></ul><p>Rúbrica en el aula virtual.</p></aside>
+<!-- 121 Práctica 1.5: la exposición y cómo se puntúa -->
+<section data-label="Práctica 1.5: la exposición" data-seccion="1.5" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.25fr;gap:72px">
+  <aside class="notas"><p><b>La sesión de exposiciones:</b> cinco grupos, diez minutos cada uno más preguntas; cabe en una sesión y media. Orden sorteado al empezar.</p><ul><li>Preguntar a cada miembro sobre una parte que no haya expuesto él: así se ve si el grupo ha preparado el trabajo junto o se lo ha repartido sin leerlo.</li><li>Los 2 puntos de trabajo en clase se anotan en la sesión de preparación, en la bitácora: quién trae su parte, quién participa, quién mira el móvil.</li><li>La pregunta al resto de la clase se corrige en el momento; si el grupo la resuelve mal, se aclara antes de seguir.</li><li>Las tres preguntas de test se recogen por escrito (enunciado, cuatro opciones y la correcta) y se importan al banco de takataka.io.</li></ul><p>Rúbrica en el aula virtual.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
     <span class="pill" style="align-self:flex-start">Práctica</span>
-    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:24px;color:var(--navy);text-wrap:balance">El giro: 30 minutos en clase</h2>
-    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">El día de la entrega recibes <b style="color:var(--navy)">uno de estos cinco cambios</b>, al azar, y adaptas tu propuesta por escrito, sin preparación, justificando cada modificación. <b style="color:var(--navy)">Esta parte pesa más que el documento.</b></p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:24px;color:var(--navy);text-wrap:balance">La exposición: diez minutos por grupo</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Seguís el guion de los cinco puntos, con pantalla. <b style="color:var(--navy)">Todos habláis</b> y al terminar os pregunto a cada uno sobre cualquier parte, no solo la vuestra. <b style="color:var(--navy)">La nota es individual.</b></p>
     <div style="background:var(--white);border-radius:20px;padding:24px 30px;box-shadow:0 2px 0 var(--line);margin-top:var(--gap-item)">
-      <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Qué se puntúa</p>
+      <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Qué se puntúa (sobre 10)</p>
       <ul style="list-style:none;padding:0;margin-top:10px;display:flex;flex-direction:column;gap:8px;font-size:20px;line-height:1.4;color:var(--muted)">
-        <li style="display:flex;gap:14px"><span style="color:var(--blue);font-weight:800">1</span><span><b style="color:var(--navy)">Coherencia</b> con tu propuesta original: cambias lo que hay que cambiar y mantienes lo demás.</span></li>
-        <li style="display:flex;gap:14px"><span style="color:var(--blue);font-weight:800">2</span><span><b style="color:var(--navy)">Corrección técnica</b>: requisitos, licencias y unidades bien usados.</span></li>
-        <li style="display:flex;gap:14px"><span style="color:var(--blue);font-weight:800">3</span><span><b style="color:var(--navy)">Realismo</b> del presupuesto: precios y productos que existen.</span></li>
-        <li style="display:flex;gap:14px"><span style="color:var(--blue);font-weight:800">4</span><span><b style="color:var(--navy)">Justificación</b> por escrito de cada decisión.</span></li>
+        <li style="display:flex;gap:14px"><span style="color:var(--blue);font-weight:800;flex:none;width:28px">3</span><span><b style="color:var(--navy)">Contenido</b> (grupo): lo que permite y obliga la licencia está bien, sin confundirla con las otras cuatro; tres ejemplos reales; el caso "¿puedo o no puedo?" bien planteado y resuelto.</span></li>
+        <li style="display:flex;gap:14px"><span style="color:var(--blue);font-weight:800;flex:none;width:28px">2</span><span><b style="color:var(--navy)">Presentación</b> (grupo): se entiende, sigue el guion, cabe en diez minutos, sin leer y con todos hablando.</span></li>
+        <li style="display:flex;gap:14px"><span style="color:var(--blue);font-weight:800;flex:none;width:28px">1</span><span><b style="color:var(--navy)">Formato</b> (grupo): el material en pantalla es legible y ordenado, con las capturas reales de la licencia y las fuentes; entregado en el aula virtual.</span></li>
+        <li style="display:flex;gap:14px"><span style="color:var(--blue);font-weight:800;flex:none;width:28px">2</span><span><b style="color:var(--navy)">Dominio</b> (individual): respondes a mis preguntas sobre cualquier parte, no solo la tuya.</span></li>
+        <li style="display:flex;gap:14px"><span style="color:var(--blue);font-weight:800;flex:none;width:28px">2</span><span><b style="color:var(--navy)">Trabajo en clase</b> (individual): en la sesión de preparación traes tu parte hecha, participas y trabajas con el grupo.</span></li>
       </ul>
     </div>
   </div>
   <div style="display:flex;flex-direction:column;gap:14px;justify-content:center;min-width:0">
-    <div style="display:flex;gap:20px;align-items:flex-start;background:var(--white);border-radius:18px;padding:18px 26px;box-shadow:0 2px 0 var(--line)"><span style="width:46px;height:46px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">A</span><p style="font-size:20px;line-height:1.4;padding-top:6px"><b>El presupuesto baja a 2.000 €.</b> ¿Qué se queda, qué se cae y qué se sustituye?</p></div>
-    <div style="display:flex;gap:20px;align-items:flex-start;background:var(--white);border-radius:18px;padding:18px 26px;box-shadow:0 2px 0 var(--line)"><span style="width:46px;height:46px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">B</span><p style="font-size:20px;line-height:1.4;padding-top:6px"><b>El creativo pasa a editar vídeo en 4K.</b> ¿Aguanta su equipo? ¿Qué cambia en el hardware y en el almacenamiento?</p></div>
-    <div style="display:flex;gap:20px;align-items:flex-start;background:var(--white);border-radius:18px;padding:18px 26px;box-shadow:0 2px 0 var(--line)"><span style="width:46px;height:46px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">C</span><p style="font-size:20px;line-height:1.4;padding-top:6px"><b>El plugin resulta estar construido sobre un tema GPL.</b> ¿Puede venderse como propietario? ¿Qué opciones quedan?</p></div>
-    <div style="display:flex;gap:20px;align-items:flex-start;background:var(--white);border-radius:18px;padding:18px 26px;box-shadow:0 2px 0 var(--line)"><span style="width:46px;height:46px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">D</span><p style="font-size:20px;line-height:1.4;padding-top:6px"><b>Un cliente grande exige por contrato que sus datos no salgan de la Unión Europea.</b> ¿Qué cambia en el CRM, la nube y las copias de seguridad?</p></div>
-    <div style="display:flex;gap:20px;align-items:flex-start;background:var(--white);border-radius:18px;padding:18px 26px;box-shadow:0 2px 0 var(--line)"><span style="width:46px;height:46px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">E</span><p style="font-size:20px;line-height:1.4;padding-top:6px"><b>La agencia decide usar solo software libre.</b> ¿Qué se sustituye por qué, y cuánto se ahorra?</p></div>
+    <div style="display:flex;gap:20px;align-items:flex-start;background:var(--white);border-radius:18px;padding:18px 26px;box-shadow:0 2px 0 var(--line)"><span style="width:46px;height:46px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">A</span><p style="font-size:20px;line-height:1.4;padding-top:6px"><b>Preparación en casa, IA permitida.</b> Con el apartado de qué le pedisteis y qué comprobasteis en la web de la licencia o en choosealicense.com. Una sesión en clase para juntarlo, en la que observo cómo trabaja cada uno.</p></div>
+    <div style="display:flex;gap:20px;align-items:flex-start;background:var(--white);border-radius:18px;padding:18px 26px;box-shadow:0 2px 0 var(--line)"><span style="width:46px;height:46px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">B</span><p style="font-size:20px;line-height:1.4;padding-top:6px"><b>Todos habláis y a todos os pregunto.</b> Cada uno responde sobre cualquier parte de la exposición, no solo la que ha contado.</p></div>
+    <div style="display:flex;gap:20px;align-items:flex-start;background:var(--white);border-radius:18px;padding:18px 26px;box-shadow:0 2px 0 var(--line)"><span style="width:46px;height:46px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">C</span><p style="font-size:20px;line-height:1.4;padding-top:6px"><b>La pregunta al resto: ¿puedo o no puedo?</b> Un caso real con vuestra licencia que la clase tiene que resolver y vosotros corregís.</p></div>
+    <div style="display:flex;gap:20px;align-items:flex-start;background:var(--white);border-radius:18px;padding:18px 26px;box-shadow:0 2px 0 var(--line)"><span style="width:46px;height:46px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">D</span><p style="font-size:20px;line-height:1.4;padding-top:6px"><b>Tres preguntas de test</b> sobre vuestra licencia, con cuatro opciones y la correcta marcada. Van al banco del test masivo 1.11 y pueden caer en el examen.</p></div>
+    <div style="display:flex;gap:20px;align-items:flex-start;background:var(--white);border-radius:18px;padding:18px 26px;box-shadow:0 2px 0 var(--line)"><span style="width:46px;height:46px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">E</span><p style="font-size:20px;line-height:1.4;padding-top:6px"><b>El resto de la clase toma notas.</b> Las cinco licencias entran en el test masivo y en el examen, y después de las exposiciones cerramos la sección 1.4 con las tablas, el debate y el quiz.</p></div>
   </div>
 </section>
 
-<!-- 120 Práctica 1.10: ejercicios de representación -->
+<!-- 122 Práctica 1.10: ejercicios de representación -->
 <section data-label="Práctica: ejercicios de representación" data-criterio="b, e" data-seccion="1.10" data-deck-id="practica-1-10" data-deck-section="1.10" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:72px">
   <aside class="notas"><p><b>Práctica 1.10.</b> En casa: racha de diez en los trece ejercicios; no se entrega nada. En clase: examen práctico en papel, hoja distinta por alumno generada con el número de lista en hoja.html.</p><ul><li>La hoja de casa sale siempre igual para el mismo número y se comprueba con el solucionario; en clase cambian título y cantidades.</li><li>Sin calculadora. Se pueden llevar a mano: potencias de 2, tabla del 0 al 15 y las tres anclas ASCII.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3664,7 +3742,7 @@
   </div>
 </section>
 
-<!-- 121 Práctica 1.11: test masivo en clase -->
+<!-- 123 Práctica 1.11: test masivo en clase -->
 <section class="dark" data-label="Práctica: test masivo" data-criterio="a, c, d, k" data-seccion="1.11" data-deck-id="practica-1-11" data-deck-section="1.11" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1fr;gap:80px">
   <aside class="notas"><p><b>Práctica 1.11.</b> Test de toda la unidad en takataka.io; cada alumno recibe un subconjunto distinto al azar, así que no sirve mirar al vecino.</p><ul><li>Sesión anunciada, en el aula, con las diapositivas abiertas si se quiere, sin IA. Cuenta dentro del 40 % de trabajos.</li><li>Sentido: obliga a leer toda la unidad y a buscar rápido en las diapositivas. Se puede repetir como repaso antes del examen.</li></ul><p>El logotipo de TakaTaka es marca de sus titulares, fuera de la licencia CC. Clic para abrir la web.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3692,7 +3770,7 @@
   </div>
 </section>
 
-<!-- 122 Examen de la unidad -->
+<!-- 124 Examen de la unidad -->
 <section data-label="Examen de la unidad" data-criterio="a, b, c, d, e, k" data-seccion="1.12" data-deck-id="examen" data-deck-section="1.12" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p><b>Anunciar la fecha con al menos una semana.</b> El 60 % de la nota de la unidad, dos partes en la misma sesión.</p><ul><li>Teoría: preguntas cortas y de razonar sobre 1.1 a 1.4 y la teoría de 1.6 a 1.9 (por qué 1 TB muestra 931 GB, qué licencia permite vender un derivado, qué hace la UC en cada paso del ciclo).</li><li>Práctica: hoja generada con el número de lista, los trece tipos; siempre cae IEEE 754.</li><li>Material: las mismas tablas a mano que en la 1.10; sin calculadora.</li></ul></aside>
   <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
@@ -3726,7 +3804,7 @@
   </div>
 </section>
 
-<!-- 123 Resumen 1/2 -->
+<!-- 125 Resumen 1/2 -->
 <section class="dark" data-label="Resumen 1/2" data-deck-id="resumen" data-deck-section="Fin" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p><b>Leerlo con ellos</b> antes del test masivo y del examen: cada frase es una posible pregunta de teoría (1.1 a 1.4).</p></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">Unidad 1</p>
@@ -3743,7 +3821,7 @@
   </div>
 </section>
 
-<!-- 124 Resumen 2/2 -->
+<!-- 126 Resumen 2/2 -->
 <section class="dark" data-label="Resumen 2/2" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p>Secciones 1.6 a 1.9, lo que cae en la práctica del examen: cada frase remite a un ejercicio interactivo.</p></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">Unidad 1</p>
@@ -3760,7 +3838,7 @@
   </div>
 </section>
 
-<!-- 125 Recursos -->
+<!-- 127 Recursos -->
 <section data-label="Recursos" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.5fr;gap:96px">
   <aside class="notas"><ul><li>Calculadora de Windows en modo programador: convierte entre bases y hace operaciones lógicas. Para comprobar ejercicios, no para el examen.</li><li>choosealicense.com se usa en la práctica 1.5.</li><li>Normas citadas, para quien quiera la fuente: IEEE 754, IEC 80000-13, LPI y RGPD en el BOE y el DOUE.</li><li>Los dos vídeos de clase, para repasar.</li></ul></aside>
   <div>
@@ -3778,16 +3856,16 @@
   </ul>
 </section>
 
-<!-- 126 Cierre -->
+<!-- 128 Cierre -->
 <section class="dark" data-label="Fin de la UT1" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column;justify-content:space-between">
-  <aside class="notas"><p><b>Recordar las tres fechas:</b> entrega y giro de la 1.5, test masivo y examen.</p><p>Siguiente: UT2, sistemas operativos.</p></aside>
+  <aside class="notas"><p><b>Recordar las tres fechas:</b> exposiciones de la 1.5, test masivo y examen.</p><p>Siguiente: UT2, sistemas operativos.</p></aside>
   <div style="display:flex;align-items:center;gap:20px">
     <span style="width:16px;height:16px;border-radius:50%;background:var(--yellow);display:block"></span>
     <span style="font-size:var(--type-small);font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#C9D6EE">Fin de la unidad 1</span>
   </div>
   <div>
     <h1 style="font-size:var(--type-hero);font-weight:800;line-height:1.02;letter-spacing:-.02em;max-width:1400px">Dudas y preguntas</h1>
-    <p style="font-size:var(--type-small);color:#C9D6EE;margin-top:32px;line-height:1.5;max-width:1300px">Tres fechas que se anuncian en clase: la entrega de la práctica 1.5 con su giro, la sesión del test masivo y el examen.</p>
+    <p style="font-size:var(--type-small);color:#C9D6EE;margin-top:32px;line-height:1.5;max-width:1300px">Tres fechas que se anuncian en clase: las exposiciones de la práctica 1.5, la sesión del test masivo y el examen.</p>
   </div>
   <div style="display:flex;gap:56px;font-size:var(--type-caption);color:#C9D6EE">
     <span>Próxima unidad: UT2. Sistemas operativos: estructura, funciones y sistemas de archivos</span>
