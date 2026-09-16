@@ -494,33 +494,44 @@
 
 <!-- 19 Texto: 1.ª y 2.ª generación -->
 <section data-label="1.ª y 2.ª generación" data-seccion="1.2" style="display:grid;grid-template-columns:1fr 720px;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
-  <aside class="notas"><ul><li>ENIAC: 17.468 válvulas, 27 toneladas, 150 kW; se fundían válvulas a diario. Terminado a finales de 1945, presentado en febrero de 1946.</li><li>En la foto, Betty Snyder y Glen Beck programándolo con cables: las seis primeras programadoras del ENIAC fueron mujeres.</li><li><b>Válvula frente a transistor.</b> La válvula es una bombilla con rejilla: un filamento al rojo emite electrones en el vacío y la tensión de la rejilla deja pasar o corta la corriente. Necesita calentarse (segundos), gasta vatios y el filamento se funde como el de una bombilla. El transistor hace lo mismo con un semiconductor (germanio, luego silicio): una corriente pequeña en la base controla otra grande, sin vacío, sin calentar ni desgaste. Por eso: menor, más fiable, menos consumo, más barato.</li><li>Transistor: Bardeen, Brattain y Shockley, Bell Labs, 1947 (Nobel 1956).</li></ul></aside>
+  <aside class="notas"><ul><li><b>Galería de cuatro fotos</b> (flechas o pulsar el texto marcado): 1 ENIAC, 2 válvula encendida, 3 transistor MOSFET, 4 portillo de riego (analogía). Explicar de palabra la diferencia mirando cada una.</li><li><b>ENIAC (foto 1):</b> 17.468 válvulas, 27 toneladas, 150 kW; se fundían válvulas a diario. Terminado a finales de 1945, presentado en febrero de 1946. En la foto, Betty Snyder y Glen Beck programándolo con cables: las seis primeras programadoras del ENIAC fueron mujeres.</li><li><b>Válvula (foto 2):</b> una bombilla con rejilla. El filamento se pone al rojo (lo naranja de la foto) y emite electrones que cruzan el vacío hasta la placa; la tensión de la rejilla deja pasar o corta esa corriente. Solo conduce caliente: tarda segundos en arrancar, gasta vatios en calentarse y el filamento se funde como el de una bombilla. El azul son electrones que chocan con el vidrio.</li><li><b>Transistor (foto 3):</b> hace lo mismo con un semiconductor (germanio, luego silicio), sin vacío, sin calentar ni desgaste: menor, más fiable, menos consumo, más barato. El primero (Bardeen, Brattain y Shockley, Bell Labs, 1947, Nobel 1956) era bipolar: el de la 2.ª generación. El de la foto es un MOSFET (Atalla y Kahng, Bell Labs, 1959): una tensión en la puerta, aislada por una capa de óxido, abre o cierra el canal entre fuente y drenador casi sin gastar corriente. Es el transistor de todos los chips actuales: el de la foto mide unos centímetros; en un procesador hay decenas de miles de millones de unos nanómetros.</li><li><b>Portillo (foto 4), analogía de las tres patas del MOSFET.</b> El canal del fondo, por donde llega el agua, es la <b>fuente</b> (source, S). El canal de delante, por donde sale, es el <b>drenador</b> (drain, D). La compuerta con el volante es la <b>puerta</b> (gate, G). Girar el volante cuesta muy poco (la tensión de puerta, casi sin corriente) y decide cuánta agua pasa de la fuente al drenador (la corriente entre S y D): compuerta bajada, no pasa nada (0); levantada, pasa todo (1). Por eso sirve de interruptor para hacer bits. Los nombres vienen de ahí: la fuente da los electrones y el drenador los recoge.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Evolución histórica</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">1.ª y 2.ª generación</h2>
     <div style="margin-top:var(--gap-title)">
-      <p style="font-size:var(--type-small);font-weight:800;color:var(--navy)">1.ª generación (1940-1959) · válvulas de vacío</p>
+      <p data-ir="2" style="font-size:var(--type-small);font-weight:800;color:var(--navy);padding:6px 14px;margin:-6px -14px">1.ª generación (1940-1959) · válvulas de vacío</p>
       <ul style="padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:14px;font-size:var(--type-caption);line-height:1.45">
         <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span>Uso exclusivo científico y militar. Ocupaban una habitación y calculaban menos que una calculadora de bolsillo.</span></li>
         <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Mark I</b> (Aiken con IBM, 1944), basado en las ideas de Babbage. Se programaba con interruptores: más calculadora que ordenador.</span></li>
-        <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>ENIAC</b> (1946): el primer ordenador electrónico de uso práctico. Sus válvulas se fundían continuamente.</span></li>
+        <li data-ir="1" style="display:flex;gap:18px;padding:6px 14px;margin:-6px -14px"><span style="color:var(--yellow);font-weight:800;align-self:flex-start;border-radius:50%">●</span><span><b>ENIAC</b> (1946): el primer ordenador electrónico de uso práctico. Sus válvulas se fundían continuamente.</span></li>
         <li style="display:flex;gap:18px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>UNIVAC I</b> (1951): empiezan los ordenadores comerciales. Aparecen el <b>sistema operativo</b> y los primeros lenguajes: ensamblador, Fortran, LISP.</span></li>
       </ul>
     </div>
     <div style="margin-top:var(--gap-item)">
       <p style="font-size:var(--type-small);font-weight:800;color:var(--navy)">2.ª generación (1960-1965) · el transistor</p>
       <ul style="padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:14px;font-size:var(--type-caption);line-height:1.45">
-        <li style="display:flex;gap:18px"><span style="color:var(--blue);font-weight:800">●</span><span>El transistor (Laboratorios Bell, 1947) sustituye a la válvula: ordenadores más pequeños, fiables y económicos.</span></li>
+        <li data-ir="3" style="display:flex;gap:18px;padding:6px 14px;margin:-6px -14px"><span style="color:var(--blue);font-weight:800;align-self:flex-start;border-radius:50%">●</span><span>El transistor (Laboratorios Bell, 1947) sustituye a la válvula: ordenadores más pequeños, fiables y económicos.</span></li>
         <li style="display:flex;gap:18px"><span style="color:var(--blue);font-weight:800">●</span><span>Aparece el concepto de <b>periférico</b>. Nuevos lenguajes: Algol y COBOL. El programa se escribe y la máquina lo traduce a lenguaje máquina.</span></li>
       </ul>
     </div>
   </div>
-  <div style="display:flex;flex-direction:column;gap:20px;min-height:0">
-    <figure class="foto" style="flex:1">
+  <div class="galeria">
+    <figure class="foto" data-pie="<b>Figura 1.12.</b> Programar el ENIAC era cablear paneles: 17.468 válvulas y unas 27 toneladas.">
       <img src="img/eniac.jpg" alt="Dos personas programan el ENIAC cableando sus paneles" title="Foto: U.S. Army · Wikimedia Commons · dominio público">
       <figcaption class="credito"><b>ENIAC</b> en el Ballistic Research Laboratory (EE. UU.), programado por Betty Snyder y Glen Beck, hacia 1947-1955. Foto: U.S. Army, <a href="https://commons.wikimedia.org/wiki/File:Eniac.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, dominio público.</figcaption>
     </figure>
-    <p style="font-size:var(--type-caption);color:var(--muted);line-height:1.4">Figura 1.12. Programar el ENIAC era cablear paneles: 17.468 válvulas y unas 27 toneladas.</p>
+    <figure class="foto" data-pie="<b>Figura 1.13.</b> Válvula encendida: el filamento se pone al rojo y solo entonces pasa la corriente por el vacío.">
+      <img src="img/valvula.jpg" alt="Válvula de vacío KT66 encendida, con el filamento al rojo y un resplandor azul dentro de la ampolla de vidrio" title="Foto: Hannes Grobe · Wikimedia Commons · CC BY-SA 4.0">
+      <figcaption class="credito"><b>Válvula KT66</b> de un amplificador Reußenzehn (años 90), en funcionamiento. Foto: Hannes Grobe, <a href="https://commons.wikimedia.org/wiki/File:Glowing_vaccum_tube_(1_of_4_large_ones)_of_Reussenzehn_tube_audio_amplifier_c._from_1990s_(cropped).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Reducida.</figcaption>
+    </figure>
+    <figure class="foto" data-pie="<b>Figura 1.14.</b> Un MOSFET actual: lo mismo sin vacío ni calor. En un procesador caben miles de millones.">
+      <img src="img/mosfet.jpg" alt="Transistor MOSFET IRFI9540 en cápsula de plástico TO-220 con tres patillas" title="Foto: Retired electrician · Wikimedia Commons · CC0">
+      <figcaption class="credito"><b>MOSFET IRFI9540</b> (International Rectifier) en cápsula TO-220. Foto: Retired electrician, <a href="https://commons.wikimedia.org/wiki/File:IRFI9540_MOS_transistor_02.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.es" target="_blank" rel="noopener">CC0</a>. Reducida.</figcaption>
+    </figure>
+    <figure class="foto" data-pie="<b>Figura 1.15.</b> Portillo de riego: la compuerta (puerta) decide cuánta agua pasa de un canal (fuente) al otro (drenador).">
+      <img src="img/portillo.jpg" alt="Compuerta metálica con volante entre dos canales de riego de hormigón; el agua pasa por debajo de la compuerta" title="Imagen: elaboración propia">
+      <figcaption class="credito"><b>Portillo de riego</b> como analogía del transistor: girar el volante cuesta poco y controla toda el agua que pasa. Imagen: elaboración propia.</figcaption>
+    </figure>
   </div>
 </section>
 
@@ -553,14 +564,14 @@
         <img src="img/intel-4004.jpg" alt="Microprocesador Intel C4004 en encapsulado cerámico" title="Foto: Thomas Nguyen · Wikimedia Commons · CC BY-SA 4.0">
         <figcaption class="credito"><b>Intel C4004</b>, el primer microprocesador comercial (1971). Foto: Thomas Nguyen, <a href="https://commons.wikimedia.org/wiki/File:Intel_C4004.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Reducida.</figcaption>
       </figure>
-      <p style="font-size:20px;color:var(--muted);line-height:1.3">Figura 1.13. Intel 4004 (1971): 2.300 transistores, 4 bits.</p>
+      <p style="font-size:20px;color:var(--muted);line-height:1.3">Figura 1.16. Intel 4004 (1971): 2.300 transistores, 4 bits.</p>
     </div>
     <div style="display:flex;flex-direction:column;gap:12px;min-height:0">
       <figure class="foto" style="flex:1">
         <img src="img/zx-spectrum.jpg" alt="Ordenador doméstico Sinclair ZX Spectrum de 48 K" title="Foto: Bill Bertram · Wikimedia Commons · CC BY-SA 2.5">
         <figcaption class="credito"><b>Sinclair ZX Spectrum</b> 48K (1982), con microprocesador Zilog Z80. Foto: Bill Bertram, <a href="https://commons.wikimedia.org/wiki/File:ZXSpectrum48k.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/2.5/deed.es" target="_blank" rel="noopener">CC BY-SA 2.5</a>. Reducida.</figcaption>
       </figure>
-      <p style="font-size:20px;color:var(--muted);line-height:1.3">Figura 1.14. ZX Spectrum (1982): el ordenador doméstico más popular en España en los años ochenta.</p>
+      <p style="font-size:20px;color:var(--muted);line-height:1.3">Figura 1.17. ZX Spectrum (1982): el ordenador doméstico más popular en España en los años ochenta.</p>
     </div>
   </div>
 </section>
@@ -585,7 +596,7 @@
       <img src="img/ibm-pc.jpg" alt="IBM PC modelo 5150 con monitor y teclado" title="Foto: Ruben de Rijcke · Wikimedia Commons · CC BY-SA 3.0" style="object-fit:contain">
       <figcaption class="credito"><b>IBM PC 5150</b> (1981) con su monitor y teclado. Foto: Ruben de Rijcke, <a href="https://commons.wikimedia.org/wiki/File:Ibm_pc_5150.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.es" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Reducida.</figcaption>
     </figure>
-    <p style="font-size:var(--type-caption);color:var(--muted);line-height:1.4">Figura 1.15. IBM PC 5150: procesador Intel 8088 a 4,77 MHz y dos disqueteras de 5¼ pulgadas.</p>
+    <p style="font-size:var(--type-caption);color:var(--muted);line-height:1.4">Figura 1.18. IBM PC 5150: procesador Intel 8088 a 4,77 MHz y dos disqueteras de 5¼ pulgadas.</p>
   </div>
 </section>
 
@@ -669,7 +680,7 @@
         </g>
       </svg>
     </div>
-    <p style="font-size:20px;color:var(--muted);line-height:1.4">Figura 1.16. Elaboración propia con datos de <a href="https://es.wikipedia.org/wiki/Ley_de_Moore" target="_blank" rel="noopener">Ley de Moore</a> y <a href="https://en.wikipedia.org/wiki/Transistor_count" target="_blank" rel="noopener">Transistor count</a> (Wikipedia, consultados en septiembre de 2026). Pasa el ratón por cada punto para ver el chip.</p>
+    <p style="font-size:20px;color:var(--muted);line-height:1.4">Figura 1.19. Elaboración propia con datos de <a href="https://es.wikipedia.org/wiki/Ley_de_Moore" target="_blank" rel="noopener">Ley de Moore</a> y <a href="https://en.wikipedia.org/wiki/Transistor_count" target="_blank" rel="noopener">Transistor count</a> (Wikipedia, consultados en septiembre de 2026). Pasa el ratón por cada punto para ver el chip.</p>
   </div>
 </section>
 
@@ -839,7 +850,7 @@
       <li data-marca="9" style="display:flex;gap:14px;padding:6px 10px;margin:0 -10px"><b style="color:var(--blue);flex:none;width:30px">9</b><span><b>Panel trasero de conectores</b>: USB, red, HDMI, audio. En la foto queda abajo.</span></li>
       <li data-marca="10" style="display:flex;gap:14px;padding:6px 10px;margin:0 -10px"><b style="color:var(--blue);flex:none;width:30px">10</b><span><b>Pila de botón</b> (CR2032): conserva la hora y la configuración con el equipo apagado.</span></li>
     </ol>
-    <p style="font-size:20px;color:var(--muted);line-height:1.35;margin-top:auto;padding-top:16px">Figura 1.17. Placa base ATX con el micro y el SSD montados. Pasa el ratón por la lista para localizar cada pieza; clic en la foto para ampliarla.</p>
+    <p style="font-size:20px;color:var(--muted);line-height:1.35;margin-top:auto;padding-top:16px">Figura 1.20. Placa base ATX con el micro y el SSD montados. Pasa el ratón por la lista para localizar cada pieza; clic en la foto para ampliarla.</p>
   </div>
 </section>
 
@@ -901,7 +912,7 @@
       <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Unidad de entrada/salida</b>, puente hacia el exterior.</span></li>
       <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Periféricos</b> y <b>memoria auxiliar</b>, fuera de la placa base.</span></li>
     </ul>
-    <p style="font-size:20px;color:var(--muted);line-height:1.4;margin-top:auto;padding-top:20px">Figura 1.18. Esquema de las partes funcionales. El fondo amarillo señala lo que está en la placa base. Elaboración propia.</p>
+    <p style="font-size:20px;color:var(--muted);line-height:1.4;margin-top:auto;padding-top:20px">Figura 1.21. Esquema de las partes funcionales. El fondo amarillo señala lo que está en la placa base. Elaboración propia.</p>
   </div>
   <div style="background:var(--white);border-radius:20px;padding:24px 28px;box-shadow:0 2px 0 var(--line);display:flex;align-items:center">
     <svg viewBox="0 0 1000 600" style="width:100%;height:auto" role="img" aria-label="Esquema de las partes funcionales de un ordenador: en la placa base, la CPU con la unidad de control, la unidad aritmético-lógica y los registros, la memoria principal, los tres buses y la unidad de entrada/salida; fuera, los periféricos y la memoria auxiliar">
@@ -1222,7 +1233,7 @@
       <div style="background:var(--white);border-radius:16px;padding:18px 22px;box-shadow:0 2px 0 var(--line)"><p style="font-size:20px;font-weight:800;color:var(--blue)">2 · Sistema operativo</p><p style="font-size:18px;color:var(--muted);line-height:1.35;margin-top:6px">Se carga desde el disco a la RAM y toma el control del equipo.</p></div>
       <div style="background:var(--white);border-radius:16px;padding:18px 22px;box-shadow:0 2px 0 var(--line)"><p style="font-size:20px;font-weight:800;color:var(--blue)">3 · Programas</p><p style="font-size:18px;color:var(--muted);line-height:1.35;margin-top:6px">El sistema operativo carga cada programa que abres y le reparte memoria y procesador.</p></div>
     </div>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.19. Recorrido de un programa desde el disco hasta el microprocesador. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.22. Recorrido de un programa desde el disco hasta el microprocesador. Elaboración propia.</p>
   </div>
 </section>
 
@@ -1350,7 +1361,7 @@
       <rect x="10" y="312" width="500" height="92" rx="16" fill="#0B4AB5"/><text x="260" y="350" text-anchor="middle" font-size="24" font-weight="800" fill="#fff">Software de base</text><text x="260" y="382" text-anchor="middle" font-size="18" fill="#C9D6EE">sistema operativo y controladores</text>
       <rect x="10" y="422" width="500" height="44" rx="12" fill="#15356B"/><text x="260" y="451" text-anchor="middle" font-size="20" font-weight="800" fill="#F4C20D">Hardware</text>
     </svg>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:14px">Figura 1.20. Cada capa se apoya en la de abajo. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:14px">Figura 1.23. Cada capa se apoya en la de abajo. Elaboración propia.</p>
   </div>
   <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
     <table style="width:100%;border-collapse:collapse;font-size:22px;background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 2px 0 var(--line)">
@@ -1467,11 +1478,11 @@
     </div>
   </div>
   <div class="galeria" style="--galeria-alto:560px;--galeria-flex:none;justify-content:center">
-    <figure class="foto" data-pie="<b>Figura 1.21.</b> Richard Stallman, fundador del proyecto GNU (1983) y de la Free Software Foundation (1985), y autor de la GPL. En 2015, en la fiesta del 30.º aniversario de la FSF.">
+    <figure class="foto" data-pie="<b>Figura 1.24.</b> Richard Stallman, fundador del proyecto GNU (1983) y de la Free Software Foundation (1985), y autor de la GPL. En 2015, en la fiesta del 30.º aniversario de la FSF.">
       <img src="img/stallman.jpg" alt="Retrato en blanco y negro de Richard Stallman" title="Foto: Frank Karlitschek · Wikimedia Commons · CC BY-SA 3.0">
       <figcaption class="credito"><b>Richard Stallman</b> en Boston, octubre de 2015. Foto: Frank Karlitschek, <a href="https://commons.wikimedia.org/wiki/File:Richard_Stallman_(124442297).jpeg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.es" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Reducida.</figcaption>
     </figure>
-    <figure class="foto" data-pie="<b>Figura 1.22.</b> Linus Torvalds, creador del núcleo Linux (1991), publicado bajo la GPL versión 2 desde 1992. Sigue coordinando su desarrollo.">
+    <figure class="foto" data-pie="<b>Figura 1.25.</b> Linus Torvalds, creador del núcleo Linux (1991), publicado bajo la GPL versión 2 desde 1992. Sigue coordinando su desarrollo.">
       <img src="img/torvalds.jpg" alt="Linus Torvalds sonriendo durante una charla" title="Foto: Krd, recorte de Sprat · Wikimedia Commons · CC BY-SA 4.0" style="object-fit:cover;object-position:center 20%">
       <figcaption class="credito"><b>Linus Torvalds</b> en LinuxCon Europe, Düsseldorf, 2014. Foto: Krd (recorte de Sprat), <a href="https://commons.wikimedia.org/wiki/File:LinuxCon_Europe_Linus_Torvalds_03_(cropped).jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Reducida.</figcaption>
     </figure>
@@ -1612,7 +1623,7 @@
         </div>
       </div>
     </div>
-    <p style="font-size:19px;color:var(--muted);line-height:1.4">Figura 1.23. Un aviso de cookies correcto: informa, permite rechazar con la misma facilidad que aceptar y enlaza a la política. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.4">Figura 1.26. Un aviso de cookies correcto: informa, permite rechazar con la misma facilidad que aceptar y enlaza a la política. Elaboración propia.</p>
   </div>
 </section>
 
@@ -1634,7 +1645,7 @@
       <img src="img/distrito-telefonica.jpg" alt="Edificios de cristal del Distrito Telefónica en Madrid, con banderas en la entrada" title="Foto: Luis García (Zaqarbal) · Wikimedia Commons · CC BY-SA 3.0">
       <figcaption class="credito"><b>Distrito Telefónica</b>, sede de la empresa en Madrid, 2011. Foto: Luis García (Zaqarbal), <a href="https://commons.wikimedia.org/wiki/File:Distrito_Telef%C3%B3nica_(Madrid)_01.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.es" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Reducida.</figcaption>
     </figure>
-    <p style="font-size:19px;color:var(--muted);line-height:1.4">Figura 1.24. Distrito Telefónica, Madrid. Los datos de los clientes de una operadora son datos personales: el RGPD limita a quién y desde dónde se puede acceder a ellos.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.4">Figura 1.27. Distrito Telefónica, Madrid. Los datos de los clientes de una operadora son datos personales: el RGPD limita a quién y desde dónde se puede acceder a ellos.</p>
   </div>
 </section>
 
@@ -1679,7 +1690,7 @@
       <img src="img/cd-pits.jpg" alt="Superficie de un CD vista al microscopio: pistas de hoyos alargados sobre fondo rojo" title="Foto: Jan1959 · Wikimedia Commons · CC BY 4.0">
       <figcaption class="credito">Superficie de un CD al microscopio. Foto: Jan1959, Wikimedia Commons, <a href="https://creativecommons.org/licenses/by/4.0/deed.es">CC BY 4.0</a>. Recortada y reducida.</figcaption>
     </figure>
-    <p style="font-size:19px;color:#9FB4D9;line-height:1.35">Figura 1.25. Los hoyos (<i>pits</i>) de un CD al microscopio: cada cambio entre hoyo y llano es un 1; cada tramo sin cambio, ceros.</p>
+    <p style="font-size:19px;color:#9FB4D9;line-height:1.35">Figura 1.28. Los hoyos (<i>pits</i>) de un CD al microscopio: cada cambio entre hoyo y llano es un 1; cada tramo sin cambio, ceros.</p>
   </div>
 </section>
 
@@ -1709,7 +1720,7 @@
       <text x="765" y="112" text-anchor="middle" font-size="18" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">pantalla, impresora, altavoz…</text>
       <text x="765" y="200" text-anchor="middle" font-size="56" font-weight="800" fill="#0B4AB5" font-family="JetBrains Mono, Consolas, monospace">12</text>
       <text x="765" y="240" text-anchor="middle" font-size="18" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">área del triángulo</text>
-      <text x="450" y="315" text-anchor="middle" font-size="19" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">Figura 1.26. Los datos se convierten a bits al entrar y se vuelven a convertir al salir. Elaboración propia.</text>
+      <text x="450" y="315" text-anchor="middle" font-size="19" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">Figura 1.29. Los datos se convierten a bits al entrar y se vuelven a convertir al salir. Elaboración propia.</text>
     </svg>
     <ul style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:12px;font-size:22px;line-height:1.4">
       <li style="display:flex;gap:16px"><span style="color:var(--blue);font-weight:800">●</span><span><b>Datos de entrada</b>: los que llegan desde fuera, en un formato que entiende una persona o un aparato.</span></li>
@@ -1754,7 +1765,7 @@
       <img src="img/reloj-romanos.jpg" alt="Despertador antiguo con la esfera en números romanos" title="Foto: Ales Krivec (Unsplash) · Wikimedia Commons · CC0">
       <figcaption class="credito">Despertador con números romanos. Foto: Ales Krivec, Unsplash, vía Wikimedia Commons, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.es">CC0</a>. Reducida.</figcaption>
     </figure>
-    <p style="font-size:19px;color:#9FB4D9;line-height:1.35">Figura 1.27. En la esfera, la X de las diez vale lo mismo que la X de las doce (XII): el sistema romano no es posicional.</p>
+    <p style="font-size:19px;color:#9FB4D9;line-height:1.35">Figura 1.30. En la esfera, la X de las diez vale lo mismo que la X de las doce (XII): el sistema romano no es posicional.</p>
   </div>
 </section>
 
@@ -1847,7 +1858,7 @@
       <div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">0</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">1</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">2</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">3</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">4</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">5</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">6</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">7</div><div style="background:var(--navy);color:var(--white);border-radius:12px;padding:10px 0;font-size:22px">8</div>
       <div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">0</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">1</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">10</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">11</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">100</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">101</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">110</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">111</div><div style="background:var(--white);border-radius:12px;padding:10px 0;font-size:22px;color:var(--blue);font-weight:600;box-shadow:0 2px 0 var(--line)">1000</div>
     </div>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Figura 1.28. Del 0 al 8 en decimal (arriba) y en binario (abajo). Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Figura 1.31. Del 0 al 8 en decimal (arriba) y en binario (abajo). Elaboración propia.</p>
     <div style="background:var(--white);border-radius:20px;padding:24px 30px;box-shadow:0 2px 0 var(--line);margin-top:var(--gap-item)">
       <p style="font-size:21px;line-height:1.5;color:var(--muted)">Con <b style="color:var(--navy)">n bits</b> se pueden representar <b style="color:var(--navy)">2ⁿ</b> valores distintos: con 8 bits, 256 (del 0 al 255); con 16 bits, 65.536; con 32 bits, 4.294.967.296.</p>
     </div>
@@ -2174,14 +2185,14 @@
       <text x="536" y="128" font-size="20" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">A AND B: 0001</text>
       <text x="536" y="158" font-size="20" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">A XOR B: 0110</text>
     </svg>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:8px">Figura 1.29. La UAL con los mismos operandos da un resultado distinto según la operación que le pida la unidad de control. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:8px">Figura 1.32. La UAL con los mismos operandos da un resultado distinto según la operación que le pida la unidad de control. Elaboración propia.</p>
   </div>
   <div style="display:flex;flex-direction:column;gap:16px;min-width:0;height:100%;min-height:0">
     <figure class="foto" style="flex:1">
       <img src="img/sn7400.jpg" alt="Chip SN7400N de Texas Instruments, encapsulado de catorce patillas" title="Foto: Mister rf · Wikimedia Commons · CC BY-SA 4.0">
       <figcaption class="credito">Circuito integrado SN7400N. Foto: Mister rf, Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es">CC BY-SA 4.0</a>. Reducida.</figcaption>
     </figure>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.30. Un SN7400: cuatro puertas NAND en un chip de los años setenta. Con puertas como estas, a miles de millones, se construye la UAL de cualquier micro actual.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.33. Un SN7400: cuatro puertas NAND en un chip de los años setenta. Con puertas como estas, a miles de millones, se construye la UAL de cualquier micro actual.</p>
   </div>
 </section>
 
@@ -2457,7 +2468,7 @@
       <line x1="440" y1="270" x2="560" y2="270" stroke="#0B4AB5" stroke-width="5"/>
       <rect x="560" y="100" width="140" height="60" rx="14" fill="#1E8E5A"/><text x="630" y="140" text-anchor="middle" font-size="24" font-weight="800" fill="#fff" font-family="Plus Jakarta Sans, system-ui, sans-serif">escribo</text>
       <rect x="560" y="240" width="140" height="60" rx="14" fill="#0B4AB5"/><text x="630" y="280" text-anchor="middle" font-size="24" font-weight="800" fill="#fff" font-family="Plus Jakarta Sans, system-ui, sans-serif">me llevo</text>
-      <text x="360" y="400" text-anchor="middle" font-size="20" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">Figura 1.31. Semisumador: dos puertas suman dos bits. Elaboración propia.</text>
+      <text x="360" y="400" text-anchor="middle" font-size="20" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">Figura 1.34. Semisumador: dos puertas suman dos bits. Elaboración propia.</text>
     </svg>
     <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:8px">Para una columna que además recibe acarreo se encadenan dos de estos (sumador completo), y con ocho en fila se suman dos bytes.</p>
   </div>
@@ -2689,7 +2700,7 @@
       <img src="img/gangnam-style.png" alt="Fotograma del vídeo musical Gangnam Style, con PSY bailando" title="Fotograma del vídeo Gangnam Style © YG Entertainment · cita con fines docentes (art. 32 LPI)">
       <figcaption class="credito">Fotograma del vídeo musical <i>Gangnam Style</i> (PSY, 2012), © YG Entertainment. Obra protegida, reproducida como cita con fines docentes (artículo 32 de la Ley de Propiedad Intelectual); no está cubierta por la licencia CC BY-SA de este material. Vía <a href="https://it.wikipedia.org/wiki/File:Gangnam_Style.png">Wikipedia en italiano</a>.</figcaption>
     </figure>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.32. Fotograma de Gangnam Style, el primer vídeo que desbordó el contador de visualizaciones de YouTube.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.35. Fotograma de Gangnam Style, el primer vídeo que desbordó el contador de visualizaciones de YouTube.</p>
   </div>
 </section>
 
@@ -2764,7 +2775,7 @@
       <text x="400" y="322" text-anchor="middle" font-size="26" font-weight="600" fill="#fff" font-family="JetBrains Mono, Consolas, monospace">1 XOR 0 XOR 1 XOR 1 XOR 0 XOR 1 XOR 0 = 0</text>
       <text x="400" y="352" text-anchor="middle" font-size="17" fill="#C9D6EE" font-family="Plus Jakarta Sans, system-ui, sans-serif">el XOR encadenado da 1 si hay un número impar de unos: ese es el bit de paridad par</text>
     </svg>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:10px">Figura 1.33. Un error de un bit se detecta y el receptor pide que se lo reenvíen. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:10px">Figura 1.36. Un error de un bit se detecta y el receptor pide que se lo reenvíen. Elaboración propia.</p>
   </div>
 </section>
 
@@ -2809,7 +2820,7 @@
           <tr><td></td><td colspan="7" style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:18px;font-weight:600;color:var(--ko);padding-top:4px">columna 4: 2 unos con paridad 1 ✗</td><td></td><td></td><td></td></tr>
         </tbody>
       </table>
-      <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:14px">Figura 1.34. La fila y la columna que no cuadran se cruzan en el bit erróneo (recuadro amarillo). Elaboración propia.</p>
+      <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:14px">Figura 1.37. La fila y la columna que no cuadran se cruzan en el bit erróneo (recuadro amarillo). Elaboración propia.</p>
     </div>
   </div>
 </section>
@@ -2853,7 +2864,7 @@
       <rect x="400" y="386" width="180" height="60" rx="14" fill="#E8F6EE" stroke="#1E8E5A" stroke-width="3"/><text x="490" y="412" text-anchor="middle" font-size="18" font-weight="700" fill="#1E8E5A" font-family="Plus Jakarta Sans, system-ui, sans-serif">¿mismo resto?</text><text x="490" y="434" text-anchor="middle" font-size="16" fill="#1E8E5A" font-family="Plus Jakarta Sans, system-ui, sans-serif">sí: bloque correcto</text>
       <rect x="600" y="386" width="180" height="60" rx="14" fill="#FBEAEA" stroke="#C0392B" stroke-width="3"/><text x="690" y="412" text-anchor="middle" font-size="18" font-weight="700" fill="#C0392B" font-family="Plus Jakarta Sans, system-ui, sans-serif">resto distinto</text><text x="690" y="434" text-anchor="middle" font-size="16" fill="#C0392B" font-family="Plus Jakarta Sans, system-ui, sans-serif">error: se pide de nuevo</text>
     </svg>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:10px">Figura 1.35. Funcionamiento de un CRC. La división se hace con un circuito de desplazamiento muy sencillo, bit a bit, a la velocidad de la red. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:10px">Figura 1.38. Funcionamiento de un CRC. La división se hace con un circuito de desplazamiento muy sencillo, bit a bit, a la velocidad de la red. Elaboración propia.</p>
   </div>
 </section>
 
@@ -2994,7 +3005,7 @@
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px;text-align:center;font-size:18px;color:var(--muted)"><span style="border-top:3px solid var(--sky);padding-top:6px">byte 1 · 13</span><span style="border-top:3px solid var(--sky);padding-top:6px">byte 2 · 45</span><span style="border-top:3px solid var(--sky);padding-top:6px">byte 3 · 7D</span></div>
     </div>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.36. El mismo número con los dos signos en decimal empaquetado. En hexadecimal se lee directamente: 13 45 7C y 13 45 7D. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.39. El mismo número con los dos signos en decimal empaquetado. En hexadecimal se lee directamente: 13 45 7C y 13 45 7D. Elaboración propia.</p>
   </div>
 </section>
 
@@ -3032,7 +3043,7 @@
       </div>
       <p style="font-size:20px;line-height:1.4;color:var(--muted);margin-top:14px">Cuatro dígitos y el signo son cinco cuartetos: se rellena con 0000 por la izquierda. En hexadecimal, 03 45 7C.</p>
     </div>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.37. El mismo número en los dos formatos decimales. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.40. El mismo número en los dos formatos decimales. Elaboración propia.</p>
   </div>
 </section>
 
@@ -3161,7 +3172,7 @@
     <rect x="318" y="230" width="1362" height="60" rx="8" fill="#15356B"/><text x="999" y="268" text-anchor="middle" font-size="22" font-weight="700" fill="#fff" font-family="Plus Jakarta Sans, system-ui, sans-serif">mantisa · 52 bits</text>
     <text x="13" y="316" text-anchor="middle" font-size="19" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">1</text><text x="172" y="316" text-anchor="middle" font-size="19" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">e + 1023 (de 1 a 2046)</text><text x="999" y="316" text-anchor="middle" font-size="19" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">53 bits de precisión con el 1 implícito: 15 o 16 cifras decimales</text>
   </svg>
-  <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:8px">Figura 1.38. Los tres campos de un número IEEE 754 en simple y en doble precisión. Elaboración propia.</p>
+  <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:8px">Figura 1.41. Los tres campos de un número IEEE 754 en simple y en doble precisión. Elaboración propia.</p>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:22px">
     <div style="background:var(--white);border-radius:20px;padding:22px 28px;box-shadow:0 2px 0 var(--line)">
       <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Valor que representa</p>
@@ -3241,7 +3252,7 @@
 <span style="color:#569CD6">false</span>
 <span style="color:#808080">&gt;</span> 0.1 + 0.7
 <span style="color:#B5CEA8">0.7999999999999999</span></pre>
-      <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.39. Consola de JavaScript de un navegador. En Python, Java o una hoja de cálculo pasa lo mismo, aunque a veces lo redondeen al mostrarlo. Elaboración propia.</p>
+      <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.42. Consola de JavaScript de un navegador. En Python, Java o una hoja de cálculo pasa lo mismo, aunque a veces lo redondeen al mostrarlo. Elaboración propia.</p>
       <p style="font-size:21px;line-height:1.45;color:var(--muted)"><b style="color:var(--navy)">0,1 no existe en binario.</b> Es periódico, 0,0<span style="text-decoration:overline">0011</span>…, igual que 1/3 = 0,333… en decimal. Se corta en 52 bits y se redondea; 0,2 también. Al sumar, los dos redondeos asoman en la cifra 17. No es un fallo del lenguaje: es el formato IEEE 754 que usan todos.</p>
     </div>
     <button class="btn btn-primary revela-btn">Ver la respuesta</button>
