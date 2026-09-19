@@ -8,10 +8,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/som.css">
 <style>
-/* Hoja de ejercicios en papel generada por semilla (número de lista del alumno).
-   Usa los mismos generadores de assets/som.js que los ejercicios interactivos, con
-   Math.random sustituido por un generador con semilla: la misma hoja sale siempre
-   igual para el mismo número, y cada alumno recibe una distinta. Con solucionario. */
+/* Hoja de ejercicios en papel generada por semilla (seed): un número que elige quien
+   genera la hoja. Usa los mismos generadores de assets/som.js que los ejercicios
+   interactivos, con Math.random sustituido por un generador con semilla: la misma
+   semilla y el mismo título dan siempre la misma hoja. El profesor reparte a toda la
+   clase una hoja con una semilla nueva; los alumnos generan las que quieran. Con
+   solucionario. La hoja de práctica lleva el método en el enunciado y pistas; la de
+   examen, solo la tarea. */
 body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; margin: 0; }
 .panel { background: var(--navy); color: var(--white); padding: 22px 32px; display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: flex-end; font-size: 15px; }
 .panel h1 { font-size: 20px; font-weight: 800; margin: 0 0 4px; width: 100%; }
@@ -19,6 +22,7 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
 .panel label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; }
 .panel input[type=text], .panel input[type=number] { font: inherit; padding: 8px 10px; border-radius: 8px; border: 0; width: 90px; }
 .panel input[type=text] { width: 320px; }
+.panel #semilla { width: 130px; }
 .panel .tipos { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px 18px; width: 100%; }
 .panel .tipos label { flex-direction: row; align-items: center; gap: 8px; font-weight: 500; }
 .panel .tipos input { width: 54px; padding: 5px 6px; }
@@ -45,6 +49,7 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
 .ej-hoja .sv { zoom: .38; justify-content: start; margin: 14px 0 4px; }
 .ej-hoja .sv .c { display: flex; align-items: center; justify-content: center; background: #fff; border: 3px solid var(--navy); min-width: 0; }
 .ej-hoja .sv .c.sel { font-size: 24px; color: var(--muted); }
+.ej-hoja .sv .c.sel.larga { font-size: 19px; line-height: 1.2; height: auto; min-height: var(--cel); padding: 6px 10px; box-sizing: border-box; white-space: pre-line; }
 .ej-hoja .sv .d[data-espejo] { color: var(--navy); }
 .sol .ej-hoja .sv .c { color: var(--ok); border-color: var(--ok); background: #F3FAF6; }
 .sol .ej-hoja .sv .c.sel { color: var(--ok); }
@@ -64,14 +69,14 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
 <div class="panel">
   <h1>Hoja de ejercicios de representación <small>UT1 · Sistemas Operativos Monopuesto</small></h1>
   <label>Título de la hoja <input type="text" id="titulo" value="Práctica 1.10 · Ejercicios de representación"></label>
-  <label>Del alumno n.º <input type="number" id="desde" min="1" max="99" value="1"></label>
-  <label>al n.º <input type="number" id="hasta" min="1" max="99" value="1"></label>
+  <label>Semilla (seed) <input type="number" id="semilla" min="0" max="999999999" value="1"></label>
   <label class="check"><input type="checkbox" id="sol"> Añadir el solucionario al final</label>
+  <label class="check"><input type="checkbox" id="examen"> Hoja de examen: solo la tarea, sin pistas</label>
   <button class="btn btn-primary" id="generar">Generar</button>
   <button class="btn btn-ghost" id="imprimir" style="color:#fff;border-color:rgba(255,255,255,.5)">Imprimir o guardar en PDF</button>
   <div class="tipos" id="tipos"></div>
 </div>
-<p class="aviso">La misma hoja sale siempre igual para el mismo número y el mismo título; con otro título salen otros ejercicios. En clase, cada alumno hace la de su número de lista y el profesor imprime todas de una vez con el solucionario. La dirección de la página guarda la configuración: <code id="url"></code></p>
+<p class="aviso">La <b>semilla</b> (<i>seed</i>) es el número del que salen los ejercicios: la misma semilla con el mismo título da siempre la misma hoja, y cualquier otro número, o cualquier otro título, da otra distinta. Genera las que quieras para practicar y compruébalas con el solucionario. La hoja de práctica explica el método en cada enunciado y da pistas; la de examen deja solo la tarea. En clase, el profesor reparte a todos una hoja con una semilla que no se ha usado antes; el examen se genera igual. La dirección de la página guarda la configuración: <code id="url"></code></p>
 <div id="hojas"><p class="vacio">Pulsa Generar.</p></div>
 
 <script src="../assets/som.js"></script>
@@ -100,13 +105,13 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
   function conSemilla(seed, fn) { const orig = Math.random; Math.random = mulberry32(seed); try { return fn(); } finally { Math.random = orig; } }
   const hash = (s) => { let h = 7; for (const ch of s) h = (h * 31 + ch.charCodeAt(0)) | 0; return Math.abs(h) % 997; };
 
-  function generaHoja(alumno, plan, titulo) {
+  function generaHoja(semilla, plan, titulo) {
     const ejs = [];
     const ht = hash(titulo || '');          // el título forma parte de la semilla: otro título, otra hoja
     plan.forEach((p) => {
       const tipo = TIPOS.find((x) => x.k === p.k);
       for (let j = 0; j < p.n; j++) {
-        const seed = alumno * 1000003 + ht * 1009 + hash(p.k) * 101 + j;
+        const seed = semilla * 1000003 + ht * 1009 + hash(p.k) * 101 + j;
         const g = conSemilla(seed, () => {
           const cfg = {};
           if (tipo.modos) cfg.modo = tipo.modos[Math.floor(Math.random() * tipo.modos.length)];
@@ -117,6 +122,8 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
     });
     return ejs;
   }
+
+  let examen = false;   // hoja de examen: solo la tarea, sin las pistas marcadas
 
   function pintaRejilla(g, sol) {
     const sv = document.createElement('div');
@@ -135,12 +142,17 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
       f.forEach((it) => {
         let x;
         if (it.lbl !== undefined) { x = document.createElement('span'); x.className = 'lbl'; x.textContent = it.lbl; }
-        else if (it.sel) { x = document.createElement('div'); x.className = 'c sel' + (it.clase ? ' ' + it.clase : ''); x.textContent = sol ? it.c : it.sel.join(' / '); }
+        else if (it.sel) {   // en papel, las opciones se rodean; si son largas, una por línea
+          const larga = it.sel.some((o) => o.length > 8);
+          x = document.createElement('div'); x.className = 'c sel' + (larga ? ' larga' : '') + (it.clase ? ' ' + it.clase : '');
+          x.textContent = sol ? it.c : it.sel.join(larga ? '\n' : ' / ');
+        }
         else if (it.c !== undefined) { x = document.createElement('div'); x.className = 'c' + (it.clase ? ' ' + it.clase : ''); x.textContent = sol ? it.c : ''; }
         else {
           x = document.createElement('span'); x.className = 'd' + (it.clase ? ' ' + it.clase : '');
           if (it.espejo) { x.dataset.espejo = it.espejo; x.textContent = sol ? (g.espejo ? g.espejo(it.espejo, valores[it.espejo]) : valores[it.espejo]) : ''; }
-          else x.textContent = it.d || '';
+          else if (examen && it.pista) x.textContent = '';
+          else x.textContent = it.d === 'pulsa para cambiar' ? (sol ? '' : 'rodea la correcta') : (it.d || '');
         }
         if (it.span) x.style.gridColumn = 'span ' + it.span;
         sv.appendChild(x);
@@ -149,18 +161,18 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
     return sv;
   }
 
-  function pintaHoja(alumno, ejs, titulo, sol) {
+  function pintaHoja(semilla, ejs, titulo, sol) {
     const h = document.createElement('article');
     h.className = 'hoja' + (sol ? ' sol' : '');
     h.innerHTML =
       '<header><div><p class="modulo">Sistemas Operativos Monopuesto · UT1 · El sistema informático</p><h2></h2></div>' +
-      '<div class="alumno"><b></b>' + (sol ? 'solucionario' : 'número de lista') + '</div></header>' +
+      '<div class="alumno"><b></b>' + (sol ? 'solucionario' : 'semilla') + '</div></header>' +
       (sol ? '' : '<div class="datos"><span>Nombre y apellidos:</span><span>Grupo:</span><span>Fecha:</span></div>' +
         '<p class="normas">Sin calculadora. Se pueden usar la tabla de potencias de 2 y las tablas de conversión escritas a mano. Escribe cada resultado en su casilla y deja los pasos a la vista.</p>') +
       '<div class="lista"></div>' +
-      '<footer><span>Hoja generada con el número ' + alumno + '. Compruébala en casa en la presentación de la unidad, ejercicios interactivos del 1.6 al 1.9.</span><span>' + (sol ? 'Solucionario' : 'Ejercicios: ' + ejs.length) + '</span></footer>';
+      '<footer><span>Hoja generada con la semilla ' + semilla + '. Compruébala en casa en la presentación de la unidad, ejercicios interactivos del 1.6 al 1.9.</span><span>' + (sol ? 'Solucionario' : 'Ejercicios: ' + ejs.length) + '</span></footer>';
     h.querySelector('h2').textContent = titulo + (sol ? ' · Solucionario' : '');
-    h.querySelector('.alumno b').textContent = alumno;
+    h.querySelector('.alumno b').textContent = semilla;
     const lista = h.querySelector('.lista');
     ejs.forEach((e, i) => {
       const g = e.g;
@@ -169,9 +181,9 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
       d.className = 'ej-hoja';
       d.innerHTML = '<div class="cab"><span class="num">' + (i + 1) + '</span><span class="tit"></span></div><p class="enun"></p>';
       d.querySelector('.tit').textContent = e.tipo.t;
-      d.querySelector('.enun').textContent = g.enunciado || '';
+      d.querySelector('.enun').textContent = (g.cabecera ? g.cabecera + '. ' : '') + ((examen && g.tarea) || g.enunciado || '');
       d.appendChild(pintaRejilla(g, sol));
-      if (sol) { const r = document.createElement('p'); r.className = 'resp'; r.textContent = typeof g.correcto === 'function' ? g.correcto() : (g.correcto || ''); d.appendChild(r); }
+      if (sol) { const r = document.createElement('p'); r.className = 'resp'; r.textContent = String(typeof g.correcto === 'function' ? g.correcto() : (g.correcto || '')).replace(/^Correcto[:.]\s*/, ''); d.appendChild(r); }
       lista.appendChild(d);
     });
     return h;
@@ -181,23 +193,17 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
 
   function generar() {
     const titulo = $('#titulo').value.trim() || 'Ejercicios de representación';
-    let desde = parseInt($('#desde').value, 10) || 1, hasta = parseInt($('#hasta').value, 10) || desde;
-    if (hasta < desde) hasta = desde;
-    if (hasta - desde > 60) hasta = desde + 60;
+    const semilla = Math.max(0, parseInt($('#semilla').value, 10) || 0);
     const sol = $('#sol').checked, plan = leePlan();
+    examen = $('#examen').checked;
     const cont = $('#hojas');
     cont.innerHTML = '';
     if (!plan.length) { cont.innerHTML = '<p class="vacio">Elige al menos un tipo de ejercicio.</p>'; return; }
-    const todas = [];
-    for (let a = desde; a <= hasta; a++) {
-      const ejs = generaHoja(a, plan, titulo);
-      todas.push({ a, ejs });
-      cont.appendChild(pintaHoja(a, ejs, titulo, false));
-    }
-    if (sol) todas.forEach((h) => cont.appendChild(pintaHoja(h.a, generaHoja(h.a, plan, titulo), titulo, true)));
+    cont.appendChild(pintaHoja(semilla, generaHoja(semilla, plan, titulo), titulo, false));
+    if (sol) cont.appendChild(pintaHoja(semilla, generaHoja(semilla, plan, titulo), titulo, true));
     // la dirección guarda la configuración
     const q = new URLSearchParams();
-    q.set('t', titulo); q.set('desde', desde); q.set('hasta', hasta); if (sol) q.set('sol', '1');
+    q.set('t', titulo); q.set('semilla', semilla); if (sol) q.set('sol', '1'); if (examen) q.set('examen', '1');
     plan.forEach((p) => q.set(p.k, p.n));
     history.replaceState(null, '', '?' + q.toString());
     $('#url').textContent = location.href;
@@ -212,9 +218,10 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
   // configuración desde la dirección
   const q = new URLSearchParams(location.search);
   if (q.has('t')) $('#titulo').value = q.get('t');
-  if (q.has('desde')) $('#desde').value = q.get('desde');
-  if (q.has('hasta')) $('#hasta').value = q.get('hasta');
+  if (q.has('semilla')) $('#semilla').value = q.get('semilla');
+  else if (q.has('desde')) $('#semilla').value = q.get('desde');            // direcciones antiguas (del alumno n.º)
   if (q.has('sol')) $('#sol').checked = q.get('sol') === '1';
+  if (q.has('examen')) $('#examen').checked = q.get('examen') === '1';
   if ([...q.keys()].some((k) => TIPOS.some((t) => t.k === k))) TIPOS.forEach((t) => { $('#n_' + t.k).value = q.has(t.k) ? q.get(t.k) : 0; });
   $('#generar').addEventListener('click', generar);
   $('#imprimir').addEventListener('click', () => window.print());

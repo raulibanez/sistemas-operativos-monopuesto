@@ -2119,19 +2119,80 @@
   <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-title);max-width:1300px;text-wrap:pretty">Un cero al final de la parte entera multiplica por la base (1,1 pasaría a ser 10,1, el doble). Un cero delante de la parte fraccionaria divide. Por eso nunca se ponen ahí.</p>
 </section>
 
-<!-- 70 Interactivo: entre bases -->
+<!-- 70 Esquema: cómo pasar de una base a otra -->
+<section data-label="Esquema de cambios de base" data-seccion="1.6" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.15fr 1fr;gap:72px">
+  <aside class="notas"><p><b>Resumen de todo 1.6 en un esquema.</b> Tres herramientas y ninguna calculadora: la tabla del 0 al 15, dividir entre 2 y multiplicar por pesos.</p><ul><li>Entre binario, octal y hexadecimal nunca se pasa por decimal: es agrupar y traducir con la tabla.</li><li>De decimal a octal o hexadecimal no se divide entre 8 ni entre 16: se pasa a binario dividiendo entre 2 y luego se agrupa. Dividir entre 16 a mano es una división larga en cada paso; entre 2 son más pasos pero triviales.</li><li>A decimal desde cualquier base: teorema fundamental. Con dos o tres dígitos hexadecimales son multiplicaciones por 16 y 256, asequibles a mano.</li></ul><p>Después, el ejercicio de cambios entre bases, que sigue el esquema.</p></aside>
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Numeración y cambios de base</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Cómo pasar de una base a otra</h2>
+    <div style="background:var(--white);border-radius:24px;padding:28px 36px 20px;box-shadow:0 2px 0 var(--line);margin-top:var(--gap-item);flex:1;min-height:0;display:flex;flex-direction:column">
+      <svg viewBox="0 0 920 540" style="width:100%;height:100%;flex:1;min-height:0;font-family:inherit" role="img" aria-label="Esquema: octal, binario y hexadecimal se conectan entre sí con la tabla; de decimal a binario con el algoritmo; de cualquier base a decimal con el teorema">
+        <defs>
+          <marker id="fl-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0B4AB5"/></marker>
+          <marker id="fl-ok" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1E8E5A"/></marker>
+          <marker id="fl-navy" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#15356B"/></marker>
+        </defs>
+        <!-- tabla: octal <-> binario <-> hexadecimal -->
+        <line x1="236" y1="92" x2="344" y2="92" stroke="#0B4AB5" stroke-width="4" marker-start="url(#fl-blue)" marker-end="url(#fl-blue)"/>
+        <text x="290" y="70" text-anchor="middle" font-size="22" font-weight="800" fill="#0B4AB5">tabla</text>
+        <line x1="576" y1="92" x2="684" y2="92" stroke="#0B4AB5" stroke-width="4" marker-start="url(#fl-blue)" marker-end="url(#fl-blue)"/>
+        <text x="630" y="70" text-anchor="middle" font-size="22" font-weight="800" fill="#0B4AB5">tabla</text>
+        <!-- algoritmo: decimal -> binario -->
+        <line x1="435" y1="414" x2="435" y2="142" stroke="#1E8E5A" stroke-width="4" marker-end="url(#fl-ok)"/>
+        <text x="420" y="285" text-anchor="end" font-size="22" font-weight="800" fill="#1E8E5A">algoritmo</text>
+        <!-- teorema: binario, octal y hexadecimal -> decimal -->
+        <line x1="485" y1="142" x2="485" y2="414" stroke="#15356B" stroke-width="4" marker-end="url(#fl-navy)"/>
+        <text x="500" y="285" text-anchor="start" font-size="22" font-weight="800" fill="#15356B">teorema</text>
+        <line x1="130" y1="142" x2="392" y2="414" stroke="#15356B" stroke-width="4" marker-end="url(#fl-navy)"/>
+        <text x="196" y="300" text-anchor="end" font-size="22" font-weight="800" fill="#15356B">teorema</text>
+        <line x1="790" y1="142" x2="528" y2="414" stroke="#15356B" stroke-width="4" marker-end="url(#fl-navy)"/>
+        <text x="724" y="300" text-anchor="start" font-size="22" font-weight="800" fill="#15356B">teorema</text>
+        <!-- nodos -->
+        <rect x="10" y="50" width="220" height="84" rx="18" fill="#FFFFFF" stroke="#15356B" stroke-width="4"/>
+        <text x="120" y="102" text-anchor="middle" font-size="28" font-weight="800" fill="#15356B">OCTAL</text>
+        <rect x="350" y="50" width="220" height="84" rx="18" fill="#15356B"/>
+        <text x="460" y="102" text-anchor="middle" font-size="28" font-weight="800" fill="#FFFFFF">BINARIO</text>
+        <rect x="690" y="50" width="220" height="84" rx="18" fill="#FFFFFF" stroke="#15356B" stroke-width="4"/>
+        <text x="800" y="102" text-anchor="middle" font-size="28" font-weight="800" fill="#15356B">HEXADECIMAL</text>
+        <rect x="350" y="420" width="220" height="84" rx="18" fill="#F4C20D"/>
+        <text x="460" y="472" text-anchor="middle" font-size="28" font-weight="800" fill="#15356B">DECIMAL</text>
+      </svg>
+      <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:10px">Figura 1.32. Los tres caminos entre las cuatro bases. No hay flechas de decimal a octal ni a hexadecimal: se va por el binario.</p>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;gap:22px;min-width:0">
+    <div style="background:var(--white);border-radius:20px;padding:24px 32px;box-shadow:0 2px 0 var(--line);border-left:8px solid var(--blue)">
+      <p style="font-size:var(--type-caption);font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Tabla</p>
+      <p style="font-size:var(--type-small);font-weight:700;color:var(--navy);margin-top:6px">Entre binario, octal y hexadecimal</p>
+      <p style="font-size:21px;line-height:1.45;color:var(--muted);margin-top:8px">Agrupa los bits de 3 en 3 (octal) o de 4 en 4 (hexadecimal) y traduce cada grupo con la tabla del 0 al 15. Al revés, cada dígito son sus bits. <b style="color:var(--ink)">Nunca se pasa por decimal.</b></p>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:24px 32px;box-shadow:0 2px 0 var(--line);border-left:8px solid var(--ok)">
+      <p style="font-size:var(--type-caption);font-weight:800;color:var(--ok);text-transform:uppercase;letter-spacing:.06em">Algoritmo</p>
+      <p style="font-size:var(--type-small);font-weight:700;color:var(--navy);margin-top:6px">De decimal a binario</p>
+      <p style="font-size:21px;line-height:1.45;color:var(--muted);margin-top:8px">Divisiones sucesivas entre 2 y los restos de abajo arriba. Para llegar a octal o hexadecimal, después se agrupa con la tabla. <b style="color:var(--ink)">Nunca se divide entre 8 ni entre 16.</b></p>
+    </div>
+    <div style="background:var(--white);border-radius:20px;padding:24px 32px;box-shadow:0 2px 0 var(--line);border-left:8px solid var(--navy)">
+      <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy);text-transform:uppercase;letter-spacing:.06em">Teorema</p>
+      <p style="font-size:var(--type-small);font-weight:700;color:var(--navy);margin-top:6px">De cualquier base a decimal</p>
+      <p style="font-size:21px;line-height:1.45;color:var(--muted);margin-top:8px">Teorema fundamental de la numeración: cada dígito por el peso de su posición (2ⁿ, 8ⁿ o 16ⁿ) y se suma todo.</p>
+    </div>
+    <p style="font-size:20px;line-height:1.45;color:var(--muted)">Tres herramientas y ninguna calculadora: la tabla del 0 al 15, dividir entre 2 y multiplicar por los pesos.</p>
+  </div>
+</section>
+
+<!-- 71 Interactivo: entre bases -->
 <section data-deck-id="ej-bases" data-label="Practica: entre bases" data-seccion="1.6" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
-  <aside class="notas"><p>Cinco modos: binario a octal, binario a hex, octal a binario, hex a binario y hex a decimal (con tabla de pesos de 16). Por defecto sale uno al azar; con los botones se practica uno solo.</p><p>En los pasos de agrupar hay que escribir cada grupo completo, con sus ceros.</p></aside>
+  <aside class="notas"><p>Ocho modos, los del esquema anterior: entre binario, octal y hexadecimal (tabla); decimal a octal o hexadecimal pasando por el binario (algoritmo y tabla); y octal o hexadecimal a decimal (teorema, con tabla de pesos). Por defecto sale uno al azar; con los botones se practica uno solo.</p><p>En los pasos de agrupar hay que escribir cada grupo completo, con sus ceros.</p></aside>
   <div>
     <span class="pill">Ejercicio interactivo</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Entre binario, octal y hexadecimal</h2>
     <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Primero agrupa (de 3 en 3 para octal, de 4 en 4 para hexadecimal) y después traduce cada grupo con la tabla. En el sentido contrario, cada dígito se convierte en su grupo de bits.</p>
-    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Elige un modo para practicarlo, o <b>Al azar</b> para que salgan mezclados, como en el examen. Hexadecimal a decimal se hace con la tabla de pesos, igual que el binario.</p>
+    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">De decimal a octal o hexadecimal se va por el binario, como en el esquema: divisiones entre 2 y grupos. De octal o hexadecimal a decimal, con el teorema fundamental. Elige un modo, o <b>Al azar</b> para que salgan mezclados, como en el examen.</p>
   </div>
   <div class="ej" data-tipo="bases"></div>
 </section>
 
-<!-- 71 Quiz: sistema no posicional -->
+<!-- 72 Quiz: sistema no posicional -->
 <section class="dark" data-label="Quiz: posicional" data-seccion="1.6" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Respuesta: C, romano.</b> La X vale 10 esté donde esté. Decimal, binario y octal siguen el teorema fundamental.</p><p>Si fallan, volver a la diapositiva del reloj.</p></aside>
   <div class="quiz" data-correct="2" data-ok="Correcto. En los números romanos cada símbolo vale siempre lo mismo: no hay posiciones ni base." data-ko="No. Piensa en cuál de ellos no tiene base ni pesos por posición: en él, un símbolo vale lo mismo esté donde esté." style="display:contents">
@@ -2152,7 +2213,7 @@
 
 <!-- ============ BLOQUE 6 · Sección 1.7 · Operaciones en binario y complementos ============ -->
 
-<!-- 72 Texto: qué operaciones hace el ordenador -->
+<!-- 73 Texto: qué operaciones hace el ordenador -->
 <section data-label="Operaciones del ordenador" data-criterio="b" data-seccion="1.7" data-deck-id="operaciones" data-deck-section="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:80px">
   <aside class="notas"><p>La UAL solo hace dos familias: aritméticas y lógicas. Con suma y complemento se construye la resta; con sumas repetidas, la multiplicación.</p><ul><li>Las lógicas trabajan bit a bit: comparar, enmascarar, decidir.</li><li>La foto es un SN7400 de los setenta: cuatro puertas NAND. Los micros actuales tienen miles de millones, del mismo tipo.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2185,18 +2246,18 @@
       <text x="536" y="128" font-size="20" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">A AND B: 0001</text>
       <text x="536" y="158" font-size="20" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">A XOR B: 0110</text>
     </svg>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:8px">Figura 1.32. La UAL con los mismos operandos da un resultado distinto según la operación que le pida la unidad de control. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:8px">Figura 1.33. La UAL con los mismos operandos da un resultado distinto según la operación que le pida la unidad de control. Elaboración propia.</p>
   </div>
   <div style="display:flex;flex-direction:column;gap:16px;min-width:0;height:100%;min-height:0">
     <figure class="foto" style="flex:1">
       <img src="img/sn7400.jpg" alt="Chip SN7400N de Texas Instruments, encapsulado de catorce patillas" title="Foto: Mister rf · Wikimedia Commons · CC BY-SA 4.0">
       <figcaption class="credito">Circuito integrado SN7400N. Foto: Mister rf, Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es">CC BY-SA 4.0</a>. Reducida.</figcaption>
     </figure>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.33. Un SN7400: cuatro puertas NAND en un chip de los años setenta. Con puertas como estas, a miles de millones, se construye la UAL de cualquier micro actual.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.34. Un SN7400: cuatro puertas NAND en un chip de los años setenta. Con puertas como estas, a miles de millones, se construye la UAL de cualquier micro actual.</p>
   </div>
 </section>
 
-<!-- 73 Tabla: la suma, casos de una columna -->
+<!-- 74 Tabla: la suma, casos de una columna -->
 <section data-label="La suma en binario" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1fr;gap:96px">
   <aside class="notas"><p><b>Resolver el ejemplo en la pizarra</b> de derecha a izquierda, con los acarreos encima. Comprobar en decimal: 11 + 6 = 17.</p><ul><li>El único caso que hay que pensar: 1 + 1 = 10, se escribe 0 y se lleva 1.</li><li>1 + 1 + 1 = 11: se escribe 1 y se lleva 1.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2237,7 +2298,7 @@
   </div>
 </section>
 
-<!-- 74 Interactivo: suma en binario -->
+<!-- 75 Interactivo: suma en binario -->
 <section data-deck-id="ej-sumabin" data-label="Practica: suma en binario" data-seccion="1.7" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p>Cinco bits. Se rellena el resultado de cada columna y el acarreo hacia la siguiente, de derecha a izquierda; las casillas avanzan solas.</p></aside>
   <div>
@@ -2257,7 +2318,7 @@
   <div class="ej" data-tipo="sumabin" data-bits="5"></div>
 </section>
 
-<!-- 75 Tabla: la resta, casos de una columna -->
+<!-- 76 Tabla: la resta, casos de una columna -->
 <section data-label="La resta en binario" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1fr;gap:96px">
   <aside class="notas"><p><b>Hacer el ejemplo en la pizarra</b> escribiendo en la fila de arriba lo que pide cada columna. Comprobar en decimal: 13 − 6 = 7.</p><ul><li>0 − 1: se pide 1 a la izquierda, que vale 2 en esta columna: 10 − 1 = 1.</li><li>En la columna que prestó se resta 1 más (o se suma 1 al sustraendo, como en primaria).</li></ul><p>La siguiente: qué pasa si el de abajo es mayor.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2296,7 +2357,7 @@
   </div>
 </section>
 
-<!-- 76 Texto: y si el sustraendo es mayor -->
+<!-- 77 Texto: y si el sustraendo es mayor -->
 <section class="dark" data-label="Sustraendo mayor" data-seccion="1.7" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Caso que no suele explicarse y sale en los ejercicios.</b> Si el de abajo es mayor, se restan al revés y se pone el signo: 0101 − 1001 es 5 − 9 = −4.</p><ul><li>Para saber cuál es mayor: comparar de izquierda a derecha el primer bit distinto.</li><li><b>Aviso:</b> esto lo hacemos las personas; el ordenador no tiene signo menos, solo bits. Por eso resta con complementos.</li></ul><p>En el ejercicio el alumno tiene que darse cuenta solo, pulsar Invertir y marcar el signo.</p></aside>
   <div style="min-width:0">
@@ -2327,7 +2388,7 @@
   </div>
 </section>
 
-<!-- 77 Interactivo: resta en binario -->
+<!-- 78 Interactivo: resta en binario -->
 <section data-deck-id="ej-restabin" data-label="Practica: resta en binario" data-seccion="1.7" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p>Cinco bits. La mitad de las veces el sustraendo es mayor y el ejercicio no avisa: hay que pulsar Invertir (intercambia las filas) y marcar el signo −. Si comprueba sin invertir, el mensaje lo indica.</p></aside>
   <div>
@@ -2347,7 +2408,7 @@
   <div class="ej" data-tipo="restabin" data-bits="5"></div>
 </section>
 
-<!-- 78 Tabla: NOT, AND, OR -->
+<!-- 79 Tabla: NOT, AND, OR -->
 <section data-label="NOT, AND, OR" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p><b>Que la clase rellene las tablas antes de mostrarlas.</b></p><ul><li>AND: interruptores en serie. OR: en paralelo.</li><li>Boole publicó el álgebra en 1854; Shannon demostró en 1938 que servía para circuitos con relés.</li></ul></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Operaciones en binario y complementos</p>
@@ -2388,7 +2449,7 @@
   <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:16px">Tabla 1.15. Tablas de verdad y símbolos de las puertas NOT, AND y OR.</p>
 </section>
 
-<!-- 79 Tabla: XOR, NAND, NOR -->
+<!-- 80 Tabla: XOR, NAND, NOR -->
 <section data-label="XOR, NAND, NOR" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><ul><li>XOR: 1 solo si las entradas son distintas. Suma dos bits sin acarreo y calcula la paridad (las dos siguientes).</li><li>NAND y NOR: AND y OR negadas, la bolita del símbolo. Con solo NAND se construye cualquier circuito: por eso el chip de la foto anterior es tan clásico.</li><li>XOR = (A OR B) AND NOT (A AND B).</li></ul></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Operaciones en binario y complementos</p>
@@ -2429,7 +2490,7 @@
   <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:16px">Tabla 1.16. Tablas de verdad y símbolos de XOR, NAND y NOR. Con solo puertas NAND se puede construir cualquier circuito digital.</p>
 </section>
 
-<!-- 80 Texto: el sumador está hecho de puertas -->
+<!-- 81 Texto: el sumador está hecho de puertas -->
 <section data-label="El sumador" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.1fr;gap:80px">
   <aside class="notas"><p><b>Comparar en la pizarra</b> la tabla de la suma de una columna con las de XOR y AND: resultado = A XOR B, acarreo = A AND B. Dos puertas son un semisumador; dos semisumadores, un sumador completo; ocho en fila suman dos bytes.</p><ul><li>Resta: diferencia A XOR B, préstamo NOT A AND B.</li></ul><p>Idea que responde a "cómo puede calcular una máquina": nadie dentro sabe sumar, hay circuitos que cumplen una tabla.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2468,13 +2529,13 @@
       <line x1="440" y1="270" x2="560" y2="270" stroke="#0B4AB5" stroke-width="5"/>
       <rect x="560" y="100" width="140" height="60" rx="14" fill="#1E8E5A"/><text x="630" y="140" text-anchor="middle" font-size="24" font-weight="800" fill="#fff" font-family="Plus Jakarta Sans, system-ui, sans-serif">escribo</text>
       <rect x="560" y="240" width="140" height="60" rx="14" fill="#0B4AB5"/><text x="630" y="280" text-anchor="middle" font-size="24" font-weight="800" fill="#fff" font-family="Plus Jakarta Sans, system-ui, sans-serif">me llevo</text>
-      <text x="360" y="400" text-anchor="middle" font-size="20" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">Figura 1.34. Semisumador: dos puertas suman dos bits. Elaboración propia.</text>
+      <text x="360" y="400" text-anchor="middle" font-size="20" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">Figura 1.35. Semisumador: dos puertas suman dos bits. Elaboración propia.</text>
     </svg>
     <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:8px">Para una columna que además recibe acarreo se encadenan dos de estos (sumador completo), y con ocho en fila se suman dos bytes.</p>
   </div>
 </section>
 
-<!-- 81 Interactivo: operaciones lógicas -->
+<!-- 82 Interactivo: operaciones lógicas -->
 <section data-deck-id="ej-logica" data-label="Practica: operaciones lógicas" data-seccion="1.7" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p>Dos bytes en vertical sin acarreos: cada columna por separado. Con los botones se elige la operación o se deja al azar. NOT solo muestra un número.</p></aside>
   <div>
@@ -2494,7 +2555,7 @@
   <div class="ej" data-tipo="logica"></div>
 </section>
 
-<!-- 82 Texto: complementos, para qué sirven -->
+<!-- 83 Texto: complementos, para qué sirven -->
 <section data-label="Complementos" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:80px">
   <aside class="notas"><p>El ordenador no tiene circuito de restar: suma el complemento del sustraendo.</p><ul><li>C1: invertir bits. C2: C1 más 1.</li><li>C2 de 9 en 8 bits es 247; 9 + 247 = 256, que en 8 bits es 0 con un 1 que sobra. Por eso sumar el C2 equivale a restar.</li><li><b>Truco:</b> copiar desde la derecha hasta el primer 1 incluido e invertir el resto.</li></ul><p>Siempre decir con cuántos bits se trabaja.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2519,7 +2580,7 @@
   <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
     <div style="background:var(--white);border-radius:24px;padding:36px 40px;box-shadow:0 2px 0 var(--line)">
       <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue)">Ejemplo · 9 en 8 bits</p>
-      <div class="sv compacta" style="grid-template-columns:150px repeat(8,64px);justify-content:start;margin-top:16px">
+      <div class="sv compacta" style="grid-template-columns:130px repeat(8,58px);justify-content:start;margin-top:16px">
         <span class="lbl">9 = </span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">1</span><span class="d">0</span><span class="d">0</span><span class="d">1</span>
         <span class="lbl">C1: invierto</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">0</span><span class="d res">1</span><span class="d res">1</span><span class="d res">0</span>
         <span class="lbl">C2 = C1 + 1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">0</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span>
@@ -2533,7 +2594,7 @@
   </div>
 </section>
 
-<!-- 83 Interactivo: complemento a 1 y a 2 -->
+<!-- 84 Interactivo: complemento a 1 y a 2 -->
 <section data-deck-id="ej-c1c2" data-label="Practica: complementos" data-seccion="1.7" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p>Un byte al azar: fila del C1 y fila del C2. El C2 se rellena de derecha a izquierda sumando 1 al C1 con acarreo. Al acertar, el mensaje recuerda el truco del primer 1.</p></aside>
   <div>
@@ -2545,7 +2606,7 @@
   <div class="ej" data-tipo="c1c2" data-bits="8"></div>
 </section>
 
-<!-- 84 Pasos: resta en complemento a 1 -->
+<!-- 85 Pasos: resta en complemento a 1 -->
 <section data-label="Resta en C1" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.15fr;gap:80px">
   <aside class="notas"><p><b>Ejemplo 8 − 3:</b> 00001000 + 11111100 = 1 00000100; el 1 que sobra se suma (acarreo circular) y queda 00000101 = 5.</p><ul><li>Dos pegas: el paso extra y que el cero tiene dos representaciones (00000000 y 11111111).</li></ul><p>Por eso los ordenadores usan C2, en la siguiente.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2587,7 +2648,7 @@
   </div>
 </section>
 
-<!-- 85 Pasos: resta en complemento a 2 -->
+<!-- 86 Pasos: resta en complemento a 2 -->
 <section data-label="Resta en C2" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.15fr;gap:80px">
   <aside class="notas"><p><b>Ejemplo 8 − 3:</b> C2 de 3 es 11111101; 00001000 + 11111101 = 1 00000101; se tira el 1 y queda 5.</p><ul><li>Un solo paso y cero único. El sumador lleva delante un circuito que invierte los bits y mete un 1 de acarreo inicial.</li></ul><p>En el ejercicio salen casos negativos, que enlazan con la diapositiva del signo.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2629,7 +2690,7 @@
   </div>
 </section>
 
-<!-- 86 Interactivo: resta en complemento a 2 -->
+<!-- 87 Interactivo: resta en complemento a 2 -->
 <section data-deck-id="ej-restac2" data-label="Practica: resta en C2" data-seccion="1.7" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p>Por pasos: C1 y C2 del sustraendo, suma con el minuendo (el C2 escrito se copia en azul), casilla del bit que sobra y resultado en decimal.</p><p>La mitad de las veces el sustraendo es mayor: no sobra ningún 1, el resultado es negativo y ya está en C2; para leerlo hay que hacerle el C2.</p></aside>
   <div>
@@ -2641,7 +2702,7 @@
   <div class="ej" data-tipo="restac2" data-bits="8"></div>
 </section>
 
-<!-- 87 Texto: el signo no existe, es una interpretación -->
+<!-- 88 Texto: el signo no existe, es una interpretación -->
 <section class="dark" data-label="El signo es una interpretación" data-seccion="1.7" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Idea clave del bloque:</b> en memoria solo hay bits; el mismo byte vale una cosa u otra según cómo se lea. 11111011 es 251 sin signo y −5 en C2.</p><ul><li>El bit de la izquierda no es un signo aparte: forma parte del número; por eso el rango es de −128 a 127.</li><li>Leer un negativo: hacerle el C2 y poner el menos.</li></ul><p>Si el programa se equivoca de tipo, un número grande se vuelve negativo: la siguiente.</p></aside>
   <div style="min-width:0">
@@ -2676,7 +2737,7 @@
   </div>
 </section>
 
-<!-- 88 Cifra: 2.147.483.647 -->
+<!-- 89 Cifra: 2.147.483.647 -->
 <section data-label="Cifra: 2.147.483.647" data-seccion="1.7" style="display:grid;grid-template-columns:1fr 1fr;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center;gap:96px">
   <aside class="notas"><ul><li>Gangnam Style: el contador de YouTube era un entero de 32 bits con signo (máximo 2<sup>31</sup> − 1). En diciembre de 2014 lo superó y YouTube pasó a 64 bits.</li><li>Año 2038: Unix cuenta segundos desde el 1 de enero de 1970 en 32 bits con signo; el 19 de enero de 2038 a las 03:14:07 UTC pasa a 10000000…, que en C2 es el 13 de diciembre de 1901. Quedan sistemas embebidos y formatos con 32 bits.</li></ul><p>El bit O del registro de estado se activa justo aquí.</p></aside>
   <div style="min-width:0">
@@ -2700,11 +2761,11 @@
       <img src="img/gangnam-style.png" alt="Fotograma del vídeo musical Gangnam Style, con PSY bailando" title="Fotograma del vídeo Gangnam Style © YG Entertainment · cita con fines docentes (art. 32 LPI)">
       <figcaption class="credito">Fotograma del vídeo musical <i>Gangnam Style</i> (PSY, 2012), © YG Entertainment. Obra protegida, reproducida como cita con fines docentes (artículo 32 de la Ley de Propiedad Intelectual); no está cubierta por la licencia CC BY-SA de este material. Vía <a href="https://it.wikipedia.org/wiki/File:Gangnam_Style.png">Wikipedia en italiano</a>.</figcaption>
     </figure>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.35. Fotograma de Gangnam Style, el primer vídeo que desbordó el contador de visualizaciones de YouTube.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.36. Fotograma de Gangnam Style, el primer vídeo que desbordó el contador de visualizaciones de YouTube.</p>
   </div>
 </section>
 
-<!-- 89 Quiz: operación con un solo operando -->
+<!-- 90 Quiz: operación con un solo operando -->
 <section class="dark" data-label="Quiz: operandos" data-seccion="1.7" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Respuesta: C, NOT.</b> La única con un operando: invierte el bit. AND, OR y XOR combinan dos.</p><p>Si fallan, volver a los símbolos: NOT es la única con una línea de entrada.</p></aside>
   <div class="quiz" data-correct="2" data-ok="Correcto. NOT invierte un solo bit; las demás combinan dos." data-ko="No. Mira los símbolos de las puertas: solo una tiene una única línea de entrada." style="display:contents">
@@ -2725,7 +2786,7 @@
 
 <!-- ============ BLOQUE 7 · Sección 1.8 · Detección de errores ============ -->
 
-<!-- 90 Texto: paridad par e impar -->
+<!-- 91 Texto: paridad par e impar -->
 <section data-label="Bit de paridad" data-seccion="1.8" data-deck-id="errores" data-deck-section="1.8" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.1fr;gap:80px">
   <aside class="notas"><p>Los bits se estropean (ruido, celda defectuosa, rayado); se añade redundancia para detectarlo.</p><ul><li>Se calcula con XOR encadenado: una puerta por bit.</li><li>Limitaciones: detecta un error pero no dice cuál; dos errores pasan desapercibidos.</li><li>Se usó en puertos serie y RAM antigua; hoy los servidores usan ECC, que además corrige.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2775,11 +2836,11 @@
       <text x="400" y="322" text-anchor="middle" font-size="26" font-weight="600" fill="#fff" font-family="JetBrains Mono, Consolas, monospace">1 XOR 0 XOR 1 XOR 1 XOR 0 XOR 1 XOR 0 = 0</text>
       <text x="400" y="352" text-anchor="middle" font-size="17" fill="#C9D6EE" font-family="Plus Jakarta Sans, system-ui, sans-serif">el XOR encadenado da 1 si hay un número impar de unos: ese es el bit de paridad par</text>
     </svg>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:10px">Figura 1.36. Un error de un bit se detecta y el receptor pide que se lo reenvíen. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:10px">Figura 1.37. Un error de un bit se detecta y el receptor pide que se lo reenvíen. Elaboración propia.</p>
   </div>
 </section>
 
-<!-- 91 Interactivo: bit de paridad -->
+<!-- 92 Interactivo: bit de paridad -->
 <section data-deck-id="ej-paridad" data-label="Practica: paridad" data-seccion="1.8" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p>Dos modos. Calcular: dato de 7 bits y tipo de paridad, escribir el bit (se añade a la izquierda). Detectar: palabra de 8 bits, decidir si tiene error; la mitad de las veces hay un bit cambiado.</p></aside>
   <div>
@@ -2791,7 +2852,7 @@
   <div class="ej" data-tipo="paridad"></div>
 </section>
 
-<!-- 92 Texto: paridad bidimensional -->
+<!-- 93 Texto: paridad bidimensional -->
 <section data-label="Paridad bidimensional" data-seccion="1.8" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.15fr;gap:80px">
   <aside class="notas"><p><b>Recorrer el ejemplo:</b> el bit de la fila 2, columna 4 llegó cambiado; la fila 2 tiene 5 unos con paridad 0 y la columna 4 tiene 2 unos con paridad 1. El cruce dice cuál es, y basta invertirlo.</p><ul><li>Coste: para 21 bits de datos, 11 de control.</li><li>ECC, discos y telefonía móvil usan ideas parecidas, más sofisticadas.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2820,12 +2881,12 @@
           <tr><td></td><td colspan="7" style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:18px;font-weight:600;color:var(--ko);padding-top:4px">columna 4: 2 unos con paridad 1 ✗</td><td></td><td></td><td></td></tr>
         </tbody>
       </table>
-      <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:14px">Figura 1.37. La fila y la columna que no cuadran se cruzan en el bit erróneo (recuadro amarillo). Elaboración propia.</p>
+      <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:14px">Figura 1.38. La fila y la columna que no cuadran se cruzan en el bit erróneo (recuadro amarillo). Elaboración propia.</p>
     </div>
   </div>
 </section>
 
-<!-- 93 Texto: códigos cíclicos (CRC) -->
+<!-- 94 Texto: códigos cíclicos (CRC) -->
 <section data-label="Códigos CRC" data-seccion="1.8" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.15fr;gap:80px">
   <aside class="notas"><p>Lo que se usa de verdad en redes y almacenamiento: dividir el bloque por un polinomio fijo y enviar el resto (12, 16 o 32 bits). No hace falta hacer la división en clase.</p><ul><li>Dónde lo ven: cada trama Ethernet y wifi lleva CRC-32; los ZIP guardan el CRC de cada archivo (el error de un ZIP dañado); PNG y sectores de disco.</li></ul><p>Regla del apartado: más bits de control, más errores detectados, menos eficiencia.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2864,13 +2925,13 @@
       <rect x="400" y="386" width="180" height="60" rx="14" fill="#E8F6EE" stroke="#1E8E5A" stroke-width="3"/><text x="490" y="412" text-anchor="middle" font-size="18" font-weight="700" fill="#1E8E5A" font-family="Plus Jakarta Sans, system-ui, sans-serif">¿mismo resto?</text><text x="490" y="434" text-anchor="middle" font-size="16" fill="#1E8E5A" font-family="Plus Jakarta Sans, system-ui, sans-serif">sí: bloque correcto</text>
       <rect x="600" y="386" width="180" height="60" rx="14" fill="#FBEAEA" stroke="#C0392B" stroke-width="3"/><text x="690" y="412" text-anchor="middle" font-size="18" font-weight="700" fill="#C0392B" font-family="Plus Jakarta Sans, system-ui, sans-serif">resto distinto</text><text x="690" y="434" text-anchor="middle" font-size="16" fill="#C0392B" font-family="Plus Jakarta Sans, system-ui, sans-serif">error: se pide de nuevo</text>
     </svg>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:10px">Figura 1.38. Funcionamiento de un CRC. La división se hace con un circuito de desplazamiento muy sencillo, bit a bit, a la velocidad de la red. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:10px">Figura 1.39. Funcionamiento de un CRC. La división se hace con un circuito de desplazamiento muy sencillo, bit a bit, a la velocidad de la red. Elaboración propia.</p>
   </div>
 </section>
 
 <!-- ============ BLOQUE 8 · Sección 1.9 · Codificación de la información ============ -->
 
-<!-- 94 Comparativa: códigos de longitud fija y variable -->
+<!-- 95 Comparativa: códigos de longitud fija y variable -->
 <section data-label="Longitud fija y variable" data-seccion="1.9" data-deck-id="codificacion" data-deck-section="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p><b>Pedir que codifiquen SOS en Morse.</b></p><ul><li>Fija: fácil saber dónde empieza cada símbolo (ASCII, EBCDIC, BCD, UTF-32).</li><li>Variable: lo frecuente corto, lo raro largo; el Morse (E un punto, J cuatro signos), UTF-8 (1 a 4 bytes) y la compresión (Huffman en ZIP, JPG, MP3).</li></ul></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Codificación de la información</p>
@@ -2912,7 +2973,7 @@
   </div>
 </section>
 
-<!-- 95 Tabla: unidades de información -->
+<!-- 96 Tabla: unidades de información -->
 <section data-label="Unidades de información" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.25fr;gap:72px">
   <aside class="notas"><p><b>Todo esto entra en el examen.</b></p><ul><li>Decimales (SI): kilo 1000. Binarios (IEC 80000-13, 2008): kibi 1024; KiB, MiB, GiB, TiB.</li><li>Los fabricantes de discos usan decimales; Windows mide en binario pero etiqueta GB: un disco de 1 TB aparece como 931 GB. No falta nada.</li><li>La RAM se fabrica en potencias de 2: 16 GB son 16 GiB exactos.</li><li>Bits y bytes: la red va en bits; una fibra de 1 Gb/s descarga como mucho 125 MB/s.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -2957,19 +3018,19 @@
   </div>
 </section>
 
-<!-- 96 Interactivo: unidades -->
+<!-- 97 Interactivo: unidades -->
 <section data-deck-id="ej-unidades" data-label="Practica: unidades" data-seccion="1.9" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
-  <aside class="notas"><p>Tres modos. Bits y bytes: por 8. Entre unidades: cada paso es 1024, hacia arriba se divide; puede haber dos pasos. Disco del fabricante: de GB decimales a GiB; necesita calculadora y no cae en el examen práctico, aunque sí la pregunta de por qué 1 TB muestra 931 GB.</p></aside>
+  <aside class="notas"><p>Tres modos. Bits y bytes: por 8. Entre unidades: de uno a cuatro saltos en cualquier dirección; se pide el número de saltos y la expresión (5 × 1024 × 1024 o 5 × 1024²), no el resultado calculado; hacia arriba se divide. Disco del fabricante: de GB decimales a GiB; necesita calculadora y no cae en el examen práctico, aunque sí la pregunta de por qué 1 TB muestra 931 GB.</p></aside>
   <div>
     <span class="pill">Ejercicio interactivo</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Unidades de información</h2>
-    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)"><b>Bits y bytes:</b> un byte son 8 bits. <b>Entre unidades:</b> cada paso entre unidades vecinas (KiB, MiB, GiB, TiB) es multiplicar o dividir por 1024.</p>
+    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)"><b>Bits y bytes:</b> un byte son 8 bits. <b>Entre unidades:</b> cada salto entre unidades vecinas (B, KiB, MiB, GiB, TiB) es multiplicar o dividir por 1024; se escribe la expresión, sin calcularla.</p>
     <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)"><b>Disco del fabricante:</b> de los GB o TB decimales del anuncio a los GiB que muestra el sistema. Este modo se hace con calculadora.</p>
   </div>
   <div class="ej" data-tipo="unidades"></div>
 </section>
 
-<!-- 97 Texto: enteros en decimal empaquetado -->
+<!-- 98 Texto: enteros en decimal empaquetado -->
 <section data-label="Decimal empaquetado" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:80px">
   <aside class="notas"><p><b>Ejemplo +13457 en la pizarra:</b> cinco dígitos más signo, seis cuartetos, tres bytes: 0001 0011 0100 0101 0111 1100.</p><ul><li>Signo en el último cuarteto: C positivo, D negativo. Cuartetos impares: rellenar con 0000 a la izquierda.</li><li>No es binario: 13457 en binario puro cabría en 14 bits. A cambio, los decimales salen exactos: mainframes IBM y COBOL en bancos.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3005,11 +3066,11 @@
       </div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px;text-align:center;font-size:18px;color:var(--muted)"><span style="border-top:3px solid var(--sky);padding-top:6px">byte 1 · 13</span><span style="border-top:3px solid var(--sky);padding-top:6px">byte 2 · 45</span><span style="border-top:3px solid var(--sky);padding-top:6px">byte 3 · 7D</span></div>
     </div>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.39. El mismo número con los dos signos en decimal empaquetado. En hexadecimal se lee directamente: 13 45 7C y 13 45 7D. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.40. El mismo número con los dos signos en decimal empaquetado. En hexadecimal se lee directamente: 13 45 7C y 13 45 7D. Elaboración propia.</p>
   </div>
 </section>
 
-<!-- 98 Texto: enteros en decimal desempaquetado -->
+<!-- 99 Texto: enteros en decimal desempaquetado -->
 <section data-label="Decimal desempaquetado" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:80px">
   <aside class="notas"><p><b>Ejemplo +3457:</b> cuatro bytes, 1111 0011, 1111 0100, 1111 0101, 1100 0111. El signo va en el cuarteto izquierdo del último byte.</p><ul><li>El relleno 1111 no es casual: en EBCDIC los dígitos van de F0 a F9, así que un número desempaquetado es a la vez su texto (PACK y UNPK en los mainframes).</li><li>Comparar con el empaquetado: 03 45 7C, tres bytes.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3043,11 +3104,11 @@
       </div>
       <p style="font-size:20px;line-height:1.4;color:var(--muted);margin-top:14px">Cuatro dígitos y el signo son cinco cuartetos: se rellena con 0000 por la izquierda. En hexadecimal, 03 45 7C.</p>
     </div>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.40. El mismo número en los dos formatos decimales. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.41. El mismo número en los dos formatos decimales. Elaboración propia.</p>
   </div>
 </section>
 
-<!-- 99 Texto: binario puro con signo -->
+<!-- 100 Texto: binario puro con signo -->
 <section data-label="Binario puro con signo" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.15fr 1fr;gap:80px">
   <aside class="notas"><p>Signo y magnitud: primer bit el signo, 31 restantes el valor. Máximo 2<sup>31</sup> − 1.</p><ul><li>15678 = 0000 0000 0000 0000 0011 1101 0011 1110. −25896547 = 81 8B 26 63.</li><li>Dos ceros y hay que mirar los signos antes de sumar: los procesadores usan C2 (−25896547 = FE 74 D9 9D).</li><li>Sobrevive en la coma flotante, que sí lleva bit de signo separado.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3083,7 +3144,7 @@
   </div>
 </section>
 
-<!-- 100 Definición: coma flotante -->
+<!-- 101 Definición: coma flotante -->
 <section class="dark" data-label="Coma flotante" data-seccion="1.9" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Preguntar:</b> ¿cuántos bits para la distancia a la estrella más cercana en metros (4 × 10<sup>16</sup>) con precisión de un metro? En entero, 56; en float, 32, pero solo con 7 cifras.</p><ul><li>Signo, mantisa y exponente, como la notación científica: 6,022 × 10<sup>23</sup>.</li><li>Precisión: 7 cifras en simple (float), 16 en doble (double).</li></ul><p>Siguiente: la mantisa se normaliza.</p></aside>
   <div style="min-width:0">
@@ -3118,7 +3179,7 @@
   </div>
 </section>
 
-<!-- 101 Texto: notación científica normalizada -->
+<!-- 102 Texto: notación científica normalizada -->
 <section data-label="Notación científica" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1fr;gap:80px">
   <aside class="notas"><p><b>Para la pizarra:</b> 0,00052 (5,2 × 10<sup>−4</sup>), 93 000 000 (9,3 × 10<sup>7</sup>) y 1100,1 en binario (1,1001 × 2<sup>3</sup>).</p><ul><li>Criterio de la clase: siempre una cifra distinta de cero delante de la coma (hay libros que normalizan 0,345 × 10<sup>15</sup>; aquí no).</li><li>En binario la única cifra distinta de cero es el 1: no hace falta guardarlo. Es el bit implícito de IEEE 754.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3152,7 +3213,7 @@
   </div>
 </section>
 
-<!-- 102 Texto: el formato IEEE 754 -->
+<!-- 103 Texto: el formato IEEE 754 -->
 <section data-label="IEEE 754" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><ul><li>Norma de 1985, revisada en 2008 y 2019. Simple: 1 + 8 + 23. Doble: 1 + 11 + 52.</li><li>Exponente con sesgo 127 (1023 en doble): 2<sup>5</sup> se guarda como 132; 2<sup>−2</sup>, como 125.</li><li>La mantisa guarda solo lo de detrás de la coma: 24 bits reales de precisión.</li><li>Especiales: exponente todo ceros con mantisa cero es 0 (hay +0 y −0); todo unos es infinito o NaN (0 entre 0).</li></ul></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Codificación de la información</p>
@@ -3172,7 +3233,7 @@
     <rect x="318" y="230" width="1362" height="60" rx="8" fill="#15356B"/><text x="999" y="268" text-anchor="middle" font-size="22" font-weight="700" fill="#fff" font-family="Plus Jakarta Sans, system-ui, sans-serif">mantisa · 52 bits</text>
     <text x="13" y="316" text-anchor="middle" font-size="19" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">1</text><text x="172" y="316" text-anchor="middle" font-size="19" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">e + 1023 (de 1 a 2046)</text><text x="999" y="316" text-anchor="middle" font-size="19" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">53 bits de precisión con el 1 implícito: 15 o 16 cifras decimales</text>
   </svg>
-  <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:8px">Figura 1.41. Los tres campos de un número IEEE 754 en simple y en doble precisión. Elaboración propia.</p>
+  <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:8px">Figura 1.42. Los tres campos de un número IEEE 754 en simple y en doble precisión. Elaboración propia.</p>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:22px">
     <div style="background:var(--white);border-radius:20px;padding:22px 28px;box-shadow:0 2px 0 var(--line)">
       <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Valor que representa</p>
@@ -3190,7 +3251,7 @@
   </div>
 </section>
 
-<!-- 103 Pasos: IEEE 754 paso a paso -->
+<!-- 104 Pasos: IEEE 754 paso a paso -->
 <section data-label="IEEE 754 paso a paso" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.2fr 1fr;gap:72px">
   <aside class="notas"><p><b>Hacer 48,297 con ellos.</b> 48 = 110000; 0,297 por el método de multiplicar: 0 1 0 0 1 1 0… y no termina. Normalizado: 1,100000100110000001… × 2<sup>5</sup>. Exponente 5 + 127 = 132 = 10000100. Mantisa: los 23 bits que siguen al 1. Resultado 42 41 30 21.</p><ul><li>Lo guardado vale 48,297000885…: la coma flotante redondea. Es el origen del 0,1 + 0,2.</li><li>Segundo ejemplo, −0,0000011: exponente −20, 107 = 01101011, resultado B5 93 A3 B6.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3223,19 +3284,19 @@
   </div>
 </section>
 
-<!-- 104 Interactivo: IEEE 754 -->
+<!-- 105 Interactivo: IEEE 754 -->
 <section data-deck-id="ej-ieee754" data-label="Practica: IEEE 754" data-seccion="1.9" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
-  <aside class="notas"><p><b>Cae siempre en el examen:</b> insistir en la racha de diez.</p><p>Números con expansión corta (10,5; −6,25; 0,375; 100). Orden: signo, binario con coma, exponente al normalizar (puede ser negativo), más 127, en 8 bits, mantisa de 23 sin el 1 implícito, hexadecimal.</p><p><b>Errores típicos:</b> contar mal las posiciones al normalizar; escribir el 1 implícito en la mantisa.</p></aside>
+  <aside class="notas"><p><b>Insistir en la racha de diez.</b></p><p>Números con expansión corta (10,5; −6,25; 0,375; 100). Orden: signo, binario con coma, exponente al normalizar (puede ser negativo), más 127, en 8 bits, mantisa de 23 sin el 1 implícito, hexadecimal.</p><p><b>Errores típicos:</b> contar mal las posiciones al normalizar; escribir el 1 implícito en la mantisa.</p></aside>
   <div>
     <span class="pill">Ejercicio interactivo</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">IEEE 754 en simple precisión</h2>
     <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Los mismos pasos de la diapositiva anterior con números que salen exactos: signo, binario, exponente al normalizar, exponente + 127, sus 8 bits, los 23 de la mantisa y el resultado en hexadecimal.</p>
-    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Para los números menores que 1 el exponente es negativo. Recuerda que el 1 de delante de la coma <b>no</b> se escribe en la mantisa. Este ejercicio cae siempre en el examen.</p>
+    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Para los números menores que 1 el exponente es negativo. Recuerda que el 1 de delante de la coma <b>no</b> se escribe en la mantisa.</p>
   </div>
   <div class="ej" data-tipo="ieee754"></div>
 </section>
 
-<!-- 105 Pregunta: ¿cuánto es 0,1 + 0,2? -->
+<!-- 106 Pregunta: ¿cuánto es 0,1 + 0,2? -->
 <section data-label="¿Cuánto es 0,1 + 0,2?" data-seccion="1.9" style="display:grid;grid-template-columns:1fr 1.25fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
   <aside class="notas"><p><b>Hacerlo en directo:</b> F12, Consola, <code>0.1 + 0.2</code> da 0.30000000000000004 y <code>0.1 + 0.2 === 0.3</code> da false. En Python igual.</p><ul><li>Causa: 0,1 en binario es periódico (como 1/3 en decimal), se corta en 52 bits y se redondea; al sumar, los errores asoman en la cifra 17.</li><li>No es fallo del lenguaje: es IEEE 754, que usan todos.</li></ul><p>Consecuencia: un programa que sume precios con float puede cobrar un céntimo de más. Enlaza con el coseno del 1.6.</p></aside>
   <div>
@@ -3252,14 +3313,14 @@
 <span style="color:#569CD6">false</span>
 <span style="color:#808080">&gt;</span> 0.1 + 0.7
 <span style="color:#B5CEA8">0.7999999999999999</span></pre>
-      <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.42. Consola de JavaScript de un navegador. En Python, Java o una hoja de cálculo pasa lo mismo, aunque a veces lo redondeen al mostrarlo. Elaboración propia.</p>
+      <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.43. Consola de JavaScript de un navegador. En Python, Java o una hoja de cálculo pasa lo mismo, aunque a veces lo redondeen al mostrarlo. Elaboración propia.</p>
       <p style="font-size:21px;line-height:1.45;color:var(--muted)"><b style="color:var(--navy)">0,1 no existe en binario.</b> Es periódico, 0,0<span style="text-decoration:overline">0011</span>…, igual que 1/3 = 0,333… en decimal. Se corta en 52 bits y se redondea; 0,2 también. Al sumar, los dos redondeos asoman en la cifra 17. No es un fallo del lenguaje: es el formato IEEE 754 que usan todos.</p>
     </div>
     <button class="btn btn-primary revela-btn">Ver la respuesta</button>
   </div>
 </section>
 
-<!-- 106 Texto: cómo se resuelve el problema de los decimales -->
+<!-- 107 Texto: cómo se resuelve el problema de los decimales -->
 <section data-label="Cómo se resuelve" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><ul><li>Dinero en enteros: céntimos, la coma solo al mostrar; Stripe recibe 1999 para 19,99 €.</li><li>Tipos decimales exactos: DECIMAL en bases de datos, BigDecimal en Java, decimal en Python y C#. IEEE 754 de 2008 añadió formatos decimales por esto.</li><li>Nunca comparar decimales con igualdad: diferencia menor que una tolerancia.</li><li>Dónde sí vale float: gráficos, física, sensores, IA.</li></ul></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Codificación de la información</p>
@@ -3290,7 +3351,7 @@
   <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:16px">La revisión de 2008 de la norma IEEE 754 añadió formatos <b>decimales</b> en coma flotante (decimal64, decimal128) pensados justo para importes; los usan los mainframes y algunas bases de datos.</p>
 </section>
 
-<!-- 107 Tabla: tipos de caracteres -->
+<!-- 108 Tabla: tipos de caracteres -->
 <section data-label="Tipos de caracteres" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:72px">
   <aside class="notas"><p><b>Insistir:</b> el carácter «2» es el código 50, no el número 2; «2» + «2» como texto da «22».</p><ul><li>Control: tabulador, salto de línea, escape, el NUL que cierra las cadenas en C.</li><li>Salto de línea: Windows usa CR y LF (13 y 10), Linux solo LF. Por eso un texto de Linux salía en una línea en el Bloc de notas antiguo.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3324,7 +3385,7 @@
   </div>
 </section>
 
-<!-- 108 Tabla: códigos históricos -->
+<!-- 109 Tabla: códigos históricos -->
 <section data-label="Códigos históricos" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p>Lo que importa: sin acuerdo sobre la tabla, los mismos bytes se leen como caracteres distintos.</p><ul><li>BCD de 6 bits (IBM, años cincuenta): no confundir con el decimal empaquetado. FIELDATA: ejército de EE. UU., UNIVAC.</li><li>EBCDIC: IBM 1964, sigue en los mainframes; dígitos de F0 a F9.</li><li>ASCII: 7 bits, 1963, base de todo. ISO 8859: años ochenta. Unicode 1991, UTF-8 1993.</li></ul></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Codificación de la información</p>
@@ -3351,7 +3412,7 @@
   <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:16px">Tabla 1.22. Códigos de caracteres. El BCD de 6 bits es un código de caracteres; no confundirlo con el decimal empaquetado, que comparte las siglas. Sin acuerdo sobre la tabla, los mismos bytes se leen como caracteres distintos.</p>
 </section>
 
-<!-- 109 Tabla: ASCII -->
+<!-- 110 Tabla: ASCII -->
 <section data-label="ASCII" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p><b>Tres anclas para el examen:</b> «0» = 48, «A» = 65, «a» = 97.</p><ul><li>Mayúscula y minúscula se diferencian en 32, un solo bit: A es 01000001, a es 01100001. Pasar a mayúsculas es una operación lógica.</li><li>0-31 y 127 son de control; 32 es el espacio; 95 imprimibles.</li><li>Sin ñ ni tildes en 7 bits.</li></ul><p>Truco: Alt + 64 en el teclado numérico es la arroba.</p></aside>
   <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
@@ -3370,7 +3431,7 @@
   </div>
 </section>
 
-<!-- 110 Interactivo: ASCII -->
+<!-- 111 Interactivo: ASCII -->
 <section data-deck-id="ej-ascii" data-label="Practica: ASCII" data-seccion="1.9" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
   <aside class="notas"><p>Tres modos. Carácter a código: desde el ancla, contar la posición, escribir decimal, binario de 8 bits y hex. Código a carácter: binario a decimal, elegir el rango con el botón, restar la base. Mayúscula y minúscula: ±32, solo cambia el bit de peso 32.</p><p>Al examen se puede llevar la tabla de anclas escrita a mano, no la tabla ASCII completa.</p></aside>
   <div>
@@ -3382,7 +3443,7 @@
   <div class="ej" data-tipo="ascii"></div>
 </section>
 
-<!-- 111 Tabla: ISO 8859 y Windows-1252 -->
+<!-- 112 Tabla: ISO 8859 y Windows-1252 -->
 <section data-label="ISO 8859 y Windows-1252" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.3fr;gap:72px">
   <aside class="notas"><p><b>Señalar la fila resaltada:</b> el mismo byte F1 es ñ en Latin-1, ń en la centroeuropea, ё en cirílico y ρ en griego. Sin decir la tabla, el receptor lo lee mal.</p><ul><li>Latin-1 (1987) no tiene el euro; Latin-9 lo añade en A4.</li><li>Windows-1252: Latin-1 más 27 signos en 128-159 (euro en 80, comillas tipográficas). Todavía sale en CSV y textos antiguos.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3420,7 +3481,7 @@
   </div>
 </section>
 
-<!-- 112 Texto: Unicode y UTF-8 -->
+<!-- 113 Texto: Unicode y UTF-8 -->
 <section data-label="Unicode y UTF-8" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:72px">
   <aside class="notas"><ul><li>Punto de código: U+ y hexadecimal; ñ es U+00F1, euro U+20AC. Unicode 17.0 (2025): 159 801 caracteres.</li><li>UTF-8: ASCII ocupa un byte idéntico; ñ y tildes dos (C3 B1); euro y chino tres; emojis cuatro. Los bits de cabecera dicen cuántos bytes tiene el carácter.</li><li>UTF-16 es lo que usan Windows, Java y JavaScript por dentro.</li><li>Caracteres raros: UTF-8 leído como Latin-1 da Ã±; al revés, un rombo. Cambiar la codificación en el editor, no reescribir.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3454,7 +3515,7 @@
   </div>
 </section>
 
-<!-- 113 Quiz: página web en muchos idiomas -->
+<!-- 114 Quiz: página web en muchos idiomas -->
 <section class="dark" data-label="Quiz: código para la web" data-seccion="1.9" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Respuesta: C, Unicode (UTF-8).</b> FIELDATA y BCD son de 6 bits y solo mayúsculas; EBCDIC no tiene alfabetos no latinos ni lo entiende un navegador.</p><p>Si fallan, volver a la tabla de UTF-8.</p></aside>
   <div class="quiz" data-correct="2" data-ok="Correcto. Unicode tiene todos los alfabetos y UTF-8 es cómo se transmite: más del 98 % de la web." data-ko="No. Los códigos de 6 y 8 bits solo tienen un alfabeto (y a veces ni minúsculas). Busca el que tiene más de 150 000 caracteres." style="display:contents">
@@ -3473,7 +3534,7 @@
   </div>
 </section>
 
-<!-- 114 Tabla: formatos de texto -->
+<!-- 115 Tabla: formatos de texto -->
 <section data-label="Formatos de texto" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p><b>Demo si hay tiempo:</b> cambiar la extensión de un .docx a .zip y abrirlo: XML e imágenes dentro.</p><ul><li>Texto plano: programas, configuraciones, CSV. Markdown: los README de GitHub.</li><li>DOCX: ISO/IEC 29500. ODT: ISO/IEC 26300, el que exigen muchas administraciones. PDF: ISO 32000, para entregar, no para editar.</li></ul></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Codificación de la información</p>
@@ -3501,7 +3562,7 @@
   <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:14px">Tabla 1.26. Formatos de texto. Para verlo en clase: cambia la extensión de un .docx a .zip y ábrelo; dentro están los XML.</p>
 </section>
 
-<!-- 115 Comparativa: imágenes de mapa de bits y vectoriales -->
+<!-- 116 Comparativa: imágenes de mapa de bits y vectoriales -->
 <section data-label="Imágenes" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:64px">
   <aside class="notas"><ul><li>Full HD sin comprimir: 1920 × 1080 × 3 bytes, 6,2 MB. Por eso se comprime.</li><li>Sin pérdida (PNG, WebP): idéntica. Con pérdida (JPG, AVIF): diez veces menos, y cada guardado pierde un poco más.</li><li>La tabla es real: la foto de la Pascalina a 1600 × 877 en cada formato.</li><li>Vectorial: instrucciones de dibujo, se amplía sin perder. Todos los esquemas de estas diapositivas son SVG.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3543,7 +3604,7 @@
   </div>
 </section>
 
-<!-- 116 Tabla: audio y vídeo -->
+<!-- 117 Tabla: audio y vídeo -->
 <section data-label="Audio y vídeo" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1fr;gap:64px">
   <aside class="notas"><ul><li>CD: 44 100 muestras por segundo, 16 bits, dos canales: 1411 kb/s, 10,6 MB por minuto.</li><li>Opus es el de WhatsApp, Discord y las videollamadas.</li><li><b>Vídeo: separar contenedor (MP4, MKV, WebM) de códec (H.264, H.265, VP9, AV1).</b> Dos MP4 pueden no abrirse igual: depende del códec.</li><li>1080p a 30 fps sin comprimir: 187 MB por segundo; comprimido, 5-8 Mb/s.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3578,7 +3639,7 @@
   </div>
 </section>
 
-<!-- 117 Tabla: otros formatos -->
+<!-- 118 Tabla: otros formatos -->
 <section data-label="Otros formatos" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><ul><li>xlsx y ods: ZIP con XML. csv: texto plano, el formato universal para mover datos.</li><li>sqlite: un solo archivo, lo lleva cada móvil dentro.</li><li>Ejecutables: exe y msi, deb y rpm, apk. Un exe no funciona en Linux (compilar, 1.4).</li><li>iso: copia byte a byte de un disco; así se descargan los sistemas de las UT3 y UT4.</li></ul></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Codificación de la información</p>
@@ -3603,7 +3664,7 @@
   <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:14px">Tabla 1.29. Otros formatos habituales. Los archivos comprimidos (zip, 7z, rar, tar.gz) van en la siguiente diapositiva.</p>
 </section>
 
-<!-- 118 Comparativa: comprimir y empaquetar -->
+<!-- 119 Comparativa: comprimir y empaquetar -->
 <section data-label="Comprimir y empaquetar" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.25fr;gap:64px">
   <aside class="notas"><ul><li>Empaquetar: varios archivos en uno. Comprimir: menos bytes, sin perder nada.</li><li>Un texto o un BMP bajan mucho; un JPG o un MP4 ya están comprimidos y casi no bajan.</li><li>Unix las separa: <code>tar</code> empaqueta (tape archive), <code>gzip</code>, <code>bzip2</code> o <code>xz</code> comprimen; de ahí el .tar.gz.</li><li>Windows 11 abre 7z, rar y tar desde 2023. RAR es propietario; crear archivos exige WinRAR.</li></ul><p>Ojo: comprimir no es cifrar, aunque el ZIP admita contraseña.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3639,7 +3700,7 @@
   </div>
 </section>
 
-<!-- 119 Quiz: formato para una canción -->
+<!-- 120 Quiz: formato para una canción -->
 <section class="dark" data-label="Quiz: formatos" data-seccion="1.9" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
   <aside class="notas"><p><b>Respuesta: B, MP3.</b> JPG es imagen, ODF documentos de oficina, PDF documento compuesto.</p><p>Si fallan, volver a la tabla de audio y vídeo.</p></aside>
   <div class="quiz" data-correct="1" data-ok="Correcto. MP3 es audio comprimido con pérdida: una décima parte del tamaño del CD." data-ko="No. JPG es una imagen, ODF son documentos de oficina y PDF es un documento compuesto. Busca el formato de audio." style="display:contents">
@@ -3660,7 +3721,7 @@
 
 <!-- ============ BLOQUE 9 · Prácticas, evaluación y cierre ============ -->
 
-<!-- 120 Práctica 1.5: las cinco licencias y el guion de la exposición -->
+<!-- 121 Práctica 1.5: las cinco licencias y el guion de la exposición -->
 <section data-label="Práctica 1.5: las cinco licencias" data-seccion="1.5" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p><b>Leer la tabla con los grupos ya formados.</b> Cada fila es una licencia y su columna "Dónde verla" es lo que tienen que enseñar en pantalla: no vale un resumen de la IA sin el archivo real delante.</p><ul><li>Fechas: GPL 1989 (v3 2007), MIT finales de los ochenta (X Window), Apache 2.0 en 2004, Creative Commons 2001 (4.0 en 2013).</li><li>Detalle que da juego: el repositorio de VS Code es MIT, pero el programa que se descarga lleva licencia propietaria de Microsoft. Y el núcleo de Android es GPL aunque Android sea Apache.</li><li>La tarjeta 4 es la que más se prepara y la que más se aprende: el resto de la clase tiene que responder.</li></ul><p>Herramientas: choosealicense.com, la web de cada licencia, GitHub. El enunciado está en el aula virtual.</p></aside>
   <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
@@ -3689,7 +3750,7 @@
   </div>
 </section>
 
-<!-- 121 Práctica 1.5: la exposición y cómo se puntúa -->
+<!-- 122 Práctica 1.5: la exposición y cómo se puntúa -->
 <section data-label="Práctica 1.5: la exposición" data-seccion="1.5" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.25fr;gap:72px">
   <aside class="notas"><p><b>La sesión de exposiciones:</b> cinco grupos, diez minutos cada uno más preguntas; cabe en una sesión y media. Orden sorteado al empezar.</p><ul><li>Preguntar a cada miembro sobre una parte que no haya expuesto él: así se ve si el grupo ha preparado el trabajo junto o se lo ha repartido sin leerlo.</li><li>Los 2 puntos de trabajo en clase se anotan en la sesión de preparación, en la bitácora: quién trae su parte, quién participa, quién mira el móvil.</li><li>La pregunta al resto de la clase se corrige en el momento; si el grupo la resuelve mal, se aclara antes de seguir.</li><li>Las tres preguntas de test se recogen por escrito (enunciado, cuatro opciones y la correcta) y se importan al banco de takataka.io.</li></ul><p>Rúbrica en el aula virtual.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3716,17 +3777,17 @@
   </div>
 </section>
 
-<!-- 122 Práctica 1.10: ejercicios de representación -->
+<!-- 123 Práctica 1.10: ejercicios de representación -->
 <section data-label="Práctica: ejercicios de representación" data-criterio="b, e" data-seccion="1.10" data-deck-id="practica-1-10" data-deck-section="1.10" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:72px">
-  <aside class="notas"><p><b>Práctica 1.10.</b> En casa: racha de diez en los trece ejercicios; no se entrega nada. En clase: examen práctico en papel, hoja distinta por alumno generada con el número de lista en hoja.html.</p><ul><li>La hoja de casa sale siempre igual para el mismo número y se comprueba con el solucionario; en clase cambian título y cantidades.</li><li>Sin calculadora. Se pueden llevar a mano: potencias de 2, tabla del 0 al 15 y las tres anclas ASCII.</li></ul></aside>
+  <aside class="notas"><p><b>Práctica 1.10.</b> En casa: racha de diez en los trece ejercicios; no se entrega nada. En clase: examen práctico en papel, hoja generada con una semilla (seed) en hoja.html, la misma para toda la clase.</p><ul><li>La hoja sale siempre igual para la misma semilla y el mismo título; los alumnos generan en casa las que quieran y las comprueban con el solucionario; en clase, semilla y título nuevos.</li><li>Sin calculadora. Se pueden llevar a mano: potencias de 2, tabla del 0 al 15 y las tres anclas ASCII.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
     <span class="pill" style="align-self:flex-start">Práctica</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:24px;color:var(--navy);text-wrap:balance">Ejercicios de representación</h2>
     <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)"><b style="color:var(--navy)">En casa:</b> llega a <b style="color:var(--navy)">diez aciertos seguidos</b> en cada ejercicio interactivo de la unidad. Pista y Resolver ponen la racha a cero. No se entrega nada.</p>
-    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)"><b style="color:var(--navy)">En clase:</b> examen práctico en papel con una hoja distinta para cada alumno, generada con tu número de lista.</p>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)"><b style="color:var(--navy)">En clase:</b> examen práctico en papel con una hoja generada con una semilla (seed) nueva, igual que las de casa.</p>
     <div style="background:var(--white);border-radius:20px;padding:22px 30px;box-shadow:0 2px 0 var(--line);margin-top:var(--gap-item)">
-      <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Hoja de ejercicios con tu número</p>
-      <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:8px">Abre <a href="hoja.html" target="_blank" rel="noopener" style="font-family:var(--mono);font-weight:600">hoja.html</a>, escribe tu número de lista y genera la hoja: sale siempre la misma para el mismo número. Hazla en papel y compruébala con el solucionario. En clase, la hoja será otra.</p>
+      <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Hoja de ejercicios por semilla</p>
+      <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:8px">Abre <a href="hoja.html" target="_blank" rel="noopener" style="font-family:var(--mono);font-weight:600">hoja.html</a>, escribe una semilla (seed) y genera la hoja: la misma semilla da siempre la misma hoja, y cada semilla nueva, otra distinta. Haz las que quieras en papel y compruébalas con el solucionario. En clase, la semilla será otra.</p>
     </div>
     <div style="background:var(--yellow);border-radius:18px;padding:16px 26px;margin-top:var(--gap-item)">
       <p style="font-size:20px;line-height:1.45;color:var(--navy)"><b>Sin calculadora.</b> Puedes llevar escritas a mano la tabla de potencias de 2, la tabla del 0 al 15 en las cuatro bases y las tres anclas de ASCII (0 = 48, A = 65, a = 97).</p>
@@ -3753,7 +3814,7 @@
   </div>
 </section>
 
-<!-- 123 Práctica 1.11: test masivo en clase -->
+<!-- 124 Práctica 1.11: test masivo en clase -->
 <section class="dark" data-label="Práctica: test masivo" data-criterio="a, c, d, k" data-seccion="1.11" data-deck-id="practica-1-11" data-deck-section="1.11" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1fr;gap:80px">
   <aside class="notas"><p><b>Práctica 1.11.</b> Test de toda la unidad en takataka.io; cada alumno recibe un subconjunto distinto al azar, así que no sirve mirar al vecino.</p><ul><li>Sesión anunciada, en el aula, con las diapositivas abiertas si se quiere, sin IA. Cuenta dentro del 40 % de trabajos.</li><li>Sentido: obliga a leer toda la unidad y a buscar rápido en las diapositivas. Se puede repetir como repaso antes del examen.</li></ul><p>El logotipo de TakaTaka es marca de sus titulares, fuera de la licencia CC. Clic para abrir la web.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
@@ -3781,9 +3842,15 @@
   </div>
 </section>
 
-<!-- 124 Examen de la unidad -->
+<!-- 125 Examen de la unidad -->
 <section data-label="Examen de la unidad" data-criterio="a, b, c, d, e, k" data-seccion="1.12" data-deck-id="examen" data-deck-section="1.12" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
-  <aside class="notas"><p><b>Anunciar la fecha con al menos una semana.</b> El 60 % de la nota de la unidad, dos partes en la misma sesión.</p><ul><li>Teoría: preguntas cortas y de razonar sobre 1.1 a 1.4 y la teoría de 1.6 a 1.9 (por qué 1 TB muestra 931 GB, qué licencia permite vender un derivado, qué hace la UC en cada paso del ciclo).</li><li>Práctica: hoja generada con el número de lista, los trece tipos; siempre cae IEEE 754.</li><li>Material: las mismas tablas a mano que en la 1.10; sin calculadora.</li></ul></aside>
+  <style>
+    .ex-lnk{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 12px;margin:0 -12px;border-radius:10px;color:var(--ink);text-decoration:none;font-size:20px;line-height:1.3;transition:background .15s ease}
+    .ex-lnk::after{content:'→';color:var(--blue);font-weight:800;opacity:0;transform:translateX(-8px);transition:opacity .15s ease,transform .15s ease}
+    .ex-lnk:hover{background:rgba(11,74,181,.07);color:var(--ink)}
+    .ex-lnk:hover::after{opacity:1;transform:translateX(0)}
+  </style>
+  <aside class="notas"><p><b>Anunciar la fecha con al menos una semana.</b> El 60 % de la nota de la unidad, dos partes en la misma sesión.</p><ul><li>Teoría: entra todo lo visto en las diapositivas, 1.1 a 1.4 y la teoría de 1.6 a 1.9 (por qué 1 TB muestra 931 GB, qué licencia permite vender un derivado, qué hace la UC en cada paso del ciclo).</li><li>Práctica: hoja generada con una semilla nueva, la misma para toda la clase, con los trece tipos de ejercicio. La lista de la tarjeta lleva a cada uno.</li><li>Material: las mismas tablas a mano que en la 1.10; sin calculadora.</li></ul></aside>
   <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
     <div>
       <span class="pill">Práctica</span>
@@ -3791,31 +3858,60 @@
     </div>
     <p style="font-size:20px;line-height:1.4;color:var(--muted);max-width:760px">Es el 60 % de la nota de la unidad. Dos partes en la misma sesión, en papel. La fecha se anuncia en clase con al menos una semana.</p>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:32px;flex:1;min-height:0">
-    <div style="background:var(--navy);color:var(--white);border-radius:24px;padding:36px 44px;display:flex;flex-direction:column;gap:18px">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:28px;flex:1;min-height:0">
+    <div style="background:var(--navy);color:var(--white);border-radius:24px;padding:30px 40px;display:flex;flex-direction:column;gap:16px">
       <h3 style="font-size:var(--type-subtitle);font-weight:800">Parte de teoría</h3>
-      <p style="font-size:21px;line-height:1.45;color:#C9D6EE">Preguntas cortas y de razonar sobre las secciones <b style="color:var(--white)">1.1 a 1.4</b> y la teoría de <b style="color:var(--white)">1.6 a 1.9</b>.</p>
-      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;font-size:20px;line-height:1.4;color:#E3EBF8">
-        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">●</span><span>Sistema informático, generaciones, elementos físicos y funcionales, ciclo de instrucción.</span></li>
-        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">●</span><span>Tipos de software, licencias, propiedad intelectual y protección de datos.</span></li>
-        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">●</span><span>Unidades (kB y KiB), códigos de caracteres, coma flotante y formatos de archivo.</span></li>
+      <p style="font-size:21px;line-height:1.45;color:#C9D6EE"><b style="color:var(--white)">Todo el contenido de las diapositivas</b>: secciones 1.1 a 1.4 y la teoría de 1.6 a 1.9. Preguntas cortas y de razonar.</p>
+      <ul style="list-style:none;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:7px 28px;font-size:20px;line-height:1.3;color:#E3EBF8">
+        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">●</span><span>Sistema informático</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">●</span><span>Tipos de software</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">●</span><span>Generaciones</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">●</span><span>Licencias</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">●</span><span>Elementos físicos y funcionales</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">●</span><span>Propiedad intelectual</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">●</span><span>Ciclo de instrucción</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">●</span><span>Protección de datos</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">●</span><span>Sistemas de numeración</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">●</span><span>Unidades: kB y KiB</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">●</span><span>Paridad y CRC</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">●</span><span>Códigos de caracteres</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">●</span><span>Coma flotante</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">●</span><span>Formatos de archivo</span></li>
       </ul>
       <p style="font-size:19px;color:#9FB4D9;margin-top:auto;line-height:1.35">Criterios a, c, d y k del RA1.</p>
     </div>
-    <div style="background:var(--white);border:3px solid var(--line);border-radius:24px;padding:36px 44px;display:flex;flex-direction:column;gap:18px">
+    <div style="background:var(--white);border:3px solid var(--line);border-radius:24px;padding:30px 40px;display:flex;flex-direction:column;gap:16px">
       <h3 style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy)">Parte práctica</h3>
-      <p style="font-size:21px;line-height:1.45;color:var(--muted)">Una hoja de ejercicios de representación generada con tu número de lista, del mismo tipo que la de la práctica 1.10. <b style="color:var(--ink)">Siempre cae IEEE 754.</b></p>
-      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;font-size:20px;line-height:1.4">
-        <li style="display:flex;gap:12px"><span style="color:var(--ok);font-weight:800">✓</span><span>Permitido: la tabla de potencias de 2, la del 0 al 15 en las cuatro bases y las anclas de ASCII, escritas a mano.</span></li>
-        <li style="display:flex;gap:12px"><span style="color:var(--ko);font-weight:800">✗</span><span>Sin calculadora, sin apuntes, sin móvil.</span></li>
-        <li style="display:flex;gap:12px"><span style="color:var(--blue);font-weight:800">●</span><span>Se puntúa el resultado y los pasos a la vista: una casilla mal con el método bien vale más que un resultado sin cuentas.</span></li>
-      </ul>
+      <p style="font-size:21px;line-height:1.45;color:var(--muted)">Una hoja de ejercicios de representación generada con una semilla nueva, del mismo tipo que las de la práctica 1.10: <b style="color:var(--ink)">entran los trece tipos</b>.</p>
+      <p style="display:flex;gap:12px;font-size:21px;line-height:1.45;color:var(--ink)"><span style="color:var(--ko);font-weight:800">✗</span><span><b>Sin calculadora</b>, sin apuntes, sin móvil. Solo las tablas escritas a mano de la práctica 1.10.</span></p>
+      <div style="margin-top:6px">
+        <p style="font-size:19px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Los trece ejercicios (pulsa para ir a cada uno)</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 40px;margin-top:8px">
+          <ul style="list-style:none;padding:0;margin:0">
+          <li style="border-bottom:2px solid var(--line);"><a class="ex-lnk" href="#ej-bin2dec">Binario a decimal</a></li>
+          <li style="border-bottom:2px solid var(--line);"><a class="ex-lnk" href="#ej-dec2bin">Decimal a binario</a></li>
+          <li style="border-bottom:2px solid var(--line);"><a class="ex-lnk" href="#ej-decfrac2bin">Fracciones a binario</a></li>
+          <li style="border-bottom:2px solid var(--line);"><a class="ex-lnk" href="#ej-bases">Entre bases</a></li>
+          <li style="border-bottom:2px solid var(--line);"><a class="ex-lnk" href="#ej-sumabin">Suma en binario</a></li>
+          <li style="border-bottom:2px solid var(--line);"><a class="ex-lnk" href="#ej-restabin">Resta en binario</a></li>
+          <li style=""><a class="ex-lnk" href="#ej-logica">Operaciones lógicas</a></li>
+          </ul>
+          <ul style="list-style:none;padding:0;margin:0">
+          <li style="border-bottom:2px solid var(--line);"><a class="ex-lnk" href="#ej-c1c2">Complementos a 1 y a 2</a></li>
+          <li style="border-bottom:2px solid var(--line);"><a class="ex-lnk" href="#ej-restac2">Resta en complemento a 2</a></li>
+          <li style="border-bottom:2px solid var(--line);"><a class="ex-lnk" href="#ej-paridad">Bit de paridad</a></li>
+          <li style="border-bottom:2px solid var(--line);"><a class="ex-lnk" href="#ej-unidades">Unidades de información</a></li>
+          <li style="border-bottom:2px solid var(--line);"><a class="ex-lnk" href="#ej-ieee754">IEEE 754</a></li>
+          <li style=""><a class="ex-lnk" href="#ej-ascii">Código ASCII</a></li>
+          </ul>
+        </div>
+      </div>
       <p style="font-size:19px;color:var(--muted);margin-top:auto;line-height:1.35">Criterios b y e del RA1.</p>
     </div>
   </div>
 </section>
 
-<!-- 125 Resumen 1/2 -->
+<!-- 126 Resumen 1/2 -->
 <section class="dark" data-label="Resumen 1/2" data-deck-id="resumen" data-deck-section="Fin" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p><b>Leerlo con ellos</b> antes del test masivo y del examen: cada frase es una posible pregunta de teoría (1.1 a 1.4).</p></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">Unidad 1</p>
@@ -3832,7 +3928,7 @@
   </div>
 </section>
 
-<!-- 126 Resumen 2/2 -->
+<!-- 127 Resumen 2/2 -->
 <section class="dark" data-label="Resumen 2/2" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas"><p>Secciones 1.6 a 1.9, lo que cae en la práctica del examen: cada frase remite a un ejercicio interactivo.</p></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">Unidad 1</p>
@@ -3849,7 +3945,7 @@
   </div>
 </section>
 
-<!-- 127 Recursos -->
+<!-- 128 Recursos -->
 <section data-label="Recursos" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.5fr;gap:96px">
   <aside class="notas"><ul><li>Calculadora de Windows en modo programador: convierte entre bases y hace operaciones lógicas. Para comprobar ejercicios, no para el examen.</li><li>choosealicense.com se usa en la práctica 1.5.</li><li>Normas citadas, para quien quiera la fuente: IEEE 754, IEC 80000-13, LPI y RGPD en el BOE y el DOUE.</li><li>Los dos vídeos de clase, para repasar.</li></ul></aside>
   <div>
@@ -3863,11 +3959,11 @@
     <li style="display:grid;grid-template-columns:250px 1fr;gap:32px;padding:18px 0;border-bottom:2px solid var(--line)"><span style="font-weight:700;color:var(--blue)">Licencias</span><span><a href="https://choosealicense.com/" target="_blank" rel="noopener">choosealicense.com</a> (GitHub) explica cada licencia en una página. Definición de código abierto: <a href="https://opensource.org/osd" target="_blank" rel="noopener">opensource.org/osd</a>.</span></li>
     <li style="display:grid;grid-template-columns:250px 1fr;gap:32px;padding:18px 0;border-bottom:2px solid var(--line)"><span style="font-weight:700;color:var(--blue)">Normas citadas</span><span>IEEE 754-2019 (coma flotante), IEC 80000-13 (prefijos binarios), Real Decreto Legislativo 1/1996 (Ley de Propiedad Intelectual), Reglamento (UE) 2016/679 (RGPD) y Ley Orgánica 3/2018 (LOPDGDD), en el BOE y el DOUE.</span></li>
     <li style="display:grid;grid-template-columns:250px 1fr;gap:32px;padding:18px 0;border-bottom:2px solid var(--line)"><span style="font-weight:700;color:var(--blue)">Vídeos de clase</span><span><a href="https://www.youtube.com/watch?v=QTCW2UyaRno" target="_blank" rel="noopener">Ada Lovelace</a> (sección 1.2) y <a href="https://www.youtube.com/watch?v=Jlbxj182bhg" target="_blank" rel="noopener">Data Coffee #14, de Moore a Huang</a> (Dot CSV, sección 1.2).</span></li>
-    <li style="display:grid;grid-template-columns:250px 1fr;gap:32px;padding:18px 0"><span style="font-weight:700;color:var(--blue)">Esta unidad</span><span>Los ejercicios interactivos (1.6 a 1.9) y la hoja de ejercicios con tu número (<a href="hoja.html" target="_blank" rel="noopener">hoja.html</a>). Ctrl+P guarda las diapositivas en PDF.</span></li>
+    <li style="display:grid;grid-template-columns:250px 1fr;gap:32px;padding:18px 0"><span style="font-weight:700;color:var(--blue)">Esta unidad</span><span>Los ejercicios interactivos (1.6 a 1.9) y la hoja de ejercicios por semilla (<a href="hoja.html" target="_blank" rel="noopener">hoja.html</a>). Ctrl+P guarda las diapositivas en PDF.</span></li>
   </ul>
 </section>
 
-<!-- 128 Cierre -->
+<!-- 129 Cierre -->
 <section class="dark" data-label="Fin de la UT1" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column;justify-content:space-between">
   <aside class="notas"><p><b>Recordar las tres fechas:</b> exposiciones de la 1.5, test masivo y examen.</p><p>Siguiente: UT2, sistemas operativos.</p></aside>
   <div style="display:flex;align-items:center;gap:20px">

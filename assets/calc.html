@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora · SOM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Calculadora básica (cuatro operaciones y resto de la división), con la disposición de la calculadora del iPhone:
+   funciones arriba, dígitos en el centro, operaciones a la derecha. Se abre con la tecla C desde
+   una presentación (som.js), en un panel flotante que la carga en un iframe, o sola en una pestaña. */
+:root {
+  --navy: #15356B; --blue: #0B4AB5; --yellow: #F4C20D; --white: #fff;
+  --fondo: #0E2650; --dig: #2A3F6B; --dig-h: #3A5183; --fun: #C9CFDD; --fun-h: #E2E6EF;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--fondo); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+}
+.calc {
+  width: 100%; max-width: 340px; padding: 16px; display: flex; flex-direction: column; gap: 12px;
+  user-select: none;
+}
+.pantalla {
+  min-height: 100px; padding: 6px 10px 4px;
+  display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-end;
+}
+.pantalla .hist { font-size: 16px; font-weight: 600; color: #8FA5CC; min-height: 20px; font-variant-numeric: tabular-nums; }
+.pantalla .num {
+  font-size: 60px; font-weight: 500; line-height: 1.1; text-align: right; letter-spacing: -.01em;
+  white-space: nowrap; overflow: hidden; max-width: 100%; font-variant-numeric: tabular-nums;
+}
+.pantalla .num.error { color: #F6B4AA; }
+.teclas { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.teclas button {
+  font: inherit; font-weight: 600; font-size: 28px; aspect-ratio: 1; border: 0; border-radius: 50%; cursor: pointer;
+  background: var(--dig); color: var(--white); transition: filter .1s ease, transform .05s ease;
+  display: flex; align-items: center; justify-content: center; padding: 0;
+}
+.teclas button:hover { background: var(--dig-h); }
+.teclas button:active, .teclas button.pulsada { transform: scale(.94); }
+.teclas button.fun { background: var(--fun); color: var(--navy); font-size: 24px; font-weight: 700; }
+.teclas button.fun:hover { background: var(--fun-h); }
+.teclas button.op { background: var(--yellow); color: var(--navy); font-size: 32px; font-weight: 700; }
+.teclas button.op:hover { filter: brightness(1.08); }
+.teclas button.op.activa { background: var(--white); color: var(--navy); box-shadow: inset 0 0 0 3px var(--yellow); }
+.teclas button.fun.activa { background: var(--white); box-shadow: inset 0 0 0 3px var(--fun); }
+.teclas button svg { width: 30px; height: 30px; display: block; stroke: currentColor; stroke-width: 3.2; stroke-linecap: round; fill: none; }
+.teclas button.cero { grid-column: span 2; aspect-ratio: auto; border-radius: 999px; justify-content: flex-start; padding-left: 28px; }
+.pie { text-align: center; font-size: 12px; color: #8FA5CC; font-weight: 600; }
+.pie b { color: var(--yellow); }
+</style>
+</head>
+<body>
+<div class="calc" role="application" aria-label="Calculadora">
+  <div class="pantalla">
+    <div class="hist" id="hist"></div>
+    <div class="num" id="num">0</div>
+  </div>
+  <div class="teclas" id="teclas">
+    <button data-k="ac" class="fun" id="bAC" title="Borrar (Esc borra todo)">AC</button>
+    <button data-k="neg" class="fun" title="Cambiar el signo" aria-label="Cambiar el signo"><svg viewBox="0 0 32 32" aria-hidden="true"><line x1="16" y1="4.5" x2="16" y2="18.5"/><line x1="9" y1="11.5" x2="23" y2="11.5"/><line x1="9" y1="25.5" x2="23" y2="25.5"/></svg></button>
+    <button data-k="%" class="fun" title="Resto de la división (módulo)">%</button>
+    <button data-k="÷" class="op" title="Dividir" aria-label="Dividir"><svg viewBox="0 0 32 32" aria-hidden="true"><line x1="7" y1="16" x2="25" y2="16"/><circle cx="16" cy="8.5" r="2.4" fill="currentColor" stroke="none"/><circle cx="16" cy="23.5" r="2.4" fill="currentColor" stroke="none"/></svg></button>
+    <button data-k="7">7</button>
+    <button data-k="8">8</button>
+    <button data-k="9">9</button>
+    <button data-k="×" class="op" title="Multiplicar" aria-label="Multiplicar"><svg viewBox="0 0 32 32" aria-hidden="true"><line x1="9" y1="9" x2="23" y2="23"/><line x1="23" y1="9" x2="9" y2="23"/></svg></button>
+    <button data-k="4">4</button>
+    <button data-k="5">5</button>
+    <button data-k="6">6</button>
+    <button data-k="−" class="op" title="Restar" aria-label="Restar"><svg viewBox="0 0 32 32" aria-hidden="true"><line x1="7" y1="16" x2="25" y2="16"/></svg></button>
+    <button data-k="1">1</button>
+    <button data-k="2">2</button>
+    <button data-k="3">3</button>
+    <button data-k="+" class="op" title="Sumar" aria-label="Sumar"><svg viewBox="0 0 32 32" aria-hidden="true"><line x1="16" y1="7" x2="16" y2="25"/><line x1="7" y1="16" x2="25" y2="16"/></svg></button>
+    <button data-k="0" class="cero">0</button>
+    <button data-k=".">,</button>
+    <button data-k="=" class="op" title="Resultado (Intro)" aria-label="Resultado"><svg viewBox="0 0 32 32" aria-hidden="true"><line x1="7" y1="12" x2="25" y2="12"/><line x1="7" y1="20" x2="25" y2="20"/></svg></button>
+  </div>
+  <div class="pie"><b>Intro</b> = · <b>Esc</b> AC · <b>Retroceso</b> borra un dígito · <b>C</b> cierra</div>
+</div>
+<script>
+/* ---------- motor (sin DOM, para poder probarlo aparte) ---------- */
+const Calc = (function () {
+  const MAXD = 16;   // dígitos que se pueden teclear (16 bits en binario caben)
+  const st = { disp: '0', acc: null, op: null, fresh: true, err: false };
+  const fmt = (x) => {
+    if (!isFinite(x)) return null;
+    // enteros exactos hasta 16 cifras; decimales con 15 cifras significativas (oculta el ruido de la coma flotante)
+    let s = Number.isInteger(x) && Math.abs(x) < 1e16 ? String(x) : String(parseFloat(x.toPrecision(15)));
+    if (/e/.test(s) || Math.abs(x) >= 1e16) s = x.toExponential(6).replace(/\.?0+e/, 'e');
+    return s;
+  };
+  const aplica = (a, o, b) => (o === '+' ? a + b : o === '−' ? a - b : o === '×' ? a * b : o === '%' ? a % b : a / b);   // % = resto de la división (módulo)
+  const error = () => { st.disp = 'Error'; st.err = true; st.acc = null; st.op = null; st.fresh = true; };
+  const valor = () => parseFloat(st.disp);
+  function digito(d) {
+    if (st.err) return;
+    if (st.fresh) { st.disp = d === '.' ? '0.' : d; st.fresh = false; return; }
+    if (d === '.' && st.disp.includes('.')) return;
+    if (st.disp.replace(/[-.]/g, '').length >= MAXD) return;
+    st.disp = st.disp === '0' && d !== '.' ? d : st.disp + d;
+  }
+  function operar(o) {
+    if (st.err) return;
+    if (st.op !== null && !st.fresh) {
+      const r = aplica(st.acc, st.op, valor());
+      if (!isFinite(r)) return error();
+      st.acc = r; st.disp = fmt(r);
+    } else if (st.op === null) st.acc = valor();
+    st.op = o; st.fresh = true;
+  }
+  function igual() {
+    if (st.err) return;
+    if (st.op !== null) {
+      const r = aplica(st.acc, st.op, valor());
+      if (!isFinite(r)) return error();
+      st.disp = fmt(r);
+    }
+    st.acc = null; st.op = null; st.fresh = true;
+  }
+  function signo() {
+    if (st.err || st.disp === '0') return;
+    st.disp = st.disp.startsWith('-') ? st.disp.slice(1) : '-' + st.disp;
+  }
+  function borraUltimo() {
+    if (st.err || st.fresh) return;
+    st.disp = st.disp.length > 1 ? st.disp.slice(0, -1) : '0';
+    if (st.disp === '-' || st.disp === '') st.disp = '0';
+  }
+  function limpia() { st.disp = '0'; st.fresh = true; st.err = false; }
+  function todo() { st.disp = '0'; st.acc = null; st.op = null; st.fresh = true; st.err = false; }
+  function tecla(k) {
+    if (/^[0-9.]$/.test(k)) digito(k);
+    else if ('+−×÷%'.includes(k)) operar(k);
+    else if (k === '=') igual();
+    else if (k === 'neg') signo();
+    else if (k === 'bs') borraUltimo();
+    else if (k === 'c') limpia();
+    else if (k === 'ac') todo();
+    return st;
+  }
+  return { tecla, st, fmt };
+})();
+if (typeof module !== 'undefined') module.exports = Calc;
+
+/* ---------- interfaz ---------- */
+if (typeof document !== 'undefined') (function () {
+  const num = document.getElementById('num'), hist = document.getElementById('hist'), bAC = document.getElementById('bAC');
+  const coma = (s) => s.replace('.', ',');
+  function pinta() {
+    const s = Calc.st;
+    num.textContent = s.err ? s.disp : coma(s.disp);
+    const n = s.disp.length;   // la letra se encoge según los dígitos que haya
+    num.style.fontSize = (n <= 8 ? 60 : n <= 11 ? 44 : n <= 14 ? 34 : 28) + 'px';
+    num.classList.toggle('error', s.err);
+    hist.textContent = s.op !== null ? coma(Calc.fmt(s.acc)) + ' ' + (s.op === '%' ? 'mod' : s.op) : '';
+    // como en el iPhone: AC con la pantalla a cero, C cuando hay algo que borrar
+    bAC.textContent = s.disp === '0' && s.fresh ? 'AC' : 'C';
+    document.querySelectorAll('.op, [data-k="%"]').forEach((b) => b.classList.toggle('activa', s.op === b.dataset.k && s.fresh));
+  }
+  function pulsa(k) {
+    if (k === 'ac' && bAC.textContent === 'C') k = 'c';
+    Calc.tecla(k); pinta();
+    const b = document.querySelector('[data-k="' + (k === 'c' ? 'ac' : k) + '"]');
+    if (b) { b.classList.add('pulsada'); setTimeout(() => b.classList.remove('pulsada'), 90); }
+  }
+  document.getElementById('teclas').addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-k]'); if (!b) return;
+    pulsa(b.dataset.k); b.blur();
+  });
+  const MAPA = { Enter: '=', '=': '=', Backspace: 'bs', Delete: 'c', '*': '×', x: '×', X: '×', '/': '÷', ':': '÷', '-': '−', '+': '+', '%': '%', ',': '.', '.': '.' };
+  window.addEventListener('keydown', (e) => {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    // Dentro del panel de la presentación, la tecla C lo cierra (como fuera de él)
+    if ((e.key === 'c' || e.key === 'C') && window.parent !== window) { e.preventDefault(); window.parent.postMessage({ som: 'calc-cerrar' }, '*'); return; }
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      // Esc dentro del panel con todo a cero: cierra el panel; si no, borra todo
+      if (window.parent !== window && Calc.st.disp === '0' && Calc.st.op === null) { window.parent.postMessage({ som: 'calc-cerrar' }, '*'); return; }
+      Calc.tecla('ac'); pinta(); return;
+    }
+    let k = null;
+    if (/^[0-9]$/.test(e.key)) k = e.key; else if (MAPA[e.key] !== undefined) k = MAPA[e.key];
+    if (k === null) return;
+    e.preventDefault();
+    pulsa(k);
+  });
+  pinta();
+  window.focus();
+})();
+</script>
+</body>
+</html>

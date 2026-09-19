@@ -26,6 +26,8 @@
  *  7. Notas del profesor: cada sección lleva un <aside class="notas">…</aside> como primer hijo
  *     (HTML, oculto por CSS). La tecla N abre assets/notas.html en una ventana aparte con las
  *     notas de la diapositiva actual; se actualiza al cambiar de diapositiva.
+ *  8. Calculadora básica (disposición del iPhone): la tecla C abre assets/calc.html en un panel
+ *     flotante que se arrastra por la cabecera; el botón ⧉ la extrae a una pestaña nueva.
  */
 (function () {
   'use strict';
@@ -43,12 +45,15 @@
    * Los ejercicios "de rejilla" (rejilla: true) se resuelven en vertical, como en la pizarra:
    * el generador devuelve un objeto g con
    *   enunciado  texto de la consigna
+ *   cabecera   (opcional) pastilla delante del enunciado, p. ej. 'Hexadecimal → decimal' (útil en Al azar)
    *   columnas   grid-template-columns de la rejilla
    *   clase      clases extra de la rejilla ('compacta' para 8 o 9 celdas por fila)
    *   filas      lista de filas; cada fila es una lista de elementos:
    *                {lbl:'texto'}                        etiqueta de la fila
    *                {d:'1', clase, span, espejo:'id'}    dato visible (espejo: copia lo que se escribe en la casilla id)
    *                {c:'valor', clase, max, filtro, n, id, expl, cmp, span}   casilla que rellena el alumno
+ *   Cada generador devuelve además `tarea` (enunciado corto, solo lo que se pide) para la hoja de examen
+ *   en papel, y los datos con `pista: true` solo se imprimen en la hoja de práctica.
    *                {sel:['+','−'], c:'−', expl}          botón que alterna entre opciones
    *              o {linea:true} para la raya de la operación
    *   n          orden de resolución de las casillas (menor primero); sin n, orden de aparición
@@ -69,7 +74,7 @@
   /* Tabla de pesos: dígitos en una base -> decimal (binario y hexadecimal a decimal) */
   function tablaPesos(digs, base) {
     const w = digs.length;
-    const fBits = [{ lbl: base === 2 ? 'bits' : 'dígitos' }], fPos = [{ lbl: 'posición' }];
+    const fBits = [{ lbl: NOMBRE_BASE[base] }], fPos = [{ lbl: 'posición' }];
     const fVal = base === 16 ? [{ lbl: 'valor' }] : null;
     const fPeso = [{ lbl: 'peso ' + base + 'ⁿ' }], fProd = [{ lbl: base === 2 ? 'bit × peso' : 'valor × peso' }];
     let suma = 0; const sumandos = [];
@@ -88,7 +93,7 @@
     const filas = [fBits, fPos];
     if (fVal) filas.push(fVal);
     filas.push(fPeso, fProd, { linea: true });
-    filas.push([{ lbl: 'suma' }, { c: String(suma), clase: 'num', max: 6, filtro: /[^0-9]/g, span: w, n: 300,
+    filas.push([{ lbl: 'decimal' }, { c: String(suma), clase: 'num', max: 6, filtro: /[^0-9]/g, span: w, n: 300,
       expl: `Sumo los productos distintos de cero: ${sumandos.join(' + ')} = ${suma}` }]);
     return { filas, suma, sumandos };
   }
@@ -106,6 +111,7 @@
         const t = tablaPesos(b.split(''), 2);
         return {
           enunciado: 'Escribe el peso de cada posición, multiplica por el bit y suma. Empieza por la derecha.',
+          tarea: 'Pasa el número binario a decimal.',
           columnas: `120px repeat(${bits}, 74px)`, clase: 'compacta',
           filas: t.filas,
           correcto: `Correcto: ${agrupa(b)} (2 = ${t.sumandos.join(' + ')} = ${n} (10`
@@ -139,6 +145,7 @@
             expl: `Leo los restos de abajo arriba: ${restos.slice().reverse().join(' ')} → ${b}. El primer resto es el bit de la derecha (el de menos peso)` }]);
         return {
           enunciado: 'Divide entre 2 hasta que el cociente sea 0. Cada fila empieza con el cociente de la anterior.',
+          tarea: `Pasa ${n} a binario.`,
           columnas: '110px 36px 50px 40px 110px 80px 62px', clase: 'compacta mini',
           filas,
           espejo: (id, v) => v || '?',
@@ -176,6 +183,7 @@
             expl: `Los enteros leídos de arriba abajo, detrás de la coma: 0,${bits}. La parte entera sigue siendo 0` }]);
         return {
           enunciado: 'Multiplica por 2 y separa la parte entera. Sigue con la parte decimal hasta que quede 0.',
+          tarea: `Pasa ${numES(f)} a binario.`,
           columnas: '130px 60px 40px 150px 80px 62px', clase: 'compacta',
           filas,
           espejo: (id, v) => { const y = aNum(v); return isNaN(y) ? '?' : numES(+(y - Math.floor(y)).toFixed(6)); },
@@ -188,42 +196,47 @@
     bases: {
       titulo: 'Entre bases',
       rejilla: true,
-      modos: [{ t: 'Binario → octal', v: 'bin2oct' }, { t: 'Binario → hexadecimal', v: 'bin2hex' }, { t: 'Octal → binario', v: 'oct2bin' }, { t: 'Hexadecimal → binario', v: 'hex2bin' }, { t: 'Hexadecimal → decimal', v: 'hex2dec' }, { t: 'Decimal → hexadecimal', v: 'dec2hex' }, { t: 'Al azar', v: null }],
+      modos: [{ t: 'Binario → octal', v: 'bin2oct' }, { t: 'Binario → hexadecimal', v: 'bin2hex' }, { t: 'Octal → binario', v: 'oct2bin' }, { t: 'Hexadecimal → binario', v: 'hex2bin' }, { t: 'Octal → decimal', v: 'oct2dec' }, { t: 'Hexadecimal → decimal', v: 'hex2dec' }, { t: 'Decimal → octal', v: 'dec2oct' }, { t: 'Decimal → hexadecimal', v: 'dec2hex' }, { t: 'Al azar', v: null }],
       generar(cfg) {
-        const modo = cfg.modo || ['bin2oct', 'bin2hex', 'oct2bin', 'hex2bin', 'hex2dec'][rnd(0, 4)];
+        const modo = cfg.modo || ['bin2oct', 'bin2hex', 'oct2bin', 'hex2bin', 'oct2dec', 'hex2dec', 'dec2oct', 'dec2hex'][rnd(0, 7)];
         const base = modo.includes('oct') ? 8 : 16, gr = base === 8 ? 3 : 4;
-        if (modo === 'dec2hex') {
-          const n = rnd(256, 65535);
-          const pasos = [];
-          let q = n;
-          while (q > 0) { pasos.push({ q, c: Math.floor(q / 16), r: q % 16 }); q = Math.floor(q / 16); }
-          const hx = (r) => r.toString(16).toUpperCase();
-          const filas = pasos.map((p, k) => [
-            k === 0 ? { d: String(n), clase: 'dec' } : { d: '', espejo: 'q' + (k - 1) },
-            { d: ':', clase: 'op' }, { d: '16', clase: 'dec' }, { d: '=', clase: 'op' },
-            { c: String(p.c), clase: 'num', id: 'q' + k, max: 4, filtro: /[^0-9]/g, n: 2 * k, expl: `${p.q} entre 16 son ${p.c} (${p.c} × 16 = ${16 * p.c}) y sobran ${p.r}` },
-            { lbl: 'resto' },
-            { c: hx(p.r), clase: 'hex', max: 1, filtro: /[^0-9a-fA-F]/g, n: 2 * k + 1, expl: `${p.q} − ${16 * p.c} = ${p.r}` + (p.r > 9 ? `, que en hexadecimal es la letra ${hx(p.r)} (A = 10, B = 11, C = 12, D = 13, E = 14, F = 15)` : '') }
-          ]);
-          const h = n.toString(16).toUpperCase();
-          filas.push({ linea: true });
-          filas.push([{ lbl: 'de abajo arriba' }, { c: h, clase: 'hex', max: 4, filtro: /[^0-9a-fA-F]/g, span: 6, n: 100, expl: `Los restos leídos del último al primero: ${h}` }]);
+        if (modo === 'dec2oct' || modo === 'dec2hex') {
+          // Por el binario: divisiones entre 2 (en papel) y grupos de 3 o 4 bits con la tabla.
+          // Nunca se divide entre 8 ni entre 16.
+          const k = rnd(2, base === 8 ? 4 : 3);                       // dígitos del resultado
+          const n = rnd(Math.pow(base, k - 1) + 1, Math.pow(base, k) - 1);
+          const b = n.toString(2), rell = b.padStart(k * gr, '0');
+          const grupos = rell.match(new RegExp(`.{${gr}}`, 'g'));
+          const res = n.toString(base).toUpperCase();
           return {
-            enunciado: 'Decimal a hexadecimal: divide entre 16 sucesivamente y lee los restos de abajo arriba. Es lo que hace falta para pasar un PID de decimal a hexadecimal.',
-            columnas: '130px 40px 70px 40px 120px 90px 90px', clase: 'compacta',
-            filas,
-            correcto: `Correcto: ${n} (10 = ${h} (16`
+            cabecera: `Decimal → ${NOMBRE_BASE[base]}`,
+            enunciado: `Pasa a binario dividiendo entre 2 y agrupa de ${gr} en ${gr} bits con la tabla. Así no hay que dividir entre ${base}.`,
+            tarea: `Pasa ${n} de decimal a ${NOMBRE_BASE[base]}.`,
+            columnas: `170px repeat(${k}, 150px)`,
+            filas: [
+              [{ lbl: 'decimal' }, { d: String(n), clase: 'ancho', span: k }],
+              [{ lbl: 'binario' }, { c: b, clase: 'bin', max: k * gr, filtro: /[^01]/g, span: k, n: 0,
+                expl: `Divisiones entre 2 y los restos de abajo arriba, como en el ejercicio Decimal a binario: ${n} = ${b}` }],
+              [{ lbl: `grupos de ${gr}` }, ...grupos.map((g, i) => ({ c: g, clase: 'bin', max: gr, filtro: /[^01]/g, n: 1 + k - i,
+                expl: `Cuento de ${gr} en ${gr} desde la derecha: el grupo ${k - i} es ${g}` + (i === 0 && rell !== b ? ' (le he puesto ceros a la izquierda para completarlo)' : '') }))],
+              [{ lbl: NOMBRE_BASE[base] }, ...grupos.map((g, i) => { const v = parseInt(g, 2); return { c: v.toString(base).toUpperCase(), clase: base === 16 ? 'hex' : '', max: 1, filtro: base === 16 ? /[^0-9a-fA-F]/g : /[^0-7]/g, n: 100 + k - i,
+                expl: `${g} en binario vale ${v}` + (v > 9 ? `, que en hexadecimal se escribe ${v.toString(16).toUpperCase()}` : '') }; })]
+            ],
+            correcto: `Correcto: ${n} (10 = ${b} (2 = ${res} (${base}`
           };
         }
-        if (modo === 'hex2dec') {
+        if (modo === 'oct2dec' || modo === 'hex2dec') {
+          // Teorema fundamental: cada dígito por el peso de su posición, y se suma.
           const k = rnd(2, 3);
-          const n = rnd(Math.pow(16, k - 1) + 1, Math.pow(16, k) - 1);
-          const h = n.toString(16).toUpperCase();
-          const t = tablaPesos(h.split(''), 16);
+          const n = rnd(Math.pow(base, k - 1) + 1, Math.pow(base, k) - 1);
+          const h = n.toString(base).toUpperCase();
+          const t = tablaPesos(h.split(''), base);
           return {
-            enunciado: 'Hexadecimal a decimal: el valor de cada dígito por el peso de su posición (16ⁿ), y se suma.',
+            cabecera: `${NOMBRE_BASE[base][0].toUpperCase() + NOMBRE_BASE[base].slice(1)} → decimal`,
+            enunciado: `Teorema fundamental: el valor de cada dígito por el peso de su posición (${base}ⁿ), y se suma.`,
+            tarea: `Pasa ${h} de ${NOMBRE_BASE[base]} a decimal.`,
             columnas: `130px repeat(${k}, 130px)`, clase: 'compacta', filas: t.filas,
-            correcto: `Correcto: ${h} (16 = ${t.sumandos.join(' + ')} = ${n} (10`
+            correcto: `Correcto: ${h} (${base} = ${t.sumandos.join(' + ')} = ${n} (10`
           };
         }
         if (modo === 'bin2oct' || modo === 'bin2hex') {
@@ -233,7 +246,9 @@
           const grupos = rell.match(new RegExp(`.{${gr}}`, 'g'));
           const res = n.toString(base).toUpperCase();
           return {
-            enunciado: `Binario a ${NOMBRE_BASE[base]}: separa en grupos de ${gr} bits empezando por la derecha y traduce cada grupo.`,
+            cabecera: `Binario → ${NOMBRE_BASE[base]}`,
+            enunciado: `Separa en grupos de ${gr} bits empezando por la derecha y traduce cada grupo con la tabla.`,
+            tarea: `Pasa el número binario a ${NOMBRE_BASE[base]}.`,
             columnas: `170px repeat(${k}, 150px)`,
             filas: [
               [{ lbl: 'binario' }, { d: b, clase: 'ancho', span: k }],
@@ -251,7 +266,9 @@
         const s = n.toString(base).toUpperCase();
         const b = n.toString(2);
         return {
-          enunciado: `${NOMBRE_BASE[base][0].toUpperCase() + NOMBRE_BASE[base].slice(1)} a binario: cada dígito se convierte en un grupo de ${gr} bits, con ceros a la izquierda si hace falta.`,
+          cabecera: `${NOMBRE_BASE[base][0].toUpperCase() + NOMBRE_BASE[base].slice(1)} → binario`,
+          enunciado: `Cada dígito se convierte en su grupo de ${gr} bits, con ceros a la izquierda si hace falta.`,
+          tarea: `Pasa ${s} de ${NOMBRE_BASE[base]} a binario.`,
           columnas: `170px repeat(${k}, 150px)`,
           filas: [
             [{ lbl: NOMBRE_BASE[base] }, ...s.split('').map((d) => ({ d, clase: 'ancho' }))],
@@ -293,6 +310,7 @@
         for (let i = 0; i < w; i++) { fA.push({ d: i >= w - la ? A[i] : '' }); fB.push({ d: i >= w - lb ? B[i] : '' }); }
         return {
           enunciado: 'Rellena los acarreos y el resultado, columna a columna, empezando por la derecha.',
+          tarea: 'Suma los dos números binarios.',
           columnas: `170px repeat(${w}, 86px)`,
           filas: [fLleva, fA, fB, { linea: true }, fS],
           correcto: `Correcto: ${a} + ${b} = ${s}, es decir ${agrupa(S)} en binario.`,
@@ -331,6 +349,7 @@
         }
         const g = {
           enunciado: 'Resta columna a columna desde la derecha. Si en una columna no puedes, pide 1 a la de la izquierda. Fíjate antes en cuál de los dos números es mayor.',
+          tarea: 'Resta los dos números binarios y pon el signo del resultado.',
           columnas: `150px 62px repeat(${w}, 86px)`,
           invertido: false,
           correcto: neg ? `Correcto: ${a} − ${b} = −(${b} − ${a}) = −${M - S}, es decir −${agrupa(bin(M - S))} en binario.` : `Correcto: ${a} − ${b} = ${a - b}, es decir ${agrupa(bin(a - b))} en binario.`,
@@ -390,6 +409,7 @@
         const filas = op === 'NOT' ? [fA, { linea: true }, fR] : [fA, fB, { linea: true }, fR];
         return {
           enunciado: op === 'NOT' ? 'NOT trabaja con un solo número: invierte cada bit.' : `Aplica ${op} bit a bit: cada columna se opera por separado, sin acarreos. ${ops[op].regla}.`,
+          tarea: `Calcula ${op === 'NOT' ? 'NOT A' : 'A ' + op + ' B'} bit a bit.`,
           columnas: `130px repeat(${bits}, 74px)`, clase: 'compacta',
           filas,
           correcto: `Correcto: ${op === 'NOT' ? 'NOT ' + A : A + ' ' + op + ' ' + B} = ${r}`
@@ -422,6 +442,7 @@
         }
         return {
           enunciado: 'Complemento a 1: invierte todos los bits. Complemento a 2: suma 1 al complemento a 1 (empieza por la derecha y lleva el acarreo).',
+          tarea: 'Calcula el complemento a 1 y el complemento a 2 del número.',
           columnas: `150px repeat(${bits}, 74px)`, clase: 'compacta',
           filas: [fN, f1, f2],
           correcto: `Correcto: C1(${N}) = ${C1} y C2 = ${C2}. Truco: de derecha a izquierda se copian los bits hasta el primer 1 incluido, y se invierten los demás.`
@@ -483,6 +504,7 @@
           expl: neg ? `No sobró ningún 1: el resultado ${res} es negativo y está en complemento a 2. Le hago el C2 para leerlo: ${bin(b - a, bits)} = ${b - a}, así que vale −${b - a}` : `Sobró un 1 que se descarta; ${res} es ${a - b}` }];
         return {
           enunciado: 'Complemento a 2 del sustraendo, suma con el minuendo y decide qué pasa con el bit que sobra.',
+          tarea: 'Calcula A − B en complemento a 2.',
           columnas: `130px repeat(${bits + 1}, 62px)`, clase: 'compacta mini',
           filas: [fB, f1, f2, { linea: true, clase: 'suave' }, fL, fA, fC, { linea: true }, [...fS, ...cel], fD],
           espejo: (id, v) => v || '·',
@@ -507,6 +529,7 @@
         if (modo === 'calcular') {
           return {
             enunciado: `Paridad ${tipo}: cuenta los unos del dato y añade a la izquierda el bit que haga que el total de unos sea ${tipo}.`,
+            tarea: `Añade al dato el bit de paridad ${tipo}.`,
             columnas: '190px repeat(8, 64px)', clase: 'compacta',
             filas: [
               [{ lbl: 'dato (7 bits)' }, { d: '' }, ...dato.split('').map((d) => ({ d }))],
@@ -524,6 +547,7 @@
         const ut = unos(palabra);
         return {
           enunciado: `Se ha recibido esta palabra con paridad ${tipo} (el bit de paridad es el de la izquierda). ¿Ha llegado bien?`,
+          tarea: `Palabra recibida con paridad ${tipo} (el bit de paridad es el de la izquierda). ¿Ha llegado bien?`,
           columnas: '190px repeat(8, 64px)', clase: 'compacta',
           filas: [
             [{ lbl: 'recibido' }, ...palabra.split('').map((d, i) => ({ d, clase: i === 0 ? 'marca' : '' }))],
@@ -550,43 +574,50 @@
           const aBits = rnd(0, 1) === 1;
           const nB = rnd(2, 64), nb = nB * 8;
           return {
-            enunciado: aBits ? 'Pasa de bytes a bits. Elige la operación y escribe el resultado.' : 'Pasa de bits a bytes. Elige la operación y escribe el resultado.',
+            enunciado: aBits ? 'Pasa de bytes a bits.' : 'Pasa de bits a bytes.',
+            tarea: aBits ? 'Pasa de bytes a bits.' : 'Pasa de bits a bytes.',
             columnas: '190px 200px 140px', clase: 'compacta',
             filas: [
               [{ lbl: 'dato' }, { d: aBits ? String(nB) : String(nb), clase: 'ancho' }, { d: aBits ? 'bytes' : 'bits', clase: 'peq' }],
-              [{ lbl: 'operación' }, { sel: ['× 8', '÷ 8'], c: aBits ? '× 8' : '÷ 8', n: 0,
-                expl: aBits ? 'Un byte son 8 bits: de bytes a bits se multiplica por 8' : 'Un byte son 8 bits: de bits a bytes se divide entre 8' }, { d: '' }],
               { linea: true },
-              [{ lbl: 'resultado' }, { c: aBits ? String(nb) : String(nB), clase: 'num', max: 4, filtro: /[^0-9]/g, n: 1,
-                expl: aBits ? `${nB} × 8 = ${nb} bits` : `${nb} ÷ 8 = ${nB} bytes` }, { d: aBits ? 'bits' : 'bytes', clase: 'peq' }]
+              [{ lbl: 'resultado' }, { c: aBits ? String(nb) : String(nB), clase: 'num', max: 4, filtro: /[^0-9]/g, n: 0,
+                expl: aBits ? `Un byte son 8 bits: ${nB} × 8 = ${nb} bits` : `Un byte son 8 bits: ${nb} ÷ 8 = ${nB} bytes` }, { d: aBits ? 'bits' : 'bytes', clase: 'peq' }]
             ],
             correcto: aBits ? `Correcto: ${nB} bytes son ${nb} bits.` : `Correcto: ${nb} bits son ${nB} bytes.`
           };
         }
         if (modo === 'binario') {
+          // de una unidad a otra, de 1 a 4 saltos en cualquier dirección; se pide la expresión, no el cálculo
           const U = ['B', 'KiB', 'MiB', 'GiB', 'TiB'];
-          const sube = rnd(0, 1) === 1;                        // sube: a una unidad mayor (se divide)
-          const pasos = sube ? 1 : rnd(1, 2);                  // dividir dos veces sin calculadora es demasiado
-          const i = sube ? rnd(0, U.length - 1 - pasos) : rnd(pasos, U.length - 1);
-          const k = rnd(1, 12);
-          const valor = sube ? k * Math.pow(1024, pasos) : k;
-          const filas = [[{ lbl: 'dato' }, { d: miles(valor), clase: 'ancho' }, { d: '' }, { d: U[i], clase: 'peq' }]];
-          let v = valor, u = i;
-          for (let p = 0; p < pasos; p++) {
-            const nu = sube ? u + 1 : u - 1, nv = sube ? v / 1024 : v * 1024;
-            filas.push([{ lbl: pasos > 1 ? `paso ${p + 1}` : 'operación' },
-              { sel: ['× 1024', '÷ 1024'], c: sube ? '÷ 1024' : '× 1024', n: 2 * p,
-                expl: `1 ${U[Math.max(u, nu)]} son 1024 ${U[Math.min(u, nu)]}: de ${U[u]} a ${U[nu]} se ${sube ? 'divide entre' : 'multiplica por'} 1024` },
-              { c: String(nv), clase: 'num', max: 9, filtro: /[^0-9]/g, n: 2 * p + 1, cmp: (x) => sinSep(x) === String(nv),
-                expl: `${miles(v)} ${sube ? '÷' : '×'} 1024 = ${miles(nv)} ${U[nu]}` },
-              { d: U[nu], clase: 'peq' }]);
-            v = nv; u = nu;
-          }
+          const i = rnd(0, U.length - 1);
+          let j = rnd(0, U.length - 2); if (j >= i) j++;         // destino distinto del origen
+          const pasos = Math.abs(j - i), sube = j > i;           // sube: a una unidad mayor (se divide)
+          const k = rnd(2, 12);
+          const op = sube ? '÷' : '×';
+          const SUP = ['', '¹', '²', '³', '⁴'], SUP10 = ['', '¹⁰', '²⁰', '³⁰', '⁴⁰'];
+          const expr = [String(k)].concat(Array(pasos).fill('1024')).join(` ${op} `);
+          const exprPot = `${k} ${op} 1024${SUP[pasos]}`;
+          const camino = sube ? U.slice(i, j + 1) : U.slice(j, i + 1).reverse();
+          // se aceptan: k × 1024 × 1024…, k × 1024^p, k × 2^(10p) (con x, *, ·, ÷, :, /, paréntesis y espacios a gusto)
+          const normU = (t) => String(t).toLowerCase().replace(/\s+/g, '').replace(/[×x*·]/g, '*').replace(/[÷:]/g, '/').replace(/\*\*/g, '^').replace(/[()]/g, '')
+            .replace(/¹⁰/g, '^10').replace(/²⁰/g, '^20').replace(/³⁰/g, '^30').replace(/⁴⁰/g, '^40').replace(/¹/g, '^1').replace(/²/g, '^2').replace(/³/g, '^3').replace(/⁴/g, '^4');
+          const opN = sube ? '/' : '*';
+          const validas = [normU(expr), `${k}${opN}1024^${pasos}`, `${k}${opN}2^${10 * pasos}`];
+          if (!sube) validas.push(String(k * Math.pow(1024, pasos)));   // si alguien lo calcula, también vale
+          const cmpExpr = (v) => validas.includes(normU(v));
           return {
-            enunciado: `Pasa de ${U[i]} a ${U[u]}. Cada paso entre unidades vecinas es multiplicar o dividir por 1024 (2¹⁰).`,
-            columnas: '150px 170px 210px 90px', clase: 'compacta',
-            filas,
-            correcto: `Correcto: ${miles(valor)} ${U[i]} = ${miles(v)} ${U[u]}. Regla: hacia una unidad mayor se divide, hacia una menor se multiplica.`
+            enunciado: `Pasa ${k} ${U[i]} a ${U[j]}. Cada salto entre unidades vecinas es multiplicar o dividir por 1024 (2¹⁰). Escribe la expresión, sin calcularla.`,
+            tarea: `Pasa ${k} ${U[i]} a ${U[j]}. Escribe la expresión, sin calcularla.`,
+            columnas: '150px 470px 90px', clase: 'compacta',
+            filas: [
+              [{ lbl: 'dato' }, { d: `${k} ${U[i]}`, clase: 'ancho' }, { d: `a ${U[j]}`, clase: 'peq' }],
+              [{ lbl: 'saltos' }, { c: String(pasos), clase: 'num', max: 1, filtro: /[^0-9]/g, n: 0,
+                expl: `De ${U[i]} a ${U[j]}: ${camino.join(' → ')}, ${pasos} salto${pasos > 1 ? 's' : ''}` }, { d: '' }],
+              { linea: true },
+              [{ lbl: 'resultado' }, { c: expr, clase: 'num', max: 40, filtro: /[^0-9xX×*·÷:/^()\s]/g, n: 1, cmp: cmpExpr,
+                expl: `Hacia una unidad ${sube ? 'mayor se divide entre' : 'menor se multiplica por'} 1024 en cada salto: ${expr}${pasos > 1 ? `, o ${exprPot}` : ''}` }, { d: U[j], clase: 'peq' }]
+            ],
+            correcto: `Correcto: ${k} ${U[i]} = ${pasos > 1 ? exprPot : expr} ${U[j]}${pasos > 1 ? ` = ${k} ${op} 2${SUP10[pasos]} ${U[j]}` : ''}. Regla: hacia una unidad mayor se divide, hacia una menor se multiplica.`
           };
         }
         // fabricante: GB o TB decimales -> GiB que muestra el sistema
@@ -597,6 +628,7 @@
         const gibTxt = numES(gib.toFixed(1));
         return {
           enunciado: `El fabricante anuncia ${n} ${enTB ? 'TB' : 'GB'} (prefijos decimales) y el sistema mide en GiB (2³⁰ bytes). Este modo se hace con calculadora.`,
+          tarea: `El fabricante anuncia ${n} ${enTB ? 'TB' : 'GB'}. ¿Cuántos GiB muestra el sistema?`,
           columnas: '210px 330px 110px', clase: 'compacta',
           filas: [
             [{ lbl: 'anunciado' }, { d: `${n} ${enTB ? 'TB' : 'GB'}`, clase: 'ancho' }, { d: '' }],
@@ -636,28 +668,30 @@
         if (modo === 'codigo') {
           return {
             enunciado: 'Del carácter a su código ASCII. Basta con recordar tres anclas: A = 65, a = 97 y 0 = 48.',
+            tarea: `Escribe el código ASCII de «${ch}» en decimal, binario y hexadecimal.`,
             columnas: '210px 200px 1fr', clase: 'compacta mini',
             filas: [
               [{ lbl: 'carácter' }, { d: ch, clase: 'ancho' }, { d: '' }],
-              [{ lbl: 'código base' }, { c: String(r.base), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 0, expl: exBase }, { d: 'A = 65 · a = 97 · 0 = 48', clase: 'peq' }],
-              [{ lbl: 'posición' }, { c: String(pos), clase: 'num', max: 2, filtro: /[^0-9]/g, n: 1, expl: exPos }, { d: 'contando desde 0', clase: 'peq' }],
-              [{ lbl: 'decimal' }, { c: String(cod), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 2, expl: `${r.base} + ${pos} = ${cod}` }, { d: 'base + posición', clase: 'peq' }],
+              [{ lbl: 'código base' }, { c: String(r.base), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 0, expl: exBase }, { d: 'A = 65 · a = 97 · 0 = 48', clase: 'peq', pista: true }],
+              [{ lbl: 'posición' }, { c: String(pos), clase: 'num', max: 2, filtro: /[^0-9]/g, n: 1, expl: exPos }, { d: 'contando desde 0', clase: 'peq', pista: true }],
+              [{ lbl: 'decimal' }, { c: String(cod), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 2, expl: `${r.base} + ${pos} = ${cod}` }, { d: 'base + posición', clase: 'peq', pista: true }],
               [{ lbl: 'binario' }, { c: b8, clase: 'bin', max: 8, filtro: /[^01]/g, n: 3, expl: exBin }, { d: '8 bits', clase: 'peq' }],
-              [{ lbl: 'hexadecimal' }, { c: hx, clase: 'hex', max: 2, filtro: /[^0-9a-fA-F]/g, n: 4, expl: exHex }, { d: 'grupos de 4 bits', clase: 'peq' }]
+              [{ lbl: 'hexadecimal' }, { c: hx, clase: 'hex', max: 2, filtro: /[^0-9a-fA-F]/g, n: 4, expl: exHex }, { d: 'grupos de 4 bits', clase: 'peq', pista: true }]
             ],
-            correcto: `Correcto: «${ch}» = ${cod} = ${b8} = ${hx} (16.`
+            correcto: `Correcto: «${ch}» = ${cod} = ${b8} = ${hx} en hexadecimal.`
           };
         }
         if (modo === 'caracter') {
           return {
             enunciado: 'Del código ASCII al carácter. Primero decide en qué rango cae el número.',
+            tarea: '¿Qué carácter tiene este código ASCII?',
             columnas: '210px 240px 1fr', clase: 'compacta',
             filas: [
               [{ lbl: 'código' }, { d: b8, clase: 'ancho' }, { d: 'binario', clase: 'peq' }],
-              [{ lbl: 'decimal' }, { c: String(cod), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 0, expl: `${b8} = ${b8.split('').map((x, i) => x === '1' ? 1 << (7 - i) : 0).filter(Boolean).join(' + ')} = ${cod}` }, { d: 'suma de pesos', clase: 'peq' }],
+              [{ lbl: 'decimal' }, { c: String(cod), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 0, expl: `${b8} = ${b8.split('').map((x, i) => x === '1' ? 1 << (7 - i) : 0).filter(Boolean).join(' + ')} = ${cod}` }, { d: 'suma de pesos', clase: 'peq', pista: true }],
               [{ lbl: 'rango' }, { sel: RANGOS.map((x) => x.sel), c: r.sel, n: 1, expl: `${cod} está entre ${r.base} y ${r.base + r.n - 1}: ${r.nombre}` }, { d: 'pulsa para cambiar', clase: 'peq' }],
-              [{ lbl: 'posición' }, { c: String(pos), clase: 'num', max: 2, filtro: /[^0-9]/g, n: 2, expl: `${cod} − ${r.base} = ${pos}` }, { d: `código − ${r.base}`, clase: 'peq' }],
-              [{ lbl: 'carácter' }, { c: ch, max: 1, filtro: filtroChar, n: 3, cmp: (v) => v === ch, expl: `${pos} posiciones después de ${r.primero}: ${ch}` }, { d: r.nombre === 'dígitos' ? '0 1 2 3 4 5 6 7 8 9' : (r.nombre === 'mayúsculas' ? 'A B C D E F G H I J K L M…' : 'a b c d e f g h i j k l m…'), clase: 'peq' }]
+              [{ lbl: 'posición' }, { c: String(pos), clase: 'num', max: 2, filtro: /[^0-9]/g, n: 2, expl: `${cod} − ${r.base} = ${pos}` }, { d: `código − ${r.base}`, clase: 'peq', pista: true }],
+              [{ lbl: 'carácter' }, { c: ch, max: 1, filtro: filtroChar, n: 3, cmp: (v) => v === ch, expl: `${pos} posiciones después de ${r.primero}: ${ch}` }, { d: r.nombre === 'dígitos' ? '0 1 2 3 4 5 6 7 8 9' : (r.nombre === 'mayúsculas' ? 'A B C D E F G H I J K L M…' : 'a b c d e f g h i j k l m…'), clase: 'peq', pista: true }]
             ],
             correcto: `Correcto: ${b8} (${cod}) es el carácter «${ch}».`
           };
@@ -667,15 +701,16 @@
         const cod2 = aMayus ? cod - 32 : cod + 32, ch2 = String.fromCharCode(cod2), b2 = bin(cod2, 8);
         return {
           enunciado: `Pasa «${ch}» a ${aMayus ? 'mayúscula' : 'minúscula'}. Las dos letras se diferencian en 32, que es un solo bit.`,
+          tarea: `Pasa «${ch}» a ${aMayus ? 'mayúscula' : 'minúscula'} en ASCII.`,
           columnas: '210px 240px 1fr', clase: 'compacta mini',
           filas: [
             [{ lbl: 'carácter' }, { d: ch, clase: 'ancho' }, { d: '' }],
-            [{ lbl: 'código' }, { c: String(cod), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 0, expl: exBase + `, y ${ch} está ${pos} después: ${cod}` }, { d: 'A = 65 · a = 97', clase: 'peq' }],
+            [{ lbl: 'código' }, { c: String(cod), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 0, expl: exBase + `, y ${ch} está ${pos} después: ${cod}` }, { d: 'A = 65 · a = 97', clase: 'peq', pista: true }],
             [{ lbl: 'operación' }, { sel: ['− 32', '+ 32'], c: aMayus ? '− 32' : '+ 32', n: 1, expl: aMayus ? 'La mayúscula está 32 por debajo de la minúscula: se resta 32' : 'La minúscula está 32 por encima de la mayúscula: se suma 32' }, { d: 'pulsa para cambiar', clase: 'peq' }],
             [{ lbl: 'nuevo código' }, { c: String(cod2), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 2, expl: `${cod} ${aMayus ? '−' : '+'} 32 = ${cod2}` }, { d: '' }],
             [{ lbl: 'carácter' }, { c: ch2, max: 1, filtro: filtroChar, n: 3, cmp: (v) => v === ch2, expl: `${cod2} es «${ch2}»` }, { d: aMayus ? 'en mayúscula' : 'en minúscula', clase: 'peq' }],
-            [{ lbl: `${ch} en binario` }, { d: b8, clase: 'ancho' }, { d: 'el tercer bit por la izquierda vale 32', clase: 'peq' }],
-            [{ lbl: `${ch2} en binario` }, { c: b2, clase: 'bin', max: 8, filtro: /[^01]/g, n: 4, expl: `Solo cambia el bit de peso 32 (el tercero por la izquierda): ${b8} → ${b2}` }, { d: 'solo cambia un bit', clase: 'peq' }]
+            [{ lbl: `${ch} en binario` }, { d: b8, clase: 'ancho' }, { d: 'el tercer bit por la izquierda vale 32', clase: 'peq', pista: true }],
+            [{ lbl: `${ch2} en binario` }, { c: b2, clase: 'bin', max: 8, filtro: /[^01]/g, n: 4, expl: `Solo cambia el bit de peso 32 (el tercero por la izquierda): ${b8} → ${b2}` }, { d: 'solo cambia un bit', clase: 'peq', pista: true }]
           ],
           correcto: `Correcto: «${ch}» (${cod}) y «${ch2}» (${cod2}) solo se diferencian en el bit de peso 32.`
         };
@@ -708,15 +743,16 @@
         const xTxt = numES(a);
         return {
           enunciado: 'Binario, normalizar (1,… × 2ᵉ), exponente + 127 y mantisa de 23 bits sin el 1 implícito.',
+          tarea: `Representa ${numES(x)} en IEEE 754 de simple precisión.`,
           columnas: '230px 120px 1fr', clase: 'compacta mini',
           filas: [
             [{ lbl: 'número' }, { d: numES(x), clase: 'ancho', span: 2 }],
-            [{ lbl: 'signo' }, { c: neg ? '1' : '0', n: 0, expl: neg ? 'Es negativo: el bit de signo vale 1' : 'Es positivo: el bit de signo vale 0' }, { d: '0 positivo · 1 negativo', clase: 'peq' }],
+            [{ lbl: 'signo' }, { c: neg ? '1' : '0', n: 0, expl: neg ? 'Es negativo: el bit de signo vale 1' : 'Es positivo: el bit de signo vale 0' }, { d: '0 positivo · 1 negativo', clase: 'peq', pista: true }],
             [{ lbl: 'en binario' }, { c: binTxt, clase: 'bin', max: 16, filtro: /[^01.,]/g, span: 2, n: 1, cmp: (v) => v.replace('.', ',') === binTxt,
               expl: `Parte entera ${ent} = ${ent ? eb : '0'}` + (fb ? `; parte decimal ${numES(frac)} = 0,${fb} (multiplicando por 2)` : '') + ` → ${binTxt}` }],
             [{ lbl: 'exponente' }, { c: String(e), clase: 'num', max: 3, filtro: /[^0-9\-−]/g, n: 2, cmp: (v) => aNum(v) === e,
-              expl: `Muevo la coma hasta dejar un solo 1 delante: ${norm}. ` + (e >= 0 ? `La coma se ha movido ${e} posiciones a la izquierda` : `La coma se ha movido ${-e} posiciones a la derecha, así que el exponente es negativo`) }, { d: `${xTxt} = ${norm}`, clase: 'peq' }],
-            [{ lbl: 'exponente + 127' }, { c: String(E), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 3, expl: `${e} + 127 = ${E} (el sesgo evita guardar exponentes negativos)` }, { d: 'sesgo 127', clase: 'peq' }],
+              expl: `Muevo la coma hasta dejar un solo 1 delante: ${norm}. ` + (e >= 0 ? `La coma se ha movido ${e} posiciones a la izquierda` : `La coma se ha movido ${-e} posiciones a la derecha, así que el exponente es negativo`) }, { d: `${xTxt} = ${norm}`, clase: 'peq', pista: true }],
+            [{ lbl: 'exponente + 127' }, { c: String(E), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 3, expl: `${e} + 127 = ${E} (el sesgo evita guardar exponentes negativos)` }, { d: 'sesgo 127', clase: 'peq', pista: true }],
             [{ lbl: 'exponente 8 bits' }, { c: E8, clase: 'bin', max: 8, filtro: /[^01]/g, n: 4, span: 2, expl: `${E} en binario de 8 bits: ${E8}` }],
             [{ lbl: 'mantisa 23 bits' }, { c: mant23, clase: 'bin', max: 23, filtro: /[^01]/g, n: 5, span: 2, expl: `Lo que queda detrás de la coma en ${norm.split(' ×')[0]} sin el 1 implícito: ${mant || '(nada)'}, y ceros hasta completar 23 bits` }],
             { linea: true },
@@ -754,6 +790,7 @@
         const s = S[rnd(0, S.length - 1)];
         return {
           enunciado: 'Lee lo que le pasa al proceso y elige el estado de origen, el de destino y el número de la transición en la figura.',
+          tarea: 'Lee lo que le pasa al proceso: ¿de qué estado a qué estado pasa, y por qué transición de la figura?',
           columnas: '190px 640px', clase: 'texto',
           filas: [
             [{ lbl: 'qué pasa' }, { d: s.t, clase: 'texto' }],
@@ -819,6 +856,7 @@
         filas.push(fill([{ lbl: 'espera media' }, { c: `${sumEsp}/${N}`, clase: 'dec', max: 7, filtro: /[^0-9,./]/g, span: 3, n: 301, cmp: cmpMedia(sumEsp), expl: `(${R.esp.join(' + ')}) / ${N} = ${sumEsp}/${N} = ${fmt(sumEsp / N)}` }]));
         return {
           enunciado: `${NOM[algo][0].toUpperCase() + NOM[algo].slice(1)}. Fila CPU: el proceso (1 a 4) de cada unidad de tiempo; luego los tiempos y las medias (fracción o coma).`,
+          tarea: `${NOM[algo][0].toUpperCase() + NOM[algo].slice(1)}: cronograma, tiempos de respuesta y de espera de cada proceso, y las dos medias.`,
           columnas: `118px repeat(${T}, ${T > 16 ? 36 : 42}px)`, clase: 'plan' + (T > 16 ? ' xs' : ''),
           filas,
           alEscribir(sv) {
@@ -848,6 +886,7 @@
           const np = Math.ceil(tam / pag), ocupa = np * pag, frag = ocupa - tam;
           return {
             enunciado: 'Un proceso se reparte en páginas de tamaño fijo. Calcula cuántas necesita, cuánto ocupa en total y cuánto se pierde en la última página.',
+            tarea: 'Páginas que necesita el proceso, memoria que ocupa y fragmentación interna.',
             columnas: '300px 150px 90px',
             filas: [
               [{ lbl: 'tamaño del proceso' }, { d: String(tam), clase: 'dato' }, { lbl: 'KiB' }],
@@ -874,6 +913,7 @@
           const fenExpl = tam > mayor && tam <= total ? `Hay ${total} KiB libres en total pero ningún hueco de ${tam} KiB seguidos: fragmentación externa (habría que compactar).` : (tam <= mayor ? 'Cabe en un hueco: no hay fragmentación que impida cargarlo.' : `Ni juntando todos los huecos (${total} KiB) cabe: falta memoria, no es fragmentación.`);
           return {
             enunciado: 'Con particiones de tamaño variable, un proceso solo cabe en un hueco igual o mayor que él, aunque la suma de los huecos sea suficiente.',
+            tarea: '¿Cabe el proceso? ¿En qué hueco? ¿Qué fragmentación hay?',
             columnas: `300px repeat(${k}, 90px)`,
             filas: [
               [{ lbl: 'huecos libres (KiB)' }, ...huecos.map((h) => ({ d: String(h), clase: 'dato' }))],
@@ -894,6 +934,7 @@
         const faltan = cabe ? 0 : np - marcos;
         return {
           enunciado: 'Con memoria virtual, en la RAM solo tiene que estar la parte del proceso que se usa. Calcula si cabe entero o cuántas páginas quedan en el disco.',
+          tarea: '¿Cabe el proceso entero en la RAM? Si no, ¿cuántas páginas quedan en el disco?',
           columnas: '300px 150px 90px',
           filas: [
             [{ lbl: 'tamaño del proceso' }, { d: String(tam), clase: 'dato' }, { lbl: 'KiB' }],
@@ -929,6 +970,7 @@
         const filas = orden.map((i) => [{ d: PASOS[i].t, clase: 'texto', span: 4 }, { c: String(i + 1), clase: 'num', max: 1, filtro: /[^1-7]/g, n: i, expl: `Paso ${i + 1}: ${PASOS[i].t}. ${PASOS[i].e}` }]);
         return {
           enunciado: `Arranque con ${uefi ? 'UEFI y GPT' : 'BIOS y MBR'}: escribe junto a cada paso su número de orden, del 1 (al dar corriente) al 7 (equipo listo).`,
+          tarea: `Arranque con ${uefi ? 'UEFI y GPT' : 'BIOS y MBR'}: numera los pasos del 1 al 7.`,
           columnas: 'repeat(4, 185px) 84px', clase: 'texto',
           filas,
           correcto: 'Correcto: ' + PASOS.map((p, i) => `${i + 1} ${p.t.split(':')[0].split(' ').slice(0, 4).join(' ')}…`).join(' · ')
@@ -963,6 +1005,7 @@
         const c = C[rnd(0, C.length - 1)];
         return {
           enunciado: 'Lee el caso, contesta a las cuatro preguntas y elige el sistema de archivos. Si hay dos opciones válidas, cualquiera de las dos vale.',
+          tarea: 'Lee el caso y elige el sistema de archivos. Si hay dos opciones válidas, cualquiera vale.',
           columnas: '330px 470px', clase: 'texto',
           filas: [
             [{ lbl: 'caso' }, { d: c.t, clase: 'texto' }],
@@ -1102,7 +1145,9 @@
 
     function nuevo() {
       g = gen.generar(Object.assign({}, cfg, { modo: estado.modo }));
-      enunciado.textContent = g.enunciado || '';
+      enunciado.textContent = '';
+      if (g.cabecera) { const b = document.createElement('b'); b.className = 'ej-cab'; b.textContent = g.cabecera; enunciado.appendChild(b); }
+      enunciado.appendChild(document.createTextNode(g.enunciado || ''));
       conPista = false; resuelto = false;
       mensaje('');
       pinta(false);
@@ -1750,6 +1795,83 @@
   }
   SOM.abreNotas = abreNotas;
 
+  /* ---------- calculadora básica (tecla C) ----------
+   * Panel flotante con assets/calc.html en un iframe. Se arrastra por la cabecera, recuerda su
+   * posición en localStorage y se puede extraer a una pestaña nueva (mismo archivo, solo).
+   * La calculadora avisa por postMessage {som:'calc-cerrar'} cuando se pulsa Esc con todo a cero.
+   */
+  const URL_CALC = (document.currentScript && document.currentScript.src || '../assets/som.js').replace(/som\.js.*$/, 'calc.html');
+  let panelCalc = null;
+
+  function abreCalc() {
+    if (panelCalc) { cierraCalc(); return; }
+    const p = document.createElement('div');
+    p.className = 'calc-panel';
+    p.innerHTML = '<div class="calc-cab"><span class="calc-titulo">Calculadora básica</span>'
+      + '<button class="calc-btn" data-calc="pestana" title="Abrir en una pestaña nueva">⧉</button>'
+      + '<button class="calc-btn" data-calc="cerrar" title="Cerrar (tecla C)">×</button></div>'
+      + '<iframe src="' + URL_CALC + '" title="Calculadora básica"></iframe>';
+    let pos = null;
+    try { pos = JSON.parse(localStorage.getItem('som-calc-pos') || 'null'); } catch (e) {}
+    const ancho = 372, alto = 620;
+    const x = pos && pos.x !== undefined ? pos.x : window.innerWidth - ancho - 32;
+    const y = pos && pos.y !== undefined ? pos.y : Math.max(16, window.innerHeight - alto - 32);
+    p.style.left = Math.max(0, Math.min(x, window.innerWidth - ancho)) + 'px';
+    p.style.top = Math.max(0, Math.min(y, window.innerHeight - 60)) + 'px';
+    p.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-calc]'); if (!b) return;
+      if (b.dataset.calc === 'cerrar') cierraCalc();
+      else { window.open(URL_CALC, '_blank', 'noopener'); cierraCalc(); }
+    });
+    // arrastre por la cabecera
+    const cab = p.querySelector('.calc-cab');
+    let arr = null;
+    cab.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('button')) return;
+      arr = { dx: e.clientX - p.offsetLeft, dy: e.clientY - p.offsetTop };
+      cab.setPointerCapture(e.pointerId);
+      p.classList.add('arrastrando');
+    });
+    cab.addEventListener('pointermove', (e) => {
+      if (!arr) return;
+      const nx = Math.max(0, Math.min(e.clientX - arr.dx, window.innerWidth - p.offsetWidth));
+      const ny = Math.max(0, Math.min(e.clientY - arr.dy, window.innerHeight - cab.offsetHeight));
+      p.style.left = nx + 'px'; p.style.top = ny + 'px';
+    });
+    const suelta = () => {
+      if (!arr) return;
+      arr = null; p.classList.remove('arrastrando');
+      try { localStorage.setItem('som-calc-pos', JSON.stringify({ x: p.offsetLeft, y: p.offsetTop })); } catch (e) {}
+    };
+    cab.addEventListener('pointerup', suelta);
+    cab.addEventListener('pointercancel', suelta);
+    document.body.appendChild(p);
+    panelCalc = p;
+    const fr = p.querySelector('iframe');
+    fr.addEventListener('load', () => { try { fr.contentWindow.focus(); } catch (e) {} });
+  }
+
+  function cierraCalc() {
+    if (!panelCalc) return;
+    panelCalc.remove(); panelCalc = null;
+    try { window.focus(); } catch (e) {}
+  }
+
+  function montaCalc() {
+    window.addEventListener('keydown', (e) => {
+      if ((e.key !== 'c' && e.key !== 'C') || e.ctrlKey || e.metaKey || e.altKey) return;
+      const t = e.composedPath ? e.composedPath()[0] : e.target;
+      if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+      e.preventDefault();
+      abreCalc();
+    });
+    window.addEventListener('message', (e) => {
+      const d = e.data;
+      if (d && typeof d === 'object' && d.som === 'calc-cerrar') cierraCalc();
+    });
+  }
+  SOM.abreCalc = abreCalc;
+
   /* ---------- numeración ---------- */
   function numera(stage) {
     const secs = [...stage.querySelectorAll(':scope > section')];
@@ -1776,6 +1898,7 @@
     document.querySelectorAll('deck-stage > section').forEach(montaMarcas);
     document.querySelectorAll('.letra').forEach(montaLetra);
     montaNotas(stage);
+    montaCalc();
     stage.addEventListener('slidechange', (e) => { apagaLetras(e.detail.previousSlide); enciendeLetras(e.detail.slide); });
     // el slidechange inicial se dispara antes de que este script escuche: se enciende la actual a mano
     customElements.whenDefined('deck-stage').then(() => { const secs = stage.querySelectorAll(':scope > section'); enciendeLetras(secs[stage.index || 0]); });
