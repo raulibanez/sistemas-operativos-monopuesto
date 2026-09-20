@@ -129,10 +129,10 @@ section.dark [data-slide-num] { color: #C9D6EE; }
 }
 
 /* Número de sección: pastilla arriba a la derecha de cada diapositiva de contenido
-   (atributo data-seccion en el <section>). Las diapositivas las posiciona deck-stage
-   en absoluto, así que el pseudo-elemento se ancla a ellas sin tocar su HTML. */
-deck-stage section[data-seccion]::after {
-  content: attr(data-seccion);
+   (atributo data-seccion en el <section>). La crea som.js como botón y al pulsarla
+   salta al índice de la unidad. Las diapositivas las posiciona deck-stage en
+   absoluto, así que el botón se ancla a ellas. */
+deck-stage section > .seccion-pill {
   position: absolute;
   top: 40px;
   right: 48px;
@@ -145,8 +145,13 @@ deck-stage section[data-seccion]::after {
   font-weight: 800;
   letter-spacing: .02em;
   line-height: 1.2;
-  pointer-events: none;
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background .15s ease, transform .15s ease;
 }
+deck-stage section > .seccion-pill:hover { background: var(--white); transform: translateY(-1px); }
+@media print { deck-stage section > .seccion-pill { background: var(--pill-bg); } }
 
 /* Pista de teclas de la portada */
 .pista-teclas {
@@ -221,6 +226,9 @@ deck-stage section[data-seccion]::after {
 .btn-ghost { background: transparent; color: var(--navy); border: 3px solid var(--line); }
 .btn-ghost:hover { border-color: var(--sky); }
 .dark .btn-ghost { color: var(--white); border-color: rgba(255,255,255,.4); }
+/* Botón amarillo: el principal sobre fondo azul marino (cierres de unidad) */
+.btn-amarillo { background: var(--yellow); color: var(--navy); }
+.btn-amarillo:hover { background: var(--white); }
 
 /* ---------- Quiz de opción múltiple ---------- */
 .quiz-opts { display: flex; flex-direction: column; gap: 24px; }

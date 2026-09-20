@@ -1873,6 +1873,35 @@
   SOM.abreCalc = abreCalc;
 
   /* ---------- numeración ---------- */
+  /* ---------- volver: botón «Inicio» en la barra flotante del motor y pastilla de sección clicable ----------
+   * La barra flotante (.overlay, dentro del shadow DOM de deck-stage) aparece al mover el ratón y se oculta en
+   * presentación e impresión: ahí va un enlace a la página principal del módulo (../). La pastilla amarilla con
+   * el número de sección (data-seccion) es un botón que salta al índice de la unidad (la diapositiva cuya
+   * etiqueta empieza por «Índice»; si no hay, la segunda).
+   */
+  function montaVolver(stage) {
+    const overlay = stage.shadowRoot && stage.shadowRoot.querySelector('.overlay');
+    if (overlay && !overlay.querySelector('.inicio')) {
+      const sep = document.createElement('span'); sep.className = 'divider';
+      const a = document.createElement('a');
+      a.className = 'btn inicio'; a.href = '../'; a.title = 'Volver al índice del módulo';
+      a.textContent = 'Inicio';
+      a.style.cssText = 'color:inherit;text-decoration:none;cursor:pointer;padding:0 10px';
+      overlay.append(sep, a);
+    }
+    const secs = [...stage.querySelectorAll(':scope > section')];
+    let idx = secs.findIndex((s) => /^índice/i.test(s.dataset.label || ''));
+    if (idx < 0) idx = Math.min(1, secs.length - 1);
+    secs.forEach((s) => {
+      if (!s.dataset.seccion || s.querySelector(':scope > .seccion-pill')) return;
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'seccion-pill'; b.textContent = s.dataset.seccion;
+      b.title = 'Ir al índice de la unidad';
+      b.addEventListener('click', (e) => { e.stopPropagation(); stage.goTo(idx); });
+      s.appendChild(b);
+    });
+  }
+
   function numera(stage) {
     const secs = [...stage.querySelectorAll(':scope > section')];
     secs.forEach((s, i) => {
@@ -1897,6 +1926,7 @@
     document.querySelectorAll('.foto').forEach(montaFoto);
     document.querySelectorAll('deck-stage > section').forEach(montaMarcas);
     document.querySelectorAll('.letra').forEach(montaLetra);
+    montaVolver(stage);
     montaNotas(stage);
     montaCalc();
     stage.addEventListener('slidechange', (e) => { apagaLetras(e.detail.previousSlide); enciendeLetras(e.detail.slide); });

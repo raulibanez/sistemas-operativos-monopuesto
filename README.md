@@ -140,6 +140,8 @@ Las notas de guion cambiadas se escriben en su `<aside>` (localizado por `data-l
 
 Flechas o espacio para avanzar, Inicio y Fin para ir al principio o al final, R para volver a la primera. Ctrl+P imprime una página por diapositiva. N abre la ventana de notas del profesor.
 
+Para volver: el rótulo del módulo de la portada y el botón «Inicio» de la barra flotante (aparece al mover el ratón; no sale en pantalla completa ni al imprimir) llevan a la página principal del módulo; la pastilla con el número de sección, arriba a la derecha, salta al índice de la unidad; la diapositiva de cierre lleva botones a la página principal y a la unidad siguiente.
+
 ## Licencia
 
 - **Contenido** (diapositivas, textos, esquemas e imágenes propias): [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.es) — ver `LICENSE`. Se puede copiar, adaptar y reutilizar, incluso con fines comerciales, citando la autoría y compartiendo el resultado bajo la misma licencia.
