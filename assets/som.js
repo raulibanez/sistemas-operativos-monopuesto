@@ -1872,6 +1872,172 @@
   }
   SOM.abreCalc = abreCalc;
 
+  /* ---------- buscador dentro de la unidad (tecla B y botón «Buscar» en la barra flotante) ----------
+   * Busca solo en esta presentación: las diapositivas ya están en el DOM, así que no descarga nada y
+   * funciona igual en GitHub Pages, en un servidor local o abriendo el archivo. El índice se construye
+   * la primera vez que se abre el panel: por diapositiva, su rótulo (data-label), la sección y el texto
+   * visible, sin las notas del profesor ni los ejercicios y simuladores generados. Se compara sin tildes
+   * ni mayúsculas.
+   */
+  function normaliza(s) {
+    // Carácter a carácter para que las posiciones coincidan con el texto original (los fragmentos resaltados)
+    return s.split('').map((c) => {
+      const d = c.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+      return d.length === 1 ? d : c;
+    }).join('');
+  }
+  function escapaHtml(s) {
+    return s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  }
+  // textContent pega las palabras de bloques contiguos («procesoLa»): se añade un espacio al cerrar cada bloque
+  const BLOQUES = /^(P|H[1-6]|LI|UL|OL|DIV|SECTION|ARTICLE|ASIDE|HEADER|FOOTER|FIGURE|FIGCAPTION|TABLE|TR|TD|TH|BR|BLOCKQUOTE|DT|DD)$/;
+  function textoVisible(el) {
+    let t = '';
+    el.childNodes.forEach((n) => {
+      if (n.nodeType === 3) t += n.textContent;
+      else if (n.nodeType === 1) { t += textoVisible(n); if (BLOQUES.test(n.tagName)) t += ' '; }
+    });
+    return t;
+  }
+  function indiceBusqueda(stage) {
+    return [...stage.querySelectorAll(':scope > section')].map((s, i) => {
+      const c = s.cloneNode(true);
+      c.querySelectorAll('aside.notas, .seccion-pill, [data-slide-num], .ej, .sim, script, style').forEach((n) => n.remove());
+      const texto = textoVisible(c).replace(/\s+/g, ' ').trim();
+      const label = (s.dataset.label || ('Diapositiva ' + (i + 1))).replace(/^\S+\s·\s/, '');
+      return {
+        i, label, texto,
+        seccion: s.dataset.seccion || '',
+        nLabel: normaliza(label),
+        nTexto: normaliza(texto),
+      };
+    });
+  }
+  // Fragmento del texto alrededor del primer término, con todos los términos resaltados
+  function fragmento(d, terminos) {
+    const ANTES = 60, LARGO = 190;
+    let pos = -1;
+    for (const t of terminos) { const p = d.nTexto.indexOf(t); if (p >= 0 && (pos < 0 || p < pos)) pos = p; }
+    if (pos < 0) return '';
+    let ini = Math.max(0, pos - ANTES);
+    if (ini > 0) { const sp = d.nTexto.lastIndexOf(' ', ini); ini = sp > 0 ? sp + 1 : ini; }
+    let fin = Math.min(d.nTexto.length, ini + LARGO);
+    if (fin < d.nTexto.length) { const sp = d.nTexto.indexOf(' ', fin); if (sp > 0 && sp - fin < 20) fin = sp; }
+    const nTrozo = d.nTexto.slice(ini, fin), trozo = d.texto.slice(ini, fin);
+    // Marcas por carácter de cada acierto, sin solapar
+    const marcas = new Array(nTrozo.length + 1).fill(0);
+    for (const t of terminos) {
+      let p = nTrozo.indexOf(t);
+      while (p >= 0) { for (let k = p; k < p + t.length; k++) marcas[k] = 1; p = nTrozo.indexOf(t, p + t.length); }
+    }
+    let html = '', dentro = false;
+    for (let k = 0; k < trozo.length; k++) {
+      if (marcas[k] && !dentro) { html += '<mark>'; dentro = true; }
+      if (!marcas[k] && dentro) { html += '</mark>'; dentro = false; }
+      html += escapaHtml(trozo[k]);
+    }
+    if (dentro) html += '</mark>';
+    return (ini > 0 ? '… ' : '') + html + (fin < d.nTexto.length ? ' …' : '');
+  }
+  function buscaEn(indice, q) {
+    const terminos = normaliza(q).split(/\s+/).filter(Boolean);
+    if (!terminos.length) return [];
+    const res = [];
+    indice.forEach((d) => {
+      let puntos = 0;
+      for (const t of terminos) {
+        const enLabel = d.nLabel.indexOf(t) >= 0, enTexto = d.nTexto.indexOf(t) >= 0;
+        if (!enLabel && !enTexto) { puntos = -1; break; }
+        puntos += enLabel ? 10 : 1;
+      }
+      if (puntos > 0) res.push({ d, puntos });
+    });
+    res.sort((a, b) => b.puntos - a.puntos || a.d.i - b.d.i);
+    return res.slice(0, 40).map((r) => Object.assign({ frag: fragmento(r.d, terminos) }, r.d));
+  }
+
+  let panelBusqueda = null;
+  function abreBuscador(stage) {
+    if (panelBusqueda) { panelBusqueda.querySelector('input').focus(); return; }
+    if (!stage.__indiceBusqueda) stage.__indiceBusqueda = indiceBusqueda(stage);
+    const indice = stage.__indiceBusqueda;
+    const p = document.createElement('div');
+    p.className = 'buscador';
+    p.setAttribute('role', 'dialog');
+    p.setAttribute('aria-label', 'Buscar en la unidad');
+    p.innerHTML =
+      '<div class="buscador-caja">' +
+        '<div class="buscador-cabecera"><input type="text" autocomplete="off" spellcheck="false" placeholder="Buscar en esta unidad…" aria-label="Buscar en esta unidad">' +
+        '<button type="button" class="buscador-cerrar" aria-label="Cerrar">×</button></div>' +
+        '<ol class="buscador-lista" hidden></ol>' +
+        '<p class="buscador-vacio"></p>' +
+        '<div class="buscador-pie"><span><kbd>↑</kbd><kbd>↓</kbd>moverse</span><span><kbd>Enter</kbd>ir a la diapositiva</span><span><kbd>Esc</kbd>cerrar</span></div>' +
+      '</div>';
+    const input = p.querySelector('input'), lista = p.querySelector('.buscador-lista'), vacio = p.querySelector('.buscador-vacio');
+    let resultados = [], sel = 0;
+    const cierra = () => { p.remove(); panelBusqueda = null; };
+    const marca = () => {
+      [...lista.children].forEach((li, k) => li.toggleAttribute('data-sel', k === sel));
+      const li = lista.children[sel];
+      if (li && li.scrollIntoView) li.scrollIntoView({ block: 'nearest' });
+    };
+    const ve = (k) => { const r = resultados[k]; if (!r) return; cierra(); stage.goTo(r.i); };
+    const pinta = () => {
+      const q = input.value.trim();
+      resultados = q ? buscaEn(indice, q) : [];
+      sel = 0;
+      lista.innerHTML = resultados.map((r) =>
+        '<li><span class="b-num">' + String(r.i + 1).padStart(2, '0') + '</span>' +
+        '<span class="b-titulo">' + (r.seccion ? '<span class="b-pill">' + escapaHtml(r.seccion) + '</span>' : '') +
+        escapaHtml(r.label) + '</span>' +
+        (r.frag ? '<p class="b-frag">' + r.frag + '</p>' : '') + '</li>').join('');
+      lista.hidden = !resultados.length;
+      vacio.hidden = !!resultados.length;
+      vacio.textContent = !q ? 'Escribe para buscar en las ' + indice.length + ' diapositivas de esta unidad.'
+        : 'Nada en esta unidad para «' + q + '».';
+      marca();
+    };
+    input.addEventListener('input', pinta);
+    // Que las teclas del panel no lleguen al motor ni a los demás atajos (N, C, B)
+    p.addEventListener('keydown', (e) => {
+      e.stopPropagation();
+      if (e.key === 'Escape') { e.preventDefault(); cierra(); }
+      else if (e.key === 'ArrowDown') { e.preventDefault(); if (resultados.length) { sel = (sel + 1) % resultados.length; marca(); } }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); if (resultados.length) { sel = (sel - 1 + resultados.length) % resultados.length; marca(); } }
+      else if (e.key === 'Enter') { e.preventDefault(); ve(sel); }
+    });
+    lista.addEventListener('click', (e) => {
+      const li = e.target.closest('li');
+      if (li) ve([...lista.children].indexOf(li));
+    });
+    p.querySelector('.buscador-cerrar').addEventListener('click', cierra);
+    p.addEventListener('click', (e) => { if (e.target === p) cierra(); });
+    document.body.appendChild(p);
+    panelBusqueda = p;
+    pinta();
+    input.focus();
+  }
+
+  function montaBuscador(stage) {
+    const overlay = stage.shadowRoot && stage.shadowRoot.querySelector('.overlay');
+    if (overlay && !overlay.querySelector('.buscar')) {
+      const sep = document.createElement('span'); sep.className = 'divider';
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'btn buscar'; b.title = 'Buscar en esta unidad (B)';
+      b.innerHTML = 'Buscar<span class="kbd" style="display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:16px;margin-left:6px;padding:0 4px;border-radius:3px;background:rgba(255,255,255,.14);font-size:10px;font-weight:600">B</span>';
+      b.addEventListener('click', () => abreBuscador(stage));
+      overlay.append(sep, b);
+    }
+    window.addEventListener('keydown', (e) => {
+      if ((e.key !== 'b' && e.key !== 'B') || e.ctrlKey || e.metaKey || e.altKey) return;
+      const t = e.composedPath ? e.composedPath()[0] : e.target;
+      if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+      e.preventDefault();
+      abreBuscador(stage);
+    });
+  }
+  SOM.abreBuscador = () => { const s = document.querySelector('deck-stage'); if (s) abreBuscador(s); };
+
   /* ---------- numeración ---------- */
   /* ---------- volver: botón «Inicio» en la barra flotante del motor y pastilla de sección clicable ----------
    * La barra flotante (.overlay, dentro del shadow DOM de deck-stage) aparece al mover el ratón y se oculta en
@@ -1926,6 +2092,7 @@
     document.querySelectorAll('.foto').forEach(montaFoto);
     document.querySelectorAll('deck-stage > section').forEach(montaMarcas);
     document.querySelectorAll('.letra').forEach(montaLetra);
+    montaBuscador(stage);
     montaVolver(stage);
     montaNotas(stage);
     montaCalc();
