@@ -48,23 +48,26 @@ a:hover { color: var(--navy); }
 
 deck-stage:not(:defined) { visibility: hidden; }
 
-deck-stage section {
+/* Las reglas de las diapositivas van sin el prefijo deck-stage a propósito: el carril de miniaturas
+   clona cada sección dentro de un shadow DOM donde ese ancestro no existe, y con el prefijo las
+   miniaturas salían sin fondo, sin tipografía y con las notas del profesor visibles. */
+section {
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   color: var(--ink);
   background: var(--bg);
   box-sizing: border-box;
 }
-deck-stage section * { box-sizing: border-box; }
-deck-stage section p,
-deck-stage section h1,
-deck-stage section h2,
-deck-stage section h3,
-deck-stage section ul,
-deck-stage section ol { margin: 0; }
+section * { box-sizing: border-box; }
+section p,
+section h1,
+section h2,
+section h3,
+section ul,
+section ol { margin: 0; }
 
 /* Notas del profesor: <aside class="notas"> como primer hijo de cada sección.
    No se ven en la diapositiva; las muestra la ventana de notas (tecla N, som.js). */
-deck-stage section > aside.notas { display: none; }
+section > aside.notas { display: none; }
 
 /* Numeración de diapositivas (la añade som.js) */
 [data-slide-num] {
@@ -132,7 +135,7 @@ section.dark [data-slide-num] { color: #C9D6EE; }
    (atributo data-seccion en el <section>). La crea som.js como botón y al pulsarla
    salta al índice de la unidad. Las diapositivas las posiciona deck-stage en
    absoluto, así que el botón se ancla a ellas. */
-deck-stage section > .seccion-pill {
+section > .seccion-pill {
   position: absolute;
   top: 40px;
   right: 48px;
@@ -150,8 +153,8 @@ deck-stage section > .seccion-pill {
   cursor: pointer;
   transition: background .15s ease, transform .15s ease;
 }
-deck-stage section > .seccion-pill:hover { background: var(--white); transform: translateY(-1px); }
-@media print { deck-stage section > .seccion-pill { background: var(--pill-bg); } }
+section > .seccion-pill:hover { background: var(--white); transform: translateY(-1px); }
+@media print { section > .seccion-pill { background: var(--pill-bg); } }
 
 /* Pista de teclas de la portada */
 .pista-teclas {
@@ -285,7 +288,7 @@ deck-stage section > .seccion-pill:hover { background: var(--white); transform: 
   overflow: hidden;
 }
 /* La fila de la rejilla no debe crecer con el contenido de la tarjeta */
-deck-stage section:has(> .ej) { grid-template-rows: minmax(0, 1fr); }
+section:has(> .ej) { grid-template-rows: minmax(0, 1fr); }
 .ej-enunciado {
   font-size: var(--type-small);
   color: var(--muted);
@@ -892,7 +895,7 @@ deck-stage section:has(> .ej) { grid-template-rows: minmax(0, 1fr); }
   min-height: 0;
   overflow: hidden;
 }
-deck-stage section:has(> .sim) { grid-template-rows: minmax(0, 1fr); }
+section:has(> .sim) { grid-template-rows: minmax(0, 1fr); }
 .sim-cab { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .sim-t { font: 700 30px/1 var(--mono); color: var(--muted); letter-spacing: .02em; }
 .sim-t b { font-size: 44px; color: var(--navy); font-weight: 700; }
