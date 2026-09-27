@@ -7,6 +7,7 @@
  *         <div class="quiz-opts"> <button class="quiz-opt">…</button> … </div>
  *         <button class="btn btn-ghost quiz-reset">Reiniciar</button>
  *       </div>
+ *     Con data-preguntas="clave" se añade «Otra pregunta», que pasa por las de SOM.preguntas.clave.
  *  3. Panel que se revela (pregunta a la clase):
  *       <div class="revela"> <div class="revela-cuerpo">…</div> <button class="btn btn-primary revela-btn">Ver ideas</button> </div>
  *  4. Galería de fotos en el mismo hueco, con flechas y pie que cambia:
@@ -36,7 +37,8 @@
 
   /* ---------- utilidades ---------- */
   const rnd = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-  const bin = (n, bits) => n.toString(2).padStart(bits || 0, '0');
+  const baraja = (a) => { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = rnd(0, i); [b[i], b[j]] = [b[j], b[i]]; } return b; };
+  const bin =(n, bits) => n.toString(2).padStart(bits || 0, '0');
   const agrupa = (s) => s.replace(/\B(?=(\d{4})+(?!\d))/g, ' ');
   const esBin = (s) => /^[01]+$/.test(s);
   const limpia = (s) => String(s || '').replace(/\s+/g, '').toUpperCase();
@@ -1287,9 +1289,166 @@
     nuevo();
   }
 
+  /* ---------- preguntas de repaso de los quiz («Otra pregunta») ----------
+     Un quiz con data-preguntas="clave" pasa por las preguntas de SOM.preguntas.clave, sobre lo visto
+     desde el quiz anterior. p: enunciado; o: opciones; c: índice de la correcta (desde 0; aquí siempre
+     la primera, porque las opciones se barajan al enseñarlas); exp: explicación, que sale al responder,
+     se acierte o no. Lo que va entre `acentos graves` se pinta en monoespaciada (bits, códigos). */
+  SOM.preguntas = SOM.preguntas || {};
+
+  // UT1 · 1.1 El sistema informático (diapositiva 12)
+  SOM.preguntas.sistema = [
+    { p: '¿Qué es un sistema informático?', o: ['Hardware y software que procesan y automatizan la información', 'Solo las piezas físicas: la caja, la pantalla y el teclado', 'Los programas instalados en un ordenador, sin el hardware', 'Una red de ordenadores que comparten archivos e impresoras'], c: 0, exp: 'Hardware (lo físico) y software (programas y datos) que procesan y automatizan la información, con el ordenador en el centro. También cuenta el personal que lo maneja.' },
+    { p: 'Además del hardware y el software, ¿qué forma parte del sistema informático?', o: ['El personal que lo maneja y lo mantiene', 'La corriente eléctrica que lo alimenta', 'El mueble y la sala donde está instalado', 'La empresa que fabricó sus componentes'], c: 0, exp: 'El personal que lo hace funcionar y lo mantiene también es parte del sistema. La corriente, la sala o el fabricante, no.' },
+    { p: 'Las fotos guardadas en un disco duro, ¿qué son?', o: ['Software: son datos, aunque el disco sea hardware', 'Hardware: están guardadas dentro de una pieza física', 'Hardware, porque ocupan espacio en el disco', 'Depende de si el disco es interno o externo'], c: 0, exp: 'Lo grabado es información, y la información es software. El disco se toca y es hardware; las fotos, no.' },
+    { p: '¿Qué regla usamos para distinguir el hardware del software?', o: ['Si se puede tocar, es hardware', 'Si cuesta dinero, es hardware', 'Si va dentro de la caja, es hardware', 'Si usa electricidad, es hardware'], c: 0, exp: 'El hardware es lo físico, lo que se puede tocar. El software es lo lógico: programas y datos.' },
+    { p: 'Un banco procesa millones de operaciones pequeñas de miles de clientes, sin parar nunca. ¿Qué usa?', o: ['Un mainframe', 'Un superordenador', 'Una estación de trabajo', 'Un ordenador personal'], c: 0, exp: 'El mainframe atiende a cientos de usuarios a la vez con millones de operaciones pequeñas y está hecho para no parar nunca.' },
+    { p: 'Simular el clima con miles de procesadores calculando en paralelo es trabajo de…', o: ['Un superordenador', 'Un mainframe', 'Un servidor en rack', 'Una estación de trabajo'], c: 0, exp: 'El superordenador trabaja para un solo problema enorme y se fabrica a medida para grandes organismos científicos o militares.' },
+    { p: '¿Qué distingue a un servidor de una estación de trabajo?', o: ['El uso: uno sirve a otros equipos; la otra, a un profesional', 'El tamaño: el servidor es siempre mucho más grande', 'El precio: la estación de trabajo cuesta siempre más', 'El sistema operativo: el servidor solo puede funcionar con Linux'], c: 0, exp: 'No es el tamaño sino el uso: el servidor da servicio a los demás equipos de la red; la estación de trabajo es para un profesional con tareas exigentes.' },
+    { p: 'Para saber de qué tipo es un sistema informático, ¿qué hay que preguntarse?', o: ['¿Para quién trabaja?', '¿Cuánto espacio ocupa?', '¿Qué marca lo fabrica?', '¿Qué sistema operativo lleva?'], c: 0, exp: 'Un problema enorme (superordenador), muchos usuarios (mainframe), otros equipos (servidor) o una persona (ordenador personal).' },
+    { p: '¿Cuál de estos aparatos NO es un sistema informático?', o: ['Una bombilla incandescente', 'Una videoconsola', 'Un coche eléctrico', 'Un router de fibra'], c: 0, exp: 'Todo aparato con procesador y programa es un sistema informático. Una bombilla incandescente no procesa nada.' },
+    { p: 'La palabra «informática» viene de…', o: ['Información y automática', 'Información y matemática', 'Informe y electrónica', 'Información y práctica'], c: 0, exp: 'Informática es información automática: procesar información sin intervención humana.' },
+    { p: 'En la pirámide DIKW, «39, 110, 1015», sin más contexto, son…', o: ['Datos', 'Información', 'Conocimiento', 'Sabiduría'], c: 0, exp: 'Son cifras sueltas: datos. Con contexto pasan a ser información: 39 °C y 110 pulsaciones son fiebre y taquicardia.' },
+    { p: '«Este paciente tiene 39 °C: fiebre». En la pirámide DIKW, eso es…', o: ['Información', 'Datos', 'Conocimiento', 'Sabiduría'], c: 0, exp: 'Son datos con contexto: información. Saber que la fiebre con dolor de garganta suele ser una infección ya es conocimiento.' }
+  ];
+
+  // UT1 · 1.2 Evolución histórica (diapositiva 25)
+  SOM.preguntas.historia = [
+    { p: '¿Qué idea aportan las tarjetas perforadas?', o: ['Separar la máquina de lo que hace: cambiar de tarjetas', 'Usar la electricidad en lugar de engranajes y manivelas', 'Contar en binario en lugar de con las diez cifras', 'Hacer las máquinas lo bastante pequeñas para una mesa'], c: 0, exp: 'El dibujo del telar o el programa del ordenador están en las tarjetas: cambiar de tarea es cambiar de tarjetas, no de máquina.' },
+    { p: '¿Cuándo pasa una máquina de calcular a ser un ordenador?', o: ['Cuando guarda el programa dentro de la máquina', 'Cuando funciona con electricidad y no con engranajes', 'Cuando tiene pantalla y teclado para ver y escribir', 'Cuando calcula en binario en lugar de en decimal'], c: 0, exp: 'Hay ordenador cuando hay programa interno: recibe datos, los procesa según el programa guardado y produce una salida. Cambiar de tarea es cargar otro programa.' },
+    { p: '¿Quién formalizó la idea del programa guardado en la misma memoria que los datos?', o: ['John von Neumann', 'Charles Babbage', 'Blaise Pascal', 'Herman Hollerith'], c: 0, exp: 'Von Neumann describió la arquitectura de programa almacenado: instrucciones y datos en la misma memoria. Sigue siendo la base de tu ordenador y de tu móvil.' },
+    { p: '¿Por qué se considera a Ada Lovelace la primera programadora?', o: ['Escribió el primer algoritmo publicado para una máquina', 'Construyó la Máquina Analítica que Babbage había diseñado', 'Programó el ENIAC cableando sus paneles con otras mujeres', 'Inventó el lenguaje Ada, que hoy se usa en aviación'], c: 0, exp: 'En sus notas describió paso a paso cómo la Máquina Analítica calcularía los números de Bernoulli: el primer algoritmo publicado para una máquina.' },
+    { p: '¿Qué separa una generación de ordenadores de la siguiente?', o: ['El componente que calcula: válvula, transistor, chip', 'El sistema operativo que llevan: MS-DOS, Unix o Windows', 'El país donde se fabrican las piezas y se monta la máquina', 'El tamaño de la pantalla y la forma de la carcasa'], c: 0, exp: 'Cada generación nace con un componente nuevo que hace lo mismo más pequeño, más barato y más fiable.' },
+    { p: '¿Qué componente define la 1.ª generación?', o: ['La válvula de vacío', 'El transistor', 'El circuito integrado', 'El microprocesador'], c: 0, exp: 'Válvulas de vacío: ordenadores del tamaño de una habitación, de uso científico y militar, cuyas válvulas se fundían continuamente.' },
+    { p: '¿En qué generación aparece el microprocesador?', o: ['4.ª generación', '2.ª generación', '3.ª generación', '5.ª generación'], c: 0, exp: 'En la 4.ª: toda la CPU en un solo chip. Abarató tanto el ordenador que nació el ordenador personal.' },
+    { p: 'Frente a la válvula de vacío, el transistor…', o: ['Es más pequeño y fiable, y consume menos', 'Necesita calentarse antes de conducir', 'Es más rápido, pero bastante más caro', 'Solo sirve para amplificar el sonido'], c: 0, exp: 'No necesita vacío ni filamento: es más pequeño, no se funde, consume menos y es más barato. Calentarse era el defecto de la válvula.' },
+    { p: 'Un circuito integrado (chip) es…', o: ['Muchos transistores en una pastilla de silicio', 'Una válvula de vacío más pequeña y que no se calienta', 'La placa base con todos sus conectores en miniatura', 'Un disco de silicio donde se graban los programas'], c: 0, exp: 'Menos tamaño, coste y consumo, y más capacidad. Es la tecnología de la 3.ª generación.' },
+    { p: 'Un microprocesador es…', o: ['Toda la unidad central de proceso en un chip', 'La memoria RAM completa metida en un solo chip', 'Un transistor muy pequeño de silicio y óxido', 'Un chip con cuatro puertas lógicas NAND'], c: 0, exp: 'Unidad de control, unidad aritmético-lógica y registros en un solo chip. Es la tecnología de la 4.ª generación.' },
+    { p: 'El PC de IBM tuvo tanto éxito que…', o: ['Se volvió un estándar que copiaron otras marcas', 'IBM fabricó durante años todos los ordenadores', 'Apple copió su diseño para fabricar el Macintosh', 'Se prohibió vender ordenadores de otras marcas'], c: 0, exp: 'Su éxito creó un estándar: otras marcas vendieron compatibles y aparecieron los clónicos. Apple siguió otro camino con el Macintosh.' },
+    { p: '¿Qué dice la ley de Moore?', o: ['Los transistores de un chip se duplican cada dos años', 'La frecuencia de los micros se duplica cada dos años', 'El precio de los ordenadores baja a la mitad cada año', 'La memoria RAM de un PC se duplica cada seis meses'], c: 0, exp: 'Es una tendencia que la industria ha cumplido durante cincuenta años, no una ley física. Y se está frenando: el silicio se acerca a sus límites.' },
+    { p: '¿Por qué la frecuencia de los micros lleva años estancada en 3-5 GHz?', o: ['Subir más genera demasiado calor', 'La memoria RAM no lo soporta', 'Lo prohíbe una norma europea', 'Los programas no lo aprovechan'], c: 0, exp: 'Por el calor. El rendimiento crece por otros caminos: más núcleos, hilos, frecuencia turbo y memoria caché.' },
+    { p: 'Según la ley de Huang, el rendimiento de las GPU crece gracias a…', o: ['El paralelismo y el hardware especializado', 'Subir la frecuencia de reloj cada dos años', 'Fabricar chips cada vez más grandes', 'Usar memoria RAM más rápida y barata'], c: 0, exp: 'Miles de núcleos sencillos trabajando a la vez y hardware especializado, no más frecuencia. Es la base de la inteligencia artificial actual.' }
+  ];
+
+  // UT1 · 1.3 Componentes hardware (diapositiva 38)
+  SOM.preguntas.hardware = [
+    { p: 'Desde el punto de vista físico, el hardware se divide en…', o: ['Lo de dentro de la carcasa, periféricos y memorias auxiliares', 'La CPU, la memoria principal y los buses que las comunican', 'Dispositivos de entrada, unidad de proceso y de salida', 'La placa base, la fuente de alimentación y los discos'], c: 0, exp: 'Dentro de la carcasa van placa, micro, RAM, fuente y discos; los periféricos meten o sacan información; las memorias auxiliares guardan con el equipo apagado.' },
+    { p: '¿Para qué sirve el chipset de la placa base?', o: ['Comunica el micro con el resto: USB, SATA, red, sonido', 'Guarda la hora y la configuración con el equipo apagado', 'Convierte la corriente de la fuente para el micro', 'Guarda el sistema operativo mientras está encendido'], c: 0, exp: 'El chipset comunica el micro con el resto de la placa. La hora y la configuración las conserva la pila de botón.' },
+    { p: 'Una pantalla táctil es un periférico…', o: ['De entrada y salida', 'Solo de entrada', 'Solo de salida', 'De almacenamiento'], c: 0, exp: 'Muestra la imagen (salida) y recibe los toques (entrada). Igual que la impresora multifunción o los cascos con micrófono.' },
+    { p: 'Frente a la memoria principal, las memorias auxiliares…', o: ['No se borran al apagar, caben más y son más lentas', 'Se borran al apagar, caben menos y son más rápidas', 'No se borran al apagar, caben menos y son más rápidas', 'Se borran al apagar, caben más y son igual de rápidas'], c: 0, exp: 'Son no volátiles, tienen mucha más capacidad que la RAM y son más lentas que ella.' },
+    { p: 'Guardar tus archivos en OneDrive o Google Drive es usar…', o: ['Una memoria auxiliar remota, que necesita red', 'Memoria principal ampliada a través de internet', 'Un periférico de salida conectado por wifi', 'La memoria ROM del servidor de la empresa'], c: 0, exp: 'Tus archivos están en el disco del ordenador de otro, y hace falta red para llegar a ellos.' },
+    { p: '¿Qué tres elementos forman la CPU?', o: ['Unidad de control, UAL y registros', 'Unidad de control, RAM y disco duro', 'UAL, memoria principal y buses', 'Registros, chipset y bus de datos'], c: 0, exp: 'La unidad de control manda, la unidad aritmético-lógica calcula y los registros guardan los datos intermedios. La RAM y el disco están fuera del micro.' },
+    { p: '¿Qué bus lleva la información en los dos sentidos?', o: ['El bus de datos', 'El bus de direcciones', 'El bus de control', 'Los tres por igual'], c: 0, exp: 'Solo el de datos: la CPU lee y escribe. La dirección sale siempre de la CPU, y las señales de control, de la unidad de control.' },
+    { p: '¿Por qué un sistema de 32 bits no aprovecha más de 4 GB de RAM?', o: ['Con 32 bits solo hay 2³² direcciones distintas: 4 GB', 'Microsoft lo limita en la licencia de las versiones básicas', 'Los módulos de RAM de 32 bits no pasan de 4 GB', 'El bus de datos no puede llevar más de 4 GB a la vez'], c: 0, exp: 'El ancho del bus de direcciones limita la memoria que se puede usar. Con 64 bits el límite deja de ser un problema.' },
+    { p: '¿Qué hace la unidad de control?', o: ['Interpreta las instrucciones y ordena a cada parte cuándo actuar', 'Suma, resta y compara los datos, y deja el resultado en el acumulador', 'Guarda el programa y sus datos mientras se ejecuta', 'Conecta los periféricos con el micro a través de la placa'], c: 0, exp: 'Es el director de orquesta: interpreta cada instrucción y da las órdenes por el bus de control. Las cuentas las hace la unidad aritmético-lógica.' },
+    { p: '¿Qué registro guarda la dirección de la siguiente instrucción?', o: ['El contador de programa (CP)', 'El registro de instrucción (RI)', 'El acumulador (AC)', 'El registro de estado (RE)'], c: 0, exp: 'El CP apunta siempre a la siguiente instrucción. El RI guarda la que se está ejecutando, y el acumulador, el resultado de la UAL.' },
+    { p: 'En el registro de estado, ¿qué indica el bit O?', o: ['Desbordamiento: el resultado no cabe', 'Que el resultado de la operación fue cero', 'Que el resultado fue un número negativo', 'Que hubo acarreo: «me llevo una»'], c: 0, exp: 'O es el desbordamiento (overflow). Z indica cero, S el signo y C el acarreo.' },
+    { p: '¿Cuál es el primer paso del ciclo de instrucción?', o: ['Buscar la instrucción en la memoria', 'Decodificar la instrucción', 'Ejecutar la instrucción', 'Avanzar el contador de programa'], c: 0, exp: 'Buscar, decodificar, ejecutar y avanzar. Primero se trae de memoria la instrucción que señala el CP y se guarda en el RI.' },
+    { p: 'Si la instrucción que se acaba de ejecutar era un salto, en el paso de avanzar…', o: ['El CP toma la dirección de destino del salto', 'El CP vuelve a cero y el programa empieza', 'El ciclo se para hasta recibir otra orden', 'Se repite la misma instrucción otra vez'], c: 0, exp: 'Normalmente el CP pasa a CP + 1; si era un salto, toma la dirección de destino y el programa sigue desde allí.' },
+    { p: 'En el modo de direccionamiento inmediato, la instrucción lleva…', o: ['El propio dato: SUMA 5 suma un 5', 'La dirección del dato: SUMA [200]', 'La dirección de la dirección del dato', 'Una dirección más un índice fijo'], c: 0, exp: 'Inmediato: el dato. Directo: su dirección. Indirecto: la dirección de su dirección. Indexado: una dirección más un índice.' },
+    { p: 'Un micro a 3 GHz da…', o: ['3.000 millones de ciclos por segundo', '3.000 millones de instrucciones por segundo', '3 millones de ciclos por segundo', '3.000 ciclos por segundo'], c: 0, exp: 'Giga es 10⁹. Son ciclos, no instrucciones: una instrucción puede tardar varios, y un núcleo moderno ejecuta varias por ciclo.' },
+    { p: '¿Qué es la memoria caché?', o: ['Una memoria pequeña y muy rápida dentro del micro', 'La memoria de la tarjeta gráfica, para la imagen', 'La parte del disco que se usa cuando se llena la RAM', 'La ROM donde está el firmware de arranque'], c: 0, exp: 'Guarda lo que se usa a menudo para que el micro no tenga que esperar a la RAM, mucho más lenta.' },
+    { p: 'La memoria RAM…', o: ['Es volátil y guarda el programa en ejecución', 'No es volátil y guarda el firmware de arranque (UEFI)', 'No es volátil y guarda los programas instalados', 'Es volátil y solo la usa la tarjeta gráfica'], c: 0, exp: 'Se borra al apagar y guarda el programa en ejecución y sus datos, cargados desde el disco. La UEFI está en la ROM; los programas instalados, en el disco.' }
+  ];
+
+  // UT1 · 1.4 Software, licencias y normativa (diapositiva 55)
+  SOM.preguntas.licencias = [
+    { p: 'Para ejecutarse, un programa…', o: ['Se carga del disco a la RAM y el micro lo ejecuta en código máquina', 'Se carga de la RAM al disco y el micro lo ejecuta en código máquina', 'Se carga del disco a la ROM y el micro lo ejecuta en alto nivel', 'Se ejecuta directamente desde el disco, sin pasar por la RAM'], c: 0, exp: 'Los programas se guardan en la memoria auxiliar, se cargan en la RAM y el micro los ejecuta instrucción a instrucción, siempre en lenguaje máquina.' },
+    { p: 'Compilar es…', o: ['Traducirlo todo una vez y obtener un ejecutable', 'Traducir y ejecutar línea a línea cada vez que se lanza', 'Escribir el programa directamente en ceros y unos', 'Copiar el programa del disco a la RAM para ejecutarlo'], c: 0, exp: 'El ejecutable se lanza directamente y es rápido, pero solo vale para un sistema. Interpretar es traducir línea a línea en cada ejecución.' },
+    { p: 'El controlador (driver) de la impresora es software…', o: ['De base', 'De aplicación', 'De programación', 'Ofimático'], c: 0, exp: 'El software de base hace utilizable el ordenador y oculta el hardware: sistemas operativos y controladores. El de aplicación es para una tarea concreta.' },
+    { p: 'Una licencia de software es…', o: ['Un contrato que da permiso de uso con condiciones', 'Una compra: al pagar, el programa pasa a ser tuyo del todo', 'Un certificado de que el programa no tiene virus ni fallos', 'El precio del programa según el número de equipos'], c: 0, exp: 'No compras el programa: compras el derecho a usarlo con unas condiciones. Al instalarlo aceptas el contrato (EULA), aunque no lo leas.' },
+    { p: '¿Qué es el copyleft?', o: ['Permitir copiar y modificar si lo derivado sigue igual de libre', 'Renunciar a todos los derechos: la obra pasa a dominio público', 'Reservar todos los derechos: solo el autor decide quién copia', 'Una marca que solo pueden usar los programas de la FSF'], c: 0, exp: 'El autor no renuncia a sus derechos: los usa para permitir usar, copiar y modificar, con la condición de que las versiones derivadas mantengan las mismas condiciones.' },
+    { p: 'Chrome se descarga gratis, pero no puedes modificar su código. Es…', o: ['Propietario gratuito (freeware)', 'Software libre, porque es gratis', 'Software abierto (open source)', 'De dominio público, sin licencia'], c: 0, exp: 'Gratis no es libre: el freeware es propietario y no se paga. Libre es tener las cuatro libertades sobre el código, se pague o no.' },
+    { p: 'Red Hat Enterprise Linux es libre y se paga por el soporte. ¿Es posible?', o: ['Sí: libre habla de libertades, no del precio', 'No: todo el software libre tiene que ser gratis', 'No: si se paga, pasa a ser software propietario', 'Sí, pero solo si se usa fuera de la Unión Europea'], c: 0, exp: 'Las cuatro libertades no dicen nada del precio: se puede distribuir gratis o cobrando. RHEL es libre y se paga la suscripción de soporte.' },
+    { p: 'Subes tu código a GitHub sin archivo LICENSE. ¿Qué pueden hacer los demás?', o: ['Verlo, pero no modificarlo ni redistribuirlo', 'Todo: sin licencia, el código es de dominio público', 'Usarlo como software libre con copyleft', 'Venderlo, pero sin cambiar ni una línea'], c: 0, exp: 'Sin licencia todos los derechos siguen siendo del autor. Por eso GitHub insiste en añadir un archivo LICENSE.' },
+    { p: 'MIT, BSD y Apache 2.0 son licencias libres…', o: ['Permisivas: dejan cerrar el resultado', 'Con copyleft: lo derivado sigue siendo libre', 'Solo para obras creativas, no para software', 'Que prohíben el uso comercial del programa'], c: 0, exp: 'Son permisivas, sin copyleft: permiten reutilizar el código incluso en un programa propietario. La GPL no lo permite.' },
+    { p: '¿Qué tiene Apache 2.0 que no tiene MIT?', o: ['Condiciones sobre patentes', 'Copyleft, como la GPL', 'Prohibición del uso comercial', 'Validez solo para documentación'], c: 0, exp: 'Las dos son permisivas: MIT es la más corta y Apache 2.0 añade condiciones sobre patentes.' },
+    { p: 'Creative Commons recomienda sus licencias para…', o: ['Textos, fotos, música o apuntes', 'Programas y bibliotecas de código', 'Sistemas operativos y controladores', 'Datos personales de los usuarios'], c: 0, exp: 'Creative Commons es para obras creativas y desaconseja sus licencias para software: para eso están GPL, MIT o Apache.' },
+    { p: 'En una licencia Creative Commons, ¿qué significa SA?', o: ['Compartir igual: lo derivado lleva la misma licencia', 'Sin atribución: no hace falta citar al autor original', 'Sin obras derivadas: se copia tal cual', 'Solo para uso académico, no comercial'], c: 0, exp: 'SA es el copyleft de Creative Commons. BY obliga a citar al autor; NC prohíbe el uso comercial, y ND, las obras derivadas.' },
+    { p: '¿Qué norma protege en España los programas, los textos, las fotos o la música?', o: ['La Ley de Propiedad Intelectual (RDL 1/1996)', 'El Reglamento General de Protección de Datos', 'La Ley Orgánica de Protección de Datos', 'La LSSI, sobre comercio electrónico y cookies'], c: 0, exp: 'Protege toda obra desde que se crea, sin registrarla. El RGPD y la LOPDGDD son de datos personales; la LSSI regula, entre otras cosas, las cookies.' },
+    { p: 'Según el RGPD, ¿cuál de estos es un dato personal?', o: ['La dirección IP de tu ordenador', 'La temperatura media de Burgos', 'El precio de un portátil nuevo', 'La versión de un programa instalado'], c: 0, exp: 'Dato personal es toda información sobre una persona identificada o identificable: no solo el nombre o el DNI, también la IP, la matrícula, una foto o la ubicación.' },
+    { p: 'Las cookies que no son necesarias…', o: ['Exigen consentimiento, y rechazar tan fácil como aceptar', 'Se pueden instalar sin avisar si no guardan datos bancarios', 'Basta con un aviso y un único botón de «Aceptar todas»', 'Están prohibidas en toda la Unión Europea desde el RGPD'], c: 0, exp: 'Lo dice la LSSI (artículo 22.2). Un aviso con solo «Aceptar todas» no es válido.' },
+    { p: '¿Cuándo pueden salir datos personales fuera de la Unión Europea?', o: ['Solo a países con protección equivalente a la europea', 'Siempre que viajen cifrados y el servidor sea seguro', 'Nunca: el RGPD prohíbe guardarlos fuera de la Unión', 'Solo a Estados Unidos, por su acuerdo con la Unión'], c: 0, exp: 'Protección reconocida por la Comisión Europea o garantizada por contrato. Importa dónde están las personas que acceden, no solo el servidor.' }
+  ];
+
+  // UT1 · 1.6 Numeración y cambios de base (diapositiva 73)
+  SOM.preguntas.numeracion = [
+    { p: '¿Por qué el ordenador trabaja solo con dos estados?', o: ['Un circuito distingue dos estados con seguridad', 'En matemáticas solo hay dos números distintos', 'Lo decidió IBM con las primeras tarjetas', 'Con diez estados los cables se calientan'], c: 0, exp: 'Hay tensión o no la hay: dos niveles se distinguen con seguridad. Diez niveles con ruido darían errores.' },
+    { p: 'La base de un sistema de numeración es…', o: ['El número de símbolos distintos que usa', 'El símbolo más grande que se puede escribir', 'El número de cifras que tiene el número', 'La posición de las unidades, la cifra 0'], c: 0, exp: '10 en decimal (0 a 9), 2 en binario, 8 en octal y 16 en hexadecimal (0 a 9 y A a F).' },
+    { p: 'El teorema fundamental de la numeración sirve para pasar…', o: ['De cualquier base a decimal', 'De decimal a binario', 'De binario a hexadecimal', 'De octal a hexadecimal'], c: 0, exp: 'Cada dígito por el peso de su posición, y se suma todo. De decimal a binario se divide entre 2; entre binario, octal y hexadecimal se usa la tabla.' },
+    { p: '¿Cuánto vale `100110` (binario) en decimal?', o: ['38', '25', '19', '76'], c: 0, exp: 'Pesos de derecha a izquierda: 1, 2, 4, 8, 16, 32. Los bits a 1 están en 32, 4 y 2: 32 + 4 + 2 = 38.' },
+    { p: 'Al pasar un número de decimal a binario dividiendo entre 2, los restos se leen…', o: ['De abajo arriba: el primer resto es el bit de la derecha', 'De arriba abajo: el primer resto es el bit de más peso', 'En cualquier orden: el resultado es el mismo', 'Solo los que valen 1, en el orden en que salen'], c: 0, exp: 'El primer resto es el bit de menos peso, el de la derecha. Leerlos al revés es el error más frecuente.' },
+    { p: '¿Cuánto es 44 en binario?', o: ['`101100`', '`001101`', '`110100`', '`101010`'], c: 0, exp: 'Restos: 0, 0, 1, 1, 0, 1. Leídos de abajo arriba: 101100 = 32 + 8 + 4 = 44.' },
+    { p: 'Para pasar a binario la parte fraccionaria de un número decimal…', o: ['Se multiplica por 2 y se leen los enteros de arriba abajo', 'Se divide entre 2 y se leen los restos de abajo arriba', 'Se multiplica por 2 y se leen los enteros de abajo arriba', 'Se divide entre 10 y se pasa cada resto a cuatro bits'], c: 0, exp: 'La parte entera de cada producto es el siguiente dígito, hasta que la parte decimal sea 0. Al revés que las divisiones: de arriba abajo.' },
+    { p: '¿Qué pasa al pasar 0,1 (decimal) a binario?', o: ['Es periódico y hay que cortarlo: se guarda con un error', 'Sale 0,1 exacto: la coma no cambia al cambiar de base', 'Sale 0,0001 exacto tras cuatro multiplicaciones', 'No se puede: el binario no admite parte decimal'], c: 0, exp: 'Vuelve a salir 0,2 y el ciclo se repite para siempre. El ordenador lo corta, y por eso guarda 0,1 con un pequeño error.' },
+    { p: 'Con 8 bits, ¿cuántos valores distintos se pueden representar?', o: ['256', '255', '128', '8'], c: 0, exp: 'Con n bits hay 2ⁿ combinaciones: 2⁸ = 256, del 0 al 255.' },
+    { p: '¿Cuántos bits representa cada dígito hexadecimal?', o: ['4', '3', '8', '16'], c: 0, exp: '16 = 2⁴: cada dígito hexadecimal es un grupo de cuatro bits, y un byte son dos dígitos. En octal, 8 = 2³: tres bits.' },
+    { p: '¿Cuánto es `11011101` (binario) en octal?', o: ['335', '672', '353', '221'], c: 0, exp: 'Grupos de tres desde la derecha, con un cero de relleno a la izquierda: 011 011 101 → 3, 3, 5.' },
+    { p: '¿Cuánto es `110110010` (binario) en hexadecimal?', o: ['1B2', 'D90', '662', '434'], c: 0, exp: 'Grupos de cuatro desde la derecha, con ceros de relleno a la izquierda: 0001 1011 0010 → 1, B, 2.' },
+    { p: '¿Cuánto vale FF (hexadecimal) en decimal?', o: ['255', '256', '240', '1515'], c: 0, exp: 'F × 16 + F = 15 × 16 + 15 = 255. También: FF = 1111 1111, el byte más grande.' },
+    { p: '¿Cómo se pasa de decimal a hexadecimal sin calculadora?', o: ['A binario dividiendo entre 2, y después grupos de 4', 'Dividiendo entre 16 y leyendo los restos de abajo arriba', 'Multiplicando por 16 y apuntando las partes enteras', 'Pasando antes a octal: se divide entre 8'], c: 0, exp: 'Nunca se divide entre 8 ni entre 16: se divide entre 2 hasta tener el binario y se agrupa de cuatro en cuatro con la tabla.' },
+    { p: 'Al agrupar bits, ¿dónde van los ceros de relleno?', o: ['Izquierda en la parte entera, derecha en la fraccionaria', 'Derecha en la parte entera, izquierda en la fraccionaria', 'Siempre a la izquierda, en las dos partes', 'Siempre a la derecha, en las dos partes'], c: 0, exp: 'Donde no cambian el valor: 007 sigue siendo 7 y 0,50 sigue siendo 0,5. Un cero al final de la parte entera multiplicaría por la base.' }
+  ];
+
+  // UT1 · 1.7 Operaciones en binario y complementos (diapositiva 91)
+  SOM.preguntas.operaciones = [
+    { p: '¿Qué dos familias de operaciones hace la UAL?', o: ['Aritméticas (suma y resta) y lógicas (NOT, AND, OR…)', 'Multiplicaciones y divisiones, con tablas guardadas', 'Lectura y escritura de la memoria principal', 'Entrada y salida de datos hacia los periféricos'], c: 0, exp: 'Solo esas dos. La multiplicación y la división se hacen a base de sumas, restas y desplazamientos.' },
+    { p: '`1101 + 111` en binario da…', o: ['`10100`', '`1010`', '`11100`', '`10010`'], c: 0, exp: 'Columna a columna, con acarreos: 0, 0, 1, 0 y el 1 que queda al final. Comprobación: 13 + 7 = 20.' },
+    { p: '`1100 − 0101` en binario da…', o: ['`0111`', '`1001`', '`0110`', '`1011`'], c: 0, exp: 'Pidiendo 1 a la izquierda en las tres primeras columnas sale 0111. Comprobación: 12 − 5 = 7.' },
+    { p: '`0101 AND 0011` bit a bit da…', o: ['`0001`', '`0111`', '`0110`', '`1000`'], c: 0, exp: 'AND solo da 1 donde los dos bits son 1: en la última posición. Bit a bit, sin acarreos.' },
+    { p: 'XOR da 1…', o: ['Solo si los dos bits son distintos', 'Si al menos uno de los dos bits vale 1', 'Solo si los dos bits son 1', 'Solo si los dos bits son 0'], c: 0, exp: 'O exclusivo: 1 solo si son distintos. OR da 1 si alguno es 1; AND, si los dos son 1; NOR, si los dos son 0.' },
+    { p: 'Con puertas de un solo tipo se puede construir cualquier circuito digital. ¿De cuál?', o: ['NAND', 'AND', 'XOR', 'NOT'], c: 0, exp: 'Con NAND se hacen NOT, AND y OR, y con esas, cualquier circuito. Por eso el chip clásico SN7400 lleva cuatro puertas NAND.' },
+    { p: 'En el sumador de una columna, el bit que escribo y el que me llevo salen de…', o: ['XOR y AND', 'AND y OR', 'OR y NOT', 'NAND y NOR'], c: 0, exp: 'La tabla de la suma de dos bits coincide con las de XOR (lo que escribo) y AND (lo que me llevo). Dentro nadie sabe sumar: hay circuitos que cumplen una tabla.' },
+    { p: 'El complemento a 2 es…', o: ['El complemento a 1 más 1', 'El complemento a 1 menos 1', 'Invertir solo el primer bit', 'Multiplicar el número por 2'], c: 0, exp: 'C1 invierte todos los bits; C2 = C1 + 1. Es lo que le falta al número para llegar a 2ⁿ: por eso sumarlo equivale a restar.' },
+    { p: 'Complemento a 2 de `00001001` en 8 bits:', o: ['`11110111`', '`11110110`', '`10001001`', '`00001010`'], c: 0, exp: 'C1: se invierte, 11110110. C2: se suma 1, 11110111. Con el truco: se copia hasta el primer 1 desde la derecha y se invierte el resto.' },
+    { p: '¿Por qué el ordenador resta con complementos?', o: ['No tiene circuito de restar: el sumador hace las dos cosas', 'Es más rápido: el complemento se calcula en un solo ciclo', 'Así los negativos ocupan menos bits en la memoria', 'Por tradición: lo empezó IBM y los demás lo copiaron'], c: 0, exp: 'Sumar el complemento del sustraendo da la resta, así que un solo circuito sirve para las dos operaciones. El ordenador no tiene un símbolo «−»: solo bits.' },
+    { p: '¿Por qué los ordenadores usan el C2 y no el C1?', o: ['El C1 tiene un paso más y dos ceros distintos', 'El C1 no funciona con números de 8 bits', 'El C2 ocupa la mitad de bits que el C1', 'El C1 solo sirve para sumar, pero no para restar'], c: 0, exp: 'Con C1 hay que sumar el 1 que sobra (acarreo circular) y el cero tiene dos formas, 00000000 y 11111111. Con C2 el 1 se descarta y el cero es único.' },
+    { p: 'Cuando una resta en C2 sale negativa…', o: ['No sobra ningún 1 y el resultado ya está en C2', 'Sobra un 1, se descarta y se lee como positivo', 'Hay que repetirla con los números cambiados', 'Se lee sumando los pesos y poniendo el signo'], c: 0, exp: 'Para leerlo se le hace el C2 y se pone el signo menos: 11111100 → 00000100 → −4.' },
+    { p: 'El byte `11111011` leído en complemento a 2 vale…', o: ['−5', '251', '−123', '−4'], c: 0, exp: 'Empieza por 1: negativo. Su C2 es 00000101 = 5, así que vale −5. Sin signo, el mismo byte vale 251.' },
+    { p: 'En C2 de 8 bits, al pasar de `01111111` a `10000000`, el valor…', o: ['Salta de 127 a −128', 'Pasa de 127 a 128', 'Pasa de 255 a 0', 'Salta de −1 a 0'], c: 0, exp: 'Es el desbordamiento: el resultado no cabe y el valor da la vuelta. Lo señala el bit O del registro de estado.' },
+    { p: '¿Qué le pasó al contador de visitas de Gangnam Style?', o: ['Superó el mayor entero de 32 bits con signo', 'YouTube lo borró al pasar de mil millones', 'Se llenó el disco del servidor de estadísticas', 'El vídeo se corrompió y hubo que subirlo otra vez'], c: 0, exp: 'El máximo es 2³¹ − 1 = 2.147.483.647, y YouTube pasó el contador a 64 bits. Elegir cuántos bits tiene un dato tiene consecuencias.' }
+  ];
+
+  // UT1 · 1.8 Detección de errores y 1.9 Codificación, hasta Unicode (diapositiva 115)
+  SOM.preguntas.codificacion = [
+    { p: 'Con paridad par, ¿qué bit se añade al dato `1101011`?', o: ['Un 1: el dato tiene un número impar de unos', 'Un 0: el dato tiene un número par de unos', 'Un 1: el último bit del dato ya es un 1', 'Un 0: el dato tiene siete bits, que es impar'], c: 0, exp: 'Tiene cinco unos. El bit se elige para que el total, contándolo a él, sea par: hace falta un 1. Con paridad impar sería un 0.' },
+    { p: 'Recibes `10110011` con paridad par. ¿Ha llegado bien?', o: ['No: tiene cinco unos y el total debería ser par', 'Sí: el número de unos es par, así que cuadra', 'Sí: el último bit es 1 y la paridad cuadra', 'No se puede saber sin conocer el dato original'], c: 0, exp: 'El receptor vuelve a contar: cinco unos no cuadran con paridad par. Hay un error y se pide el reenvío.' },
+    { p: 'Una limitación del bit de paridad simple es que…', o: ['Si cambian dos bits, la cuenta vuelve a cuadrar', 'Necesita un circuito muy caro por cada byte', 'Solo funciona con datos de un número par de bits', 'Localiza el bit erróneo, pero no lo puede corregir'], c: 0, exp: 'Tampoco dice qué bit ha cambiado, así que no puede corregirlo. A cambio es baratísima: una puerta por bit.' },
+    { p: 'La paridad bidimensional, frente a la simple…', o: ['Localiza el bit erróneo en el cruce y lo corrige', 'Detecta los errores, pero ya no los corrige', 'Usa menos bits de control para los mismos datos', 'Solo sirve para detectar errores de dos bits'], c: 0, exp: 'Un bit por fila y otro por columna: el bit cambiado hace fallar su fila y su columna, el cruce lo señala y se invierte. A cambio, más redundancia.' },
+    { p: '¿Cómo funciona un CRC?', o: ['Divide el bloque por un número fijo y envía el resto', 'Cuenta los unos del bloque y envía el total', 'Envía el bloque dos veces y el receptor compara las copias', 'Comprime el bloque y compara el tamaño final'], c: 0, exp: 'El emisor divide el bloque por el polinomio generador y envía el resto; el receptor repite la división y, si no coincide, pide el bloque de nuevo.' },
+    { p: '¿Por qué un disco «de 1 TB» muestra 931 GB en Windows?', o: ['El fabricante cuenta en decimal y Windows en binario', 'El sistema operativo ya ocupa esos 69 GB que faltan', 'El disco viene con sectores dañados de fábrica', 'Windows reserva ese espacio para la papelera'], c: 0, exp: 'Son los mismos bytes: 10¹² ÷ 2³⁰ = 931,3. Windows cuenta en binario, pero lo etiqueta «GB».' },
+    { p: 'Una fibra de 1 Gb/s descarga como mucho a…', o: ['125 MB/s', '1 GB/s', '1.024 MB/s', '8 GB/s'], c: 0, exp: 'La red se mide en bits y un byte son 8 bits: 1.000 Mb/s ÷ 8 = 125 MB/s.' },
+    { p: 'En decimal empaquetado, +13457 se guarda como…', o: ['`13 45 7C`', '`13 45 7D`', '`F1 F3 F4 F5 C7`', '`C1 34 57`'], c: 0, exp: 'Cada dígito en 4 bits y el signo en el último cuarteto: C positivo, D negativo. Cinco dígitos y el signo son seis cuartetos, tres bytes.' },
+    { p: '¿Por qué los procesadores no guardan los enteros en signo y magnitud?', o: ['Tiene dos ceros y obliga a mirar los signos al sumar', 'No puede representar ningún número negativo', 'Ocupa el doble de bits que un entero en complemento a 2', 'Solo llega hasta 255 aunque tenga 32 bits'], c: 0, exp: 'Hay un +0 y un −0, y hay que mirar los signos antes de sumar. Los enteros se guardan en complemento a 2: un solo circuito y un solo cero.' },
+    { p: 'Un número en coma flotante se guarda como…', o: ['Signo, mantisa y exponente, como en notación científica', 'Dos enteros: uno para la parte entera y otro para la decimal', 'Un entero multiplicado por 100 para las dos cifras decimales', 'Texto: cada cifra y la coma, un carácter ASCII'], c: 0, exp: 'La mantisa lleva las cifras significativas y el exponente coloca la coma. Gana rango, pero solo guarda unas pocas cifras: el resto se redondea.' },
+    { p: '¿Por qué 0,1 + 0,2 no da 0,3 exacto en el ordenador?', o: ['0,1 y 0,2 son periódicos en binario y se redondean', 'Es un fallo de JavaScript que no pasa en otros lenguajes', 'El procesador comete errores al sumar decimales', 'Se suman como texto y se juntan las cifras'], c: 0, exp: 'Se cortan en 52 bits, y los dos redondeos asoman en la cifra 17. Es el formato IEEE 754, que usan todos los lenguajes.' },
+    { p: 'En ASCII, el carácter «2» es…', o: ['El código 50, no el número 2', 'El número 2, en binario 00000010', 'El código 2, el tercero de la tabla', 'El código 34, dos después del espacio'], c: 0, exp: 'El ordenador guarda un código por carácter. Por eso «2» + «2» como texto da «22».' },
+    { p: '¿Cuál es el código ASCII de la «K»?', o: ['75', '74', '76', '107'], c: 0, exp: 'Desde el ancla A = 65: la K es la undécima letra, 65 + 10 = 75. La k minúscula es 107.' },
+    { p: 'En ASCII, una mayúscula y su minúscula se diferencian en…', o: ['32: un solo bit, el de peso 32', '26: las letras del alfabeto', '1: la minúscula va justo detrás', '64: el bit de más peso del código'], c: 0, exp: 'A = 65 = 01000001 y a = 97 = 01100001. Cambiar ese bit pasa de mayúscula a minúscula.' },
+    { p: 'UTF-8 es…', o: ['Cómo se pasan a bytes los puntos de código Unicode', 'Una tabla de 8 bits como Latin-1, con emojis arriba', 'Un código fijo de 4 bytes por carácter, como UTF-32', 'La versión de ASCII que añade la ñ y las tildes'], c: 0, exp: 'Usa de 1 a 4 bytes según el carácter, y los 128 de ASCII ocupan un byte idéntico al de siempre: un archivo ASCII ya es UTF-8.' },
+    { p: '«año» escrito en UTF-8 y abierto como Latin-1 se ve…', o: ['«aÃ±o»', '«a�o»', '«ano»', '«a?o»'], c: 0, exp: 'La ñ son dos bytes en UTF-8 (C3 B1) y Latin-1 lee cada uno como una letra. Se arregla cambiando la codificación al abrir, no reescribiendo.' }
+  ];
+
+  // UT1 · 1.9 Formatos de archivo (diapositiva 121)
+  SOM.preguntas.formatos = [
+    { p: 'Un formato de archivo es…', o: ['Cómo se organizan los bytes dentro del archivo', 'La extensión: al cambiarla se convierte el archivo', 'El tamaño del archivo, que decide cómo se abre', 'El programa que lo creó, el único que puede abrirlo'], c: 0, exp: 'La extensión es solo la pista que usa el sistema operativo para elegir el programa: cambiarla no cambia el formato.' },
+    { p: 'Cambias la extensión de un .docx a .zip y lo abres. ¿Qué encuentras?', o: ['Archivos XML con el texto y los estilos, e imágenes', 'Un error: Windows no deja cambiar la extensión de un .docx', 'El mismo documento, que se abre en Word', 'Un único archivo de texto plano con todo'], c: 0, exp: 'Un .docx es un ZIP con XML e imágenes dentro, y un .odt también. Lo mismo pasa con xlsx, ods, pptx y odp.' },
+    { p: '¿En qué formato entregas un trabajo para que se vea igual en cualquier ordenador?', o: ['.pdf', '.docx', '.txt', '.odt'], c: 0, exp: 'El PDF fija texto, tipografías e imágenes en su posición: se ve igual en todas partes. Es para entregar y archivar, no para editar.' },
+    { p: 'Una imagen de mapa de bits…', o: ['Es una rejilla de píxeles: al ampliarla se ven los cuadrados', 'Guarda instrucciones de dibujo y se amplía sin perder calidad', 'Es un texto XML que el navegador dibuja al abrirlo', 'Guarda solo el contorno de las figuras, sin colores'], c: 0, exp: 'Guarda el color de cada píxel. Las instrucciones de dibujo son de la imagen vectorial, como SVG.' },
+    { p: 'Un logotipo tiene que verse bien desde un icono hasta una lona gigante. ¿En qué formato lo guardas?', o: ['SVG, vectorial', 'JPG, con pérdida', 'PNG, sin pérdida', 'BMP, sin comprimir'], c: 0, exp: 'La imagen vectorial guarda instrucciones de dibujo y se redibuja a cualquier tamaño sin perder calidad. Las de mapa de bits pixelan al ampliar.' },
+    { p: '¿Cuál de estos formatos de imagen comprime sin pérdida?', o: ['PNG', 'JPG', 'AVIF', 'JPG de calidad 95'], c: 0, exp: 'PNG comprime sin perder nada: la imagen vuelve idéntica. JPG y AVIF descartan lo que el ojo no distingue, aunque sea con calidad alta.' },
+    { p: 'Guardas una foto en JPG, la editas y la vuelves a guardar varias veces. ¿Qué pasa?', o: ['Cada guardado descarta algo más de información', 'Nada: JPG conserva todo mientras no la amplíes', 'Ocupa más cada vez, hasta el tamaño de un BMP', 'Pierde la primera vez y después ya queda igual'], c: 0, exp: 'Con pérdida, cada nuevo guardado descarta algo más. Por eso el original se conserva en RAW o PNG.' },
+    { p: 'FLAC frente a MP3:', o: ['FLAC comprime sin pérdida; MP3, con pérdida', 'MP3 comprime sin pérdida; FLAC, con pérdida', 'Los dos comprimen con pérdida, pero FLAC más', 'FLAC no comprime nada, igual que WAV'], c: 0, exp: 'FLAC ocupa más o menos la mitad que el WAV y el audio vuelve idéntico; MP3 descarta lo que el oído no distingue.' },
+    { p: 'En un vídeo, ¿qué diferencia hay entre contenedor y códec?', o: ['El contenedor es la caja; el códec, cómo se comprime', 'Son lo mismo: cada extensión lleva su propio códec', 'El códec es la extensión; el contenedor, el reproductor', 'El contenedor comprime el vídeo; el códec lo reproduce'], c: 0, exp: 'MP4 o MKV llevan dentro vídeo, audio y subtítulos; H.264 o AV1 dicen cómo se comprime el vídeo. Dos .mp4 pueden llevar códecs distintos.' },
+    { p: 'Empaquetar y comprimir, ¿son lo mismo?', o: ['No: empaquetar junta archivos; comprimir reduce su tamaño', 'Sí: los dos juntan varios archivos en uno más pequeño', 'No: empaquetar reduce el tamaño; comprimir los junta', 'Sí, pero comprimir además cifra con contraseña'], c: 0, exp: 'Empaquetar mete varios archivos en uno sin cambiar su tamaño (tar); comprimir reescribe los bytes para que ocupen menos (gz). ZIP hace las dos cosas.' },
+    { p: 'Comprimes en ZIP una carpeta de fotos JPG y apenas baja de tamaño. ¿Por qué?', o: ['Los JPG ya están comprimidos', 'ZIP solo comprime archivos de texto', 'Las fotos se cifran al comprimirlas', 'ZIP solo empaqueta y no comprime'], c: 0, exp: 'Un texto o un BMP se reducen mucho; un JPG, un MP3 o un MP4 ya están comprimidos y casi no bajan.' },
+    { p: '¿Qué formato solo junta archivos, sin comprimirlos?', o: ['.tar', '.zip', '.7z', '.gz'], c: 0, exp: 'tar (tape archive) solo empaqueta, y gz comprime un solo archivo. Por eso en Linux se usa .tar.gz: primero tar y después gzip.' },
+    { p: 'Un archivo .csv es…', o: ['Texto plano con los datos separados por comas', 'Un ZIP con XML dentro, como el .xlsx', 'Una base de datos en un solo archivo binario', 'Una hoja de cálculo con fórmulas y gráficos'], c: 0, exp: 'Es el formato universal para mover datos entre programas. xlsx y ods, en cambio, son ZIP con XML dentro.' },
+    { p: '¿Por qué un .exe de Windows no arranca en Linux?', o: ['Es código máquina para un sistema operativo concreto', 'Linux no admite archivos con extensión', 'Está comprimido en un formato que Linux no sabe abrir', 'Es texto plano con órdenes que solo entiende Windows'], c: 0, exp: 'Los ejecutables dependen del sistema: .exe para Windows, deb o rpm para Linux, apk para Android.' }
+  ];
+
   /* ---------- quiz de opción múltiple ---------- */
   function montaQuiz(q) {
-    const correcta = parseInt(q.dataset.correct, 10);
     const opts = [...q.querySelectorAll('.quiz-opt')];
     const fb = q.querySelector('.quiz-fb');
     const inicial = fb ? fb.textContent : '';
@@ -1300,6 +1459,8 @@
     };
     opts.forEach((o, i) => o.addEventListener('click', () => {
       if (q.hasAttribute('data-answered')) return;
+      // Se lee al pulsar: «Otra pregunta» cambia la correcta
+      const correcta = parseInt(q.dataset.correct, 10);
       q.setAttribute('data-answered', '');
       opts[correcta].classList.add('correct');
       if (i !== correcta) o.classList.add('wrong');
@@ -1307,6 +1468,43 @@
     }));
     const r = q.querySelector('.quiz-reset');
     if (r) r.addEventListener('click', reset);
+    const banco = SOM.preguntas[q.dataset.preguntas];
+    if (r && banco && banco.length) montaOtraPregunta(q, r, opts, banco, reset);
+  }
+
+  /* «Otra pregunta», a la derecha de Reiniciar: alterna la pregunta de la diapositiva con las del banco,
+     barajadas y con las opciones en otro orden. Al acabar la vuelta vuelve a la de la diapositiva. */
+  const fmtQuiz = (s) => escapaHtml(s).replace(/`([^`]+)`/g, '<code class="en-linea">$1</code>');
+  function montaOtraPregunta(q, r, opts, banco, reset) {
+    const h2 = q.querySelector('h2');
+    const textos = opts.map((o) => o.querySelector(':scope > span:not(.letra)'));
+    const original = { h: h2.innerHTML, o: textos.map((t) => t.innerHTML), c: q.dataset.correct, ok: q.dataset.ok, ko: q.dataset.ko };
+    const pon = (p) => {
+      if (p === original) {
+        h2.innerHTML = p.h;
+        textos.forEach((t, k) => { t.innerHTML = p.o[k]; opts[k].style.display = ''; });
+        Object.assign(q.dataset, { correct: p.c, ok: p.ok, ko: p.ko });
+      } else {
+        const orden = baraja(p.o.map((_, k) => k));
+        h2.innerHTML = fmtQuiz(p.p);
+        opts.forEach((o, k) => {
+          o.style.display = k < orden.length ? '' : 'none';
+          if (k < orden.length) textos[k].innerHTML = fmtQuiz(p.o[orden[k]]);
+        });
+        Object.assign(q.dataset, { correct: orden.indexOf(p.c), ok: 'Correcto. ' + p.exp, ko: 'No. ' + p.exp });
+      }
+      reset();
+    };
+    let lista = [original].concat(baraja(banco)), i = 0;
+    const b = document.createElement('button');
+    b.className = 'btn btn-amarillo quiz-otra';
+    b.textContent = 'Otra pregunta';
+    b.addEventListener('click', () => {
+      i = (i + 1) % lista.length;
+      if (i === 0) lista = [original].concat(baraja(banco));
+      pon(lista[i]);
+    });
+    r.after(b);
   }
 
 

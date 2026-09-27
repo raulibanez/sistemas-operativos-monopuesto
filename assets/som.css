@@ -273,6 +273,11 @@ section > .seccion-pill:hover { background: var(--white); transform: translateY(
   margin-top: var(--gap-item);
   min-height: 2.8em;
 }
+/* «Otra pregunta» (data-preguntas): a la derecha de Reiniciar, en amarillo, el principal sobre azul marino */
+.quiz-otra { margin: var(--gap-item) 0 0 16px; border: 3px solid transparent; }   /* el borde iguala el alto con Reiniciar */
+/* Bits y códigos entre `acentos graves` en las preguntas del banco */
+.quiz code.en-linea { font-family: var(--mono); font-size: .9em; background: rgba(255,255,255,.12); padding: 0 10px; border-radius: 8px; white-space: nowrap; }
+.quiz-opt.correct code.en-linea { background: rgba(21,53,107,.12); }
 
 /* ---------- Ejercicio generado (números al azar) ---------- */
 .ej {
