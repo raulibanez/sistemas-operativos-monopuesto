@@ -1788,53 +1788,27 @@
   </div>
 </section>
 
-<!-- 58 Texto: teorema fundamental de la numeración -->
-<section data-label="Teorema fundamental" data-seccion="1.6" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.35fr 1fr;gap:64px">
-  <aside class="notas"><p><b>Desarrollar los tres ejemplos en la pizarra</b> y después que hagan los cuatro de la tarjeta (631, 1927, 2120,57 y 3406).</p><ul><li>Empezar por 52318<sub>(10</sub>: señalar cada pieza. b es el subíndice; i se cuenta desde las unidades; el peso es b<sup>i</sup>.</li><li>Posiciones desde la coma: 0 unidades, 1, 2, 3 a la izquierda; −1, −2 a la derecha.</li><li>Insistir: 10<sup>0</sup> es 1; 10<sup>−1</sup> es 0,1.</li></ul><p>Es la herramienta para pasar cualquier base a decimal.</p></aside>
-  <div style="display:flex;flex-direction:column;min-width:0">
-    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Numeración y cambios de base</p>
-    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Teorema fundamental de la numeración</h2>
-    <div style="background:var(--navy);color:var(--white);border-radius:20px;padding:28px 36px;margin-top:var(--gap-item);display:grid;grid-template-columns:auto 1fr;gap:12px 40px;align-items:center">
+<!-- 58 Texto: teorema fundamental de la numeración, desarrollado paso a paso -->
+<section data-label="Teorema fundamental" data-seccion="1.6" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column;gap:var(--gap-item)">
+  <aside class="notas"><p><b>Idea clave: con este teorema se pasa cualquier base a decimal.</b> Pulsar Siguiente y, antes de cada clic, preguntar qué término sale.</p><ul><li>Por qué importa: en un sistema posicional cada cifra vale su dígito por el peso de su posición (b<sup>i</sup>), y el teorema lo escribe como una suma. En decimal lo hacemos sin pensar: 52318 son 5 decenas de millar, 2 millares, 3 centenas, 1 decena y 8 unidades.</li><li>Vale igual en base 2, 8 y 16: solo cambia b. Probarlo con el selector: 11011<sub>(2</sub> = 27, 745<sub>(8</sub> = 485, 2AF<sub>(16</sub> = 687.</li><li>Para qué sirve: leer en decimal lo que el ordenador da en otras bases. 11111111<sub>(2</sub> = 255, el mayor valor de un octeto de una dirección IP; FF<sub>(16</sub> = 255, el máximo de cada componente de un color web, como el rojo de #FF8800.</li><li>Es uno de los tres caminos del «Esquema de cambios de base»: la tabla entre 2, 8 y 16; las divisiones entre 2 de decimal a binario; y este, de cualquier base a decimal.</li><li>Error típico: contar las posiciones desde la izquierda o empezar en 1. Se cuenta desde las unidades y se empieza en 0 (b<sup>0</sup> = 1).</li><li>Decimales: 10⁻¹ = 0,1; 2⁻¹ = 0,5; 8⁻¹ = 0,125; 16⁻¹ = 0,0625. Hexadecimal: A vale 10 y F, 15.</li><li>Pulsando el número se escribe cualquiera (Intro lo desarrolla, Esc cancela).</li></ul></aside>
+  <div style="display:grid;grid-template-columns:1fr auto;gap:56px;align-items:center">
+    <div style="min-width:0">
+      <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Numeración y cambios de base</p>
+      <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Teorema fundamental de la numeración</h2>
+    </div>
+    <div style="background:var(--navy);border-radius:20px;padding:24px 36px;display:grid;grid-template-columns:auto auto;gap:10px 36px;align-items:center">
       <p style="font-family:var(--mono);font-size:44px;font-weight:600;color:var(--yellow);white-space:nowrap">N = Σ d<sub style="font-size:24px">i</sub> · b<sup style="font-size:26px">i</sup></p>
-      <div style="display:grid;grid-template-columns:auto 1fr;gap:8px 18px;font-size:20px;line-height:1.4;color:#C9D6EE;align-items:baseline">
-        <b style="font-family:var(--mono);font-size:24px;color:var(--yellow)">d<sub style="font-size:15px">i</sub></b><span>el <b style="color:var(--white)">dígito</b> que ocupa la posición i.</span>
-        <b style="font-family:var(--mono);font-size:24px;color:var(--yellow)">b</b><span>la <b style="color:var(--white)">base</b>: cuántos símbolos tiene el sistema. Se escribe de subíndice: en 1785<sub>(10</sub>, <span style="white-space:nowrap">b = 10</span>.</span>
-        <b style="font-family:var(--mono);font-size:24px;color:var(--yellow)">i</b><span>la <b style="color:var(--white)">posición</b>: 0 en las unidades, 1, 2, 3… hacia la izquierda y −1, −2… tras la coma.</span>
+      <div style="display:grid;grid-template-columns:auto auto;gap:6px 14px;font-size:20px;line-height:1.35;color:#C9D6EE;align-items:baseline">
+        <b style="font-family:var(--mono);font-size:24px;color:var(--yellow)">d<sub style="font-size:15px">i</sub></b><span>el <b style="color:var(--white)">dígito</b> de la posición i</span>
+        <b style="font-family:var(--mono);font-size:24px;color:var(--yellow)">b</b><span>la <b style="color:var(--white)">base</b>: el subíndice del número</span>
+        <b style="font-family:var(--mono);font-size:24px;color:var(--yellow)">i</b><span>la <b style="color:var(--white)">posición</b>: 0 en las unidades</span>
       </div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:14px;margin-top:var(--gap-item);font-family:var(--mono);font-size:24px;line-height:1.5;color:var(--navy)">
-      <div style="background:var(--white);border-radius:16px;padding:16px 24px;box-shadow:0 2px 0 var(--line)"><b>1785<sub style="font-size:15px">(10</sub></b> = 1·10³ + 7·10² + 8·10¹ + 5·10⁰ = 1000 + 700 + 80 + 5</div>
-      <div style="background:var(--white);border-radius:16px;padding:16px 24px;box-shadow:0 2px 0 var(--line)"><b>345,65<sub style="font-size:15px">(10</sub></b> = 3·10² + 4·10¹ + 5·10⁰ + 6·10⁻¹ + 5·10⁻² = 300 + 40 + 5 + 0,6 + 0,05</div>
-      <div style="background:var(--white);border-radius:16px;padding:16px 24px;box-shadow:0 2px 0 var(--line)"><b>12,357<sub style="font-size:15px">(10</sub></b> = 1·10¹ + 2·10⁰ + 3·10⁻¹ + 5·10⁻² + 7·10⁻³</div>
-    </div>
-    <p style="font-size:21px;line-height:1.45;color:var(--muted);margin-top:var(--gap-item)">Vale para cualquier base: en binario la base es 2 y las potencias son 1, 2, 4, 8, 16… Es la herramienta para pasar de cualquier sistema a decimal.</p>
   </div>
-  <div style="display:flex;flex-direction:column;justify-content:center;gap:24px;min-width:0">
-    <div style="background:var(--white);border-radius:24px;padding:30px 36px;box-shadow:0 2px 0 var(--line)">
-      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Todas las piezas en un número</p>
-      <p style="font-size:21px;color:var(--muted);margin-top:10px"><span style="font-family:var(--mono);font-size:32px;font-weight:700;color:var(--navy)">52318<sub style="font-size:19px">(10</sub></span> &nbsp;→ base <b style="font-family:var(--mono);color:var(--navy)">b = 10</b></p>
-      <div style="display:grid;grid-template-columns:auto repeat(5,1fr);gap:8px;margin-top:16px;font-family:var(--mono);font-size:22px;color:var(--navy);text-align:center;align-items:center">
-        <span style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:19px;color:var(--muted);text-align:left;padding-right:8px">posición <b style="font-family:var(--mono);color:var(--blue)">i</b></span>
-        <b style="color:var(--blue)">4</b><b style="color:var(--blue)">3</b><b style="color:var(--blue)">2</b><b style="color:var(--blue)">1</b><b style="color:var(--blue)">0</b>
-        <span style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:19px;color:var(--muted);text-align:left;padding-right:8px">dígito <b style="font-family:var(--mono);color:var(--navy)">d<sub>i</sub></b></span>
-        <b style="font-size:36px;background:var(--bg);border-radius:10px;padding:4px 0">5</b><b style="font-size:36px;background:var(--bg);border-radius:10px;padding:4px 0">2</b><b style="font-size:36px;background:var(--bg);border-radius:10px;padding:4px 0">3</b><b style="font-size:36px;background:var(--bg);border-radius:10px;padding:4px 0">1</b><b style="font-size:36px;background:var(--bg);border-radius:10px;padding:4px 0">8</b>
-        <span style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:19px;color:var(--muted);text-align:left;padding-right:8px">peso <b style="font-family:var(--mono);color:var(--navy)">b<sup>i</sup></b></span>
-        <span>10⁴</span><span>10³</span><span>10²</span><span>10¹</span><span>10⁰</span>
-        <span style="font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:19px;color:var(--muted);text-align:left;padding-right:8px"><b style="font-family:var(--mono);color:var(--navy)">d<sub>i</sub> · b<sup>i</sup></b></span>
-        <span>50000</span><span>2000</span><span>300</span><span>10</span><span>8</span>
-      </div>
-      <p style="font-family:var(--mono);font-size:22px;color:var(--navy);margin-top:14px;padding-top:12px;border-top:2px solid var(--line)">N = 50000 + 2000 + 300 + 10 + 8 = <b>52318</b></p>
-    </div>
-    <div style="background:var(--white);border-radius:24px;padding:30px 36px;box-shadow:0 2px 0 var(--line)">
-      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Para la pizarra</p>
-      <p style="font-size:21px;line-height:1.45;color:var(--muted);margin-top:10px">Descompón estos números con el teorema:</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;font-family:var(--mono);font-size:34px;font-weight:600;color:var(--navy);text-align:center">
-        <div style="background:var(--bg);border-radius:14px;padding:10px">631</div>
-        <div style="background:var(--bg);border-radius:14px;padding:10px">1927</div>
-        <div style="background:var(--bg);border-radius:14px;padding:10px">2120,57</div>
-        <div style="background:var(--bg);border-radius:14px;padding:10px">3406</div>
-      </div>
-      <p style="font-size:19px;line-height:1.45;color:var(--muted);margin-top:14px">Recuerda: cualquier número elevado a 0 vale 1, y 10⁻¹ = 1/10 = 0,1.</p>
+  <div class="sumatorio" data-numero="52318" data-base="10" style="flex:1;min-height:0;background:var(--white);border-radius:24px;box-shadow:0 2px 0 var(--line);padding:32px 48px">
+    <div class="sum-cuerpo">
+      <div class="sum-numero"><div class="sum-col sum-rotulos"><span class="sum-d">d<sub>i</sub></span><span class="sum-i">i</span></div><div class="sum-col"><span class="sum-d">5</span><span class="sum-i">4</span></div><div class="sum-col"><span class="sum-d">2</span><span class="sum-i">3</span></div><div class="sum-col"><span class="sum-d">3</span><span class="sum-i">2</span></div><div class="sum-col"><span class="sum-d">1</span><span class="sum-i">1</span></div><div class="sum-col"><span class="sum-d">8</span><span class="sum-i">0</span></div><div class="sum-col sum-base"><span class="sum-d">(10</span><span class="sum-i">b</span></div></div>
+      <div class="sum-suma"><span>N</span><span></span><span>=</span><span>=</span><span class="sum-t">5·10<sup>4</sup></span><span class="sum-t">50000</span><span>+</span><span>+</span><span class="sum-t">2·10<sup>3</sup></span><span class="sum-t">2000</span><span>+</span><span>+</span><span class="sum-t">3·10<sup>2</sup></span><span class="sum-t">300</span><span>+</span><span>+</span><span class="sum-t">1·10<sup>1</sup></span><span class="sum-t">10</span><span>+</span><span>+</span><span class="sum-t">8·10<sup>0</sup></span><span class="sum-t">8</span><span></span><span>=</span><span></span><span class="sum-t sum-total">52318</span></div>
     </div>
   </div>
 </section>

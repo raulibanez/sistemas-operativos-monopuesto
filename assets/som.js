@@ -29,6 +29,9 @@
  *     notas de la diapositiva actual; se actualiza al cambiar de diapositiva.
  *  8. Calculadora básica (disposición del iPhone): la tecla C abre assets/calc.html en un panel
  *     flotante que se arrastra por la cabecera; el botón ⧉ la extrae a una pestaña nueva.
+ *  9. Teorema fundamental de la numeración paso a paso (Anterior / Siguiente / Otro número, selector de base 2, 8, 10, 16
+ *     y el número se puede escribir a mano pulsándolo):
+ *       <div class="sumatorio" data-numero="52318" data-base="10"> <div class="sum-cuerpo">…</div> </div>
  */
 (function () {
   'use strict';
@@ -1930,6 +1933,183 @@
     recalcula();
   }
 
+  /* ---------- teorema fundamental de la numeración, paso a paso ----------
+   * <div class="sumatorio" data-numero="52318" data-base="10"> <div class="sum-cuerpo">…</div> </div>
+   * El número en grande, con su posición i debajo de cada cifra y la base de subíndice. Cada
+   * «Siguiente» ilumina una cifra, de izquierda a derecha, y añade a la suma su término dᵢ·bⁱ con
+   * su valor debajo; el último paso da el total. El selector «Base» cambia entre 2, 8, 10 y 16 (cada
+   * una con su ejemplo) y «Otro número» saca otro al azar en la base elegida. El .sum-cuerpo del
+   * HTML es la versión estática (miniaturas del carril, impresión); el script lo sustituye.
+   */
+  // por base: el ejemplo al elegirla, cuántas cifras tiene «Otro número» y hasta cuántos decimales.
+  // Octal y hexadecimal, 3 cifras como en el ejercicio Entre bases y como mucho 1 decimal: con 2, los productos
+  // ya son como 7·8⁻² = 0,109375 o 15·16⁻² = 0,05859375.
+  const SUM_BASES = { 2: { ej: '11011', cifras: 5, dec: 3 }, 8: { ej: '745', cifras: 3, dec: 1 }, 10: { ej: '52318', cifras: 5, dec: 3 }, 16: { ej: '2AF', cifras: 3, dec: 1 } };
+
+  function montaSumatorio(el) {
+    const menos = (n) => String(n).replace('-', '−');
+    const exp = (n) => `<sup>${menos(n)}</sup>`;                         // <sup> y no ⁴: en JetBrains Mono los ⁰⁴⁵… salen de otra fuente
+    // en base 10, 0,05 sin arrastrar errores de coma flotante; en 2, 8 y 16 los pesos son potencias de 2 y el valor
+    // es exacto (15·16⁻³ = 0,003662109375): no se redondea
+    const dec = (x) => String(b === 10 ? Number(x.toFixed(10)) : x).replace('.', ',');
+    let b = Math.min(16, Math.max(2, Number(el.dataset.base) || 10));
+    let SIMB = '0123456789ABCDEF'.slice(0, b);
+    let numero = String(el.dataset.numero || '52318').toUpperCase();
+    let C = [], paso = 0;
+    let cuerpo = el.querySelector('.sum-cuerpo');
+    if (!cuerpo) { cuerpo = document.createElement('div'); cuerpo.className = 'sum-cuerpo'; el.appendChild(cuerpo); }
+    const acciones = document.createElement('div');
+    acciones.className = 'sum-acciones';
+    acciones.innerHTML = `<div class="sum-bases"><span>Base</span>${Object.keys(SUM_BASES).map((x) => `<button type="button" data-b="${x}">${x}</button>`).join('')}</div>`
+      + '<div class="sum-botones"><button type="button" class="btn btn-ghost" data-a="ant">Anterior</button><button type="button" class="btn btn-primary" data-a="sig">Siguiente</button><button type="button" class="btn btn-ghost" data-a="otro">Otro número</button></div>';
+    el.appendChild(acciones);
+    const botones = {};
+    acciones.querySelectorAll('[data-a]').forEach((x) => { botones[x.dataset.a] = x; });
+    const marcaBase = () => acciones.querySelectorAll('[data-b]').forEach((x) => x.classList.toggle('activo', Number(x.dataset.b) === b));
+
+    // un número al azar en la base actual, con las cifras de SUM_BASES; la coma cae al azar (siempre quedan
+    // 2 cifras enteras). Sin ceros a la izquierda ni al final de los decimales; en hexadecimal, con alguna letra.
+    function otro() {
+      const cfg = SUM_BASES[b] || { cifras: numero.replace(',', '').length, dec: 0 };
+      const n = cfg.cifras;
+      const cifra = (sinCero) => SIMB[rnd(sinCero ? 1 : 0, b - 1)];
+      let nuevo;
+      do {
+        const nd = rnd(0, Math.max(0, Math.min(cfg.dec, n - 2))), ne = n - nd;
+        nuevo = Array.from({ length: ne }, (_, k) => cifra(k === 0 && ne > 1)).join('')
+          + (nd ? ',' + Array.from({ length: nd }, (_, k) => cifra(k === nd - 1)).join('') : '');
+      } while (nuevo === numero || (b === 16 && !/[A-F]/.test(nuevo)));
+      numero = nuevo;
+    }
+
+    // número escrito a mano: al pulsar el número se cambia por una caja con la misma letra. Solo deja
+    // escribir cifras de la base, una coma (el punto vale como coma), hasta SUM_MAX cifras y hasta
+    // SUM_DEC[b] decimales (con más, los pesos bajan de 10⁻⁶ y JavaScript los escribe como 5.96e-8).
+    // Intro (o salir de la caja) lo desarrolla; Esc lo deja como estaba.
+    const SUM_MAX = 8, SUM_DEC = { 2: 8, 8: 4, 10: 6, 16: 3 };
+    const CIFRAS = { 2: '0 y 1', 8: 'del 0 al 7', 10: 'del 0 al 9', 16: 'del 0 al 9 y de la A a la F' };
+    function filtra(v) {
+      let s = [...v.toUpperCase().replace(/\./g, ',')].filter((ch) => ch === ',' || SIMB.includes(ch)).join('');
+      const c = s.indexOf(',');
+      if (c >= 0) s = s.slice(0, c + 1) + s.slice(c + 1).replace(/,/g, '');
+      let n = 0, d = -1;
+      return [...s].filter((ch) => { if (ch === ',') { d = 0; return true; } return ++n <= SUM_MAX && (d < 0 || ++d <= (SUM_DEC[b] || 3)); }).join('');
+    }
+    function edita() {
+      const num = cuerpo.querySelector('.sum-numero');
+      if (!num) return;
+      const caja = document.createElement('div');
+      caja.className = 'sum-edita';
+      caja.innerHTML = `<div class="sum-edita-fila"><input class="sum-entrada" type="text" spellcheck="false" autocomplete="off" aria-label="Número en base ${b}"><span class="sum-edita-base">(${b}</span></div>
+        <p class="sum-ayuda">Cifras ${CIFRAS[b] || 'de la base'}; hasta ${SUM_MAX} cifras y ${SUM_DEC[b] || 3} decimales. <b>Intro</b> para desarrollarlo, <b>Esc</b> para dejarlo como estaba.</p>`;
+      num.replaceWith(caja);
+      paso = 0; pinta();
+      const inp = caja.querySelector('input');
+      const ancho = () => { inp.style.width = (Math.max(inp.value.length, 1) + 0.5) + 'ch'; };
+      inp.value = numero; ancho();
+      inp.addEventListener('input', () => {
+        const v = filtra(inp.value);
+        if (v !== inp.value) { const p = Math.max(0, inp.selectionStart - (inp.value.length - v.length)); inp.value = v; inp.setSelectionRange(p, p); }
+        ancho();
+      });
+      let cerrada = false;
+      const cierra = (aplica) => {
+        if (cerrada) return; cerrada = true;
+        if (aplica) {
+          const v = filtra(inp.value).replace(/,$/, '').replace(/^,/, '0,').replace(/^0+(?=[0-9A-F])/, '');
+          if (v) numero = v;
+        }
+        monta();
+      };
+      inp.addEventListener('keydown', (e) => {
+        e.stopPropagation();                              // que no lo tomen las flechas, la N, la C ni la B del deck
+        if (e.key === 'Enter') { e.preventDefault(); cierra(true); }
+        else if (e.key === 'Escape') { e.preventDefault(); cierra(false); }
+      });
+      inp.addEventListener('blur', () => cierra(true));
+      inp.focus(); inp.select();
+    }
+
+    // los números largos se encogen para caber en la tarjeta (--k en el número, --ks en la suma)
+    function ajusta() {
+      const W = cuerpo.clientWidth;
+      if (!W) return;                                     // diapositiva oculta: ya se ajustará al volver a montar
+      [['.sum-numero', '--k'], ['.sum-suma', '--ks']].forEach(([sel, v]) => {
+        const x = cuerpo.querySelector(sel);
+        x.style.removeProperty(v);
+        let k = 1;
+        for (let vuelta = 0; vuelta < 3; vuelta++) {       // los radios y algún borde no escalan: se afina en dos o tres vueltas
+          const w = Math.max(x.scrollWidth, x.offsetWidth);
+          if (w <= W) break;
+          k *= W / w * 0.98;
+          x.style.setProperty(v, k.toFixed(3));
+        }
+      });
+    }
+
+    function monta() {
+      const [ent, fr = ''] = numero.split(',');
+      C = [...ent].map((ch, k) => ({ ch, i: ent.length - 1 - k }))
+        .concat([...fr].map((ch, k) => ({ ch, i: -(k + 1) })))
+        .map((c) => ({ ...c, v: SIMB.indexOf(c.ch), w: Math.pow(b, c.i) }));
+      const total = C.reduce((s, c) => s + c.v * c.w, 0);
+      // el número: una columna por cifra (la cifra y su posición debajo), la coma y la base
+      const col = (clase, k, arriba, abajo) => `<div class="sum-col ${clase}"${k === null ? '' : ` data-k="${k}"`}><span class="sum-d">${arriba}</span><span class="sum-i">${abajo}</span></div>`;
+      const numeroHTML = col('sum-rotulos', null, 'd<sub>i</sub>', 'i')
+        + C.map((c, k) => (fr && k === ent.length ? col('sum-coma', null, ',', '') : '') + col('', k, c.ch, menos(c.i))).join('')
+        + col('sum-base', null, `(${b}`, 'b');
+      // la suma: rejilla de dos filas, cada término encima de su valor
+      // los términos nacen ya ocultos: si nacieran visibles y pinta() los ocultara, la transición de opacidad
+      // enseñaría la solución un instante al pulsar «Otro número»
+      const cel = (t, txt, clase = '') => {
+        const c = [clase, t === null ? '' : 'oculto'].filter(Boolean).join(' ');
+        return `<span${t === null ? '' : ` data-t="${t}"`}${c ? ` class="${c}"` : ''}>${txt}</span>`;
+      };
+      let suma = cel(null, 'N') + cel(null, '') + cel(null, '=') + cel(null, '=');
+      C.forEach((c, k) => {
+        if (k) suma += cel(k, '+') + cel(k, '+');
+        suma += cel(k, `${c.v}·${b}${exp(c.i)}`, 'sum-t') + cel(k, dec(c.v * c.w), 'sum-t');
+      });
+      suma += cel(null, '') + cel('fin', '=') + cel(null, '') + cel('fin', dec(total), 'sum-t sum-total');
+      cuerpo.innerHTML = `<div class="sum-numero" title="Pulsa para escribir tu número">${numeroHTML}</div><div class="sum-suma">${suma}</div>`;
+      cuerpo.querySelector('.sum-numero').addEventListener('click', (e) => { e.stopPropagation(); edita(); });
+      ajusta();
+      paso = 0;
+      pinta();
+    }
+
+    function pinta() {
+      const n = C.length, FIN = n + 1;              // 0 inicio, 1…n una cifra cada uno, n+1 el total
+      const actual = paso >= 1 && paso <= n ? paso - 1 : -1;
+      cuerpo.querySelectorAll('.sum-col[data-k]').forEach((x) => x.classList.toggle('on', Number(x.dataset.k) === actual));
+      cuerpo.querySelectorAll('[data-t]').forEach((x) => {
+        const t = x.dataset.t;
+        x.classList.toggle('oculto', t === 'fin' ? paso < FIN : Number(t) >= paso);
+        x.classList.toggle('on', t === 'fin' ? paso === FIN : Number(t) === actual);
+      });
+      botones.ant.disabled = paso === 0;
+      botones.sig.disabled = paso >= FIN;
+    }
+
+    acciones.addEventListener('click', (e) => {
+      const x = e.target.closest('button'); if (!x) return;
+      e.stopPropagation();
+      if (x.dataset.b) {
+        if (Number(x.dataset.b) === b) return;
+        b = Number(x.dataset.b); SIMB = '0123456789ABCDEF'.slice(0, b);
+        numero = SUM_BASES[b].ej;
+        marcaBase(); monta(); return;
+      }
+      const a = x.dataset.a;
+      if (a === 'otro') { otro(); monta(); return; }
+      if (a === 'sig') paso = Math.min(C.length + 1, paso + 1);
+      else paso = Math.max(0, paso - 1);
+      pinta();
+    });
+    marcaBase();
+    monta();
+  }
+
   /* ---------- notas del profesor (tecla N) ----------
    * La ventana assets/notas.html se abre con window.open y habla con esta página por postMessage:
    *   ventana -> deck   {som:'hola'}            pide el estado (al abrir y cada segundo, por si el deck se recarga)
@@ -2284,6 +2464,7 @@
     numera(stage);
     document.querySelectorAll('.ej[data-tipo]').forEach(montaEjercicio);
     document.querySelectorAll('.sim').forEach(montaSimulador);
+    document.querySelectorAll('.sumatorio').forEach(montaSumatorio);
     document.querySelectorAll('.quiz').forEach(montaQuiz);
     document.querySelectorAll('.revela').forEach(montaRevela);
     document.querySelectorAll('.galeria').forEach(montaGaleria);
