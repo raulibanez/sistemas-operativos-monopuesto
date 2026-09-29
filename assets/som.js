@@ -105,11 +105,50 @@
 
   SOM.generadores = {
 
-    /* 3.1 binario -> decimal */
+    /* 3.1 binario -> decimal, entero o con coma (hasta tres bits tras la coma: 0,5; 0,25; 0,125) */
     bin2dec: {
       titulo: 'De binario a decimal',
       rejilla: true,
+      modos: [{ t: 'Entero', v: null }, { t: 'Con coma', v: 'coma' }, { t: 'Al azar', v: 'azar' }],
       generar(cfg) {
+        const modo = cfg.modo === 'azar' ? (rnd(0, 1) ? 'coma' : 'entero') : (cfg.modo || 'entero');
+        if (modo === 'coma') {
+          const ne = rnd(2, 4), nf = rnd(2, 3);
+          const ent = bin(rnd(1 << (ne - 1), (1 << ne) - 1));          // sin ceros a la izquierda
+          const fra = bin(2 * rnd(0, (1 << (nf - 1)) - 1) + 1, nf);     // acaba en 1: sin ceros a la derecha
+          const aFrac = (v) => { const m = String(v).match(/^(\d+)\/(\d+)$/); return m ? m[1] / m[2] : aNum(v); };
+          const fBits = [{ lbl: 'binario' }], fPos = [{ lbl: 'posición' }], fPeso = [{ lbl: 'peso 2ⁿ' }], fProd = [{ lbl: 'bit × peso' }];
+          let suma = 0; const sumandos = [];
+          ent.split('').forEach((d, i) => {
+            const e = ne - 1 - i, peso = 1 << e, prod = +d * peso;
+            suma += prod; if (prod) sumandos.push(prod);
+            fBits.push({ d }); fPos.push({ d: '2' + sup(e), clase: 'peq' });
+            fPeso.push({ c: String(peso), clase: 'num', max: 1, filtro: /[^0-9]/g, n: 100 + e,
+              expl: e === 0 ? 'Posición 0, la primera a la izquierda de la coma: 2⁰ = 1' : `Posición ${e}, contando desde 0 a la izquierda de la coma: 2${sup(e)} = ${peso}` });
+            fProd.push({ c: String(prod), clase: 'num', max: 1, filtro: /[^0-9]/g, n: 200 + e,
+              expl: prod ? `Posición ${e}: 1 × ${peso} = ${peso}` : `Posición ${e}: 0 × ${peso} = 0. Un 0 no aporta nada a la suma` });
+          });
+          fBits.push({ d: ',', clase: 'op' }); fPos.push({ d: '' }); fPeso.push({ d: '' }); fProd.push({ d: '' });
+          fra.split('').forEach((d, i) => {
+            const k = i + 1, peso = 1 / (1 << k), p = numES(peso), prod = +d * peso;
+            suma += prod; if (prod) sumandos.push(p);
+            fBits.push({ d }); fPos.push({ d: '2⁻' + sup(k), clase: 'peq' });
+            fPeso.push({ c: p, clase: 'num dec', max: 5, filtro: /[^0-9.,/]/g, n: 110 + k, cmp: (v) => aFrac(v) === peso,
+              expl: k === 1 ? 'Posición −1, la primera a la derecha de la coma: 2⁻¹ = 1/2 = 0,5' : `Posición −${k}: 2⁻${sup(k)} = 1/${1 << k} = ${p}, la mitad del peso anterior` });
+            fProd.push({ c: numES(prod), clase: 'num dec', max: 5, filtro: /[^0-9.,/]/g, n: 210 + k, cmp: (v) => aFrac(v) === prod,
+              expl: prod ? `Posición −${k}: 1 × ${p} = ${p}` : `Posición −${k}: 0 × ${p} = 0. Un 0 no aporta nada a la suma` });
+          });
+          const w = ne + 1 + nf, res = numES(suma);
+          return {
+            enunciado: 'Escribe el peso de cada posición, multiplica por el bit y suma. A la derecha de la coma, cada peso es la mitad del anterior. Coma o punto, da igual.',
+            tarea: 'Pasa el número binario a decimal.',
+            columnas: `120px repeat(${ne}, 74px) 28px repeat(${nf}, 96px)`, clase: 'compacta',
+            filas: [fBits, fPos, fPeso, fProd, { linea: true },
+              [{ lbl: 'decimal' }, { c: res, clase: 'num dec', max: 7, filtro: /[^0-9.,]/g, span: w, n: 300, cmp: (v) => aNum(v) === suma,
+                expl: `Sumo los productos distintos de cero: ${sumandos.join(' + ')} = ${res}` }]],
+            correcto: `Correcto: ${ent},${fra} (2 = ${sumandos.join(' + ')} = ${res} (10`
+          };
+        }
         const bits = cfg.bits || 8;
         const n = rnd(cfg.min || 16, cfg.max || (1 << bits) - 1);
         const b = bin(n, bits);
