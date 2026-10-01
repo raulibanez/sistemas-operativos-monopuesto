@@ -108,6 +108,8 @@ Varias fotos en el mismo hueco, con flechas para pasar y un pie que cambia con c
 
 Por defecto la galería ocupa toda la altura del hueco; con `style="--galeria-alto:560px;--galeria-flex:none"` se fija la altura del marco.
 
+Para capturas de pantalla, `class="foto captura"`: la imagen se ve entera (sin recortar) sobre el mismo gris azulado (`#E9EDF3`) que el fondo de los montajes de `ut01/img/captura-*.webp`.
+
 ## Ver las presentaciones en local
 
 Las miniaturas del carril lateral toman los estilos de `assets/som.css`; abriendo el HTML directamente desde disco (`file://`) el navegador no se los pasa y las miniaturas salen sin estilo. En GitHub Pages funciona sin más. Para verlo igual en local, sirve la carpeta con un servidor sencillo:
