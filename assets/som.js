@@ -19,7 +19,8 @@
  *       <div class="ej" data-tipo="dec2bin" data-min="16" data-max="255"></div>
  *     Tipos disponibles en SOM.generadores: bin2dec, dec2bin, decfrac2bin, bases, sumabin,
  *     restabin, logica, c1c2, restac2, paridad, unidades, ascii, ieee754 (UT1); estados, planificacion,
- *     paginacion, arranque, sistemas-archivos (UT2). Atributos: data-bits,
+ *     paginacion, arranque, sistemas-archivos (UT2); anfitrion, recursos, archivos-vm, modos-red,
+ *     ficha-vm (UT3, esta solo para la hoja). Atributos: data-bits,
  *     data-min, data-max, data-modo (modo fijo de los que tienen modos) y data-paridad (par | impar).
  *  6. Simulador visual de planificación de procesos, paso a paso:
  *       <div class="sim-entrada"></div> (datos) y <div class="sim" data-algo="fifo"></div> (cronograma)
@@ -1060,6 +1061,261 @@
             [{ lbl: 'sistema de archivos' }, { sel: FS, c: c.fs[0], clase: 'txt', n: 4, cmp: (v) => c.fs.includes(v), expl: c.e }]
           ],
           correcto: `Correcto: ${c.fs.join(' o ')}. ${c.e}`
+        };
+      }
+    },
+    /* ---------- UT3 · anfitrión e invitados ---------- */
+    anfitrion: {
+      titulo: 'Anfitrión e invitado',
+      rejilla: true,
+      generar() {
+        const PROG = [
+          { n: 'VMware Workstation Pro', tipo: 'tipo 2', lic: 'propietario gratuito', hosts: 'pc', exT: 'Es un programa que se instala sobre un sistema operativo: hipervisor de tipo 2.', exL: 'Es propietario y gratuito para cualquier uso desde noviembre de 2024: se usa sin pagar, pero el código no está publicado.' },
+          { n: 'VirtualBox', tipo: 'tipo 2', lic: 'libre', hosts: 'todos', exT: 'Es un programa que se instala sobre un sistema operativo: hipervisor de tipo 2.', exL: 'El paquete base es software libre (GPLv3): el código está publicado. El Extension Pack, aparte, es propietario.' },
+          { n: 'Hyper-V', tipo: 'tipo 1', lic: 'incluido en Windows', hosts: 'winpro', exT: 'Hyper-V es de tipo 1: aunque se active desde Windows, se coloca por debajo y el propio Windows pasa a funcionar sobre él.', exL: 'Viene con Windows 11 Pro, Education y Enterprise: va incluido en la licencia de Windows.' },
+          { n: 'VMware Fusion', tipo: 'tipo 2', lic: 'propietario gratuito', hosts: 'mac', exT: 'Es un programa que se instala sobre macOS: hipervisor de tipo 2.', exL: 'Es la versión de VMware para Mac: propietaria y gratuita, como Workstation Pro.' },
+          { n: 'Parallels Desktop', tipo: 'tipo 2', lic: 'propietario de pago', hosts: 'mac', exT: 'Es un programa que se instala sobre macOS: hipervisor de tipo 2.', exL: 'Parallels Desktop es propietario y de pago (suscripción).' }
+        ];
+        const EQ = {
+          pc: [['Un portátil', 'Windows 11 Home'], ['Un PC del aula', 'Windows 11 Education'], ['Un portátil', 'Windows 11 Pro'], ['Un PC de sobremesa', 'Ubuntu 24.04'], ['Un portátil', 'Linux Mint 22']],
+          todos: [['Un portátil', 'Windows 11 Home'], ['Un PC del aula', 'Windows 11 Education'], ['Un PC de sobremesa', 'Ubuntu 24.04'], ['Un PC de sobremesa', 'Debian 13'], ['Un MacBook con chip de Apple', 'macOS']],
+          winpro: [['Un PC del aula', 'Windows 11 Education'], ['Un portátil', 'Windows 11 Pro'], ['Un servidor pequeño', 'Windows Server 2025']],
+          mac: [['Un MacBook con chip de Apple', 'macOS']]
+        };
+        const INV = ['Ubuntu 24.04', 'Windows 11', 'Debian 13', 'Alpine Linux', 'Windows Server 2025', 'Fedora 42', 'Windows XP', 'Linux Mint 22', 'MS-DOS 6.22'];
+        const INV_ARM = ['Ubuntu 24.04 para ARM', 'Windows 11 para ARM', 'Debian 13 para ARM', 'Fedora 42 para ARM'];
+        const p = PROG[rnd(0, PROG.length - 1)];
+        const lista = EQ[p.hosts];
+        const [eq, so] = lista[rnd(0, lista.length - 1)];
+        const k = rnd(2, 3);
+        const inv = baraja((so === 'macOS' ? INV_ARM : INV).filter((x) => x !== so)).slice(0, k);
+        const nombres = inv.length === 2 ? `una con ${inv[0]} y otra con ${inv[1]}` : `una con ${inv[0]}, otra con ${inv[1]} y otra con ${inv[2]}`;
+        const t = p.n === 'Hyper-V'
+          ? `${eq} con ${so} tiene activado Hyper-V. Dentro hay ${k} máquinas virtuales: ${nombres}.`
+          : `${eq} con ${so} tiene instalado ${p.n}. Dentro hay ${k} máquinas virtuales: ${nombres}.`;
+        const OPC = ['?'].concat(baraja([so].concat(inv)));
+        return {
+          enunciado: 'Lee el caso y contesta: cuál es el sistema anfitrión, cuántos invitados hay, de qué tipo es el hipervisor y qué licencia tiene el programa.',
+          tarea: 'Sistema anfitrión, número de invitados, tipo de hipervisor y licencia del programa.',
+          columnas: '230px 620px', clase: 'texto',
+          filas: [
+            [{ lbl: 'caso' }, { d: t, clase: 'texto' }],
+            [{ lbl: 'sistema anfitrión' }, { sel: OPC, c: so, clase: 'txt', n: 0, expl: `El anfitrión es el sistema instalado en el equipo real: ${so}. Los que están dentro de las máquinas virtuales son los invitados.` }],
+            [{ lbl: 'número de invitados' }, { c: String(k), clase: 'num', max: 1, filtro: /[^0-9]/g, n: 1, expl: `Cada máquina virtual tiene su sistema invitado: ${inv.join(', ')}. Son ${k}.` }],
+            [{ lbl: 'tipo de hipervisor' }, { sel: ['?', 'tipo 1', 'tipo 2'], c: p.tipo, clase: 'txt', n: 2, expl: p.exT }],
+            [{ lbl: 'licencia del programa' }, { sel: ['?', 'libre', 'propietario gratuito', 'propietario de pago', 'incluido en Windows'], c: p.lic, clase: 'txt', n: 3, expl: p.exL }]
+          ],
+          correcto: `Correcto: anfitrión ${so}, ${k} invitados, ${p.n} es de ${p.tipo} y ${p.lic === 'libre' ? 'software libre' : p.lic}.`
+        };
+      }
+    },
+
+    /* ---------- UT3 · ¿cabe en mi ordenador? (reparto de recursos) ----------
+       Reglas del módulo: al anfitrión con Windows 11 se le dejan al menos 4 GB; a cada máquina,
+       como mucho la mitad de los hilos; un disco dinámico ocupa lo escrito y uno fijo, todo. */
+    recursos: {
+      titulo: '¿Cabe en mi ordenador?',
+      rejilla: true,
+      generar() {
+        const RAM = [8, 16, 16, 32][rnd(0, 3)];
+        const HILOS = [4, 8, 8, 12, 16][rnd(0, 4)];
+        const LIBRE = [120, 200, 250, 500][rnd(0, 3)];
+        const NOM = baraja(['Ubuntu', 'Windows 11', 'Debian', 'Alpine', 'Servidor']);
+        const k = rnd(2, 3);
+        const vms = [];
+        for (let i = 0; i < k; i++) {
+          const nombre = NOM[i], ligera = nombre === 'Alpine';
+          const ram = ligera ? 1 : [2, 4, 4, 6, 8][rnd(0, 4)];
+          const nucleos = ligera ? 1 : [1, 2, 2, 4][rnd(0, 3)];
+          const max = ligera ? 8 : (nombre === 'Windows 11' ? 64 : [25, 30, 40, 50][rnd(0, 3)]);
+          const fijo = !ligera && Math.random() < 0.3;
+          const usado = fijo ? max : rnd(Math.min(3, max - 2), Math.max(4, Math.floor(max * 0.6)));
+          vms.push({ nombre, ram, nucleos, max, fijo, usado });
+        }
+        let suma = vms.reduce((a, v) => a + v.ram, 0);
+        while (suma > RAM - 1) {                       // que no salga una memoria negativa
+          const v = vms.reduce((a, b) => (b.ram > a.ram ? b : a));
+          v.ram = Math.max(1, v.ram - 2); suma = vms.reduce((a, x) => a + x.ram, 0);
+        }
+        const queda = RAM - suma, aLaVez = queda >= 4 ? 'sí' : 'no';
+        const maxNuc = HILOS / 2;
+        const ocupa = vms.reduce((a, v) => a + v.usado, 0);
+        const SN = ['?', 'sí', 'no'];
+        const filas = [
+          [{ lbl: 'tu equipo' }, { d: RAM + ' GB de RAM', clase: 'texto' }, { d: HILOS + ' hilos', clase: 'texto' }, { d: LIBRE + ' GB libres', clase: 'texto' }]
+        ];
+        vms.forEach((v) => filas.push([{ lbl: v.nombre }, { d: v.ram + ' GB de RAM', clase: 'texto' }, { d: v.nucleos + (v.nucleos === 1 ? ' núcleo' : ' núcleos'), clase: 'texto' },
+          { d: v.fijo ? `fijo · ${v.max} GB` : `dinámico · ${v.max} GB máx. · ${v.usado} GB escritos`, clase: 'texto' }]));
+        filas.push({ linea: true, clase: 'suave', desde: 1 });
+        filas.push([{ lbl: 'RAM que le queda al anfitrión' }, { c: String(queda), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 0, expl: `Con todas encendidas: ${RAM} − (${vms.map((v) => v.ram).join(' + ')}) = ${queda} GB.` }, { d: 'GB', clase: 'peq' }, { d: '' }]);
+        filas.push([{ lbl: '¿se pueden encender todas a la vez?' }, { sel: SN, c: aLaVez, clase: 'txt', n: 1, span: 2, expl: aLaVez === 'sí' ? `Le quedan ${queda} GB al anfitrión: llega a los 4 GB que necesita Windows 11. Sí.` : `Al anfitrión le quedarían ${queda} GB y Windows 11 necesita al menos 4: no. Hay que encenderlas por turnos o darles menos memoria.` }, { d: '' }]);
+        filas.push([{ lbl: 'núcleos máximos por máquina' }, { c: String(maxNuc), clase: 'num', max: 2, filtro: /[^0-9]/g, n: 2, expl: `Como mucho, la mitad de los hilos del procesador: ${HILOS} / 2 = ${maxNuc}.` }, { d: '' }, { d: '' }]);
+        filas.push([{ lbl: 'disco que ocupan ahora' }, { c: String(ocupa), clase: 'num', max: 4, filtro: /[^0-9]/g, n: 3, expl: `Un disco fijo ocupa todo su tamaño desde el principio; uno dinámico, solo lo escrito: ${vms.map((v) => `${v.usado} (${v.nombre}, ${v.fijo ? 'fijo' : 'dinámico'})`).join(' + ')} = ${ocupa} GB.` }, { d: 'GB', clase: 'peq' }, { d: '' }]);
+        return {
+          enunciado: 'Reglas: 4 GB para el anfitrión; la mitad de los hilos por máquina; dinámico ocupa lo escrito y fijo, todo.',
+          tarea: 'RAM que le queda al anfitrión, si se pueden encender a la vez, núcleos máximos por máquina y disco ocupado.',
+          columnas: '210px 170px 130px 370px', clase: 'texto mini',
+          filas,
+          correcto: `Correcto: le quedan ${queda} GB al anfitrión (${aLaVez === 'sí' ? 'se pueden encender a la vez' : 'no se pueden encender a la vez'}), como mucho ${maxNuc} núcleos por máquina y ${ocupa} GB de disco ocupados.`
+        };
+      }
+    },
+
+    /* ---------- UT3 · ¿qué es este archivo? ---------- */
+    'archivos-vm': {
+      titulo: '¿Qué es este archivo?',
+      rejilla: true,
+      generar() {
+        const Q = ['?', 'configuración', 'disco virtual', 'firmware', 'instantánea', 'memoria', 'máquina exportada', 'imagen de instalación'];
+        const P = ['?', 'VMware', 'VirtualBox', 'Hyper-V', 'QEMU y KVM', 'cualquiera'];
+        const A = [
+          { e: 'Ubuntu 64-bit.vmx', q: 'configuración', p: 'VMware', x: 'El .vmx es un archivo de texto con la configuración de la máquina de VMware: memoria, núcleos, discos, red.' },
+          { e: 'Ubuntu 64-bit.vmdk', q: 'disco virtual', p: 'VMware', x: 'VMDK es el formato de disco virtual de VMware (VirtualBox también sabe abrirlo).' },
+          { e: 'Ubuntu 64-bit-s003.vmdk', q: 'disco virtual', p: 'VMware', x: 'Es un trozo del disco virtual de VMware: el disco se dividió en varios archivos (-s001, -s002…).' },
+          { e: 'Ubuntu 64-bit.nvram', q: 'firmware', p: 'VMware', x: 'El .nvram guarda la configuración del firmware (BIOS o UEFI) de la máquina de VMware.' },
+          { e: 'Ubuntu 64-bit-Snapshot1.vmsn', q: 'instantánea', p: 'VMware', x: 'Cada .vmsn guarda el estado de una instantánea de VMware.' },
+          { e: 'Ubuntu 64-bit-Snapshot1.vmem', q: 'memoria', p: 'VMware', x: 'El .vmem es la memoria RAM de la máquina guardada en el disco (de una instantánea tomada con la máquina encendida).' },
+          { e: 'Ubuntu.vbox', q: 'configuración', p: 'VirtualBox', x: 'El .vbox es la configuración de la máquina de VirtualBox, en XML.' },
+          { e: 'Ubuntu.vdi', q: 'disco virtual', p: 'VirtualBox', x: 'VDI (Virtual Disk Image) es el formato nativo de disco de VirtualBox.' },
+          { e: 'Ubuntu.vhdx', q: 'disco virtual', p: 'Hyper-V', x: 'VHDX es el formato de disco virtual de Hyper-V (el antiguo era VHD).' },
+          { e: 'ubuntu.qcow2', q: 'disco virtual', p: 'QEMU y KVM', x: 'QCOW2 es el disco virtual de QEMU y KVM, los hipervisores libres de Linux.' },
+          { e: 'Alpine.ova', q: 'máquina exportada', p: 'cualquiera', x: 'OVA es una máquina exportada en un solo archivo, en formato abierto: la importan VMware, VirtualBox y otros.' },
+          { e: 'Alpine.ovf', q: 'máquina exportada', p: 'cualquiera', x: 'OVF es el formato abierto de exportación: un archivo que describe la máquina, con sus discos al lado.' },
+          { e: 'ubuntu-24.04-desktop-amd64.iso', q: 'imagen de instalación', p: 'cualquiera', x: 'Una ISO es la imagen de un disco: se pone en la unidad de CD/DVD virtual para instalar. Sirve en cualquier programa.' },
+          { e: 'Win11_Spanish_x64.iso', q: 'imagen de instalación', p: 'cualquiera', x: 'La ISO de instalación de Windows 11: se pone en la unidad de CD/DVD virtual. Sirve en cualquier programa.' }
+        ];
+        const a = A[rnd(0, A.length - 1)];
+        return {
+          enunciado: 'Lee el nombre del archivo de la carpeta de una máquina virtual y elige qué guarda y a qué programa pertenece ese formato.',
+          tarea: '¿Qué guarda este archivo y de qué programa es el formato?',
+          columnas: '230px 620px', clase: 'texto',
+          filas: [
+            [{ lbl: 'archivo' }, { d: a.e, clase: 'texto' }],
+            [{ lbl: 'qué guarda' }, { sel: Q, c: a.q, clase: 'txt', n: 0, expl: a.x }],
+            [{ lbl: 'formato de' }, { sel: P, c: a.p, clase: 'txt', n: 1, expl: a.x }]
+          ],
+          correcto: `Correcto: ${a.q}, ${a.p === 'cualquiera' ? 'formato abierto que sirve en cualquier programa' : 'de ' + a.p}. ${a.x}`
+        };
+      }
+    },
+
+    /* ---------- UT3 · modos de red (VMware salvo donde se dice) ---------- */
+    'modos-red': {
+      titulo: 'Modos de red',
+      rejilla: true,
+      modos: [{ t: 'Casos', v: 'caso' }, { t: 'Quién ve a quién', v: 'matriz' }, { t: 'Por la IP', v: 'ip' }, { t: 'Al azar', v: null }],
+      generar(cfg) {
+        const modo = cfg.modo || ['caso', 'matriz', 'ip'][rnd(0, 2)];
+        const SN = ['?', 'sí', 'no'];
+        if (modo === 'caso') {
+          const MOD = ['?', 'NAT', 'puente', 'solo anfitrión', 'segmento LAN', 'sin red'];
+          const C = [
+            { t: 'Solo quieres navegar por internet y descargar actualizaciones desde la máquina virtual.', m: ['NAT'], e: 'NAT: sale a internet a través del anfitrión y nadie de fuera la ve. Es el modo por defecto.' },
+            { t: 'Montas una web en la máquina virtual y tiene que verla toda la clase desde sus PC.', m: ['puente'], e: 'Puente: la máquina es un equipo más de la red del aula, con su propia IP, y los demás PC llegan a ella.' },
+            { t: 'Dos máquinas virtuales tienen que hablar entre ellas y con nadie más: ni internet ni el anfitrión.', m: ['segmento LAN'], e: 'Segmento LAN (red interna en VirtualBox): una red que solo existe entre esas máquinas.' },
+            { t: 'Vas a probar un programa sospechoso y no quieres que tenga ninguna conexión.', m: ['sin red'], e: 'Sin red (adaptador desconectado): el programa no puede comunicarse con nada. Antes, una instantánea.' },
+            { t: 'La máquina virtual tiene que recibir su IP del router de casa, como el móvil o el portátil.', m: ['puente'], e: 'Puente: se conecta a la red física como un equipo más y el router le da su IP.' },
+            { t: 'Quieres entrar desde tu Windows (el anfitrión) a una web de la máquina virtual, sin internet y sin que la vea nadie más.', m: ['solo anfitrión'], e: 'Solo anfitrión: una red privada entre el anfitrión y las máquinas virtuales, sin salida a internet.' },
+            { t: 'La red del centro no deja conectar equipos nuevos, pero la máquina virtual necesita internet.', m: ['NAT'], e: 'NAT: hacia fuera solo se ve la IP del anfitrión, que sí está autorizado.' },
+            { t: 'Un compañero tiene que hacer ping a tu máquina virtual desde su PC.', m: ['puente'], e: 'Puente: es el único modo en el que los demás PC del aula llegan a la máquina virtual sin configurar nada más.' },
+            { t: 'Tres máquinas virtuales forman su propia red de laboratorio, sin salir de tu ordenador ni tocar el anfitrión.', m: ['segmento LAN'], e: 'Segmento LAN: las tres comparten una red aislada que no llega ni al anfitrión ni a internet.' },
+            { t: 'Dos máquinas virtuales de VMware tienen que verse entre ellas y tener internet, sin que las vea el resto del aula.', m: ['NAT'], e: 'NAT de VMware: todas las máquinas en NAT comparten la red VMnet8, se ven entre ellas y salen a internet por el anfitrión.' },
+            { t: 'Un servidor y un cliente virtuales que controlas desde el anfitrión, aislados de la red del aula y de internet.', m: ['solo anfitrión'], e: 'Solo anfitrión: las máquinas y el anfitrión se ven; internet y el aula, no.' },
+            { t: 'Instalas Ubuntu en una máquina recién creada y quieres que descargue los paquetes sin complicarte.', m: ['NAT'], e: 'NAT: funciona sin configurar nada, con la conexión del anfitrión.' }
+          ];
+          const c = C[rnd(0, C.length - 1)];
+          return {
+            enunciado: 'Lee el caso y elige el modo de red del adaptador de la máquina virtual.',
+            tarea: 'Elige el modo de red para el caso.',
+            columnas: '230px 620px', clase: 'texto',
+            filas: [
+              [{ lbl: 'caso' }, { d: c.t, clase: 'texto' }],
+              [{ lbl: 'modo de red' }, { sel: MOD, c: c.m[0], clase: 'txt', n: 0, cmp: (v) => c.m.includes(v), expl: c.e }]
+            ],
+            correcto: `Correcto: ${c.m.join(' o ')}. ${c.e}`
+          };
+        }
+        if (modo === 'matriz') {
+          const T = {
+            'NAT': [['sí', 'Sale a internet por el anfitrión, que hace de router.'], ['sí', 'El anfitrión tiene un adaptador (VMnet8) en esa misma red.'], ['sí', 'Todas las máquinas en NAT de VMware comparten la red VMnet8.'], ['no', 'Desde fuera solo se ve la IP del anfitrión: el resto del aula no llega a la máquina.']],
+            'puente': [['sí', 'Es un equipo más de la red: sale por el router como los demás.'], ['sí', 'Anfitrión y máquina están en la misma red física.'], ['sí', 'Si las dos están en puente, están en la misma red.'], ['sí', 'Tiene su propia IP en la red del aula: los demás PC la ven.']],
+            'solo anfitrión': [['no', 'Es una red privada sin router: no hay salida a internet.'], ['sí', 'El anfitrión tiene un adaptador (VMnet1) en esa red.'], ['sí', 'Las máquinas en solo anfitrión comparten la red VMnet1.'], ['no', 'La red solo existe dentro del anfitrión.']],
+            'segmento LAN': [['no', 'Es una red aislada: no hay salida.'], ['no', 'El anfitrión no tiene adaptador en un segmento LAN.'], ['sí', 'Las máquinas del mismo segmento se ven entre ellas, y solo ellas.'], ['no', 'La red solo existe entre esas máquinas virtuales.']],
+            'sin red': [['no', 'El adaptador está desconectado.'], ['no', 'El adaptador está desconectado.'], ['no', 'El adaptador está desconectado.'], ['no', 'El adaptador está desconectado.']]
+          };
+          const nombres = Object.keys(T);
+          const m = nombres[rnd(0, nombres.length - 1)];
+          const PR = ['¿sale a internet?', '¿se comunica con el anfitrión?', '¿se comunica con otra máquina en el mismo modo?', '¿la ven los demás PC del aula?'];
+          return {
+            enunciado: `En VMware Workstation Pro, una máquina virtual tiene el adaptador de red en modo ${m}. Contesta sí o no a cada pregunta.`,
+            tarea: `Adaptador en modo ${m} (VMware): ¿internet?, ¿anfitrión?, ¿otra máquina en el mismo modo?, ¿los demás PC del aula?`,
+            columnas: '460px 220px', clase: 'texto',
+            filas: [[{ lbl: 'modo de red' }, { d: m, clase: 'dato' }]].concat(PR.map((q, i) => [{ lbl: q }, { sel: SN, c: T[m][i][0], clase: 'txt', n: i, expl: T[m][i][1] }])),
+            correcto: `Correcto. En ${m}: internet ${T[m][0][0]}, anfitrión ${T[m][1][0]}, otra máquina ${T[m][2][0]}, aula ${T[m][3][0]}.`
+          };
+        }
+        const aula = [['192.168.1', rnd(20, 90)], ['10.20.5', rnd(20, 90)], ['192.168.0', rnd(20, 90)]][rnd(0, 2)];
+        const A = rnd(100, 250); let B = rnd(100, 250); if (B === A) B = A === 250 ? 100 : A + 1;
+        const CASOS = [
+          { ip: `${aula[0]}.${rnd(100, 200)}`, m: 'puente', p: 'cualquiera', e: 'Está en la misma red que la tarjeta Ethernet del anfitrión: la máquina es un equipo más del aula. Modo puente, en cualquiera de los dos programas.' },
+          { ip: `192.168.${A}.${rnd(128, 254)}`, m: 'NAT', p: 'VMware', e: `Está en la red de VMnet8 (192.168.${A}.0), que es la del NAT de VMware.` },
+          { ip: `192.168.${B}.${rnd(128, 254)}`, m: 'solo anfitrión', p: 'VMware', e: `Está en la red de VMnet1 (192.168.${B}.0), que es la de solo anfitrión de VMware.` },
+          { ip: '10.0.2.15', m: 'NAT', p: 'VirtualBox', e: 'Es la dirección que da siempre el NAT de VirtualBox: cada máquina tiene su propia red 10.0.2.0 y por eso no se ven entre ellas.' },
+          { ip: `192.168.56.${rnd(101, 150)}`, m: 'solo anfitrión', p: 'VirtualBox', e: 'Está en la red del adaptador VirtualBox Host-Only (192.168.56.1): solo anfitrión de VirtualBox.' }
+        ];
+        const c = CASOS[rnd(0, CASOS.length - 1)];
+        return {
+          enunciado: 'El ipconfig del anfitrión y la IP de la máquina virtual: ¿en qué modo de red está y con qué programa?',
+          tarea: 'Con el ipconfig del anfitrión y la IP de la máquina virtual: modo de red y programa.',
+          columnas: '400px 290px', clase: 'texto mini',
+          filas: [
+            [{ lbl: 'Ethernet (red del aula)' }, { d: `${aula[0]}.${aula[1]}`, clase: 'dato' }],
+            [{ lbl: 'VMware Network Adapter VMnet1' }, { d: `192.168.${B}.1`, clase: 'dato' }],
+            [{ lbl: 'VMware Network Adapter VMnet8' }, { d: `192.168.${A}.1`, clase: 'dato' }],
+            [{ lbl: 'VirtualBox Host-Only Network' }, { d: '192.168.56.1', clase: 'dato' }],
+            { linea: true, clase: 'suave', desde: 1 },
+            [{ lbl: 'IP de la máquina virtual' }, { d: c.ip, clase: 'dato' }],
+            [{ lbl: 'modo de red' }, { sel: ['?', 'NAT', 'puente', 'solo anfitrión'], c: c.m, clase: 'txt', n: 0, expl: c.e }],
+            [{ lbl: 'programa' }, { sel: ['?', 'VMware', 'VirtualBox', 'cualquiera'], c: c.p, clase: 'txt', n: 1, expl: c.e }]
+          ],
+          correcto: `Correcto: ${c.m}${c.p === 'cualquiera' ? '' : ' de ' + c.p}. ${c.e}`
+        };
+      }
+    },
+
+    /* ---------- UT3 · ficha de máquina virtual (solo para la hoja: examen práctico) ---------- */
+    'ficha-vm': {
+      titulo: 'Ficha de máquina virtual',
+      rejilla: true,
+      generar() {
+        const SO = [
+          { so: 'Alpine Linux (ISO virt)', ram: ['512 MB', '1 GB'], nuc: [1], disco: [8, 10, 12] },
+          { so: 'Ubuntu 24.04 (sesión en vivo, sin instalar)', ram: ['4 GB'], nuc: [2], disco: [25, 30] },
+          { so: 'Windows 11 (sin instalar)', ram: ['4 GB'], nuc: [2], disco: [64] }
+        ];
+        const s = SO[rnd(0, SO.length - 1)];
+        const nombre = ['examen', 'som', 'lab', 'prueba'][rnd(0, 3)] + '-' + rnd(10, 99);
+        const red = ['NAT', 'solo anfitrión', 'segmento LAN «lab' + rnd(1, 9) + '»'][rnd(0, 2)];
+        const insta = ['Recién creada', 'Antes de tocar', 'Base', 'Inicio'][rnd(0, 3)];
+        const dividido = Math.random() < 0.5 ? 'sí, en varios archivos' : 'no, un solo archivo';
+        const filas = [
+          [{ lbl: 'nombre' }, { d: nombre, clase: 'texto' }],
+          [{ lbl: 'sistema invitado' }, { d: s.so, clase: 'texto' }],
+          [{ lbl: 'memoria' }, { d: s.ram[rnd(0, s.ram.length - 1)], clase: 'texto' }],
+          [{ lbl: 'núcleos' }, { d: String(s.nuc[rnd(0, s.nuc.length - 1)]), clase: 'texto' }],
+          [{ lbl: 'disco' }, { d: `${s.disco[rnd(0, s.disco.length - 1)]} GB, dinámico, ${dividido}`, clase: 'texto' }],
+          [{ lbl: 'red' }, { d: red, clase: 'texto' }],
+          [{ lbl: 'instantánea' }, { d: `«${insta}», con la máquina apagada`, clase: 'texto' }],
+          [{ lbl: 'clon enlazado' }, { d: `${nombre}-clon, a partir de esa instantánea`, clase: 'texto' }],
+          [{ lbl: 'comprobación' }, { d: s.so.startsWith('Windows') ? 'arrancar hasta la primera pantalla del instalador' : 'arrancar las dos y anotar la IP de cada una (ip a)', clase: 'texto' }]
+        ];
+        if (s.so.startsWith('Windows')) filas.splice(5, 0, [{ lbl: 'seguridad' }, { d: 'UEFI, arranque seguro y TPM (anota la contraseña)', clase: 'texto' }]);
+        return {
+          enunciado: 'Crea en VMware Workstation Pro una máquina virtual con esta ficha y enseña el resultado al profesor en tu pantalla.',
+          tarea: 'Crea la máquina virtual de la ficha y enséñala en tu pantalla.',
+          columnas: '230px 620px', clase: 'texto',
+          filas,
+          correcto: 'Se comprueba en la pantalla de cada uno: configuración de la máquina, árbol de instantáneas, clon y red.'
         };
       }
     },
