@@ -68,7 +68,8 @@
    *   espejo     función (id, valorEscrito) -> texto que se muestra en los espejos
    *   valida     función () -> mensaje de error o null, antes de corregir las casillas
    *   acciones   botones extra [{texto, accion(api)}]
-   * y el generador puede tener modos: [{t:'texto', v:'valor'}] que se muestran como botones.
+   * y el generador puede tener modos: [{t:'texto', v:'valor'}] que se muestran como botones, o, si la
+   * diapositiva tiene un esquema .ej-mapa, mapa: {modo: {o, d, por, via}} para elegir pulsando en él (ver bases).
    */
   const inv = (s) => s.replace(/[01]/g, (x) => (x === '1' ? '0' : '1'));
   const sup = (n) => String(n).replace(/\d/g, (d) => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d]);
@@ -191,7 +192,7 @@
         return {
           enunciado: 'Divide entre 2 hasta que el cociente sea 0. Cada fila empieza con el cociente de la anterior.',
           tarea: `Pasa ${n} a binario.`,
-          columnas: '110px 36px 50px 40px 110px 80px 62px', clase: 'compacta mini',
+          columnas: '110px 36px 50px 40px 110px 80px 62px', clase: 'compacta mini micro',
           filas,
           espejo: (id, v) => v || '?',
           correcto: `Correcto: ${n} (10 = ${agrupa(b)} (2. Compruébalo sumando pesos: ${b.split('').map((x, i) => x === '1' ? 1 << (b.length - 1 - i) : 0).filter(Boolean).join(' + ')} = ${n}`
@@ -241,9 +242,62 @@
     bases: {
       titulo: 'Entre bases',
       rejilla: true,
-      modos: [{ t: 'Binario → octal', v: 'bin2oct' }, { t: 'Binario → hexadecimal', v: 'bin2hex' }, { t: 'Octal → binario', v: 'oct2bin' }, { t: 'Hexadecimal → binario', v: 'hex2bin' }, { t: 'Octal → decimal', v: 'oct2dec' }, { t: 'Hexadecimal → decimal', v: 'hex2dec' }, { t: 'Decimal → octal', v: 'dec2oct' }, { t: 'Decimal → hexadecimal', v: 'dec2hex' }, { t: 'Al azar', v: null }],
+      modos: [{ t: 'Binario → octal', v: 'bin2oct' }, { t: 'Binario → hexadecimal', v: 'bin2hex' }, { t: 'Octal → binario', v: 'oct2bin' }, { t: 'Hexadecimal → binario', v: 'hex2bin' }, { t: 'Octal → hexadecimal', v: 'oct2hex' }, { t: 'Hexadecimal → octal', v: 'hex2oct' }, { t: 'Binario → decimal', v: 'bin2dec' }, { t: 'Octal → decimal', v: 'oct2dec' }, { t: 'Hexadecimal → decimal', v: 'hex2dec' }, { t: 'Decimal → binario', v: 'dec2bin' }, { t: 'Decimal → octal', v: 'dec2oct' }, { t: 'Decimal → hexadecimal', v: 'dec2hex' }, { t: 'Al azar', v: null }],
+      // Con el esquema de cambios de base en la diapositiva (.ej-mapa), sustituye a los botones: origen,
+      // destino, base de paso y flechas de cada modo. En las flechas de la tabla, la punta que se queda.
+      mapa: {
+        bin2oct: { o: 'bin', d: 'oct', via: { 'tabla-oct': 'ini' } },
+        bin2hex: { o: 'bin', d: 'hex', via: { 'tabla-hex': 'fin' } },
+        oct2bin: { o: 'oct', d: 'bin', via: { 'tabla-oct': 'fin' } },
+        hex2bin: { o: 'hex', d: 'bin', via: { 'tabla-hex': 'ini' } },
+        oct2hex: { o: 'oct', d: 'hex', por: 'bin', via: { 'tabla-oct': 'fin', 'tabla-hex': 'fin' } },
+        hex2oct: { o: 'hex', d: 'oct', por: 'bin', via: { 'tabla-hex': 'ini', 'tabla-oct': 'ini' } },
+        bin2dec: { o: 'bin', d: 'dec', via: { 'teo-bin': '' } },
+        oct2dec: { o: 'oct', d: 'dec', via: { 'teo-oct': '' } },
+        hex2dec: { o: 'hex', d: 'dec', via: { 'teo-hex': '' } },
+        dec2bin: { o: 'dec', d: 'bin', via: { alg: '' } },
+        dec2oct: { o: 'dec', d: 'oct', por: 'bin', via: { alg: '', 'tabla-oct': 'ini' } },
+        dec2hex: { o: 'dec', d: 'hex', por: 'bin', via: { alg: '', 'tabla-hex': 'fin' } }
+      },
       generar(cfg) {
-        const modo = cfg.modo || ['bin2oct', 'bin2hex', 'oct2bin', 'hex2bin', 'oct2dec', 'hex2dec', 'dec2oct', 'dec2hex'][rnd(0, 7)];
+        const todos = ['bin2oct', 'bin2hex', 'oct2bin', 'hex2bin', 'oct2hex', 'hex2oct', 'bin2dec', 'oct2dec', 'hex2dec', 'dec2bin', 'dec2oct', 'dec2hex'];
+        const modo = cfg.modo || todos[rnd(0, todos.length - 1)];
+        if (modo === 'bin2dec' || modo === 'dec2bin') {
+          // Los ejercicios de antes (binario de 8 bits; decimal hasta 255), con su cabecera
+          return Object.assign(SOM.generadores[modo].generar({}), { modo, cabecera: modo === 'bin2dec' ? 'Binario → decimal' : 'Decimal → binario' });
+        }
+        if (modo === 'oct2hex' || modo === 'hex2oct') {
+          // Por el binario: cada dígito a sus bits, todo junto y otra vez en grupos, ahora del otro tamaño.
+          // Una columna por bit, para que los grupos de 3 y los de 4 queden sobre los mismos bits.
+          const [bo, bd] = modo === 'oct2hex' ? [8, 16] : [16, 8];
+          const go = bo === 8 ? 3 : 4, gd = bd === 8 ? 3 : 4;
+          const k = rnd(bo === 8 ? 3 : 2, bo === 8 ? 4 : 3);           // dígitos del dato: 12 bits como mucho
+          const n = rnd(Math.pow(bo, k - 1) + 1, Math.pow(bo, k) - 1);
+          const s = n.toString(bo).toUpperCase(), b = n.toString(2), res = n.toString(bd).toUpperCase();
+          const kd = Math.ceil(b.length / gd), w = Math.max(k * go, kd * gd);
+          const rell = b.padStart(kd * gd, '0'), grupos = rell.match(new RegExp(`.{${gd}}`, 'g'));
+          const hueco = (x) => (x ? [{ d: '', span: x }] : []);
+          const may = (t) => t[0].toUpperCase() + t.slice(1);
+          return {
+            modo,
+            cabecera: `${may(NOMBRE_BASE[bo])} → ${NOMBRE_BASE[bd]}`,
+            enunciado: `Cada dígito son ${go} bits; júntalos y vuelve a agrupar de ${gd} en ${gd} desde la derecha. No se pasa por decimal.`,
+            tarea: `Pasa ${s} de ${NOMBRE_BASE[bo]} a ${NOMBRE_BASE[bd]}.`,
+            columnas: `150px repeat(${w}, 46px)`, clase: 'compacta',
+            filas: [
+              [{ lbl: NOMBRE_BASE[bo] }, ...hueco(w - k * go), ...s.split('').map((d) => ({ d, clase: 'ancho', span: go }))],
+              [{ lbl: `grupos de ${go}` }, ...hueco(w - k * go), ...s.split('').map((d, i) => { const v = parseInt(d, bo); return { c: bin(v, go), clase: 'bin', max: go, filtro: /[^01]/g, span: go, n: i,
+                expl: `${d} vale ${v}, que en ${go} bits es ${bin(v, go)}` + (v < (1 << (go - 1)) ? ' (con los ceros a la izquierda para completar el grupo)' : '') }; })],
+              [{ lbl: 'binario' }, { c: b, clase: 'bin', max: k * go, filtro: /[^01]/g, span: w, n: 100, cmp: (v) => v.replace(/^0+(?=.)/, '') === b,
+                expl: `Junto los grupos${b.length < k * go ? ' y quito los ceros de la izquierda que sobran' : ''}: ${b}` }],
+              [{ lbl: `grupos de ${gd}` }, ...hueco(w - kd * gd), ...grupos.map((g, i) => ({ c: g, clase: 'bin', max: gd, filtro: /[^01]/g, span: gd, n: 200 + kd - i,
+                expl: `Cuento de ${gd} en ${gd} desde la derecha: el grupo ${kd - i} es ${g}` + (i === 0 && rell !== b ? ' (le he puesto ceros a la izquierda para completarlo)' : '') }))],
+              [{ lbl: NOMBRE_BASE[bd] }, ...hueco(w - kd * gd), ...grupos.map((g, i) => { const v = parseInt(g, 2); return { c: v.toString(bd).toUpperCase(), clase: bd === 16 ? 'hex' : '', max: 1, filtro: bd === 16 ? /[^0-9a-fA-F]/g : /[^0-7]/g, span: gd, n: 300 + kd - i,
+                expl: `${g} en binario vale ${v}` + (v > 9 ? `, que en hexadecimal se escribe ${v.toString(16).toUpperCase()}` : '') }; })]
+            ],
+            correcto: `Correcto: ${s} (${bo} = ${b} (2 = ${res} (${bd}`
+          };
+        }
         const base = modo.includes('oct') ? 8 : 16, gr = base === 8 ? 3 : 4;
         if (modo === 'dec2oct' || modo === 'dec2hex') {
           // Por el binario: divisiones entre 2 (en papel) y grupos de 3 o 4 bits con la tabla.
@@ -254,6 +308,7 @@
           const grupos = rell.match(new RegExp(`.{${gr}}`, 'g'));
           const res = n.toString(base).toUpperCase();
           return {
+            modo,
             cabecera: `Decimal → ${NOMBRE_BASE[base]}`,
             enunciado: `Pasa a binario dividiendo entre 2 y agrupa de ${gr} en ${gr} bits con la tabla. Así no hay que dividir entre ${base}.`,
             tarea: `Pasa ${n} de decimal a ${NOMBRE_BASE[base]}.`,
@@ -277,6 +332,7 @@
           const h = n.toString(base).toUpperCase();
           const t = tablaPesos(h.split(''), base);
           return {
+            modo,
             cabecera: `${NOMBRE_BASE[base][0].toUpperCase() + NOMBRE_BASE[base].slice(1)} → decimal`,
             enunciado: `Teorema fundamental: el valor de cada dígito por el peso de su posición (${base}ⁿ), y se suma.`,
             tarea: `Pasa ${h} de ${NOMBRE_BASE[base]} a decimal.`,
@@ -291,6 +347,7 @@
           const grupos = rell.match(new RegExp(`.{${gr}}`, 'g'));
           const res = n.toString(base).toUpperCase();
           return {
+            modo,
             cabecera: `Binario → ${NOMBRE_BASE[base]}`,
             enunciado: `Separa en grupos de ${gr} bits empezando por la derecha y traduce cada grupo con la tabla.`,
             tarea: `Pasa el número binario a ${NOMBRE_BASE[base]}.`,
@@ -311,6 +368,7 @@
         const s = n.toString(base).toUpperCase();
         const b = n.toString(2);
         return {
+          modo,
           cabecera: `${NOMBRE_BASE[base][0].toUpperCase() + NOMBRE_BASE[base].slice(1)} → binario`,
           enunciado: `Cada dígito se convierte en su grupo de ${gr} bits, con ceros a la izquierda si hace falta.`,
           tarea: `Pasa ${s} de ${NOMBRE_BASE[base]} a binario.`,
@@ -1341,6 +1399,10 @@
     const sv = $('.sv'), fb = $('.ej-fb'), racha = $('.ej-racha b'), enunciado = $('.ej-enunciado'), ops = $('.ej-ops'), acciones = $('.ej-acciones');
     let g, orden = [], celdas = [], conPista = false, resuelto = false, aciertos = 0;
     const estado = { modo: cfg.modo || null };
+    // Esquema de la misma diapositiva que hace de selector de modo (gen.mapa): nodos [data-n], flechas [data-a]
+    const seccion = el.closest('section');
+    const mapa = gen.mapa && seccion ? seccion.querySelector('.ej-mapa') : null;
+    let origen = null;   // nodo de origen pulsado, a la espera del destino
 
     const norm = (v) => String(v || '').trim().replace(/\s+/g, '').replace('.', ',').toUpperCase();
     const valorDe = (c) => (c.tagName === 'BUTTON' ? c._it.sel[+c.dataset.i] : c.value);
@@ -1445,6 +1507,8 @@
 
     function nuevo() {
       g = gen.generar(Object.assign({}, cfg, { modo: estado.modo }));
+      origen = null;
+      if (mapa) marcaMapa();
       enunciado.textContent = '';
       if (g.cabecera) { const b = document.createElement('b'); b.className = 'ej-cab'; b.textContent = g.cabecera; enunciado.appendChild(b); }
       enunciado.appendChild(document.createTextNode(g.enunciado || ''));
@@ -1493,7 +1557,38 @@
       mensaje(g.resumen || orden.map((c) => c._it.expl).filter(Boolean).join('\n'));
     }
 
-    if (gen.modos) {
+    // Camino del ejercicio en pantalla (origen, destino, base de paso y flechas) opaco y el resto casi
+    // transparente; mientras se elige, el origen pulsado y los destinos posibles.
+    const modoDe = (o, d) => Object.keys(gen.mapa).find((m) => gen.mapa[m].o === o && gen.mapa[m].d === d);
+    const nombreNodo = (n) => mapa.querySelector(`[data-n="${n}"]`).textContent.trim().toLowerCase();
+    function marcaMapa() {
+      const c = gen.mapa[g.modo] || {}, via = c.via || {};
+      mapa.querySelectorAll('[data-n]').forEach((n) => {
+        const v = n.dataset.n;
+        n.setAttribute('class', origen ? (v === origen ? 'origen' : modoDe(origen, v) ? 'posible' : 'apagado')
+          : ([c.o, c.d, c.por].includes(v) ? 'camino' : 'apagado'));
+      });
+      mapa.querySelectorAll('[data-a]').forEach((a) => a.setAttribute('class', !origen && a.dataset.a in via ? 'camino ' + via[a.dataset.a] : 'apagado'));
+      mapa.querySelector('.ej-mapa-azar').classList.toggle('activo', !estado.modo);
+      mapa.querySelector('.ej-mapa-estado').textContent = origen ? `Desde ${nombreNodo(origen)}: pulsa el destino.`
+        : estado.modo ? `Solo ${nombreNodo(c.o)} → ${nombreNodo(c.d)}.` : 'Un camino distinto en cada ejercicio.';
+    }
+
+    if (mapa) {
+      mapa.querySelectorAll('[data-n]').forEach((n) => {
+        n.setAttribute('role', 'button'); n.setAttribute('tabindex', '0');
+        n.setAttribute('aria-label', nombreNodo(n.dataset.n));
+        const pulsa = () => {
+          const m = origen && modoDe(origen, n.dataset.n);
+          if (m) { estado.modo = m; nuevo(); return; }
+          origen = origen === n.dataset.n ? null : n.dataset.n;
+          marcaMapa();
+        };
+        n.addEventListener('click', pulsa);
+        n.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); pulsa(); } });
+      });
+      mapa.querySelector('.ej-mapa-azar').addEventListener('click', () => { estado.modo = null; nuevo(); });
+    } else if (gen.modos) {
       ops.hidden = false;
       gen.modos.forEach((m) => {
         const b = document.createElement('button');

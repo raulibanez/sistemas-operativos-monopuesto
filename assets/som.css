@@ -463,12 +463,15 @@ section:has(> .ej) { grid-template-rows: minmax(0, 1fr); }
 .sv.mini .c.num, .sv.mini .c.dec, .sv.mini .c.bin { font-size: 22px; }
 .sv.mini .d.op, .sv.mini .d.dec, .sv.mini .d.ancho, .sv.mini .d[data-espejo] { font-size: 24px; }
 .sv.mini .linea.suave { margin: 2px 0; }
+/* decimal a binario: hasta 8 divisiones y debajo el mensaje de Pista o de Comprobar */
+.sv.micro { --cel: 40px; row-gap: 4px; }
+.sv.micro .lbl { font-size: 16px; line-height: 1.1; }
 .sv ~ .ej-fb { flex: 1; min-height: 0; overflow: auto; font-size: 24px; line-height: 1.45; }
 .sv ~ .ej-fila .btn { padding: 16px 30px; font-size: var(--type-caption); }
 .ej-acciones { display: contents; }
 .ej-ops { display: flex; flex-wrap: wrap; gap: 10px; margin-top: -10px; }
 .ej-ops[hidden] { display: none; }
-.ej-ops button {
+.ej-ops button, .ej-mapa-azar {
   font: 700 18px/1 'Plus Jakarta Sans', system-ui, sans-serif;
   padding: 10px 18px;
   border-radius: 999px;
@@ -478,8 +481,35 @@ section:has(> .ej) { grid-template-rows: minmax(0, 1fr); }
   cursor: pointer;
   transition: background .15s, border-color .15s;
 }
-.ej-ops button:hover { border-color: var(--sky); }
-.ej-ops button.activo { background: var(--navy); border-color: var(--navy); color: var(--white); }
+.ej-ops button:hover, .ej-mapa-azar:hover { border-color: var(--sky); }
+.ej-ops button.activo, .ej-mapa-azar.activo { background: var(--navy); border-color: var(--navy); color: var(--white); }
+
+/* Esquema que hace de selector de modo (Entre bases, gen.mapa en som.js): el camino del ejercicio
+   opaco y el resto casi transparente; al elegir, el origen con borde celeste y los destinos a medias */
+.ej-mapa {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 24px 28px 20px;
+  box-shadow: 0 2px 0 var(--line);
+  margin-top: var(--gap-item);
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.ej-mapa svg { width: 100%; flex: 1; min-height: 0; font-family: inherit; }
+.ej-mapa [data-n], .ej-mapa [data-a] { transition: opacity .25s; }
+.ej-mapa [data-n] { cursor: pointer; outline: none; }
+.ej-mapa .apagado { opacity: .1; }
+.ej-mapa [data-n].apagado:hover { opacity: .3; }
+.ej-mapa .posible { opacity: .5; }
+.ej-mapa .posible:hover { opacity: .8; }
+.ej-mapa .origen rect, .ej-mapa [data-n]:focus-visible rect { stroke: var(--sky); stroke-width: 10px; }
+.ej-mapa .ini line { marker-end: none; }
+.ej-mapa .fin line { marker-start: none; }
+.ej-mapa-pie { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.ej-mapa-estado { font-size: 20px; font-weight: 600; color: var(--muted); }
 
 /* ---------- Tabla de reglas (casos de una columna) ---------- */
 .tabla-reglas {

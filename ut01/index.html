@@ -2191,11 +2191,45 @@
 
 <!-- 71 Interactivo: entre bases -->
 <section data-deck-id="ej-bases" data-label="Practica: entre bases" data-seccion="1.6" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
-  <aside class="notas"><p>Ocho modos, los del esquema anterior: entre binario, octal y hexadecimal (tabla); decimal a octal o hexadecimal pasando por el binario (algoritmo y tabla); y octal o hexadecimal a decimal (teorema, con tabla de pesos). Por defecto sale uno al azar; con los botones se practica uno solo.</p><p>En los pasos de agrupar hay que escribir cada grupo completo, con sus ceros.</p></aside>
-  <div>
-    <span class="pill">Ejercicio interactivo</span>
+  <aside class="notas"><p>Doce modos, todos los caminos del esquema anterior: entre binario, octal y hexadecimal (tabla); de octal a hexadecimal y al revés pasando por el binario (tabla, todo junto y tabla); decimal a binario (algoritmo) y a octal o hexadecimal pasando por el binario (algoritmo y tabla); y de cualquier base a decimal (teorema, con tabla de pesos). Por defecto sale uno al azar.</p><p>El esquema hace de selector: se pulsa la base de origen y después la de destino (las que se pueden elegir se ven a medias). En cada ejercicio quedan opacos el origen, el destino y el camino, con el binario de paso cuando se sale de decimal; el resto, casi transparente. <b>Al azar</b> vuelve a mezclarlos.</p><p>En los pasos de agrupar hay que escribir cada grupo completo, con sus ceros.</p></aside>
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <span class="pill" style="align-self:flex-start">Ejercicio interactivo</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Entre binario, octal y hexadecimal</h2>
-        <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Elige un modo, o <b>Al azar</b> para que salgan mezclados, como en el examen.</p>
+    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Pulsa la base de origen y después la de destino, o <b>Al azar</b> para que salgan mezclados, como en el examen.</p>
+    <div class="ej-mapa">
+      <svg viewBox="4 44 912 466" role="img" aria-label="Esquema de la diapositiva anterior: el camino del ejercicio en pantalla se ve opaco y el resto casi transparente">
+        <defs>
+          <marker id="mb-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0B4AB5"/></marker>
+          <marker id="mb-ok" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1E8E5A"/></marker>
+          <marker id="mb-navy" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#15356B"/></marker>
+        </defs>
+        <!-- tabla: octal <-> binario <-> hexadecimal (som.js quita la punta que no toca) -->
+        <g data-a="tabla-oct"><line x1="236" y1="92" x2="344" y2="92" stroke="#0B4AB5" stroke-width="4" marker-start="url(#mb-blue)" marker-end="url(#mb-blue)"/>
+          <text x="290" y="70" text-anchor="middle" font-size="26" font-weight="800" fill="#0B4AB5">tabla</text></g>
+        <g data-a="tabla-hex"><line x1="576" y1="92" x2="684" y2="92" stroke="#0B4AB5" stroke-width="4" marker-start="url(#mb-blue)" marker-end="url(#mb-blue)"/>
+          <text x="630" y="70" text-anchor="middle" font-size="26" font-weight="800" fill="#0B4AB5">tabla</text></g>
+        <!-- algoritmo: decimal -> binario -->
+        <g data-a="alg"><line x1="435" y1="414" x2="435" y2="142" stroke="#1E8E5A" stroke-width="4" marker-end="url(#mb-ok)"/>
+          <text x="420" y="285" text-anchor="end" font-size="26" font-weight="800" fill="#1E8E5A">algoritmo</text></g>
+        <!-- teorema: binario, octal y hexadecimal -> decimal -->
+        <g data-a="teo-bin"><line x1="485" y1="142" x2="485" y2="414" stroke="#15356B" stroke-width="4" marker-end="url(#mb-navy)"/>
+          <text x="500" y="285" text-anchor="start" font-size="26" font-weight="800" fill="#15356B">teorema</text></g>
+        <g data-a="teo-oct"><line x1="130" y1="142" x2="392" y2="414" stroke="#15356B" stroke-width="4" marker-end="url(#mb-navy)"/>
+          <text x="196" y="300" text-anchor="end" font-size="26" font-weight="800" fill="#15356B">teorema</text></g>
+        <g data-a="teo-hex"><line x1="790" y1="142" x2="528" y2="414" stroke="#15356B" stroke-width="4" marker-end="url(#mb-navy)"/>
+          <text x="724" y="300" text-anchor="start" font-size="26" font-weight="800" fill="#15356B">teorema</text></g>
+        <!-- nodos -->
+        <g data-n="oct"><rect x="10" y="50" width="220" height="84" rx="18" fill="#FFFFFF" stroke="#15356B" stroke-width="4"/>
+          <text x="120" y="102" text-anchor="middle" font-size="28" font-weight="800" fill="#15356B">OCTAL</text></g>
+        <g data-n="bin"><rect x="350" y="50" width="220" height="84" rx="18" fill="#15356B" stroke="#15356B" stroke-width="4"/>
+          <text x="460" y="102" text-anchor="middle" font-size="28" font-weight="800" fill="#FFFFFF">BINARIO</text></g>
+        <g data-n="hex"><rect x="690" y="50" width="220" height="84" rx="18" fill="#FFFFFF" stroke="#15356B" stroke-width="4"/>
+          <text x="800" y="102" text-anchor="middle" font-size="28" font-weight="800" fill="#15356B">HEXADECIMAL</text></g>
+        <g data-n="dec"><rect x="350" y="420" width="220" height="84" rx="18" fill="#F4C20D" stroke="#F4C20D" stroke-width="4"/>
+          <text x="460" y="472" text-anchor="middle" font-size="28" font-weight="800" fill="#15356B">DECIMAL</text></g>
+      </svg>
+      <div class="ej-mapa-pie"><span class="ej-mapa-estado"></span><button type="button" class="ej-mapa-azar">Al azar</button></div>
+    </div>
   </div>
   <div class="ej" data-tipo="bases"></div>
 </section>
