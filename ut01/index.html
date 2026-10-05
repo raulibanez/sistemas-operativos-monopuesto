@@ -2362,13 +2362,13 @@
 
 <!-- 76 Tabla: la resta, casos de una columna -->
 <section data-label="La resta en binario" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1fr;gap:96px">
-  <aside class="notas"><p><b>Hacer el ejemplo en la pizarra</b> escribiendo en la fila de arriba lo que pide cada columna. Comprobar en decimal: 13 − 6 = 7.</p><ul><li>0 − 1: se pide 1 a la izquierda, que vale 2 en esta columna: 10 − 1 = 1.</li><li>En la columna que prestó se resta 1 más (o se suma 1 al sustraendo, como en primaria).</li></ul><p>La siguiente: qué pasa si el de abajo es mayor.</p></aside>
+  <aside class="notas"><p><b>Hacer el ejemplo en la pizarra</b> apuntando en la fila de arriba lo que me llevo, como en la suma. Comprobar en decimal: 13 − 6 = 7.</p><ul><li>0 − 1: se pone un 1 delante del 0, 10 − 1 = 1, y me llevo 1.</li><li><b>Avisar:</b> en la suma lo que me llevo se suma; en la resta se resta, junto con el de abajo.</li><li>Por qué funciona: el 1 de delante vale 2 en esa columna, y se compensa restando 1 en la siguiente. Es la resta «llevando» de primaria; en otros libros aparece como «pedir prestado» a la columna de la izquierda.</li></ul><p>La siguiente: qué pasa si el de abajo es mayor.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Operaciones en binario y complementos</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">La resta: los casos de una columna</h2>
-    <p style="font-size:var(--type-caption);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">También de derecha a izquierda. El caso difícil es 0 − 1: no se puede, así que se pide 1 a la columna de la izquierda, y ese 1 vale 2 aquí.</p>
+    <p style="font-size:var(--type-caption);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">También de derecha a izquierda. El caso difícil es 0 − 1: no se puede, así que se pone un 1 delante del 0, 10 − 1 = 1, y me llevo 1. Igual que en decimal: 13 − 6 = 7 y me llevo una.</p>
     <table class="tabla-reglas">
-      <thead><tr><th>Resto</th><th>Escribo</th><th>Pido a la izquierda</th></tr></thead>
+      <thead><tr><th>Resto</th><th>Escribo</th><th>Me llevo</th></tr></thead>
       <tbody>
         <tr><td>0 − 0</td><td>0</td><td>0</td></tr>
         <tr><td>1 − 0</td><td>1</td><td>0</td></tr>
@@ -2376,13 +2376,13 @@
         <tr><td>0 − 1</td><td>1 <small>(10 − 1)</small></td><td class="lleva">1</td></tr>
       </tbody>
     </table>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Tabla 1.14. La columna que prestó el 1 lo devuelve: en ella se resta 1 más. Si con eso tampoco puede, vuelve a pedir.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Tabla 1.14. Si el de arriba no llega, se le pone un 1 delante (0 pasa a 10 y 1 pasa a 11) y me llevo 1. Lo que me llevo se resta en la columna siguiente, junto con el de abajo.</p>
   </div>
   <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
     <div style="background:var(--white);border-radius:24px;padding:36px 40px;box-shadow:0 2px 0 var(--line)">
       <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue)">Ejemplo · 1101 − 0110</p>
       <div class="sv" style="grid-template-columns:150px repeat(4,86px);justify-content:start;margin-top:12px">
-        <span class="lbl">pido</span><span class="d carry">1</span><span class="d carry">1</span><span class="d carry">0</span><span class="d carry"></span>
+        <span class="lbl">me llevo</span><span class="d carry">1</span><span class="d carry">1</span><span class="d carry">0</span><span class="d carry"></span>
         <span class="lbl"></span><span class="d">1</span><span class="d">1</span><span class="d">0</span><span class="d">1</span>
         <span class="lbl">−</span><span class="d">0</span><span class="d">1</span><span class="d">1</span><span class="d">0</span>
         <div class="linea"></div>
@@ -2390,9 +2390,9 @@
       </div>
       <ol style="padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:20px;line-height:1.4;color:var(--muted);margin-top:20px">
         <li>Columna 1: 1 − 0 = 1.</li>
-        <li>Columna 2: 0 − 1 no se puede. Pido 1: 10 − 1 = 1.</li>
-        <li>Columna 3: 1 − 1 − 1 (el que me pidieron) no se puede. Pido 1: 11 − 1 − 1 = 1.</li>
-        <li>Columna 4: 1 − 0 − 1 (el que me pidieron) = 0.</li>
+        <li>Columna 2: 0 − 1 no se puede: 10 − 1 = 1 y me llevo 1.</li>
+        <li>Columna 3: 1 − 1 − 1 que me llevaba no se puede: 11 − 1 − 1 = 1 y me llevo 1.</li>
+        <li>Columna 4: 1 − 0 − 1 que me llevaba = 0.</li>
       </ol>
       <p style="font-family:var(--mono);font-size:24px;font-weight:600;color:var(--navy);margin-top:16px">1101 − 0110 = 0111 &nbsp;<span style="color:var(--muted);font-weight:400">(13 − 6 = 7)</span></p>
     </div>
@@ -2420,7 +2420,7 @@
     <p style="font-size:var(--type-caption);font-weight:700;color:var(--yellow)">Ejemplo · 0101 − 1001</p>
     <p style="font-size:20px;color:#C9D6EE;margin-top:8px">El primer bit ya es distinto: 0 arriba, 1 abajo. El de abajo es mayor.</p>
     <div class="sv" style="grid-template-columns:150px repeat(4,86px);justify-content:start;margin-top:16px;color:var(--white)">
-      <span class="lbl" style="color:#9FB4D9">pido</span><span class="d carry" style="color:var(--yellow)">0</span><span class="d carry" style="color:var(--yellow)">0</span><span class="d carry" style="color:var(--yellow)">0</span><span class="d carry"></span>
+      <span class="lbl" style="color:#9FB4D9">me llevo</span><span class="d carry" style="color:var(--yellow)">1</span><span class="d carry" style="color:var(--yellow)">0</span><span class="d carry" style="color:var(--yellow)">0</span><span class="d carry"></span>
       <span class="lbl" style="color:#9FB4D9">mayor</span><span class="d">1</span><span class="d">0</span><span class="d">0</span><span class="d">1</span>
       <span class="lbl" style="color:#9FB4D9">− menor</span><span class="d">0</span><span class="d">1</span><span class="d">0</span><span class="d">1</span>
       <div class="linea" style="background:var(--yellow)"></div>
@@ -2436,9 +2436,9 @@
   <div>
     <span class="pill">Ejercicio interactivo</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Resta en binario</h2>
-    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Si el de abajo es mayor, pulsa <b>Invertir</b> y marca el signo − en la casilla de la izquierda del resultado.</p>
+    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Las casillas avanzan en el orden de la operación: el resultado de una columna y, encima de la siguiente, lo que te llevas, que allí se resta. Si el de abajo es mayor, pulsa <b>Invertir</b> y marca el signo − a la izquierda del resultado.</p>
     <table class="tabla-reglas" style="font-size:22px">
-      <thead><tr><th>Resto</th><th>Escribo</th><th>Pido</th></tr></thead>
+      <thead><tr><th>Resto</th><th>Escribo</th><th>Me llevo</th></tr></thead>
       <tbody>
         <tr><td>0 − 0 &nbsp;·&nbsp; 1 − 1</td><td>0</td><td>0</td></tr>
         <tr><td>1 − 0</td><td>1</td><td>0</td></tr>
@@ -2547,7 +2547,7 @@
         <tr><td style="padding:8px 18px">1</td><td style="padding:8px 18px">1</td><td style="padding:8px 18px">10</td><td style="padding:8px 18px;font-weight:600">0</td><td style="padding:8px 18px;font-weight:600;color:var(--ok)">1</td></tr>
       </tbody>
     </table>
-    <p style="font-size:21px;line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Para la resta pasa lo mismo: la diferencia es <span style="font-family:var(--mono);color:var(--navy)">A XOR B</span> y se pide 1 cuando <span style="font-family:var(--mono);color:var(--navy)">NOT A AND B</span> (A es 0 y B es 1). Dentro del ordenador no hay nadie que sepa sumar: hay circuitos que cumplen una tabla de verdad.</p>
+    <p style="font-size:21px;line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Para la resta pasa lo mismo: la diferencia es <span style="font-family:var(--mono);color:var(--navy)">A XOR B</span> y me llevo 1 cuando <span style="font-family:var(--mono);color:var(--navy)">NOT A AND B</span> (A es 0 y B es 1). Dentro del ordenador no hay nadie que sepa sumar: hay circuitos que cumplen una tabla de verdad.</p>
   </div>
   <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
     <svg viewBox="0 0 720 420" style="width:100%;height:auto;display:block" role="img" aria-label="Semisumador: A y B entran en una puerta XOR que da la suma y en una puerta AND que da el acarreo">

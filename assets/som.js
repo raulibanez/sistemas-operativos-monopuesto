@@ -422,7 +422,7 @@
       }
     },
 
-    /* 3.5 resta en binario con préstamos; si el sustraendo es mayor hay que invertir y poner el signo */
+    /* 3.5 resta en binario llevando (lo que me llevo se resta en la columna siguiente); si el sustraendo es mayor hay que invertir y poner el signo */
     restabin: {
       titulo: 'Resta en binario',
       rejilla: true,
@@ -433,25 +433,27 @@
         const neg = b > a, M = neg ? b : a, S = neg ? a : b;   // se resta siempre mayor − menor
         const w = bits;
         const Mb = bin(M, w), Sb = bin(S, w), R = [];
-        const pide = new Array(w).fill(0);
+        // lleva[i] = 1 si la columna de la derecha de i se llevó 1: se apunta encima de i y allí se resta
+        const lleva = new Array(w).fill(0);
         let br = 0; const exR = new Array(w), exP = new Array(w);
         for (let i = w - 1; i >= 0; i--) {
           const e = w - 1 - i;
-          pide[i] = br;
+          lleva[i] = br;
           let d = +Mb[i] - +Sb[i] - br;
-          const lo = `${Mb[i]} − ${Sb[i]}` + (br ? ' − 1 que me pidieron' : '');
+          const lo = `${Mb[i]} − ${Sb[i]}` + (br ? ' − 1 que me llevaba' : '');
           if (d < 0) {
             d += 2; br = 1;
-            exR[i] = `Columna ${e + 1}: ${lo} no se puede. Pido 1 a la columna de la izquierda: ahora tengo ${+Mb[i] + 2} (10 en binario) y ${+Mb[i] + 2} − ${Sb[i]}${pide[i] ? ' − 1' : ''} = ${d}`;
+            const t = +Mb[i] + 2;
+            exR[i] = `Columna ${e + 1}: ${lo} no se puede. Pongo un 1 delante del ${Mb[i]}, que pasa a ${bin(t)} (${t}): ${bin(t)} − ${Sb[i]}${lleva[i] ? ' − 1' : ''} = ${d} y me llevo 1`;
           } else {
             br = 0;
             exR[i] = `Columna ${e + 1}: ${lo} = ${d}`;
           }
-          exP[i] = br ? `La columna ${e + 1} no podía restar y pide 1 a la columna ${e + 2}` : `La columna ${e + 1} no pide nada`;
+          exP[i] = br ? `Columna ${e + 1}: ${lo} no se puede → me llevo 1, que se resta en la columna ${e + 2}` : `Columna ${e + 1}: ${lo} sí se puede → no me llevo nada`;
           R[i] = String(d);
         }
         const g = {
-          enunciado: 'Resta columna a columna desde la derecha. Si en una columna no puedes, pide 1 a la de la izquierda. Fíjate antes en cuál de los dos números es mayor.',
+          enunciado: 'Resta columna a columna desde la derecha. Si en una columna no puedes, pon un 1 delante del de arriba y llévate 1: apúntalo encima de la columna siguiente y allí réstalo. Fíjate antes en cuál de los dos números es mayor.',
           tarea: 'Resta los dos números binarios y pon el signo del resultado.',
           columnas: `150px 62px repeat(${w}, 86px)`,
           invertido: false,
@@ -466,16 +468,16 @@
         };
         function construye() {
           const arriba = bin(g.invertido ? b : a, w), abajo = bin(g.invertido ? a : b, w);
-          const fPide = [{ lbl: 'pido' }, { d: '' }], fA = [{ lbl: '' }, { d: '' }], fB = [{ lbl: '−' }, { d: '' }];
+          const fLleva = [{ lbl: 'me llevo' }, { d: '' }], fA = [{ lbl: '' }, { d: '' }], fB = [{ lbl: '−' }, { d: '' }];
           const fR = [{ lbl: 'resultado' }, { sel: ['+', '−'], c: neg ? '−' : '+', n: 1000, expl: neg ? 'El sustraendo era mayor que el minuendo: el resultado lleva signo −' : 'El minuendo era mayor: el resultado es positivo' }];
           for (let i = 0; i < w; i++) {
             const e = w - 1 - i;
-            fPide.push(i < w - 1 ? { c: String(pide[i]), clase: 'carry', n: 2 * (e - 1) + 1, expl: exP[i + 1] } : { d: '' });
+            fLleva.push(i < w - 1 ? { c: String(lleva[i]), clase: 'carry', n: 2 * (e - 1) + 1, expl: exP[i + 1] } : { d: '' });
             fA.push({ d: arriba[i] });
             fB.push({ d: abajo[i] });
             fR.push({ c: R[i], n: 2 * e, expl: exR[i] });
           }
-          return [fPide, fA, fB, { linea: true, desde: 3 }, fR];
+          return [fLleva, fA, fB, { linea: true, desde: 3 }, fR];
         }
         g.filas = construye();
         return g;
@@ -1787,7 +1789,7 @@
   SOM.preguntas.operaciones = [
     { p: '¿Qué dos familias de operaciones hace la UAL?', o: ['Aritméticas (suma y resta) y lógicas (NOT, AND, OR…)', 'Multiplicaciones y divisiones, con tablas guardadas', 'Lectura y escritura de la memoria principal', 'Entrada y salida de datos hacia los periféricos'], c: 0, exp: 'Solo esas dos. La multiplicación y la división se hacen a base de sumas, restas y desplazamientos.' },
     { p: '`1101 + 111` en binario da…', o: ['`10100`', '`1010`', '`11100`', '`10010`'], c: 0, exp: 'Columna a columna, con acarreos: 0, 0, 1, 0 y el 1 que queda al final. Comprobación: 13 + 7 = 20.' },
-    { p: '`1100 − 0101` en binario da…', o: ['`0111`', '`1001`', '`0110`', '`1011`'], c: 0, exp: 'Pidiendo 1 a la izquierda en las tres primeras columnas sale 0111. Comprobación: 12 − 5 = 7.' },
+    { p: '`1100 − 0101` en binario da…', o: ['`0111`', '`1001`', '`0110`', '`1011`'], c: 0, exp: 'Llevándome 1 en cada una de las tres primeras columnas sale 0111. Comprobación: 12 − 5 = 7.' },
     { p: '`0101 AND 0011` bit a bit da…', o: ['`0001`', '`0111`', '`0110`', '`1000`'], c: 0, exp: 'AND solo da 1 donde los dos bits son 1: en la última posición. Bit a bit, sin acarreos.' },
     { p: 'XOR da 1…', o: ['Solo si los dos bits son distintos', 'Si al menos uno de los dos bits vale 1', 'Solo si los dos bits son 1', 'Solo si los dos bits son 0'], c: 0, exp: 'O exclusivo: 1 solo si son distintos. OR da 1 si alguno es 1; AND, si los dos son 1; NOR, si los dos son 0.' },
     { p: 'Con puertas de un solo tipo se puede construir cualquier circuito digital. ¿De cuál?', o: ['NAND', 'AND', 'XOR', 'NOT'], c: 0, exp: 'Con NAND se hacen NOT, AND y OR, y con esas, cualquier circuito. Por eso el chip clásico SN7400 lleva cuatro puertas NAND.' },
