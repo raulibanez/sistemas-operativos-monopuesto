@@ -3309,7 +3309,7 @@
 
 <!-- 104 Pasos: IEEE 754 paso a paso -->
 <section data-label="IEEE 754 paso a paso" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.2fr 1fr;gap:72px">
-  <aside class="notas"><p><b>Hacer 48,297 con ellos.</b> 48 = 110000; 0,297 por el método de multiplicar: 0 1 0 0 1 1 0… y no termina. Normalizado: 1,100000100110000001… × 2<sup>5</sup>. Exponente 5 + 127 = 132 = 10000100. Mantisa: los 23 bits que siguen al 1. Resultado 42 41 30 21.</p><ul><li>Lo guardado vale 48,297000885…: la coma flotante redondea. Es el origen del 0,1 + 0,2.</li><li>Segundo ejemplo, −0,0000011: exponente −20, 107 = 01101011, resultado B5 93 A3 B6.</li></ul></aside>
+  <aside class="notas"><p><b>Hacer 48,297 con ellos.</b> 48 = 110000; 0,297 por el método de multiplicar: 0 1 0 0 1 1 0… y no termina. Normalizado: 1,100000100110000001… × 2<sup>5</sup>. Exponente 5 + 127 = 132 = 10000100. Mantisa: los 23 bits que siguen al 1. Resultado: signo 0 | exponente 10000100 | mantisa 10000010011000000100001.</p><ul><li>Lo guardado vale 48,297000885…: la coma flotante redondea. Es el origen del 0,1 + 0,2.</li><li>Segundo ejemplo, −0,0000011: exponente −20, 107 = 01101011, resultado 1 | 01101011 | 00100111010001110110110.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Codificación de la información</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">IEEE 754 paso a paso: 48,297</h2>
@@ -3323,32 +3323,37 @@
     </div>
   </div>
   <div style="display:flex;flex-direction:column;justify-content:center;gap:20px;min-width:0">
-    <div style="background:var(--navy);color:var(--white);border-radius:24px;padding:30px 36px">
-      <p style="font-size:var(--type-caption);font-weight:800;color:var(--yellow)">Resultado: 32 bits</p>
-      <p style="font-family:var(--mono);font-size:25px;font-weight:600;line-height:1.5;margin-top:12px;overflow-wrap:anywhere"><span style="color:var(--yellow)">0</span> <span style="color:#9FD4FF">10000100</span> 10000010011000000100001</p>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px;text-align:center;font-family:var(--mono);font-size:22px">
-        <span style="background:rgba(255,255,255,.1);border-radius:10px;padding:10px 0">0100 0010</span><span style="background:rgba(255,255,255,.1);border-radius:10px;padding:10px 0">0100 0001</span><span style="background:rgba(255,255,255,.1);border-radius:10px;padding:10px 0">0011 0000</span><span style="background:rgba(255,255,255,.1);border-radius:10px;padding:10px 0">0010 0001</span>
-        <span style="font-size:26px;font-weight:700;color:var(--yellow)">42</span><span style="font-size:26px;font-weight:700;color:var(--yellow)">41</span><span style="font-size:26px;font-weight:700;color:var(--yellow)">30</span><span style="font-size:26px;font-weight:700;color:var(--yellow)">21</span>
+    <div style="background:var(--white);border-radius:24px;padding:30px 36px;box-shadow:0 2px 0 var(--line)">
+      <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Resultado: 48,297 en 32 bits</p>
+      <div class="ieee" style="margin-top:16px">
+        <div class="s"><b>0</b><span>signo<br>1 bit</span></div>
+        <div class="e"><b>10000100</b><span>exponente<br>5 + 127 = 132</span></div>
+        <div class="m"><b>10000010011000000100001</b><span>mantisa<br>23 bits, sin el 1 implícito</span></div>
       </div>
-      <p style="font-size:20px;line-height:1.45;color:#C9D6EE;margin-top:16px">Lo guardado vale exactamente <b style="color:var(--white)">48,297000885…</b>, no 48,297. La coma flotante redondea: es el origen de lo que viene en la siguiente diapositiva.</p>
+      <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:18px">Lo guardado vale exactamente <b style="color:var(--navy)">48,297000885…</b>, no 48,297. La coma flotante redondea: es el origen de lo que viene en la siguiente diapositiva.</p>
     </div>
     <div style="background:var(--white);border-radius:24px;padding:26px 36px;box-shadow:0 2px 0 var(--line)">
       <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Segundo ejemplo: −0,0000011</p>
-      <p style="font-size:20px;line-height:1.5;color:var(--muted);margin-top:8px">Signo 1. En binario es 1,00100111… × 2<sup>−20</sup>: la coma se mueve 20 posiciones a la <b>derecha</b>. Exponente −20 + 127 = 107 = <span style="font-family:var(--mono);color:var(--navy)">01101011</span>.</p>
-      <p style="font-family:var(--mono);font-size:22px;font-weight:600;color:var(--navy);margin-top:10px;overflow-wrap:anywhere"><span style="color:var(--ko)">1</span> <span style="color:var(--blue)">01101011</span> 00100111010001110110110 = B5 93 A3 B6</p>
+      <p style="font-size:20px;line-height:1.5;color:var(--muted);margin-top:8px">Signo 1. En binario es 1,00100111… × 2<sup>−20</sup>: la coma se mueve 20 posiciones a la <b>derecha</b>. Exponente −20 + 127 = 107.</p>
+      <div class="ieee peq" style="margin-top:14px">
+        <div class="s"><b>1</b><span>signo</span></div>
+        <div class="e"><b>01101011</b><span>exponente</span></div>
+        <div class="m"><b>00100111010001110110110</b><span>mantisa</span></div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- 105 Interactivo: IEEE 754 -->
 <section data-deck-id="ej-ieee754" data-label="Practica: IEEE 754" data-seccion="1.9" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
-  <aside class="notas"><p><b>Insistir en la racha de diez.</b></p><p>Números con expansión corta (10,5; −6,25; 0,375; 100). Orden: signo, binario con coma, exponente al normalizar (puede ser negativo), más 127, en 8 bits, mantisa de 23 sin el 1 implícito, hexadecimal.</p><p><b>Errores típicos:</b> contar mal las posiciones al normalizar; escribir el 1 implícito en la mantisa.</p></aside>
+  <aside class="notas"><p><b>Insistir en la racha de diez.</b></p><p>Números con expansión corta (10,5; −6,25; 0,375; 100). Orden: signo, binario con coma, exponente al normalizar (puede ser negativo), más 127, en 8 bits y mantisa de 23 sin el 1 implícito. La última fila monta sola el número final con sus tres campos, con los colores de la figura del formato.</p><p><b>Errores típicos:</b> contar mal las posiciones al normalizar; escribir el 1 implícito en la mantisa.</p></aside>
   <div>
     <span class="pill">Ejercicio interactivo</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">IEEE 754 en simple precisión</h2>
-        <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Los números salen exactos en binario; para los menores que 1 el exponente es negativo.</p>
+    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">De arriba abajo: el número en binario, normalizar (1,… × 2ᵉ), exponente + 127 en 8 bits y mantisa de 23 bits sin el 1 implícito. La última fila monta sola el número final con sus tres campos: <b style="color:var(--navy)">signo, exponente y mantisa</b>.</p>
+    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:16px;color:var(--muted)">Los números salen exactos en binario; para los menores que 1 el exponente es negativo.</p>
   </div>
-  <div class="ej" data-tipo="ieee754"></div>
+  <div class="ej" data-tipo="ieee754" data-sin-enunciado></div>
 </section>
 
 <!-- 106 Pregunta: ¿cuánto es 0,1 + 0,2? -->

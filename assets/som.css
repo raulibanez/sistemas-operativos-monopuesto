@@ -475,6 +475,26 @@ section:has(> .ej) { grid-template-rows: minmax(0, 1fr); }
 .sv .d.tachado { color: #9AA6BE; text-decoration: line-through; text-decoration-thickness: 3px; }
 .sv .d.fin { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 34px; font-weight: 800; color: var(--ok); text-align: left; padding-left: 12px; }
 
+/* ---------- Número IEEE 754 en sus tres campos ----------
+   Mismos colores que la figura del formato: signo amarillo, exponente azul, mantisa azul marino.
+   <div class="ieee"><div class="s"><b>0</b><span>signo</span></div><div class="e"><b>10000100</b><span>exponente</span></div><div class="m"><b>…</b><span>mantisa</span></div></div>
+   En las rejillas de ejercicio, la fila final usa .d.campo.s / .e / .m con espejo de lo que se escribe. */
+.ieee { display: flex; gap: 8px; align-items: flex-start; }
+.ieee > div { display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0; }
+.ieee > .m { flex: 1; }
+.ieee b { display: block; width: 100%; text-align: center; font-family: var(--mono); font-size: 24px; font-weight: 700; padding: 10px 12px; border-radius: 10px; }
+.ieee span { font-size: 17px; line-height: 1.25; color: var(--muted); text-align: center; }
+.ieee .s b { background: var(--yellow); color: var(--navy); }
+.ieee .e b { background: var(--blue); color: var(--white); }
+.ieee .m b { background: var(--navy); color: var(--white); }
+.ieee.peq b { font-size: 20px; padding: 8px 10px; }
+.sv .d.campo[data-espejo] { font-size: 22px; font-weight: 700; border-radius: 10px; padding: 0 8px; letter-spacing: .02em; }
+.sv .d.campo.s[data-espejo] { background: var(--yellow); color: var(--navy); }
+.sv .d.campo.e[data-espejo] { background: var(--blue); color: var(--white); }
+.sv .d.campo.m[data-espejo] { background: var(--navy); color: var(--white); }
+.sv .d.campo.vacio[data-espejo] { opacity: .45; }
+.sv .d.campo-pie { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 17px; color: var(--muted); height: auto; line-height: 1.2; }
+
 /* ---------- Operación resuelta por pasos, como en la pizarra ----------
    <div class="pasos-op">
      <div class="po-paso planteo"> <div class="po-txt">…</div> <div class="sv compacta mini">…</div> </div>

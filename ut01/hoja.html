@@ -51,6 +51,9 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
 .ej-hoja .sv .c.sel { font-size: 24px; color: var(--muted); }
 .ej-hoja .sv .c.sel.larga { font-size: 19px; line-height: 1.2; height: auto; min-height: var(--cel); padding: 6px 10px; box-sizing: border-box; white-space: pre-line; }
 .ej-hoja .sv .d[data-espejo] { color: var(--navy); }
+/* IEEE 754: en papel, el resultado son tres casillas para escribir el número final (sin los colores de la diapositiva) */
+.ej-hoja .sv .d.campo.s[data-espejo], .ej-hoja .sv .d.campo.e[data-espejo], .ej-hoja .sv .d.campo.m[data-espejo] { background: #fff; color: var(--navy); border: 3px solid var(--navy); opacity: 1; }
+.sol .ej-hoja .sv .d.campo.s[data-espejo], .sol .ej-hoja .sv .d.campo.e[data-espejo], .sol .ej-hoja .sv .d.campo.m[data-espejo] { color: var(--ok); border-color: var(--ok); background: #F3FAF6; }
 .sol .ej-hoja .sv .c { color: var(--ok); border-color: var(--ok); background: #F3FAF6; }
 .sol .ej-hoja .sv .c.sel { color: var(--ok); }
 .ej-hoja .resp { font-size: 11px; color: var(--ok); line-height: 1.35; margin: 2px 0 0; white-space: pre-line; }

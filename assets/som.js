@@ -849,29 +849,30 @@
         const e = ent ? eb.length - 1 : -(fb.indexOf('1') + 1);
         const mant = todo.slice(primer1 + 1).replace(/0+$/, '');
         const mant23 = mant.padEnd(23, '0');
-        const E = e + 127, E8 = bin(E, 8);
-        const bits32 = (neg ? '1' : '0') + E8 + mant23;
-        const hex = parseInt(bits32, 2).toString(16).toUpperCase().padStart(8, '0');
+        const E = e + 127, E8 = bin(E, 8), S = neg ? '1' : '0';
         const norm = '1' + (mant ? ',' + mant : '') + ' × 2' + sup(String(Math.abs(e))).replace(/^/, e < 0 ? '⁻' : '');
         const xTxt = numES(a);
         return {
           enunciado: 'Binario, normalizar (1,… × 2ᵉ), exponente + 127 y mantisa de 23 bits sin el 1 implícito.',
           tarea: `Representa ${numES(x)} en IEEE 754 de simple precisión.`,
-          columnas: '230px 120px 1fr', clase: 'compacta mini',
+          // columnas: etiqueta, signo, exponente y mantisa; las casillas de los tres campos van en la
+          // misma columna que su trozo del resultado, que se monta solo en la última fila
+          columnas: '190px 80px 150px 1fr', clase: 'compacta mini',
           filas: [
-            [{ lbl: 'número' }, { d: numES(x), clase: 'ancho', span: 2 }],
-            [{ lbl: 'signo' }, { c: neg ? '1' : '0', n: 0, expl: neg ? 'Es negativo: el bit de signo vale 1' : 'Es positivo: el bit de signo vale 0' }, { d: '0 positivo · 1 negativo', clase: 'peq', pista: true }],
-            [{ lbl: 'en binario' }, { c: binTxt, clase: 'bin', max: 16, filtro: /[^01.,]/g, span: 2, n: 1, cmp: (v) => v.replace('.', ',') === binTxt,
+            [{ lbl: 'número' }, { d: numES(x), clase: 'ancho', span: 3 }],
+            [{ lbl: 'signo' }, { c: S, id: 's', n: 0, expl: neg ? 'Es negativo: el bit de signo vale 1' : 'Es positivo: el bit de signo vale 0' }, { d: '0 positivo · 1 negativo', clase: 'peq', pista: true, span: 2 }],
+            [{ lbl: 'en binario' }, { c: binTxt, clase: 'bin', max: 16, filtro: /[^01.,]/g, span: 3, n: 1, cmp: (v) => v.replace('.', ',') === binTxt,
               expl: `Parte entera ${ent} = ${ent ? eb : '0'}` + (fb ? `; parte decimal ${numES(frac)} = 0,${fb} (multiplicando por 2)` : '') + ` → ${binTxt}` }],
             [{ lbl: 'exponente' }, { c: String(e), clase: 'num', max: 3, filtro: /[^0-9\-−]/g, n: 2, cmp: (v) => aNum(v) === e,
-              expl: `Muevo la coma hasta dejar un solo 1 delante: ${norm}. ` + (e >= 0 ? `La coma se ha movido ${e} posiciones a la izquierda` : `La coma se ha movido ${-e} posiciones a la derecha, así que el exponente es negativo`) }, { d: `${xTxt} = ${norm}`, clase: 'peq', pista: true }],
-            [{ lbl: 'exponente + 127' }, { c: String(E), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 3, expl: `${e} + 127 = ${E} (el sesgo evita guardar exponentes negativos)` }, { d: 'sesgo 127', clase: 'peq', pista: true }],
-            [{ lbl: 'exponente 8 bits' }, { c: E8, clase: 'bin', max: 8, filtro: /[^01]/g, n: 4, span: 2, expl: `${E} en binario de 8 bits: ${E8}` }],
-            [{ lbl: 'mantisa 23 bits' }, { c: mant23, clase: 'bin', max: 23, filtro: /[^01]/g, n: 5, span: 2, expl: `Lo que queda detrás de la coma en ${norm.split(' ×')[0]} sin el 1 implícito: ${mant || '(nada)'}, y ceros hasta completar 23 bits` }],
+              expl: `Muevo la coma hasta dejar un solo 1 delante: ${norm}. ` + (e >= 0 ? `La coma se ha movido ${e} posiciones a la izquierda` : `La coma se ha movido ${-e} posiciones a la derecha, así que el exponente es negativo`) }, { d: `${xTxt} = ${norm}`, clase: 'peq', pista: true, span: 2 }],
+            [{ lbl: 'exponente + 127' }, { c: String(E), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 3, expl: `${e} + 127 = ${E} (el sesgo evita guardar exponentes negativos)` }, { d: 'sesgo 127', clase: 'peq', pista: true, span: 2 }],
+            [{ lbl: 'exponente 8 bits' }, { d: '' }, { c: E8, id: 'e', clase: 'bin', max: 8, filtro: /[^01]/g, n: 4, expl: `${E} en binario de 8 bits: ${E8}` }, { d: '' }],
+            [{ lbl: 'mantisa 23 bits' }, { d: '' }, { d: '' }, { c: mant23, id: 'm', clase: 'bin', max: 23, filtro: /[^01]/g, n: 5, expl: `Lo que queda detrás de la coma en ${norm.split(' ×')[0]} sin el 1 implícito: ${mant || '(nada)'}, y ceros hasta completar 23 bits` }],
             { linea: true },
-            [{ lbl: 'hexadecimal' }, { c: hex, clase: 'hex', max: 8, filtro: /[^0-9a-fA-F]/g, n: 6, span: 2, expl: `${bits32.match(/.{4}/g).join(' ')} → ${hex}` }]
+            [{ lbl: 'resultado' }, { d: '', espejo: 's', clase: 'campo s' }, { d: '', espejo: 'e', clase: 'campo e' }, { d: '', espejo: 'm', clase: 'campo m' }],
+            [{ lbl: '' }, { d: 'signo', clase: 'campo-pie' }, { d: 'exponente', clase: 'campo-pie' }, { d: 'mantisa', clase: 'campo-pie' }]
           ],
-          correcto: `Correcto: ${numES(x)} = ${neg ? '−' : ''}${norm} → ${hex.match(/.{2}/g).join(' ')} en hexadecimal.`
+          correcto: `Correcto: ${numES(x)} = ${neg ? '−' : ''}${norm} → signo ${S}, exponente ${E8} y mantisa ${mant23}.`
         };
       }
     },
