@@ -434,7 +434,8 @@
         const neg = b > a, M = neg ? b : a, S = neg ? a : b;   // se resta siempre mayor − menor
         const w = bits;
         const Mb = bin(M, w), Sb = bin(S, w), R = [];
-        // lleva[i] = 1 si la columna de la derecha de i se llevó 1: se apunta encima de i y allí se resta
+        // lleva[i] = 1 si la columna de la derecha de i se llevó 1: se apunta debajo del sustraendo de i
+        // (no encima como en la suma) y allí se resta junto con él
         const lleva = new Array(w).fill(0);
         let br = 0; const exR = new Array(w), exP = new Array(w);
         for (let i = w - 1; i >= 0; i--) {
@@ -454,7 +455,7 @@
           R[i] = String(d);
         }
         const g = {
-          enunciado: 'Resta columna a columna desde la derecha. Si en una columna no puedes, pon un 1 delante del de arriba y llévate 1: apúntalo encima de la columna siguiente y allí réstalo. Fíjate antes en cuál de los dos números es mayor.',
+          enunciado: 'Resta columna a columna desde la derecha. Si en una columna no puedes, pon un 1 delante del de arriba y llévate 1: apúntalo en la columna siguiente, debajo del de abajo, y allí réstalo junto con él. Fíjate antes en cuál de los dos números es mayor.',
           tarea: 'Resta los dos números binarios y pon el signo del resultado.',
           columnas: `150px 62px repeat(${w}, 86px)`,
           invertido: false,
@@ -478,7 +479,7 @@
             fB.push({ d: abajo[i] });
             fR.push({ c: R[i], n: 2 * e, expl: exR[i] });
           }
-          return [fLleva, fA, fB, { linea: true, desde: 3 }, fR];
+          return [fA, fB, fLleva, { linea: true, desde: 3 }, fR];
         }
         g.filas = construye();
         return g;

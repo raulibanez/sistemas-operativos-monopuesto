@@ -2362,7 +2362,7 @@
 
 <!-- 76 Tabla: la resta, casos de una columna -->
 <section data-label="La resta en binario" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1fr;gap:96px">
-  <aside class="notas"><p><b>Hacer el ejemplo en la pizarra</b> apuntando en la fila de arriba lo que me llevo, como en la suma. Comprobar en decimal: 13 − 6 = 7.</p><ul><li>0 − 1: se pone un 1 delante del 0, 10 − 1 = 1, y me llevo 1.</li><li><b>Avisar:</b> en la suma lo que me llevo se suma; en la resta se resta, junto con el de abajo.</li><li>Por qué funciona: el 1 de delante vale 2 en esa columna, y se compensa restando 1 en la siguiente. Es la resta «llevando» de primaria; en otros libros aparece como «pedir prestado» a la columna de la izquierda.</li></ul><p>La siguiente: qué pasa si el de abajo es mayor.</p></aside>
+  <aside class="notas"><p><b>Hacer el ejemplo en la pizarra</b> apuntando lo que me llevo debajo del de abajo de la columna siguiente, no arriba como en la suma: así se ve que se resta junto con él. Comprobar en decimal: 13 − 6 = 7.</p><ul><li>0 − 1: se pone un 1 delante del 0, 10 − 1 = 1, y me llevo 1.</li><li><b>Avisar:</b> en la suma lo que me llevo se suma; en la resta se resta, junto con el de abajo.</li><li>Por qué funciona: el 1 de delante vale 2 en esa columna, y se compensa restando 1 en la siguiente. Es la resta «llevando» de primaria; en otros libros aparece como «pedir prestado» a la columna de la izquierda.</li></ul><p>La siguiente: qué pasa si el de abajo es mayor.</p></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Operaciones en binario y complementos</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">La resta: los casos de una columna</h2>
@@ -2376,15 +2376,15 @@
         <tr><td>0 − 1</td><td>1 <small>(10 − 1)</small></td><td class="lleva">1</td></tr>
       </tbody>
     </table>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Tabla 1.14. Si el de arriba no llega, se le pone un 1 delante (0 pasa a 10 y 1 pasa a 11) y me llevo 1. Lo que me llevo se resta en la columna siguiente, junto con el de abajo.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Tabla 1.14. Si el de arriba no llega, se le pone un 1 delante (0 pasa a 10 y 1 pasa a 11) y me llevo 1. Lo que me llevo se apunta en la columna siguiente, debajo del de abajo, y se resta junto con él.</p>
   </div>
   <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
     <div style="background:var(--white);border-radius:24px;padding:36px 40px;box-shadow:0 2px 0 var(--line)">
       <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue)">Ejemplo · 1101 − 0110</p>
       <div class="sv" style="grid-template-columns:150px repeat(4,86px);justify-content:start;margin-top:12px">
-        <span class="lbl">me llevo</span><span class="d carry">1</span><span class="d carry">1</span><span class="d carry">0</span><span class="d carry"></span>
         <span class="lbl"></span><span class="d">1</span><span class="d">1</span><span class="d">0</span><span class="d">1</span>
         <span class="lbl">−</span><span class="d">0</span><span class="d">1</span><span class="d">1</span><span class="d">0</span>
+        <span class="lbl">me llevo</span><span class="d carry">1</span><span class="d carry">1</span><span class="d carry">0</span><span class="d carry"></span>
         <div class="linea"></div>
         <span class="lbl">resultado</span><span class="d res">0</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span>
       </div>
@@ -2420,9 +2420,9 @@
     <p style="font-size:var(--type-caption);font-weight:700;color:var(--yellow)">Ejemplo · 0101 − 1001</p>
     <p style="font-size:20px;color:#C9D6EE;margin-top:8px">El primer bit ya es distinto: 0 arriba, 1 abajo. El de abajo es mayor.</p>
     <div class="sv" style="grid-template-columns:150px repeat(4,86px);justify-content:start;margin-top:16px;color:var(--white)">
-      <span class="lbl" style="color:#9FB4D9">me llevo</span><span class="d carry" style="color:var(--yellow)">1</span><span class="d carry" style="color:var(--yellow)">0</span><span class="d carry" style="color:var(--yellow)">0</span><span class="d carry"></span>
       <span class="lbl" style="color:#9FB4D9">mayor</span><span class="d">1</span><span class="d">0</span><span class="d">0</span><span class="d">1</span>
       <span class="lbl" style="color:#9FB4D9">− menor</span><span class="d">0</span><span class="d">1</span><span class="d">0</span><span class="d">1</span>
+      <span class="lbl" style="color:#9FB4D9">me llevo</span><span class="d carry" style="color:var(--yellow)">1</span><span class="d carry" style="color:var(--yellow)">0</span><span class="d carry" style="color:var(--yellow)">0</span><span class="d carry"></span>
       <div class="linea" style="background:var(--yellow)"></div>
       <span class="lbl" style="color:#9FB4D9">resultado</span><span class="d" style="color:var(--yellow)">0</span><span class="d" style="color:var(--yellow)">1</span><span class="d" style="color:var(--yellow)">0</span><span class="d" style="color:var(--yellow)">0</span>
     </div>
@@ -2436,7 +2436,7 @@
   <div>
     <span class="pill">Ejercicio interactivo</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Resta en binario</h2>
-    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Las casillas avanzan en el orden de la operación: el resultado de una columna y, encima de la siguiente, lo que te llevas, que allí se resta. Si el de abajo es mayor, pulsa <b>Invertir</b> y marca el signo − a la izquierda del resultado.</p>
+    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">De derecha a izquierda. Si en una columna no puedes, pon un 1 delante del de arriba y llévate 1: apúntalo en la columna siguiente, debajo del de abajo, y allí réstalo junto con él. Las casillas avanzan en ese orden. Si el de abajo es mayor, pulsa <b>Invertir</b> y marca el signo − a la izquierda del resultado.</p>
     <table class="tabla-reglas" style="font-size:22px">
       <thead><tr><th>Resto</th><th>Escribo</th><th>Me llevo</th></tr></thead>
       <tbody>
@@ -2446,7 +2446,7 @@
       </tbody>
     </table>
       </div>
-  <div class="ej" data-tipo="restabin" data-bits="5"></div>
+  <div class="ej" data-tipo="restabin" data-bits="5" data-sin-enunciado></div>
 </section>
 
 <!-- 79 Tabla: NOT, AND, OR -->
