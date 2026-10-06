@@ -2646,103 +2646,139 @@
 </section>
 
 <!-- 85 Pasos: resta en complemento a 1 -->
-<section data-label="Resta en C1" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.15fr;gap:80px">
+<section data-label="Resta en C1" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:400px 1fr;grid-template-rows:auto minmax(0,1fr);column-gap:56px;row-gap:36px">
   <aside class="notas"><p><b>Ejemplo 8 − 3:</b> 00001000 + 11111100 = 1 00000100; el 1 que sobra se suma (acarreo circular) y queda 00000101 = 5.</p><ul><li>Dos pegas: el paso extra y que el cero tiene dos representaciones (00000000 y 11111111).</li></ul><p>Por eso los ordenadores usan C2, en la siguiente.</p></aside>
-  <div style="display:flex;flex-direction:column;min-width:0">
+  <div style="grid-column:1 / -1">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Operaciones en binario y complementos</p>
-    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Resta en complemento a 1</h2>
-    <div style="display:flex;flex-direction:column;gap:20px;margin-top:var(--gap-item)">
-      <div style="display:flex;gap:24px;align-items:flex-start">
-        <span style="width:60px;height:60px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">1</span>
-        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Complemento a 1 del sustraendo</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">Con el mismo número de bits que el minuendo.</p></div>
-      </div>
-      <div style="display:flex;gap:24px;align-items:flex-start">
-        <span style="width:60px;height:60px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">2</span>
-        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Súmalo al minuendo</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">Una suma normal, columna a columna.</p></div>
-      </div>
-      <div style="display:flex;gap:24px;align-items:flex-start">
-        <span style="width:60px;height:60px;border-radius:50%;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">3</span>
-        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Si sobra un 1, súmaselo al resultado</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">El bit que no cabe se quita de la izquierda y se suma por la derecha (acarreo circular).</p></div>
-      </div>
-    </div>
-    <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:var(--gap-item)">Funciona, pero tiene un paso de más y el cero queda con dos representaciones (00000000 y 11111111). Por eso los ordenadores usan el complemento a 2.</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Resta en complemento a 1</h2>
   </div>
-  <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
-    <div style="background:var(--white);border-radius:24px;padding:32px 40px;box-shadow:0 2px 0 var(--line)">
-      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue)">Ejemplo · 8 − 3 en 8 bits</p>
-      <div class="sv compacta" style="grid-template-columns:160px repeat(9,58px);justify-content:start;margin-top:14px">
-        <span class="lbl">3 =</span><span class="d"></span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">1</span><span class="d">1</span>
-        <span class="lbl">C1 de 3</span><span class="d"></span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">0</span><span class="d res">0</span>
-        <div class="linea suave"></div>
-        <span class="lbl">8 =</span><span class="d"></span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">1</span><span class="d">0</span><span class="d">0</span><span class="d">0</span>
-        <span class="lbl">+ C1 de 3</span><span class="d"></span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">0</span><span class="d">0</span>
-        <div class="linea"></div>
-        <span class="lbl">suma</span><span class="d" style="color:var(--sky)">1</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">1</span><span class="d">0</span><span class="d">0</span>
-        <span class="lbl">+ el 1 que sobra</span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d" style="color:var(--sky)">1</span>
-        <div class="linea"></div>
-        <span class="lbl">resultado</span><span class="d"></span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">1</span><span class="d res">0</span><span class="d res">1</span>
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:24px;line-height:1.45;color:var(--muted)">Para restar, el ordenador suma: el minuendo más el complemento a 1 del sustraendo.</p>
+    <div style="background:var(--white);border-radius:20px;padding:24px 28px;box-shadow:0 2px 0 var(--line);margin-top:var(--gap-item)">
+      <p style="font-size:22px;font-weight:800;color:var(--navy)">Funciona, pero tiene dos pegas</p>
+      <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:10px;margin-top:12px;font-size:20px;line-height:1.4;color:var(--muted)">
+        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">●</span><span>Un paso de más: sumar el 1 que sobra.</span></li>
+        <li style="display:flex;gap:12px"><span style="color:var(--yellow);font-weight:800">●</span><span>El cero tiene dos representaciones: 00000000 y 11111111.</span></li>
+      </ul>
+      <p style="font-size:20px;line-height:1.4;color:var(--navy);margin-top:12px"><b>Por eso los ordenadores usan el complemento a 2.</b></p>
+    </div>
+  </div>
+  <div style="min-width:0">
+    <div class="pasos-op" style="background:var(--white);border-radius:24px;padding:20px 32px;box-shadow:0 2px 0 var(--line)">
+      <div class="po-paso planteo">
+        <div class="po-txt"><div><p class="po-tit">La resta: 8 − 3</p><p class="po-sub">Los dos números con el mismo número de bits: aquí, 8.</p></div></div>
+        <div class="sv compacta mini">
+          <span class="lbl">8</span><span class="d"></span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">1</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d"></span>
+          <span class="lbl">− 3</span><span class="d"></span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">1</span><span class="d">1</span><span class="d"></span>
+        </div>
       </div>
-      <p style="font-family:var(--mono);font-size:26px;font-weight:600;color:var(--navy);margin-top:18px">00000101 = 5 &nbsp;<span style="color:var(--muted);font-weight:400;font-size:22px">(8 − 3 = 5)</span></p>
+      <div class="po-paso">
+        <div class="po-txt"><span class="po-num">1</span><div><p class="po-tit">Complemento a 1 del sustraendo</p><p class="po-sub">Invierte todos los bits del 3.</p></div></div>
+        <div class="sv compacta mini">
+          <span class="lbl" style="color:#9AA6BE">3</span><span class="d"></span><span class="d tenue">0</span><span class="d tenue">0</span><span class="d tenue">0</span><span class="d tenue">0</span><span class="d tenue">0</span><span class="d tenue">0</span><span class="d tenue">1</span><span class="d tenue">1</span><span class="d"></span>
+          <span class="lbl">C1 de 3</span><span class="d"></span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">0</span><span class="d res">0</span><span class="d"></span>
+        </div>
+      </div>
+      <div class="po-paso">
+        <div class="po-txt"><span class="po-num">2</span><div><p class="po-tit">Súmalo al minuendo</p><p class="po-sub">Una suma normal, columna a columna. Sale un bit de más por la izquierda.</p></div></div>
+        <div class="sv compacta mini">
+          <span class="lbl">8</span><span class="d"></span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">1</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d"></span>
+          <span class="lbl">+ C1 de 3</span><span class="d"></span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">0</span><span class="d">0</span><span class="d"></span>
+          <div class="linea"></div>
+          <span class="lbl">suma</span><span class="d sobra">1</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">1</span><span class="d res">0</span><span class="d res">0</span><span class="d"></span>
+        </div>
+      </div>
+      <div class="po-paso">
+        <div class="po-txt"><span class="po-num ultimo">3</span><div><p class="po-tit">Si sobra un 1, súmaselo al resultado</p><p class="po-sub">Se quita de la izquierda y se suma por la derecha (acarreo circular).</p></div></div>
+        <div class="sv compacta mini">
+          <span class="lbl" style="color:#9AA6BE">suma</span><span class="d tachado">1</span><span class="d tenue">0</span><span class="d tenue">0</span><span class="d tenue">0</span><span class="d tenue">0</span><span class="d tenue">0</span><span class="d tenue">1</span><span class="d tenue">0</span><span class="d tenue">0</span><span class="d"></span>
+          <span class="lbl">+ el 1 que sobra</span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d"></span><span class="d sobra">1</span><span class="d"></span>
+          <div class="linea"></div>
+          <span class="lbl">resultado</span><span class="d"></span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">1</span><span class="d res">0</span><span class="d res">1</span><span class="d fin">= 5</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- 86 Pasos: resta en complemento a 2 -->
-<section data-label="Resta en C2" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.15fr;gap:80px">
+<section data-label="Resta en C2" data-seccion="1.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:400px 1fr;grid-template-rows:auto minmax(0,1fr);column-gap:56px;row-gap:36px">
   <aside class="notas"><p><b>Ejemplo 8 − 3:</b> C2 de 3 es 11111101; 00001000 + 11111101 = 1 00000101; se tira el 1 y queda 5.</p><ul><li>Un solo paso y cero único. El sumador lleva delante un circuito que invierte los bits y mete un 1 de acarreo inicial.</li></ul><p>En el ejercicio salen casos negativos, que enlazan con la diapositiva del signo.</p></aside>
-  <div style="display:flex;flex-direction:column;min-width:0">
+  <div style="grid-column:1 / -1">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Operaciones en binario y complementos</p>
-    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Resta en complemento a 2: así resta el ordenador</h2>
-    <div style="display:flex;flex-direction:column;gap:20px;margin-top:var(--gap-item)">
-      <div style="display:flex;gap:24px;align-items:flex-start">
-        <span style="width:60px;height:60px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">1</span>
-        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Complemento a 2 del sustraendo</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">Invierte los bits y suma 1, con el mismo número de bits que el minuendo.</p></div>
-      </div>
-      <div style="display:flex;gap:24px;align-items:flex-start">
-        <span style="width:60px;height:60px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">2</span>
-        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Súmalo al minuendo</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">Una suma normal.</p></div>
-      </div>
-      <div style="display:flex;gap:24px;align-items:flex-start">
-        <span style="width:60px;height:60px;border-radius:50%;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">3</span>
-        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">El 1 que sobra se descarta</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">No cabe en los bits del resultado y se tira. No hay nada más que hacer.</p></div>
-      </div>
-    </div>
-    <div style="background:var(--white);border-radius:20px;padding:22px 30px;box-shadow:0 2px 0 var(--line);margin-top:var(--gap-item)">
-      <p style="font-size:20px;line-height:1.45;color:var(--muted)"><b style="color:var(--navy)">Un solo circuito para sumar y restar:</b> delante del sumador, un NOT por cada bit del sustraendo y un 1 de acarreo inicial. Eso es el complemento a 2 en hardware. Y el cero solo tiene una representación.</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Resta en complemento a 2</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:24px;line-height:1.45;color:var(--muted)">Los mismos pasos, pero con el complemento a 2 del sustraendo. El 1 que sobra se tira y ya está.</p>
+    <div style="background:var(--white);border-radius:20px;padding:24px 28px;box-shadow:0 2px 0 var(--line);margin-top:var(--gap-item)">
+      <p style="font-size:22px;font-weight:800;color:var(--navy)">Así resta el ordenador</p>
+      <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:10px">Un solo circuito para sumar y restar: delante del sumador, un NOT por cada bit del sustraendo y un 1 de acarreo inicial. Eso es el complemento a 2 en hardware.</p>
+      <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:10px">Sin paso de más, y el cero tiene una sola representación.</p>
     </div>
   </div>
-  <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
-    <div style="background:var(--white);border-radius:24px;padding:32px 40px;box-shadow:0 2px 0 var(--line)">
-      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue)">Ejemplo · 8 − 3 en 8 bits</p>
-      <div class="sv compacta" style="grid-template-columns:160px repeat(9,58px);justify-content:start;margin-top:14px">
-        <span class="lbl">3 =</span><span class="d"></span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">1</span><span class="d">1</span>
-        <span class="lbl">C1 de 3</span><span class="d"></span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">0</span><span class="d">0</span>
-        <span class="lbl">C2 = C1 + 1</span><span class="d"></span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">0</span><span class="d res">1</span>
-        <div class="linea suave"></div>
-        <span class="lbl">8 =</span><span class="d"></span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">1</span><span class="d">0</span><span class="d">0</span><span class="d">0</span>
-        <span class="lbl">+ C2 de 3</span><span class="d"></span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">0</span><span class="d">1</span>
-        <div class="linea"></div>
-        <span class="lbl">suma</span><span class="d" style="color:#9AA6BE;text-decoration:line-through">1</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">1</span><span class="d res">0</span><span class="d res">1</span>
+  <div style="min-width:0">
+    <div class="pasos-op" style="background:var(--white);border-radius:24px;padding:20px 32px;box-shadow:0 2px 0 var(--line)">
+      <div class="po-paso planteo">
+        <div class="po-txt"><div><p class="po-tit">La resta: 8 − 3</p><p class="po-sub">Los dos números con el mismo número de bits: aquí, 8.</p></div></div>
+        <div class="sv compacta mini">
+          <span class="lbl">8</span><span class="d"></span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">1</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d"></span>
+          <span class="lbl">− 3</span><span class="d"></span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">1</span><span class="d">1</span><span class="d"></span>
+        </div>
       </div>
-      <p style="font-family:var(--mono);font-size:26px;font-weight:600;color:var(--navy);margin-top:18px">00000101 = 5 &nbsp;<span style="color:var(--muted);font-weight:400;font-size:22px">(8 − 3 = 5; el 1 tachado se descarta)</span></p>
+      <div class="po-paso">
+        <div class="po-txt"><span class="po-num">1</span><div><p class="po-tit">Complemento a 2 del sustraendo</p><p class="po-sub">Invierte los bits del 3 (C1) y súmale 1.</p></div></div>
+        <div class="sv compacta mini">
+          <span class="lbl" style="color:#9AA6BE">3</span><span class="d"></span><span class="d tenue">0</span><span class="d tenue">0</span><span class="d tenue">0</span><span class="d tenue">0</span><span class="d tenue">0</span><span class="d tenue">0</span><span class="d tenue">1</span><span class="d tenue">1</span><span class="d"></span>
+          <span class="lbl">C1 de 3</span><span class="d"></span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">0</span><span class="d">0</span><span class="d"></span>
+          <span class="lbl">C2 = C1 + 1</span><span class="d"></span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">1</span><span class="d res">0</span><span class="d res">1</span><span class="d"></span>
+        </div>
+      </div>
+      <div class="po-paso">
+        <div class="po-txt"><span class="po-num">2</span><div><p class="po-tit">Súmalo al minuendo</p><p class="po-sub">Una suma normal, columna a columna. Sale un bit de más por la izquierda.</p></div></div>
+        <div class="sv compacta mini">
+          <span class="lbl">8</span><span class="d"></span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d">1</span><span class="d">0</span><span class="d">0</span><span class="d">0</span><span class="d"></span>
+          <span class="lbl">+ C2 de 3</span><span class="d"></span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">1</span><span class="d">0</span><span class="d">1</span><span class="d"></span>
+          <div class="linea"></div>
+          <span class="lbl">suma</span><span class="d sobra">1</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">1</span><span class="d res">0</span><span class="d res">1</span><span class="d"></span>
+        </div>
+      </div>
+      <div class="po-paso">
+        <div class="po-txt"><span class="po-num ultimo">3</span><div><p class="po-tit">El 1 que sobra se descarta</p><p class="po-sub">No cabe en los 8 bits y se tira. No hay nada más que hacer.</p></div></div>
+        <div class="sv compacta mini">
+          <span class="lbl">resultado</span><span class="d tachado">1</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">0</span><span class="d res">1</span><span class="d res">0</span><span class="d res">1</span><span class="d fin">= 5</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- 87 Interactivo: resta en complemento a 2 -->
 <section data-deck-id="ej-restac2" data-label="Practica: resta en C2" data-seccion="1.7" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
-  <aside class="notas"><p>Por pasos: C1 y C2 del sustraendo, suma con el minuendo (el C2 escrito se copia en azul), casilla del bit que sobra y resultado en decimal.</p><p>La mitad de las veces el sustraendo es mayor: no sobra ningún 1, el resultado es negativo y ya está en C2; para leerlo hay que hacerle el C2.</p></aside>
+  <aside class="notas"><p>Por pasos: C1 y C2 del sustraendo, suma con el minuendo (el C2 escrito se copia en azul), casilla del bit que sobra y resultado en decimal.</p><p>La mitad de las veces el sustraendo es mayor: no sobra ningún 1 y el resultado, leído con signo, es negativo (empieza por 1); para saber cuánto vale hay que hacerle el C2. A y B van de 1 a 127, para que el resultado siempre quepa en 8 bits con signo.</p></aside>
   <div>
     <span class="pill">Ejercicio interactivo</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Resta en complemento a 2</h2>
-    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Al final, escribe el resultado en decimal.</p>
+    <div style="display:flex;flex-direction:column;gap:24px;margin-top:var(--gap-title)">
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <span style="width:56px;height:56px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">1</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Complemento a 2 de B</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">Invierte los bits (C1) y súmale 1.</p></div>
       </div>
-  <div class="ej" data-tipo="restac2" data-bits="8"></div>
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <span style="width:56px;height:56px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">2</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">Súmalo a A</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">Con lo que te llevas en cada columna. El bit que sale por la izquierda va en la primera casilla de la suma: 1 si sobra, 0 si no.</p></div>
+      </div>
+      <div style="display:flex;gap:24px;align-items:flex-start">
+        <span style="width:56px;height:56px;border-radius:50%;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-size:var(--type-caption);font-weight:800;flex:none">3</span>
+        <div><p style="font-size:var(--type-small);font-weight:700;color:var(--navy);line-height:1.25">El 1 que sobra se descarta</p><p style="font-size:21px;color:var(--muted);line-height:1.4;margin-top:4px">Escribe A − B en decimal con los 8 bits que quedan. Si no sobró ningún 1, leído con signo es negativo: hazle el C2 para saber cuánto vale y ponle el menos.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="ej" data-tipo="restac2" data-bits="8" data-sin-enunciado></div>
 </section>
 
 <!-- 88 Texto: el signo no existe, es una interpretación -->
 <section class="dark" data-label="El signo es una interpretación" data-seccion="1.7" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1.1fr 1fr;gap:96px;align-items:center">
-  <aside class="notas"><p><b>Idea clave del bloque:</b> en memoria solo hay bits; el mismo byte vale una cosa u otra según cómo se lea. 11111011 es 251 sin signo y −5 en C2.</p><ul><li>El bit de la izquierda no es un signo aparte: forma parte del número; por eso el rango es de −128 a 127.</li><li>Leer un negativo: hacerle el C2 y poner el menos.</li></ul><p>Si el programa se equivoca de tipo, un número grande se vuelve negativo: la siguiente.</p></aside>
+  <aside class="notas"><p><b>Idea clave del bloque:</b> en memoria solo hay bits; el mismo byte vale una cosa u otra según cómo se lea. 11111011 es 251 leído sin signo y −5 leído con signo (en complemento a 2).</p><ul><li>Distinguir «hacer el C2» (la operación: invertir y sumar 1) de «leer con signo» (cómo se interpreta el byte). Para leer con signo un byte que empieza por 1 se usa la operación: hacerle el C2 y poner el menos.</li><li>El bit de la izquierda no es un signo aparte: forma parte del número; por eso el rango es de −128 a 127.</li></ul><p>Si el programa se equivoca de tipo, un número grande se vuelve negativo: la siguiente.</p></aside>
   <div style="min-width:0">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">Operaciones en binario y complementos</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;text-wrap:balance">El signo no existe: es una interpretación</h2>
@@ -2751,17 +2787,17 @@
       <p style="font-family:var(--mono);font-size:52px;font-weight:600;letter-spacing:.08em;text-align:center">11111011</p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:16px;text-align:center">
         <div><p style="font-size:20px;color:#9FB4D9">leído sin signo</p><p style="font-size:var(--type-title);font-weight:800;color:var(--white)">251</p><p style="font-size:19px;color:#9FB4D9">128 + 64 + 32 + 16 + 8 + 2 + 1</p></div>
-        <div><p style="font-size:20px;color:#9FB4D9">leído en C2 de 8 bits</p><p style="font-size:var(--type-title);font-weight:800;color:var(--yellow)">−5</p><p style="font-size:19px;color:#9FB4D9">su C2 es 00000101 = 5, con signo −</p></div>
+        <div><p style="font-size:20px;color:#9FB4D9">leído con signo (en C2)</p><p style="font-size:var(--type-title);font-weight:800;color:var(--yellow)">−5</p><p style="font-size:19px;color:#9FB4D9">empieza por 1: su C2 es 00000101 = 5</p></div>
       </div>
     </div>
     <ul style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:10px;font-size:21px;line-height:1.4;color:#C9D6EE">
-      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span>En C2 el bit de la izquierda <i>parece</i> el signo: 1 es negativo. Pero no es un símbolo aparte, forma parte del número.</span></li>
-      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span>Cuando una resta en C2 sale negativa no sobra ningún 1: el resultado ya está en C2. Para leerlo, hazle el C2 y ponle el signo.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span>Leído con signo, el bit de la izquierda <i>parece</i> el signo: 1 es negativo. Pero no es un símbolo aparte, forma parte del número.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span>Cuando una resta en C2 sale negativa no sobra ningún 1, y el resultado leído con signo empieza por 1. Para saber cuánto vale, hazle el C2 y ponle el menos.</span></li>
     </ul>
   </div>
   <div style="min-width:0">
     <table style="width:100%;border-collapse:collapse;font-size:22px;background:rgba(255,255,255,.07);border-radius:16px;overflow:hidden;text-align:center;font-family:var(--mono)">
-      <thead><tr style="background:rgba(255,255,255,.12);font-family:'Plus Jakarta Sans',system-ui,sans-serif"><th style="padding:14px 18px;font-weight:700">Byte</th><th style="padding:14px 18px;font-weight:700">Sin signo</th><th style="padding:14px 18px;font-weight:700">En C2</th></tr></thead>
+      <thead><tr style="background:rgba(255,255,255,.12);font-family:'Plus Jakarta Sans',system-ui,sans-serif"><th style="padding:14px 18px;font-weight:700">Byte</th><th style="padding:14px 18px;font-weight:700">Leído sin signo</th><th style="padding:14px 18px;font-weight:700">Leído con signo</th></tr></thead>
       <tbody>
         <tr style="border-bottom:1px solid rgba(255,255,255,.12)"><td style="padding:12px 18px">00000000</td><td style="padding:12px 18px">0</td><td style="padding:12px 18px">0</td></tr>
         <tr style="border-bottom:1px solid rgba(255,255,255,.12)"><td style="padding:12px 18px">00000001</td><td style="padding:12px 18px">1</td><td style="padding:12px 18px">1</td></tr>
@@ -2771,13 +2807,13 @@
         <tr><td style="padding:12px 18px">11111111</td><td style="padding:12px 18px">255</td><td style="padding:12px 18px;color:var(--yellow)">−1</td></tr>
       </tbody>
     </table>
-    <p style="font-size:19px;color:#9FB4D9;line-height:1.35;margin-top:12px">Tabla 1.17. El mismo byte leído de dos maneras. Sin signo: de 0 a 255. En complemento a 2: de −128 a 127. Al pasar de 01111111 a 10000000 el valor con signo salta de 127 a −128.</p>
+    <p style="font-size:19px;color:#9FB4D9;line-height:1.35;margin-top:12px">Tabla 1.17. El mismo byte leído de dos maneras. Sin signo: de 0 a 255. Con signo (en complemento a 2): de −128 a 127. Al pasar de 01111111 a 10000000 el valor leído con signo salta de 127 a −128.</p>
   </div>
 </section>
 
 <!-- 89 Cifra: 2.147.483.647 -->
 <section data-label="Cifra: 2.147.483.647" data-seccion="1.7" style="display:grid;grid-template-columns:1fr 1fr;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center;gap:96px">
-  <aside class="notas"><ul><li>Gangnam Style: el contador de YouTube era un entero de 32 bits con signo (máximo 2<sup>31</sup> − 1). En diciembre de 2014 lo superó y YouTube pasó a 64 bits.</li><li>Año 2038: Unix cuenta segundos desde el 1 de enero de 1970 en 32 bits con signo; el 19 de enero de 2038 a las 03:14:07 UTC pasa a 10000000…, que en C2 es el 13 de diciembre de 1901. Quedan sistemas embebidos y formatos con 32 bits.</li></ul><p>El bit O del registro de estado se activa justo aquí.</p></aside>
+  <aside class="notas"><ul><li>Gangnam Style superó los 2<sup>31</sup> − 1 visionados en diciembre de 2014. YouTube lo celebró diciendo que había tenido que pasar el contador a 64 bits, pero era una broma: lo había cambiado meses antes (Variety, 3-12-2014). En 32 bits con signo, la visita siguiente habría pasado a 10000000…, que leído con signo es −2.147.483.648.</li><li>Año 2038: Unix cuenta segundos desde el 1 de enero de 1970 en 32 bits con signo; el 19 de enero de 2038 a las 03:14:07 UTC pasa a 10000000…, que leído con signo es el 13 de diciembre de 1901. Quedan sistemas embebidos y formatos con 32 bits.</li></ul><p>El bit O del registro de estado se activa justo aquí.</p></aside>
   <div style="min-width:0">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Operaciones en binario y complementos</p>
     <p style="font-size:100px;font-weight:800;line-height:1;color:var(--blue);letter-spacing:-.04em;margin-top:16px;font-variant-numeric:tabular-nums">2.147.483.647</p>
@@ -2785,11 +2821,11 @@
     <div style="display:flex;flex-direction:column;gap:18px;margin-top:var(--gap-item)">
       <div style="background:var(--white);border-radius:20px;padding:22px 28px;box-shadow:0 2px 0 var(--line)">
         <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Gangnam Style, diciembre de 2014</p>
-        <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:6px">El contador de visualizaciones de YouTube era un entero de 32 bits con signo. El vídeo de PSY lo superó y YouTube tuvo que pasar el contador a 64 bits (máximo 9.223.372.036.854.775.807).</p>
+        <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:6px">El vídeo de PSY superó los 2.147.483.647 visionados. Con un contador de 32 bits con signo, el siguiente habría pasado de 01111111… a 10000000…, que leído con signo es −2.147.483.648. No llegó a pasar: YouTube ya lo había cambiado a 64 bits.</p>
       </div>
       <div style="background:var(--white);border-radius:20px;padding:22px 28px;box-shadow:0 2px 0 var(--line)">
         <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">19 de enero de 2038, 03:14:07 UTC</p>
-        <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:6px">Muchos sistemas cuentan el tiempo en segundos desde el 1 de enero de 1970 en 32 bits con signo. Ese día el contador pasa de 01111111… a 10000000…: leído en C2, −2.147.483.648, es decir, el 13 de diciembre de 1901.</p>
+        <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:6px">Muchos sistemas cuentan el tiempo en segundos desde el 1 de enero de 1970 en 32 bits con signo. Ese día el contador pasa de 01111111… a 10000000…: leído con signo, −2.147.483.648, es decir, el 13 de diciembre de 1901.</p>
       </div>
     </div>
     <p style="font-size:19px;line-height:1.45;color:var(--muted);margin-top:16px">Es el <b style="color:var(--navy)">desbordamiento</b>: el bit O del registro de estado de la UCP se activa cuando una suma se sale del tamaño. Elegir cuántos bits tiene un dato tiene consecuencias.</p>
@@ -2799,7 +2835,7 @@
       <img src="img/gangnam-style.png" alt="Fotograma del vídeo musical Gangnam Style, con PSY bailando" title="Fotograma del vídeo Gangnam Style © YG Entertainment · cita con fines docentes (art. 32 LPI)">
       <figcaption class="credito">Fotograma del vídeo musical <i>Gangnam Style</i> (PSY, 2012), © YG Entertainment. Obra protegida, reproducida como cita con fines docentes (artículo 32 de la Ley de Propiedad Intelectual); no está cubierta por la licencia CC BY-SA de este material. Vía <a href="https://it.wikipedia.org/wiki/File:Gangnam_Style.png">Wikipedia en italiano</a>.</figcaption>
     </figure>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.40. Fotograma de Gangnam Style, el primer vídeo que desbordó el contador de visualizaciones de YouTube.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.40. Fotograma de Gangnam Style, el primer vídeo de YouTube que superó los 2.147.483.647 visionados.</p>
   </div>
 </section>
 

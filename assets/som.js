@@ -21,7 +21,8 @@
  *     restabin, logica, c1c2, restac2, paridad, unidades, ascii, ieee754 (UT1); estados, planificacion,
  *     paginacion, arranque, sistemas-archivos (UT2); anfitrion, recursos, archivos-vm, modos-red,
  *     ficha-vm (UT3, esta solo para la hoja). Atributos: data-bits,
- *     data-min, data-max, data-modo (modo fijo de los que tienen modos) y data-paridad (par | impar).
+ *     data-min, data-max, data-modo (modo fijo de los que tienen modos), data-paridad (par | impar)
+ *     y data-sin-enunciado (lo oculta cuando la diapositiva ya explica el método al lado; la hoja lo sigue usando).
  *  6. Simulador visual de planificación de procesos, paso a paso:
  *       <div class="sim-entrada"></div> (datos) y <div class="sim" data-algo="fifo"></div> (cronograma)
  *     en la misma diapositiva. Algoritmos: fifo, sjf, srtf, pne, pe, rr (data-q). SOM.simulaPlan expone el motor.
@@ -561,14 +562,19 @@
       rejilla: true,
       generar(cfg) {
         const bits = cfg.bits || 8;
-        let a = rnd(1, (1 << bits) - 1), b = rnd(1, (1 << bits) - 1);
-        if (a === b) b = (b % ((1 << bits) - 1)) + 1;
+        // A y B de 1 a 127 con 8 bits: así A − B siempre cabe en 8 bits con signo y, si sale
+        // negativo, leído con signo empieza por 1, como en la diapositiva del signo
+        const max = (1 << (bits - 1)) - 1;
+        let a = rnd(1, max), b = rnd(1, max);
+        if (a === b) b = (b % max) + 1;
         const neg = b > a;
         const A = bin(a, bits), B = bin(b, bits), C1 = inv(B), C2 = bin((parseInt(C1, 2) + 1) % (1 << bits), bits);
         const suma = a + parseInt(C2, 2), SB = bin(suma, bits + 1);   // bits + 1 columnas
         const res = SB.slice(1);
-        const fB = [{ lbl: 'B (sustraendo)' }, { d: '' }], f1 = [{ lbl: 'C1 de B' }, { d: '' }], f2 = [{ lbl: 'C2 = C1 + 1' }, { d: '' }];
-        const fLleva = [{ lbl: 'me llevo' }, { d: '' }], fA = [{ lbl: 'A (minuendo)' }, { d: '' }], fC = [{ lbl: '+ C2 de B' }, { d: '' }];
+        // en el orden de la pizarra: la resta tal cual, C1 y C2 de B, la suma A + C2 y el resultado
+        const fA0 = [{ lbl: 'A (minuendo)' }, { d: '' }], fB = [{ lbl: '− B (sustraendo)' }, { d: '' }];
+        const f1 = [{ lbl: 'C1 de B' }, { d: '' }], f2 = [{ lbl: 'C2 = C1 + 1' }, { d: '' }];
+        const fLleva = [{ lbl: 'me llevo' }, { d: '' }], fA = [{ lbl: 'A' }, { d: '' }], fC = [{ lbl: '+ C2 de B' }, { d: '' }];
         const fS = [{ lbl: 'suma' }];
         // explicaciones del C2
         const ex2 = new Array(bits); let carry = 1;
@@ -580,6 +586,7 @@
         }
         for (let i = 0; i < bits; i++) {
           const e = bits - 1 - i;
+          fA0.push({ d: A[i] });
           fB.push({ d: B[i] });
           f1.push({ c: C1[i], n: e, expl: `Columna ${e + 1}: el bit de B era ${B[i]}, invertido es ${C1[i]}` });
           f2.push({ c: C2[i], id: 'c2' + i, n: 100 + e, expl: ex2[i] });
@@ -599,21 +606,21 @@
           exS.unshift(cel[i + 1].expl);
           carry = sale;
         }
-        cel[0] = { c: SB[0], clase: 'sobra', n: 200 + 2 * bits, expl: neg ? 'No hay ningún 1 de más: el resultado es negativo y ya está en complemento a 2' : 'Sobra un 1 que se descarta: no cabe en ' + bits + ' bits y el resultado es positivo' };
+        cel[0] = { c: SB[0], clase: 'sobra', n: 200 + 2 * bits, expl: neg ? 'No hay ningún 1 de más: el resultado, leído con signo, es negativo' : 'Sobra un 1 que se descarta: no cabe en ' + bits + ' bits y el resultado es positivo' };
         // fila "me llevo": sobre cada columna va el acarreo que sale de la columna de su derecha;
         // el acarreo de la columna de más a la izquierda es el bit que sobra y va en la fila de la suma
         const fL = fLleva;
         for (let i = 0; i < bits; i++) fL.push(i < bits - 1 ? lleva[i + 1] : { d: '' });
         const fD = [{ lbl: 'A − B' }, { c: String(a - b), clase: 'num dec', max: 5, filtro: /[^0-9\-−]/g, span: bits + 1, n: 999,
           cmp: (v) => aNum(v) === a - b,
-          expl: neg ? `No sobró ningún 1: el resultado ${res} es negativo y está en complemento a 2. Le hago el C2 para leerlo: ${bin(b - a, bits)} = ${b - a}, así que vale −${b - a}` : `Sobró un 1 que se descarta; ${res} es ${a - b}` }];
+          expl: neg ? `No sobró ningún 1: ${res}, leído con signo, es negativo (empieza por 1). Le hago el C2 para saber cuánto vale: ${bin(b - a, bits)} = ${b - a}, así que vale −${b - a}` : `Sobró un 1 que se descarta; ${res} es ${a - b}` }];
         return {
           enunciado: 'Complemento a 2 del sustraendo, suma con el minuendo y decide qué pasa con el bit que sobra.',
           tarea: 'Calcula A − B en complemento a 2.',
           columnas: `130px repeat(${bits + 1}, 62px)`, clase: 'compacta mini',
-          filas: [fB, f1, f2, { linea: true, clase: 'suave' }, fL, fA, fC, { linea: true }, [...fS, ...cel], fD],
+          filas: [fA0, fB, { linea: true, clase: 'suave' }, f1, f2, { linea: true, clase: 'suave' }, fL, fA, fC, { linea: true }, [...fS, ...cel], fD],
           espejo: (id, v) => v || '·',
-          correcto: neg ? `Correcto: ${a} − ${b} = −${b - a}. No sobró ningún 1: ${res} está en complemento a 2 y representa −${b - a}.` : `Correcto: ${a} − ${b} = ${a - b}. Se descarta el 1 que sobra y queda ${res}.`,
+          correcto: neg ? `Correcto: ${a} − ${b} = −${b - a}. No sobró ningún 1: ${res}, leído con signo, vale −${b - a}.` : `Correcto: ${a} − ${b} = ${a - b}. Se descarta el 1 que sobra y queda ${res}.`,
           resumen: exS.join('\n')
         };
       }
@@ -1798,10 +1805,10 @@
     { p: 'Complemento a 2 de `00001001` en 8 bits:', o: ['`11110111`', '`11110110`', '`10001001`', '`00001010`'], c: 0, exp: 'C1: se invierte, 11110110. C2: se suma 1, 11110111. Con el truco: se copia hasta el primer 1 desde la derecha y se invierte el resto.' },
     { p: '¿Por qué el ordenador resta con complementos?', o: ['No tiene circuito de restar: el sumador hace las dos cosas', 'Es más rápido: el complemento se calcula en un solo ciclo', 'Así los negativos ocupan menos bits en la memoria', 'Por tradición: lo empezó IBM y los demás lo copiaron'], c: 0, exp: 'Sumar el complemento del sustraendo da la resta, así que un solo circuito sirve para las dos operaciones. El ordenador no tiene un símbolo «−»: solo bits.' },
     { p: '¿Por qué los ordenadores usan el C2 y no el C1?', o: ['El C1 tiene un paso más y dos ceros distintos', 'El C1 no funciona con números de 8 bits', 'El C2 ocupa la mitad de bits que el C1', 'El C1 solo sirve para sumar, pero no para restar'], c: 0, exp: 'Con C1 hay que sumar el 1 que sobra (acarreo circular) y el cero tiene dos formas, 00000000 y 11111111. Con C2 el 1 se descarta y el cero es único.' },
-    { p: 'Cuando una resta en C2 sale negativa…', o: ['No sobra ningún 1 y el resultado ya está en C2', 'Sobra un 1, se descarta y se lee como positivo', 'Hay que repetirla con los números cambiados', 'Se lee sumando los pesos y poniendo el signo'], c: 0, exp: 'Para leerlo se le hace el C2 y se pone el signo menos: 11111100 → 00000100 → −4.' },
-    { p: 'El byte `11111011` leído en complemento a 2 vale…', o: ['−5', '251', '−123', '−4'], c: 0, exp: 'Empieza por 1: negativo. Su C2 es 00000101 = 5, así que vale −5. Sin signo, el mismo byte vale 251.' },
-    { p: 'En C2 de 8 bits, al pasar de `01111111` a `10000000`, el valor…', o: ['Salta de 127 a −128', 'Pasa de 127 a 128', 'Pasa de 255 a 0', 'Salta de −1 a 0'], c: 0, exp: 'Es el desbordamiento: el resultado no cabe y el valor da la vuelta. Lo señala el bit O del registro de estado.' },
-    { p: '¿Qué le pasó al contador de visitas de Gangnam Style?', o: ['Superó el mayor entero de 32 bits con signo', 'YouTube lo borró al pasar de mil millones', 'Se llenó el disco del servidor de estadísticas', 'El vídeo se corrompió y hubo que subirlo otra vez'], c: 0, exp: 'El máximo es 2³¹ − 1 = 2.147.483.647, y YouTube pasó el contador a 64 bits. Elegir cuántos bits tiene un dato tiene consecuencias.' }
+    { p: 'Cuando una resta en C2 sale negativa…', o: ['No sobra ningún 1 y, con signo, empieza por 1', 'Sobra un 1, se descarta y se lee como positivo', 'Hay que repetirla con los números cambiados', 'Se lee sumando los pesos y poniendo el signo'], c: 0, exp: 'Leído con signo es negativo. Para saber cuánto vale se le hace el C2 y se pone el menos: 11111100 → 00000100 → −4.' },
+    { p: 'El byte `11111011` leído con signo (en complemento a 2) vale…', o: ['−5', '251', '−123', '−4'], c: 0, exp: 'Empieza por 1: negativo. Su C2 es 00000101 = 5, así que vale −5. Leído sin signo, el mismo byte vale 251.' },
+    { p: 'Leído con signo en 8 bits, al pasar de `01111111` a `10000000`, el valor…', o: ['Salta de 127 a −128', 'Pasa de 127 a 128', 'Pasa de 255 a 0', 'Salta de −1 a 0'], c: 0, exp: 'Es el desbordamiento: el resultado no cabe y el valor da la vuelta. Lo señala el bit O del registro de estado.' },
+    { p: '¿Qué le pasó al contador de visitas de Gangnam Style?', o: ['Superó el mayor entero de 32 bits con signo', 'YouTube lo borró al pasar de mil millones', 'Se llenó el disco del servidor de estadísticas', 'El vídeo se corrompió y hubo que subirlo otra vez'], c: 0, exp: 'El máximo es 2³¹ − 1 = 2.147.483.647. En 32 bits, la visita siguiente se habría leído con signo como −2.147.483.648; YouTube ya había pasado el contador a 64 bits. Elegir cuántos bits tiene un dato tiene consecuencias.' }
   ];
 
   // UT1 · 1.8 Detección de errores y 1.9 Codificación, hasta Unicode (diapositiva 115)

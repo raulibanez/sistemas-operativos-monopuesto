@@ -298,6 +298,8 @@ section:has(> .ej) { grid-template-rows: minmax(0, 1fr); }
   font-size: var(--type-small);
   color: var(--muted);
 }
+/* La diapositiva ya explica el método al lado de la tarjeta: el enunciado sobra y deja sitio al mensaje */
+.ej[data-sin-enunciado] .ej-enunciado { display: none; }
 .ej-cab {
   display: inline-block;
   background: var(--yellow);
@@ -468,6 +470,36 @@ section:has(> .ej) { grid-template-rows: minmax(0, 1fr); }
 .sv.micro .lbl { font-size: 16px; line-height: 1.1; }
 .sv ~ .ej-fb { flex: 1; min-height: 0; overflow: auto; font-size: 24px; line-height: 1.45; }
 .sv ~ .ej-fila .btn { padding: 16px 30px; font-size: var(--type-caption); }
+/* El bit que sobra por la izquierda (amarillo, para seguirlo con la vista) y el que se descarta (tachado) */
+.sv .d.sobra { background: var(--yellow); border-radius: 12px; color: var(--navy); font-weight: 700; }
+.sv .d.tachado { color: #9AA6BE; text-decoration: line-through; text-decoration-thickness: 3px; }
+.sv .d.fin { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 34px; font-weight: 800; color: var(--ok); text-align: left; padding-left: 12px; }
+
+/* ---------- Operación resuelta por pasos, como en la pizarra ----------
+   <div class="pasos-op">
+     <div class="po-paso planteo"> <div class="po-txt">…</div> <div class="sv compacta mini">…</div> </div>
+     <div class="po-paso"> <div class="po-txt"><span class="po-num">1</span><div><p class="po-tit">…</p><p class="po-sub">…</p></div></div> <div class="sv …">…</div> </div>
+   </div>
+   Arriba la operación tal cual (.planteo, con fondo); debajo, un bloque por paso con su texto a la
+   izquierda y su cuenta a la derecha. Todas las rejillas llevan las mismas columnas, así que los bits
+   quedan alineados de arriba abajo. En cada paso lo copiado del anterior va en .tenue y lo nuevo en .res. */
+.pasos-op { display: flex; flex-direction: column; }
+.po-paso { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 28px; align-items: center; padding: 12px 24px; }
+.po-paso + .po-paso { border-top: 2px solid var(--line); }
+.po-paso.planteo { background: #EEF3FB; border-radius: 18px; }
+.po-paso.planteo + .po-paso { border-top: 0; }
+.po-txt { display: flex; gap: 18px; align-items: flex-start; }
+.po-num {
+  width: 48px; height: 48px; border-radius: 50%; flex: none;
+  display: grid; place-items: center;
+  background: var(--blue); color: var(--white); font-size: 22px; font-weight: 800;
+}
+.po-num.ultimo { background: var(--yellow); color: var(--navy); }
+.po-tit { font-size: 25px; font-weight: 700; color: var(--navy); line-height: 1.25; }
+.po-sub { font-size: 20px; color: var(--muted); line-height: 1.4; margin-top: 4px; }
+.pasos-op .sv { margin: 0; justify-content: start; grid-template-columns: 124px repeat(9, 50px) 92px; }
+.pasos-op .sv .linea { margin-right: 98px; }   /* la raya no pasa por debajo de la columna final */
+.pasos-op .planteo .lbl { font-size: 24px; font-weight: 800; color: var(--navy); }
 .ej-acciones { display: contents; }
 .ej-ops { display: flex; flex-wrap: wrap; gap: 10px; margin-top: -10px; }
 .ej-ops[hidden] { display: none; }
