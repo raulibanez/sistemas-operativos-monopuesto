@@ -847,7 +847,7 @@
           : `«${ch}» está ${pos} ${pos === 1 ? 'posición' : 'posiciones'} después de «${r.primero}»`;
         if (modo === 'codigo') {
           return {
-            enunciado: 'Escribe el código ASCII del carácter, en decimal.',
+            enunciado: 'Escribe el código ASCII del carácter, en decimal. Cuenta desde el ancla de su grupo: «0» = 48, «A» = 65 y «a» = 97.',
             tarea: `Escribe el código ASCII de «${ch}» en decimal.`,
             columnas: '190px 200px',
             filas: [
@@ -860,7 +860,7 @@
           };
         }
         return {
-          enunciado: 'Escribe el carácter que tiene este código ASCII.',
+          enunciado: 'Escribe el carácter que tiene este código ASCII. Mira en qué grupo cae y cuenta desde su ancla: «0» = 48, «A» = 65 y «a» = 97.',
           tarea: `¿Qué carácter tiene el código ASCII ${cod}?`,
           columnas: '190px 200px',
           filas: [
