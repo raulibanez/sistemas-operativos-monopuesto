@@ -3129,7 +3129,7 @@
 
 <!-- 99 Texto: enteros en decimal desempaquetado -->
 <section data-label="Decimal desempaquetado" data-seccion="1.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:80px">
-  <aside class="notas"><p><b>Ejemplo +3457:</b> cuatro bytes, 1111 0011, 1111 0100, 1111 0101, 1100 0111. El signo va en el cuarteto izquierdo del último byte.</p><ul><li>El relleno 1111 no es casual: en EBCDIC los dígitos van de F0 a F9, así que un número desempaquetado es a la vez su texto (PACK y UNPK en los mainframes).</li><li>Comparar con el empaquetado: 03 45 7C, tres bytes.</li></ul></aside>
+  <aside class="notas"><p><b>Ejemplo +3457:</b> cuatro bytes, 1111 0011, 1111 0100, 1111 0101, 1100 0111. El signo va en el cuarteto izquierdo del último byte; −3457 solo cambia ese cuarteto: 1101 0111.</p><ul><li>El relleno 1111 no es casual: en EBCDIC los dígitos van de F0 a F9, así que un número desempaquetado es a la vez su texto (PACK y UNPK en los mainframes).</li><li>Comparar con el empaquetado: 03 45 7C, tres bytes.</li></ul></aside>
   <div style="display:flex;flex-direction:column;min-width:0">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Codificación de la información</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Enteros: decimal desempaquetado</h2>
@@ -3146,22 +3146,23 @@
   </div>
   <div style="display:flex;flex-direction:column;justify-content:center;gap:24px;min-width:0">
     <div style="background:var(--white);border-radius:24px;padding:30px 36px;box-shadow:0 2px 0 var(--line)">
-      <p style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy)">+3457 <span style="font-size:22px;font-weight:600;color:var(--muted)">desempaquetado: 4 bytes</span></p>
+      <p style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy)">+3457</p>
+      <p style="font-size:19px;color:var(--muted);margin-top:4px">cuatro dígitos: cuatro bytes, uno por dígito</p>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px;text-align:center">
         <span style="font-size:22px;font-weight:700;color:var(--navy)">3</span><span style="font-size:22px;font-weight:700;color:var(--navy)">4</span><span style="font-size:22px;font-weight:700;color:var(--navy)">5</span><span style="font-size:22px;font-weight:700;color:var(--navy)">7 <span style="color:var(--ok)">(+)</span></span>
         <span style="font-family:var(--mono);font-size:27px;font-weight:600;background:var(--bg);border-radius:12px;padding:12px 0;color:var(--navy)"><span style="color:#9AA6BE">1111</span> 0011</span><span style="font-family:var(--mono);font-size:27px;font-weight:600;background:var(--bg);border-radius:12px;padding:12px 0;color:var(--navy)"><span style="color:#9AA6BE">1111</span> 0100</span><span style="font-family:var(--mono);font-size:27px;font-weight:600;background:var(--bg);border-radius:12px;padding:12px 0;color:var(--navy)"><span style="color:#9AA6BE">1111</span> 0101</span><span style="font-family:var(--mono);font-size:27px;font-weight:600;background:#E8F6EE;border-radius:12px;padding:12px 0;color:var(--navy)"><span style="color:var(--ok)">1100</span> 0111</span>
         <span style="font-size:18px;color:var(--muted)">F3</span><span style="font-size:18px;color:var(--muted)">F4</span><span style="font-size:18px;color:var(--muted)">F5</span><span style="font-size:18px;color:var(--muted)">C7</span>
       </div>
-      <p style="font-size:20px;line-height:1.4;color:var(--muted);margin-top:14px">Negativo: el último byte pasa a <span style="font-family:var(--mono);color:var(--ko);font-weight:600">1101 0111</span> (D7).</p>
     </div>
     <div style="background:var(--white);border-radius:24px;padding:30px 36px;box-shadow:0 2px 0 var(--line)">
-      <p style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy)">+3457 <span style="font-size:22px;font-weight:600;color:var(--muted)">empaquetado: 3 bytes</span></p>
-      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:18px;text-align:center">
-        <span style="font-family:var(--mono);font-size:27px;font-weight:600;background:var(--bg);border-radius:12px;padding:12px 0;color:#9AA6BE">0000</span><span style="font-family:var(--mono);font-size:27px;font-weight:600;background:var(--bg);border-radius:12px;padding:12px 0;color:var(--navy)">0011</span><span style="font-family:var(--mono);font-size:27px;font-weight:600;background:var(--bg);border-radius:12px;padding:12px 0;color:var(--navy)">0100</span><span style="font-family:var(--mono);font-size:27px;font-weight:600;background:var(--bg);border-radius:12px;padding:12px 0;color:var(--navy)">0101</span><span style="font-family:var(--mono);font-size:27px;font-weight:600;background:var(--bg);border-radius:12px;padding:12px 0;color:var(--navy)">0111</span><span style="font-family:var(--mono);font-size:27px;font-weight:600;background:#E8F6EE;border-radius:12px;padding:12px 0;color:var(--ok)">1100</span>
+      <p style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy)">−3457</p>
+      <p style="font-size:19px;color:var(--muted);margin-top:4px">solo cambia el cuarteto del signo</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px;text-align:center">
+        <span style="font-family:var(--mono);font-size:27px;font-weight:600;background:var(--bg);border-radius:12px;padding:12px 0;color:var(--navy)"><span style="color:#9AA6BE">1111</span> 0011</span><span style="font-family:var(--mono);font-size:27px;font-weight:600;background:var(--bg);border-radius:12px;padding:12px 0;color:var(--navy)"><span style="color:#9AA6BE">1111</span> 0100</span><span style="font-family:var(--mono);font-size:27px;font-weight:600;background:var(--bg);border-radius:12px;padding:12px 0;color:var(--navy)"><span style="color:#9AA6BE">1111</span> 0101</span><span style="font-family:var(--mono);font-size:27px;font-weight:600;background:#FBEAEA;border-radius:12px;padding:12px 0;color:var(--navy)"><span style="color:var(--ko)">1101</span> 0111</span>
+        <span style="font-size:18px;color:var(--muted)">F3</span><span style="font-size:18px;color:var(--muted)">F4</span><span style="font-size:18px;color:var(--muted)">F5</span><span style="font-size:18px;color:var(--muted)">D7</span>
       </div>
-      <p style="font-size:20px;line-height:1.4;color:var(--muted);margin-top:14px">Cuatro dígitos y el signo son cinco cuartetos: se rellena con 0000 por la izquierda. En hexadecimal, 03 45 7C.</p>
     </div>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.45. El mismo número en los dos formatos decimales. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35">Figura 1.45. El mismo número con los dos signos en decimal desempaquetado. En hexadecimal se lee directamente: F3 F4 F5 C7 y F3 F4 F5 D7. Elaboración propia.</p>
   </div>
 </section>
 
