@@ -3349,12 +3349,12 @@
 
 <!-- 105 Interactivo: IEEE 754 -->
 <section data-deck-id="ej-ieee754" data-label="Practica: IEEE 754" data-seccion="1.9" style="display:grid;grid-template-columns:1fr 1.4fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
-  <aside class="notas"><p><b>Insistir en la racha de diez.</b></p><p>Números con expansión corta (10,5; −6,25; 0,375; 100). Orden: signo, binario con coma, exponente al normalizar (puede ser negativo), más 127, en 8 bits y mantisa de 23 sin el 1 implícito. La última fila monta sola el número final con sus tres campos, con los colores de la figura del formato.</p><p><b>Errores típicos:</b> contar mal las posiciones al normalizar; escribir el 1 implícito en la mantisa.</p></aside>
+  <aside class="notas"><p><b>Insistir en la racha de diez.</b></p><p>Números con expansión corta (10,5; −6,25; 0,375; 100). Orden: signo, binario con coma, exponente al normalizar (puede ser negativo), más 127, en 8 bits y mantisa de 23 sin el 1 implícito. La última fila monta sola el número final con sus tres campos, con los colores de la figura del formato.</p><p><b>Número propio:</b> pulsar el número, escribirlo y pulsar Intro. Si no termina en binario (48,297; 0,1), la fila «en binario» pide 25 cifras desde el primer 1 (vale escribir más) y la mantisa sale redondeada; al acertar, dice cuánto vale lo guardado.</p><p><b>Errores típicos:</b> contar mal las posiciones al normalizar; escribir el 1 implícito en la mantisa.</p></aside>
   <div>
     <span class="pill">Ejercicio interactivo</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">IEEE 754 en simple precisión</h2>
     <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">De arriba abajo: el número en binario, normalizar (1,… × 2ᵉ), exponente + 127 en 8 bits y mantisa de 23 bits sin el 1 implícito. La última fila monta sola el número final con sus tres campos: <b style="color:var(--navy)">signo, exponente y mantisa</b>.</p>
-    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:16px;color:var(--muted)">Los números de este ejercicio pasan a binario sin cifras infinitas. Si el número es menor que 1, el exponente es negativo.</p>
+    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:16px;color:var(--muted)">«Otro ejercicio» saca números que pasan a binario sin cifras infinitas. Pulsando el número se puede escribir cualquier otro: si no cabe exacto, la mantisa se redondea. Si el número es menor que 1, el exponente es negativo.</p>
   </div>
   <div class="ej" data-tipo="ieee754" data-sin-enunciado></div>
 </section>

@@ -23,6 +23,7 @@
  *     ficha-vm (UT3, esta solo para la hoja). Atributos: data-bits,
  *     data-min, data-max, data-modo (modo fijo de los que tienen modos), data-paridad (par | impar)
  *     y data-sin-enunciado (lo oculta cuando la diapositiva ya explica el método al lado; la hoja lo sigue usando).
+ *     En ieee754 el número se puede pulsar para escribir el que se quiera (Intro lo monta, Esc lo deja).
  *  6. Simulador visual de planificación de procesos, paso a paso:
  *       <div class="sim-entrada"></div> (datos) y <div class="sim" data-algo="fifo"></div> (cronograma)
  *     en la misma diapositiva. Algoritmos: fifo, sjf, srtf, pne, pe, rr (data-q). SOM.simulaPlan expone el motor.
@@ -57,7 +58,10 @@
    *   clase      clases extra de la rejilla ('compacta' para 8 o 9 celdas por fila)
    *   filas      lista de filas; cada fila es una lista de elementos:
    *                {lbl:'texto'}                        etiqueta de la fila
-   *                {d:'1', clase, span, espejo:'id'}    dato visible (espejo: copia lo que se escribe en la casilla id)
+   *                {d:'1', clase, span, espejo:'id'}    dato visible (espejo: copia lo que se escribe en la casilla id;
+   *                                                     propio: true, se pulsa para escribir otro si el generador
+   *                                                     tiene propio: {titulo, ayuda, filtro, max, lee(v) -> error o null},
+   *                                                     y generar recibe lo escrito en cfg.numero)
    *                {c:'valor', clase, max, filtro, n, id, expl, cmp, span}   casilla que rellena el alumno
  *   Cada generador devuelve además `tarea` (enunciado corto, solo lo que se pide) para la hoja de examen
  *   en papel, y los datos con `pista: true` solo se imprimen en la hoja de práctica.
@@ -104,6 +108,73 @@
     filas.push([{ lbl: 'decimal' }, { c: String(suma), clase: 'num', max: 6, filtro: /[^0-9]/g, span: w, n: 300,
       expl: `Sumo los productos distintos de cero: ${sumandos.join(' + ')} = ${suma}` }]);
     return { filas, suma, sumandos };
+  }
+
+  /* IEEE 754 de simple precisión a partir del número escrito en decimal ('48,297', '-0.1'). Con BigInt, para que
+   * los bits salgan exactos: la parte decimal se pasa a binario multiplicando por 2 hasta que se acaba o hasta
+   * tener 41 cifras significativas (las 25 que se piden, el 1 implícito, los 23 de la mantisa y la primera que
+   * no cabe, más unas cuantas por si el alumno escribe de más). Lo que no cabe se redondea al más cercano (al
+   * par si queda justo en medio). Devuelve {error} si no se puede montar el ejercicio. */
+  const IEEE_MAX_BIN = 56;     // cifras de la fila «en binario» que caben en la rejilla con la letra pequeña
+  function analizaIEEE(txt) {
+    const m = String(txt).trim().replace(/−/g, '-').replace('.', ',').match(/^(-?)(\d*)(?:,(\d*))?$/);
+    if (!m || !(m[2] || m[3])) return { error: 'Escribe un número en decimal, por ejemplo 48,297 o −0,1.' };
+    const neg = m[1] === '-';
+    const iS = (m[2] || '0').replace(/^0+(?=\d)/, ''), fS = (m[3] || '').replace(/0+$/, '');
+    const den = 10n ** BigInt(fS.length), num = BigInt(iS + fS);
+    if (!num) return { error: 'El 0 no se puede normalizar porque no tiene ningún 1: en IEEE 754 es un caso especial, con el exponente y la mantisa a ceros. Escribe otro número.' };
+    const ent = num / den, eb = ent ? ent.toString(2) : '';
+    let r = num % den, fb = '', sig = eb.length;
+    while (r && sig < 41 && fb.length < 200) {
+      r *= 2n;
+      const b = r >= den ? '1' : '0';
+      if (b === '1') r -= den;
+      fb += b;
+      if (sig || b === '1') sig++;
+    }
+    const termina = !r;                                     // la parte decimal se acaba en binario
+    if (!eb && !fb.includes('1')) return { error: 'Es demasiado pequeño para la simple precisión: escribe uno más grande.' };
+    const e = eb ? eb.length - 1 : -(fb.indexOf('1') + 1);
+    if (e < -126) return { error: 'Es demasiado pequeño: el exponente bajaría de −126, el mínimo de la simple precisión.' };
+    const todo = eb + fb, resto = todo.slice(todo.indexOf('1') + 1);   // lo que va detrás del 1 implícito
+    const restoSig = resto.replace(/0+$/, '');
+    const cabe = termina && restoSig.length <= 23;
+    // redondeo: manda la primera cifra que no cabe; si es 1 y detrás no hay más unos, empate y se redondea al par
+    let m23 = resto.slice(0, 23).padEnd(23, '0');
+    const guarda = resto[23] || '0', pegajoso = resto.slice(24).includes('1') || !termina;
+    const empate = guarda === '1' && !pegajoso, sube = guarda === '1' && (pegajoso || m23.endsWith('1'));
+    let eF = e, desborda = false;
+    if (sube) {
+      const v = BigInt('0b' + m23) + 1n;
+      if (v >> 23n) { m23 = '0'.repeat(23); eF = e + 1; desborda = true; }
+      else m23 = v.toString(2).padStart(23, '0');
+    }
+    if (eF > 127) return { error: 'Es demasiado grande: el exponente pasaría de 127, el máximo de la simple precisión.' };
+    // fila «en binario»: entera si se acaba antes; si no, hasta la cifra significativa 25 (las 24 que caben y la
+    // que decide el redondeo)
+    const nf = eb ? Math.max(0, 25 - eb.length) : fb.indexOf('1') + 25;
+    const completo = termina && fb.length <= nf;
+    const fbTxt = completo ? fb : fb.slice(0, nf);
+    const binTxt = (eb || '0') + (fbTxt ? ',' + fbTxt : '');
+    if (binTxt.length > IEEE_MAX_BIN) return { error: 'Tiene demasiadas cifras en binario para que quepa en la rejilla: prueba con uno que no sea tan grande o tan pequeño.' };
+    const binLargo = (eb || '0') + (fb ? ',' + fb : '');   // todas las cifras calculadas: vale escribir más de las pedidas
+    const exp = (e < 0 ? '⁻' : '') + sup(Math.abs(e));
+    // 1,… × 2ᵉ con n cifras detrás de la coma como mucho; si hay más, puntos suspensivos
+    const normaliza = (n) => {
+      const s = termina && restoSig.length <= n ? restoSig : resto.slice(0, n) + '…';
+      return '1' + (s ? ',' + s : '') + ' × 2' + exp;
+    };
+    // lo que de verdad se guarda, en decimal: 11 cifras significativas y puntos suspensivos si sigue
+    let guardado = '';
+    if (!cabe) {
+      const [gi, gf] = ((1 + parseInt(m23, 2) / 2 ** 23) * 2 ** eF).toFixed(100).split('.');
+      const k = gi === '0' ? gf.search(/[1-9]/) + 11 : Math.max(0, 11 - gi.length);
+      const sigue = /[1-9]/.test(gf.slice(k)), f = sigue ? gf.slice(0, k) : gf.slice(0, k).replace(/0+$/, '');
+      guardado = (neg ? '-' : '') + gi + (f ? ',' + f : '') + (sigue ? '…' : '');
+    }
+    const absTxt = iS + (fS ? ',' + fS : '');
+    return { neg, iS, fS, eb, fbTxt, completo, binTxt, binLargo, e, eF, desborda, cabe, resto, restoSig, guarda, empate, sube, m23,
+      E: eF + 127, normaliza, guardado, absTxt, txt: (neg ? '-' : '') + absTxt };
   }
 
   SOM.generadores = {
@@ -830,49 +901,61 @@
       }
     },
 
-    /* 3.11 IEEE 754 de simple precisión, por campos */
+    /* 3.11 IEEE 754 de simple precisión, por campos. «Otro ejercicio» saca números que caben exactos; pulsando
+     * el número se escribe cualquiera (cfg.numero) y, si no cabe, se pide el binario hasta la cifra que decide
+     * el redondeo y la mantisa ya redondeada */
     ieee754: {
       titulo: 'IEEE 754 simple precisión',
       rejilla: true,
+      propio: {
+        titulo: 'Pulsa para escribir tu número',
+        ayuda: 'Escribe el número en decimal, con coma o con punto, y pulsa Intro. Esc lo deja como estaba.',
+        filtro: /[^0-9.,\-−]/g, max: 14,
+        lee: (v) => analizaIEEE(v).error || null
+      },
       generar(cfg) {
         const POOL = [10.5, -6.25, 0.375, 12, -0.75, 5.5, 100, -18.125, 0.1875, 3.75, 7, -40, 0.5, -1, 2.5, 22, 0.0625, 13.25, -9.5, 1.5, 6, -0.625, 20, 33, 4.5, -3.125, 0.25, 11.5, -14, 9.75, 0.875, -2.75, 64, 17.5];
-        const x = POOL[rnd(0, POOL.length - 1)];
-        const neg = x < 0, a = Math.abs(x);
-        const ent = Math.floor(a), frac = a - ent;
-        let fb = '';
-        for (let f = frac, k = 0; f > 0 && k < 12; k++) { f *= 2; fb += f >= 1 ? '1' : '0'; if (f >= 1) f -= 1; }
-        const eb = ent.toString(2);
-        const binTxt = (ent ? eb : '0') + (fb ? ',' + fb : '');
-        // normalizar: 1,xxx × 2^e
-        const todo = (ent ? eb : '') + fb;                       // todos los bits sin coma
-        const primer1 = todo.indexOf('1');
-        const e = ent ? eb.length - 1 : -(fb.indexOf('1') + 1);
-        const mant = todo.slice(primer1 + 1).replace(/0+$/, '');
-        const mant23 = mant.padEnd(23, '0');
-        const E = e + 127, E8 = bin(E, 8), S = neg ? '1' : '0';
-        const norm = '1' + (mant ? ',' + mant : '') + ' × 2' + sup(String(Math.abs(e))).replace(/^/, e < 0 ? '⁻' : '');
-        const xTxt = numES(a);
+        let a = cfg.numero !== undefined ? analizaIEEE(cfg.numero) : null;
+        if (!a || a.error) a = analizaIEEE(String(POOL[rnd(0, POOL.length - 1)]));
+        const { neg, e, E } = a;
+        const E8 = bin(E, 8), S = neg ? '1' : '0';
+        const norm = a.normaliza(24);
+        const decimal = !a.fS ? '' : a.fbTxt ? `; parte decimal 0,${a.fS} = 0,${a.fbTxt}${a.completo ? '' : '…'} (multiplicando por 2)`
+          : '; la parte decimal no hace falta, porque la entera ya tiene más de 24 cifras';
+        const redondeo = a.guarda === '0' ? 'se deja como está'
+          : a.empate ? `queda justo en medio y se redondea para que acabe en 0: ${a.sube ? 'se suma 1' : 'se deja como está'}` : 'se suma 1';
         return {
           enunciado: 'Binario, normalizar (1,… × 2ᵉ), exponente + 127 y mantisa de 23 bits sin el 1 implícito.',
-          tarea: `Representa ${numES(x)} en IEEE 754 de simple precisión.`,
+          tarea: `Representa ${a.txt} en IEEE 754 de simple precisión.`,
           // columnas: etiqueta, signo, exponente y mantisa; las casillas de los tres campos van en la
           // misma columna que su trozo del resultado, que se monta solo en la última fila
           columnas: '190px 80px 150px 1fr', clase: 'compacta mini',
           filas: [
-            [{ lbl: 'número' }, { d: numES(x), clase: 'ancho', span: 3 }],
+            [{ lbl: 'número' }, { d: a.txt, clase: 'ancho', span: 3, propio: true }],
             [{ lbl: 'signo' }, { c: S, id: 's', n: 0, expl: neg ? 'Es negativo: el bit de signo vale 1' : 'Es positivo: el bit de signo vale 0' }, { d: '0 positivo · 1 negativo', clase: 'peq', pista: true, span: 2 }],
-            [{ lbl: 'en binario' }, { c: binTxt, clase: 'bin', max: 16, filtro: /[^01.,]/g, span: 3, n: 1, cmp: (v) => v.replace('.', ',') === binTxt,
-              expl: `Parte entera ${ent} = ${ent ? eb : '0'}` + (fb ? `; parte decimal ${numES(frac)} = 0,${fb} (multiplicando por 2)` : '') + ` → ${binTxt}` }],
-            [{ lbl: 'exponente' }, { c: String(e), clase: 'num', max: 3, filtro: /[^0-9\-−]/g, n: 2, cmp: (v) => aNum(v) === e,
-              expl: `Muevo la coma hasta dejar un solo 1 delante: ${norm}. ` + (e >= 0 ? `La coma se ha movido ${e} posiciones a la izquierda` : `La coma se ha movido ${-e} posiciones a la derecha, así que el exponente es negativo`) }, { d: `${xTxt} = ${norm}`, clase: 'peq', pista: true, span: 2 }],
-            [{ lbl: 'exponente + 127' }, { c: String(E), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 3, expl: `${e} + 127 = ${E} (el sesgo evita guardar exponentes negativos)` }, { d: 'sesgo 127', clase: 'peq', pista: true, span: 2 }],
+            // si no se acaba, vale con las cifras pedidas o con más, siempre que estén bien
+            [{ lbl: 'en binario' }, { c: a.binTxt, clase: a.binTxt.length > 36 ? 'bin largo' : 'bin', max: a.completo ? Math.max(16, a.binTxt.length) : Math.min(a.binLargo.length, IEEE_MAX_BIN + 8),
+              filtro: /[^01.,]/g, span: 3, n: 1,
+              cmp: (v) => { v = v.replace('.', ','); return a.completo ? v === a.binTxt : v.length >= a.binTxt.length && a.binLargo.startsWith(v); },
+              expl: `Parte entera ${a.iS} = ${a.eb || '0'}` + decimal + ` → ${a.binTxt}`
+                + (a.completo ? '' : '. Como no se acaba, basta con llegar a 25 cifras contando desde el primer 1: las 24 que caben y una más para redondear') }],
+            [{ lbl: 'exponente' }, { c: String(e), clase: 'num', max: 3, filtro: /[^0-9\-−]/g, n: 2, cmp: (v) => aNum(v) === e || (a.desborda && aNum(v) === a.eF),
+              expl: `Muevo la coma hasta dejar un solo 1 delante: ${norm}. ` + `La coma se ha movido ${Math.abs(e)} ${Math.abs(e) === 1 ? 'posición' : 'posiciones'} a la ` + (e >= 0 ? 'izquierda' : 'derecha, así que el exponente es negativo') }, { d: `${a.absTxt} = ${a.normaliza(10)}`, clase: 'peq', pista: true, span: 2 }],
+            [{ lbl: 'exponente + 127' }, { c: String(E), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 3,
+              expl: a.desborda ? `Al redondear la mantisa, 1,111…1 se convierte en 10,000…: la coma se mueve una posición más y el exponente pasa a ${a.eF}. ${a.eF} + 127 = ${E}`
+                : `${e} + 127 = ${E} (el sesgo evita guardar exponentes negativos)` }, { d: 'sesgo 127', clase: 'peq', pista: true, span: 2 }],
             [{ lbl: 'exponente 8 bits' }, { d: '' }, { c: E8, id: 'e', clase: 'bin', max: 8, filtro: /[^01]/g, n: 4, expl: `${E} en binario de 8 bits: ${E8}` }, { d: '' }],
-            [{ lbl: 'mantisa 23 bits' }, { d: '' }, { d: '' }, { c: mant23, id: 'm', clase: 'bin', max: 23, filtro: /[^01]/g, n: 5, expl: `Lo que queda detrás de la coma en ${norm.split(' ×')[0]} sin el 1 implícito: ${mant || '(nada)'}, y ceros hasta completar 23 bits` }],
+            [{ lbl: 'mantisa 23 bits' }, { d: '' }, { d: '' }, { c: a.m23, id: 'm', clase: 'bin', max: 23, filtro: /[^01]/g, n: 5,
+              expl: a.cabe ? `Lo que queda detrás de la coma en ${norm.split(' ×')[0]} sin el 1 implícito: ${a.restoSig || '(nada)'}, y ceros hasta completar 23 bits`
+                : `Detrás del 1 implícito caben 23 bits: ${a.resto.slice(0, 23)}. La primera cifra que no cabe es un ${a.guarda}: ${redondeo}`
+                  + (a.desborda ? '; como eran todo unos, la mantisa se queda a ceros y el exponente sube 1' : '') + ` → ${a.m23}` }],
             { linea: true },
             [{ lbl: 'resultado' }, { d: '', espejo: 's', clase: 'campo s' }, { d: '', espejo: 'e', clase: 'campo e' }, { d: '', espejo: 'm', clase: 'campo m' }],
             [{ lbl: '' }, { d: 'signo', clase: 'campo-pie' }, { d: 'exponente', clase: 'campo-pie' }, { d: 'mantisa', clase: 'campo-pie' }]
           ],
-          correcto: `Correcto: ${numES(x)} = ${neg ? '−' : ''}${norm} → signo ${S}, exponente ${E8} y mantisa ${mant23}.`
+          // en tres líneas como mucho: con más, la tarjeta corta el mensaje
+          correcto: `Correcto: ${a.txt} = ${neg ? '−' : ''}${a.normaliza(10)} → signo ${S}, exponente ${E8} y mantisa ${a.m23}.`
+            + (a.cabe ? '' : ` Por el redondeo, lo guardado vale ${a.guardado}`)
         };
       }
     },
@@ -1472,6 +1555,10 @@
             x.className = 'd' + (it.clase ? ' ' + it.clase : '');
             x.textContent = it.d || '';
             if (it.espejo) x.dataset.espejo = it.espejo;
+            if (it.propio && gen.propio) {
+              x._it = it; x.classList.add('propio'); x.title = gen.propio.titulo || 'Pulsa para escribir otro';
+              x.addEventListener('click', (e) => { e.stopPropagation(); editaPropio(x); });
+            }
           }
           if (it.span) x.style.gridColumn = 'span ' + it.span;
           sv.appendChild(x);
@@ -1516,8 +1603,39 @@
 
     const api = { repinta: () => { pinta(true); mensaje(''); } };
 
-    function nuevo() {
-      g = gen.generar(Object.assign({}, cfg, { modo: estado.modo }));
+    // Dato que se puede escribir a mano (it.propio, con gen.propio): al pulsarlo se cambia por una caja. Intro
+    // monta el ejercicio con lo escrito si gen.propio.lee no pone pegas (si las pone, se sigue escribiendo);
+    // Esc lo deja como estaba, y salir de la caja hace lo mismo que Intro, pero sin quedarse si hay un error.
+    function editaPropio(x) {
+      const it = x._it, p = gen.propio;
+      const inp = document.createElement('input');
+      inp.className = 'c propio'; inp.type = 'text'; inp.autocomplete = 'off'; inp.spellcheck = false;
+      inp.inputMode = 'decimal'; inp.maxLength = p.max || 16;
+      inp.style.gridColumn = x.style.gridColumn;
+      inp.value = it.d;
+      x.replaceWith(inp);
+      inp.focus(); inp.select();
+      mensaje(p.ayuda || '');
+      let cerrada = false;
+      const deja = () => { cerrada = true; inp.replaceWith(x); };
+      const prueba = () => {                          // true si se ha cerrado la caja
+        const v = inp.value.trim();
+        if (!v || v === it.d) { deja(); mensaje(''); return true; }
+        const error = p.lee(v);
+        if (error) { mensaje(error, 'ko'); return false; }
+        cerrada = true; nuevo(v); return true;
+      };
+      inp.addEventListener('input', () => { if (p.filtro) inp.value = inp.value.replace(p.filtro, ''); });
+      inp.addEventListener('keydown', (e) => {
+        e.stopPropagation();                          // que no lo tomen las flechas, la N, la C ni la B del deck
+        if (e.key === 'Enter') { e.preventDefault(); prueba(); }
+        else if (e.key === 'Escape') { e.preventDefault(); deja(); mensaje(''); }
+      });
+      inp.addEventListener('blur', () => { if (!cerrada && !prueba()) deja(); });
+    }
+
+    function nuevo(numero) {
+      g = gen.generar(Object.assign({}, cfg, { modo: estado.modo }, numero === undefined ? {} : { numero }));
       origen = null;
       if (mapa) marcaMapa();
       enunciado.textContent = '';
@@ -1616,7 +1734,7 @@
     $('.ej-comprobar').addEventListener('click', comprobar);
     $('.ej-pista').addEventListener('click', pista);
     $('.ej-resolver').addEventListener('click', resolver);
-    $('.ej-otro').addEventListener('click', nuevo);
+    $('.ej-otro').addEventListener('click', () => nuevo());
     nuevo();
   }
 

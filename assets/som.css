@@ -465,6 +465,13 @@ section:has(> .ej) { grid-template-rows: minmax(0, 1fr); }
 .sv.mini .c.num, .sv.mini .c.dec, .sv.mini .c.bin { font-size: 22px; }
 .sv.mini .d.op, .sv.mini .d.dec, .sv.mini .d.ancho, .sv.mini .d[data-espejo] { font-size: 24px; }
 .sv.mini .linea.suave { margin: 2px 0; }
+.sv.mini .c.bin.largo { font-size: 17px; letter-spacing: 0; }   /* binarios de más de 36 cifras (ieee754 escrito a mano) */
+/* dato que se pulsa para escribir otro (propio en el generador) y la caja donde se escribe */
+.sv .d.propio { position: relative; cursor: text; border-radius: 12px; transition: background .2s; }
+.sv .d.propio:hover { background: var(--bg); }
+.sv .d.propio::after { content: '✎ escribir'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font: 600 18px/1 'Plus Jakarta Sans', system-ui, sans-serif; letter-spacing: 0; color: var(--muted); opacity: 0; transition: opacity .2s; }
+.sv .d.propio:hover::after { opacity: 1; }
+.sv .c.propio { font-size: 24px; letter-spacing: .06em; background: #FFF6D1; border-color: var(--yellow); }
 /* decimal a binario: hasta 8 divisiones y debajo el mensaje de Pista o de Comprobar */
 .sv.micro { --cel: 40px; row-gap: 4px; }
 .sv.micro .lbl { font-size: 16px; line-height: 1.1; }
