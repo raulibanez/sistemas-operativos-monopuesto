@@ -18,7 +18,7 @@
  *  5. Ejercicio generado con números al azar, resuelto en vertical con huecos:
  *       <div class="ej" data-tipo="dec2bin" data-min="16" data-max="255"></div>
  *     Tipos disponibles en SOM.generadores: bin2dec, dec2bin, decfrac2bin, bases, sumabin,
- *     restabin, logica, c1c2, restac2, paridad, unidades, ascii, asciiCompleto (solo la hoja), ieee754 (UT1); estados, planificacion,
+ *     restabin, logica, c1c2, restac2, paridad, unidades, ascii, ieee754 (UT1); estados, planificacion,
  *     paginacion, arranque, sistemas-archivos (UT2); anfitrion, recursos, archivos-vm, modos-red,
  *     ficha-vm (UT3, esta solo para la hoja). Atributos: data-bits,
  *     data-min, data-max, data-modo (modo fijo de los que tienen modos), data-paridad (par | impar)
@@ -870,80 +870,6 @@
               expl: `${cod} está entre ${r.base} y ${r.base + r.n - 1}, que son ${r.nombre}. ${cod} − ${r.base} = ${pos}: contando ${pos} desde ${r.primero} sale «${ch}»` }]
           ],
           correcto: `Correcto: el código ${cod} es «${ch}».`
-        };
-      }
-    },
-
-    /* La versión larga, solo para la hoja en papel (ut01/hoja.html): carácter -> código, código -> carácter y
-     * mayúscula <-> minúscula, con binario y hexadecimal. Se queda tal cual para que las semillas ya repartidas
-     * sigan dando la misma hoja. */
-    asciiCompleto: {
-      titulo: 'Código ASCII',
-      rejilla: true,
-      modos: [{ t: 'Carácter → código', v: 'codigo' }, { t: 'Código → carácter', v: 'caracter' }, { t: 'Mayúscula ↔ minúscula', v: 'caso' }, { t: 'Al azar', v: null }],
-      generar(cfg) {
-        const modo = cfg.modo || ['codigo', 'caracter', 'caso'][rnd(0, 2)];
-        const RANGOS = [
-          { nombre: 'mayúsculas', base: 65, primero: 'A', n: 26, sel: 'mayúsculas 65–90' },
-          { nombre: 'minúsculas', base: 97, primero: 'a', n: 26, sel: 'minúsculas 97–122' },
-          { nombre: 'dígitos', base: 48, primero: '0', n: 10, sel: 'dígitos 48–57' }
-        ];
-        const r = RANGOS[modo === 'caso' ? rnd(0, 1) : rnd(0, 2)];
-        const pos = rnd(0, r.n - 1), cod = r.base + pos, ch = String.fromCharCode(cod);
-        const b8 = bin(cod, 8), hx = cod.toString(16).toUpperCase();
-        const filtroChar = /[^0-9A-Za-z]/g;
-        const exBase = `${ch} es ${r.nombre === 'dígitos' ? 'un dígito' : 'una letra ' + r.nombre.slice(0, -1)}: ${r.nombre === 'dígitos' ? 'los dígitos empiezan' : 'las ' + r.nombre + ' empiezan'} en ${r.primero} = ${r.base}`;
-        const exPos = r.nombre === 'dígitos' ? `El dígito ${ch} está ${pos} posiciones después del 0` : `Contando ${r.primero} = 0, ${ch} es la posición ${pos} del alfabeto (sin ñ)`;
-        const exBin = `${cod} en binario de 8 bits: ${b8.match(/.{4}/g).join(' ')}`;
-        const exHex = `${b8.slice(0, 4)} = ${hx[0]}, ${b8.slice(4)} = ${hx[1]} → ${hx}`;
-        if (modo === 'codigo') {
-          return {
-            enunciado: 'Del carácter a su código ASCII. Basta con recordar tres anclas: A = 65, a = 97 y 0 = 48.',
-            tarea: `Escribe el código ASCII de «${ch}» en decimal, binario y hexadecimal.`,
-            columnas: '210px 200px 1fr', clase: 'compacta mini',
-            filas: [
-              [{ lbl: 'carácter' }, { d: ch, clase: 'ancho' }, { d: '' }],
-              [{ lbl: 'código base' }, { c: String(r.base), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 0, expl: exBase }, { d: 'A = 65 · a = 97 · 0 = 48', clase: 'peq', pista: true }],
-              [{ lbl: 'posición' }, { c: String(pos), clase: 'num', max: 2, filtro: /[^0-9]/g, n: 1, expl: exPos }, { d: 'contando desde 0', clase: 'peq', pista: true }],
-              [{ lbl: 'decimal' }, { c: String(cod), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 2, expl: `${r.base} + ${pos} = ${cod}` }, { d: 'base + posición', clase: 'peq', pista: true }],
-              [{ lbl: 'binario' }, { c: b8, clase: 'bin', max: 8, filtro: /[^01]/g, n: 3, expl: exBin }, { d: '8 bits', clase: 'peq' }],
-              [{ lbl: 'hexadecimal' }, { c: hx, clase: 'hex', max: 2, filtro: /[^0-9a-fA-F]/g, n: 4, expl: exHex }, { d: 'grupos de 4 bits', clase: 'peq', pista: true }]
-            ],
-            correcto: `Correcto: «${ch}» = ${cod} = ${b8} = ${hx} en hexadecimal.`
-          };
-        }
-        if (modo === 'caracter') {
-          return {
-            enunciado: 'Del código ASCII al carácter. Primero decide en qué rango cae el número.',
-            tarea: '¿Qué carácter tiene este código ASCII?',
-            columnas: '210px 240px 1fr', clase: 'compacta',
-            filas: [
-              [{ lbl: 'código' }, { d: b8, clase: 'ancho' }, { d: 'binario', clase: 'peq' }],
-              [{ lbl: 'decimal' }, { c: String(cod), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 0, expl: `${b8} = ${b8.split('').map((x, i) => x === '1' ? 1 << (7 - i) : 0).filter(Boolean).join(' + ')} = ${cod}` }, { d: 'suma de pesos', clase: 'peq', pista: true }],
-              [{ lbl: 'rango' }, { sel: RANGOS.map((x) => x.sel), c: r.sel, n: 1, expl: `${cod} está entre ${r.base} y ${r.base + r.n - 1}: ${r.nombre}` }, { d: 'pulsa para cambiar', clase: 'peq' }],
-              [{ lbl: 'posición' }, { c: String(pos), clase: 'num', max: 2, filtro: /[^0-9]/g, n: 2, expl: `${cod} − ${r.base} = ${pos}` }, { d: `código − ${r.base}`, clase: 'peq', pista: true }],
-              [{ lbl: 'carácter' }, { c: ch, max: 1, filtro: filtroChar, n: 3, cmp: (v) => v === ch, expl: `${pos} posiciones después de ${r.primero}: ${ch}` }, { d: r.nombre === 'dígitos' ? '0 1 2 3 4 5 6 7 8 9' : (r.nombre === 'mayúsculas' ? 'A B C D E F G H I J K L M…' : 'a b c d e f g h i j k l m…'), clase: 'peq', pista: true }]
-            ],
-            correcto: `Correcto: ${b8} (${cod}) es el carácter «${ch}».`
-          };
-        }
-        // caso: mayúscula <-> minúscula (solo letras)
-        const aMayus = r.base === 97;                 // la letra dada es minúscula: hay que restar 32
-        const cod2 = aMayus ? cod - 32 : cod + 32, ch2 = String.fromCharCode(cod2), b2 = bin(cod2, 8);
-        return {
-          enunciado: `Pasa «${ch}» a ${aMayus ? 'mayúscula' : 'minúscula'}. Las dos letras se diferencian en 32, que es un solo bit.`,
-          tarea: `Pasa «${ch}» a ${aMayus ? 'mayúscula' : 'minúscula'} en ASCII.`,
-          columnas: '210px 240px 1fr', clase: 'compacta mini',
-          filas: [
-            [{ lbl: 'carácter' }, { d: ch, clase: 'ancho' }, { d: '' }],
-            [{ lbl: 'código' }, { c: String(cod), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 0, expl: exBase + `, y ${ch} está ${pos} después: ${cod}` }, { d: 'A = 65 · a = 97', clase: 'peq', pista: true }],
-            [{ lbl: 'operación' }, { sel: ['− 32', '+ 32'], c: aMayus ? '− 32' : '+ 32', n: 1, expl: aMayus ? 'La mayúscula está 32 por debajo de la minúscula: se resta 32' : 'La minúscula está 32 por encima de la mayúscula: se suma 32' }, { d: 'pulsa para cambiar', clase: 'peq' }],
-            [{ lbl: 'nuevo código' }, { c: String(cod2), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 2, expl: `${cod} ${aMayus ? '−' : '+'} 32 = ${cod2}` }, { d: '' }],
-            [{ lbl: 'carácter' }, { c: ch2, max: 1, filtro: filtroChar, n: 3, cmp: (v) => v === ch2, expl: `${cod2} es «${ch2}»` }, { d: aMayus ? 'en mayúscula' : 'en minúscula', clase: 'peq' }],
-            [{ lbl: `${ch} en binario` }, { d: b8, clase: 'ancho' }, { d: 'el tercer bit por la izquierda vale 32', clase: 'peq', pista: true }],
-            [{ lbl: `${ch2} en binario` }, { c: b2, clase: 'bin', max: 8, filtro: /[^01]/g, n: 4, expl: `Solo cambia el bit de peso 32 (el tercero por la izquierda): ${b8} → ${b2}` }, { d: 'solo cambia un bit', clase: 'peq', pista: true }]
-          ],
-          correcto: `Correcto: «${ch}» (${cod}) y «${ch2}» (${cod2}) solo se diferencian en el bit de peso 32.`
         };
       }
     },

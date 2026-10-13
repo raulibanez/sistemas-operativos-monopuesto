@@ -91,6 +91,7 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
     { k: 'dec2bin', t: 'Decimal a binario', n: 1 },
     { k: 'decfrac2bin', t: 'Fracciones a binario', n: 1 },
     { k: 'bases', t: 'Entre bases', n: 1, modos: ['bin2oct', 'bin2hex', 'oct2bin', 'hex2bin', 'oct2dec', 'hex2dec', 'dec2oct', 'dec2hex'] },   // los 8 de antes y en su orden: cada semilla da la misma hoja que antes de añadir octal ↔ hexadecimal
+    { k: 'octhex', gen: 'bases', t: 'Octal ↔ hexadecimal', n: 1, modos: ['oct2hex', 'hex2oct'] },   // aparte, para no cambiar los «Entre bases» ya repartidos
     { k: 'sumabin', t: 'Suma en binario', n: 1 },
     { k: 'restabin', t: 'Resta en binario', n: 1 },
     { k: 'logica', t: 'Operaciones lógicas', n: 1 },
@@ -98,7 +99,7 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
     { k: 'restac2', t: 'Resta en C2', n: 1 },
     { k: 'paridad', t: 'Paridad', n: 1 },
     { k: 'unidades', t: 'Unidades', n: 1, modos: ['bits', 'binario'] },   // sin el modo "fabricante": necesita calculadora
-    { k: 'ascii', gen: 'asciiCompleto', t: 'ASCII', n: 1 },   // la versión larga de antes: la diapositiva usa la corta, y así cada semilla da la misma hoja
+    { k: 'ascii', t: 'ASCII', n: 1 },
     { k: 'ieee754', t: 'IEEE 754', n: 1 }
   ];
   const $ = (s) => document.querySelector(s);
