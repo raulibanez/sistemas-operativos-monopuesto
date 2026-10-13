@@ -18,7 +18,7 @@
  *  5. Ejercicio generado con números al azar, resuelto en vertical con huecos:
  *       <div class="ej" data-tipo="dec2bin" data-min="16" data-max="255"></div>
  *     Tipos disponibles en SOM.generadores: bin2dec, dec2bin, decfrac2bin, bases, sumabin,
- *     restabin, logica, c1c2, restac2, paridad, unidades, ascii, ieee754 (UT1); estados, planificacion,
+ *     restabin, logica, c1c2, restac2, paridad, unidades, ascii, asciiCompleto (solo la hoja), ieee754 (UT1); estados, planificacion,
  *     paginacion, arranque, sistemas-archivos (UT2); anfitrion, recursos, archivos-vm, modos-red,
  *     ficha-vm (UT3, esta solo para la hoja). Atributos: data-bits,
  *     data-min, data-max, data-modo (modo fijo de los que tienen modos), data-paridad (par | impar)
@@ -829,8 +829,55 @@
       }
     },
 
-    /* 3.12 código ASCII: carácter -> código, código -> carácter, mayúscula <-> minúscula */
+    /* 3.12 código ASCII en decimal, al grano: solo el dato y la respuesta (carácter -> código o código -> carácter) */
     ascii: {
+      titulo: 'Código ASCII',
+      rejilla: true,
+      modos: [{ t: 'Carácter → código', v: 'codigo' }, { t: 'Código → carácter', v: 'caracter' }, { t: 'Al azar', v: null }],
+      generar(cfg) {
+        const modo = cfg.modo || ['codigo', 'caracter'][rnd(0, 1)];
+        const RANGOS = [
+          { nombre: 'las mayúsculas', base: 65, primero: 'A', n: 26 },
+          { nombre: 'las minúsculas', base: 97, primero: 'a', n: 26 },
+          { nombre: 'los dígitos', base: 48, primero: '0', n: 10 }
+        ];
+        const r = RANGOS[rnd(0, 2)];
+        const pos = rnd(0, r.n - 1), cod = r.base + pos, ch = String.fromCharCode(cod);
+        const despues = pos === 0 ? `«${ch}» es ${r.primero === '0' ? 'el primero' : 'la primera'}`
+          : `«${ch}» está ${pos} ${pos === 1 ? 'posición' : 'posiciones'} después de «${r.primero}»`;
+        if (modo === 'codigo') {
+          return {
+            enunciado: 'Escribe el código ASCII del carácter, en decimal.',
+            tarea: `Escribe el código ASCII de «${ch}» en decimal.`,
+            columnas: '190px 200px',
+            filas: [
+              [{ lbl: 'carácter' }, { d: ch, clase: 'ancho' }],
+              { linea: true },
+              [{ lbl: 'código' }, { c: String(cod), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 0,
+                expl: `${r.nombre[0].toUpperCase() + r.nombre.slice(1)} empiezan en ${r.primero} = ${r.base}, y ${despues}: ${r.base} + ${pos} = ${cod}` }]
+            ],
+            correcto: `Correcto: «${ch}» tiene el código ${cod}.`
+          };
+        }
+        return {
+          enunciado: 'Escribe el carácter que tiene este código ASCII.',
+          tarea: `¿Qué carácter tiene el código ASCII ${cod}?`,
+          columnas: '190px 200px',
+          filas: [
+            [{ lbl: 'código' }, { d: String(cod), clase: 'ancho' }],
+            { linea: true },
+            [{ lbl: 'carácter' }, { c: ch, max: 1, filtro: /[^0-9A-Za-z]/g, n: 0, cmp: (v) => v === ch,
+              expl: `${cod} está entre ${r.base} y ${r.base + r.n - 1}, que son ${r.nombre}. ${cod} − ${r.base} = ${pos}: contando ${pos} desde ${r.primero} sale «${ch}»` }]
+          ],
+          correcto: `Correcto: el código ${cod} es «${ch}».`
+        };
+      }
+    },
+
+    /* La versión larga, solo para la hoja en papel (ut01/hoja.html): carácter -> código, código -> carácter y
+     * mayúscula <-> minúscula, con binario y hexadecimal. Se queda tal cual para que las semillas ya repartidas
+     * sigan dando la misma hoja. */
+    asciiCompleto: {
       titulo: 'Código ASCII',
       rejilla: true,
       modos: [{ t: 'Carácter → código', v: 'codigo' }, { t: 'Código → carácter', v: 'caracter' }, { t: 'Mayúscula ↔ minúscula', v: 'caso' }, { t: 'Al azar', v: null }],

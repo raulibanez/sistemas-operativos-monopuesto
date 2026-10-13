@@ -98,7 +98,7 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
     { k: 'restac2', t: 'Resta en C2', n: 1 },
     { k: 'paridad', t: 'Paridad', n: 1 },
     { k: 'unidades', t: 'Unidades', n: 1, modos: ['bits', 'binario'] },   // sin el modo "fabricante": necesita calculadora
-    { k: 'ascii', t: 'ASCII', n: 1 },
+    { k: 'ascii', gen: 'asciiCompleto', t: 'ASCII', n: 1 },   // la versión larga de antes: la diapositiva usa la corta, y así cada semilla da la misma hoja
     { k: 'ieee754', t: 'IEEE 754', n: 1 }
   ];
   const $ = (s) => document.querySelector(s);
@@ -118,7 +118,7 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
         const g = conSemilla(seed, () => {
           const cfg = {};
           if (tipo.modos) cfg.modo = tipo.modos[Math.floor(Math.random() * tipo.modos.length)];
-          return SOM.generadores[p.k].generar(cfg);
+          return SOM.generadores[tipo.gen || p.k].generar(cfg);
         });
         ejs.push({ tipo, g });
       }
