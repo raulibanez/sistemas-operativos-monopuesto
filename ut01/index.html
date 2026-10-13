@@ -3388,27 +3388,27 @@
   <aside class="notas"><ul><li>Dinero en enteros: céntimos, la coma solo al mostrar; Stripe recibe 1999 para 19,99 €.</li><li>Tipos decimales exactos: DECIMAL en bases de datos, BigDecimal en Java, decimal en Python y C#. IEEE 754 de 2008 añadió formatos decimales por esto (decimal64, decimal128): los usan los mainframes y algunas bases de datos.</li><li>Nunca comparar decimales con igualdad: diferencia menor que una tolerancia.</li><li>Dónde sí vale float: gráficos, física, sensores, IA.</li></ul></aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Codificación de la información</p>
   <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Cómo se resuelve el problema de los decimales</h2>
-  <p style="font-size:var(--type-caption);line-height:1.45;color:var(--muted);margin-top:18px">Con dinero, un error en la cifra 17 acaba siendo un céntimo de más o de menos en una factura. Los programas que manejan importes siguen cuatro reglas.</p>
+  <p style="font-size:var(--type-caption);line-height:1.45;color:var(--muted);margin-top:18px">Un error en la cifra 17, como el de 0,1 + 0,2, parece muy pequeño. Pero en una factura puede acabar siendo un céntimo de más o de menos. Los&nbsp;programadores siguen estas cuatro ideas.</p>
   <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:28px;flex:1;min-height:0">
     <div style="background:var(--white);border-radius:24px;padding:30px 36px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;gap:12px">
       <span style="width:52px;height:52px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:24px;font-weight:800">1</span>
-      <p style="font-size:var(--type-small);font-weight:800;color:var(--navy);line-height:1.2">Dinero en enteros, en la unidad mínima</p>
-      <p style="font-size:20px;line-height:1.45;color:var(--muted)">19,99 € se guarda como <span style="font-family:var(--mono);color:var(--navy)">1999</span> céntimos y la coma solo se pone al mostrar. Las pasarelas de pago (Stripe, por ejemplo) reciben los importes así: <span style="font-family:var(--mono);color:var(--navy)">amount: 1999</span>.</p>
+      <p style="font-size:var(--type-small);font-weight:800;color:var(--navy);line-height:1.2">Guardar el dinero en céntimos</p>
+      <p style="font-size:20px;line-height:1.45;color:var(--muted)">Un precio de 19,99 € se guarda como <span style="font-family:var(--mono);color:var(--navy)">1999</span> céntimos. Es un número entero, y los enteros se guardan exactos en binario. La coma solo se pone al enseñar el precio en pantalla. Así trabajan, por ejemplo, los sistemas de pago de las tiendas online.</p>
     </div>
     <div style="background:var(--white);border-radius:24px;padding:30px 36px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;gap:12px">
       <span style="width:52px;height:52px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:24px;font-weight:800">2</span>
-      <p style="font-size:var(--type-small);font-weight:800;color:var(--navy);line-height:1.2">Tipos decimales exactos</p>
-      <p style="font-size:20px;line-height:1.45;color:var(--muted)">Las bases de datos y los lenguajes de programación tienen tipos que calculan en base 10, como <span style="font-family:var(--mono);color:var(--navy)">DECIMAL(10,2)</span>: diez cifras, dos de ellas decimales. Son más lentos, pero exactos.</p>
+      <p style="font-size:var(--type-small);font-weight:800;color:var(--navy);line-height:1.2">Usar decimales exactos</p>
+      <p style="font-size:20px;line-height:1.45;color:var(--muted)">Las bases de datos y los lenguajes de programación pueden guardar números que se calculan en base 10, como hacemos nosotros a mano. Por ejemplo, <span style="font-family:var(--mono);color:var(--navy)">DECIMAL(10,2)</span> guarda hasta diez cifras, dos de ellas detrás de la coma. Así, 0,10 es exactamente 0,10. Las cuentas van más lentas, pero salen exactas.</p>
     </div>
     <div style="background:var(--white);border-radius:24px;padding:30px 36px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;gap:12px">
       <span style="width:52px;height:52px;border-radius:14px;background:var(--navy);color:var(--yellow);display:grid;place-items:center;font-size:24px;font-weight:800">3</span>
-      <p style="font-size:var(--type-small);font-weight:800;color:var(--navy);line-height:1.2">Nunca comparar decimales con «igual»</p>
-      <p style="font-size:20px;line-height:1.45;color:var(--muted)">Dos resultados que deberían coincidir pueden diferir en la última cifra. Por eso no se mira si son iguales, sino si la diferencia es muy pequeña: por ejemplo, menor que 0,000001.</p>
+      <p style="font-size:var(--type-small);font-weight:800;color:var(--navy);line-height:1.2">No preguntar si dos decimales son iguales</p>
+      <p style="font-size:20px;line-height:1.45;color:var(--muted)">Una cuenta que debería dar 0,3 puede dar 0,30000000000000004. Si el programa pregunta si el resultado es igual a 0,3, la respuesta será que no. Por eso se pregunta si los dos números están muy cerca: si la diferencia es menor que 0,000001, se dan por iguales.</p>
     </div>
     <div style="background:var(--navy);color:var(--white);border-radius:24px;padding:30px 36px;display:flex;flex-direction:column;gap:12px">
       <span style="width:52px;height:52px;border-radius:14px;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-size:24px;font-weight:800">4</span>
-      <p style="font-size:var(--type-small);font-weight:800;line-height:1.2">Donde la coma flotante sí es la herramienta</p>
-      <p style="font-size:20px;line-height:1.45;color:#C9D6EE">Gráficos, física, sensores, sonido e inteligencia artificial: importan la velocidad y el rango, no el último decimal. Una tarjeta gráfica hace billones de operaciones en coma flotante por segundo, y su potencia se mide en FLOPS: operaciones de coma flotante por segundo.</p>
+      <p style="font-size:var(--type-small);font-weight:800;line-height:1.2">Cuándo la coma flotante sí es lo mejor</p>
+      <p style="font-size:20px;line-height:1.45;color:#C9D6EE">En los videojuegos, la física, el sonido o la inteligencia artificial nadie nota un error en la cifra 17. Lo que importa es hacer muchísimas cuentas muy deprisa, con números muy grandes y muy pequeños. Una tarjeta gráfica hace billones de estas cuentas cada segundo. Por eso su potencia se mide en FLOPS: operaciones de coma flotante por segundo.</p>
     </div>
   </div>
 </section>
