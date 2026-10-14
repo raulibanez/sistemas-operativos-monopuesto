@@ -65,8 +65,8 @@
    *                {c:'valor', clase, max, filtro, n, id, expl, cmp, span}   casilla que rellena el alumno
  *   Cada generador devuelve además `tarea` (enunciado corto, solo lo que se pide) para las hojas en papel,
  *   y los datos con `pista: true` solo se imprimen en la hoja de práctica. En la tarea, ⟪…⟫ marca el verbo
- *   (sale subrayado y en negrita) y ⟦…⟧ los datos (en negrita: números, bases y unidades de origen y destino, operación); de momento solo en los generadores de la UT1,
- *   porque las hojas de la UT2 y la UT3 escriben la tarea tal cual.
+ *   (sale subrayado y en negrita) y ⟦…⟧ los datos (en negrita: números, bases y unidades de origen y
+ *   destino, operación). Las hojas de la UT1, la UT2 y la UT3 las pintan con pintaMarcas.
    *                {sel:['+','−'], c:'−', expl}          botón que alterna entre opciones
    *              o {linea:true} para la raya de la operación
    *   n          orden de resolución de las casillas (menor primero); sin n, orden de aparición
@@ -962,7 +962,7 @@
         const s = S[rnd(0, S.length - 1)];
         return {
           enunciado: 'Lee lo que le pasa al proceso y elige el estado de origen, el de destino y el número de la transición en la figura.',
-          tarea: 'Lee lo que le pasa al proceso: ¿de qué estado a qué estado pasa, y por qué transición de la figura?',
+          tarea: '⟪Lee⟫ lo que le pasa al proceso y ⟪rodea⟫ el estado en el que estaba, el estado al que pasa y la transición de la figura.',
           columnas: '190px 640px', clase: 'texto',
           filas: [
             [{ lbl: 'qué pasa' }, { d: s.t, clase: 'texto' }],
@@ -1028,7 +1028,7 @@
         filas.push(fill([{ lbl: 'espera media' }, { c: `${sumEsp}/${N}`, clase: 'dec', max: 7, filtro: /[^0-9,./]/g, span: 3, n: 301, cmp: cmpMedia(sumEsp), expl: `(${R.esp.join(' + ')}) / ${N} = ${sumEsp}/${N} = ${fmt(sumEsp / N)}` }]));
         return {
           enunciado: `${NOM[algo][0].toUpperCase() + NOM[algo].slice(1)}. Fila CPU: el proceso (1 a 4) de cada unidad de tiempo; luego los tiempos y las medias (fracción o coma).`,
-          tarea: `${NOM[algo][0].toUpperCase() + NOM[algo].slice(1)}: cronograma, tiempos de respuesta y de espera de cada proceso, y las dos medias.`,
+          tarea: `⟪Haz⟫ el cronograma de ⟦${NOM[algo]}⟧ y ⟪calcula⟫ el tiempo de respuesta y el de espera de cada proceso y las dos medias.`,
           columnas: `118px repeat(${T}, ${T > 16 ? 36 : 42}px)`, clase: 'plan' + (T > 16 ? ' xs' : ''),
           filas,
           alEscribir(sv) {
@@ -1058,7 +1058,7 @@
           const np = Math.ceil(tam / pag), ocupa = np * pag, frag = ocupa - tam;
           return {
             enunciado: 'Un proceso se reparte en páginas de tamaño fijo. Calcula cuántas necesita, cuánto ocupa en total y cuánto se pierde en la última página.',
-            tarea: 'Páginas que necesita el proceso, memoria que ocupa y fragmentación interna.',
+            tarea: '⟪Calcula⟫ las páginas que necesita el proceso, la memoria que ocupa y la fragmentación interna.',
             columnas: '300px 150px 90px',
             filas: [
               [{ lbl: 'tamaño del proceso' }, { d: String(tam), clase: 'dato' }, { lbl: 'KiB' }],
@@ -1085,7 +1085,7 @@
           const fenExpl = tam > mayor && tam <= total ? `Hay ${total} KiB libres en total pero ningún hueco de ${tam} KiB seguidos: fragmentación externa (habría que compactar).` : (tam <= mayor ? 'Cabe en un hueco: no hay fragmentación que impida cargarlo.' : `Ni juntando todos los huecos (${total} KiB) cabe: falta memoria, no es fragmentación.`);
           return {
             enunciado: 'Con particiones de tamaño variable, un proceso solo cabe en un hueco igual o mayor que él, aunque la suma de los huecos sea suficiente.',
-            tarea: '¿Cabe el proceso? ¿En qué hueco? ¿Qué fragmentación hay?',
+            tarea: `⟪Calcula⟫ la memoria libre en total y ⟪rodea⟫ si el proceso de ⟦${tam} KiB⟧ cabe, en qué hueco y qué fragmentación hay.`,
             columnas: `300px repeat(${k}, 90px)`,
             filas: [
               [{ lbl: 'huecos libres (KiB)' }, ...huecos.map((h) => ({ d: String(h), clase: 'dato' }))],
@@ -1106,7 +1106,7 @@
         const faltan = cabe ? 0 : np - marcos;
         return {
           enunciado: 'Con memoria virtual, en la RAM solo tiene que estar la parte del proceso que se usa. Calcula si cabe entero o cuántas páginas quedan en el disco.',
-          tarea: '¿Cabe el proceso entero en la RAM? Si no, ¿cuántas páginas quedan en el disco?',
+          tarea: '⟪Calcula⟫ las páginas del proceso, ⟪rodea⟫ si cabe entero en la RAM y ⟪escribe⟫ cuántas páginas quedan en el disco.',
           columnas: '300px 150px 90px',
           filas: [
             [{ lbl: 'tamaño del proceso' }, { d: String(tam), clase: 'dato' }, { lbl: 'KiB' }],
@@ -1142,7 +1142,7 @@
         const filas = orden.map((i) => [{ d: PASOS[i].t, clase: 'texto', span: 4 }, { c: String(i + 1), clase: 'num', max: 1, filtro: /[^1-7]/g, n: i, expl: `Paso ${i + 1}: ${PASOS[i].t}. ${PASOS[i].e}` }]);
         return {
           enunciado: `Arranque con ${uefi ? 'UEFI y GPT' : 'BIOS y MBR'}: escribe junto a cada paso su número de orden, del 1 (al dar corriente) al 7 (equipo listo).`,
-          tarea: `Arranque con ${uefi ? 'UEFI y GPT' : 'BIOS y MBR'}: numera los pasos del 1 al 7.`,
+          tarea: `⟪Numera⟫ del 1 al 7 los pasos del arranque con ⟦${uefi ? 'UEFI y GPT' : 'BIOS y MBR'}⟧.`,
           columnas: 'repeat(4, 185px) 84px', clase: 'texto',
           filas,
           correcto: 'Correcto: ' + PASOS.map((p, i) => `${i + 1} ${p.t.split(':')[0].split(' ').slice(0, 4).join(' ')}…`).join(' · ')
@@ -1177,7 +1177,7 @@
         const c = C[rnd(0, C.length - 1)];
         return {
           enunciado: 'Lee el caso, contesta a las cuatro preguntas y elige el sistema de archivos. Si hay dos opciones válidas, cualquiera de las dos vale.',
-          tarea: 'Lee el caso y elige el sistema de archivos. Si hay dos opciones válidas, cualquiera vale.',
+          tarea: '⟪Lee⟫ el caso, ⟪contesta⟫ a las cuatro preguntas rodeando sí o no y ⟪rodea⟫ el sistema de archivos. Si hay dos opciones válidas, cualquiera de las dos vale.',
           columnas: '330px 470px', clase: 'texto',
           filas: [
             [{ lbl: 'caso' }, { d: c.t, clase: 'texto' }],
@@ -1223,7 +1223,7 @@
         const OPC = ['?'].concat(baraja([so].concat(inv)));
         return {
           enunciado: 'Lee el caso y contesta: cuál es el sistema anfitrión, cuántos invitados hay, de qué tipo es el hipervisor y qué licencia tiene el programa.',
-          tarea: 'Sistema anfitrión, número de invitados, tipo de hipervisor y licencia del programa.',
+          tarea: '⟪Lee⟫ el caso y ⟪completa⟫ la ficha: sistema anfitrión, número de invitados, tipo de hipervisor y licencia del programa.',
           columnas: '230px 620px', clase: 'texto',
           filas: [
             [{ lbl: 'caso' }, { d: t, clase: 'texto' }],
@@ -1280,7 +1280,7 @@
         filas.push([{ lbl: 'disco que ocupan ahora' }, { c: String(ocupa), clase: 'num', max: 4, filtro: /[^0-9]/g, n: 3, expl: `Un disco fijo ocupa todo su tamaño desde el principio; uno dinámico, solo lo escrito: ${vms.map((v) => `${v.usado} (${v.nombre}, ${v.fijo ? 'fijo' : 'dinámico'})`).join(' + ')} = ${ocupa} GB.` }, { d: 'GB', clase: 'peq' }, { d: '' }]);
         return {
           enunciado: 'Reglas: 4 GB para el anfitrión; la mitad de los hilos por máquina; dinámico ocupa lo escrito y fijo, todo.',
-          tarea: 'RAM que le queda al anfitrión, si se pueden encender a la vez, núcleos máximos por máquina y disco ocupado.',
+          tarea: '⟪Calcula⟫ la RAM que le queda al anfitrión, los núcleos máximos por máquina y el disco que ocupan, y ⟪rodea⟫ si se pueden encender todas a la vez.',
           columnas: '210px 170px 130px 370px', clase: 'texto mini',
           filas,
           correcto: `Correcto: le quedan ${queda} GB al anfitrión (${aLaVez === 'sí' ? 'se pueden encender a la vez' : 'no se pueden encender a la vez'}), como mucho ${maxNuc} núcleos por máquina y ${ocupa} GB de disco ocupados.`
@@ -1314,7 +1314,7 @@
         const a = A[rnd(0, A.length - 1)];
         return {
           enunciado: 'Lee el nombre del archivo de la carpeta de una máquina virtual y elige qué guarda y a qué programa pertenece ese formato.',
-          tarea: '¿Qué guarda este archivo y de qué programa es el formato?',
+          tarea: `⟪Rodea⟫ qué guarda el archivo ⟦${a.e}⟧ y de qué programa es el formato.`,
           columnas: '230px 620px', clase: 'texto',
           filas: [
             [{ lbl: 'archivo' }, { d: a.e, clase: 'texto' }],
@@ -1353,7 +1353,7 @@
           const c = C[rnd(0, C.length - 1)];
           return {
             enunciado: 'Lee el caso y elige el modo de red del adaptador de la máquina virtual.',
-            tarea: 'Elige el modo de red para el caso.',
+            tarea: '⟪Lee⟫ el caso y ⟪rodea⟫ el modo de red del adaptador de la máquina virtual.',
             columnas: '230px 620px', clase: 'texto',
             filas: [
               [{ lbl: 'caso' }, { d: c.t, clase: 'texto' }],
@@ -1375,7 +1375,7 @@
           const PR = ['¿sale a internet?', '¿se comunica con el anfitrión?', '¿se comunica con otra máquina en el mismo modo?', '¿la ven los demás PC del aula?'];
           return {
             enunciado: `En VMware Workstation Pro, una máquina virtual tiene el adaptador de red en modo ${m}. Contesta sí o no a cada pregunta.`,
-            tarea: `Adaptador en modo ${m} (VMware): ¿internet?, ¿anfitrión?, ¿otra máquina en el mismo modo?, ¿los demás PC del aula?`,
+            tarea: `El adaptador de red de la máquina virtual está en modo ⟦${m}⟧ (VMware Workstation Pro). ⟪Rodea⟫ sí o no en cada pregunta.`,
             columnas: '460px 220px', clase: 'texto',
             filas: [[{ lbl: 'modo de red' }, { d: m, clase: 'dato' }]].concat(PR.map((q, i) => [{ lbl: q }, { sel: SN, c: T[m][i][0], clase: 'txt', n: i, expl: T[m][i][1] }])),
             correcto: `Correcto. En ${m}: internet ${T[m][0][0]}, anfitrión ${T[m][1][0]}, otra máquina ${T[m][2][0]}, aula ${T[m][3][0]}.`
@@ -1393,7 +1393,7 @@
         const c = CASOS[rnd(0, CASOS.length - 1)];
         return {
           enunciado: 'El ipconfig del anfitrión y la IP de la máquina virtual: ¿en qué modo de red está y con qué programa?',
-          tarea: 'Con el ipconfig del anfitrión y la IP de la máquina virtual: modo de red y programa.',
+          tarea: `⟪Mira⟫ el ipconfig del anfitrión y la IP de la máquina virtual, ⟦${c.ip}⟧, y ⟪rodea⟫ el modo de red y el programa.`,
           columnas: '400px 290px', clase: 'texto mini',
           filas: [
             [{ lbl: 'Ethernet (red del aula)' }, { d: `${aula[0]}.${aula[1]}`, clase: 'dato' }],
@@ -1439,7 +1439,7 @@
         if (s.so.startsWith('Windows')) filas.splice(5, 0, [{ lbl: 'seguridad' }, { d: 'UEFI, arranque seguro y TPM (anota la contraseña)', clase: 'texto' }]);
         return {
           enunciado: 'Crea en VMware Workstation Pro una máquina virtual con esta ficha y enseña el resultado al profesor en tu pantalla.',
-          tarea: 'Crea la máquina virtual de la ficha y enséñala en tu pantalla.',
+          tarea: '⟪Crea⟫ en VMware Workstation Pro la máquina virtual de la ficha y ⟪enséñasela⟫ al profesor en tu pantalla.',
           columnas: '230px 620px', clase: 'texto',
           filas,
           correcto: 'Se comprueba en la pantalla de cada uno: configuración de la máquina, árbol de instantáneas, clon y red.'

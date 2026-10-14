@@ -12,8 +12,10 @@
    la hoja. Usa los mismos generadores de assets/som.js que los ejercicios interactivos de la
    UT2, con Math.random sustituido por un generador con semilla: la misma semilla y el mismo
    título dan siempre la misma hoja. El profesor reparte a toda la clase una hoja con una
-   semilla nueva; los alumnos generan las que quieran. Con solucionario. La hoja de práctica
-   lleva el método en el enunciado y pistas; la de examen, solo la tarea. */
+   semilla nueva; los alumnos generan las que quieran. Con solucionario. Cada ejercicio empieza
+   por la tarea, con el verbo subrayado y los datos en negrita; la hoja de práctica añade cómo
+   se hace y pistas, y la de examen deja solo la tarea. Pautas de los exámenes adaptados, para
+   toda la clase (como ut01/hoja.html). */
 body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; margin: 0; }
 .panel { background: var(--navy); color: var(--white); padding: 22px 32px; display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: flex-end; font-size: 15px; }
 .panel h1 { font-size: 20px; font-weight: 800; margin: 0 0 4px; width: 100%; }
@@ -30,43 +32,72 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
 .aviso { padding: 10px 32px; font-size: 14px; color: var(--muted); background: #fff; border-bottom: 1px solid var(--line); }
 .aviso code { font-family: var(--mono); background: var(--bg); padding: 1px 6px; border-radius: 4px; }
 
-.hoja { width: 190mm; min-height: 250mm; margin: 24px auto; padding: 12mm 12mm 10mm; background: #fff; box-shadow: 0 2px 12px rgba(21,53,107,.12); box-sizing: border-box; page-break-after: always; }
-.hoja header { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; border-bottom: 3px solid var(--navy); padding-bottom: 8px; }
-.hoja header .modulo { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); }
+/* Cada página es un A4 entero: la hoja se pagina aquí y no en el navegador, para poner en
+   cada una «Página X de Y» y el aviso de que sigue. Lo que se ve en pantalla es lo que sale en papel. */
+.hoja, .hoja * { box-sizing: border-box; }   /* como section * en las diapositivas: si no, las casillas miden 6 px más que su columna */
+.hoja { width: 210mm; height: 297mm; margin: 24px auto; padding: 12mm 12mm 10mm; background: #fff; box-shadow: 0 2px 12px rgba(21,53,107,.12); display: flex; flex-direction: column; overflow: hidden; }
+.hoja header { flex: none; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; border-bottom: 3px solid var(--navy); padding-bottom: 8px; }
+.hoja header .modulo { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); margin: 0; }
 .hoja header h2 { font-size: 19px; font-weight: 800; color: var(--navy); margin: 2px 0 0; }
 .hoja header .alumno { text-align: right; font-size: 12px; color: var(--muted); }
 .hoja header .alumno b { display: block; font-size: 26px; color: var(--navy); line-height: 1; margin-bottom: 4px; }
-.hoja .datos { display: flex; gap: 24px; font-size: 12px; margin: 8px 0 4px; color: var(--muted); }
-.hoja .datos span { flex: 1; border-bottom: 1px solid var(--line); padding-bottom: 3px; }
-.hoja .normas { font-size: 11px; color: var(--muted); margin: 0 0 6px; }
-.hoja .lista { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 18px; }
-.ej-hoja { break-inside: avoid; padding: 8px 0 6px; border-bottom: 1px solid var(--line); }
-.ej-hoja.ancho { grid-column: 1 / -1; }
-.ej-hoja .cab { display: flex; gap: 8px; align-items: baseline; }
-.ej-hoja .num { font-weight: 800; color: var(--white); background: var(--navy); border-radius: 6px; padding: 1px 7px; font-size: 12px; }
-.ej-hoja .tit { font-weight: 700; color: var(--navy); font-size: 13px; }
-.ej-hoja .enun { font-size: 11.5px; color: var(--muted); line-height: 1.35; margin: 3px 0 0; }
-.ej-hoja .sv { zoom: .38; justify-content: start; margin: 14px 0 4px; }
-.ej-hoja.ancho .sv { zoom: .66; }
+/* páginas siguientes: cabecera de una línea y el nombre, por si se separan las hojas */
+.hoja header.sigue { align-items: baseline; border-bottom-width: 2px; padding-bottom: 6px; }
+.hoja header.sigue .modulo { letter-spacing: .03em; }
+.hoja header.sigue .nombre { font-size: 13px; color: var(--ink); width: 85mm; border-bottom: 1px solid var(--muted); padding-bottom: 2px; }
+.hoja .datos { flex: none; display: flex; gap: 24px; font-size: 13px; margin: 10px 0 4px; color: var(--ink); }
+.hoja .datos span { flex: 1; border-bottom: 1px solid var(--muted); padding-bottom: 3px; }
+.hoja .datos span:first-child { flex: 2; }
+.hoja .normas { flex: none; border: 1.5px solid var(--navy); border-radius: 8px; padding: 6px 12px 6px 10px; margin: 8px 0 10px; font-size: 12.5px; line-height: 1.45; color: var(--ink); }
+.hoja .normas ul { margin: 0; padding-left: 18px; }
+.hoja .lista { flex: 1 1 auto; min-height: 0; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; align-content: start; padding-top: 10px; }
+.hoja header + .lista { padding-top: 12px; }
+.ej-hoja { break-inside: avoid; border: 1.5px solid #C3CCDD; border-radius: 10px; padding: 8px 10px 6px; min-width: 0; }
+.ej-hoja.ancho { grid-column: 1 / -1; }   /* cronogramas: a todo el ancho */
+.ej-hoja .cab { display: flex; gap: 8px; align-items: center; }
+.ej-hoja .num { font-weight: 800; color: var(--white); background: var(--navy); border-radius: 6px; padding: 1px 8px; font-size: 13px; }
+.ej-hoja .tit { font-weight: 700; color: var(--navy); font-size: 14px; }
+/* la tarea: lo que hay que hacer; verbo subrayado y en negrita, datos en negrita */
+.ej-hoja .tarea { font-size: 14px; line-height: 1.4; color: var(--ink); margin: 6px 0 0; }
+.ej-hoja .verbo { font-weight: 800; text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 2px; }
+.ej-hoja .dato { font-weight: 800; }
+/* hoja de práctica: el método, una frase por línea */
+.ej-hoja .metodo { margin: 6px 0 0; font-size: 12.5px; line-height: 1.4; color: var(--ink); }
+.ej-hoja .metodo b { display: block; font-size: 11.5px; font-weight: 700; color: var(--blue); }
+.ej-hoja .metodo ul { margin: 1px 0 0; padding-left: 16px; }
+/* el zoom de cada rejilla lo pone ajustaRejilla según el ancho de su recuadro */
+.ej-hoja .sv { zoom: .4; justify-content: start; margin: 16px 0 6px; }
 .ej-hoja .sv .c { display: flex; align-items: center; justify-content: center; background: #fff; border: 3px solid var(--navy); min-width: 0; }
 .ej-hoja .sv.plan .c { border-width: 2px; }
-.ej-hoja .sv .c.sel { font-size: 24px; color: var(--muted); }
-.ej-hoja .sv .c.txt.sel { font-size: 20px; }
-.ej-hoja .sv .c.sel.larga { font-size: 18px; line-height: 1.2; height: auto; min-height: var(--cel); padding: 6px 10px; box-sizing: border-box; white-space: pre-line; }
+/* casillas de opciones: se rodea la correcta. Cortas, en una línea (sin partir ninguna); largas, una
+   debajo de otra y separadas, para que se vea dónde acaba cada una aunque ocupe dos líneas */
+.ej-hoja .sv .c.sel { font-size: 28px; color: var(--ink); height: auto; min-height: 60px; padding: 6px 12px; line-height: 1.3; text-align: center; white-space: normal; }
+.ej-hoja .sv .c.sel.larga { flex-direction: column; gap: 14px; padding: 10px 12px; }
+.ej-hoja .sv .c.sel .op { line-height: 1.15; }
 .ej-hoja .sv .d[data-espejo] { color: var(--navy); }
+/* textos y rótulos más grandes que en la diapositiva y en negro (los de los cronogramas, como están) */
+.hoja .ej-hoja .sv:not(.plan) .lbl { font-size: 28px; color: var(--ink); line-height: 1.15; }
+.hoja .ej-hoja .sv .lbl.medio { text-align: left; padding: 0 0 0 8px; }
+.hoja .ej-hoja .sv .d.texto { font-size: 31px; line-height: 1.3; }
+.hoja .ej-hoja .sv:not(.plan) .d.peq { font-size: 28px; color: var(--ink); }
+.hoja .ej-hoja .sv.plan .lbl { color: var(--ink); }
 .sol .ej-hoja .sv .c { color: var(--ok); border-color: var(--ok); background: #F3FAF6; }
 .sol .ej-hoja .sv .c.sel { color: var(--ok); }
-.ej-hoja .resp { font-size: 11px; color: var(--ok); line-height: 1.35; margin: 2px 0 0; white-space: pre-line; }
-.hoja footer { font-size: 10px; color: var(--muted); margin-top: 10px; display: flex; justify-content: space-between; }
+.ej-hoja .resp { font-size: 12px; color: var(--ok); line-height: 1.4; margin: 2px 0 0; white-space: pre-line; }
+/* pie de cada página: dónde estás y si la hoja sigue */
+.hoja footer { flex: none; height: 11mm; display: flex; justify-content: space-between; align-items: center; gap: 16px; border-top: 1.5px solid var(--navy); padding-top: 6px; margin-top: 8px; font-size: 12px; color: var(--muted); }   /* alto fijo: se rellena después de paginar */
+.hoja footer .donde { white-space: nowrap; }
+.hoja footer .sigue { font-size: 13.5px; font-weight: 800; color: var(--navy); border: 2px solid var(--navy); border-radius: 8px; padding: 4px 12px; white-space: nowrap; }
+.hoja footer .fin { font-size: 12.5px; font-weight: 700; color: var(--navy); text-align: right; }
 .vacio { text-align: center; color: var(--muted); padding: 60px 20px; }
 @media print {
   body { background: #fff; }
   .panel, .aviso { display: none; }
-  .hoja { width: auto; min-height: 0; margin: 0; padding: 0; box-shadow: none; }
-  .hoja:last-child { page-break-after: auto; }
+  .hoja { margin: 0; box-shadow: none; break-after: page; }
+  .hoja:last-child { break-after: auto; }
   .sv.plan .d.celda.on, .sv.plan .d.ph { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
-@page { size: A4; margin: 12mm 12mm 10mm; }
+@page { size: A4; margin: 0; }
 </style>
 </head>
 <body>
@@ -80,7 +111,7 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
   <button class="btn btn-ghost" id="imprimir" style="color:#fff;border-color:rgba(255,255,255,.5)">Imprimir o guardar en PDF</button>
   <div class="tipos" id="tipos"></div>
 </div>
-<p class="aviso">La <b>semilla</b> (<i>seed</i>) es el número del que salen los ejercicios: la misma semilla con el mismo título da siempre la misma hoja, y cualquier otro número, o cualquier otro título, da otra distinta. Genera las que quieras para practicar y compruébalas con el solucionario. La hoja de práctica explica el método en cada enunciado y da pistas; la de examen deja solo la tarea. En clase, el profesor reparte a todos una hoja con una semilla que no se ha usado antes; el examen se genera igual. En los cronogramas, escribe en la fila CPU el proceso de cada unidad de tiempo y colorea su fila. La dirección de la página guarda la configuración: <code id="url"></code></p>
+<p class="aviso">La <b>semilla</b> (<i>seed</i>) es el número del que salen los ejercicios: la misma semilla con el mismo título da siempre la misma hoja, y cualquier otro número, o cualquier otro título, da otra distinta. Genera las que quieras para practicar y compruébalas con el solucionario. En las dos hojas, cada ejercicio empieza por la tarea, con el verbo subrayado y los datos en negrita; la de práctica añade cómo se hace y pistas, y la de examen deja solo la tarea. En clase, el profesor reparte a todos una hoja con una semilla que no se ha usado antes; el examen se genera igual. En los cronogramas, escribe en la fila CPU el proceso de cada unidad de tiempo y colorea su fila. La dirección de la página guarda la configuración: <code id="url"></code></p>
 <div id="hojas"><p class="vacio">Pulsa Generar.</p></div>
 
 <script src="../assets/som.js"></script>
@@ -122,6 +153,32 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
 
   let examen = false;   // hoja de examen: solo la tarea, sin las pistas marcadas
 
+  /* La tarea trae marcas (som.js): ⟪verbo⟫ sale subrayado y en negrita, y ⟦dato⟧ en negrita */
+  const MARCA = /⟪([^⟫]*)⟫|⟦([^⟧]*)⟧/g;
+  const plano = (t) => String(t || '').replace(MARCA, (m, v, d) => (v !== undefined ? v : d));
+  function pintaMarcas(el, t) {
+    t = String(t || '');
+    let i = 0;
+    t.replace(MARCA, (m, v, d, pos) => {
+      if (pos > i) el.appendChild(document.createTextNode(t.slice(i, pos)));
+      const b = document.createElement('b');
+      b.className = v !== undefined ? 'verbo' : 'dato';
+      b.textContent = v !== undefined ? v : d;
+      el.appendChild(b);
+      i = pos + m.length;
+      return m;
+    });
+    if (i < t.length) el.appendChild(document.createTextNode(t.slice(i)));
+  }
+  /* El método de la hoja de práctica, una frase por línea, sin las frases que ya dice la tarea */
+  const frases = (t) => plano(t).split(/(?<=[.?!])\s+(?=[¿«A-ZÁÉÍÓÚÑ0-9])/).map((f) => f.trim()).filter(Boolean);
+  const palabras = (t) => plano(t).toLowerCase().match(/[\p{L}\p{N}]+/gu) || [];
+  function metodo(g) {
+    if (!g.tarea || !g.enunciado) return [];
+    const enTarea = new Set(palabras(g.tarea));
+    return frases(g.enunciado).filter((f) => { const p = palabras(f); return p.filter((w) => enTarea.has(w)).length < 0.7 * p.length; });
+  }
+
   function pintaRejilla(g, sol) {
     const sv = document.createElement('div');
     sv.className = 'sv' + (g.clase ? ' ' + g.clase : '');
@@ -136,13 +193,15 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
         sv.appendChild(l);
         return;
       }
-      f.forEach((it) => {
+      f.forEach((it, j) => {
         let x;
-        if (it.lbl !== undefined) { x = document.createElement('span'); x.className = 'lbl'; x.textContent = it.lbl; }
-        else if (it.sel) {   // en papel, las opciones se rodean; si son largas, una por línea
+        if (it.lbl !== undefined) { x = document.createElement('span'); x.className = 'lbl' + (j > 0 ? ' medio' : ''); x.textContent = it.lbl; }
+        else if (it.sel) {   // en papel, las opciones se rodean: cortas, en una línea; largas, una debajo de otra
           const ops = it.sel.filter((o) => o !== '?'), larga = ops.some((o) => o.length > 14);
           x = document.createElement('div'); x.className = 'c sel' + (larga ? ' larga' : '') + (it.clase ? ' ' + it.clase : '');
-          x.textContent = sol ? it.c : ops.join(larga ? '\n' : ' / ');
+          if (sol) x.textContent = it.c;
+          else if (larga) ops.forEach((o) => { const s = document.createElement('span'); s.className = 'op'; s.textContent = o; x.appendChild(s); });
+          else x.textContent = ops.map((o) => o.replace(/ /g, ' ')).join(' / ');
         }
         else if (it.c !== undefined) { x = document.createElement('div'); x.className = 'c' + (it.clase ? ' ' + it.clase : ''); x.textContent = sol ? it.c : ''; }
         else {
@@ -158,31 +217,127 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
     return sv;
   }
 
-  function pintaHoja(semilla, ejs, titulo, sol) {
+  function pintaEjercicio(e, i, sol) {
+    const g = e.g;
+    const d = document.createElement('div');
+    d.className = 'ej-hoja' + (e.tipo.ancho ? ' ancho' : '');
+    d.innerHTML = '<div class="cab"><span class="num"></span><span class="tit"></span></div><p class="tarea"></p>';
+    d.querySelector('.num').textContent = i + 1;
+    d.querySelector('.tit').textContent = e.tipo.t;
+    pintaMarcas(d.querySelector('.tarea'), g.tarea || g.enunciado);
+    const m = examen || sol ? [] : metodo(g);
+    if (m.length) {
+      const c = document.createElement('div');
+      c.className = 'metodo';
+      c.innerHTML = '<b>Cómo se hace</b><ul></ul>';
+      m.forEach((f) => { const li = document.createElement('li'); li.textContent = f; c.querySelector('ul').appendChild(li); });
+      d.appendChild(c);
+    }
+    d.appendChild(pintaRejilla(g, sol));
+    if (sol) { const r = document.createElement('p'); r.className = 'resp'; r.textContent = String(typeof g.correcto === 'function' ? g.correcto() : (g.correcto || '')).replace(/^Correcto[:.]\s*/, ''); d.appendChild(r); }
+    return d;
+  }
+
+  /* Cada rejilla se ajusta a su recuadro: la primera columna (los rótulos de las filas) se ensancha
+     hasta su rótulo más largo, como mucho hasta 300 px (600 en un recuadro a todo el ancho; más largo,
+     pasa a dos líneas), y el zoom
+     encoge la rejilla si no cabe a lo ancho. Zoom máximo .4; los cronogramas, .66, para escribir y
+     colorear las casillas. En un recuadro a todo el ancho, las demás columnas se ensanchan (hasta
+     1,6 veces) para que el texto no se parta sin necesidad. Se mide con un canvas, en px de la
+     rejilla (antes del zoom). */
+  const ZOOM = 0.4, ZOOM_PLAN = 0.66, TOPE = 300, MIN_FR = 400;
+  const lienzo = document.createElement('canvas').getContext('2d');
+  function ajustaRejilla(d, g) {
+    const sv = d.querySelector('.sv');
+    if (!sv || !g.columnas) return;
+    const p = g.columnas.replace(/repeat\((\d+),\s*([^)]+)\)/g, (m, n, v) => Array(+n).fill(v.trim()).join(' ')).trim().split(/\s+/);
+    if (!p.every((x) => /^\d+(\.\d+)?px$/.test(x) || x === '1fr')) return;
+    const rotulos = g.filas.filter((f) => !f.linea && f[0] && f[0].lbl).map((f) => f[0].lbl);
+    const lbl = sv.querySelector('.lbl:not(.medio)');
+    if (rotulos.length && lbl) {
+      const ls = getComputedStyle(lbl);
+      lienzo.font = ls.fontWeight + ' ' + ls.fontSize + ' "Plus Jakarta Sans"';
+      const necesita = Math.ceil(Math.max(...rotulos.map((t) => lienzo.measureText(t).width))) + parseFloat(ls.paddingRight) + 4;
+      p[0] = Math.max(parseFloat(p[0]), Math.min(necesita, d.classList.contains('ancho') ? 2 * TOPE : TOPE)) + 'px';
+    }
+    const plan = sv.classList.contains('plan');
+    const gap = parseFloat(getComputedStyle(sv).columnGap) || 0;
+    const cs = getComputedStyle(d);
+    const ancho = d.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    const fijo = parseFloat(p[0]) + gap * (p.length - 1);
+    const resto = p.slice(1).reduce((s, x) => s + (x === '1fr' ? MIN_FR : parseFloat(x)), 0);
+    if (d.classList.contains('ancho') && !plan && resto > 0) {
+      const f = Math.min(1.6, (ancho / ZOOM - fijo) / resto);
+      if (f > 1) for (let k = 1; k < p.length; k++) if (p[k] !== '1fr') p[k] = Math.floor(parseFloat(p[k]) * f) + 'px';
+    }
+    sv.style.gridTemplateColumns = p.join(' ');
+    const total = p.reduce((s, x) => s + (x === '1fr' ? MIN_FR : parseFloat(x)), 0) + gap * (p.length - 1);
+    sv.style.zoom = Math.min(plan ? ZOOM_PLAN : ZOOM, ancho / total).toFixed(3);
+  }
+
+  /* Normas de la primera página, una por línea; las de los cronogramas, solo si la hoja los lleva */
+  function normas(ejs) {
+    const n = ['No se puede usar ningún material.'];
+    if (ejs.some((e) => e.tipo.gen === 'planificacion')) n.push(
+      'En cada cronograma, escribe en la fila CPU el proceso que se ejecuta en cada unidad de tiempo y colorea su fila.',
+      'Respuesta = fin − llegada. Espera = respuesta − ejecución. Luego, las medias.',
+      'Empates: entra el que llegó antes (FIFO). En SRTF y en prioridades expulsivo sigue el que está. En Round Robin, el que llega entra en la cola antes que el que agota su quantum.',
+      'La prioridad 1 es la más alta.');
+    if (ejs.some((e) => e.tipo.gen !== 'planificacion')) n.push('Si una casilla trae varias opciones, rodea la correcta.');
+    return n;
+  }
+
+  function nuevaPagina(cont, semilla, titulo, sol, primera, ejs) {
     const h = document.createElement('article');
     h.className = 'hoja' + (sol ? ' sol' : '');
-    h.innerHTML =
-      '<header><div><p class="modulo">Sistemas Operativos Monopuesto · UT2 · Sistemas operativos</p><h2></h2></div>' +
-      '<div class="alumno"><b></b>' + (sol ? 'solucionario' : 'semilla') + '</div></header>' +
-      (sol ? '' : '<div class="datos"><span>Nombre y apellidos:</span><span>Grupo:</span><span>Fecha:</span></div>' +
-        '<p class="normas">Sin material. En cada cronograma escribe en la fila CPU el proceso que se ejecuta en cada unidad de tiempo, colorea su fila y calcula respuesta (fin − llegada), espera (respuesta − ejecución) y las medias. Reglas de empate: FIFO; en SRTF y prioridades expulsivo sigue el que está; en Round Robin, el que llega entra en la cola antes que el que agota su quantum. Prioridad 1 es la más alta.</p>') +
-      '<div class="lista"></div>' +
-      '<footer><span>Hoja generada con la semilla ' + semilla + '. Compruébala en casa en la presentación de la unidad, sección 2.5.</span><span>' + (sol ? 'Solucionario' : 'Ejercicios: ' + ejs.length) + '</span></footer>';
-    h.querySelector('h2').textContent = titulo + (sol ? ' · Solucionario' : '');
-    h.querySelector('.alumno b').textContent = semilla;
-    const lista = h.querySelector('.lista');
-    ejs.forEach((e, i) => {
-      const g = e.g;
-      const d = document.createElement('div');
-      d.className = 'ej-hoja' + (e.tipo.ancho ? ' ancho' : '');
-      d.innerHTML = '<div class="cab"><span class="num">' + (i + 1) + '</span><span class="tit"></span></div><p class="enun"></p>';
-      d.querySelector('.tit').textContent = e.tipo.t;
-      d.querySelector('.enun').textContent = (examen && g.tarea) || g.enunciado || '';
-      d.appendChild(pintaRejilla(g, sol));
-      if (sol) { const r = document.createElement('p'); r.className = 'resp'; r.textContent = String(typeof g.correcto === 'function' ? g.correcto() : (g.correcto || '')).replace(/^Correcto[:.]\s*/, ''); d.appendChild(r); }
-      lista.appendChild(d);
-    });
+    if (primera) {
+      h.innerHTML =
+        '<header><div><p class="modulo">Sistemas Operativos Monopuesto · UT2 · Sistemas operativos</p><h2></h2></div>' +
+        '<div class="alumno"><b></b>' + (sol ? 'solucionario' : 'semilla') + '</div></header>' +
+        (sol ? '' : '<div class="datos"><span>Nombre y apellidos:</span><span>Grupo:</span><span>Fecha:</span></div>' +
+          '<div class="normas"><ul><li class="cuantos"></li></ul></div>');
+      h.querySelector('h2').textContent = titulo + (sol ? ' · Solucionario' : '');
+      h.querySelector('.alumno b').textContent = semilla;
+      if (!sol) normas(ejs).forEach((t) => { const li = document.createElement('li'); li.textContent = t; h.querySelector('.normas ul').appendChild(li); });
+    } else {
+      h.innerHTML = '<header class="sigue"><p class="modulo"></p>' + (sol ? '' : '<span class="nombre">Nombre:</span>') + '</header>';
+      h.querySelector('.modulo').textContent = 'SOM · UT2 · ' + titulo + (sol ? ' · Solucionario' : '');
+    }
+    h.insertAdjacentHTML('beforeend', '<div class="lista"></div><footer><span class="donde"></span><span class="pie"></span></footer>');
+    cont.appendChild(h);
     return h;
+  }
+
+  /* Reparte los ejercicios en páginas: cada uno entra en la página actual si cabe entero y, si no,
+     empieza la siguiente. Se mide con la hoja ya pintada, así que hace falta tener las fuentes. */
+  function pintaHojas(cont, semilla, ejs, titulo, sol) {
+    const pags = [nuevaPagina(cont, semilla, titulo, sol, true, ejs)];
+    const cuantos = pags[0].querySelector('.cuantos');
+    if (cuantos) cuantos.textContent = 'Esta hoja tiene ' + ejs.length + ' ejercicios en 0 páginas.';   // se completa al final; misma longitud
+    ejs.forEach((e, i) => {
+      const d = pintaEjercicio(e, i, sol);
+      let lista = pags[pags.length - 1].querySelector('.lista');
+      lista.appendChild(d);
+      ajustaRejilla(d, e.g);
+      // por la posición del recuadro (con el zoom de la rejilla, scrollHeight no es fiable); 6 px de margen para la impresora
+      if (lista.children.length > 1 && d.getBoundingClientRect().bottom > lista.getBoundingClientRect().bottom - 6) {
+        d.remove();
+        pags.push(nuevaPagina(cont, semilla, titulo, sol, false, ejs));
+        pags[pags.length - 1].querySelector('.lista').appendChild(d);
+      }
+    });
+    if (cuantos) cuantos.textContent = 'Esta hoja tiene ' + ejs.length + (ejs.length > 1 ? ' ejercicios' : ' ejercicio') + ' en ' + pags.length + (pags.length > 1 ? ' páginas.' : ' página.');
+    pags.forEach((p, k) => {
+      p.querySelector('.donde').textContent = (sol ? 'Solucionario · ' : '') + 'Semilla ' + semilla + ' · Página ' + (k + 1) + ' de ' + pags.length;
+      const pie = p.querySelector('.pie');
+      if (sol) return;
+      if (k < pags.length - 1) { pie.className = 'pie sigue'; pie.textContent = (examen ? 'El examen' : 'La hoja') + ' continúa en la página siguiente →'; }
+      else {
+        pie.className = 'pie fin';
+        pie.textContent = examen ? 'Fin del examen. Repasa que no te has dejado ninguna casilla.'
+          : 'Fin de la hoja. Compruébala en casa en la presentación de la unidad, sección 2.5.';
+      }
+    });
   }
 
   function leePlan() { return TIPOS.map((t) => ({ k: t.k, n: Math.max(0, Math.min(6, parseInt($('#n_' + t.k).value, 10) || 0)) })).filter((p) => p.n > 0); }
@@ -195,8 +350,8 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
     const cont = $('#hojas');
     cont.innerHTML = '';
     if (!plan.length) { cont.innerHTML = '<p class="vacio">Elige al menos un tipo de ejercicio.</p>'; return; }
-    cont.appendChild(pintaHoja(semilla, generaHoja(semilla, plan, titulo), titulo, false));
-    if (sol) cont.appendChild(pintaHoja(semilla, generaHoja(semilla, plan, titulo), titulo, true));
+    pintaHojas(cont, semilla, generaHoja(semilla, plan, titulo), titulo, false);
+    if (sol) pintaHojas(cont, semilla, generaHoja(semilla, plan, titulo), titulo, true);
     const q = new URLSearchParams();
     q.set('t', titulo); q.set('semilla', semilla); if (sol) q.set('sol', '1'); if (examen) q.set('examen', '1');
     plan.forEach((p) => q.set(p.k, p.n));
@@ -218,7 +373,9 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
   if ([...q.keys()].some((k) => TIPOS.some((t) => t.k === k))) TIPOS.forEach((t) => { $('#n_' + t.k).value = q.has(t.k) ? q.get(t.k) : 0; });
   $('#generar').addEventListener('click', generar);
   $('#imprimir').addEventListener('click', () => window.print());
-  generar();
+  // la paginación mide la hoja pintada: primero las fuentes
+  const fuentes = ['400', '600', '700', '800'].map((w) => w + ' 16px "Plus Jakarta Sans"').concat(['400 16px "JetBrains Mono"', '600 16px "JetBrains Mono"']);
+  Promise.all(fuentes.map((f) => document.fonts.load(f))).catch(() => {}).then(generar);
 })();
 </script>
 </body>
