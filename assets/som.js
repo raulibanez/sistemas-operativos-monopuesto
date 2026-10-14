@@ -63,8 +63,10 @@
    *                                                     tiene propio: {titulo, ayuda, filtro, max, lee(v) -> error o null},
    *                                                     y generar recibe lo escrito en cfg.numero)
    *                {c:'valor', clase, max, filtro, n, id, expl, cmp, span}   casilla que rellena el alumno
- *   Cada generador devuelve además `tarea` (enunciado corto, solo lo que se pide) para la hoja de examen
- *   en papel, y los datos con `pista: true` solo se imprimen en la hoja de práctica.
+ *   Cada generador devuelve además `tarea` (enunciado corto, solo lo que se pide) para las hojas en papel,
+ *   y los datos con `pista: true` solo se imprimen en la hoja de práctica. En la tarea, ⟪…⟫ marca el verbo
+ *   (sale subrayado y en negrita) y ⟦…⟧ los datos (en negrita: números, bases y unidades de origen y destino, operación); de momento solo en los generadores de la UT1,
+ *   porque las hojas de la UT2 y la UT3 escriben la tarea tal cual.
    *                {sel:['+','−'], c:'−', expl}          botón que alterna entre opciones
    *              o {linea:true} para la raya de la operación
    *   n          orden de resolución de las casillas (menor primero); sin n, orden de aparición
@@ -215,7 +217,7 @@
           const w = ne + 1 + nf, res = numES(suma);
           return {
             enunciado: 'Escribe el peso de cada posición, multiplica por el bit y suma. A la derecha de la coma, cada peso es la mitad del anterior. Coma o punto, da igual.',
-            tarea: 'Pasa el número binario a decimal.',
+            tarea: '⟪Pasa⟫ el número ⟦binario⟧ a ⟦decimal⟧.',
             columnas: `120px repeat(${ne}, 74px) 28px repeat(${nf}, 96px)`, clase: 'compacta',
             filas: [fBits, fPos, fPeso, fProd, { linea: true },
               [{ lbl: 'decimal' }, { c: res, clase: 'num dec', max: 7, filtro: /[^0-9.,]/g, span: w, n: 300, cmp: (v) => aNum(v) === suma,
@@ -229,7 +231,7 @@
         const t = tablaPesos(b.split(''), 2);
         return {
           enunciado: 'Escribe el peso de cada posición, multiplica por el bit y suma. Empieza por la derecha.',
-          tarea: 'Pasa el número binario a decimal.',
+          tarea: '⟪Pasa⟫ el número ⟦binario⟧ a ⟦decimal⟧.',
           columnas: `120px repeat(${bits}, 74px)`, clase: 'compacta',
           filas: t.filas,
           correcto: `Correcto: ${agrupa(b)} (2 = ${t.sumandos.join(' + ')} = ${n} (10`
@@ -263,7 +265,7 @@
             expl: `Leo los restos de abajo arriba: ${restos.slice().reverse().join(' ')} → ${b}. El primer resto es el bit de la derecha (el de menos peso)` }]);
         return {
           enunciado: 'Divide entre 2 hasta que el cociente sea 0. Cada fila empieza con el cociente de la anterior.',
-          tarea: `Pasa ${n} a binario.`,
+          tarea: `⟪Pasa⟫ ⟦${n}⟧ a ⟦binario⟧.`,
           columnas: '110px 36px 50px 40px 110px 80px 62px', clase: 'compacta mini micro',
           filas,
           espejo: (id, v) => v || '?',
@@ -301,7 +303,7 @@
             expl: `Los enteros leídos de arriba abajo, detrás de la coma: 0,${bits}. La parte entera sigue siendo 0` }]);
         return {
           enunciado: 'Multiplica por 2 y separa la parte entera. Sigue con la parte decimal hasta que quede 0.',
-          tarea: `Pasa ${numES(f)} a binario.`,
+          tarea: `⟪Pasa⟫ ⟦${numES(f)}⟧ a ⟦binario⟧.`,
           columnas: '130px 60px 40px 150px 80px 62px', clase: 'compacta',
           filas,
           espejo: (id, v) => { const y = aNum(v); return isNaN(y) ? '?' : numES(+(y - Math.floor(y)).toFixed(6)); },
@@ -354,7 +356,7 @@
             modo,
             cabecera: `${may(NOMBRE_BASE[bo])} → ${NOMBRE_BASE[bd]}`,
             enunciado: `Cada dígito son ${go} bits; júntalos y vuelve a agrupar de ${gd} en ${gd} desde la derecha. No se pasa por decimal.`,
-            tarea: `Pasa ${s} de ${NOMBRE_BASE[bo]} a ${NOMBRE_BASE[bd]}.`,
+            tarea: `⟪Pasa⟫ ⟦${s}⟧ de ⟦${NOMBRE_BASE[bo]}⟧ a ⟦${NOMBRE_BASE[bd]}⟧.`,
             columnas: `150px repeat(${w}, 46px)`, clase: 'compacta',
             filas: [
               [{ lbl: NOMBRE_BASE[bo] }, ...hueco(w - k * go), ...s.split('').map((d) => ({ d, clase: 'ancho', span: go }))],
@@ -383,7 +385,7 @@
             modo,
             cabecera: `Decimal → ${NOMBRE_BASE[base]}`,
             enunciado: `Pasa a binario dividiendo entre 2 y agrupa de ${gr} en ${gr} bits con la tabla. Así no hay que dividir entre ${base}.`,
-            tarea: `Pasa ${n} de decimal a ${NOMBRE_BASE[base]}.`,
+            tarea: `⟪Pasa⟫ ⟦${n}⟧ de ⟦decimal⟧ a ⟦${NOMBRE_BASE[base]}⟧.`,
             columnas: `170px repeat(${k}, 150px)`,
             filas: [
               [{ lbl: 'decimal' }, { d: String(n), clase: 'ancho', span: k }],
@@ -407,7 +409,7 @@
             modo,
             cabecera: `${NOMBRE_BASE[base][0].toUpperCase() + NOMBRE_BASE[base].slice(1)} → decimal`,
             enunciado: `Teorema fundamental: el valor de cada dígito por el peso de su posición (${base}ⁿ), y se suma.`,
-            tarea: `Pasa ${h} de ${NOMBRE_BASE[base]} a decimal.`,
+            tarea: `⟪Pasa⟫ ⟦${h}⟧ de ⟦${NOMBRE_BASE[base]}⟧ a ⟦decimal⟧.`,
             columnas: `130px repeat(${k}, 130px)`, clase: 'compacta', filas: t.filas,
             correcto: `Correcto: ${h} (${base} = ${t.sumandos.join(' + ')} = ${n} (10`
           };
@@ -422,7 +424,7 @@
             modo,
             cabecera: `Binario → ${NOMBRE_BASE[base]}`,
             enunciado: `Separa en grupos de ${gr} bits empezando por la derecha y traduce cada grupo con la tabla.`,
-            tarea: `Pasa el número binario a ${NOMBRE_BASE[base]}.`,
+            tarea: `⟪Pasa⟫ el número ⟦binario⟧ a ⟦${NOMBRE_BASE[base]}⟧.`,
             columnas: `170px repeat(${k}, 150px)`,
             filas: [
               [{ lbl: 'binario' }, { d: b, clase: 'ancho', span: k }],
@@ -443,7 +445,7 @@
           modo,
           cabecera: `${NOMBRE_BASE[base][0].toUpperCase() + NOMBRE_BASE[base].slice(1)} → binario`,
           enunciado: `Cada dígito se convierte en su grupo de ${gr} bits, con ceros a la izquierda si hace falta.`,
-          tarea: `Pasa ${s} de ${NOMBRE_BASE[base]} a binario.`,
+          tarea: `⟪Pasa⟫ ⟦${s}⟧ de ⟦${NOMBRE_BASE[base]}⟧ a ⟦binario⟧.`,
           columnas: `170px repeat(${k}, 150px)`,
           filas: [
             [{ lbl: NOMBRE_BASE[base] }, ...s.split('').map((d) => ({ d, clase: 'ancho' }))],
@@ -485,7 +487,7 @@
         for (let i = 0; i < w; i++) { fA.push({ d: i >= w - la ? A[i] : '' }); fB.push({ d: i >= w - lb ? B[i] : '' }); }
         return {
           enunciado: 'Rellena los acarreos y el resultado, columna a columna, empezando por la derecha.',
-          tarea: 'Suma los dos números binarios.',
+          tarea: '⟪Suma⟫ los dos números binarios.',
           columnas: `170px repeat(${w}, 86px)`,
           filas: [fLleva, fA, fB, { linea: true }, fS],
           correcto: `Correcto: ${a} + ${b} = ${s}, es decir ${agrupa(S)} en binario.`,
@@ -527,7 +529,7 @@
         }
         const g = {
           enunciado: 'Resta columna a columna desde la derecha. Si en una columna no puedes, pon un 1 delante del de arriba y llévate 1: apúntalo en la columna siguiente, debajo del de abajo, y allí réstalo junto con él. Fíjate antes en cuál de los dos números es mayor.',
-          tarea: 'Resta los dos números binarios y pon el signo del resultado.',
+          tarea: '⟪Resta⟫ los dos números binarios y ⟪rodea⟫ el signo del resultado.',
           columnas: `150px 62px repeat(${w}, 86px)`,
           invertido: false,
           correcto: neg ? `Correcto: ${a} − ${b} = −(${b} − ${a}) = −${M - S}, es decir −${agrupa(bin(M - S))} en binario.` : `Correcto: ${a} − ${b} = ${a - b}, es decir ${agrupa(bin(a - b))} en binario.`,
@@ -587,7 +589,7 @@
         const filas = op === 'NOT' ? [fA, { linea: true }, fR] : [fA, fB, { linea: true }, fR];
         return {
           enunciado: op === 'NOT' ? 'NOT trabaja con un solo número: invierte cada bit.' : `Aplica ${op} bit a bit: cada columna se opera por separado, sin acarreos. ${ops[op].regla}.`,
-          tarea: `Calcula ${op === 'NOT' ? 'NOT A' : 'A ' + op + ' B'} bit a bit.`,
+          tarea: `⟪Calcula⟫ ${op === 'NOT' ? '⟦NOT⟧ A' : 'A ⟦' + op + '⟧ B'} bit a bit.`,
           columnas: `130px repeat(${bits}, 74px)`, clase: 'compacta',
           filas,
           correcto: `Correcto: ${op === 'NOT' ? 'NOT ' + A : A + ' ' + op + ' ' + B} = ${r}`
@@ -620,7 +622,7 @@
         }
         return {
           enunciado: 'Complemento a 1: invierte todos los bits. Complemento a 2: suma 1 al complemento a 1 (empieza por la derecha y lleva el acarreo).',
-          tarea: 'Calcula el complemento a 1 y el complemento a 2 del número.',
+          tarea: '⟪Calcula⟫ el complemento a 1 y el complemento a 2 del número.',
           columnas: `150px repeat(${bits}, 74px)`, clase: 'compacta',
           filas: [fN, f1, f2],
           correcto: `Correcto: C1(${N}) = ${C1} y C2 = ${C2}. Truco: de derecha a izquierda se copian los bits hasta el primer 1 incluido, y se invierten los demás.`
@@ -688,7 +690,7 @@
           expl: neg ? `No sobró ningún 1: ${res}, leído con signo, es negativo (empieza por 1). Le hago el C2 para saber cuánto vale: ${bin(b - a, bits)} = ${b - a}, así que vale −${b - a}` : `Sobró un 1 que se descarta; ${res} es ${a - b}` }];
         return {
           enunciado: 'Complemento a 2 del sustraendo, suma con el minuendo y decide qué pasa con el bit que sobra.',
-          tarea: 'Calcula A − B en complemento a 2.',
+          tarea: '⟪Calcula⟫ A − B en complemento a 2.',
           columnas: `130px repeat(${bits + 1}, 62px)`, clase: 'compacta mini',
           filas: [fA0, fB, { linea: true, clase: 'suave' }, f1, f2, { linea: true, clase: 'suave' }, fL, fA, fC, { linea: true }, [...fS, ...cel], fD],
           espejo: (id, v) => v || '·',
@@ -713,7 +715,7 @@
         if (modo === 'calcular') {
           return {
             enunciado: `Paridad ${tipo}: cuenta los unos del dato y añade a la izquierda el bit que haga que el total de unos sea ${tipo}.`,
-            tarea: `Añade al dato el bit de paridad ${tipo}.`,
+            tarea: `⟪Añade⟫ al dato el bit de paridad ⟦${tipo}⟧.`,
             columnas: '190px repeat(8, 64px)', clase: 'compacta',
             filas: [
               [{ lbl: 'dato (7 bits)' }, { d: '' }, ...dato.split('').map((d) => ({ d }))],
@@ -731,7 +733,7 @@
         const ut = unos(palabra);
         return {
           enunciado: `Se ha recibido esta palabra con paridad ${tipo} (el bit de paridad es el de la izquierda). ¿Ha llegado bien?`,
-          tarea: `Palabra recibida con paridad ${tipo} (el bit de paridad es el de la izquierda). ¿Ha llegado bien?`,
+          tarea: `⟪Comprueba⟫ si la palabra recibida, con paridad ⟦${tipo}⟧, ha llegado bien, y ⟪rodea⟫ la respuesta. El bit de paridad es el de la izquierda.`,
           columnas: '190px repeat(8, 64px)', clase: 'compacta',
           filas: [
             [{ lbl: 'recibido' }, ...palabra.split('').map((d, i) => ({ d, clase: i === 0 ? 'marca' : '' }))],
@@ -759,7 +761,7 @@
           const nB = rnd(2, 64), nb = nB * 8;
           return {
             enunciado: aBits ? 'Pasa de bytes a bits.' : 'Pasa de bits a bytes.',
-            tarea: aBits ? 'Pasa de bytes a bits.' : 'Pasa de bits a bytes.',
+            tarea: aBits ? '⟪Pasa⟫ de ⟦bytes⟧ a ⟦bits⟧.' : '⟪Pasa⟫ de ⟦bits⟧ a ⟦bytes⟧.',
             columnas: '190px 200px 140px', clase: 'compacta',
             filas: [
               [{ lbl: 'dato' }, { d: aBits ? String(nB) : String(nb), clase: 'ancho' }, { d: aBits ? 'bytes' : 'bits', clase: 'peq' }],
@@ -791,7 +793,7 @@
           const cmpExpr = (v) => validas.includes(normU(v));
           return {
             enunciado: `Pasa ${k} ${U[i]} a ${U[j]}. Cada salto entre unidades vecinas es multiplicar o dividir por 1024 (2¹⁰). Escribe la expresión, sin calcularla.`,
-            tarea: `Pasa ${k} ${U[i]} a ${U[j]}. Escribe la expresión, sin calcularla.`,
+            tarea: `⟪Pasa⟫ ⟦${k} ${U[i]}⟧ a ⟦${U[j]}⟧. ⟪Escribe⟫ la expresión, sin calcularla.`,
             columnas: '150px 470px 90px', clase: 'compacta',
             filas: [
               [{ lbl: 'dato' }, { d: `${k} ${U[i]}`, clase: 'ancho' }, { d: `a ${U[j]}`, clase: 'peq' }],
@@ -812,7 +814,7 @@
         const gibTxt = numES(gib.toFixed(1));
         return {
           enunciado: `El fabricante anuncia ${n} ${enTB ? 'TB' : 'GB'} (prefijos decimales) y el sistema mide en GiB (2³⁰ bytes). Este modo se hace con calculadora.`,
-          tarea: `El fabricante anuncia ${n} ${enTB ? 'TB' : 'GB'}. ¿Cuántos GiB muestra el sistema?`,
+          tarea: `El fabricante anuncia ⟦${n} ${enTB ? 'TB' : 'GB'}⟧. ⟪Calcula⟫ cuántos ⟦GiB⟧ muestra el sistema.`,
           columnas: '210px 330px 110px', clase: 'compacta',
           filas: [
             [{ lbl: 'anunciado' }, { d: `${n} ${enTB ? 'TB' : 'GB'}`, clase: 'ancho' }, { d: '' }],
@@ -848,7 +850,7 @@
         if (modo === 'codigo') {
           return {
             enunciado: 'Escribe el código ASCII del carácter, en decimal. Cuenta desde el ancla de su grupo: «0» = 48, «A» = 65 y «a» = 97.',
-            tarea: `Escribe el código ASCII de «${ch}» en decimal.`,
+            tarea: `⟪Escribe⟫ el código ASCII de ⟦«${ch}»⟧ en ⟦decimal⟧.`,
             columnas: '190px 200px',
             filas: [
               [{ lbl: 'carácter' }, { d: ch, clase: 'ancho' }],
@@ -861,7 +863,7 @@
         }
         return {
           enunciado: 'Escribe el carácter que tiene este código ASCII. Mira en qué grupo cae y cuenta desde su ancla: «0» = 48, «A» = 65 y «a» = 97.',
-          tarea: `¿Qué carácter tiene el código ASCII ${cod}?`,
+          tarea: `⟪Escribe⟫ el carácter que tiene el código ASCII ⟦${cod}⟧.`,
           columnas: '190px 200px',
           filas: [
             [{ lbl: 'código' }, { d: String(cod), clase: 'ancho' }],
@@ -899,7 +901,7 @@
           : a.empate ? `queda justo en medio y se redondea para que acabe en 0: ${a.sube ? 'se suma 1' : 'se deja como está'}` : 'se suma 1';
         return {
           enunciado: 'Binario, normalizar (1,… × 2ᵉ), exponente + 127 y mantisa de 23 bits sin el 1 implícito.',
-          tarea: `Representa ${a.txt} en IEEE 754 de simple precisión.`,
+          tarea: `⟪Representa⟫ ⟦${a.txt}⟧ en IEEE 754 de simple precisión.`,
           // columnas: etiqueta, signo, exponente y mantisa; las casillas de los tres campos van en la
           // misma columna que su trozo del resultado, que se monta solo en la última fila
           columnas: '190px 80px 150px 1fr', clase: 'compacta mini',
