@@ -14,8 +14,10 @@
    semilla y el mismo título dan siempre la misma hoja. El profesor reparte a toda la
    clase una hoja con una semilla nueva; los alumnos generan las que quieran. Con
    solucionario. Cada ejercicio empieza por la tarea, con el verbo subrayado y los datos
-   en negrita; la hoja de práctica añade cómo se hace y pistas, y la de examen deja solo
-   la tarea. Pautas de los exámenes adaptados, para toda la clase. */
+   en negrita; la hoja de práctica añade cómo se hace, pistas y las casillas de cada paso, y
+   la de examen deja solo la tarea, los datos y, al pie, el resultado: los pasos (marcados con
+   paso en som.js) no se ven, pero dejan su hueco para las cuentas, y todos los recuadros miden
+   lo mismo. Pautas de los exámenes adaptados, para toda la clase. */
 body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; margin: 0; }
 .panel { background: var(--navy); color: var(--white); padding: 22px 32px; display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: flex-end; font-size: 15px; }
 .panel h1 { font-size: 20px; font-weight: 800; margin: 0 0 4px; width: 100%; }
@@ -28,6 +30,7 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
 .panel .tipos label { flex-direction: row; align-items: center; gap: 8px; font-weight: 500; }
 .panel .tipos input { width: 54px; padding: 5px 6px; }
 .panel .btn { padding: 12px 22px; font-size: 16px; }
+.panel .btn-primary:hover { background: var(--sky); }   /* en som.css se oscurece a navy, el color del panel, y el botón desaparece */
 .panel .check { flex-direction: row; align-items: center; gap: 8px; }
 .aviso { padding: 10px 32px; font-size: 14px; color: var(--muted); background: #fff; border-bottom: 1px solid var(--line); }
 .aviso code { font-family: var(--mono); background: var(--bg); padding: 1px 6px; border-radius: 4px; }
@@ -70,6 +73,15 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
 .ej-hoja .sv .c.sel { font-size: 26px; color: var(--muted); white-space: nowrap; }
 .ej-hoja .sv .c.sel.larga { font-size: 26px; line-height: 1.2; height: auto; min-height: var(--cel); padding: 6px 10px; white-space: pre-line; }
 .ej-hoja .sv .d[data-espejo] { color: var(--navy); }
+/* hoja de examen: datos arriba, resultado al pie con casillas del mismo alto en todos, y en medio el hueco
+   para las cuentas, con los pasos dentro sin que se vean */
+.ej-hoja.examen { display: flex; flex-direction: column; }
+.ej-hoja.examen .hueco { flex: 1 1 auto; visibility: hidden; }
+.ej-hoja .sv .paso { visibility: hidden; }
+.ej-hoja.examen .sv.resultado { --cel: 72px; }
+/* y los datos, todos con la misma letra: en la diapositiva cada rejilla tiene su tamaño (la suma, grande; octal ↔ hexadecimal, pequeña) */
+.ej-hoja.examen .sv.entrada { --cel: 58px; }
+.hoja .ej-hoja.examen .sv.entrada .d:not(.peq) { font-size: 40px; }
 /* rótulos de las filas más grandes que en la diapositiva y en negro; los de mitad de fila («resto», «entero»), pegados a su casilla */
 .hoja .ej-hoja .sv .lbl { font-size: var(--fs-lbl, 27px); color: var(--ink); line-height: 1.1; }
 .hoja .ej-hoja .sv .lbl.medio { text-align: left; padding: 0 0 0 4px; font-size: 24px; }
@@ -103,12 +115,12 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
   <label>Título de la hoja <input type="text" id="titulo" value="Práctica 1.10 · Ejercicios de representación"></label>
   <label>Semilla (seed) <input type="number" id="semilla" min="0" max="999999999" value="1"></label>
   <label class="check"><input type="checkbox" id="sol"> Añadir el solucionario al final</label>
-  <label class="check"><input type="checkbox" id="examen"> Hoja de examen: solo la tarea, sin pistas</label>
+  <label class="check"><input type="checkbox" id="examen"> Hoja de examen: sin pistas ni pasos, solo los datos y el resultado</label>
   <button class="btn btn-primary" id="generar">Generar</button>
   <button class="btn btn-ghost" id="imprimir" style="color:#fff;border-color:rgba(255,255,255,.5)">Imprimir o guardar en PDF</button>
   <div class="tipos" id="tipos"></div>
 </div>
-<p class="aviso">La <b>semilla</b> (<i>seed</i>) es el número del que salen los ejercicios: la misma semilla con el mismo título da siempre la misma hoja, y cualquier otro número, o cualquier otro título, da otra distinta. Genera las que quieras para practicar y compruébalas con el solucionario. En las dos hojas, cada ejercicio empieza por la tarea, con el verbo subrayado y los datos en negrita; la de práctica añade cómo se hace y pistas, y la de examen deja solo la tarea. En clase, el profesor reparte a todos una hoja con una semilla que no se ha usado antes; el examen se genera igual. La dirección de la página guarda la configuración: <code id="url"></code></p>
+<p class="aviso">La <b>semilla</b> (<i>seed</i>) es el número del que salen los ejercicios: la misma semilla con el mismo título da siempre la misma hoja, y cualquier otro número, o cualquier otro título, da otra distinta. Genera las que quieras para practicar y compruébalas con el solucionario. En las dos hojas, cada ejercicio empieza por la tarea, con el verbo subrayado y los datos en negrita; la de práctica añade cómo se hace, pistas y las casillas de cada paso, y la de examen deja solo los datos y las casillas del resultado, con un espacio en blanco para las cuentas. En clase, el profesor reparte a todos una hoja con una semilla que no se ha usado antes; el examen se genera igual. La dirección de la página guarda la configuración: <code id="url"></code></p>
 <div id="hojas"><p class="vacio">Pulsa Generar.</p></div>
 
 <script src="../assets/som.js"></script>
@@ -184,13 +196,23 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
     return frases(g.enunciado).filter((f) => { const p = palabras(f); return p.filter((w) => enTarea.has(w)).length < 0.7 * p.length; });
   }
 
-  function pintaRejilla(g, sol) {
+  /* Hoja de examen: el resultado de una fila marcada con junta, en una sola casilla; con una por dígito
+     se sabría cuántas cifras tiene */
+  function juntaFila(f) {
+    const cs = f.filter((it) => it.c !== undefined);
+    const resto = f.filter((it) => it.c === undefined);
+    resto.splice(f.indexOf(cs[0]), 0, { c: cs.map((it) => it.c).join(''), clase: cs[0].clase, span: cs.reduce((s, it) => s + (it.span || 1), 0) });
+    return resto;
+  }
+
+  function pintaRejilla(g, sol, filas) {
     const sv = document.createElement('div');
     sv.className = 'sv' + (g.clase ? ' ' + g.clase : '');
     sv.style.gridTemplateColumns = g.columnas || '';
     const valores = {};
     g.filas.forEach((f) => { if (!f.linea) f.forEach((it) => { if (it.c !== undefined && it.id) valores[it.id] = it.c; }); });
-    g.filas.forEach((f) => {
+    const oculta = examen && !sol;   // hoja de examen, no el solucionario
+    (filas || g.filas).forEach((f) => {
       if (f.linea) {
         const l = document.createElement('div');
         l.className = 'linea' + (f.clase ? ' ' + f.clase : '');
@@ -198,9 +220,9 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
         sv.appendChild(l);
         return;
       }
-      f.forEach((it, j) => {
+      (oculta && f.junta ? juntaFila(f) : f).forEach((it, j) => {
         let x;
-        if (it.lbl !== undefined) { x = document.createElement('span'); x.className = 'lbl' + (j > 0 ? ' medio' : ''); x.textContent = it.lbl; }
+        if (it.lbl !== undefined) { x = document.createElement('span'); x.className = 'lbl' + (j > 0 ? ' medio' : ''); x.textContent = oculta && it.lblExamen ? it.lblExamen : it.lbl; }
         else if (it.sel) {   // en papel, las opciones se rodean; si son largas, una por línea
           const larga = it.sel.some((o) => o.length > 8);
           x = document.createElement('div'); x.className = 'c sel' + (larga ? ' larga' : '') + (it.clase ? ' ' + it.clase : '');
@@ -214,17 +236,33 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
           else x.textContent = it.d === 'pulsa para cambiar' ? (sol ? '' : 'rodea la correcta') : (it.d || '');
         }
         if (it.span) x.style.gridColumn = 'span ' + it.span;
+        if (oculta && it.paso) x.classList.add('paso');   // una casilla suelta de los pasos (el bit que sobra en la resta en C2)
         sv.appendChild(x);
       });
     });
     return sv;
   }
 
+  /* Hoja de examen: arriba los datos y, pegado al pie del recuadro, el resultado; entre los dos, el hueco
+     para las cuentas, con los pasos ocultos dentro para que mida al menos lo que ocupaban. Sin rayas. */
+  function pintaExamen(d, g) {
+    const visibles = g.filas.filter((f) => !f.linea && !f.paso);
+    const k = visibles.findIndex((f) => f.some((it) => it.c !== undefined || it.espejo));
+    const datos = k < 0 ? visibles : visibles.slice(0, k), res = k < 0 ? [] : visibles.slice(k);
+    const pasos = g.filas.filter((f) => !f.linea && f.paso);
+    if (datos.length) { const r = pintaRejilla(g, false, datos); r.classList.add('entrada'); d.appendChild(r); }
+    const hueco = document.createElement('div');
+    hueco.className = 'hueco';
+    if (pasos.length) hueco.appendChild(pintaRejilla(g, false, pasos));
+    d.appendChild(hueco);
+    if (res.length) { const r = pintaRejilla(g, false, res); r.classList.add('resultado'); d.appendChild(r); }
+  }
+
   function pintaEjercicio(e, i, sol) {
     const g = e.g;
     if (sol && g.valida && g.valida() && g.acciones) g.acciones[0].accion({ repinta() {} });   // p. ej. invertir la resta
     const d = document.createElement('div');
-    d.className = 'ej-hoja' + (e.tipo.ancho ? ' ancho' : '');
+    d.className = 'ej-hoja' + (e.tipo.ancho ? ' ancho' : '') + (examen && !sol ? ' examen' : '');
     d.innerHTML = '<div class="cab"><span class="num"></span><span class="tit"></span></div><p class="tarea"></p>';
     d.querySelector('.num').textContent = i + 1;
     d.querySelector('.tit').textContent = e.tipo.t;
@@ -237,7 +275,8 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
       m.forEach((f) => { const li = document.createElement('li'); li.textContent = f; c.querySelector('ul').appendChild(li); });
       d.appendChild(c);
     }
-    d.appendChild(pintaRejilla(g, sol));
+    if (examen && !sol) pintaExamen(d, g);
+    else d.appendChild(pintaRejilla(g, sol));
     if (sol) { const r = document.createElement('p'); r.className = 'resp'; r.textContent = String(typeof g.correcto === 'function' ? g.correcto() : (g.correcto || '')).replace(/^Correcto[:.]\s*/, ''); d.appendChild(r); }
     return d;
   }
@@ -250,12 +289,13 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
   const lienzo = document.createElement('canvas').getContext('2d');
   function midePx(t) { lienzo.font = '600 ' + FS_LBL + 'px "Plus Jakarta Sans"'; return lienzo.measureText(t).width; }
   function ajustaRotulos(d, g) {
-    const sv = d.querySelector('.sv');
-    if (!sv || !g.columnas) return;
+    const svs = d.querySelectorAll('.sv');   // en el examen, datos, pasos y resultado: las mismas columnas
+    if (!svs.length || !g.columnas) return;
+    const ex = d.classList.contains('examen');
     const p = g.columnas.replace(/repeat\((\d+),\s*([^)]+)\)/g, (m, n, v) => Array(+n).fill(v.trim()).join(' ')).trim().split(/\s+/);
     if (!p.every((x) => /^\d+(\.\d+)?px$/.test(x) || x === '1fr')) return;
     if (d.classList.contains('ancho')) for (let k = 1; k < p.length; k++) if (p[k] !== '1fr') p[k] = Math.round(parseFloat(p[k]) * 1.6) + 'px';   // a todo el ancho, casillas más anchas para escribir a mano
-    const rotulos = g.filas.filter((f) => !f.linea && f[0] && f[0].lbl).map((f) => f[0].lbl);
+    const rotulos = g.filas.filter((f) => !f.linea && f[0] && f[0].lbl && !(ex && f.paso)).map((f) => (ex && f[0].lblExamen) || f[0].lbl);
     if (!rotulos.length) return;
     const cls = ' ' + (g.clase || '') + ' ';
     const gap = cls.includes(' mini ') ? 6 : cls.includes(' compacta ') ? 8 : 10;
@@ -267,8 +307,10 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
     const necesita = Math.ceil(Math.max(...rotulos.map(midePx))) + pad;
     const primera = Math.max(parseFloat(p[0]), Math.min(necesita, cabe, TOPE));
     p[0] = primera + 'px';
-    sv.style.gridTemplateColumns = p.join(' ');
-    if (necesita > primera && cabe < TOPE) sv.style.setProperty('--fs-lbl', Math.max(21, Math.floor(FS_LBL * (primera - pad) / (necesita - pad))) + 'px');
+    svs.forEach((sv) => {
+      sv.style.gridTemplateColumns = p.join(' ');
+      if (necesita > primera && cabe < TOPE) sv.style.setProperty('--fs-lbl', Math.max(21, Math.floor(FS_LBL * (primera - pad) / (necesita - pad))) + 'px');
+    });
   }
 
   function nuevaPagina(cont, semilla, titulo, sol, primera) {
@@ -280,7 +322,8 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
         '<div class="alumno"><b></b>' + (sol ? 'solucionario' : 'semilla') + '</div></header>' +
         (sol ? '' : '<div class="datos"><span>Nombre y apellidos:</span><span>Grupo:</span><span>Fecha:</span></div>' +
           '<div class="normas"><ul><li class="cuantos"></li><li>Puedes usar una calculadora básica, no científica.</li>' +
-          '<li>Escribe cada resultado en su casilla y rellena también las casillas de los pasos.</li>' +
+          (examen ? '<li>Haz las cuentas en el espacio en blanco de cada ejercicio y escribe el resultado en sus casillas.</li>'
+            : '<li>Escribe cada resultado en su casilla y rellena también las casillas de los pasos.</li>') +
           '<li>Si una casilla trae varias opciones separadas por «/», rodea la correcta.</li></ul></div>');
       h.querySelector('h2').textContent = titulo + (sol ? ' · Solucionario' : '');
       h.querySelector('.alumno b').textContent = semilla;
@@ -299,8 +342,15 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
     const pags = [nuevaPagina(cont, semilla, titulo, sol, true)];
     const cuantos = pags[0].querySelector('.cuantos');
     if (cuantos) cuantos.textContent = 'Esta hoja tiene ' + ejs.length + ' ejercicios en 0 páginas.';   // se completa al final; misma longitud
+    // hoja de examen: todos los recuadros con el alto del más alto, para que el tamaño no diga nada
+    let alto = 0;
+    if (examen && !sol) {
+      const lista = pags[0].querySelector('.lista');
+      ejs.forEach((e, i) => { const d = pintaEjercicio(e, i, sol); lista.appendChild(d); ajustaRotulos(d, e.g); alto = Math.max(alto, Math.ceil(d.getBoundingClientRect().height)); d.remove(); });
+    }
     ejs.forEach((e, i) => {
       const d = pintaEjercicio(e, i, sol);
+      if (alto) d.style.height = alto + 'px';
       let lista = pags[pags.length - 1].querySelector('.lista');
       lista.appendChild(d);
       ajustaRotulos(d, e.g);

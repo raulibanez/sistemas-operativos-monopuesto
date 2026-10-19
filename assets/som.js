@@ -84,6 +84,13 @@
   const aNum = (v) => parseFloat(String(v).replace(',', '.').replace('−', '-'));
   const unos = (s) => s.split('').filter((x) => x === '1').length;
   const NOMBRE_BASE = { 2: 'binario', 8: 'octal', 10: 'decimal', 16: 'hexadecimal' };
+  /* Para la hoja de examen en papel (ut01/hoja.html), que deja solo los datos y el resultado: paso() marca una
+   * fila (o una línea) de los pasos intermedios, que allí no se ve pero deja su hueco para las cuentas; una
+   * casilla suelta se marca con paso: true. junta() pone el resultado de la fila en una sola casilla, para que no
+   * se sepa cuántas cifras tiene, y lblExamen cambia en el examen un rótulo que dice cómo se hace. Los ejercicios
+   * interactivos no los usan. */
+  const paso = (f) => Object.assign(f, { paso: true });
+  const junta = (f) => Object.assign(f, { junta: true });
 
   /* Tabla de pesos: dígitos en una base -> decimal (binario y hexadecimal a decimal) */
   function tablaPesos(digs, base) {
@@ -104,9 +111,9 @@
       fProd.push({ c: String(prod), clase: 'num', max: 5, filtro: /[^0-9]/g, n: 200 + e,
         expl: dv === 0 ? `Posición ${e}: 0 × ${peso} = 0. Un 0 no aporta nada a la suma` : `Posición ${e}: ${dv} × ${peso} = ${prod}` });
     }
-    const filas = [fBits, fPos];
-    if (fVal) filas.push(fVal);
-    filas.push(fPeso, fProd, { linea: true });
+    const filas = [fBits, paso(fPos)];
+    if (fVal) filas.push(paso(fVal));
+    filas.push(paso(fPeso), paso(fProd), { linea: true });
     filas.push([{ lbl: 'decimal' }, { c: String(suma), clase: 'num', max: 6, filtro: /[^0-9]/g, span: w, n: 300,
       expl: `Sumo los productos distintos de cero: ${sumandos.join(' + ')} = ${suma}` }]);
     return { filas, suma, sumandos };
@@ -219,7 +226,7 @@
             enunciado: 'Escribe el peso de cada posición, multiplica por el bit y suma. A la derecha de la coma, cada peso es la mitad del anterior. Coma o punto, da igual.',
             tarea: '⟪Pasa⟫ el número ⟦binario⟧ a ⟦decimal⟧.',
             columnas: `120px repeat(${ne}, 74px) 28px repeat(${nf}, 96px)`, clase: 'compacta',
-            filas: [fBits, fPos, fPeso, fProd, { linea: true },
+            filas: [fBits, paso(fPos), paso(fPeso), paso(fProd), { linea: true },
               [{ lbl: 'decimal' }, { c: res, clase: 'num dec', max: 7, filtro: /[^0-9.,]/g, span: w, n: 300, cmp: (v) => aNum(v) === suma,
                 expl: `Sumo los productos distintos de cero: ${sumandos.join(' + ')} = ${res}` }]],
             correcto: `Correcto: ${ent},${fra} (2 = ${sumandos.join(' + ')} = ${res} (10`
@@ -248,7 +255,7 @@
         const pasos = [];
         let q = n;
         while (q > 0) { pasos.push({ q, c: Math.floor(q / 2), r: q % 2 }); q = Math.floor(q / 2); }
-        const filas = pasos.map((p, k) => [
+        const filas = pasos.map((p, k) => paso([
           k === 0 ? { d: String(n) } : { d: '', espejo: 'q' + (k - 1) },
           { d: ':', clase: 'op' }, { d: '2' }, { d: '=', clase: 'op' },
           { c: String(p.c), clase: 'num', id: 'q' + k, max: 3, filtro: /[^0-9]/g, n: 2 * k,
@@ -256,11 +263,11 @@
           { lbl: 'resto' },
           { c: String(p.r), n: 2 * k + 1,
             expl: p.r ? `${p.q} es impar: ${p.c} × 2 = ${2 * p.c} y sobra 1` : `${p.q} es par: ${p.c} × 2 = ${p.q} justo, resto 0` }
-        ]);
+        ]));
         const restos = pasos.map((p) => p.r);
         const b = bin(n);
         filas.push({ linea: true });
-        filas.push([{ lbl: 'restos de abajo arriba' },
+        filas.push([{ lbl: 'restos de abajo arriba', lblExamen: 'binario' },
           { c: b, clase: 'bin', max: b.length, filtro: /[^01]/g, span: 6, n: 999,
             expl: `Leo los restos de abajo arriba: ${restos.slice().reverse().join(' ')} → ${b}. El primer resto es el bit de la derecha (el de menos peso)` }]);
         return {
@@ -285,7 +292,7 @@
         const pasos = [];
         let x = f;
         while (x > 0 && pasos.length < 8) { const p = x * 2, e = Math.floor(p), fr = p - e; pasos.push({ x, p, e, fr }); x = fr; }
-        const filas = pasos.map((p, i) => [
+        const filas = pasos.map((p, i) => paso([
           i === 0 ? { d: numES(p.x), clase: 'dec' } : { d: '', espejo: 'p' + (i - 1), clase: 'dec' },
           { d: '× 2', clase: 'op' }, { d: '=', clase: 'op' },
           { c: numES(p.p), clase: 'num dec', id: 'p' + i, max: 8, filtro: /[^0-9.,]/g, n: 2 * i,
@@ -294,10 +301,10 @@
           { lbl: 'entero' },
           { c: String(p.e), n: 2 * i + 1,
             expl: p.e ? `${numES(p.p)} llega a 1: me quedo el 1 como dígito y sigo con la parte decimal, ${numES(p.fr)}` : `${numES(p.p)} no llega a 1: el dígito es 0 y sigo multiplicando ${numES(p.p)}` }
-        ]);
+        ]));
         const bits = pasos.map((p) => p.e).join('');
         filas.push({ linea: true });
-        filas.push([{ lbl: 'de arriba abajo' },
+        filas.push([{ lbl: 'de arriba abajo', lblExamen: 'binario' },
           { c: '0,' + bits, clase: 'bin', max: bits.length + 2, filtro: /[^01.,]/g, span: 5, n: 999,
             cmp: (v) => v.replace('.', ',') === '0,' + bits,
             expl: `Los enteros leídos de arriba abajo, detrás de la coma: 0,${bits}. La parte entera sigue siendo 0` }]);
@@ -360,14 +367,14 @@
             columnas: `150px repeat(${w}, 46px)`, clase: 'compacta',
             filas: [
               [{ lbl: NOMBRE_BASE[bo] }, ...hueco(w - k * go), ...s.split('').map((d) => ({ d, clase: 'ancho', span: go }))],
-              [{ lbl: `grupos de ${go}` }, ...hueco(w - k * go), ...s.split('').map((d, i) => { const v = parseInt(d, bo); return { c: bin(v, go), clase: 'bin', max: go, filtro: /[^01]/g, span: go, n: i,
-                expl: `${d} vale ${v}, que en ${go} bits es ${bin(v, go)}` + (v < (1 << (go - 1)) ? ' (con los ceros a la izquierda para completar el grupo)' : '') }; })],
-              [{ lbl: 'binario' }, { c: b, clase: 'bin', max: k * go, filtro: /[^01]/g, span: w, n: 100, cmp: (v) => v.replace(/^0+(?=.)/, '') === b,
-                expl: `Junto los grupos${b.length < k * go ? ' y quito los ceros de la izquierda que sobran' : ''}: ${b}` }],
-              [{ lbl: `grupos de ${gd}` }, ...hueco(w - kd * gd), ...grupos.map((g, i) => ({ c: g, clase: 'bin', max: gd, filtro: /[^01]/g, span: gd, n: 200 + kd - i,
-                expl: `Cuento de ${gd} en ${gd} desde la derecha: el grupo ${kd - i} es ${g}` + (i === 0 && rell !== b ? ' (le he puesto ceros a la izquierda para completarlo)' : '') }))],
-              [{ lbl: NOMBRE_BASE[bd] }, ...hueco(w - kd * gd), ...grupos.map((g, i) => { const v = parseInt(g, 2); return { c: v.toString(bd).toUpperCase(), clase: bd === 16 ? 'hex' : '', max: 1, filtro: bd === 16 ? /[^0-9a-fA-F]/g : /[^0-7]/g, span: gd, n: 300 + kd - i,
-                expl: `${g} en binario vale ${v}` + (v > 9 ? `, que en hexadecimal se escribe ${v.toString(16).toUpperCase()}` : '') }; })]
+              paso([{ lbl: `grupos de ${go}` }, ...hueco(w - k * go), ...s.split('').map((d, i) => { const v = parseInt(d, bo); return { c: bin(v, go), clase: 'bin', max: go, filtro: /[^01]/g, span: go, n: i,
+                expl: `${d} vale ${v}, que en ${go} bits es ${bin(v, go)}` + (v < (1 << (go - 1)) ? ' (con los ceros a la izquierda para completar el grupo)' : '') }; })]),
+              paso([{ lbl: 'binario' }, { c: b, clase: 'bin', max: k * go, filtro: /[^01]/g, span: w, n: 100, cmp: (v) => v.replace(/^0+(?=.)/, '') === b,
+                expl: `Junto los grupos${b.length < k * go ? ' y quito los ceros de la izquierda que sobran' : ''}: ${b}` }]),
+              paso([{ lbl: `grupos de ${gd}` }, ...hueco(w - kd * gd), ...grupos.map((g, i) => ({ c: g, clase: 'bin', max: gd, filtro: /[^01]/g, span: gd, n: 200 + kd - i,
+                expl: `Cuento de ${gd} en ${gd} desde la derecha: el grupo ${kd - i} es ${g}` + (i === 0 && rell !== b ? ' (le he puesto ceros a la izquierda para completarlo)' : '') }))]),
+              junta([{ lbl: NOMBRE_BASE[bd] }, ...hueco(w - kd * gd), ...grupos.map((g, i) => { const v = parseInt(g, 2); return { c: v.toString(bd).toUpperCase(), clase: bd === 16 ? 'hex' : '', max: 1, filtro: bd === 16 ? /[^0-9a-fA-F]/g : /[^0-7]/g, span: gd, n: 300 + kd - i,
+                expl: `${g} en binario vale ${v}` + (v > 9 ? `, que en hexadecimal se escribe ${v.toString(16).toUpperCase()}` : '') }; })])
             ],
             correcto: `Correcto: ${s} (${bo} = ${b} (2 = ${res} (${bd}`
           };
@@ -389,12 +396,12 @@
             columnas: `170px repeat(${k}, 150px)`,
             filas: [
               [{ lbl: 'decimal' }, { d: String(n), clase: 'ancho', span: k }],
-              [{ lbl: 'binario' }, { c: b, clase: 'bin', max: k * gr, filtro: /[^01]/g, span: k, n: 0,
-                expl: `Divisiones entre 2 y los restos de abajo arriba, como en el ejercicio Decimal a binario: ${n} = ${b}` }],
-              [{ lbl: `grupos de ${gr}` }, ...grupos.map((g, i) => ({ c: g, clase: 'bin', max: gr, filtro: /[^01]/g, n: 1 + k - i,
-                expl: `Cuento de ${gr} en ${gr} desde la derecha: el grupo ${k - i} es ${g}` + (i === 0 && rell !== b ? ' (le he puesto ceros a la izquierda para completarlo)' : '') }))],
-              [{ lbl: NOMBRE_BASE[base] }, ...grupos.map((g, i) => { const v = parseInt(g, 2); return { c: v.toString(base).toUpperCase(), clase: base === 16 ? 'hex' : '', max: 1, filtro: base === 16 ? /[^0-9a-fA-F]/g : /[^0-7]/g, n: 100 + k - i,
-                expl: `${g} en binario vale ${v}` + (v > 9 ? `, que en hexadecimal se escribe ${v.toString(16).toUpperCase()}` : '') }; })]
+              paso([{ lbl: 'binario' }, { c: b, clase: 'bin', max: k * gr, filtro: /[^01]/g, span: k, n: 0,
+                expl: `Divisiones entre 2 y los restos de abajo arriba, como en el ejercicio Decimal a binario: ${n} = ${b}` }]),
+              paso([{ lbl: `grupos de ${gr}` }, ...grupos.map((g, i) => ({ c: g, clase: 'bin', max: gr, filtro: /[^01]/g, n: 1 + k - i,
+                expl: `Cuento de ${gr} en ${gr} desde la derecha: el grupo ${k - i} es ${g}` + (i === 0 && rell !== b ? ' (le he puesto ceros a la izquierda para completarlo)' : '') }))]),
+              junta([{ lbl: NOMBRE_BASE[base] }, ...grupos.map((g, i) => { const v = parseInt(g, 2); return { c: v.toString(base).toUpperCase(), clase: base === 16 ? 'hex' : '', max: 1, filtro: base === 16 ? /[^0-9a-fA-F]/g : /[^0-7]/g, n: 100 + k - i,
+                expl: `${g} en binario vale ${v}` + (v > 9 ? `, que en hexadecimal se escribe ${v.toString(16).toUpperCase()}` : '') }; })])
             ],
             correcto: `Correcto: ${n} (10 = ${b} (2 = ${res} (${base}`
           };
@@ -428,10 +435,10 @@
             columnas: `170px repeat(${k}, 150px)`,
             filas: [
               [{ lbl: 'binario' }, { d: b, clase: 'ancho', span: k }],
-              [{ lbl: `grupos de ${gr}` }, ...grupos.map((g, i) => ({ c: g, clase: 'bin', max: gr, filtro: /[^01]/g, n: k - i,
-                expl: `Cuento de ${gr} en ${gr} desde la derecha: el grupo ${k - i} es ${g}` + (i === 0 && rell !== b ? ' (le he puesto ceros a la izquierda para completarlo)' : '') }))],
-              [{ lbl: NOMBRE_BASE[base] }, ...grupos.map((g, i) => { const v = parseInt(g, 2); return { c: v.toString(base).toUpperCase(), clase: base === 16 ? 'hex' : '', max: 1, filtro: base === 16 ? /[^0-9a-fA-F]/g : /[^0-7]/g, n: 100 + k - i,
-                expl: `${g} en binario vale ${v}` + (v > 9 ? `, que en hexadecimal se escribe ${v.toString(16).toUpperCase()}` : '') }; })]
+              paso([{ lbl: `grupos de ${gr}` }, ...grupos.map((g, i) => ({ c: g, clase: 'bin', max: gr, filtro: /[^01]/g, n: k - i,
+                expl: `Cuento de ${gr} en ${gr} desde la derecha: el grupo ${k - i} es ${g}` + (i === 0 && rell !== b ? ' (le he puesto ceros a la izquierda para completarlo)' : '') }))]),
+              junta([{ lbl: NOMBRE_BASE[base] }, ...grupos.map((g, i) => { const v = parseInt(g, 2); return { c: v.toString(base).toUpperCase(), clase: base === 16 ? 'hex' : '', max: 1, filtro: base === 16 ? /[^0-9a-fA-F]/g : /[^0-7]/g, n: 100 + k - i,
+                expl: `${g} en binario vale ${v}` + (v > 9 ? `, que en hexadecimal se escribe ${v.toString(16).toUpperCase()}` : '') }; })])
             ],
             correcto: `Correcto: ${b} (2 = ${res} (${base}`
           };
@@ -449,9 +456,9 @@
           columnas: `170px repeat(${k}, 150px)`,
           filas: [
             [{ lbl: NOMBRE_BASE[base] }, ...s.split('').map((d) => ({ d, clase: 'ancho' }))],
-            [{ lbl: `grupos de ${gr}` }, ...s.split('').map((d, i) => { const v = parseInt(d, base); return { c: bin(v, gr), clase: 'bin', max: gr, filtro: /[^01]/g, n: i,
-              expl: `${d} vale ${v}, que en ${gr} bits es ${bin(v, gr)}` + (v < (1 << (gr - 1)) ? ' (con los ceros a la izquierda para completar el grupo)' : '') }; })],
-            [{ lbl: 'todo junto' }, { c: b, clase: 'bin', max: k * gr, filtro: /[^01]/g, span: k, n: 100,
+            paso([{ lbl: `grupos de ${gr}` }, ...s.split('').map((d, i) => { const v = parseInt(d, base); return { c: bin(v, gr), clase: 'bin', max: gr, filtro: /[^01]/g, n: i,
+              expl: `${d} vale ${v}, que en ${gr} bits es ${bin(v, gr)}` + (v < (1 << (gr - 1)) ? ' (con los ceros a la izquierda para completar el grupo)' : '') }; })]),
+            [{ lbl: 'todo junto', lblExamen: 'binario' }, { c: b, clase: 'bin', max: k * gr, filtro: /[^01]/g, span: k, n: 100,
               expl: `Junto los grupos y quito los ceros de la izquierda que sobran: ${b}` }]
           ],
           correcto: `Correcto: ${s} (${base} = ${b} (2`
@@ -489,7 +496,7 @@
           enunciado: 'Rellena los acarreos y el resultado, columna a columna, empezando por la derecha.',
           tarea: '⟪Suma⟫ los dos números binarios.',
           columnas: `170px repeat(${w}, 86px)`,
-          filas: [fLleva, fA, fB, { linea: true }, fS],
+          filas: [paso(fLleva), fA, fB, { linea: true }, fS],
           correcto: `Correcto: ${a} + ${b} = ${s}, es decir ${agrupa(S)} en binario.`,
           resumen: expl.join('\n')
         };
@@ -552,7 +559,7 @@
             fB.push({ d: abajo[i] });
             fR.push({ c: R[i], n: 2 * e, expl: exR[i] });
           }
-          return [fA, fB, fLleva, { linea: true, desde: 3 }, fR];
+          return [fA, fB, paso(fLleva), { linea: true, desde: 3 }, fR];
         }
         g.filas = construye();
         return g;
@@ -605,7 +612,7 @@
         const bits = cfg.bits || 8;
         const n = rnd(1, (1 << bits) - 2);
         const N = bin(n, bits), C1 = inv(N), C2 = bin((parseInt(C1, 2) + 1) % (1 << bits), bits);
-        const fN = [{ lbl: 'número' }], f1 = [{ lbl: 'C1: invierto' }], f2 = [{ lbl: 'C2 = C1 + 1' }];
+        const fN = [{ lbl: 'número' }], f1 = [{ lbl: 'C1: invierto', lblExamen: 'C1' }], f2 = [{ lbl: 'C2 = C1 + 1', lblExamen: 'C2' }];
         const ex2 = new Array(bits);
         let carry = 1;
         for (let i = bits - 1; i >= 0; i--) {
@@ -649,7 +656,7 @@
         const fA0 = [{ lbl: 'A (minuendo)' }, { d: '' }], fB = [{ lbl: '− B (sustraendo)' }, { d: '' }];
         const f1 = [{ lbl: 'C1 de B' }, { d: '' }], f2 = [{ lbl: 'C2 = C1 + 1' }, { d: '' }];
         const fLleva = [{ lbl: 'me llevo' }, { d: '' }], fA = [{ lbl: 'A' }, { d: '' }], fC = [{ lbl: '+ C2 de B' }, { d: '' }];
-        const fS = [{ lbl: 'suma' }];
+        const fS = [{ lbl: 'suma', lblExamen: 'A − B' }];
         // explicaciones del C2
         const ex2 = new Array(bits); let carry = 1;
         for (let i = bits - 1; i >= 0; i--) {
@@ -680,7 +687,7 @@
           exS.unshift(cel[i + 1].expl);
           carry = sale;
         }
-        cel[0] = { c: SB[0], clase: 'sobra', n: 200 + 2 * bits, expl: neg ? 'No hay ningún 1 de más: el resultado, leído con signo, es negativo' : 'Sobra un 1 que se descarta: no cabe en ' + bits + ' bits y el resultado es positivo' };
+        cel[0] = { c: SB[0], clase: 'sobra', paso: true, n: 200 + 2 * bits, expl: neg ? 'No hay ningún 1 de más: el resultado, leído con signo, es negativo' : 'Sobra un 1 que se descarta: no cabe en ' + bits + ' bits y el resultado es positivo' };
         // fila "me llevo": sobre cada columna va el acarreo que sale de la columna de su derecha;
         // el acarreo de la columna de más a la izquierda es el bit que sobra y va en la fila de la suma
         const fL = fLleva;
@@ -692,7 +699,8 @@
           enunciado: 'Complemento a 2 del sustraendo, suma con el minuendo y decide qué pasa con el bit que sobra.',
           tarea: '⟪Calcula⟫ A − B en complemento a 2.',
           columnas: `130px repeat(${bits + 1}, 62px)`, clase: 'compacta mini',
-          filas: [fA0, fB, { linea: true, clase: 'suave' }, f1, f2, { linea: true, clase: 'suave' }, fL, fA, fC, { linea: true }, [...fS, ...cel], fD],
+          // en el examen: A, B y A − B en 8 bits, sin el bit que sobra ni el valor en decimal
+          filas: [fA0, fB, paso({ linea: true, clase: 'suave' }), paso(f1), paso(f2), paso({ linea: true, clase: 'suave' }), paso(fL), paso(fA), paso(fC), { linea: true }, [...fS, ...cel], paso(fD)],
           espejo: (id, v) => v || '·',
           correcto: neg ? `Correcto: ${a} − ${b} = −${b - a}. No sobró ningún 1: ${res}, leído con signo, vale −${b - a}.` : `Correcto: ${a} − ${b} = ${a - b}. Se descarta el 1 que sobra y queda ${res}.`,
           resumen: exS.join('\n')
@@ -719,7 +727,7 @@
             columnas: '190px repeat(8, 64px)', clase: 'compacta',
             filas: [
               [{ lbl: 'dato (7 bits)' }, { d: '' }, ...dato.split('').map((d) => ({ d }))],
-              [{ lbl: 'unos que tiene' }, { c: String(u), clase: 'num', max: 1, filtro: /[^0-9]/g, span: 8, n: 0, expl: `Cuento los unos del dato: ${u}` }],
+              paso([{ lbl: 'unos que tiene' }, { c: String(u), clase: 'num', max: 1, filtro: /[^0-9]/g, span: 8, n: 0, expl: `Cuento los unos del dato: ${u}` }]),
               [{ lbl: `paridad ${tipo}` }, { c: String(pb), clase: 'par', n: 1, expl: explica }, ...dato.split('').map((d) => ({ d, clase: 'tenue' }))]
             ],
             correcto: `Correcto: se envía ${pb}${dato}. ${explica}.`
@@ -737,7 +745,7 @@
           columnas: '190px repeat(8, 64px)', clase: 'compacta',
           filas: [
             [{ lbl: 'recibido' }, ...palabra.split('').map((d, i) => ({ d, clase: i === 0 ? 'marca' : '' }))],
-            [{ lbl: 'unos en total' }, { c: String(ut), clase: 'num', max: 1, filtro: /[^0-9]/g, span: 8, n: 0, expl: `Cuento todos los unos, el de paridad incluido: ${ut}` }],
+            paso([{ lbl: 'unos en total' }, { c: String(ut), clase: 'num', max: 1, filtro: /[^0-9]/g, span: 8, n: 0, expl: `Cuento todos los unos, el de paridad incluido: ${ut}` }]),
             [{ lbl: 'veredicto' }, { sel: ['sin error', 'con error'], c: err ? 'con error' : 'sin error', span: 8, n: 1,
               expl: `${ut} unos es ${ut % 2 ? 'impar' : 'par'}. Con paridad ${tipo} ${(ut % 2 === 0) === (tipo === 'par') ? 'cuadra: no se detecta ningún error' : 'no cuadra: hay un error'}` }]
           ],
@@ -797,8 +805,8 @@
             columnas: '150px 470px 90px', clase: 'compacta',
             filas: [
               [{ lbl: 'dato' }, { d: `${k} ${U[i]}`, clase: 'ancho' }, { d: `a ${U[j]}`, clase: 'peq' }],
-              [{ lbl: 'saltos' }, { c: String(pasos), clase: 'num', max: 1, filtro: /[^0-9]/g, n: 0,
-                expl: `De ${U[i]} a ${U[j]}: ${camino.join(' → ')}, ${pasos} salto${pasos > 1 ? 's' : ''}` }, { d: '' }],
+              paso([{ lbl: 'saltos' }, { c: String(pasos), clase: 'num', max: 1, filtro: /[^0-9]/g, n: 0,
+                expl: `De ${U[i]} a ${U[j]}: ${camino.join(' → ')}, ${pasos} salto${pasos > 1 ? 's' : ''}` }, { d: '' }]),
               { linea: true },
               [{ lbl: 'resultado' }, { c: expr, clase: 'num', max: 40, filtro: /[^0-9xX×*·÷:/^()\s]/g, n: 1, cmp: cmpExpr,
                 expl: `Hacia una unidad ${sube ? 'mayor se divide entre' : 'menor se multiplica por'} 1024 en cada salto: ${expr}${pasos > 1 ? `, o ${exprPot}` : ''}` }, { d: U[j], clase: 'peq' }]
@@ -907,23 +915,24 @@
           columnas: '190px 80px 150px 1fr', clase: 'compacta mini',
           filas: [
             [{ lbl: 'número' }, { d: a.txt, clase: 'ancho', span: 3, propio: true }],
-            [{ lbl: 'signo' }, { c: S, id: 's', n: 0, expl: neg ? 'Es negativo: el bit de signo vale 1' : 'Es positivo: el bit de signo vale 0' }, { d: '0 positivo · 1 negativo', clase: 'peq', pista: true, span: 2 }],
+            // en el examen solo quedan el número y las tres casillas del resultado
+            paso([{ lbl: 'signo' }, { c: S, id: 's', n: 0, expl: neg ? 'Es negativo: el bit de signo vale 1' : 'Es positivo: el bit de signo vale 0' }, { d: '0 positivo · 1 negativo', clase: 'peq', pista: true, span: 2 }]),
             // si no se acaba, vale con las cifras pedidas o con más, siempre que estén bien
-            [{ lbl: 'en binario' }, { c: a.binTxt, clase: a.binTxt.length > 36 ? 'bin largo' : 'bin', max: a.completo ? Math.max(16, a.binTxt.length) : Math.min(a.binLargo.length, IEEE_MAX_BIN + 8),
+            paso([{ lbl: 'en binario' }, { c: a.binTxt, clase: a.binTxt.length > 36 ? 'bin largo' : 'bin', max: a.completo ? Math.max(16, a.binTxt.length) : Math.min(a.binLargo.length, IEEE_MAX_BIN + 8),
               filtro: /[^01.,]/g, span: 3, n: 1,
               cmp: (v) => { v = v.replace('.', ','); return a.completo ? v === a.binTxt : v.length >= a.binTxt.length && a.binLargo.startsWith(v); },
               expl: `Parte entera ${a.iS} = ${a.eb || '0'}` + decimal + ` → ${a.binTxt}`
-                + (a.completo ? '' : '. Como no se acaba, basta con llegar a 25 cifras contando desde el primer 1: las 24 que caben y una más para redondear') }],
-            [{ lbl: 'exponente' }, { c: String(e), clase: 'num', max: 3, filtro: /[^0-9\-−]/g, n: 2, cmp: (v) => aNum(v) === e || (a.desborda && aNum(v) === a.eF),
-              expl: `Muevo la coma hasta dejar un solo 1 delante: ${norm}. ` + `La coma se ha movido ${Math.abs(e)} ${Math.abs(e) === 1 ? 'posición' : 'posiciones'} a la ` + (e >= 0 ? 'izquierda' : 'derecha, así que el exponente es negativo') }, { d: `${a.absTxt} = ${a.normaliza(10)}`, clase: 'peq', pista: true, span: 2 }],
-            [{ lbl: 'exponente + 127' }, { c: String(E), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 3,
+                + (a.completo ? '' : '. Como no se acaba, basta con llegar a 25 cifras contando desde el primer 1: las 24 que caben y una más para redondear') }]),
+            paso([{ lbl: 'exponente' }, { c: String(e), clase: 'num', max: 3, filtro: /[^0-9\-−]/g, n: 2, cmp: (v) => aNum(v) === e || (a.desborda && aNum(v) === a.eF),
+              expl: `Muevo la coma hasta dejar un solo 1 delante: ${norm}. ` + `La coma se ha movido ${Math.abs(e)} ${Math.abs(e) === 1 ? 'posición' : 'posiciones'} a la ` + (e >= 0 ? 'izquierda' : 'derecha, así que el exponente es negativo') }, { d: `${a.absTxt} = ${a.normaliza(10)}`, clase: 'peq', pista: true, span: 2 }]),
+            paso([{ lbl: 'exponente + 127' }, { c: String(E), clase: 'num', max: 3, filtro: /[^0-9]/g, n: 3,
               expl: a.desborda ? `Al redondear la mantisa, 1,111…1 se convierte en 10,000…: la coma se mueve una posición más y el exponente pasa a ${a.eF}. ${a.eF} + 127 = ${E}`
-                : `${e} + 127 = ${E} (el sesgo evita guardar exponentes negativos)` }, { d: 'sesgo 127', clase: 'peq', pista: true, span: 2 }],
-            [{ lbl: 'exponente 8 bits' }, { d: '' }, { c: E8, id: 'e', clase: 'bin', max: 8, filtro: /[^01]/g, n: 4, expl: `${E} en binario de 8 bits: ${E8}` }, { d: '' }],
-            [{ lbl: 'mantisa 23 bits' }, { d: '' }, { d: '' }, { c: a.m23, id: 'm', clase: 'bin', max: 23, filtro: /[^01]/g, n: 5,
+                : `${e} + 127 = ${E} (el sesgo evita guardar exponentes negativos)` }, { d: 'sesgo 127', clase: 'peq', pista: true, span: 2 }]),
+            paso([{ lbl: 'exponente 8 bits' }, { d: '' }, { c: E8, id: 'e', clase: 'bin', max: 8, filtro: /[^01]/g, n: 4, expl: `${E} en binario de 8 bits: ${E8}` }, { d: '' }]),
+            paso([{ lbl: 'mantisa 23 bits' }, { d: '' }, { d: '' }, { c: a.m23, id: 'm', clase: 'bin', max: 23, filtro: /[^01]/g, n: 5,
               expl: a.cabe ? `Lo que queda detrás de la coma en ${norm.split(' ×')[0]} sin el 1 implícito: ${a.restoSig || '(nada)'}, y ceros hasta completar 23 bits`
                 : `Detrás del 1 implícito caben 23 bits: ${a.resto.slice(0, 23)}. La primera cifra que no cabe es un ${a.guarda}: ${redondeo}`
-                  + (a.desborda ? '; como eran todo unos, la mantisa se queda a ceros y el exponente sube 1' : '') + ` → ${a.m23}` }],
+                  + (a.desborda ? '; como eran todo unos, la mantisa se queda a ceros y el exponente sube 1' : '') + ` → ${a.m23}` }]),
             { linea: true },
             [{ lbl: 'resultado' }, { d: '', espejo: 's', clase: 'campo s' }, { d: '', espejo: 'e', clase: 'campo e' }, { d: '', espejo: 'm', clase: 'campo m' }],
             [{ lbl: '' }, { d: 'signo', clase: 'campo-pie' }, { d: 'exponente', clase: 'campo-pie' }, { d: 'mantisa', clase: 'campo-pie' }]
