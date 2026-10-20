@@ -140,11 +140,12 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
     const ht = hash(titulo || '');          // el título forma parte de la semilla: otro título, otra hoja
     plan.forEach((p) => {
       const tipo = TIPOS.find((x) => x.k === p.k);
-      for (let j = 0; j < p.n; j++) {
-        const seed = semilla * 1000003 + ht * 1009 + hash(p.k) * 101 + j;
-        const g = conSemilla(seed, () => SOM.generadores[tipo.gen].generar(tipo.modo ? { modo: tipo.modo } : {}));
-        ejs.push({ tipo, g });
-      }
+      const seed = semilla * 1000003 + ht * 1009 + hash(p.k) * 101;
+      // varios del mismo tipo rotan por sus subtipos o casos sin repetir (SOM.rota); k > 0 solo si el de siempre repite
+      SOM.rota(p.n, (j, k) => conSemilla(seed + j + k * 7919, () => {
+        const g = SOM.generadores[tipo.gen].generar(tipo.modo ? { modo: tipo.modo } : {});
+        return { g, clave: g.variante, total: g.variantes };
+      })).forEach((g) => ejs.push({ tipo, g }));
     });
     return ejs;
   }

@@ -43,6 +43,8 @@
 
   /* ---------- utilidades ---------- */
   const rnd = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+  // qué subtipo o caso ha salido y entre cuántos, para que en la hoja varios del mismo tipo roten (SOM.rota)
+  const variante = (clave, total) => ({ variante: clave, variantes: total });
   const baraja = (a) => { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = rnd(0, i); [b[i], b[j]] = [b[j], b[i]]; } return b; };
   const bin =(n, bits) => n.toString(2).padStart(bits || 0, '0');
   const agrupa = (s) => s.replace(/\B(?=(\d{4})+(?!\d))/g, ' ');
@@ -185,6 +187,26 @@
     return { neg, iS, fS, eb, fbTxt, completo, binTxt, binLargo, e, eF, desborda, cabe, resto, restoSig, guarda, empate, sube, m23,
       E: eF + 127, normaliza, guardado, absTxt, txt: (neg ? '-' : '') + absTxt };
   }
+
+  /* Hoja: n ejercicios del mismo tipo pasan por todas sus variantes (subtipos o casos) antes de repetir ninguna,
+   * y la vuelta siguiente no empieza por la última. saca(j, k) da el ejercicio j en su intento k como
+   * { g, clave, total }; el intento 0 es el sorteo de siempre y solo se vuelve a sortear si repite, así que una
+   * hoja que no repetía nada sale igual que antes */
+  SOM.rota = function (n, saca) {
+    const usadas = new Set(), lista = [];
+    let ultima;
+    for (let j = 0; j < n; j++) {
+      let r = saca(j, 0);
+      if (r.clave !== undefined && r.total > 1) {
+        if (usadas.size >= r.total) usadas.clear();
+        const repite = (x) => usadas.has(x.clave) || (!usadas.size && x.clave === ultima);
+        for (let k = 1; repite(r) && k <= 500; k++) r = saca(j, k);
+        usadas.add(r.clave); ultima = r.clave;
+      }
+      lista.push(r.g);
+    }
+    return lista;
+  };
 
   SOM.generadores = {
 
@@ -581,6 +603,35 @@
           NOR: { f: (x, y) => 1 - (x | y), regla: 'NOR es lo contrario de OR: solo da 1 si los dos son 0' }
         };
         const bits = cfg.bits || 8;
+        if (cfg.cuantas > 1) {
+          // hoja: varias operaciones distintas con los mismos A y B, en un solo recuadro y en el orden de los botones
+          const orden = Object.keys(ops);
+          const lista = baraja(orden).slice(0, cfg.cuantas).sort((x, y) => orden.indexOf(x) - orden.indexOf(y));
+          const a = rnd(1, (1 << bits) - 1), b = rnd(1, (1 << bits) - 1);
+          const A = bin(a, bits), B = bin(b, bits);
+          const nombre = (op) => (op === 'NOT' ? 'NOT A' : `A ${op} B`);
+          const marca = (op) => (op === 'NOT' ? '⟦NOT⟧ A' : `A ⟦${op}⟧ B`);
+          const filas = [[{ lbl: 'A' }, ...A.split('').map((d) => ({ d }))], [{ lbl: 'B' }, ...B.split('').map((d) => ({ d }))], { linea: true }];
+          const res = lista.map((op, k) => {
+            const f = [{ lbl: nombre(op) }];
+            let r = '';
+            for (let i = 0; i < bits; i++) {
+              const e = bits - 1 - i;
+              const v = op === 'NOT' ? ops.NOT.f(+A[i]) : ops[op].f(+A[i], +B[i]);
+              r += v;
+              f.push({ c: String(v), n: k * bits + e, expl: `Columna ${e + 1}: ` + (op === 'NOT' ? `NOT ${A[i]} = ${v}` : `${A[i]} ${op} ${B[i]} = ${v}`) + `. ${ops[op].regla}` });
+            }
+            filas.push(f);
+            return `${nombre(op)} = ${r}`;
+          });
+          return {
+            enunciado: `Aplica cada operación bit a bit: cada columna se opera por separado, sin acarreos. ${lista.map((op) => ops[op].regla).join('. ')}.`,
+            tarea: `⟪Calcula⟫ bit a bit ${lista.slice(0, -1).map(marca).join(', ')} y ${marca(lista[lista.length - 1])}.`,
+            columnas: `130px repeat(${bits}, 74px)`, clase: 'compacta',
+            filas,
+            correcto: `Correcto: ${res.join(' · ')}`
+          };
+        }
         const op = cfg.modo || Object.keys(ops)[rnd(0, 5)];
         const a = rnd(1, (1 << bits) - 1), b = rnd(1, (1 << bits) - 1);
         const A = bin(a, bits), B = bin(b, bits);
@@ -595,6 +646,7 @@
         }
         const filas = op === 'NOT' ? [fA, { linea: true }, fR] : [fA, fB, { linea: true }, fR];
         return {
+          ...variante(op, cfg.modo ? 1 : 6),
           enunciado: op === 'NOT' ? 'NOT trabaja con un solo número: invierte cada bit.' : `Aplica ${op} bit a bit: cada columna se opera por separado, sin acarreos. ${ops[op].regla}.`,
           tarea: `⟪Calcula⟫ ${op === 'NOT' ? '⟦NOT⟧ A' : 'A ⟦' + op + '⟧ B'} bit a bit.`,
           columnas: `130px repeat(${bits}, 74px)`, clase: 'compacta',
@@ -722,6 +774,7 @@
         const explica = `El dato tiene ${u} unos (${u % 2 ? 'impar' : 'par'}). Paridad ${tipo}: el total de unos, contando el bit de paridad, tiene que ser ${tipo}; por eso el bit vale ${pb}`;
         if (modo === 'calcular') {
           return {
+            ...variante(modo, cfg.modo ? 1 : 2),
             enunciado: `Paridad ${tipo}: cuenta los unos del dato y añade a la izquierda el bit que haga que el total de unos sea ${tipo}.`,
             tarea: `⟪Añade⟫ al dato el bit de paridad ⟦${tipo}⟧.`,
             columnas: '190px repeat(8, 64px)', clase: 'compacta',
@@ -740,6 +793,7 @@
         if (err) { pos = rnd(0, 7); palabra = palabra.slice(0, pos) + inv(palabra[pos]) + palabra.slice(pos + 1); }
         const ut = unos(palabra);
         return {
+          ...variante(modo, cfg.modo ? 1 : 2),
           enunciado: `Se ha recibido esta palabra con paridad ${tipo} (el bit de paridad es el de la izquierda). ¿Ha llegado bien?`,
           tarea: `⟪Comprueba⟫ si la palabra recibida, con paridad ⟦${tipo}⟧, ha llegado bien, y ⟪rodea⟫ la respuesta. El bit de paridad es el de la izquierda.`,
           columnas: '190px repeat(8, 64px)', clase: 'compacta',
@@ -857,6 +911,7 @@
           : `«${ch}» está ${pos} ${pos === 1 ? 'posición' : 'posiciones'} después de «${r.primero}»`;
         if (modo === 'codigo') {
           return {
+            ...variante(modo, cfg.modo ? 1 : 2),
             enunciado: 'Escribe el código ASCII del carácter, en decimal. Cuenta desde el ancla de su grupo: «0» = 48, «A» = 65 y «a» = 97.',
             tarea: `⟪Escribe⟫ el código ASCII de ⟦«${ch}»⟧ en ⟦decimal⟧.`,
             columnas: '190px 200px',
@@ -870,6 +925,7 @@
           };
         }
         return {
+          ...variante(modo, cfg.modo ? 1 : 2),
           enunciado: 'Escribe el carácter que tiene este código ASCII. Mira en qué grupo cae y cuenta desde su ancla: «0» = 48, «A» = 65 y «a» = 97.',
           tarea: `⟪Escribe⟫ el carácter que tiene el código ASCII ⟦${cod}⟧.`,
           columnas: '190px 200px',
@@ -908,6 +964,7 @@
         const redondeo = a.guarda === '0' ? 'se deja como está'
           : a.empate ? `queda justo en medio y se redondea para que acabe en 0: ${a.sube ? 'se suma 1' : 'se deja como está'}` : 'se suma 1';
         return {
+          ...variante(a.txt, cfg.numero !== undefined ? 1 : POOL.length),
           enunciado: 'Binario, normalizar (1,… × 2ᵉ), exponente + 127 y mantisa de 23 bits sin el 1 implícito.',
           tarea: `⟪Representa⟫ ⟦${a.txt}⟧ en IEEE 754 de simple precisión.`,
           // columnas: etiqueta, signo, exponente y mantisa; las casillas de los tres campos van en la
@@ -968,8 +1025,9 @@
           { t: 'Pide leer del teclado y todavía no hay nada escrito.', de: 'en ejecución', a: 'bloqueado', tr: '1', e: 'No puede seguir sin el dato: se bloquea hasta que el usuario escriba.' },
           { t: 'En prioridades no expulsivo termina el proceso que estaba en la CPU y él es el más prioritario de los que esperan.', de: 'listo', a: 'en ejecución', tr: '3', e: 'Al quedar libre la CPU, el planificador elige al más prioritario de los listos.' }
         ];
-        const s = S[rnd(0, S.length - 1)];
+        const i = rnd(0, S.length - 1), s = S[i];
         return {
+          ...variante(i, S.length),
           enunciado: 'Lee lo que le pasa al proceso y elige el estado de origen, el de destino y el número de la transición en la figura.',
           tarea: '⟪Lee⟫ lo que le pasa al proceso y ⟪rodea⟫ el estado en el que estaba, el estado al que pasa y la transición de la figura.',
           columnas: '190px 640px', clase: 'texto',
@@ -1066,6 +1124,7 @@
           let tam = rnd(5, 200); if (tam % pag === 0) tam += 1;
           const np = Math.ceil(tam / pag), ocupa = np * pag, frag = ocupa - tam;
           return {
+            ...variante(modo, cfg.modo ? 1 : 3),
             enunciado: 'Un proceso se reparte en páginas de tamaño fijo. Calcula cuántas necesita, cuánto ocupa en total y cuánto se pierde en la última página.',
             tarea: '⟪Calcula⟫ las páginas que necesita el proceso, la memoria que ocupa y la fragmentación interna.',
             columnas: '300px 150px 90px',
@@ -1093,6 +1152,7 @@
           const fen = tam <= mayor ? 'no hay fragmentación' : (tam <= total ? 'fragmentación externa' : 'no hay fragmentación');
           const fenExpl = tam > mayor && tam <= total ? `Hay ${total} KiB libres en total pero ningún hueco de ${tam} KiB seguidos: fragmentación externa (habría que compactar).` : (tam <= mayor ? 'Cabe en un hueco: no hay fragmentación que impida cargarlo.' : `Ni juntando todos los huecos (${total} KiB) cabe: falta memoria, no es fragmentación.`);
           return {
+            ...variante(modo, cfg.modo ? 1 : 3),
             enunciado: 'Con particiones de tamaño variable, un proceso solo cabe en un hueco igual o mayor que él, aunque la suma de los huecos sea suficiente.',
             tarea: `⟪Calcula⟫ la memoria libre en total y ⟪rodea⟫ si el proceso de ⟦${tam} KiB⟧ cabe, en qué hueco y qué fragmentación hay.`,
             columnas: `300px repeat(${k}, 90px)`,
@@ -1114,6 +1174,7 @@
         const cabe = marcos >= np;
         const faltan = cabe ? 0 : np - marcos;
         return {
+          ...variante(modo, cfg.modo ? 1 : 3),
           enunciado: 'Con memoria virtual, en la RAM solo tiene que estar la parte del proceso que se usa. Calcula si cabe entero o cuántas páginas quedan en el disco.',
           tarea: '⟪Calcula⟫ las páginas del proceso, ⟪rodea⟫ si cabe entero en la RAM y ⟪escribe⟫ cuántas páginas quedan en el disco.',
           columnas: '300px 150px 90px',
@@ -1150,6 +1211,7 @@
         const orden = PASOS.map((p, i) => i).sort(() => Math.random() - .5);
         const filas = orden.map((i) => [{ d: PASOS[i].t, clase: 'texto', span: 4 }, { c: String(i + 1), clase: 'num', max: 1, filtro: /[^1-7]/g, n: i, expl: `Paso ${i + 1}: ${PASOS[i].t}. ${PASOS[i].e}` }]);
         return {
+          ...variante(modo, cfg.modo ? 1 : 2),
           enunciado: `Arranque con ${uefi ? 'UEFI y GPT' : 'BIOS y MBR'}: escribe junto a cada paso su número de orden, del 1 (al dar corriente) al 7 (equipo listo).`,
           tarea: `⟪Numera⟫ del 1 al 7 los pasos del arranque con ⟦${uefi ? 'UEFI y GPT' : 'BIOS y MBR'}⟧.`,
           columnas: 'repeat(4, 185px) 84px', clase: 'texto',
@@ -1183,8 +1245,9 @@
           { t: 'El disco de un servidor Linux con las carpetas personales de veinte usuarios.', varios: 'no', grande: 'sí', permisos: 'sí', sistema: 'sí', fs: ['ext4'], e: 'Permisos por usuario, journaling y disco de trabajo: ext4.' },
           { t: 'Un disco externo de 4 TB solo para un PC con Windows, con vídeos de más de 10 GB.', varios: 'no', grande: 'sí', permisos: 'no', sistema: 'no', fs: ['NTFS', 'exFAT'], e: 'Solo Windows y archivos enormes: NTFS (o exFAT si no hacen falta permisos).' }
         ];
-        const c = C[rnd(0, C.length - 1)];
+        const i = rnd(0, C.length - 1), c = C[i];
         return {
+          ...variante(i, C.length),
           enunciado: 'Lee el caso, contesta a las cuatro preguntas y elige el sistema de archivos. Si hay dos opciones válidas, cualquiera de las dos vale.',
           tarea: '⟪Lee⟫ el caso, ⟪contesta⟫ a las cuatro preguntas rodeando sí o no y ⟪rodea⟫ el sistema de archivos. Si hay dos opciones válidas, cualquiera de las dos vale.',
           columnas: '330px 470px', clase: 'texto',
@@ -1231,6 +1294,7 @@
           : `${eq} con ${so} tiene instalado ${p.n}. Dentro hay ${k} máquinas virtuales: ${nombres}.`;
         const OPC = ['?'].concat(baraja([so].concat(inv)));
         return {
+          ...variante(p.n, PROG.length),
           enunciado: 'Lee el caso y contesta: cuál es el sistema anfitrión, cuántos invitados hay, de qué tipo es el hipervisor y qué licencia tiene el programa.',
           tarea: '⟪Lee⟫ el caso y ⟪completa⟫ la ficha: sistema anfitrión, número de invitados, tipo de hipervisor y licencia del programa.',
           columnas: '230px 620px', clase: 'texto',
@@ -1322,6 +1386,7 @@
         ];
         const a = A[rnd(0, A.length - 1)];
         return {
+          ...variante(a.e, A.length),
           enunciado: 'Lee el nombre del archivo de la carpeta de una máquina virtual y elige qué guarda y a qué programa pertenece ese formato.',
           tarea: `⟪Rodea⟫ qué guarda el archivo ⟦${a.e}⟧ y de qué programa es el formato.`,
           columnas: '230px 620px', clase: 'texto',
@@ -1342,6 +1407,7 @@
       modos: [{ t: 'Casos', v: 'caso' }, { t: 'Quién ve a quién', v: 'matriz' }, { t: 'Por la IP', v: 'ip' }, { t: 'Al azar', v: null }],
       generar(cfg) {
         const modo = cfg.modo || ['caso', 'matriz', 'ip'][rnd(0, 2)];
+        const v = (clave, total) => (cfg.modo ? variante(clave, total) : variante(modo, 3));   // con el modo fijo, rota el caso
         const SN = ['?', 'sí', 'no'];
         if (modo === 'caso') {
           const MOD = ['?', 'NAT', 'puente', 'solo anfitrión', 'segmento LAN', 'sin red'];
@@ -1359,8 +1425,9 @@
             { t: 'Un servidor y un cliente virtuales que controlas desde el anfitrión, aislados de la red del aula y de internet.', m: ['solo anfitrión'], e: 'Solo anfitrión: las máquinas y el anfitrión se ven; internet y el aula, no.' },
             { t: 'Instalas Ubuntu en una máquina recién creada y quieres que descargue los paquetes sin complicarte.', m: ['NAT'], e: 'NAT: funciona sin configurar nada, con la conexión del anfitrión.' }
           ];
-          const c = C[rnd(0, C.length - 1)];
+          const i = rnd(0, C.length - 1), c = C[i];
           return {
+            ...v(i, C.length),
             enunciado: 'Lee el caso y elige el modo de red del adaptador de la máquina virtual.',
             tarea: '⟪Lee⟫ el caso y ⟪rodea⟫ el modo de red del adaptador de la máquina virtual.',
             columnas: '230px 620px', clase: 'texto',
@@ -1383,6 +1450,7 @@
           const m = nombres[rnd(0, nombres.length - 1)];
           const PR = ['¿sale a internet?', '¿se comunica con el anfitrión?', '¿se comunica con otra máquina en el mismo modo?', '¿la ven los demás PC del aula?'];
           return {
+            ...v(m, nombres.length),
             enunciado: `En VMware Workstation Pro, una máquina virtual tiene el adaptador de red en modo ${m}. Contesta sí o no a cada pregunta.`,
             tarea: `El adaptador de red de la máquina virtual está en modo ⟦${m}⟧ (VMware Workstation Pro). ⟪Rodea⟫ sí o no en cada pregunta.`,
             columnas: '460px 220px', clase: 'texto',
@@ -1399,8 +1467,9 @@
           { ip: '10.0.2.15', m: 'NAT', p: 'VirtualBox', e: 'Es la dirección que da siempre el NAT de VirtualBox: cada máquina tiene su propia red 10.0.2.0 y por eso no se ven entre ellas.' },
           { ip: `192.168.56.${rnd(101, 150)}`, m: 'solo anfitrión', p: 'VirtualBox', e: 'Está en la red del adaptador VirtualBox Host-Only (192.168.56.1): solo anfitrión de VirtualBox.' }
         ];
-        const c = CASOS[rnd(0, CASOS.length - 1)];
+        const i = rnd(0, CASOS.length - 1), c = CASOS[i];
         return {
+          ...v(i, CASOS.length),
           enunciado: 'El ipconfig del anfitrión y la IP de la máquina virtual: ¿en qué modo de red está y con qué programa?',
           tarea: `⟪Mira⟫ el ipconfig del anfitrión y la IP de la máquina virtual, ⟦${c.ip}⟧, y ⟪rodea⟫ el modo de red y el programa.`,
           columnas: '400px 290px', clase: 'texto mini',
@@ -1447,6 +1516,7 @@
         ];
         if (s.so.startsWith('Windows')) filas.splice(5, 0, [{ lbl: 'seguridad' }, { d: 'UEFI, arranque seguro y TPM (anota la contraseña)', clase: 'texto' }]);
         return {
+          ...variante(s.so, SO.length),
           enunciado: 'Crea en VMware Workstation Pro una máquina virtual con esta ficha y enseña el resultado al profesor en tu pantalla.',
           tarea: '⟪Crea⟫ en VMware Workstation Pro la máquina virtual de la ficha y ⟪enséñasela⟫ al profesor en tu pantalla.',
           columnas: '230px 620px', clase: 'texto',

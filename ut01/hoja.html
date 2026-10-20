@@ -17,7 +17,9 @@
    en negrita; la hoja de práctica añade cómo se hace, pistas y las casillas de cada paso, y
    la de examen deja solo la tarea, los datos y, al pie, el resultado: los pasos (marcados con
    paso en som.js) no se ven, pero dejan su hueco para las cuentas, y todos los recuadros miden
-   lo mismo. Pautas de los exámenes adaptados, para toda la clase. */
+   lo mismo, salvo los directos (lógica, paridad, unidades, ASCII), que miden lo que necesitan.
+   Varias operaciones lógicas van en un solo recuadro. Pautas de los exámenes adaptados, para
+   toda la clase. */
 body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; margin: 0; }
 .panel { background: var(--navy); color: var(--white); padding: 22px 32px; display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: flex-end; font-size: 15px; }
 .panel h1 { font-size: 20px; font-weight: 800; margin: 0 0 4px; width: 100%; }
@@ -135,12 +137,12 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
     { k: 'octhex', gen: 'bases', t: 'Octal ↔ hexadecimal', n: 1, modos: ['oct2hex', 'hex2oct'] },   // aparte, para no cambiar los «Entre bases» ya repartidos
     { k: 'sumabin', t: 'Suma en binario', n: 1 },
     { k: 'restabin', t: 'Resta en binario', n: 1 },
-    { k: 'logica', t: 'Operaciones lógicas', n: 1 },
+    { k: 'logica', t: 'Operaciones lógicas', n: 1, agrupa: true, directo: true },   // agrupa: si piden varias, en un solo recuadro con los mismos A y B
     { k: 'c1c2', t: 'Complementos', n: 1 },
     { k: 'restac2', t: 'Resta en C2', n: 1 },
-    { k: 'paridad', t: 'Paridad', n: 1 },
-    { k: 'unidades', t: 'Unidades', n: 1, modos: ['bits', 'binario'] },   // sin el modo "fabricante": necesita calculadora
-    { k: 'ascii', t: 'ASCII', n: 1 },
+    { k: 'paridad', t: 'Paridad', n: 1, directo: true },   // directo: sin cuentas intermedias; en el examen mide lo suyo, sin estirarse al alto de los demás
+    { k: 'unidades', t: 'Unidades', n: 1, modos: ['bits', 'binario'], directo: true },   // sin el modo "fabricante": necesita calculadora
+    { k: 'ascii', t: 'ASCII', n: 1, directo: true },
     { k: 'ieee754', t: 'IEEE 754', n: 1, ancho: true }   // a todo el ancho de la hoja
   ];
   const $ = (s) => document.querySelector(s);
@@ -155,15 +157,18 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
     const ht = hash(titulo || '');          // el título forma parte de la semilla: otro título, otra hoja
     plan.forEach((p) => {
       const tipo = TIPOS.find((x) => x.k === p.k);
-      for (let j = 0; j < p.n; j++) {
-        const seed = semilla * 1000003 + ht * 1009 + hash(p.k) * 101 + j;
-        const g = conSemilla(seed, () => {
-          const cfg = {};
-          if (tipo.modos) cfg.modo = tipo.modos[Math.floor(Math.random() * tipo.modos.length)];
-          return SOM.generadores[tipo.gen || p.k].generar(cfg);
-        });
-        ejs.push({ tipo, g });
+      const seed = semilla * 1000003 + ht * 1009 + hash(p.k) * 101;
+      if (tipo.agrupa && p.n > 1) {   // varias operaciones distintas en un solo recuadro, con los mismos datos
+        ejs.push({ tipo, g: conSemilla(seed, () => SOM.generadores[tipo.gen || p.k].generar({ cuantas: p.n })) });
+        return;
       }
+      // varios del mismo tipo rotan por sus subtipos o casos sin repetir (SOM.rota); k > 0 solo si el de siempre repite
+      SOM.rota(p.n, (j, k) => conSemilla(seed + j + k * 7919, () => {
+        const cfg = {};
+        if (tipo.modos) cfg.modo = tipo.modos[Math.floor(Math.random() * tipo.modos.length)];
+        const g = SOM.generadores[tipo.gen || p.k].generar(cfg);
+        return tipo.modos ? { g, clave: cfg.modo, total: tipo.modos.length } : { g, clave: g.variante, total: g.variantes };
+      })).forEach((g) => ejs.push({ tipo, g }));
     });
     return ejs;
   }
@@ -342,15 +347,16 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
     const pags = [nuevaPagina(cont, semilla, titulo, sol, true)];
     const cuantos = pags[0].querySelector('.cuantos');
     if (cuantos) cuantos.textContent = 'Esta hoja tiene ' + ejs.length + ' ejercicios en 0 páginas.';   // se completa al final; misma longitud
-    // hoja de examen: todos los recuadros con el alto del más alto, para que el tamaño no diga nada
+    // hoja de examen: todos los recuadros con el alto del más alto, para que el tamaño no diga nada. Los directos
+    // (sin cuentas intermedias, no tienen pasos que delatar) miden lo suyo; junto a uno con cuentas, la fila los estira
     let alto = 0;
     if (examen && !sol) {
       const lista = pags[0].querySelector('.lista');
-      ejs.forEach((e, i) => { const d = pintaEjercicio(e, i, sol); lista.appendChild(d); ajustaRotulos(d, e.g); alto = Math.max(alto, Math.ceil(d.getBoundingClientRect().height)); d.remove(); });
+      ejs.filter((e) => !e.tipo.directo).forEach((e) => { const d = pintaEjercicio(e, ejs.indexOf(e), sol); lista.appendChild(d); ajustaRotulos(d, e.g); alto = Math.max(alto, Math.ceil(d.getBoundingClientRect().height)); d.remove(); });
     }
     ejs.forEach((e, i) => {
       const d = pintaEjercicio(e, i, sol);
-      if (alto) d.style.height = alto + 'px';
+      if (alto && !e.tipo.directo) d.style.height = alto + 'px';
       let lista = pags[pags.length - 1].querySelector('.lista');
       lista.appendChild(d);
       ajustaRotulos(d, e.g);
@@ -398,7 +404,7 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
   // formulario de tipos
   TIPOS.forEach((t) => {
     const l = document.createElement('label');
-    l.innerHTML = '<input type="number" min="0" max="6" id="n_' + t.k + '" value="' + t.n + '"> ' + t.t;
+    l.innerHTML = '<input type="number" min="0" max="6" id="n_' + t.k + '" value="' + t.n + '"> ' + t.t + (t.agrupa ? ' (en un recuadro)' : '');
     $('#tipos').appendChild(l);
   });
   // configuración desde la dirección
