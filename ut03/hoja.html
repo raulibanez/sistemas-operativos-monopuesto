@@ -17,21 +17,29 @@
    se hace y pistas, y la de examen deja solo la tarea. Pautas de los exámenes adaptados, para
    toda la clase (como ut01/hoja.html). */
 body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; margin: 0; }
-.panel { background: var(--navy); color: var(--white); padding: 22px 32px; display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: flex-end; font-size: 15px; }
+.panel { background: var(--navy); color: var(--white); padding: 22px 32px 0; display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: flex-end; font-size: 15px; }
 .panel h1 { font-size: 20px; font-weight: 800; margin: 0 0 4px; width: 100%; }
 .panel h1 small { font-weight: 400; color: #C9D6EE; margin-left: 12px; }
 .panel label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; }
 .panel input[type=text], .panel input[type=number] { font: inherit; padding: 8px 10px; border-radius: 8px; border: 0; width: 90px; }
-.panel input[type=text] { width: 320px; }
+.panel input[type=text] { width: 360px; }
 .panel #semilla { width: 130px; }
-.panel .tipos { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px 18px; width: 100%; }
+/* los tipos de ejercicio, en una franja algo más clara que la cabecera y de lado a lado (de ahí los márgenes negativos) */
+.panel .tipos { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px 18px; width: calc(100% + 64px); margin: 4px -32px 0; padding: 18px 32px 22px; box-sizing: border-box; background: #2A4C86; }
 .panel .tipos label { flex-direction: row; align-items: center; gap: 8px; font-weight: 500; }
-.panel .tipos input { width: 54px; padding: 5px 6px; }
-.panel .btn { padding: 12px 22px; font-size: 16px; }
-.panel .btn-primary:hover { background: var(--sky); }   /* en som.css se oscurece a navy, el color del panel, y el botón desaparece */
-.panel .check { flex-direction: row; align-items: center; gap: 8px; }
+.panel .tipos input { width: 54px; padding: 5px 6px; flex: none; }   /* flex: none, para que no encoja cuando el rótulo ocupa dos líneas */
+.panel #titulo, .panel #semilla { height: 42px; box-sizing: border-box; }
+.panel .opciones { display: flex; flex-direction: column; gap: 10px; }
+.panel .check { flex-direction: row; align-items: center; gap: 10px; font-weight: 500; cursor: pointer; }
+.panel .check input { width: 18px; height: 18px; margin: 0; accent-color: var(--sky); }
+/* los dos botones, en la misma fila que los campos y del mismo alto que las casillas; Generar lleva también borde (de su color) para medir lo mismo que Imprimir */
+.panel .acciones { display: flex; gap: 12px; }
+.panel .btn { height: 42px; padding: 0 22px; font-size: 16px; border-radius: 10px; border: 2px solid var(--blue); }
+.panel .btn-primary:hover { background: var(--sky); border-color: var(--sky); }   /* en som.css se oscurece a navy, el color del panel, y el botón desaparece */
+.panel .btn-ghost { color: var(--white); border-color: rgba(255,255,255,.5); }
+.panel .btn-ghost:hover { border-color: var(--white); }
 .aviso { padding: 10px 32px; font-size: 14px; color: var(--muted); background: #fff; border-bottom: 1px solid var(--line); }
-.aviso code { font-family: var(--mono); background: var(--bg); padding: 1px 6px; border-radius: 4px; }
+.aviso code { font-family: var(--mono); background: var(--bg); padding: 1px 6px; border-radius: 4px; word-break: break-all; }   /* la dirección es larga: que no se salga por la derecha */
 
 /* Cada página es un A4 entero: la hoja se pagina aquí y no en el navegador, para poner en
    cada una «Página X de Y» y el aviso de que sigue. Lo que se ve en pantalla es lo que sale en papel. */
@@ -106,10 +114,14 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
   <h1>Hoja de ejercicios de virtualización <small>UT3 · Sistemas Operativos Monopuesto</small></h1>
   <label>Título de la hoja <input type="text" id="titulo" value="UT3 · Máquinas virtuales"></label>
   <label>Semilla (seed) <input type="number" id="semilla" min="0" max="999999999" value="1"></label>
-  <label class="check"><input type="checkbox" id="sol"> Añadir el solucionario al final</label>
-  <label class="check"><input type="checkbox" id="examen"> Hoja de examen: solo la tarea, sin pistas</label>
-  <button class="btn btn-primary" id="generar">Generar</button>
-  <button class="btn btn-ghost" id="imprimir" style="color:#fff;border-color:rgba(255,255,255,.5)">Imprimir o guardar en PDF</button>
+  <div class="opciones">
+    <label class="check"><input type="checkbox" id="sol"> Añadir el solucionario al final</label>
+    <label class="check" title="Solo la tarea y los datos, sin pistas"><input type="checkbox" id="examen"> Hoja de examen (sin pistas)</label>
+  </div>
+  <div class="acciones">
+    <button class="btn btn-primary" id="generar">Generar</button>
+    <button class="btn btn-ghost" id="imprimir">Imprimir o guardar en PDF</button>
+  </div>
   <div class="tipos" id="tipos"></div>
 </div>
 <p class="aviso">La <b>semilla</b> (<i>seed</i>) es el número del que salen los ejercicios: la misma semilla con el mismo título da siempre la misma hoja, y cualquier otro número, o cualquier otro título, da otra distinta. Genera las que quieras para practicar y compruébalas con el solucionario. En las dos hojas, cada ejercicio empieza por la tarea, con el verbo subrayado y los datos en negrita; la de práctica añade cómo se hace y pistas, y la de examen deja solo la tarea. En clase, el profesor reparte a todos una hoja con una semilla que no se ha usado antes; el examen se genera igual. La ficha de máquina virtual es la del examen práctico: se hace en VMware y se enseña en la pantalla. La dirección de la página guarda la configuración: <code id="url"></code></p>
@@ -286,20 +298,21 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
   }
 
   function nuevaPagina(cont, semilla, titulo, sol, primera, ejs) {
+    const nombre = examen ? 'Examen' : titulo;   // el examen no lleva el título de la práctica ni la semilla (el solucionario, sí: es para el profesor)
     const h = document.createElement('article');
     h.className = 'hoja' + (sol ? ' sol' : '');
     if (primera) {
       h.innerHTML =
         '<header><div><p class="modulo">Sistemas Operativos Monopuesto · UT3 · Virtualización y máquinas virtuales</p><h2></h2></div>' +
-        '<div class="alumno"><b></b>' + (sol ? 'solucionario' : 'semilla') + '</div></header>' +
+        (examen && !sol ? '' : '<div class="alumno"><b></b>' + (sol ? 'solucionario' : 'semilla') + '</div>') + '</header>' +
         (sol ? '' : '<div class="datos"><span>Nombre y apellidos:</span><span>Grupo:</span><span>Fecha:</span></div>' +
           '<div class="normas"><ul><li class="cuantos"></li></ul></div>');
-      h.querySelector('h2').textContent = titulo + (sol ? ' · Solucionario' : '');
-      h.querySelector('.alumno b').textContent = semilla;
+      h.querySelector('h2').textContent = nombre + (sol ? ' · Solucionario' : '');
+      if (!examen || sol) h.querySelector('.alumno b').textContent = semilla;
       if (!sol) normas(ejs).forEach((t) => { const li = document.createElement('li'); li.textContent = t; h.querySelector('.normas ul').appendChild(li); });
     } else {
       h.innerHTML = '<header class="sigue"><p class="modulo"></p>' + (sol ? '' : '<span class="nombre">Nombre:</span>') + '</header>';
-      h.querySelector('.modulo').textContent = 'SOM · ' + (/^UT3\b/.test(titulo) ? '' : 'UT3 · ') + titulo + (sol ? ' · Solucionario' : '');   // el título por defecto ya empieza por «UT3»
+      h.querySelector('.modulo').textContent = 'SOM · ' + (/^UT3\b/.test(nombre) ? '' : 'UT3 · ') + nombre + (sol ? ' · Solucionario' : '');   // el título por defecto ya empieza por «UT3»
     }
     h.insertAdjacentHTML('beforeend', '<div class="lista"></div><footer><span class="donde"></span><span class="pie"></span></footer>');
     cont.appendChild(h);
@@ -311,7 +324,7 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
   function pintaHojas(cont, semilla, ejs, titulo, sol) {
     const pags = [nuevaPagina(cont, semilla, titulo, sol, true, ejs)];
     const cuantos = pags[0].querySelector('.cuantos');
-    if (cuantos) cuantos.textContent = 'Esta hoja tiene ' + ejs.length + ' ejercicios en 0 páginas.';   // se completa al final; misma longitud
+    if (cuantos) cuantos.textContent = (examen ? 'Este examen tiene ' : 'Esta hoja tiene ') + ejs.length + ' ejercicios en 0 páginas.';   // se completa al final; misma longitud
     ejs.forEach((e, i) => {
       const d = pintaEjercicio(e, i, sol);
       let lista = pags[pags.length - 1].querySelector('.lista');
@@ -324,9 +337,9 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
         pags[pags.length - 1].querySelector('.lista').appendChild(d);
       }
     });
-    if (cuantos) cuantos.textContent = 'Esta hoja tiene ' + ejs.length + (ejs.length > 1 ? ' ejercicios' : ' ejercicio') + ' en ' + pags.length + (pags.length > 1 ? ' páginas.' : ' página.');
+    if (cuantos) cuantos.textContent = (examen ? 'Este examen tiene ' : 'Esta hoja tiene ') + ejs.length + (ejs.length > 1 ? ' ejercicios' : ' ejercicio') + ' en ' + pags.length + (pags.length > 1 ? ' páginas.' : ' página.');
     pags.forEach((p, k) => {
-      p.querySelector('.donde').textContent = (sol ? 'Solucionario · ' : '') + 'Semilla ' + semilla + ' · Página ' + (k + 1) + ' de ' + pags.length;
+      p.querySelector('.donde').textContent = (sol ? 'Solucionario · ' : '') + (examen && !sol ? '' : 'Semilla ' + semilla + ' · ') + 'Página ' + (k + 1) + ' de ' + pags.length;
       const pie = p.querySelector('.pie');
       if (sol) return;
       if (k < pags.length - 1) { pie.className = 'pie sigue'; pie.textContent = (examen ? 'El examen' : 'La hoja') + ' continúa en la página siguiente →'; }
