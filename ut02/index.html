@@ -583,7 +583,7 @@
     <p style="font-size:var(--type-caption);font-weight:700;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">Ejemplo: Windows 11 en tu ordenador</p>
     <div style="display:grid;grid-template-columns:auto 1fr;gap:12px 22px;font-size:22px;line-height:1.35;align-items:baseline">
       <span style="color:#9FB4D9">Tiempo de respuesta</span><span><b>Interactivo</b> (tiempo compartido)</span>
-      <span style="color:#9FB4D9">Usuarios</span><span><b>Multiusuario</b>: varias cuentas y sesiones</span>
+      <span style="color:#9FB4D9">Usuarios</span><span><b>Monousuario</b>: varias cuentas, pero una sola persona a la vez</span>
       <span style="color:#9FB4D9">Procesos</span><span><b>Multitarea</b>: cientos de procesos a la vez</span>
       <span style="color:#9FB4D9">Procesadores</span><span><b>Multiproceso simétrico</b>: usa todos los núcleos</span>
       <span style="color:#9FB4D9">Red</span><span><b>En red</b>: comparte carpetas e impresoras</span>
@@ -617,7 +617,7 @@
 
 <!-- 20 Comparativa: por número de usuarios -->
 <section data-label="Por número de usuarios" data-seccion="2.3" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
-  <aside class="notas">La clave es la palabra simultáneamente. Que haya varias cuentas dadas de alta no convierte al sistema en multiusuario: tienen que poder trabajar a la vez. Windows 11 admite varias sesiones abiertas con cambio rápido de usuario, pero solo una en pantalla; con Windows Server y Escritorio remoto, o con un Linux al que entran veinte alumnos por SSH, sí trabajan todos a la vez. MS-DOS ni siquiera tenía cuentas. Preguntar: ¿el móvil? Una sola persona a la vez: en la práctica, monousuario, aunque Android admita varios perfiles.</aside>
+  <aside class="notas">La clave es la palabra simultáneamente. Que haya varias cuentas dadas de alta no convierte al sistema en multiusuario: tienen que poder trabajar a la vez. Windows 11 tiene varias cuentas y mantiene abiertas varias sesiones con el cambio rápido de usuario, pero solo una persona trabaja con el escritorio a la vez, delante de la pantalla o por Escritorio remoto (Windows 11 Pro admite una sola conexión). Como Windows se usa con ventanas, en este sentido es monousuario. Para varios escritorios a la vez hace falta Windows Server: dos sesiones de administración sin más, y para más usuarios el rol de Servicios de Escritorio remoto con sus licencias de acceso. Si alguien pregunta: con el Servidor OpenSSH, una característica opcional de Windows 11, varias personas pueden entrar a la vez en modo texto; el límite está en el escritorio, no en el núcleo, que es el mismo que el de Windows Server. Con un Linux al que entran veinte alumnos por SSH, sí trabajan todos a la vez. MS-DOS ni siquiera tenía cuentas. Preguntar: ¿el móvil? Una sola persona a la vez: en la práctica, monousuario, aunque Android admita varios perfiles.</aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Tipos de sistemas operativos · criterio 2</p>
   <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Por número de usuarios</h2>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:var(--gap-title);flex:1">
@@ -626,6 +626,7 @@
       <p style="font-size:var(--type-caption);color:var(--muted);margin-top:8px">Un solo usuario cada vez, con todos los recursos para él.</p>
       <ul style="padding:0;list-style:none;display:flex;flex-direction:column;gap:20px;margin-top:32px;font-size:var(--type-small);line-height:1.4">
         <li style="display:flex;gap:20px"><span style="color:var(--blue)">●</span><span>MS-DOS, Windows 95 y 98: ni siquiera tenían cuentas de verdad.</span></li>
+        <li style="display:flex;gap:20px"><span style="color:var(--blue)">●</span><span>Windows 11: tiene varias cuentas, pero solo una persona puede trabajar con el escritorio a la vez, delante de la pantalla o por Escritorio remoto.</span></li>
         <li style="display:flex;gap:20px"><span style="color:var(--blue)">●</span><span>El móvil, en la práctica: una persona a la vez, aunque admita varios perfiles.</span></li>
         <li style="display:flex;gap:20px"><span style="color:var(--blue)">●</span><span>No importa cuántos procesos ni procesadores tenga: el criterio es cuántas personas trabajan a la vez.</span></li>
       </ul>
@@ -636,7 +637,7 @@
       <ul style="padding:0;list-style:none;display:flex;flex-direction:column;gap:20px;margin-top:32px;font-size:var(--type-small);line-height:1.4;color:#E3EBF8">
         <li style="display:flex;gap:20px"><span style="color:var(--yellow)">●</span><span>UNIX y Linux desde el principio: veinte personas conectadas por terminal o por SSH al mismo equipo.</span></li>
         <li style="display:flex;gap:20px"><span style="color:var(--yellow)">●</span><span>Windows Server con Escritorio remoto: varios escritorios a la vez en la misma máquina.</span></li>
-        <li style="display:flex;gap:20px"><span style="color:var(--yellow)">●</span><span>Windows 11: varias cuentas y varias sesiones abiertas con cambio rápido de usuario, pero solo una en pantalla. Está en el límite.</span></li>
+        <li style="display:flex;gap:20px"><span style="color:var(--yellow)">●</span><span>Es lo que Windows 11 no permite: para tener varias sesiones a la vez hace falta Windows Server, con su licencia.</span></li>
       </ul>
     </div>
   </div>
