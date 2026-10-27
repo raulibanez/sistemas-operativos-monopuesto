@@ -286,7 +286,7 @@
         <tr style="border-bottom:2px solid var(--line)"><td style="padding:16px 26px;font-weight:700;color:var(--navy)">Escritorio y portátil</td><td style="padding:16px 26px">Windows 11, macOS, Linux (Ubuntu, Fedora, Mint…), ChromeOS</td><td style="padding:16px 26px">Windows 10 dejó de tener soporte el 14 de octubre de 2025.</td></tr>
         <tr style="border-bottom:2px solid var(--line)"><td style="padding:16px 26px;font-weight:700;color:var(--navy)">Móvil y tablet</td><td style="padding:16px 26px">Android, iOS e iPadOS</td><td style="padding:16px 26px">Android lleva dentro un núcleo Linux.</td></tr>
         <tr style="border-bottom:2px solid var(--line)"><td style="padding:16px 26px;font-weight:700;color:var(--navy)">Servidores e internet</td><td style="padding:16px 26px">Linux (Ubuntu Server, RHEL, Debian), Windows Server, FreeBSD</td><td style="padding:16px 26px">La mayoría de los servidores web y de la nube usan Linux.</td></tr>
-        <tr style="border-bottom:2px solid var(--line)"><td style="padding:16px 26px;font-weight:700;color:var(--navy)">Empotrados y tiempo real</td><td style="padding:16px 26px">FreeRTOS, Zephyr, QNX, VxWorks</td><td style="padding:16px 26px">Coches, electrodomésticos, robots, róveres de Marte.</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:16px 26px;font-weight:700;color:var(--navy)">Embebidos (embedded) y tiempo real</td><td style="padding:16px 26px">FreeRTOS, Zephyr, QNX, VxWorks</td><td style="padding:16px 26px">Coches, electrodomésticos, robots, róveres de Marte.</td></tr>
         <tr><td style="padding:16px 26px;font-weight:700;color:var(--navy)">Consolas y televisores</td><td style="padding:16px 26px">Sistema de PlayStation 5 (sobre FreeBSD), Nintendo Switch, Android TV, tvOS, webOS</td><td style="padding:16px 26px">Sistemas cerrados a medida del aparato.</td></tr>
       </tbody>
     </table>
@@ -518,7 +518,7 @@
 
 <!-- 16 Pregunta: cuántos sistemas operativos hay en el aula -->
 <section data-label="¿Cuántos SO hay en el aula?" data-seccion="2.2" style="display:grid;grid-template-columns:1fr 1.15fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
-  <aside class="notas">Contar entre todos: los PC (Windows), cada móvil (Android o iOS), relojes, la pizarra digital (casi siempre Android), el router del aula (Linux), la impresora (Linux o un sistema empotrado), el proyector, una consola si alguien la lleva. Al revelar: por número de aparatos, Linux es el sistema más extendido del mundo; por ordenadores de escritorio, Windows. Enlaza con la tabla de cuotas de la sección 2.1.</aside>
+  <aside class="notas">Contar entre todos: los PC (Windows), cada móvil (Android o iOS), relojes, la pizarra digital (casi siempre Android), el router del aula (Linux), la impresora (Linux o un sistema embebido), el proyector, una consola si alguien la lleva. Al revelar: por número de aparatos, Linux es el sistema más extendido del mundo; por ordenadores de escritorio, Windows. Enlaza con la tabla de cuotas de la sección 2.1.</aside>
   <div>
     <img class="icono" src="../assets/question.png" alt="">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-top:var(--gap-item)">Pregunta a la clase</p>
@@ -531,11 +531,11 @@
       <div style="display:flex;flex-wrap:wrap;gap:10px 12px;margin-top:18px;font-size:21px;line-height:1.3">
         <span style="background:var(--bg);border-radius:999px;padding:8px 18px"><b style="color:var(--navy)">PC del aula</b>: Windows 11</span>
         <span style="background:var(--bg);border-radius:999px;padding:8px 18px"><b style="color:var(--navy)">Móviles</b>: Android e iOS, uno por persona</span>
-        <span style="background:var(--bg);border-radius:999px;padding:8px 18px"><b style="color:var(--navy)">Relojes y auriculares</b>: sistemas empotrados</span>
+        <span style="background:var(--bg);border-radius:999px;padding:8px 18px"><b style="color:var(--navy)">Relojes y auriculares</b>: sistemas embebidos</span>
         <span style="background:var(--bg);border-radius:999px;padding:8px 18px"><b style="color:var(--navy)">Pizarra digital</b>: casi siempre Android</span>
         <span style="background:var(--bg);border-radius:999px;padding:8px 18px"><b style="color:var(--navy)">Router y puntos de acceso</b>: Linux</span>
-        <span style="background:var(--bg);border-radius:999px;padding:8px 18px"><b style="color:var(--navy)">Impresora</b>: Linux o un sistema empotrado</span>
-        <span style="background:var(--bg);border-radius:999px;padding:8px 18px"><b style="color:var(--navy)">Proyector, cámara</b>: empotrados</span>
+        <span style="background:var(--bg);border-radius:999px;padding:8px 18px"><b style="color:var(--navy)">Impresora</b>: Linux o un sistema embebido</span>
+        <span style="background:var(--bg);border-radius:999px;padding:8px 18px"><b style="color:var(--navy)">Proyector, cámara</b>: embebidos</span>
       </div>
       <p style="font-size:var(--type-caption);color:var(--ink);margin-top:22px;line-height:1.45;border-left:5px solid var(--yellow);padding-left:20px">Por número de aparatos, el sistema operativo más extendido del mundo es <b>Linux</b>: está dentro de Android, de la mayoría de los servidores de internet, de routers, televisores y superordenadores. Por ordenadores de escritorio, <b>Windows</b>.</p>
     </div>
@@ -655,7 +655,7 @@
       <p style="font-size:var(--type-caption);color:var(--muted);margin-top:8px">Un solo programa cada vez. Tiene la CPU entera hasta que termina; entonces entra el siguiente.</p>
       <ul style="padding:0;list-style:none;display:flex;flex-direction:column;gap:20px;margin-top:32px;font-size:var(--type-small);line-height:1.4">
         <li style="display:flex;gap:20px"><span style="color:var(--blue)">●</span><span>MS-DOS: para usar otro programa había que salir del que estabas usando.</span></li>
-        <li style="display:flex;gap:20px"><span style="color:var(--blue)">●</span><span>Muchos sistemas empotrados sencillos siguen así: un microondas ejecuta un solo programa.</span></li>
+        <li style="display:flex;gap:20px"><span style="color:var(--blue)">●</span><span>Muchos sistemas embebidos sencillos siguen así: un microondas ejecuta un solo programa.</span></li>
       </ul>
     </div>
     <div style="background:var(--navy);color:var(--white);border-radius:24px;padding:44px 52px">
@@ -680,7 +680,7 @@
       <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;margin:-12px 0 -12px"><h3 style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy)">Monoproceso</h3><img src="img/ia/monoproceso.webp" alt="" style="height:96px;width:auto;flex:none"></div>
       <p style="font-size:var(--type-caption);color:var(--muted);margin-top:8px">Solo sabe trabajar con un procesador, aunque el equipo tenga más.</p>
       <ul style="padding:0;list-style:none;display:flex;flex-direction:column;gap:20px;margin-top:32px;font-size:var(--type-small);line-height:1.4">
-        <li style="display:flex;gap:20px"><span style="color:var(--blue)">●</span><span>Los sistemas antiguos y muchos empotrados.</span></li>
+        <li style="display:flex;gap:20px"><span style="color:var(--blue)">●</span><span>Los sistemas antiguos y muchos embebidos.</span></li>
         <li style="display:flex;gap:20px"><span style="color:var(--blue)">●</span><span>Un sistema monotarea sobre un superordenador de miles de núcleos usaría uno: el hardware no basta, el sistema tiene que saber aprovecharlo.</span></li>
       </ul>
     </div>
@@ -712,7 +712,7 @@
       </tr>
     </thead>
     <tbody style="line-height:1.35">
-      <tr style="border-bottom:2px solid var(--line)"><td style="padding:18px 28px;font-weight:700;color:var(--navy)"><div style="display:flex;align-items:center;gap:16px"><img src="img/ia/centralizado.webp" alt="" style="width:64px;height:64px;object-fit:contain;flex:none"><span>Centralizado</span></div></td><td style="padding:18px 28px">No comparte nada ni usa recursos de otros equipos. Trabaja como una máquina aislada.</td><td style="padding:18px 28px">Un equipo sin red; sistemas empotrados sencillos.</td><td style="padding:18px 28px">Sencillo y seguro; limitado a lo que tiene dentro.</td></tr>
+      <tr style="border-bottom:2px solid var(--line)"><td style="padding:18px 28px;font-weight:700;color:var(--navy)"><div style="display:flex;align-items:center;gap:16px"><img src="img/ia/centralizado.webp" alt="" style="width:64px;height:64px;object-fit:contain;flex:none"><span>Centralizado</span></div></td><td style="padding:18px 28px">No comparte nada ni usa recursos de otros equipos. Trabaja como una máquina aislada.</td><td style="padding:18px 28px">Un equipo sin red; sistemas embebidos sencillos.</td><td style="padding:18px 28px">Sencillo y seguro; limitado a lo que tiene dentro.</td></tr>
       <tr style="border-bottom:2px solid var(--line)"><td style="padding:18px 28px;font-weight:700;color:var(--navy)"><div style="display:flex;align-items:center;gap:16px"><img src="img/ia/en-red.webp" alt="" style="width:64px;height:64px;object-fit:contain;flex:none"><span>En red</span></div></td><td style="padding:18px 28px">Comparte recursos con otros equipos, y el usuario sabe que son remotos: la carpeta del servidor, la impresora del pasillo.</td><td style="padding:18px 28px">Windows y Linux en cualquier oficina o aula. Es lo que verás en <i>Sistemas Operativos en Red</i>.</td><td style="padding:18px 28px">Compartir y administrar desde un punto; depende de la red y hay que proteger el acceso.</td></tr>
       <tr><td style="padding:18px 28px;font-weight:700;color:var(--navy)"><div style="display:flex;align-items:center;gap:16px"><img src="img/ia/distribuido.webp" alt="" style="width:64px;height:64px;object-fit:contain;flex:none"><span>Distribuido</span></div></td><td style="padding:18px 28px">La red pasa desapercibida: los recursos remotos se usan igual que los locales y el trabajo se reparte entre varias máquinas que parecen una.</td><td style="padding:18px 28px">Clústeres, superordenadores, la nube: miles de servidores detrás de una sola dirección.</td><td style="padding:18px 28px">Más potencia y tolerancia a fallos (si cae una máquina, siguen las demás); mucho más complejo.</td></tr>
     </tbody>
