@@ -1121,27 +1121,76 @@ section:has(> .sim) { grid-template-rows: minmax(0, 1fr); }
 .sv.texto .lbl { font-size: 21px; }
 .sv.texto .c.num { height: 60px; font-size: 30px; }
 .sv .d.dato { font-size: 30px; }
-.sv.plan { --cel: 32px; --fs: 21px; gap: 3px; font-size: 24px; margin: 0; }
-.sv.plan.xs { --cel: 28px; --fs: 19px; }
+/* Cronograma (generador planificacion), como en los simuladores: a la izquierda las tablas (.sv-lado,
+   .tabla: datos arriba y resultados debajo, un proceso por fila) y a la derecha el cronograma, con los
+   botones y la explicación debajo (.ej.con-lado). Las casillas del cronograma, tan anchas como quepan. */
+.sv.plan { --cel: 48px; --fs: 24px; gap: 4px; font-size: 26px; margin: 0; }
+.sv.plan:not(.tabla) { column-gap: 0; row-gap: 12px; }   /* el cronograma: una barra por proceso, con las unidades pegadas */
 .ej:has(> .sv.plan) { padding: 24px 32px 22px; gap: 12px; }
-.ej:has(> .sv.plan) .ej-enunciado { font-size: 22px; line-height: 1.3; }
+.ej:has(> .sv.plan) .ej-enunciado { font-size: 22px; line-height: 1.35; color: var(--ink); display: flex; align-items: center; gap: 22px; }
+/* el algoritmo que hay que hacer, grande, delante de su regla */
+.ej:has(> .sv.plan) .ej-cab { flex: none; margin: 0; padding: 10px 26px; background: var(--navy); color: var(--white); font-size: 32px; line-height: 1.1; vertical-align: 0; }
 .ej:has(> .sv.plan) .ej-ops { margin-top: -4px; }
-.ej:has(> .sv.plan) .ej-ops button { font-size: 16px; padding: 7px 14px; }
+.ej:has(> .sv.plan) .ej-ops button { font-size: 18px; padding: 9px 18px; }
 .ej:has(> .sv.plan) .ej-fila .btn { padding: 12px 24px; font-size: 21px; }
 .ej:has(> .sv.plan) .ej-fb { font-size: 21px; }
-.sv.plan .lbl { font-size: 16px; padding-right: 8px; line-height: 1.05; }
+.ej.con-lado:has(> .sv-lado) {
+  display: grid; grid-template-columns: max-content minmax(0, 1fr); grid-template-rows: auto auto auto auto minmax(0, 1fr);
+  grid-template-areas: "enun enun" "ops ops" "lado sv" "lado fila" "lado fb"; gap: 14px 48px; align-content: start;
+}
+.ej.con-lado > .ej-enunciado { grid-area: enun; }
+.ej.con-lado > .ej-ops { grid-area: ops; margin: 0 0 6px; }
+.ej.con-lado > .sv-lado { grid-area: lado; align-self: start; }
+.ej.con-lado > .sv:not(.sv-lado) { grid-area: sv; justify-content: start; align-self: start; --cel: 58px; row-gap: 14px; }   /* la de las tablas también es .sv */
+.ej.con-lado > .ej-fila { grid-area: fila; margin-top: 10px; }
+.ej.con-lado > .ej-fb { grid-area: fb; min-height: 0; overflow: auto; }
+.sv-lado[hidden] { display: none; }
+.sv.plan .lbl { font-size: 18px; padding-right: 10px; line-height: 1.05; }
 .sv.plan .c { border-width: 2px; border-radius: 8px; }
-.sv.plan .c.num { font-size: 22px; }
-.sv.plan .c.dec { font-size: 21px; letter-spacing: 0; }
-.sv.plan .d.peq { font-size: 14px; height: 20px; line-height: 20px; }
-.sv.plan .d.dato { font-size: 21px; height: 26px; line-height: 26px; }
-.sv.plan .d.ph { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 20px; font-weight: 800; }
-.sv.plan .d.ph.p1 { color: #0B4AB5; } .sv.plan .d.ph.p2 { color: #1E8E5A; } .sv.plan .d.ph.p3 { color: #E67E22; } .sv.plan .d.ph.p4 { color: #8E44AD; }
-.sv.plan .d.celda { height: var(--cel); background: var(--white); border: 2px solid var(--line); border-radius: 6px; }
-.sv.plan .d.celda.on { border-color: transparent; }
-.sv.plan .d.celda.p1 { background: #0B4AB5; } .sv.plan .d.celda.p2 { background: #1E8E5A; } .sv.plan .d.celda.p3 { background: #E67E22; } .sv.plan .d.celda.p4 { background: #8E44AD; }
-.sv.plan .linea.suave { margin: 2px 0; }
-.sv.plan .c.cpu { font-weight: 800; }
+.sv.plan .c.num { font-size: 26px; }
+.sv.plan .c.dec { font-size: 24px; letter-spacing: 0; }
+.sv.plan .d.peq { font-size: 17px; height: 24px; line-height: 24px; }
+.sv.plan .lbl.ph { font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; }   /* cifras del mismo ancho: si no, P1 (el 1 es estrecho) sale más a la derecha que P2, P3 y P4 */
+.sv.plan .ph.p1 { color: #0B4AB5; } .sv.plan .ph.p2 { color: #1E8E5A; } .sv.plan .ph.p3 { color: #E67E22; } .sv.plan .ph.p4 { color: #8E44AD; }
+/* las tablas: cabecera azul marino de lado a lado, como .sim-tabla */
+.sv.plan.tabla { column-gap: 0; row-gap: 6px; justify-content: start; }
+.sv.plan.tabla .d.encab { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background: var(--navy); color: var(--white); font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; height: 44px; line-height: 44px; }
+.sv.plan.tabla .d.encab.ini { border-radius: 14px 0 0 14px; }
+.sv.plan.tabla .d.encab.fin { border-radius: 0 14px 14px 0; }
+.sv.plan.tabla .lbl { text-align: center; padding: 0; }
+.sv.plan.tabla .lbl.medias { font-size: 20px; font-weight: 800; color: var(--navy); }
+.sv.plan.tabla .d.dato { font-size: 28px; height: var(--cel); line-height: var(--cel); }
+.sv.plan.tabla .c { width: auto; margin: 0 14px; }
+.sv .linea.hueco { height: 16px; background: none; }
+/* casillas del cronograma: se pulsan para cambiarlas (data-i: 0 vacía, 1 en ejecución, 2 espera en la cola),
+   con la leyenda de los simuladores: en ejecución, del color del proceso; en espera, la raya gris. El texto
+   del botón (el estado) no se ve. El borde dice si está bien (verde), mal (rojo) o lo ha puesto Pista (amarillo). */
+.sv.plan .c.gantt { position: relative; font-size: 0; padding: 0; border: 1px solid #C9D1DF; border-left-width: 0; border-radius: 0; background: var(--white); transition: none; }
+.sv.plan .lbl + .c.gantt { border-left-width: 1px; }   /* la primera unidad de cada barra */
+.sv.plan .c.gantt:hover { background: #F3F6FB; }
+.sv.plan .c.gantt[data-i="1"] { box-shadow: inset 0 0 0 1px var(--white); }   /* como en el simulador: una raya fina entre unidades */
+.sv.plan .c.gantt[data-i="1"].p1 { background: #0B4AB5; } .sv.plan .c.gantt[data-i="1"].p2 { background: #1E8E5A; }
+.sv.plan .c.gantt[data-i="1"].p3 { background: #E67E22; } .sv.plan .c.gantt[data-i="1"].p4 { background: #8E44AD; }
+.sv.plan .c.gantt[data-i="2"] { background: #E7EBF3; }
+.sv.plan .c.gantt[data-i="2"]::after { content: ''; position: absolute; left: 7px; right: 7px; top: 50%; height: 6px; margin-top: -3px; border-radius: 3px; background: #B7C2D6; }
+/* estados de la corrección, por dentro de la casilla (las casillas van pegadas) */
+.sv.plan .c.gantt[data-i]:focus { box-shadow: inset 0 0 0 3px var(--sky); z-index: 1; }
+.sv.plan .c.gantt.ok[data-i] { border-color: #C9D1DF; }
+.sv.plan .c.gantt.ko[data-i] { box-shadow: inset 0 0 0 4px var(--ko); }
+.sv.plan .c.gantt.ko[data-i="0"] { background: #FBEAEA; }
+.sv.plan .c.gantt.pista[data-i] { box-shadow: inset 0 0 0 4px var(--yellow); }
+/* el eje del tiempo, debajo y en las rayas: cada número, centrado en el borde izquierdo de su columna
+   (la última, de 0 px, es la del instante final), con una marca que baja de la barra */
+.sv.plan .d.eje { position: relative; justify-self: start; width: 0; height: 40px; line-height: 1; padding-top: 14px; display: flex; justify-content: center; overflow: visible; font: 600 22px/1 var(--mono); color: #485168; }
+.sv.plan .d.eje::before { content: ''; position: absolute; left: -.5px; top: -10px; width: 1px; height: 20px; background: #9AA6BE; }
+.sv.plan .lbl.eje-t { align-self: start; padding: 14px 26px 0 0; font: 600 22px/1 var(--mono); color: var(--muted); }   /* separada del 0 */
+
+/* ---------- Ventana con la explicación de una diapositiva (data-ventana, ver som.js) ---------- */
+.ventana { position: absolute; inset: 0; z-index: 30; display: flex; align-items: center; justify-content: center; padding: 72px 120px; background: rgba(21, 53, 107, .55); }
+.ventana[hidden] { display: none; }
+.ventana-caja { position: relative; max-width: 1240px; max-height: 100%; overflow: auto; background: var(--white); border-radius: 28px; padding: 52px 64px 56px; box-shadow: 0 24px 64px rgba(0, 0, 0, .25); }
+.ventana-cerrar { position: absolute; top: 22px; right: 22px; width: 56px; height: 56px; border-radius: 50%; border: 2px solid var(--line); background: var(--white); color: var(--navy); font: 400 36px/1 'Plus Jakarta Sans', system-ui, sans-serif; cursor: pointer; }
+.ventana-cerrar:hover { border-color: var(--sky); }
 
 /* ---------- Calculadora básica (tecla C): panel flotante con assets/calc.html ---------- */
 .calc-panel {

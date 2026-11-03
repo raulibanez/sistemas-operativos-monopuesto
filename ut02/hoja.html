@@ -89,8 +89,30 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
 .hoja .ej-hoja .sv .lbl.medio { text-align: left; padding: 0 0 0 8px; }
 .hoja .ej-hoja .sv .d.texto { font-size: 31px; line-height: 1.3; }
 .hoja .ej-hoja .sv:not(.plan) .d.peq { font-size: 28px; color: var(--ink); }
-.hoja .ej-hoja .sv.plan .lbl { color: var(--ink); }
+.hoja .ej-hoja .sv.plan .lbl:not(.ph) { color: var(--ink); }   /* los procesos, en su color */
+/* cronograma en papel: arriba, juntas, la tabla de datos y la de resultados (zoom fijo); debajo, el cronograma
+   a todo el ancho, con las casillas grandes para colorear (ajustaPar). Las cabeceras de las tablas, sin fondo:
+   subrayadas, en dos líneas si hace falta y con el pie alineado */
+.ej-hoja .tablas { display: flex; gap: 32px; align-items: flex-start; margin: 12px 0 4px; }
+.ej-hoja .tablas > .sv { margin: 0; flex: none; }
+.hoja .ej-hoja .sv.tabla { align-items: stretch; }
+.hoja .ej-hoja .sv.tabla > * { align-self: center; }
+.hoja .ej-hoja .sv.tabla .d.encab { align-self: stretch; display: flex; align-items: flex-end; justify-content: center; text-align: center; background: none; color: var(--ink); border-bottom: 3px solid var(--navy); border-radius: 0; font-size: 23px; letter-spacing: 0; text-transform: none; white-space: nowrap; line-height: 1.1; height: auto; padding: 0 6px 8px; }
+.hoja .ej-hoja .sv.tabla .d.dato { font-size: 36px; color: var(--ink); }
+.hoja .ej-hoja .sv.tabla .lbl.ph { font-size: 32px; }
+.hoja .ej-hoja .sv.tabla .lbl.medias { font-size: 28px; color: var(--ink); }
+.hoja .ej-hoja .sv.plan .d.eje, .hoja .ej-hoja .sv.plan .lbl.eje-t { font-size: 26px; color: var(--ink); }   /* el eje, en las rayas */
+.hoja .ej-hoja .sv.plan .d.eje::before { width: 3px; left: -1.5px; }   /* con el zoom del papel, la marca de 1 px no se ve */
+.hoja .ej-hoja .sv.plan .lbl.eje-t { padding-right: 44px; }
+.hoja .ej-hoja .sv.plan:not(.tabla) .lbl.ph { font-size: 28px; }
+.hoja .ej-hoja .sv.plan .c.gantt { border: 2px solid #9AA6BE; border-left-width: 0; }   /* una barra por proceso, con las unidades pegadas */
+.hoja .ej-hoja .sv.plan .lbl + .c.gantt { border-left-width: 2px; }
+.hoja .ej-hoja .sv.plan:not(.tabla) { --cel: 42px; row-gap: 9px; margin: 10px 0 2px; }
 .sol .ej-hoja .sv .c { color: var(--ok); border-color: var(--ok); background: #F3FAF6; }
+/* cronograma: en papel, casillas en blanco para colorear (en la CPU) o rayar (en la cola); en el solucionario, como en la pantalla */
+.sol .ej-hoja .sv.plan .c.gantt { border-color: #9AA6BE; }
+.sol .ej-hoja .sv.plan .c.gantt[data-i="0"] { background: #fff; }   /* solo las vacías: las de la CPU llevan el color del proceso (som.css) */
+.sol .ej-hoja .sv.plan .c.gantt[data-i="2"] { background: #E7EBF3; }
 .sol .ej-hoja .sv .c.sel { color: var(--ok); }
 .ej-hoja .resp { font-size: 12px; color: var(--ok); line-height: 1.4; margin: 2px 0 0; white-space: pre-line; }
 /* pie de cada página: dónde estás y si la hoja sigue */
@@ -104,7 +126,7 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
   .panel, .aviso { display: none; }
   .hoja { margin: 0; box-shadow: none; break-after: page; }
   .hoja:last-child { break-after: auto; }
-  .sv.plan .d.celda.on, .sv.plan .d.ph { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .sv.plan .c.gantt, .sv.plan .c.gantt::after, .sv.plan .ph { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 @page { size: A4; margin: 0; }
 </style>
@@ -124,7 +146,7 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
   </div>
   <div class="tipos" id="tipos"></div>
 </div>
-<p class="aviso">La <b>semilla</b> (<i>seed</i>) es el número del que salen los ejercicios: la misma semilla con el mismo título da siempre la misma hoja, y cualquier otro número, o cualquier otro título, da otra distinta. Genera las que quieras para practicar y compruébalas con el solucionario. En las dos hojas, cada ejercicio empieza por la tarea, con el verbo subrayado y los datos en negrita; la de práctica añade cómo se hace y pistas, y la de examen deja solo la tarea. En clase, el profesor reparte a todos una hoja con una semilla que no se ha usado antes; el examen se genera igual. En los cronogramas, escribe en la fila CPU el proceso de cada unidad de tiempo y colorea su fila. La dirección de la página guarda la configuración: <code id="url"></code></p>
+<p class="aviso">La <b>semilla</b> (<i>seed</i>) es el número del que salen los ejercicios: la misma semilla con el mismo título da siempre la misma hoja, y cualquier otro número, o cualquier otro título, da otra distinta. Genera las que quieras para practicar y compruébalas con el solucionario. En las dos hojas, cada ejercicio empieza por la tarea, con el verbo subrayado y los datos en negrita; la de práctica añade cómo se hace y pistas, y la de examen deja solo la tarea. En clase, el profesor reparte a todos una hoja con una semilla que no se ha usado antes; el examen se genera igual. En los cronogramas, colorea la casilla del proceso que está en la CPU en cada unidad de tiempo y haz una raya (—) en las de los que esperan en la cola. La dirección de la página guarda la configuración: <code id="url"></code></p>
 <div id="hojas"><p class="vacio">Pulsa Generar.</p></div>
 
 <script src="../assets/som.js"></script>
@@ -188,18 +210,20 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
   const frases = (t) => plano(t).split(/(?<=[.?!])\s+(?=[¿«A-ZÁÉÍÓÚÑ0-9])/).map((f) => f.trim()).filter(Boolean);
   const palabras = (t) => plano(t).toLowerCase().match(/[\p{L}\p{N}]+/gu) || [];
   function metodo(g) {
-    if (!g.tarea || !g.enunciado) return [];
+    const e = g.enunciadoPapel || g.enunciado;   // el de papel, si en pantalla se hace de otra forma (pulsando)
+    if (!g.tarea || !e) return [];
     const enTarea = new Set(palabras(g.tarea));
-    return frases(g.enunciado).filter((f) => { const p = palabras(f); return p.filter((w) => enTarea.has(w)).length < 0.7 * p.length; });
+    return frases(e).filter((f) => { const p = palabras(f); return p.filter((w) => enTarea.has(w)).length < 0.7 * p.length; });
   }
 
-  function pintaRejilla(g, sol) {
+  // una rejilla: la del generador (g.filas) o, si se le dan, otras filas y columnas (g.lado, las tablas del cronograma)
+  function pintaRejilla(g, sol, filas = g.filas, columnas = g.columnas, clase = g.clase) {
     const sv = document.createElement('div');
-    sv.className = 'sv' + (g.clase ? ' ' + g.clase : '');
-    sv.style.gridTemplateColumns = g.columnas || '';
+    sv.className = 'sv' + (clase ? ' ' + clase : '');
+    sv.style.gridTemplateColumns = columnas || '';
     const valores = {};
-    g.filas.forEach((f) => { if (!f.linea) f.forEach((it) => { if (it.c !== undefined && it.id) valores[it.id] = it.c; }); });
-    g.filas.forEach((f) => {
+    filas.forEach((f) => { if (!f.linea) f.forEach((it) => { if (it.c !== undefined && it.id) valores[it.id] = it.c; }); });
+    filas.forEach((f) => {
       if (f.linea) {
         const l = document.createElement('div');
         l.className = 'linea' + (f.clase ? ' ' + f.clase : '');
@@ -209,7 +233,11 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
       }
       f.forEach((it, j) => {
         let x;
-        if (it.lbl !== undefined) { x = document.createElement('span'); x.className = 'lbl' + (j > 0 ? ' medio' : ''); x.textContent = it.lbl; }
+        if (it.lbl !== undefined) { x = document.createElement('span'); x.className = 'lbl' + (j > 0 ? ' medio' : '') + (it.clase ? ' ' + it.clase : ''); x.textContent = it.lbl; }
+        else if (it.sel && /\bgantt\b/.test(it.clase || '')) {   // casilla del cronograma: en blanco; en el solucionario, su estado
+          x = document.createElement('div'); x.className = 'c ' + it.clase;
+          if (sol) x.dataset.i = Math.max(0, it.sel.indexOf(it.c));
+        }
         else if (it.sel) {   // en papel, las opciones se rodean: cortas, en una línea; largas, una debajo de otra
           const ops = it.sel.filter((o) => o !== '?'), larga = ops.some((o) => o.length > 14);
           x = document.createElement('div'); x.className = 'c sel' + (larga ? ' larga' : '') + (it.clase ? ' ' + it.clase : '');
@@ -227,7 +255,6 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
         sv.appendChild(x);
       });
     });
-    if (sol && g.alEscribir) g.alEscribir(sv);   // colorea el cronograma en el solucionario
     return sv;
   }
 
@@ -247,7 +274,14 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
       m.forEach((f) => { const li = document.createElement('li'); li.textContent = f; c.querySelector('ul').appendChild(li); });
       d.appendChild(c);
     }
-    d.appendChild(pintaRejilla(g, sol));
+    if (g.lado) {   // cronograma: la tabla de datos y la de resultados juntas, y debajo el cronograma a todo el ancho
+      const k = g.lado.filas.findIndex((f) => f.linea);   // el hueco entre las dos tablas
+      const tablas = document.createElement('div');
+      tablas.className = 'tablas';
+      tablas.append(pintaRejilla(g, sol, g.lado.filas.slice(0, k), g.lado.columnas, g.lado.clase),
+        pintaRejilla(g, sol, g.lado.filas.slice(k + 1), g.lado.columnas, g.lado.clase));
+      d.append(tablas, pintaRejilla(g, sol));
+    } else d.appendChild(pintaRejilla(g, sol));
     if (sol) { const r = document.createElement('p'); r.className = 'resp'; r.textContent = String(typeof g.correcto === 'function' ? g.correcto() : (g.correcto || '')).replace(/^Correcto[:.]\s*/, ''); d.appendChild(r); }
     return d;
   }
@@ -261,7 +295,18 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
      rejilla (antes del zoom). */
   const ZOOM = 0.4, ZOOM_PLAN = 0.66, TOPE = 300, MIN_FR = 400;
   const lienzo = document.createElement('canvas').getContext('2d');
+  /* Con g.lado (el cronograma), las tablas van con zoom fijo y el cronograma, a todo el ancho */
+  const ZOOM_TABLA = 0.43;
+  const suma = (cols, gap) => { const p = cols.replace(/repeat\((\d+),\s*([^)]+)\)/g, (m, n, v) => Array(+n).fill(v.trim()).join(' ')).trim().split(/\s+/); return p.reduce((a, x) => a + parseFloat(x), 0) + gap * (p.length - 1); };
+  function ajustaPar(d, g) {
+    const crono = d.querySelector(':scope > .sv');
+    const cs = getComputedStyle(d);
+    const ancho = d.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    d.querySelectorAll('.tablas > .sv').forEach((t) => { t.style.zoom = ZOOM_TABLA; });
+    crono.style.zoom = Math.min(ZOOM_PLAN, ancho / suma(g.columnas, parseFloat(getComputedStyle(crono).columnGap) || 0)).toFixed(3);
+  }
   function ajustaRejilla(d, g) {
+    if (g.lado) return ajustaPar(d, g);
     const sv = d.querySelector('.sv');
     if (!sv || !g.columnas) return;
     const p = g.columnas.replace(/repeat\((\d+),\s*([^)]+)\)/g, (m, n, v) => Array(+n).fill(v.trim()).join(' ')).trim().split(/\s+/);
@@ -293,7 +338,7 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
   function normas(ejs) {
     const n = ['No se puede usar ningún material.'];
     if (ejs.some((e) => e.tipo.gen === 'planificacion')) n.push(
-      'En cada cronograma, escribe en la fila CPU el proceso que se ejecuta en cada unidad de tiempo y colorea su fila.',
+      'En cada cronograma, colorea la casilla del proceso que está en la CPU en cada unidad de tiempo y haz una raya (—) en las de los procesos que esperan en la cola.',
       'Respuesta = fin − llegada. Espera = respuesta − ejecución. Luego, las medias.',
       'Empates: entra el que llegó antes (FIFO). En SRTF y en prioridades expulsivo sigue el que está. En Round Robin, el que llega entra en la cola antes que el que agota su quantum.',
       'La prioridad 1 es la más alta.');

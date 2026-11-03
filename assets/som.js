@@ -35,6 +35,8 @@
  *  9. Teorema fundamental de la numeración paso a paso (Anterior / Siguiente / Otro número, selector de base 2, 8, 10, 16
  *     y el número se puede escribir a mano pulsándolo):
  *       <div class="sumatorio" data-numero="52318" data-base="10"> <div class="sum-cuerpo">…</div> </div>
+ * 10. Ventana con la explicación de una diapositiva: <button data-ventana="id"> abre <div class="ventana" id="id" hidden>
+ *     (ver montaVentanas).
  */
 (function () {
   'use strict';
@@ -58,6 +60,9 @@
  *   cabecera   (opcional) pastilla delante del enunciado, p. ej. 'Hexadecimal → decimal' (útil en Al azar)
    *   columnas   grid-template-columns de la rejilla
    *   clase      clases extra de la rejilla ('compacta' para 8 o 9 celdas por fila)
+   *   lado       (opcional) otra rejilla {columnas, clase, filas} a la izquierda de la principal; la tarjeta pasa a
+   *              dos columnas (.con-lado): lado | rejilla, botones y explicación (las tablas del cronograma)
+   *   enunciadoPapel  (opcional) el enunciado de la hoja en papel, si en pantalla se hace de otra forma
    *   filas      lista de filas; cada fila es una lista de elementos:
    *                {lbl:'texto'}                        etiqueta de la fila
    *                {d:'1', clase, span, espejo:'id'}    dato visible (espejo: copia lo que se escribe en la casilla id;
@@ -1050,6 +1055,16 @@
       generar(cfg) {
         const ALGOS = ['fifo', 'sjf', 'srtf', 'pne', 'pe', 'rr'];
         const NOM = { fifo: 'FIFO', sjf: 'SJF', srtf: 'SRTF', pne: 'prioridades no expulsivo', pe: 'prioridades expulsivo', rr: 'Round Robin con q = 2' };
+        // la pastilla grande del ejercicio y la regla del algoritmo, debajo
+        const CAB = { fifo: 'FIFO', sjf: 'SJF', srtf: 'SRTF', pne: 'Prioridades no expulsivo', pe: 'Prioridades expulsivo', rr: 'Round Robin (q = 2)' };
+        const REGLA = {
+          fifo: 'Entra en la CPU el que llegó antes y la tiene hasta que termina (no expulsivo).',
+          sjf: 'Cuando la CPU queda libre, entra el que necesita menos ejecución (no expulsivo).',
+          srtf: 'En la CPU está siempre el proceso al que menos tiempo le queda: si llega uno más corto, expulsa al que está (expulsivo).',
+          pne: 'Cuando la CPU queda libre, entra el de mayor prioridad; la 1 es la más alta (no expulsivo).',
+          pe: 'En la CPU está siempre el de mayor prioridad (la 1 es la más alta): si llega uno con más, expulsa al que está (expulsivo).',
+          rr: 'Por turnos: cada uno usa la CPU como mucho 2 unidades seguidas (quantum 2) y, si no ha terminado, vuelve al final de la cola.'
+        };
         const algo = cfg.modo || ALGOS[rnd(0, 5)];
         const q = 2, N = 4;
         const prs = [1, 2, 3, 4].sort(() => Math.random() - .5);
@@ -1058,17 +1073,21 @@
         procs.sort((a, b) => a.ll - b.ll);
         procs[0].ll = 0;
         const R = simulaPlan(procs, algo, q);
-        const T = R.T, W = 1 + T;
+        const T = R.T;
         const conPrio = algo === 'pne' || algo === 'pe';
+        // casillas del cronograma tan anchas como quepan a la derecha de las tablas (hasta 64 px), pegadas como la barra
+        // de los simuladores; la última columna, de 0 px, es la del instante final del eje (los instantes, en las rayas)
+        const C = Math.min(64, Math.floor(950 / T));
+        // las tablas tienen 6 columnas: cada dato ocupa 3 (2 con prioridad) y cada tiempo, 3
+        const sp = conPrio ? 2 : 3;
         const P = (i) => 'P' + (i + 1);
-        const fill = (row) => { const usado = row.reduce((a, it) => a + (it.span || 1), 0); if (usado < W) row.push({ d: '', span: W - usado }); return row; };
         const lista = (ids) => ids.map(P).join(' y ');
         const motivo = (ev) => {
           const p = [];
           if (ev.llegan.length) p.push(`llega ${lista(ev.llegan)}`);
           if (ev.requeue !== null) p.push(`${P(ev.requeue)} agota su quantum y vuelve al final de la cola`);
           if (ev.expulsa) p.push(`${P(ev.expulsa.entra)} expulsa a ${P(ev.expulsa.sale)} (${algo === 'srtf' ? `le quedan ${ev.expulsa.kEntra} frente a ${ev.expulsa.kSale}` : `prioridad ${ev.expulsa.kEntra} frente a ${ev.expulsa.kSale}`})`);
-          if (ev.ocioso) { p.push('nadie está listo: la CPU queda libre (escribe −)'); return p.join('; ') + '.'; }
+          if (ev.ocioso) { p.push('nadie está listo: la CPU queda libre y la columna, vacía'); return p.join('; ') + '.'; }
           if (ev.entra !== null) {
             const i = ev.entra, solo = ev.colaAntes.length === 1;
             const por = { fifo: 'el primero de la cola', sjf: `el de menor ejecución (${procs[i].ej})`, srtf: `el que menos tiempo tiene pendiente (${ev.claveEntra})`, pne: `el de mayor prioridad (${procs[i].pr})`, pe: `el de mayor prioridad (${procs[i].pr})`, rr: 'el primero de la cola' }[algo];
@@ -1079,33 +1098,54 @@
         const fmt = (x) => String(Math.round(x * 100) / 100).replace('.', ',');
         const cmpMedia = (suma) => (v) => { const s = String(v).replace(/\s+/g, ''); return s === `${suma}/${N}` || Math.abs(aNum(s) - suma / N) < 0.001; };
         const sumEsp = R.esp.reduce((a, b) => a + b, 0), sumResp = R.resp.reduce((a, b) => a + b, 0);
+        /* Como en los simuladores: a la izquierda (g.lado), la tabla de datos (llegada, ejecución y
+           prioridad) y debajo la de resultados (tiempo de espera y de respuesta, y las medias), un proceso
+           por fila; a la derecha, el cronograma. Cada casilla del cronograma se pulsa para cambiarla
+           (vacía → en ejecución → espera en la cola → vacía) y se pinta con la leyenda de los simuladores:
+           en ejecución, del color del proceso; en espera, la raya gris. El proceso espera desde que llega
+           hasta que termina mientras no tiene la CPU, así que sus casillas grises son su tiempo de espera.
+           Se resuelve por columnas (n = u · N + i); luego la respuesta (n 1000…) y la espera (n 2000…),
+           aunque la espera va a la izquierda, como en los simuladores y en la comparativa. */
+        const ph = (i) => ({ lbl: P(i), clase: 'ph p' + (i + 1) });
+        const encab = (t, span, clase) => ({ d: t, clase: 'encab' + (clase ? ' ' + clase : ''), span });
+        const datos = (p) => [p.ll, p.ej, ...(conPrio ? [p.pr] : [])].map((v) => ({ d: String(v), clase: 'dato', span: sp }));
+        const explResp = procs.map((p, i) => `${P(i)} termina en t = ${R.fin[i]}: respuesta = fin − llegada = ${R.fin[i]} − ${p.ll} = ${R.resp[i]}.`);
+        const explEsp = procs.map((p, i) => `${P(i)}: espera = respuesta − ejecución = ${R.resp[i]} − ${p.ej} = ${R.esp[i]}, sus ${R.esp[i]} casillas grises.`);
+        const explMedias = [`Espera media = (${R.esp.join(' + ')}) / ${N} = ${sumEsp}/${N} = ${fmt(sumEsp / N)}.`, `Respuesta media = (${R.resp.join(' + ')}) / ${N} = ${sumResp}/${N} = ${fmt(sumResp / N)}.`];
+        const tablas = [];
+        tablas.push([encab('proceso', 1, 'ini'), encab('llegada', sp), encab('ejecución', sp, conPrio ? '' : 'fin'), ...(conPrio ? [encab('prioridad', sp, 'fin')] : [])]);
+        procs.forEach((p, i) => tablas.push([ph(i), ...datos(p)]));
+        tablas.push({ linea: true, clase: 'hueco', desde: 1 });
+        tablas.push([encab('proceso', 1, 'ini'), encab('tiempo de espera', 3), encab('tiempo de respuesta', 3, 'fin')]);
+        procs.forEach((p, i) => tablas.push([ph(i),
+          { c: String(R.esp[i]), clase: 'num', max: 2, filtro: /[^0-9]/g, span: 3, n: 2000 + i, expl: explEsp[i] },
+          { c: String(R.resp[i]), clase: 'num', max: 2, filtro: /[^0-9]/g, span: 3, n: 1000 + i, expl: explResp[i] }]));
+        tablas.push([{ lbl: 'medias', clase: 'medias' },
+          { c: `${sumEsp}/${N}`, clase: 'dec', max: 7, filtro: /[^0-9,./]/g, span: 3, n: 3001, cmp: cmpMedia(sumEsp), expl: explMedias[0] },
+          { c: `${sumResp}/${N}`, clase: 'dec', max: 7, filtro: /[^0-9,./]/g, span: 3, n: 3000, cmp: cmpMedia(sumResp), expl: explMedias[1] }]);
         const filas = [];
-        filas.push(fill([{ lbl: 'proceso' }, ...procs.map((p, i) => ({ d: P(i), clase: 'ph p' + (i + 1) }))]));
-        filas.push(fill([{ lbl: 'llegada' }, ...procs.map((p) => ({ d: String(p.ll), clase: 'dato' }))]));
-        filas.push(fill([{ lbl: 'ejecución' }, ...procs.map((p) => ({ d: String(p.ej), clase: 'dato' }))]));
-        if (conPrio) filas.push(fill([{ lbl: 'prioridad' }, ...procs.map((p) => ({ d: String(p.pr), clase: 'dato' }))]));
-        filas.push({ linea: true, clase: 'suave', desde: 1 });
-        filas.push([{ lbl: 't' }, ...R.units.map((ev) => ({ d: String(ev.t), clase: 'peq' }))]);
-        filas.push([{ lbl: 'CPU' }, ...R.units.map((ev, u) => ({ c: ev.ocioso ? '−' : String(ev.ejecuta + 1), clase: 'cpu', max: 1, filtro: /[^1-4−-]/g, n: u, cmp: ev.ocioso ? (v) => v === '−' || v === '-' : null, expl: `t = ${ev.t}: ` + motivo(ev) }))]);
-        procs.forEach((p, i) => filas.push([{ lbl: P(i) }, ...R.units.map(() => ({ d: '', clase: 'celda' }))]));
-        filas.push({ linea: true, clase: 'suave', desde: 1 });
-        filas.push(fill([{ lbl: 'respuesta' }, ...procs.map((p, i) => ({ c: String(R.resp[i]), clase: 'num', max: 2, filtro: /[^0-9]/g, n: 100 + i, expl: `${P(i)} termina en t = ${R.fin[i]}: respuesta = fin − llegada = ${R.fin[i]} − ${p.ll} = ${R.resp[i]}` }))]));
-        filas.push(fill([{ lbl: 'espera' }, ...procs.map((p, i) => ({ c: String(R.esp[i]), clase: 'num', max: 2, filtro: /[^0-9]/g, n: 200 + i, expl: `${P(i)}: espera = respuesta − ejecución = ${R.resp[i]} − ${p.ej} = ${R.esp[i]}` }))]));
-        filas.push(fill([{ lbl: 'respuesta media' }, { c: `${sumResp}/${N}`, clase: 'dec', max: 7, filtro: /[^0-9,./]/g, span: 3, n: 300, cmp: cmpMedia(sumResp), expl: `(${R.resp.join(' + ')}) / ${N} = ${sumResp}/${N} = ${fmt(sumResp / N)}` }]));
-        filas.push(fill([{ lbl: 'espera media' }, { c: `${sumEsp}/${N}`, clase: 'dec', max: 7, filtro: /[^0-9,./]/g, span: 3, n: 301, cmp: cmpMedia(sumEsp), expl: `(${R.esp.join(' + ')}) / ${N} = ${sumEsp}/${N} = ${fmt(sumEsp / N)}` }]));
+        const GANTT = ['vacía', 'ejecución', 'espera'];   // en este orden al pulsar; la primera, la de partida
+        const casilla = (p, i, ev, u) => {
+          const corre = !ev.ocioso && ev.ejecuta === i, espera = !corre && p.ll <= ev.t && ev.t < R.fin[i];
+          const expl = `t = ${ev.t}: ` + (corre ? motivo(ev)
+            : espera ? `${P(i)} ya ha llegado y no ha terminado, pero la CPU la tiene ${P(ev.ejecuta)}: ${P(i)} espera en la cola (raya gris).`
+            : ev.t < p.ll ? `${P(i)} todavía no ha llegado (llega en t = ${p.ll}): casilla vacía.`
+            : `${P(i)} ya ha terminado (en t = ${R.fin[i]}): casilla vacía.`);
+          return { sel: GANTT, c: corre ? 'ejecución' : espera ? 'espera' : 'vacía', clase: 'gantt p' + (i + 1), n: u * N + i, expl };
+        };
+        procs.forEach((p, i) => filas.push([ph(i), ...R.units.map((ev, u) => casilla(p, i, ev, u)), { d: '' }]));
+        // el eje, debajo y en las rayas, como en los simuladores: el instante k es la raya entre la unidad k − 1 y la k
+        filas.push([{ lbl: 't', clase: 'eje-t' }, ...Array.from({ length: T + 1 }, (_, k) => ({ d: String(k), clase: 'eje' }))]);
+        const Nom = NOM[algo][0].toUpperCase() + NOM[algo].slice(1);
         return {
-          enunciado: `${NOM[algo][0].toUpperCase() + NOM[algo].slice(1)}. Fila CPU: el proceso (1 a 4) de cada unidad de tiempo; luego los tiempos y las medias (fracción o coma).`,
+          cabecera: CAB[algo],
+          enunciado: `${REGLA[algo]} Pulsa cada casilla: un clic, en ejecución; dos, espera en la cola; tres, vacía. Luego, los tiempos y las medias (fracción o coma).`,
+          enunciadoPapel: `${Nom}. ${REGLA[algo]} Luego, la espera, la respuesta y las medias (fracción o coma).`,   // cómo se colorea, en las normas de la hoja
           tarea: `⟪Haz⟫ el cronograma de ⟦${NOM[algo]}⟧ y ⟪calcula⟫ el tiempo de respuesta y el de espera de cada proceso y las dos medias.`,
-          columnas: `118px repeat(${T}, ${T > 16 ? 36 : 42}px)`, clase: 'plan' + (T > 16 ? ' xs' : ''),
+          columnas: `64px repeat(${T}, ${C}px) 0px`, clase: 'plan',
           filas,
-          alEscribir(sv) {
-            const cpu = [...sv.querySelectorAll('.cpu')], celdas = [...sv.querySelectorAll('.d.celda')];
-            celdas.forEach((c) => { c.className = 'd celda'; });
-            cpu.forEach((inp, u) => {
-              const v = parseInt(inp.value !== undefined ? inp.value : inp.textContent, 10);
-              if (v >= 1 && v <= N && celdas[(v - 1) * T + u]) celdas[(v - 1) * T + u].classList.add('on', 'p' + v);
-            });
-          },
+          lado: { columnas: '104px repeat(6, 76px)', clase: 'plan tabla', filas: tablas },
+          resumen: [...R.units.map((ev) => `t = ${ev.t}: ` + motivo(ev)), ...explResp, ...explEsp, ...explMedias].join('\n'),
           correcto: `Correcto. ${NOM[algo][0].toUpperCase() + NOM[algo].slice(1)}: orden ${R.units.map((ev) => (ev.ocioso ? '−' : P(ev.ejecuta))).join(' ')}; espera media ${sumEsp}/${N} = ${fmt(sumEsp / N)}, respuesta media ${sumResp}/${N} = ${fmt(sumResp / N)}.`
         };
       }
@@ -1533,6 +1573,7 @@
     el.innerHTML =
       '<p class="ej-enunciado"></p>' +
       '<div class="ej-ops" hidden></div>' +
+      '<div class="sv-lado" hidden></div>' +
       '<div class="sv"></div>' +
       '<div class="ej-fila">' +
       '  <button class="btn btn-primary ej-comprobar">Comprobar</button>' +
@@ -1544,7 +1585,7 @@
       '</div>' +
       '<p class="ej-fb"></p>';
     const $ = (s) => el.querySelector(s);
-    const sv = $('.sv'), fb = $('.ej-fb'), racha = $('.ej-racha b'), enunciado = $('.ej-enunciado'), ops = $('.ej-ops'), acciones = $('.ej-acciones');
+    const sv = $('.sv'), lado = $('.sv-lado'), fb = $('.ej-fb'), racha = $('.ej-racha b'), enunciado = $('.ej-enunciado'), ops = $('.ej-ops'), acciones = $('.ej-acciones');
     let g, orden = [], celdas = [], conPista = false, resuelto = false, aciertos = 0;
     const estado = { modo: cfg.modo || null };
     // Esquema de la misma diapositiva que hace de selector de modo (gen.mapa): nodos [data-n], flechas [data-a]
@@ -1578,17 +1619,32 @@
       sv.style.gridTemplateColumns = g.columnas || '';
       sv.innerHTML = '';
       celdas = [];
-      g.filas.forEach((fila) => {
+      // g.lado: otra rejilla a la izquierda (las tablas del cronograma); la tarjeta pasa a dos columnas (.con-lado)
+      el.classList.toggle('con-lado', !!g.lado);
+      lado.innerHTML = '';
+      lado.hidden = !g.lado;
+      lado.className = 'sv-lado' + (g.lado ? ' sv' + (g.lado.clase ? ' ' + g.lado.clase : '') : '');
+      lado.style.gridTemplateColumns = g.lado ? g.lado.columnas || '' : '';
+      if (g.lado) pintaFilas(lado, g.lado.filas);
+      pintaFilas(sv, g.filas);
+      // orden de resolución: por n (menor primero); sin n, por orden de aparición
+      orden = celdas.map((c, k) => ({ c, k })).sort((p, q) => ((p.c._it.n ?? 1e9) - (q.c._it.n ?? 1e9)) || (p.k - q.k)).map((p) => p.c);
+      atiende(conservar, previos);
+    }
+
+    // pinta las filas de un generador en una rejilla (cont) y apunta sus casillas en celdas
+    function pintaFilas(cont, filas) {
+      filas.forEach((fila) => {
         if (fila.linea) {
           const l = document.createElement('div');
           l.className = 'linea' + (fila.clase ? ' ' + fila.clase : '');
           l.style.gridColumn = (fila.desde || 2) + ' / -1';
-          sv.appendChild(l);
+          cont.appendChild(l);
           return;
         }
         fila.forEach((it) => {
           let x;
-          if (it.lbl !== undefined) { x = document.createElement('span'); x.className = 'lbl'; x.textContent = it.lbl; }
+          if (it.lbl !== undefined) { x = document.createElement('span'); x.className = 'lbl' + (it.clase ? ' ' + it.clase : ''); x.textContent = it.lbl; }
           else if (it.sel) {
             x = document.createElement('button'); x.type = 'button';
             x.className = 'c sel' + (it.clase ? ' ' + it.clase : '');
@@ -1615,11 +1671,13 @@
             }
           }
           if (it.span) x.style.gridColumn = 'span ' + it.span;
-          sv.appendChild(x);
+          cont.appendChild(x);
         });
       });
-      // orden de resolución: por n (menor primero); sin n, por orden de aparición
-      orden = celdas.map((c, k) => ({ c, k })).sort((p, q) => ((p.c._it.n ?? 1e9) - (q.c._it.n ?? 1e9)) || (p.k - q.k)).map((p) => p.c);
+    }
+
+    // teclado de las casillas, valores que se conservan, acciones extra y foco en la primera
+    function atiende(conservar, previos) {
       orden.forEach((c, k) => {
         if (c.tagName !== 'INPUT') return;
         const it = c._it, max = it.max || 1;
@@ -3031,6 +3089,28 @@
     });
   }
 
+  /* ---------- Ventana con la explicación de una diapositiva ----------
+   * <button class="btn btn-ghost" data-ventana="id">Cómo se hace</button> abre <div class="ventana" id="id" hidden>
+   * <div class="ventana-caja"><button class="ventana-cerrar" aria-label="Cerrar">×</button>…</div></div>, que va
+   * dentro de la diapositiva (se escala con ella). Se cierra con ×, pulsando fuera, con Esc o al cambiar de diapositiva. */
+  function montaVentanas(stage) {
+    const abiertas = () => [...document.querySelectorAll('.ventana:not([hidden])')];
+    document.querySelectorAll('[data-ventana]').forEach((b) => {
+      const v = document.getElementById(b.dataset.ventana);
+      if (!v) return;
+      b.addEventListener('click', (e) => { e.stopPropagation(); v.hidden = false; const x = v.querySelector('.ventana-cerrar'); if (x) x.focus(); });
+    });
+    document.querySelectorAll('.ventana').forEach((v) => {
+      v.addEventListener('click', (e) => { e.stopPropagation(); if (e.target === v || e.target.closest('.ventana-cerrar')) v.hidden = true; });
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape' || !abiertas().length) return;
+      abiertas().forEach((v) => { v.hidden = true; });
+      e.stopPropagation(); e.preventDefault();
+    }, true);
+    stage.addEventListener('slidechange', () => abiertas().forEach((v) => { v.hidden = true; }));
+  }
+
   function init() {
     const stage = document.querySelector('deck-stage');
     if (!stage) return;
@@ -3045,6 +3125,7 @@
     document.querySelectorAll('deck-stage > section').forEach(montaMarcas);
     document.querySelectorAll('.letra').forEach(montaLetra);
     montaBuscador(stage);
+    montaVentanas(stage);
     montaVolver(stage);
     montaNotas(stage);
     montaCalc();

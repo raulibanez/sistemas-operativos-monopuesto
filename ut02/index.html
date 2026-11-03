@@ -1485,16 +1485,26 @@
 </section>
 
 <!-- 49 Ejercicio interactivo: planificación -->
-<section data-deck-id="ej-planificacion" data-label="Practica: planificación de procesos" data-seccion="2.5" style="display:grid;grid-template-columns:1fr 1.55fr;gap:64px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
-  <aside class="notas">El ejercicio del examen. Cuatro procesos al azar y un algoritmo (botón de modo; Al azar los mezcla). El alumno escribe en la fila CPU el número del proceso que se ejecuta en cada unidad de tiempo, y el cronograma se colorea al escribir; después, la espera y la respuesta de cada proceso y las dos medias (con coma). Reglas de empate: FIFO; en SRTF y prioridades expulsivo sigue el que está; en Round Robin el que llega entra en la cola antes que el que agota su quantum. Pista rellena la siguiente casilla y explica el motivo. Para la práctica 2.6, racha de diez en cada modo.</aside>
-  <div>
+<section data-deck-id="ej-planificacion" data-label="Practica: planificación de procesos" data-seccion="2.5" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column;gap:26px">
+  <aside class="notas">El ejercicio del examen. Cuatro procesos al azar y un algoritmo (botón de modo; Al azar los mezcla). El alumno pulsa cada casilla del cronograma para marcar si el proceso está en la CPU (su color), espera en la cola (raya gris, como en los simuladores) o no está (vacía); las casillas grises de cada proceso suman su tiempo de espera. En papel, la de la CPU se colorea y la de espera lleva una raya. Después, la espera y la respuesta de cada proceso y las dos medias (con coma). Reglas de empate: FIFO; en SRTF y prioridades expulsivo sigue el que está; en Round Robin el que llega entra en la cola antes que el que agota su quantum. Pista rellena la siguiente casilla y explica el motivo. Para la práctica 2.6, racha de diez en cada modo.</aside>
+  <div style="display:flex;align-items:center;gap:28px;padding-right:96px">
     <span class="pill">Ejercicio interactivo</span>
-    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Resuelve tú el cronograma</h2>
-    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Elige el algoritmo. Escribe en la fila <b style="color:var(--navy)">CPU</b> el número del proceso que se ejecuta en cada unidad de tiempo: el cronograma se colorea solo. Después, la espera y la respuesta de cada proceso y las dos medias.</p>
-    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Reglas de empate: FIFO. En SRTF y prioridades expulsivo, si empatan, sigue el que está. En Round Robin, el que llega entra en la cola antes que el que agota su quantum.</p>
-    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)"><b>Pista</b> rellena la siguiente casilla y explica por qué. <b>Resolver</b> lo completa todo. Las dos ponen a cero tu racha: en la práctica 2.6 hay que llegar a diez seguidos en cada algoritmo.</p>
+    <h2 style="font-size:54px;font-weight:800;line-height:1.1;color:var(--navy)">Resuelve tú el cronograma</h2>
+    <button class="btn btn-ghost" type="button" data-ventana="ayuda-plan" style="margin-left:auto;padding:14px 28px;font-size:22px">Cómo se hace</button>
   </div>
-  <div class="ej" data-tipo="planificacion"></div>
+  <div class="ej" data-tipo="planificacion" style="flex:1;height:auto;min-height:0"></div>
+  <div class="ventana" id="ayuda-plan" hidden>
+    <div class="ventana-caja">
+      <button class="ventana-cerrar" type="button" aria-label="Cerrar">×</button>
+      <span class="pill">Cómo se hace</span>
+      <h3 style="font-size:44px;font-weight:800;line-height:1.1;margin-top:22px;color:var(--navy)">Resuelve tú el cronograma</h3>
+      <p style="font-size:var(--type-small);line-height:1.5;margin-top:24px;color:var(--muted)">Elige el algoritmo. Pulsa cada casilla del cronograma: con un clic, el proceso está <b style="color:var(--navy)">en la CPU</b> (su color); con dos, <b style="color:var(--navy)">espera en la cola</b> (raya gris); con tres, vuelve a quedar vacía. Después, escribe la espera y la respuesta de cada proceso y las dos medias.</p>
+      <p class="sim-leyenda" style="margin-top:18px;font-size:22px"><span><i class="run"></i>en ejecución</span><span><i class="wait"></i>espera en la cola</span><span><i style="background:var(--white);border:2px solid var(--line)"></i>vacía</span></p>
+      <p style="font-size:var(--type-caption);line-height:1.5;margin-top:24px;color:var(--muted)">Las casillas grises de un proceso son su tiempo de espera. Respuesta = fin − llegada; espera = respuesta − ejecución.</p>
+      <p style="font-size:var(--type-caption);line-height:1.5;margin-top:16px;color:var(--muted)">Reglas de empate: FIFO. En SRTF y prioridades expulsivo, si empatan, sigue el que está. En Round Robin, el que llega entra en la cola antes que el que agota su quantum.</p>
+      <p style="font-size:var(--type-caption);line-height:1.5;margin-top:16px;color:var(--muted)"><b>Pista</b> rellena la siguiente casilla y explica por qué. <b>Resolver</b> lo completa todo. Las dos ponen a cero tu racha: en la práctica 2.6 hay que llegar a diez seguidos en cada algoritmo.</p>
+    </div>
+  </div>
 </section>
 
 <!-- 50 Pregunta: quantum de 1 y de 100 -->
@@ -1617,9 +1627,6 @@
       <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Hoja de ejercicios por semilla</p>
       <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:8px">Abre <a href="hoja.html" target="_blank" rel="noopener" style="font-family:var(--mono);font-weight:600">hoja.html</a>, escribe una semilla (seed) y genera la hoja: la misma semilla da siempre la misma hoja, y cada semilla nueva, otra distinta. Haz las que quieras en papel, dibuja los cronogramas y compruébalas con el solucionario. En clase, la semilla será otra.</p>
     </div>
-    <div style="background:var(--yellow);border-radius:18px;padding:16px 26px;margin-top:var(--gap-item)">
-      <p style="font-size:20px;line-height:1.45;color:var(--navy)"><b>Sin material.</b> Los algoritmos y las dos restas (respuesta = fin − llegada; espera = respuesta − ejecución) hay que saberlos. Se puntúa el cronograma y los cálculos a la vista.</p>
-    </div>
   </div>
   <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
     <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Los ejercicios (pulsa para ir a cada uno)</p>
@@ -1636,6 +1643,9 @@
         <div><p style="color:#9FB4D9;font-size:19px">Cubre</p><p style="font-weight:700;margin-top:4px">Criterio f del RA1</p></div>
         <div><p style="color:#9FB4D9;font-size:19px">Cuenta</p><p style="font-weight:700;margin-top:4px">Como práctica, dentro del 40 %</p></div>
       </div>
+    </div>
+    <div style="background:var(--yellow);border-radius:18px;padding:16px 26px;margin-top:24px">
+      <p style="font-size:20px;line-height:1.45;color:var(--navy)"><b>Sin material.</b> Los algoritmos y las dos restas (respuesta = fin − llegada; espera = respuesta − ejecución) hay que saberlos. Se puntúa el cronograma y los cálculos a la vista.</p>
     </div>
   </div>
 </section>
