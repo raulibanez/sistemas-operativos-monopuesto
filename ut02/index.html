@@ -1232,18 +1232,6 @@
   </div>
 </section>
 
-<!-- 36 Ejercicio interactivo: estados -->
-<section data-deck-id="ej-estados" data-label="Practica: estados de un proceso" data-seccion="2.5" style="display:grid;grid-template-columns:1fr 1.3fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
-  <aside class="notas">Ejercicio con sucesos al azar. Se lee el suceso y se eligen el estado de origen y el de destino pulsando los selectores. Incluye sucesos de terminación y de creación. Pista rellena el siguiente selector y explica la transición; Resolver lo completa. Para la práctica 2.6: racha de diez.</aside>
-  <div>
-    <span class="pill">Ejercicio interactivo</span>
-    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">¿De qué estado a qué estado?</h2>
-    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Lee lo que le pasa al proceso y pulsa los selectores hasta que muestren el estado de origen y el de destino. Después, el número de la transición en la figura.</p>
-    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)"><b>Pista</b> rellena la siguiente casilla y te explica por qué. <b>Resolver</b> lo completa todo. Las dos ponen a cero tu racha: en la práctica 2.6 hay que llegar a diez seguidos.</p>
-  </div>
-  <div class="ej" data-tipo="estados"></div>
-</section>
-
 <!-- 37 Quiz: transición -->
 <section class="dark" data-label="Quiz: transición" data-seccion="2.5" style="background:var(--navy);color:var(--white);padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:96px;align-items:center">
   <aside class="notas">Comprobación de la figura de estados. Un proceso bloqueado que recibe lo que esperaba pasa a listo, al final de la cola; nunca directamente a ejecución, porque la CPU estará ocupada.</aside>
@@ -1617,11 +1605,11 @@
 
 <!-- 54 Práctica 2.6: planificación de procesos -->
 <section data-label="Práctica: planificación de procesos" data-seccion="2.6" data-deck-id="practica-2-6" data-deck-section="2.6" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:72px">
-  <aside class="notas">Práctica 2.6. En casa: llegar a diez aciertos seguidos en el ejercicio de planificación en cada uno de los seis algoritmos, y en el de estados; no se entrega nada. Además, hojas de ejercicios en papel generadas con una semilla (seed) en hoja.html: la misma semilla da siempre la misma hoja, se hace en papel y se comprueba con el solucionario. En clase: examen práctico en papel con una hoja generada con una semilla nueva, la misma para toda la clase (otro título, otros datos), cuatro cronogramas con sus tiempos y medias. Sin material. Cubre el criterio f del RA1. Es el mismo formato que la parte práctica del examen de la unidad.</aside>
+  <aside class="notas">Práctica 2.6. En casa: llegar a diez aciertos seguidos en el ejercicio de planificación en cada uno de los seis algoritmos; no se entrega nada. Además, hojas de ejercicios en papel generadas con una semilla (seed) en hoja.html: la misma semilla da siempre la misma hoja, se hace en papel y se comprueba con el solucionario. En clase: examen práctico en papel con una hoja generada con una semilla nueva, la misma para toda la clase (otro título, otros datos), cuatro cronogramas con sus tiempos y medias. Sin material. Cubre el criterio f del RA1. Es el mismo formato que la parte práctica del examen de la unidad.</aside>
   <div style="display:flex;flex-direction:column;min-width:0">
     <span class="pill" style="align-self:flex-start">Práctica</span>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:24px;color:var(--navy);text-wrap:balance">Planificación de procesos</h2>
-    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)"><b style="color:var(--navy)">En casa:</b> llega a <b style="color:var(--navy)">diez aciertos seguidos</b> en el ejercicio de planificación con cada uno de los seis algoritmos, y en el de estados. Pista y Resolver ponen la racha a cero. No se entrega nada.</p>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)"><b style="color:var(--navy)">En casa:</b> llega a <b style="color:var(--navy)">diez aciertos seguidos</b> en el ejercicio de planificación con cada uno de los seis algoritmos. Pista y Resolver ponen la racha a cero. No se entrega nada.</p>
     <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)"><b style="color:var(--navy)">En clase:</b> examen práctico en papel con una hoja generada con una semilla (seed) nueva, igual que las de casa: cuatro cronogramas con sus tiempos de espera, de respuesta y las medias.</p>
     <div style="background:var(--white);border-radius:20px;padding:22px 30px;box-shadow:0 2px 0 var(--line);margin-top:var(--gap-item)">
       <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Hoja de ejercicios por semilla</p>
@@ -1631,10 +1619,9 @@
   <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
     <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Los ejercicios (pulsa para ir a cada uno)</p>
     <ol style="list-style:none;padding:0;margin-top:14px;display:flex;flex-direction:column">
-      <li style="border-bottom:2px solid var(--line);font-size:23px"><a class="indice-enlace" style="padding:13px 18px" href="#ej-estados"><span style="font-weight:800;color:var(--blue)">1</span><span>Estados de un proceso: ¿de qué estado a qué estado?</span></a></li>
-      <li style="border-bottom:2px solid var(--line);font-size:23px"><a class="indice-enlace" style="padding:13px 18px" href="#ej-planificacion"><span style="font-weight:800;color:var(--blue)">2</span><span>Resuelve tú el cronograma: FIFO, SJF, SRTF, prioridades (2) y Round Robin</span></a></li>
-      <li style="border-bottom:2px solid var(--line);font-size:23px"><a class="indice-enlace" style="padding:13px 18px" href="#sim-fifo"><span style="font-weight:800;color:var(--blue)">3</span><span>Los seis simuladores, para ver cada algoritmo paso a paso</span></a></li>
-      <li style="font-size:23px"><a class="indice-enlace" style="padding:13px 18px" href="hoja.html" target="_blank" rel="noopener"><span style="font-weight:800;color:var(--blue)">4</span><span>Hoja de ejercicios en papel por semilla</span></a></li>
+      <li style="border-bottom:2px solid var(--line);font-size:23px"><a class="indice-enlace" style="padding:13px 18px" href="#ej-planificacion"><span style="font-weight:800;color:var(--blue)">1</span><span>Resuelve tú el cronograma: FIFO, SJF, SRTF, prioridades (2) y Round Robin</span></a></li>
+      <li style="border-bottom:2px solid var(--line);font-size:23px"><a class="indice-enlace" style="padding:13px 18px" href="#sim-fifo"><span style="font-weight:800;color:var(--blue)">2</span><span>Los seis simuladores, para ver cada algoritmo paso a paso</span></a></li>
+      <li style="font-size:23px"><a class="indice-enlace" style="padding:13px 18px" href="hoja.html" target="_blank" rel="noopener"><span style="font-weight:800;color:var(--blue)">3</span><span>Hoja de ejercicios en papel por semilla</span></a></li>
     </ol>
     <div style="background:var(--navy);color:var(--white);border-radius:20px;padding:24px 30px;margin-top:24px">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;font-size:var(--type-caption)">
@@ -1673,7 +1660,7 @@
 
 <!-- 56 Texto: qué hace el sistema con la memoria -->
 <section data-label="Qué hace el SO con la memoria" data-seccion="2.7" style="display:grid;grid-template-columns:1fr 1.1fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
-  <aside class="notas">Criterio l del BOCYL. La memoria principal (RAM, UT1) es donde tiene que estar un programa para ejecutarse. El sistema hace cuatro cosas con ella: asignar una zona a cada proceso, protegerla de los demás, permitir compartirla cuando toca (dos procesos usando la misma biblioteca) y liberarla al terminar. En monoprogramación es fácil: una zona para el sistema residente y otra para el único proceso. En multiprogramación hay que dividir la memoria en particiones y dar una a cada proceso, y ahí aparecen todos los problemas de la sección: protección, fragmentación, qué hacer cuando no cabe.</aside>
+  <aside class="notas">Criterio l del BOCYL. La memoria principal (RAM, UT1) es donde tiene que estar un programa para ejecutarse. El sistema hace cuatro cosas con ella: asignar una zona a cada proceso, protegerla de los demás, permitir compartirla cuando toca (dos procesos usando la misma biblioteca) y liberarla al terminar. Compartición: las bibliotecas (DLL en Windows, .so en Linux) se cargan una vez y las usan todos los procesos que las necesitan, en solo lectura; por eso abrir diez pestañas no multiplica por diez la memoria del navegador. En monoprogramación es fácil: una zona para el sistema residente y otra para el único proceso. En multiprogramación hay que dividir la memoria en particiones y dar una a cada proceso, y ahí aparecen todos los problemas de la sección: protección, fragmentación, qué hacer cuando no cabe.</aside>
   <div>
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Gestión de memoria</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Qué hace el sistema con la memoria</h2>
@@ -1681,7 +1668,7 @@
     <ul style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:14px;font-size:var(--type-caption);line-height:1.4">
       <li style="display:flex;gap:20px;align-items:center"><img src="img/ia/mem-asignar.webp" alt="" style="width:64px;height:64px;object-fit:contain;flex:none"><span><b>Asignar</b> una zona a cada proceso cuando se crea.</span></li>
       <li style="display:flex;gap:20px;align-items:center"><img src="img/ia/mem-proteger.webp" alt="" style="width:64px;height:64px;object-fit:contain;flex:none"><span><b>Proteger</b> esa zona: ningún otro proceso puede leerla ni escribirla.</span></li>
-      <li style="display:flex;gap:20px;align-items:center"><img src="img/ia/mem-compartir.webp" alt="" style="width:64px;height:64px;object-fit:contain;flex:none"><span><b>Compartir</b> cuando conviene: dos procesos usando la misma biblioteca no necesitan dos copias.</span></li>
+      <li style="display:flex;gap:20px;align-items:center"><img src="img/ia/mem-compartir.webp" alt="" style="width:64px;height:64px;object-fit:contain;flex:none"><span><b>Compartir</b> cuando conviene: dos procesos que usan la misma biblioteca (una DLL de Windows, un .so de Linux) comparten una sola copia. Por eso diez pestañas del navegador no ocupan diez veces más.</span></li>
       <li style="display:flex;gap:20px;align-items:center"><img src="img/ia/mem-liberar.webp" alt="" style="width:64px;height:64px;object-fit:contain;flex:none"><span><b>Liberar</b> la memoria cuando el proceso termina.</span></li>
     </ul>
   </div>
@@ -1709,258 +1696,189 @@
 </section>
 
 <!-- 57 Texto: protección -->
-<section data-label="Protección de memoria" data-seccion="2.7" style="display:grid;grid-template-columns:1fr 1.1fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
-  <aside class="notas">Protección: evitar que un proceso invada la zona de otro o la del sistema. Técnica clásica: dos registros del procesador, base y límite, con la dirección inicial y final de la zona del proceso; cada acceso se comprueba contra ellos. Hoy lo hace la unidad de gestión de memoria (MMU) del procesador con la paginación: cada proceso tiene su propio espacio de direcciones y si intenta acceder fuera, el procesador avisa al sistema, que mata el proceso. Es lo que el usuario ve como el programa ha dejado de funcionar en Windows (violación de acceso) o segmentation fault en Linux. Enlace con 2.4: la protección funciona porque el proceso corre en modo usuario y no puede cambiar esos registros. Y adelanto de la demostración de Cheat Engine: un proceso con privilegios de administrador puede pedir al sistema que le deje leer la memoria de otro.</aside>
+<section data-label="Protección de memoria" data-seccion="2.7" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
+  <aside class="notas">Protección: cada proceso tiene su zona de memoria y no puede leer ni escribir fuera de ella, ni en la de otro ni en la del sistema operativo. El procesador sabe dónde empieza y dónde acaba la zona de cada proceso y comprueba cada acceso; si se sale, avisa al sistema operativo, que cierra el programa. Para el profesor (no en la diapositiva): la técnica clásica eran dos registros del procesador, base y límite, con la primera y la última dirección del proceso; hoy lo hace la unidad de gestión de memoria (MMU) con las tablas de páginas. Funciona porque el proceso corre en modo usuario y no puede cambiar esa información (sección 2.4). Lo que ve el usuario: en Windows, el programa ha dejado de funcionar (violación de acceso, código 0xC0000005); en Linux, Segmentation fault. Los dos mensajes son la protección funcionando: cae el programa, no el sistema. La diapositiva siguiente es la excepción: un programa con permisos de administrador puede pedir acceso a la memoria de otro.</aside>
   <div>
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Gestión de memoria</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Protección: cada proceso en su sitio</h2>
-    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Un proceso no puede leer ni escribir la memoria de otro ni la del sistema operativo. Si lo intenta, el procesador avisa al sistema y este lo <b style="color:var(--navy)">mata</b>.</p>
-    <ul style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:14px;font-size:var(--type-caption);line-height:1.4">
-      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Técnica clásica</b>: dos registros del procesador, <b>base</b> y <b>límite</b>, con la primera y la última dirección del proceso. Cada acceso se comprueba contra ellos.</span></li>
-      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Hoy</b>: la unidad de gestión de memoria (<b>MMU</b>) del procesador, con la paginación de la siguiente diapositiva. Cada proceso ve su propio espacio de direcciones.</span></li>
-      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span>Funciona porque el proceso corre en <b>modo usuario</b> y no puede tocar esos registros (sección 2.4).</span></li>
-    </ul>
-  </div>
-  <div style="display:flex;flex-direction:column;gap:20px">
-    <div style="background:var(--white);border-radius:20px;padding:26px 32px;box-shadow:0 2px 0 var(--line)">
-      <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Cómo lo ves tú</p>
-      <div style="margin-top:14px;border:2px solid var(--line);border-radius:12px;overflow:hidden;font-size:19px">
-        <div style="background:#F5F6F9;padding:10px 16px;border-bottom:1px solid var(--line);font-weight:700;color:var(--muted)">Windows</div>
-        <div style="padding:16px 18px;line-height:1.4"><b>juego.exe ha dejado de funcionar.</b><br><span style="color:var(--muted)">Código de excepción 0xC0000005: violación de acceso. El programa intentó leer una dirección que no es suya.</span></div>
-      </div>
-      <div style="margin-top:12px;background:#0B1F44;border-radius:12px;padding:14px 18px;font-family:var(--mono);font-size:19px;color:#E3EBF8;line-height:1.5"><span style="color:#1E8E5A">ana@aula:~$</span> ./juego<br>Segmentation fault (core dumped)</div>
-      <p style="font-size:19px;line-height:1.4;color:var(--muted);margin-top:12px">Los dos mensajes son lo mismo: la protección de memoria ha funcionado. Cae el programa, no el sistema.</p>
-    </div>
-    <div style="background:var(--yellow);border-radius:16px;padding:16px 22px"><p style="font-size:20px;line-height:1.4;color:var(--navy)"><b>Y sin embargo…</b> un proceso con privilegios de administrador puede pedir al sistema que le deje leer y escribir la memoria de otro. Así trabajan los depuradores. Y así funciona la demostración con Cheat Engine de esta sección.</p></div>
-  </div>
-</section>
-
-<!-- 58 Comparativa: paginación y segmentación -->
-<section data-label="Paginación y segmentación" data-seccion="2.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
-  <aside class="notas">Cómo se reparte la memoria en multiprogramación. Antecedente: particiones fijas (la memoria se divide de antemano en trozos de tamaño fijo) y variables (cada proceso recibe un trozo justo de su tamaño). Paginación: la memoria física se divide en marcos de tamaño fijo y cada proceso en páginas del mismo tamaño; una tabla de páginas dice en qué marco está cada página; las páginas de un proceso no tienen por qué estar seguidas. En x86 la página normal es de 4 KiB. Es lo que usan Windows y Linux. Segmentación: el proceso se divide en trozos de tamaño variable con sentido para el programa (código, datos, pila) y cada segmento va a una zona de memoria; MS-DOS en modo real trabajaba con segmentos de 64 KiB. Los procesadores actuales combinan ambas, pero el sistema operativo trabaja en la práctica con páginas.</aside>
-  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Gestión de memoria</p>
-  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Cómo se reparte: paginación y segmentación</h2>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:var(--gap-item);flex:1">
-    <div style="background:var(--white);border-radius:24px;padding:34px 40px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;gap:16px">
-      <h3 style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy)">Paginación <span style="font-size:var(--type-caption);color:var(--muted);font-weight:600">· tamaño fijo</span></h3>
-      <p style="font-size:21px;line-height:1.45;color:var(--muted)">La memoria se divide en <b style="color:var(--ink)">marcos</b> de tamaño fijo (4 KiB en los PC) y cada proceso en <b style="color:var(--ink)">páginas</b> del mismo tamaño. Una tabla dice en qué marco está cada página: no tienen por qué estar seguidas.</p>
-      <svg viewBox="0 0 640 200" style="width:100%;height:auto" role="img" aria-label="Un proceso dividido en tres páginas que ocupan tres marcos no contiguos de la memoria">
-        <g font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="15" font-weight="700" text-anchor="middle">
-          <text x="70" y="22" fill="#485168">Proceso</text>
-          <rect x="20" y="34" width="100" height="44" fill="#4F8AE0"/><text x="70" y="62" fill="#fff">pág. 0</text>
-          <rect x="20" y="82" width="100" height="44" fill="#4F8AE0"/><text x="70" y="110" fill="#fff">pág. 1</text>
-          <rect x="20" y="130" width="100" height="44" fill="#4F8AE0"/><text x="70" y="158" fill="#fff">pág. 2</text>
-          <text x="420" y="22" fill="#485168">Memoria: marcos de 4 KiB</text>
-          <g stroke="#D7DCE6" stroke-width="2" fill="#F5F6F9">
-            <rect x="200" y="34" width="70" height="44"/><rect x="274" y="34" width="70" height="44"/><rect x="348" y="34" width="70" height="44"/><rect x="422" y="34" width="70" height="44"/><rect x="496" y="34" width="70" height="44"/><rect x="570" y="34" width="60" height="44"/>
-            <rect x="200" y="82" width="70" height="44"/><rect x="274" y="82" width="70" height="44"/><rect x="348" y="82" width="70" height="44"/><rect x="422" y="82" width="70" height="44"/><rect x="496" y="82" width="70" height="44"/><rect x="570" y="82" width="60" height="44"/>
-          </g>
-          <rect x="274" y="34" width="70" height="44" fill="#4F8AE0"/><text x="309" y="62" fill="#fff">0</text>
-          <rect x="496" y="34" width="70" height="44" fill="#4F8AE0"/><text x="531" y="62" fill="#fff">1</text>
-          <rect x="348" y="82" width="70" height="44" fill="#4F8AE0"/><text x="383" y="110" fill="#fff">2</text>
-          <rect x="200" y="34" width="70" height="44" fill="#485168"/><text x="235" y="62" fill="#fff">SO</text>
-          <rect x="422" y="82" width="70" height="44" fill="#E67E22"/><text x="457" y="110" fill="#fff">otro</text>
-          <text x="415" y="170" fill="#485168" font-weight="600">tabla de páginas: 0 → marco 1 · 1 → marco 4 · 2 → marco 8</text>
-        </g>
-      </svg>
-      <p style="font-size:20px;line-height:1.4;color:var(--muted);margin-top:auto">Lo usan <b style="color:var(--ink)">Windows y Linux</b>. Desperdicia solo el final de la última página.</p>
-    </div>
-    <div style="background:var(--navy);color:var(--white);border-radius:24px;padding:34px 40px;display:flex;flex-direction:column;gap:16px">
-      <h3 style="font-size:var(--type-subtitle);font-weight:800">Segmentación <span style="font-size:var(--type-caption);color:#9FB4D9;font-weight:600">· tamaño variable</span></h3>
-      <p style="font-size:21px;line-height:1.45;color:#E3EBF8">El proceso se divide en <b>segmentos</b> de tamaño variable con sentido para el programa: código, datos, pila. Cada segmento va entero a una zona libre lo bastante grande.</p>
-      <svg viewBox="0 0 640 200" style="width:100%;height:auto" role="img" aria-label="Un proceso dividido en tres segmentos de distinto tamaño colocados en huecos de la memoria">
-        <g font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="15" font-weight="700" text-anchor="middle">
-          <text x="70" y="22" fill="#C9D6EE">Proceso</text>
-          <rect x="20" y="34" width="100" height="60" fill="#F4C20D"/><text x="70" y="70" fill="#15356B">código</text>
-          <rect x="20" y="98" width="100" height="30" fill="#F4C20D"/><text x="70" y="119" fill="#15356B">datos</text>
-          <rect x="20" y="132" width="100" height="44" fill="#F4C20D"/><text x="70" y="160" fill="#15356B">pila</text>
-          <text x="420" y="22" fill="#C9D6EE">Memoria: zonas de tamaño variable</text>
-          <rect x="200" y="34" width="430" height="48" fill="rgba(255,255,255,.12)"/>
-          <rect x="200" y="34" width="60" height="48" fill="#485168"/><text x="230" y="64" fill="#fff">SO</text>
-          <rect x="264" y="34" width="130" height="48" fill="#F4C20D"/><text x="329" y="64" fill="#15356B">código</text>
-          <rect x="398" y="34" width="90" height="48" fill="#E67E22"/><text x="443" y="64" fill="#fff">otro</text>
-          <rect x="492" y="34" width="50" height="48" fill="#F4C20D"/><text x="517" y="64" fill="#15356B">datos</text>
-          <rect x="200" y="100" width="430" height="48" fill="rgba(255,255,255,.12)"/>
-          <rect x="200" y="100" width="70" height="48" fill="#F4C20D"/><text x="235" y="130" fill="#15356B">pila</text>
-          <rect x="274" y="100" width="110" height="48" fill="#1E8E5A"/><text x="329" y="130" fill="#fff">otro</text>
-          <text x="500" y="130" fill="#C9D6EE" font-weight="600">hueco libre</text>
-          <text x="415" y="180" fill="#C9D6EE" font-weight="600">cada segmento necesita un hueco de su tamaño o mayor</text>
-        </g>
-      </svg>
-      <p style="font-size:20px;line-height:1.4;color:#C9D6EE;margin-top:auto">Lo usaba <b style="color:var(--white)">MS-DOS</b> (segmentos de 64 KiB). Los procesadores actuales la combinan con la paginación, pero el sistema trabaja con páginas.</p>
-    </div>
-  </div>
-  <p style="font-size:20px;color:var(--muted);margin-top:18px;line-height:1.4">Antes de ambas: <b style="color:var(--navy)">particiones fijas</b> (la memoria dividida de antemano en trozos iguales) y <b style="color:var(--navy)">variables</b> (a cada proceso, un trozo de su tamaño). Sus problemas son los de la diapositiva siguiente.</p>
-</section>
-
-<!-- 59 Texto: fragmentación -->
-<section data-label="Fragmentación" data-seccion="2.7" style="display:grid;grid-template-columns:1fr 1.15fr;gap:72px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
-  <aside class="notas">Fragmentación: memoria desaprovechada. Interna: dentro de la partición; ocurre con paginación porque las páginas son de tamaño fijo y la última página de cada proceso se queda a medias. Ejemplo: 10 KiB con páginas de 4 KiB ocupan 3 páginas (12 KiB) y se pierden 2 KiB. Externa: fuera de las particiones; ocurre con segmentación y particiones variables, porque al ir entrando y saliendo procesos quedan huecos sueltos: 3, 5 y 2 KiB libres suman 10, pero un proceso de 6 KiB no cabe en ninguno. Solución a la externa: compactar (mover procesos para juntar huecos), que es caro; la paginación la elimina porque cualquier marco vale. Es el ejercicio interactivo siguiente.</aside>
-  <div style="display:flex;flex-direction:column;min-width:0;height:100%">
-    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Gestión de memoria</p>
-    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Fragmentación: la memoria que se desaprovecha</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Cada proceso tiene su propia zona de memoria. Si intenta leer o escribir fuera de ella, el procesador avisa y el sistema operativo <b style="color:var(--navy)">cierra el programa</b>.</p>
     <div style="background:var(--white);border-radius:20px;padding:24px 30px;box-shadow:0 2px 0 var(--line);margin-top:var(--gap-item)">
-      <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Interna · dentro de la partición · paginación</p>
-      <p style="font-size:21px;line-height:1.45;color:var(--muted);margin-top:8px">Las páginas son de tamaño fijo, así que la última de cada proceso se queda a medias. Un proceso de <b style="color:var(--ink)">10 KiB</b> con páginas de <b style="color:var(--ink)">4 KiB</b> ocupa 3 páginas (12 KiB): se pierden <b style="color:var(--ink)">2 KiB</b> dentro de la última.</p>
+      <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Cómo lo ves tú</p>
+      <div style="margin-top:14px;border:2px solid var(--line);border-radius:12px;overflow:hidden;font-size:21px">
+        <div style="background:#F5F6F9;padding:8px 16px;border-bottom:1px solid var(--line);font-weight:700;color:var(--muted);font-size:18px">Windows</div>
+        <div style="padding:14px 18px;font-weight:700;color:var(--ink)">juego.exe ha dejado de funcionar.</div>
+      </div>
+      <div style="margin-top:12px;background:#0B1F44;border-radius:12px;padding:14px 18px;font-family:var(--mono);font-size:21px;color:#E3EBF8;line-height:1.5"><span style="color:#9FB4D9;font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:18px;font-weight:700">Linux</span><br>Segmentation fault</div>
     </div>
-    <div style="background:var(--white);border-radius:20px;padding:24px 30px;box-shadow:0 2px 0 var(--line);margin-top:18px">
-      <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Externa · fuera de las particiones · segmentación</p>
-      <p style="font-size:21px;line-height:1.45;color:var(--muted);margin-top:8px">Al entrar y salir procesos quedan huecos sueltos. Libres <b style="color:var(--ink)">3, 5 y 2 KiB</b>: suman 10, pero un proceso de <b style="color:var(--ink)">6 KiB</b> no cabe en ninguno. Solución: <b style="color:var(--ink)">compactar</b> (mover procesos para juntar los huecos), que es caro. La paginación no la sufre: cualquier marco vale.</p>
-    </div>
-    <p style="font-size:20px;color:var(--muted);line-height:1.4;margin-top:auto;padding-top:18px">Figura 2.14. Fragmentación interna y externa. Elaboración propia.</p>
+    <div style="background:var(--yellow);border-radius:16px;padding:16px 22px;margin-top:18px"><p style="font-size:21px;line-height:1.4;color:var(--navy)">Los dos mensajes dicen lo mismo: la protección ha funcionado. <b>Cae el programa, no el sistema.</b></p></div>
   </div>
-  <div style="background:var(--white);border-radius:20px;padding:24px 28px;box-shadow:0 2px 0 var(--line);display:flex;align-items:center">
-    <svg viewBox="0 0 900 520" style="width:100%;height:auto" role="img" aria-label="Arriba, fragmentación interna: un proceso de 10 KiB ocupa tres páginas de 4 KiB y sobran 2 KiB en la última; abajo, fragmentación externa: tres huecos de 3, 5 y 2 KiB en los que no cabe un proceso de 6 KiB">
+  <div style="background:var(--white);border-radius:24px;padding:26px 30px;box-shadow:0 2px 0 var(--line)">
+    <svg viewBox="0 0 640 600" style="width:100%;height:auto" role="img" aria-label="Memoria en vertical con el sistema operativo arriba y los procesos P1, P2 y P3 debajo. La zona de P2 tiene marcado dónde empieza y dónde acaba. P2 intenta escribir en la zona de P1: el intento se corta con una cruz roja y el sistema cierra P2">
+      <defs><marker id="flecha-prot" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#C0392B"/></marker></defs>
       <g font-family="Plus Jakarta Sans, system-ui, sans-serif" font-weight="700">
-        <text x="20" y="34" font-size="20" fill="#15356B">Interna: proceso de 10 KiB en páginas de 4 KiB</text>
-        <g stroke="#15356B" stroke-width="3">
-          <rect x="20" y="54" width="200" height="90" fill="#4F8AE0"/><rect x="220" y="54" width="200" height="90" fill="#4F8AE0"/><rect x="420" y="54" width="200" height="90" fill="#4F8AE0"/>
-        </g>
-        <rect x="520" y="57" width="97" height="84" fill="#FBEAEA"/>
-        <g font-size="18" fill="#fff" text-anchor="middle"><text x="120" y="106">4 KiB</text><text x="320" y="106">4 KiB</text><text x="470" y="106">2 KiB</text></g>
-        <text x="568" y="106" font-size="17" fill="#C0392B" text-anchor="middle">2 KiB</text>
-        <text x="568" y="128" font-size="13" fill="#C0392B" text-anchor="middle">perdidos</text>
-        <text x="640" y="106" font-size="17" fill="#485168">3 páginas = 12 KiB</text>
-        <text x="640" y="130" font-size="15" fill="#485168" font-weight="600">12 − 10 = 2 KiB de fragmentación interna</text>
-        <text x="20" y="224" font-size="20" fill="#15356B">Externa: huecos de 3 + 5 + 2 = 10 KiB, pero un proceso de 6 KiB no cabe</text>
-        <g stroke="#15356B" stroke-width="3">
-          <rect x="20" y="244" width="120" height="90" fill="#485168"/>
-          <rect x="140" y="244" width="90" height="90" fill="#FFF6D1"/>
-          <rect x="230" y="244" width="200" height="90" fill="#1E8E5A"/>
-          <rect x="430" y="244" width="150" height="90" fill="#FFF6D1"/>
-          <rect x="580" y="244" width="220" height="90" fill="#E67E22"/>
-          <rect x="800" y="244" width="60" height="90" fill="#FFF6D1"/>
-        </g>
-        <g font-size="18" text-anchor="middle"><text x="80" y="296" fill="#fff">SO</text><text x="185" y="296" fill="#15356B">3 libres</text><text x="330" y="296" fill="#fff">P1</text><text x="505" y="296" fill="#15356B">5 libres</text><text x="690" y="296" fill="#fff">P2</text><text x="830" y="296" fill="#15356B">2</text></g>
-        <rect x="20" y="380" width="180" height="70" rx="10" fill="#C0392B"/><text x="110" y="423" font-size="18" fill="#fff" text-anchor="middle">P3 · 6 KiB</text>
-        <g font-family="Plus Jakarta Sans, system-ui, sans-serif" font-size="17" fill="#485168" font-weight="600">
-          <text x="230" y="404">No entra en ningún hueco aunque en total sobren 10 KiB.</text>
-          <text x="230" y="432">Habría que compactar: mover P1 y P2 para juntar los huecos.</text>
-        </g>
-        <text x="20" y="500" font-size="16" fill="#485168" font-weight="600">Con paginación no pasa: P3 iría a 2 marcos cualesquiera que estén libres.</text>
+        <text x="320" y="26" text-anchor="middle" font-size="20" fill="#15356B">Memoria RAM</text>
+        <rect x="240" y="44" width="180" height="480" fill="#fff" stroke="#D7DCE6" stroke-width="2"/>
+        <rect x="240" y="44" width="180" height="60" fill="#15356B"/><text x="330" y="82" text-anchor="middle" font-size="20" fill="#fff">SO</text>
+        <rect x="240" y="104" width="180" height="120" fill="#0B4AB5"/><text x="330" y="172" text-anchor="middle" font-size="22" fill="#fff">P1</text>
+        <rect x="240" y="224" width="180" height="120" fill="#1E8E5A"/><text x="330" y="292" text-anchor="middle" font-size="22" fill="#fff">P2</text>
+        <rect x="240" y="344" width="180" height="120" fill="#E67E22"/><text x="330" y="412" text-anchor="middle" font-size="22" fill="#fff">P3</text>
+        <text x="330" y="500" text-anchor="middle" font-size="18" fill="#485168">libre</text>
+        <g stroke="#fff" stroke-width="2"><line x1="240" y1="104" x2="420" y2="104"/><line x1="240" y1="224" x2="420" y2="224"/><line x1="240" y1="344" x2="420" y2="344"/><line x1="240" y1="464" x2="420" y2="464"/></g>
+        <g stroke="#1E8E5A" stroke-width="4" fill="none"><path d="M432 226 H452 V342 H432"/></g>
+        <g font-size="18" fill="#1E8E5A"><text x="464" y="238">empieza aquí</text><text x="464" y="344">acaba aquí</text></g>
+        <text x="464" y="292" font-size="16" fill="#485168" font-weight="600">la zona de P2</text>
+        <path d="M240 300 C 150 300, 150 170, 232 170" fill="none" stroke="#C0392B" stroke-width="5" stroke-dasharray="10 6" marker-end="url(#flecha-prot)"/>
+        <g transform="translate(170,232)"><circle r="24" fill="#fff" stroke="#C0392B" stroke-width="4"/><path d="M-11 -11 L11 11 M11 -11 L-11 11" stroke="#C0392B" stroke-width="6" stroke-linecap="round"/></g>
+        <g font-size="18" fill="#C0392B" text-anchor="end"><text x="128" y="214">P2 intenta</text><text x="128" y="238">escribir</text><text x="128" y="262">en P1</text></g>
+        <rect x="30" y="548" width="580" height="44" rx="12" fill="#FBEAEA"/>
+        <text x="320" y="577" text-anchor="middle" font-size="19" fill="#C0392B">El procesador lo detecta y el sistema cierra P2</text>
       </g>
     </svg>
   </div>
 </section>
 
-<!-- 60 Ejercicio interactivo: paginación y fragmentación -->
-<section data-deck-id="ej-paginacion" data-label="Practica: paginación y fragmentación" data-seccion="2.7" style="display:grid;grid-template-columns:1fr 1.3fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
-  <aside class="notas">Ejercicio con números al azar y tres modos. Páginas: tamaño de proceso y de página, calcular cuántas páginas hacen falta (redondeando hacia arriba) y cuántos KiB se pierden en la última. Huecos: tres o cuatro huecos libres y un proceso; decir cuánto hay libre en total, en cuál cabe (o en ninguno) y qué fenómeno es. Memoria virtual: marcos libres frente a páginas necesarias, ¿cabe entero? Nivel de la UT1: división entera y resto. Para la práctica 2.6 (rachas) cuenta como uno más.</aside>
-  <div>
-    <span class="pill">Ejercicio interactivo</span>
-    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Páginas, huecos y fragmentación</h2>
-    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)"><b style="color:var(--navy)">Páginas:</b> divide el tamaño del proceso entre el de la página y redondea hacia arriba; lo que sobra en la última es fragmentación interna. <b style="color:var(--navy)">Huecos:</b> el proceso solo cabe en un hueco igual o mayor que él, aunque la suma de los huecos sea suficiente.</p>
-    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)"><b>Pista</b> rellena la siguiente casilla y te explica por qué. <b>Resolver</b> lo completa todo. Las dos ponen a cero tu racha.</p>
+<!-- 58 Interactivo: buscador de memoria (la excepción a la protección) -->
+<section data-deck-id="busca-mem" data-label="Simulador: cambiar la memoria de un juego" data-seccion="2.7" style="display:grid;grid-template-columns:470px minmax(0,1fr);gap:40px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <aside class="notas">La excepción a la protección de memoria: un proceso con privilegios de depuración (los que da ser administrador) puede pedir al sistema operativo acceso a la memoria de otro, y el sistema se lo concede; lo necesitan los depuradores y lo aprovechan los programas de trampas. El simulador de la derecha imita, con un juego y unas ventanas de diseño propio, la demostración real en clase con Cookie Clicker (https://orteil.dashnet.org/cookieclicker/, enlazado en la diapositiva) en Chrome y Cheat Engine (en el equipo del profesor; los alumnos no instalan nada; Cheat Engine necesita administrador y el antivirus suele avisar del instalador, descargarlo solo de la web oficial). Pasos de la demostración real: 1, abrir el juego y pulsar la galleta; 2, Mayús+Esc abre el administrador de tareas de Chrome, con el ID de proceso de la pestaña en decimal (por ejemplo 38148); 3, pasarlo a hexadecimal (38148 = 9504) porque Cheat Engine lista los procesos así, y abrir 00009504-chrome.exe; 4, Value Type Double, porque JavaScript guarda los números como coma flotante de 64 bits (IEEE 754, UT1), y First Scan con las galletas que hay (con 3 salen unas 10.000 direcciones); 5, pulsar la galleta y Next Scan con el valor nuevo (con 5 quedan 9; con 7 quedan 4, y ya no bajan: el juego guarda el marcador en cuatro copias); 6, añadir las cuatro a la lista de abajo, cambiar el valor de las cuatro (Change record, Value) y ver cómo cambia el juego (con 15000000, 15 millones). En el simulador el PID sale al azar en cada partida, así que cada alumno tiene que hacer su propio cambio de base. Preguntas para la clase: por qué el sistema ha dejado escribir en la memoria de otro proceso, en qué juegos sería una trampa detectable y quién la detectaría, y qué tiene que ver con los modos usuario y núcleo. Los juegos en línea llevan sistemas anti-trampas que vigilan quién abre su memoria y expulsan al jugador.</aside>
+  <div style="display:flex;flex-direction:column;min-width:0">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Gestión de memoria · la excepción</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:16px;color:var(--navy);text-wrap:balance">Cambiar la memoria de un juego</h2>
+    <p style="font-size:20px;line-height:1.42;color:var(--muted);margin-top:14px">Un programa con <b style="color:var(--navy)">permisos de administrador</b> puede pedir al sistema leer y escribir la memoria de otro proceso. Así trabajan los depuradores y los programas de trampas, como <b style="color:var(--navy)">Cheat Engine</b>. El simulador imita el juego <a href="https://orteil.dashnet.org/cookieclicker/" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700">Cookie Clicker</a>.</p>
+    <ol style="list-style:none;padding:0;margin-top:16px;display:flex;flex-direction:column;gap:4px;font-size:19px;line-height:1.35">
+      <li data-paso="1" style="display:flex;gap:14px;align-items:center;padding:4px 10px"><span style="width:34px;height:34px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:17px;font-weight:800;flex:none">1</span><span>Pulsa la galleta.</span></li>
+      <li data-paso="2" style="display:flex;gap:14px;align-items:center;padding:4px 10px"><span style="width:34px;height:34px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:17px;font-weight:800;flex:none">2</span><span><b>Mayús + Esc</b>: el ID de proceso de la pestaña, en decimal.</span></li>
+      <li data-paso="3" style="display:flex;gap:14px;align-items:center;padding:4px 10px"><span style="width:34px;height:34px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:17px;font-weight:800;flex:none">3</span><span>Pásalo a <b>hexadecimal</b> y ábrelo con el botón del monitor.</span></li>
+      <li data-paso="4" style="display:flex;gap:14px;align-items:center;padding:4px 10px"><span style="width:34px;height:34px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:17px;font-weight:800;flex:none">4</span><span><b>Value Type: Double</b> y <b>First Scan</b> con las galletas que ves.</span></li>
+      <li data-paso="5" style="display:flex;gap:14px;align-items:center;padding:4px 10px"><span style="width:34px;height:34px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:17px;font-weight:800;flex:none">5</span><span>Pulsa la galleta y <b>Next Scan</b>, hasta que no bajen.</span></li>
+      <li data-paso="6" style="display:flex;gap:14px;align-items:center;padding:4px 10px"><span style="width:34px;height:34px;border-radius:50%;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-size:17px;font-weight:800;flex:none">6</span><span>Selecciónalas, <b>flecha roja</b> y doble clic en su <b>Value</b>.</span></li>
+    </ol>
+    <div style="background:var(--yellow);border-radius:16px;padding:14px 20px;margin-top:auto"><p style="font-size:19px;line-height:1.4;color:var(--navy)"><b>Por eso</b> dar permisos de administrador a un programa es darle acceso a todo. En los juegos en línea, un sistema <b>anti-trampas</b> vigila quién abre su memoria y expulsa al jugador.</p></div>
   </div>
-  <div class="ej" data-tipo="paginacion"></div>
+  <div class="trampas"></div>
 </section>
 
-<!-- 61 Texto: intercambio, reubicación y compartición -->
-<section data-label="Intercambio, reubicación y compartición" data-seccion="2.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
-  <aside class="notas">Tres técnicas más. Intercambio (swapping): cuando un proceso está suspendido (agotó su tiempo o espera un recurso) y hace falta sitio, se copia a disco y otro ocupa su memoria; cuando vuelve, se carga de nuevo. Dónde: en Windows, pagefile.sys en la raíz de C:, oculto y de sistema (hay que activar ver archivos protegidos del sistema para verlo), y swapfile.sys para las aplicaciones de la tienda; en Linux, una partición swap o un archivo /swapfile. Reubicación: el proceso que vuelve no tiene por qué ir a la misma zona; con paginación es automático porque sus direcciones son relativas a la tabla de páginas. Compartición: dos procesos que usan la misma biblioteca (una DLL en Windows, un .so en Linux) comparten una sola copia en memoria; por eso abrir diez pestañas no multiplica por diez la memoria del navegador.</aside>
+<!-- 59 Comparativa: dos formas de repartir la memoria -->
+<section data-label="Dos formas de repartir la memoria" data-seccion="2.7" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
+  <aside class="notas">Cómo se reparte la memoria cuando hay varios procesos a la vez: una forma de tamaño fijo, la paginación, que es la que usan Windows 11, Linux y macOS (va primero), y otra de tamaño variable, la segmentación, que hoy está prácticamente desactivada en los procesadores de 64 bits. Las dos tarjetas tienen el mismo dibujo: un proceso a la izquierda, la RAM en vertical a la derecha y flechas que llevan cada trozo a su sitio; lo gris es memoria que ya usan otros procesos. Segmentación, tamaño variable: el proceso se parte en segmentos del tamaño que necesita cada parte del programa (código, datos, pila), y cada segmento va entero y seguido a un hueco libre; la usaba MS-DOS. Problema: quedan huecos sueltos; aquí hay 8 + 7 = 15 KiB libres, pero el código, de 10 KiB, no cabe en ninguno: fragmentación externa. Se arregla compactando, moviendo lo que hay para juntar los huecos, que es lento. Las particiones variables son lo mismo con un único trozo por proceso; antes aún estaban las particiones fijas, la memoria dividida de antemano en trozos iguales. Paginación, tamaño fijo: la página es un trozo de 4 KiB del proceso y el marco un hueco de 4 KiB de la RAM; por eso en el dibujo tienen el mismo alto. Cada página va a cualquier marco libre, aunque no estén seguidos (aquí, los marcos 1, 3 y 5), y la tabla de páginas del proceso apunta en qué marco está cada página (las flechas). Como cualquier marco vale, no hay fragmentación externa; solo se pierde el final de la última página: fragmentación interna (aquí 2 KiB, porque 10 KiB ocupan 3 páginas de 4). Es lo que usan Windows y Linux; los procesadores actuales combinan segmentos y páginas, pero el sistema trabaja en la práctica con páginas.</aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Gestión de memoria</p>
-  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Intercambio, reubicación y compartición</h2>
-  <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:28px;margin-top:var(--gap-title);flex:1">
-    <div style="background:var(--navy);color:var(--white);border-radius:24px;padding:34px 38px;display:flex;flex-direction:column;gap:14px">
-      <img src="img/ia/intercambio.webp" alt="" style="height:100px;width:auto;align-self:flex-start">
-      <h3 style="font-size:var(--type-subtitle);font-weight:800">Intercambio <span style="font-size:var(--type-caption);color:#9FB4D9;font-weight:600">· swapping</span></h3>
-      <p style="font-size:21px;line-height:1.45;color:#E3EBF8">Un proceso suspendido (agotó su tiempo o espera un recurso) se <b>saca al disco</b> para que otro use su memoria. Cuando le toca, se vuelve a cargar.</p>
-      <div style="background:rgba(255,255,255,.08);border-radius:14px;padding:16px 20px;font-size:19px;line-height:1.45;color:#E3EBF8">
-        <b style="color:var(--yellow)">Dónde está el intercambio</b><br>Windows: <span style="font-family:var(--mono)">C:\pagefile.sys</span> (y <span style="font-family:var(--mono)">swapfile.sys</span>), ocultos y de sistema.<br>Linux: una partición <span style="font-family:var(--mono)">swap</span> o el archivo <span style="font-family:var(--mono)">/swapfile</span>.
-      </div>
-      <p style="font-size:19px;line-height:1.4;color:#C9D6EE;margin-top:auto">El disco es miles de veces más lento que la RAM: cuando el sistema intercambia mucho, el equipo se arrastra.</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Dos formas de repartir la memoria</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:var(--gap-item);flex:1;min-height:0">
+    <div style="background:var(--navy);color:var(--white);border-radius:24px;padding:24px 34px;display:flex;flex-direction:column;gap:12px">
+      <h3 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.15">Paginación <span style="font-size:var(--type-caption);color:#9FB4D9;font-weight:600">· tamaño fijo</span></h3>
+      <p style="font-size:21px;line-height:1.4;color:#E3EBF8">El proceso se parte en <b style="color:var(--yellow)">páginas</b> y la RAM en <b style="color:var(--yellow)">marcos</b>, todos <b style="color:var(--white)">del mismo tamaño</b> (4 KiB). Cada página va a cualquier marco libre; la <b style="color:var(--white)">tabla de páginas</b> apunta dónde está cada una.</p>
+      <svg viewBox="0 0 600 300" style="width:100%;height:auto" role="img" aria-label="A la izquierda, un proceso de 10 KiB partido en tres páginas de 4 KiB, del mismo alto; la última solo usa 2 KiB y el resto se pierde. A la derecha, la RAM partida en marcos de 4 KiB del mismo alto que las páginas. Unas flechas llevan la página 0 al marco 1, la página 1 al marco 3 y la página 2 al marco 5; los marcos 2 y 4 están ocupados por otros">
+        <defs>
+          <pattern id="rayas-27" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="10" height="10" fill="#FBEAEA"/><rect width="4" height="10" fill="#E8A3A3"/></pattern>
+          <marker id="flecha-27" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#F4C20D"/></marker>
+        </defs>
+        <g font-family="Plus Jakarta Sans, system-ui, sans-serif" font-weight="700">
+          <text x="115" y="22" text-anchor="middle" font-size="18" fill="#fff">Proceso · 10 KiB</text>
+          <text x="430" y="22" text-anchor="middle" font-size="18" fill="#fff">RAM</text>
+          <rect x="40" y="80" width="150" height="40" fill="#8E44AD"/><rect x="41.5" y="81.5" width="147" height="37" fill="none" stroke="#C39BD3" stroke-width="3"/><text x="115" y="106" text-anchor="middle" font-size="16" fill="#fff">página 0</text>
+          <rect x="40" y="120" width="150" height="40" fill="#8E44AD"/><rect x="41.5" y="121.5" width="147" height="37" fill="none" stroke="#C39BD3" stroke-width="3"/><text x="115" y="146" text-anchor="middle" font-size="16" fill="#fff">página 1</text>
+          <rect x="40" y="160" width="75" height="40" fill="#8E44AD"/><rect x="115" y="160" width="75" height="40" fill="url(#rayas-27)"/><rect x="41.5" y="161.5" width="147" height="37" fill="none" stroke="#C39BD3" stroke-width="3"/><text x="78" y="186" text-anchor="middle" font-size="15" fill="#fff">página 2</text><text x="152" y="185" text-anchor="middle" font-size="13" fill="#C0392B">sin usar</text>
+          <g stroke="#15356B" stroke-width="2" fill="none"><rect x="40" y="80" width="150" height="120"/><line x1="40" y1="120" x2="190" y2="120"/><line x1="40" y1="160" x2="190" y2="160"/></g>
+          <text x="115" y="226" text-anchor="middle" font-size="14" fill="#C9D6EE" font-weight="600">la última se queda a medias</text>
+          <rect x="360" y="40" width="140" height="40" fill="#485168"/><text x="430" y="66" text-anchor="middle" font-size="16" fill="#fff">SO</text><text x="512" y="65" font-size="15" fill="#9FB4D9" font-weight="600">marco 0</text><rect x="360" y="80" width="140" height="40" fill="#8E44AD"/><rect x="361.5" y="81.5" width="137" height="37" fill="none" stroke="#C39BD3" stroke-width="3"/><text x="430" y="106" text-anchor="middle" font-size="16" fill="#fff">página 0</text><text x="512" y="105" font-size="15" fill="#9FB4D9" font-weight="600">marco 1</text><rect x="360" y="120" width="140" height="40" fill="#6B7A99"/><text x="430" y="146" text-anchor="middle" font-size="16" fill="#E3EBF8">ocupado</text><text x="512" y="145" font-size="15" fill="#9FB4D9" font-weight="600">marco 2</text><rect x="360" y="160" width="140" height="40" fill="#8E44AD"/><rect x="361.5" y="161.5" width="137" height="37" fill="none" stroke="#C39BD3" stroke-width="3"/><text x="430" y="186" text-anchor="middle" font-size="16" fill="#fff">página 1</text><text x="512" y="185" font-size="15" fill="#9FB4D9" font-weight="600">marco 3</text><rect x="360" y="200" width="140" height="40" fill="#6B7A99"/><text x="430" y="226" text-anchor="middle" font-size="16" fill="#E3EBF8">ocupado</text><text x="512" y="225" font-size="15" fill="#9FB4D9" font-weight="600">marco 4</text><rect x="360" y="240" width="70" height="40" fill="#8E44AD"/><rect x="430" y="240" width="70" height="40" fill="url(#rayas-27)"/><rect x="361.5" y="241.5" width="137" height="37" fill="none" stroke="#C39BD3" stroke-width="3"/><text x="395" y="266" text-anchor="middle" font-size="14" fill="#fff">página 2</text><text x="465" y="265" text-anchor="middle" font-size="13" fill="#C0392B">sin usar</text><text x="512" y="265" font-size="15" fill="#9FB4D9" font-weight="600">marco 5</text>
+          <g stroke="#15356B" stroke-width="2"><line x1="360" y1="80" x2="500" y2="80"/><line x1="360" y1="120" x2="500" y2="120"/><line x1="360" y1="160" x2="500" y2="160"/><line x1="360" y1="200" x2="500" y2="200"/><line x1="360" y1="240" x2="500" y2="240"/></g>
+          <g stroke="#F4C20D" stroke-width="3.5" fill="none" marker-end="url(#flecha-27)">
+            <path d="M192 100 C 270 100, 280 100, 354 100"/>
+            <path d="M192 140 C 270 140, 280 180, 354 180"/>
+            <path d="M192 180 C 270 180, 280 260, 354 260"/>
+          </g>
+        </g>
+      </svg>
+      <div style="background:rgba(255,255,255,.1);border-left:6px solid var(--yellow);border-radius:12px;padding:12px 18px;font-size:20px;line-height:1.4;color:#E3EBF8"><b style="color:var(--white)">Fragmentación interna.</b> Solo se pierde el final de la última página (rayado). Lo usan <b style="color:var(--white)">Windows 11, Linux y macOS</b>.</div>
     </div>
-    <div style="background:var(--white);border-radius:24px;padding:34px 38px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;gap:14px">
-      <img src="img/ia/reubicacion.webp" alt="" style="height:100px;width:auto;align-self:flex-start">
-      <h3 style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy)">Reubicación</h3>
-      <p style="font-size:21px;line-height:1.45;color:var(--muted)">Cuando un proceso vuelve del disco no tiene por qué ir a la misma zona de memoria: se puede colocar en <b style="color:var(--ink)">otra partición</b> distinta.</p>
-      <p style="font-size:20px;line-height:1.4;color:var(--muted);margin-top:auto">Con paginación es automático: las direcciones del proceso pasan por la tabla de páginas, así que da igual en qué marcos esté.</p>
-    </div>
-    <div style="background:var(--white);border-radius:24px;padding:34px 38px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;gap:14px">
-      <img src="img/ia/comparticion.webp" alt="" style="height:100px;width:auto;align-self:flex-start">
-      <h3 style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy)">Compartición</h3>
-      <p style="font-size:21px;line-height:1.45;color:var(--muted)">Dos procesos que usan el mismo código (una biblioteca) <b style="color:var(--ink)">comparten una sola copia</b> en memoria en vez de cargarla dos veces. De forma muy controlada: solo lectura.</p>
-      <p style="font-size:20px;line-height:1.4;color:var(--muted);margin-top:auto">Las DLL de Windows y los .so de Linux. Por eso diez pestañas del navegador no ocupan diez veces la memoria.</p>
+    <div style="background:var(--white);border-radius:24px;padding:24px 34px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;gap:12px">
+      <h3 style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy);line-height:1.15">Segmentación <span style="font-size:var(--type-caption);color:var(--muted);font-weight:600">· tamaño variable</span></h3>
+      <p style="font-size:21px;line-height:1.4;color:var(--muted)">El proceso se parte en <b style="color:var(--blue)">segmentos</b>, cada uno <b style="color:var(--ink)">del tamaño que necesita</b>: el código, los datos… Cada segmento va entero a un hueco libre donde quepa.</p>
+      <svg viewBox="0 0 600 300" style="width:100%;height:auto" role="img" aria-label="A la izquierda, un proceso con dos segmentos de distinto tamaño: el código, de 10 KiB, y los datos, de 3 KiB. A la derecha, la RAM con dos huecos libres de 8 y 7 KiB separados por memoria ocupada. Los datos caben en un hueco; el código no cabe en ninguno">
+        <defs><marker id="flecha-seg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="#0B4AB5"/></marker></defs>
+        <g font-family="Plus Jakarta Sans, system-ui, sans-serif" font-weight="700">
+          <text x="115" y="22" text-anchor="middle" font-size="18" fill="#15356B">Proceso</text>
+          <text x="430" y="22" text-anchor="middle" font-size="18" fill="#15356B">RAM</text>
+          <rect x="40" y="80" width="150" height="80" fill="#8E44AD"/><text x="115" y="126" text-anchor="middle" font-size="17" fill="#fff">código · 10 KiB</text>
+          <rect x="40" y="160" width="150" height="24" fill="#A569BD"/><text x="115" y="177" text-anchor="middle" font-size="14" fill="#fff">datos · 3 KiB</text>
+          <line x1="40" y1="160" x2="190" y2="160" stroke="#fff" stroke-width="2"/>
+          <rect x="360" y="36" width="140" height="256" fill="#fff" stroke="#D7DCE6" stroke-width="2"/>
+          <rect x="360" y="36" width="140" height="32" fill="#485168"/><text x="430" y="58" text-anchor="middle" font-size="16" fill="#fff">SO</text>
+          <rect x="363" y="71" width="134" height="58" fill="#FFF6D1" stroke="#F4C20D" stroke-width="4" stroke-dasharray="8 5"/><text x="430" y="106" text-anchor="middle" font-size="16" fill="#485168">8 KiB libres</text>
+          <rect x="360" y="132" width="140" height="104" fill="#B7C2D6"/><text x="430" y="190" text-anchor="middle" font-size="16" fill="#15356B">ocupado</text>
+          <rect x="363" y="239" width="134" height="50" fill="#FFF6D1" stroke="#F4C20D" stroke-width="4" stroke-dasharray="8 5"/><text x="430" y="270" text-anchor="middle" font-size="16" fill="#485168">7 KiB libres</text>
+          <path d="M192 172 C 270 172, 280 264, 354 264" fill="none" stroke="#0B4AB5" stroke-width="3.5" marker-end="url(#flecha-seg)"/>
+          <path d="M192 120 C 250 120, 260 100, 298 100" fill="none" stroke="#C0392B" stroke-width="3.5" stroke-dasharray="9 6"/>
+          <g transform="translate(316,100)"><circle r="17" fill="#fff" stroke="#C0392B" stroke-width="3.5"/><path d="M-8 -8 L8 8 M8 -8 L-8 8" stroke="#C0392B" stroke-width="5" stroke-linecap="round"/></g>
+          <text x="275" y="70" text-anchor="middle" font-size="15" fill="#C0392B">el código no cabe</text>
+          <text x="265" y="298" text-anchor="middle" font-size="15" fill="#0B4AB5">los datos, sí</text>
+        </g>
+      </svg>
+      <div style="background:#FFF6D1;border-left:6px solid var(--yellow);border-radius:12px;padding:12px 18px;font-size:20px;line-height:1.4;color:var(--ink)"><b>Fragmentación externa.</b> Hay 15 KiB libres, pero en huecos sueltos, y el código no cabe en ninguno.</div>
+      <p style="font-size:17px;line-height:1.35;color:var(--muted)">Era la de MS-DOS. Las particiones variables funcionan igual, con el proceso entero en un solo trozo.</p>
     </div>
   </div>
+  <p style="font-size:20px;color:var(--muted);margin-top:16px;line-height:1.4">Figura 2.14. Paginación y segmentación: el proceso a la izquierda y la RAM a la derecha. Elaboración propia.</p>
 </section>
 
-<!-- 62 Texto: memoria virtual -->
-<section data-label="Memoria virtual" data-seccion="2.7" style="display:grid;grid-template-columns:1fr 1.1fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
-  <aside class="notas">Memoria virtual: ejecutar programas que no caben enteros en la RAM, o más programas de los que caben. Solo la parte del proceso que se está usando está en memoria; el resto espera en el disco (el archivo de paginación) y se trae cuando hace falta (fallo de página). Cada proceso cree tener toda la memoria para él, con su propio espacio de direcciones: en un sistema de 64 bits, mucho más que la RAM real. En el Administrador de tareas, Rendimiento, Memoria: en uso es la RAM ocupada; confirmado es lo que los procesos han pedido en total, RAM más archivo de paginación. Cuando la RAM se agota, el sistema intercambia sin parar y el disco trabaja al 100 por ciento: el equipo se arrastra; con memoria virtual también agotada, Windows avisa de que se está quedando sin memoria y cierra programas. Sustitución de páginas: cuando hay que traer una página y no hay marco libre, ¿cuál se saca? FIFO (la más antigua) o LRU (la que lleva más tiempo sin usarse), que suele acertar más. Recordar de la UT1 que con 32 bits solo hay 4 GiB de direcciones.</aside>
+<!-- 61 Texto: intercambio y memoria virtual -->
+<section data-label="Intercambio y memoria virtual" data-seccion="2.7" style="display:grid;grid-template-columns:1.15fr 1fr;gap:64px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
+  <aside class="notas">Qué hace el sistema cuando la RAM no llega: usar una parte del disco como si fuera memoria. Intercambio (swapping): un proceso suspendido (agotó su tiempo o espera un recurso) se copia entero al disco y otro ocupa su memoria; cuando vuelve, se carga de nuevo y no tiene por qué ir al mismo sitio (reubicación); con paginación es automático porque sus direcciones pasan por la tabla de páginas. Memoria virtual: el proceso no tiene que estar entero en la RAM; solo están las páginas que usa y el resto espera en el disco; cada proceso cree tener toda la memoria para él, con su propio espacio de direcciones (en 64 bits, mucho mayor que la RAM real; con 32 bits solo había 4 GiB de direcciones, UT1). Fallo de página: el proceso usa una página que está en el disco; el sistema la trae a un marco libre; si no hay, antes saca otra (la más antigua, FIFO, o la que lleva más tiempo sin usarse, LRU, que suele acertar más). Dónde está ese trozo de disco: en Windows, pagefile.sys en la raíz de C:, oculto y de sistema (hay que activar ver archivos protegidos del sistema), y swapfile.sys para las aplicaciones de la tienda; en Linux, una partición swap o un archivo /swapfile. Enseñar en vivo el Administrador de tareas, Rendimiento, Memoria: en uso es la RAM ocupada; confirmado, lo que los procesos han pedido en total, RAM más archivo de paginación, y puede ser mayor que la RAM instalada; en caché, archivos guardados en RAM por si vuelven a hacer falta, que se liberan al instante; disponible, lo que se puede dar sin intercambiar. Cuando se agota, el disco trabaja al 100 % y el equipo se arrastra; si tampoco queda archivo de paginación, Windows avisa de que se está quedando sin memoria y cierra programas.</aside>
   <div>
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Gestión de memoria</p>
-    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Memoria virtual: ejecutar más de lo que cabe</h2>
-    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">En la RAM solo está la parte de cada proceso que se está usando. El resto espera en el disco y se trae cuando hace falta. Cada proceso cree tener <b style="color:var(--navy)">toda la memoria para él</b>.</p>
-    <ul style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:12px;font-size:21px;line-height:1.4">
-      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span>Permite ejecutar un programa más grande que la RAM, o muchos programas a la vez.</span></li>
-      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Fallo de página</b>: el proceso toca una página que está en disco; el sistema la trae a un marco libre. Si no hay libres, hay que <b>sustituir</b> una: la más antigua (FIFO) o la que lleva más tiempo sin usarse (LRU), que acierta más.</span></li>
-      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span>Con 32 bits solo hay 4 GiB de direcciones (UT1). Con 64 bits, el espacio virtual de un proceso es muchísimo mayor que la RAM real.</span></li>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">¿Y si no cabe? Intercambio y memoria virtual</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Cuando la RAM no llega, el sistema usa una parte del <b style="color:var(--navy)">disco</b> como si fuera memoria.</p>
+    <ul style="list-style:none;padding:0;margin-top:22px;display:flex;flex-direction:column;gap:14px;font-size:21px;line-height:1.4">
+      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Intercambio</b> (<i>swapping</i>): un proceso que está esperando se copia <b>entero</b> al disco y deja su sitio a otro. Cuando le toca, vuelve a la RAM, y no tiene por qué ir al mismo sitio: eso es la <b>reubicación</b>.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Memoria virtual</b>: el proceso no tiene que estar entero en la RAM. Solo están las <b>páginas que usa</b>; el resto espera en el disco. Cada proceso cree tener toda la memoria para él.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Fallo de página</b>: el proceso usa una página que está en el disco. El sistema la trae a un marco libre (si no hay ninguno, antes saca otra al disco).</span></li>
     </ul>
+    <div style="background:var(--white);border-radius:16px;padding:16px 22px;box-shadow:0 2px 0 var(--line);margin-top:22px;font-size:20px;line-height:1.45;color:var(--muted)"><b style="color:var(--navy)">Dónde está ese disco.</b> Windows: <span style="font-family:var(--mono);color:var(--ink)">C:\pagefile.sys</span> (y <span style="font-family:var(--mono);color:var(--ink)">swapfile.sys</span>), ocultos. Linux: una partición <span style="font-family:var(--mono);color:var(--ink)">swap</span> o el archivo <span style="font-family:var(--mono);color:var(--ink)">/swapfile</span>.</div>
+    <div style="background:var(--yellow);border-radius:16px;padding:14px 22px;margin-top:14px"><p style="font-size:20px;line-height:1.4;color:var(--navy)"><b>El precio.</b> El disco es miles de veces más lento que la RAM. Si el sistema intercambia sin parar, el equipo se arrastra. La solución barata es más RAM.</p></div>
   </div>
-  <div style="display:flex;flex-direction:column;gap:20px">
-    <div style="background:var(--white);border-radius:20px;padding:26px 32px;box-shadow:0 2px 0 var(--line)">
-      <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Administrador de tareas › Rendimiento › Memoria</p>
-      <div style="display:grid;grid-template-columns:auto 1fr;gap:10px 20px;margin-top:14px;font-size:20px;line-height:1.35;align-items:baseline">
-        <span style="font-weight:700;color:var(--blue)">En uso</span><span style="color:var(--muted)">RAM ocupada ahora mismo por los procesos y el sistema.</span>
-        <span style="font-weight:700;color:var(--blue)">Confirmado</span><span style="color:var(--muted)">Todo lo que los procesos han pedido: RAM + archivo de paginación. Puede ser mayor que la RAM instalada.</span>
-        <span style="font-weight:700;color:var(--blue)">En caché</span><span style="color:var(--muted)">Archivos que el sistema guarda en RAM por si vuelven a hacer falta. Se libera al instante.</span>
-        <span style="font-weight:700;color:var(--blue)">Disponible</span><span style="color:var(--muted)">Lo que se puede dar a un proceso nuevo sin intercambiar.</span>
-      </div>
-    </div>
-    <div style="background:var(--yellow);border-radius:16px;padding:16px 22px"><p style="font-size:20px;line-height:1.4;color:var(--navy)"><b>Cuando se agota.</b> El sistema intercambia sin parar y el disco trabaja al 100 %: el equipo se arrastra. Si tampoco queda archivo de paginación, Windows avisa de que se está quedando sin memoria y empieza a cerrar programas. La solución barata es más RAM.</p></div>
-  </div>
-</section>
-
-<!-- 63 Pregunta: leer la memoria de otro proceso -->
-<section data-label="¿Puede un programa leer la memoria de otro?" data-seccion="2.7" style="display:grid;grid-template-columns:1fr 1.15fr;gap:96px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
-  <aside class="notas">Dejar que respondan que no, que para eso está la protección. Al revelar: en general no, pero un proceso con privilegios de depuración (administrador) puede pedir al sistema operativo acceso a la memoria de otro; el sistema lo concede porque es lo que necesitan los depuradores para encontrar errores. Cheat Engine usa exactamente eso: busca en la memoria de un juego el número que aparece en pantalla (vidas, dinero) y lo cambia. Los juegos en línea llevan sistemas anti-trampas que vigilan quién abre su memoria y expulsan al jugador; en un juego para uno solo, sin conexión, no hay nadie a quien engañar. Moraleja para la seguridad: dar permisos de administrador a un programa es darle acceso a todo. Es la introducción a la demostración.</aside>
-  <div>
-    <img class="icono" src="../assets/question.png" alt="">
-    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-top:var(--gap-item)">Pregunta a la clase</p>
-    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.12;margin-top:20px;color:var(--navy);text-wrap:balance">¿Puede un programa leer o cambiar la memoria de otro?</h2>
-    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Acabamos de ver que la protección de memoria lo impide. ¿Siempre? ¿Cómo hace entonces un programa de trampas para cambiar las vidas de un juego?</p>
-  </div>
-  <div class="revela" style="padding:40px 48px">
-    <div class="revela-cuerpo">
-      <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">En general no. Salvo que tenga privilegios</p>
-      <ul style="list-style:none;padding:0;margin-top:16px;display:flex;flex-direction:column;gap:12px;font-size:21px;line-height:1.4">
-        <li style="display:flex;gap:14px"><span style="color:var(--yellow);font-weight:800">●</span><span>Un proceso con <b>privilegios de depuración</b> (los que da ser administrador) puede pedir al sistema operativo acceso a la memoria de otro, y el sistema se lo concede: es lo que necesitan los <b>depuradores</b> para encontrar errores en los programas.</span></li>
-        <li style="display:flex;gap:14px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Cheat Engine</b> usa exactamente eso: busca en la memoria del juego el número que ves en pantalla (dinero, vidas), lo localiza y lo cambia.</span></li>
-        <li style="display:flex;gap:14px"><span style="color:var(--yellow);font-weight:800">●</span><span>Los juegos en línea llevan sistemas <b>anti-trampas</b> que vigilan quién abre su memoria y expulsan al jugador. En un juego para uno solo y sin conexión no hay a quién engañar.</span></li>
-      </ul>
-      <p style="font-size:var(--type-caption);color:var(--ink);margin-top:20px;line-height:1.45;border-left:5px solid var(--yellow);padding-left:20px">Moraleja: dar permisos de <b>administrador</b> a un programa es darle acceso a todo, también a la memoria de los demás. Pedirlos no es un trámite.</p>
-    </div>
-    <button class="btn btn-primary revela-btn">Ver la respuesta</button>
-  </div>
-</section>
-
-<!-- 64 Pasos: demostración en clase con Cheat Engine -->
-<section data-label="Demostración: la memoria de un juego" data-seccion="2.7" style="display:grid;grid-template-columns:1.1fr 1fr;gap:72px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
-  <aside class="notas">Demostración en vivo (o con el vídeo del curso pasado, si se enlaza aquí). Pasos: 1, abrir el juego en el navegador y jugar hasta tener un marcador; 2, Mayús+Esc abre el administrador de tareas del navegador, con el ID de proceso de cada pestaña en decimal; 3, convertir ese PID a hexadecimal (la lista de procesos de Cheat Engine está en hexadecimal) con la calculadora en modo programador o a mano; 4, en Cheat Engine, elegir el proceso por su PID, buscar el valor del marcador (tipo 4 bytes), jugar para que cambie, Next Scan con el nuevo valor hasta quedarse con una dirección; 5, cambiar el valor y verlo en el juego. Comentar mientras tanto: la búsqueda encuentra cientos de direcciones con ese número porque la memoria es enorme; al cambiar el marcador y volver a buscar se descartan las que no; la dirección que queda es la casilla de memoria del proceso donde vive el marcador. Cheat Engine necesita administrador y el antivirus suele quejarse del instalador: instalarlo antes en el equipo del profesor. Es una demostración, no una práctica: los alumnos no instalan nada. Mientras tanto, la clase convierte a mano el PID a hexadecimal y responde en voz alta: por qué el sistema ha dejado escribir en la memoria de otro proceso, en qué juegos sería una trampa detectable y quién la detectaría, y qué tiene que ver con la protección de memoria y los modos usuario y núcleo.</aside>
-  <div style="display:flex;flex-direction:column;min-width:0">
-    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Gestión de memoria · demostración en clase</p>
-    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Cambiar la memoria de un juego</h2>
-    <div style="display:flex;flex-direction:column;gap:16px;margin-top:var(--gap-item)">
-      <div style="display:flex;gap:20px;align-items:flex-start"><span style="width:52px;height:52px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">1</span><div><p style="font-size:var(--type-caption);font-weight:700;color:var(--navy)">Un juego en el navegador</p><p style="font-size:20px;color:var(--muted);line-height:1.4;margin-top:4px">Se juega hasta tener un marcador visible: dinero, puntos, vidas. Ese número está en algún sitio de la memoria de la pestaña.</p></div></div>
-      <div style="display:flex;gap:20px;align-items:flex-start"><span style="width:52px;height:52px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">2</span><div><p style="font-size:var(--type-caption);font-weight:700;color:var(--navy)">Mayús + Esc: el PID de la pestaña</p><p style="font-size:20px;color:var(--muted);line-height:1.4;margin-top:4px">El administrador de tareas del navegador muestra un proceso por pestaña con su ID, en decimal.</p></div></div>
-      <div style="display:flex;gap:20px;align-items:flex-start"><span style="width:52px;height:52px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">3</span><div><p style="font-size:var(--type-caption);font-weight:700;color:var(--navy)">De decimal a hexadecimal</p><p style="font-size:20px;color:var(--muted);line-height:1.4;margin-top:4px">Cheat Engine lista los procesos por su PID en hexadecimal. Se convierte a mano (UT1) y se comprueba con la calculadora en modo programador.</p></div></div>
-      <div style="display:flex;gap:20px;align-items:flex-start"><span style="width:52px;height:52px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">4</span><div><p style="font-size:var(--type-caption);font-weight:700;color:var(--navy)">Buscar el valor y acotar</p><p style="font-size:20px;color:var(--muted);line-height:1.4;margin-top:4px">Se elige el proceso, se busca el número del marcador (4 bytes): salen cientos de direcciones. Se juega para que cambie, se busca el nuevo valor y se repite hasta quedarse con una.</p></div></div>
-      <div style="display:flex;gap:20px;align-items:flex-start"><span style="width:52px;height:52px;border-radius:50%;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">5</span><div><p style="font-size:var(--type-caption);font-weight:700;color:var(--navy)">Cambiar el valor</p><p style="font-size:20px;color:var(--muted);line-height:1.4;margin-top:4px">Se escribe otro número en esa dirección y el juego lo muestra al instante: se ha escrito en la memoria de otro proceso.</p></div></div>
-    </div>
-  </div>
-  <div style="display:flex;flex-direction:column;justify-content:center;gap:18px;min-width:0">
-    <div style="background:var(--navy);color:var(--white);border-radius:20px;padding:28px 32px">
-      <p style="font-size:var(--type-caption);font-weight:800;color:var(--yellow)">Lo que está pasando por dentro</p>
-      <ul style="list-style:none;padding:0;margin-top:12px;display:flex;flex-direction:column;gap:10px;font-size:20px;line-height:1.4;color:#E3EBF8">
-        <li style="display:flex;gap:12px"><span style="color:var(--yellow)">●</span><span>Cheat Engine pide al sistema, con privilegios de administrador, abrir la memoria del proceso del juego. El sistema comprueba los permisos y lo concede.</span></li>
-        <li style="display:flex;gap:12px"><span style="color:var(--yellow)">●</span><span>La memoria del proceso es enorme: la primera búsqueda encuentra ese número en cientos de sitios. Cada nueva búsqueda descarta los que ya no coinciden.</span></li>
-        <li style="display:flex;gap:12px"><span style="color:var(--yellow)">●</span><span>La dirección que queda es la casilla exacta donde el juego guarda el marcador. Es la misma idea que las direcciones de memoria de la UT1.</span></li>
-      </ul>
-    </div>
-    <div style="background:var(--white);border-radius:20px;padding:22px 28px;box-shadow:0 2px 0 var(--line)">
-      <p style="font-size:20px;line-height:1.45;color:var(--muted)"><b style="color:var(--navy)">Aviso.</b> Cheat Engine necesita permisos de administrador y el antivirus suele avisar de su instalador: descárgalo solo de su web oficial. En juegos en línea es trampa y se detecta; aquí se usa con un juego para uno solo, sin conexión, para entender cómo se protege la memoria.</p>
-    </div>
+  <div style="background:var(--white);border-radius:24px;padding:26px 28px;box-shadow:0 2px 0 var(--line)">
+    <svg viewBox="0 0 620 580" style="width:100%;height:auto" role="img" aria-label="Memoria virtual: un proceso de seis páginas; las páginas 0, 1 y 3 están en marcos de la RAM y las páginas 2, 4 y 5 en el disco. El proceso usa la página 4, que está en el disco: es un fallo de página y el sistema la trae al marco libre de la RAM">
+      <g font-family="Plus Jakarta Sans, system-ui, sans-serif" font-weight="700" text-anchor="middle">
+        <text x="85" y="30" font-size="20" fill="#15356B">Proceso</text>
+        <text x="85" y="52" font-size="15" fill="#485168" font-weight="600">lo que él cree tener</text>
+        <text x="310" y="30" font-size="20" fill="#15356B">RAM</text>
+        <text x="310" y="52" font-size="15" fill="#485168" font-weight="600">marcos</text>
+        <text x="530" y="30" font-size="20" fill="#15356B">Disco</text>
+        <text x="530" y="52" font-size="15" fill="#485168" font-weight="600">pagefile.sys · swap</text>
+        <g font-size="17">
+          <rect x="30" y="70" width="110" height="56" fill="#0B4AB5"/><text x="85" y="104" fill="#fff">pág. 0</text>
+          <rect x="30" y="130" width="110" height="56" fill="#0B4AB5"/><text x="85" y="164" fill="#fff">pág. 1</text>
+          <rect x="30" y="190" width="110" height="56" fill="#9DB8E6"/><text x="85" y="224" fill="#15356B">pág. 2</text>
+          <rect x="30" y="250" width="110" height="56" fill="#0B4AB5"/><text x="85" y="284" fill="#fff">pág. 3</text>
+          <rect x="30" y="310" width="110" height="56" fill="#9DB8E6" stroke="#C0392B" stroke-width="5"/><text x="85" y="344" fill="#15356B">pág. 4</text>
+          <rect x="30" y="370" width="110" height="56" fill="#9DB8E6"/><text x="85" y="404" fill="#15356B">pág. 5</text>
+        </g>
+        <g font-size="16">
+          <rect x="250" y="70" width="120" height="56" fill="#485168"/><text x="310" y="104" fill="#fff">SO</text>
+          <rect x="250" y="130" width="120" height="56" fill="#0B4AB5"/><text x="310" y="164" fill="#fff">pág. 1</text>
+          <rect x="250" y="190" width="120" height="56" fill="#E67E22"/><text x="310" y="224" fill="#fff">otro</text>
+          <rect x="250" y="250" width="120" height="56" fill="#0B4AB5"/><text x="310" y="284" fill="#fff">pág. 0</text>
+          <rect x="250" y="310" width="120" height="56" fill="#fff" stroke="#1E8E5A" stroke-width="4" stroke-dasharray="8 5"/><text x="310" y="344" fill="#1E8E5A">libre</text>
+          <rect x="250" y="370" width="120" height="56" fill="#0B4AB5"/><text x="310" y="404" fill="#fff">pág. 3</text>
+        </g>
+        <g font-size="16">
+          <rect x="470" y="130" width="120" height="56" fill="#9DB8E6"/><text x="530" y="164" fill="#15356B">pág. 2</text>
+          <rect x="470" y="190" width="120" height="56" fill="#9DB8E6" stroke="#C0392B" stroke-width="5"/><text x="530" y="224" fill="#15356B">pág. 4</text>
+          <rect x="470" y="250" width="120" height="56" fill="#9DB8E6"/><text x="530" y="284" fill="#15356B">pág. 5</text>
+          <rect x="460" y="70" width="140" height="370" rx="14" fill="none" stroke="#D7DCE6" stroke-width="2"/>
+        </g>
+        <path d="M470 222 C 420 230, 410 320, 378 334" fill="none" stroke="#1E8E5A" stroke-width="5"/>
+        <path d="M372 338 L386 324 L390 342 Z" fill="#1E8E5A"/>
+        <g font-size="17" text-anchor="start">
+          <circle cx="45" cy="478" r="16" fill="#C0392B"/><text x="45" y="484" text-anchor="middle" fill="#fff" font-size="16">1</text>
+          <text x="72" y="484" fill="#15356B">El proceso usa la página 4, que está en el disco.</text>
+          <circle cx="45" cy="516" r="16" fill="#C0392B"/><text x="45" y="522" text-anchor="middle" fill="#fff" font-size="16">2</text>
+          <text x="72" y="522" fill="#15356B">Fallo de página: avisa al sistema.</text>
+          <circle cx="45" cy="554" r="16" fill="#1E8E5A"/><text x="45" y="560" text-anchor="middle" fill="#fff" font-size="16">3</text>
+          <text x="72" y="560" fill="#15356B">El sistema la trae a un marco libre.</text>
+        </g>
+        <text x="30" y="452" font-size="15" fill="#485168" font-weight="600" text-anchor="start">oscuro: en RAM · claro: en disco</text>
+      </g>
+    </svg>
   </div>
 </section>
 
@@ -2061,26 +1979,47 @@
   <p style="font-size:20px;color:var(--muted);margin-top:20px;line-height:1.4">Tabla 2.10. Tres técnicas para mejorar el rendimiento de la entrada/salida. Las tres usan memoria como intermediaria; cambia quién espera a quién. La cola de impresión se administra en la UT7 (Linux) y la UT10 (Windows).</p>
 </section>
 
-<!-- 69 Texto: planificación de E/S y caché de disco -->
-<section data-label="Planificación de E/S y caché de disco" data-seccion="2.8" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
-  <aside class="notas">Dos cosas más del BOCYL: planificación y buffers. Las peticiones al disco se encolan y el sistema las reordena: en un disco duro, por posición del cabezal, como un ascensor que atiende las plantas en orden en vez de ir y venir (algoritmo del ascensor); en un SSD, con colas de órdenes (NCQ) para tener varias peticiones en vuelo. Caché de escritura: el sistema no escribe en el disco al instante, apunta en memoria y escribe después, agrupando; por eso existe Quitar hardware con seguridad, que vacía esa caché antes de desconectar un pendrive, y por eso apagar del botón puede dejar un archivo a medias. Enlaza con el journaling de 2.9 y con la parada ordenada de 2.11. Windows 11 ya expulsa los pendrives con quitado rápido por defecto (sin caché de escritura), pero un disco externo de copias sí la usa.</aside>
+<!-- 69 Texto: planificación del disco (algoritmo del ascensor) -->
+<section data-label="Planificación del disco" data-seccion="2.8" style="display:grid;grid-template-columns:1fr 1.15fr;gap:72px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
+  <aside class="notas">Planificación de la E/S. Igual que con la CPU, las peticiones al disco se encolan y el sistema elige el orden. En un disco duro lo que más tarda es mover el cabezal de una pista a otra, así que conviene atenderlas por posición y no por orden de llegada: algoritmo del ascensor (SCAN), que recorre las pistas en un sentido atendiendo lo que encuentra y luego vuelve en el otro, como un ascensor que atiende las plantas en orden en vez de ir y venir. En el ejemplo, el cabezal está en la pista 50 y llegan peticiones a las pistas 90, 10, 80 y 20: por orden de llegada recorre 40 + 80 + 70 + 60 = 250 pistas; con el ascensor, subiendo primero, 30 + 10 + 70 + 10 = 120. Los SSD no tienen cabezal: el orden importa mucho menos, y lo que hacen es mantener varias peticiones a la vez en una cola de órdenes (NCQ en SATA, colas de NVMe) para aprovechar sus chips en paralelo. La caché de escritura, que antes estaba aquí, se cuenta en la sección 2.9, con el journaling.</aside>
   <div>
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Gestión de entrada/salida</p>
-    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Planificación de la E/S y caché de disco</h2>
-    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Igual que planifica la CPU, el sistema planifica el disco: las peticiones se <b style="color:var(--navy)">encolan</b> y se atienden en el orden que más conviene, no en el que llegan.</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">El disco no atiende por orden de llegada</h2>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Igual que con la CPU, el sistema <b style="color:var(--navy)">planifica el disco</b>: las peticiones se ponen en cola y se atienden en el orden que más conviene.</p>
     <ul style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:14px;font-size:var(--type-caption);line-height:1.4">
-      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Disco duro</b>: se ordenan por la posición del cabezal, como un ascensor que atiende las plantas en orden en vez de ir y venir (algoritmo del ascensor).</span></li>
-      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>SSD</b>: no hay cabezal, pero se mantienen varias peticiones en vuelo a la vez (colas de órdenes, NCQ) para aprovechar su paralelismo.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span>En un <b>disco duro</b>, lo que más tarda es mover el cabezal de una pista a otra.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span>Por eso se atienden <b>por posición</b>: el cabezal recorre las pistas en un sentido y luego vuelve, como un ascensor que para en las plantas en orden. Es el <b>algoritmo del ascensor</b>.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span>Un <b>SSD</b> no tiene cabezal: el orden importa mucho menos.</span></li>
     </ul>
   </div>
-  <div style="background:var(--navy);color:var(--white);border-radius:24px;padding:40px 44px;display:flex;flex-direction:column;gap:18px">
-    <p style="font-size:var(--type-caption);font-weight:700;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">Caché de escritura</p>
-    <p style="font-size:22px;line-height:1.45;color:#E3EBF8">El sistema no escribe en el disco al instante: <b>apunta en memoria</b> y escribe más tarde, agrupando varias escrituras en una. Más rápido para ti, pero durante unos segundos el dato solo está en la RAM.</p>
-    <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:12px;font-size:21px;line-height:1.4;color:#E3EBF8">
-      <li style="display:flex;gap:14px"><span style="color:var(--yellow)">●</span><span>Por eso existe <b>"Quitar hardware con seguridad"</b>: vacía la caché antes de desconectar un disco externo.</span></li>
-      <li style="display:flex;gap:14px"><span style="color:var(--yellow)">●</span><span>Por eso <b>apagar del botón</b> puede dejar un archivo a medias: lo que estaba en la caché no llegó al disco.</span></li>
-      <li style="display:flex;gap:14px"><span style="color:var(--yellow)">●</span><span>Lo que pasa entonces con el sistema de archivos, y cómo se protege, es el <b>journaling</b> de la sección 2.9.</span></li>
-    </ul>
+  <div style="background:var(--white);border-radius:24px;padding:28px 30px;box-shadow:0 2px 0 var(--line)">
+    <svg viewBox="0 0 860 470" style="width:100%;height:auto" role="img" aria-label="El cabezal está en la pista 50 y llegan peticiones a las pistas 90, 10, 80 y 20. Por orden de llegada el cabezal va de 50 a 90, a 10, a 80 y a 20: recorre 250 pistas. Con el algoritmo del ascensor va de 50 a 80, a 90, a 20 y a 10: recorre 120 pistas">
+      <g font-family="Plus Jakarta Sans, system-ui, sans-serif" font-weight="700">
+        <text x="20" y="28" font-size="20" fill="#15356B">El cabezal está en la pista 50. Llegan, por este orden: 90, 10, 80 y 20.</text>
+        <g transform="translate(0,60)">
+          <text x="200" y="0" text-anchor="middle" font-size="20" fill="#C0392B">Por orden de llegada</text>
+          <g font-family="JetBrains Mono, Consolas, monospace" font-size="15" fill="#485168" text-anchor="middle" font-weight="600"><text x="30" y="34">0</text><text x="200" y="34">50</text><text x="370" y="34">100</text></g>
+          <line x1="30" y1="44" x2="370" y2="44" stroke="#D7DCE6" stroke-width="3"/>
+          <polyline points="200,70 336,130 64,190 302,250 98,310" fill="none" stroke="#C0392B" stroke-width="4"/>
+          <g fill="#C0392B"><circle cx="200" cy="70" r="9" fill="#15356B"/><circle cx="336" cy="130" r="9"/><circle cx="64" cy="190" r="9"/><circle cx="302" cy="250" r="9"/><circle cx="98" cy="310" r="9"/></g>
+          <g font-size="16" fill="#15356B"><text x="216" y="66">50</text><text x="352" y="135">90</text><text x="40" y="215">10</text><text x="318" y="255">80</text><text x="74" y="335">20</text></g>
+          <text x="200" y="370" text-anchor="middle" font-size="18" fill="#485168" font-weight="600">40 + 80 + 70 + 60</text>
+          <text x="200" y="400" text-anchor="middle" font-size="24" fill="#C0392B">250 pistas</text>
+        </g>
+        <g transform="translate(450,60)">
+          <text x="200" y="0" text-anchor="middle" font-size="20" fill="#1E8E5A">Algoritmo del ascensor</text>
+          <g font-family="JetBrains Mono, Consolas, monospace" font-size="15" fill="#485168" text-anchor="middle" font-weight="600"><text x="30" y="34">0</text><text x="200" y="34">50</text><text x="370" y="34">100</text></g>
+          <line x1="30" y1="44" x2="370" y2="44" stroke="#D7DCE6" stroke-width="3"/>
+          <polyline points="200,70 302,130 336,190 98,250 64,310" fill="none" stroke="#1E8E5A" stroke-width="4"/>
+          <g fill="#1E8E5A"><circle cx="200" cy="70" r="9" fill="#15356B"/><circle cx="302" cy="130" r="9"/><circle cx="336" cy="190" r="9"/><circle cx="98" cy="250" r="9"/><circle cx="64" cy="310" r="9"/></g>
+          <g font-size="16" fill="#15356B"><text x="216" y="66">50</text><text x="318" y="135">80</text><text x="352" y="195">90</text><text x="84" y="256" text-anchor="end">20</text><text x="40" y="335">10</text></g>
+          <text x="200" y="370" text-anchor="middle" font-size="18" fill="#485168" font-weight="600">30 + 10 + 70 + 10</text>
+          <text x="200" y="400" text-anchor="middle" font-size="24" fill="#1E8E5A">120 pistas</text>
+        </g>
+        <line x1="430" y1="50" x2="430" y2="460" stroke="#E3E7EF" stroke-width="2"/>
+      </g>
+    </svg>
+    <p style="font-size:19px;color:var(--muted);line-height:1.4;margin-top:10px">Figura 2.15. Las mismas cuatro peticiones atendidas en dos órdenes. El tiempo corre hacia abajo. Elaboración propia.</p>
   </div>
 </section>
 
@@ -2193,7 +2132,7 @@
       <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span>Un archivo no tiene por qué estar seguido: <b>fragmentación</b>. Desfragmentar tiene sentido en un disco duro, no en un SSD.</span></li>
       <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Borrar es instantáneo</b> porque solo se toca la tabla o el inodo; los bloques quedan libres con el contenido dentro.</span></li>
     </ul>
-    <p style="font-size:20px;color:var(--muted);line-height:1.4;margin-top:auto;padding-top:18px">Figura 2.15. Un archivo repartido en bloques no contiguos y la tabla que los enlaza. Elaboración propia.</p>
+    <p style="font-size:20px;color:var(--muted);line-height:1.4;margin-top:auto;padding-top:18px">Figura 2.16. Un archivo repartido en bloques no contiguos y la tabla que los enlaza. Elaboración propia.</p>
   </div>
   <div style="background:var(--white);border-radius:20px;padding:24px 28px;box-shadow:0 2px 0 var(--line);display:flex;align-items:center">
     <svg viewBox="0 0 900 500" style="width:100%;height:auto" role="img" aria-label="Rejilla de bloques de un disco con un archivo de tres bloques no contiguos y otro de dos; a la derecha, la tabla que dice qué bloques tiene cada archivo y cuáles están libres">
@@ -2411,11 +2350,11 @@
 
 <!-- 80 Texto: transacciones y journaling -->
 <section data-label="Transacciones y journaling" data-seccion="2.9" style="display:grid;grid-template-columns:1fr 1.1fr;gap:72px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
-  <aside class="notas">Criterio j del BOCYL: sistemas transaccionales. El problema: escribir un archivo son varias operaciones (reservar bloques, escribir el contenido, actualizar la tabla, el directorio, las fechas). Si se va la luz a mitad, el sistema de archivos queda incoherente: bloques ocupados que no son de nadie, directorios que apuntan a nada; hay que revisarlo entero al arrancar (chkdsk en Windows, fsck en Linux), que en un disco grande tarda mucho. Una transacción es un grupo de operaciones que o se hacen todas o no se hace ninguna. El journaling lo consigue apuntando primero en un diario (journal) lo que se va a hacer; luego se hace; y al terminar se marca como hecho. Al arrancar tras un corte, el sistema lee el diario: lo que estaba a medias se repite o se deshace, en segundos. Lo tienen NTFS, ext3 y ext4, APFS; no lo tienen FAT y exFAT. Copia al escribir (Btrfs, APFS, ReFS): nunca se sobrescribe un bloque en uso, se escribe uno nuevo y se cambia el puntero; permite instantáneas. Criterio de selección: el disco del sistema y el de trabajo, siempre con journaling; un pendrive puede ir sin él, pero por eso conviene quitarlo con seguridad.</aside>
+  <aside class="notas">Criterio j del BOCYL: sistemas transaccionales. El problema: escribir un archivo son varias operaciones (reservar bloques, escribir el contenido, actualizar la tabla, el directorio, las fechas). Además, el sistema no escribe al instante: guarda en la RAM y escribe después, agrupando (caché de escritura); por eso apagar del botón puede dejar un archivo a medias, y por eso existe Quitar hardware con seguridad, que vacía esa caché antes de desconectar. Windows 11 ya configura los pendrives con quitado rápido (sin caché de escritura), pero un disco externo de copias sí la usa. Si se va la luz a mitad, el sistema de archivos queda incoherente: bloques ocupados que no son de nadie, directorios que apuntan a nada; hay que revisarlo entero al arrancar (chkdsk en Windows, fsck en Linux), que en un disco grande tarda mucho. Una transacción es un grupo de operaciones que o se hacen todas o no se hace ninguna. El journaling lo consigue apuntando primero en un diario (journal) lo que se va a hacer; luego se hace; y al terminar se marca como hecho. Al arrancar tras un corte, el sistema lee el diario: lo que estaba a medias se repite o se deshace, en segundos. Lo tienen NTFS, ext3 y ext4, APFS; no lo tienen FAT y exFAT. Copia al escribir (Btrfs, APFS, ReFS): nunca se sobrescribe un bloque en uso, se escribe uno nuevo y se cambia el puntero; permite instantáneas. Criterio de selección: el disco del sistema y el de trabajo, siempre con journaling; un pendrive puede ir sin él, pero por eso conviene quitarlo con seguridad.</aside>
   <div>
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Archivos y sistemas de archivos</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Transacciones y journaling: si se va la luz</h2>
-    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Guardar un archivo son varias operaciones: reservar bloques, escribir el contenido, actualizar la tabla, el directorio, las fechas. Si se corta a mitad, el sistema de archivos queda <b style="color:var(--navy)">incoherente</b>: bloques ocupados que no son de nadie, entradas que apuntan a nada.</p>
+    <p style="font-size:22px;line-height:1.45;color:var(--muted);margin-top:var(--gap-item)">Guardar un archivo son varias operaciones: reservar bloques, escribir el contenido, actualizar la tabla y el directorio. Y el sistema no las hace al instante: las apunta en la RAM y las escribe un poco después, todas juntas (<b style="color:var(--navy)">caché de escritura</b>). Si se va la luz o apagas con el botón, lo que estaba en la caché no llega al disco y el sistema de archivos queda <b style="color:var(--navy)">incoherente</b>: bloques ocupados que no son de nadie, entradas que apuntan a nada.</p>
     <ul style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:12px;font-size:21px;line-height:1.4">
       <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Sin diario</b> (FAT, exFAT): al arrancar hay que revisar el disco entero (<span style="font-family:var(--mono);font-size:19px">chkdsk</span>, <span style="font-family:var(--mono);font-size:19px">fsck</span>). En un disco grande, mucho rato, y lo que estaba a medias se pierde.</span></li>
       <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Transacción</b>: un grupo de operaciones que se hacen todas o ninguna. Es lo que garantiza un sistema <b>transaccional</b>.</span></li>
@@ -2435,7 +2374,7 @@
     <div style="background:var(--navy);color:var(--white);border-radius:20px;padding:22px 30px">
       <p style="font-size:20px;line-height:1.45;color:#E3EBF8"><b style="color:var(--yellow)">Copia al escribir</b> (Btrfs, APFS, ReFS) va un paso más allá: nunca sobrescribe un bloque en uso, escribe uno nuevo y cambia el puntero. Permite <b>instantáneas</b>: volver al estado de ayer en un segundo.</p>
     </div>
-    <div style="background:var(--yellow);border-radius:16px;padding:14px 22px"><p style="font-size:20px;line-height:1.4;color:var(--navy)"><b>Al elegir:</b> el disco del sistema y el de trabajo, siempre con journaling. Un pendrive puede ir sin él; por eso hay que quitarlo con seguridad.</p></div>
+    <div style="background:var(--yellow);border-radius:16px;padding:14px 22px"><p style="font-size:20px;line-height:1.4;color:var(--navy)"><b>Al elegir:</b> el disco del sistema y el de trabajo, siempre con journaling. Un pendrive puede ir sin él; por eso hay que quitarlo con seguridad: <b>«Quitar hardware con seguridad»</b> escribe antes en el disco lo que quedaba en la caché.</p></div>
   </div>
 </section>
 
@@ -2468,18 +2407,6 @@
       </tbody>
     </table>
   </div>
-</section>
-
-<!-- 82 Ejercicio interactivo: qué sistema de archivos -->
-<section data-deck-id="ej-sistemas-archivos" data-label="Practica: qué sistema de archivos" data-seccion="2.9" style="display:grid;grid-template-columns:1fr 1.3fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
-  <aside class="notas">Ejercicio con casos al azar. Se lee el caso, se responde a las cuatro preguntas con los selectores (sí o no) y se elige el sistema de archivos con el último selector. Cuando hay más de una respuesta válida (FAT32 o exFAT), se aceptan las dos. Pista rellena la siguiente casilla y explica; Resolver lo completa. Para la práctica 2.6 cuenta como uno más de los ejercicios con racha.</aside>
-  <div>
-    <span class="pill">Ejercicio interactivo</span>
-    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">¿Qué sistema de archivos?</h2>
-    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Lee el caso, contesta a las cuatro preguntas con los selectores y elige el sistema de archivos. Cuando hay dos opciones válidas, cualquiera de las dos vale.</p>
-    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)"><b>Pista</b> rellena la siguiente casilla y te explica por qué. <b>Resolver</b> lo completa todo. Las dos ponen a cero tu racha.</p>
-  </div>
-  <div class="ej" data-tipo="sistemas-archivos"></div>
 </section>
 
 <!-- 83 Pregunta: qué sistemas de archivos tiene tu ordenador -->
@@ -2591,7 +2518,7 @@
           <figcaption class="credito"><b>SAI</b> de un centro de cálculo (NERSC, Berkeley). Foto: Derrick Coetzee, <a href="https://commons.wikimedia.org/wiki/File:MGE_Uninterruptible_Power_Supply_at_NERSC.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.es" target="_blank" rel="noopener">CC0</a>. Reducida.</figcaption>
         </figure>
       </div>
-      <p style="font-size:18px;color:var(--muted);line-height:1.35">Figura 2.16. La entrada del centro de datos de Pionen, un refugio antiaéreo a 30 metros bajo la roca, y un SAI de sala. Clic para ampliar.</p>
+      <p style="font-size:18px;color:var(--muted);line-height:1.35">Figura 2.17. La entrada del centro de datos de Pionen, un refugio antiaéreo a 30 metros bajo la roca, y un SAI de sala. Clic para ampliar.</p>
     </div>
   </div>
 </section>
@@ -2631,7 +2558,7 @@
       <li style="display:flex;gap:14px"><span style="font-weight:800;color:var(--blue);flex:none;width:28px">6</span><span><b>Servicios</b>: el núcleo comprueba el sistema de archivos, crea sus estructuras y arranca los procesos del sistema.</span></li>
       <li style="display:flex;gap:14px"><span style="font-weight:800;color:var(--yellow);flex:none;width:28px">7</span><span><b>Inicio de sesión</b>: el equipo espera al usuario.</span></li>
     </ol>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:auto;padding-top:14px">Figura 2.17. La secuencia de arranque. Elaboración propia.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:auto;padding-top:14px">Figura 2.18. La secuencia de arranque. Elaboración propia.</p>
   </div>
   <div style="background:var(--white);border-radius:20px;padding:24px 28px;box-shadow:0 2px 0 var(--line);display:flex;align-items:center">
     <svg viewBox="0 0 900 600" style="width:100%;height:auto" role="img" aria-label="Siete pasos del arranque encadenados: firmware, POST, dispositivo de arranque, cargador, núcleo, servicios e inicio de sesión, con lo que hay en cada uno">
@@ -2702,18 +2629,6 @@
       <p style="font-size:20px;line-height:1.45;color:var(--muted)"><b style="color:var(--ink)">Inicio rápido</b>: Windows no se apaga del todo, guarda el estado del núcleo en <span style="font-family:var(--mono);font-size:18px">hiberfil.sys</span>. Por eso a veces <b style="color:var(--ink)">Reiniciar</b> arregla lo que Apagar no: Reiniciar sí carga el núcleo de cero.</p>
     </div>
   </div>
-</section>
-
-<!-- 91 Ejercicio interactivo: ordena el arranque -->
-<section data-deck-id="ej-arranque" data-label="Practica: ordena el arranque" data-seccion="2.11" style="display:grid;grid-template-columns:1fr 1.3fr;gap:80px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
-  <aside class="notas">Ejercicio: los siete pasos del arranque aparecen desordenados y hay que escribir junto a cada uno su número de orden, del 1 al 7. Hay una variante con BIOS y MBR y otra con UEFI y GPT en el paso del cargador. Pista rellena la siguiente casilla en orden y explica el paso; Resolver los coloca todos. Para la práctica 2.6 cuenta como uno más de los ejercicios con racha.</aside>
-  <div>
-    <span class="pill">Ejercicio interactivo</span>
-    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Ordena el arranque</h2>
-    <p style="font-size:var(--type-small);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)">Los siete pasos están desordenados. Escribe junto a cada uno el número que le corresponde, del 1 (lo primero que pasa al dar corriente) al 7 (el equipo listo para el usuario).</p>
-    <p style="font-size:var(--type-caption);line-height:1.5;margin-top:var(--gap-item);color:var(--muted)"><b>Pista</b> coloca el siguiente paso en orden y te explica qué hace. <b>Resolver</b> los coloca todos. Las dos ponen a cero tu racha.</p>
-  </div>
-  <div class="ej" data-tipo="arranque"></div>
 </section>
 
 <!-- 92 Pregunta: BIOS o UEFI -->
@@ -2805,11 +2720,11 @@
 
 <!-- 95 Texto: cómo practicar para el examen -->
 <section data-label="Cómo practicar para el examen" data-seccion="2.12" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:grid;grid-template-columns:1fr 1.2fr;gap:72px">
-  <aside class="notas">Recordatorio de lo que hay que traer hecho de casa: racha de diez en los cinco ejercicios interactivos de la unidad (planificación en sus seis modos, estados, paginación, arranque y sistemas de archivos) y la hoja de planificación por semilla, hecha en papel y comprobada con el solucionario. Cada nombre salta a su ejercicio. En el examen no se lleva nada.</aside>
+  <aside class="notas">Recordatorio de lo que hay que traer hecho de casa: racha de diez en el ejercicio de planificación, en sus seis modos, y la hoja de planificación por semilla, hecha en papel y comprobada con el solucionario. El resto de la unidad es teoría: se estudia con el resumen, los quiz y el banco de preguntas. Cada nombre salta a su sitio. En el examen no se lleva nada.</aside>
   <div style="display:flex;flex-direction:column;min-width:0">
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Antes del examen</p>
     <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Cómo practicar para el examen</h2>
-    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Lo que se trae hecho de casa: <b style="color:var(--navy)">racha de diez</b> en cada ejercicio interactivo de la unidad, y la hoja de planificación por semilla hecha en papel y comprobada con el solucionario.</p>
+    <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Lo que se trae hecho de casa: <b style="color:var(--navy)">racha de diez</b> en el ejercicio de planificación con los seis algoritmos, y la hoja de planificación por semilla hecha en papel y comprobada con el solucionario.</p>
     <div style="background:var(--white);border-radius:20px;padding:22px 30px;box-shadow:0 2px 0 var(--line);margin-top:var(--gap-item)">
       <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Para la teoría</p>
       <p style="font-size:20px;line-height:1.45;color:var(--muted);margin-top:8px">Las dos diapositivas de resumen del final: cada frase es una posible pregunta. Los quiz de cada sección y las preguntas a la clase, con sus respuestas.</p>
@@ -2819,16 +2734,13 @@
     </div>
   </div>
   <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
-    <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Los ejercicios interactivos de la unidad (pulsa para ir a cada uno)</p>
+    <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Para practicar (pulsa para ir a cada uno)</p>
     <ol style="list-style:none;padding:0;margin-top:14px;display:flex;flex-direction:column">
-      <li style="border-bottom:2px solid var(--line);font-size:23px"><a class="indice-enlace" style="padding:13px 18px" href="#ej-estados"><span style="font-weight:800;color:var(--blue)">1</span><span>Estados de un proceso</span></a></li>
-      <li style="border-bottom:2px solid var(--line);font-size:23px"><a class="indice-enlace" style="padding:13px 18px" href="#ej-planificacion"><span style="font-weight:800;color:var(--blue)">2</span><span>Resuelve tú el cronograma (seis algoritmos)</span></a></li>
-      <li style="border-bottom:2px solid var(--line);font-size:23px"><a class="indice-enlace" style="padding:13px 18px" href="#ej-paginacion"><span style="font-weight:800;color:var(--blue)">3</span><span>Páginas, huecos y fragmentación</span></a></li>
-      <li style="border-bottom:2px solid var(--line);font-size:23px"><a class="indice-enlace" style="padding:13px 18px" href="#ej-sistemas-archivos"><span style="font-weight:800;color:var(--blue)">4</span><span>¿Qué sistema de archivos?</span></a></li>
-      <li style="border-bottom:2px solid var(--line);font-size:23px"><a class="indice-enlace" style="padding:13px 18px" href="#ej-arranque"><span style="font-weight:800;color:var(--blue)">5</span><span>Ordena el arranque</span></a></li>
-      <li style="font-size:23px"><a class="indice-enlace" style="padding:13px 18px" href="hoja.html" target="_blank" rel="noopener"><span style="font-weight:800;color:var(--blue)">+</span><span>Hoja de planificación en papel por semilla</span></a></li>
+      <li style="border-bottom:2px solid var(--line);font-size:23px"><a class="indice-enlace" style="padding:13px 18px" href="#ej-planificacion"><span style="font-weight:800;color:var(--blue)">1</span><span>Resuelve tú el cronograma (seis algoritmos)</span></a></li>
+      <li style="border-bottom:2px solid var(--line);font-size:23px"><a class="indice-enlace" style="padding:13px 18px" href="hoja.html" target="_blank" rel="noopener"><span style="font-weight:800;color:var(--blue)">2</span><span>Hoja de planificación en papel por semilla</span></a></li>
+      <li style="font-size:23px"><a class="indice-enlace" style="padding:13px 18px" href="#sim-fifo"><span style="font-weight:800;color:var(--blue)">3</span><span>Los seis simuladores de planificación</span></a></li>
     </ol>
-    <p style="font-size:19px;color:var(--muted);line-height:1.4;margin-top:18px">Los seis simuladores de la sección 2.5 no son ejercicios: son para ver cada algoritmo paso a paso las veces que haga falta.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.4;margin-top:18px">Los simuladores no son ejercicios: sirven para ver cada caso paso a paso las veces que haga falta.</p>
   </div>
 </section>
 
@@ -2946,7 +2858,7 @@
     <li style="display:grid;grid-template-columns:250px 1fr;gap:32px;padding:18px 0;border-bottom:2px solid var(--line)"><span style="font-weight:700;color:var(--blue)">Versiones y distribuciones</span><span>Ciclo de vida de Windows en la documentación de Microsoft y de Ubuntu en <a href="https://ubuntu.com/about/release-cycle" target="_blank" rel="noopener">ubuntu.com/about/release-cycle</a>. Para comparar distribuciones, <a href="https://distrowatch.com/" target="_blank" rel="noopener">distrowatch.com</a>. Logotipos y fotos de época: Wikimedia Commons, con su autor y licencia en cada imagen.</span></li>
     <li style="display:grid;grid-template-columns:250px 1fr;gap:32px;padding:18px 0;border-bottom:2px solid var(--line)"><span style="font-weight:700;color:var(--blue)">Datos citados</span><span>Cuotas de sistemas operativos: <a href="https://gs.statcounter.com/os-market-share/desktop/worldwide" target="_blank" rel="noopener">StatCounter Global Stats</a>. Fin de soporte de Windows 10 y requisitos de Windows 11: documentación de Microsoft. Normas ISO 9660 y UDF (ECMA-167) para los discos ópticos.</span></li>
     <li style="display:grid;grid-template-columns:250px 1fr;gap:32px;padding:18px 0;border-bottom:2px solid var(--line)"><span style="font-weight:700;color:var(--blue)">Para leer más</span><span>Los manuales de Tanenbaum (<i>Sistemas operativos modernos</i>) y de Silberschatz (<i>Fundamentos de sistemas operativos</i>) son los de referencia en las universidades; esta unidad es su versión de grado medio.</span></li>
-    <li style="display:grid;grid-template-columns:250px 1fr;gap:32px;padding:18px 0"><span style="font-weight:700;color:var(--blue)">Esta unidad</span><span>Los seis simuladores y los cinco ejercicios interactivos (secciones 2.5 a 2.11) y la hoja de planificación por semilla (<a href="hoja.html" target="_blank" rel="noopener">hoja.html</a>). Ctrl + P guarda las diapositivas en PDF.</span></li>
+    <li style="display:grid;grid-template-columns:250px 1fr;gap:32px;padding:18px 0"><span style="font-weight:700;color:var(--blue)">Esta unidad</span><span>Los seis simuladores y el ejercicio de planificación (2.5), el simulador de trampas en la memoria de un juego (2.7) y la hoja de planificación por semilla (<a href="hoja.html" target="_blank" rel="noopener">hoja.html</a>). Ctrl + P guarda las diapositivas en PDF.</span></li>
   </ul>
 </section>
 

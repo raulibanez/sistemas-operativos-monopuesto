@@ -2564,6 +2564,603 @@
     recalcula();
   }
 
+  /* ---------- simulador de reparto de la memoria (UT2, 2.7) ----------
+   *   En la misma diapositiva, dos elementos, como el de planificación:
+   *     <div class="mem-entrada"></div>   (modo, datos de entrada y resultados)
+   *     <div class="mem-sim"></div>       (la memoria en vertical, una columna por instante)
+   *   Memoria de 32 KiB; el sistema operativo ocupa los 4 primeros (el marco 0).
+   *   Dos modos con los mismos datos:
+   *     var: tamaño variable (particiones variables): cada proceso, un trozo de su tamaño en el primer hueco donde quepa.
+   *     pag: páginas de 4 KiB: el proceso se parte en páginas y cada una va a cualquier marco libre.
+   *   Cada proceso: tamaño (KiB), llegada y duración (lo que pasa en memoria desde que entra).
+   *   En cada instante primero salen los que terminan; después entran, por orden de llegada, los que quepan.
+   *   Los que no caben esperan. data-modo="pag" abre en el modo de páginas.
+   */
+  const MEM_TOTAL = 32, MEM_SO = 4, MEM_PAG = 4;
+  const MEM_MARCOS = MEM_TOTAL / MEM_PAG;
+  const MEM_EJEMPLO = [[8, 0, 3], [6, 1, 5], [7, 2, 5], [10, 4, 3]];
+
+  function memHuecos(ocup) {
+    const tr = ocup.slice().sort((a, b) => a.ini - b.ini);
+    const h = []; let x = MEM_SO;
+    tr.forEach((o) => { if (o.ini > x) h.push({ ini: x, fin: o.ini }); x = Math.max(x, o.fin); });
+    if (x < MEM_TOTAL) h.push({ ini: x, fin: MEM_TOTAL });
+    return h;
+  }
+  function memMarcosLibres(ocup) {
+    const usados = new Set(ocup.map((o) => o.ini / MEM_PAG));
+    const l = []; for (let m = 1; m < MEM_MARCOS; m++) if (!usados.has(m)) l.push(m);
+    return l;
+  }
+  function memColoca(ocup, tam, modo) {
+    if (modo === 'var') {
+      const h = memHuecos(ocup).find((x) => x.fin - x.ini >= tam);
+      return h ? [{ ini: h.ini, fin: h.ini + tam, usado: tam }] : null;
+    }
+    const n = Math.ceil(tam / MEM_PAG);
+    const libres = memMarcosLibres(ocup);
+    if (libres.length < n) return null;
+    return libres.slice(0, n).map((m, k) => ({ ini: m * MEM_PAG, fin: (m + 1) * MEM_PAG, pag: k, usado: k === n - 1 ? tam - MEM_PAG * (n - 1) : MEM_PAG }));
+  }
+
+  function simulaMem(procs, modo) {
+    const est = procs.map(() => ({ entra: null, sale: null, perdido: 0, marcos: [] }));
+    const fotos = [];
+    let ocup = [];
+    for (let t = 0; t < 80; t++) {
+      const ev = { t, salen: [], llegan: [], entran: [], noCaben: [] };
+      est.forEach((e, i) => { if (e.sale === t) { ocup = ocup.filter((o) => o.i !== i); ev.salen.push(i); } });
+      procs.forEach((p, i) => { if (p.ll === t) ev.llegan.push(i); });
+      const esperan = procs.map((p, i) => i).filter((i) => procs[i].ll <= t && est[i].entra === null)
+        .sort((a, b) => procs[a].ll - procs[b].ll || a - b);
+      esperan.forEach((i) => {
+        const tr = memColoca(ocup, procs[i].tam, modo);
+        if (!tr) {
+          const h = memHuecos(ocup);
+          ev.noCaben.push({ i, libre: h.reduce((s, x) => s + x.fin - x.ini, 0), mayor: h.reduce((m, x) => Math.max(m, x.fin - x.ini), 0), marcos: memMarcosLibres(ocup).length });
+          return;
+        }
+        tr.forEach((r) => ocup.push(Object.assign({ i }, r)));
+        const e = est[i];
+        e.entra = t; e.sale = t + procs[i].du;
+        e.perdido = tr.reduce((s, r) => s + (r.fin - r.ini - r.usado), 0);
+        e.marcos = tr.map((r) => r.ini / MEM_PAG);
+        e.trozo = tr[0];
+        ev.entran.push(i);
+      });
+      ev.ocup = ocup.map((o) => Object.assign({}, o));
+      ev.huecos = memHuecos(ocup);
+      ev.esperan = procs.map((p, i) => i).filter((i) => procs[i].ll <= t && est[i].entra === null);
+      fotos.push(ev);
+      if (est.every((e) => e.sale !== null && e.sale <= t)) break;
+    }
+    return { fotos, est, T: fotos.length };
+  }
+  SOM.simulaMem = simulaMem;
+
+  function montaMemoria(el) {
+    const sec = el.closest('section');
+    const entrada = sec && sec.querySelector('.mem-entrada');
+    if (!entrada) { el.textContent = 'Falta el elemento .mem-entrada en la diapositiva.'; return; }
+    let modo = el.dataset.modo === 'pag' ? 'pag' : 'var';
+    const MAX = 5, MIN = 2;
+    let procs = MEM_EJEMPLO.map(([tam, ll, du]) => ({ tam, ll, du }));
+    let R = null, paso = 0;
+    const nombre = (i) => 'P' + (i + 1);
+    const color = (i) => SIM_COLORES[i % SIM_COLORES.length];
+    const P = (i) => `<b style="color:${color(i)}">${nombre(i)}</b>`;
+    const lista = (ids) => ids.map(P).join(ids.length > 2 ? ', ' : ' y ').replace(/, ([^,]*)$/, ' y $1');
+    const y_ = (ids) => ids.join(ids.length > 2 ? ', ' : ' y ').replace(/, ([^,]*)$/, ' y $1');
+
+    /* ----- entrada: modo, datos y resultados ----- */
+    entrada.innerHTML = `
+      <div class="mem-modos"><button type="button" data-m="var">Tamaño variable</button><button type="button" data-m="pag">Páginas de 4 KiB</button></div>
+      <p class="mem-regla"></p>
+      <table class="sim-tabla sim-in"><thead><tr><th>Proceso</th><th>Tamaño (KiB)</th><th>Llegada</th><th>Duración</th></tr></thead><tbody></tbody></table>
+      <div class="sim-botones"><button type="button" data-a="azar">Al azar</button><button type="button" data-a="ejemplo">Ejemplo</button><button type="button" data-a="mas">+ proceso</button><button type="button" data-a="menos">− proceso</button></div>
+      <table class="sim-tabla sim-out"><thead><tr><th>Proceso</th><th>Espera</th><th>Se pierde</th></tr></thead><tbody></tbody></table>`;
+    const tbIn = entrada.querySelector('.sim-in tbody');
+    const tbOut = entrada.querySelector('.sim-out tbody');
+    const regla = entrada.querySelector('.mem-regla');
+    const REGLAS = {
+      var: '<b>Tamaño variable.</b> Cada proceso recibe un trozo justo de su tamaño, en el primer hueco donde quepa. Así funcionan las particiones variables y la segmentación.',
+      pag: '<b>Páginas de 4 KiB.</b> El proceso se parte en páginas y cada página va a cualquier marco libre, aunque no estén seguidos. Así trabajan Windows y Linux.',
+    };
+
+    function pintaEntrada() {
+      entrada.classList.toggle('cinco', procs.length >= 5);
+      tbIn.innerHTML = procs.map((p, i) => `<tr><td class="nombre" style="color:${color(i)}">${nombre(i)}</td>
+        <td><input type="number" min="1" max="16" data-i="${i}" data-k="tam" value="${p.tam}"></td>
+        <td><input type="number" min="0" max="9" data-i="${i}" data-k="ll" value="${p.ll}"></td>
+        <td><input type="number" min="1" max="6" data-i="${i}" data-k="du" value="${p.du}"></td></tr>`).join('');
+      tbIn.querySelectorAll('input').forEach((inp) => inp.addEventListener('input', () => {
+        const p = procs[+inp.dataset.i]; const k = inp.dataset.k;
+        let v = parseInt(inp.value, 10);
+        const lim = { tam: [1, 16], ll: [0, 9], du: [1, 6] }[k];
+        if (isNaN(v)) v = lim[0];
+        p[k] = Math.max(lim[0], Math.min(lim[1], v)); recalcula();
+      }));
+    }
+    function pintaModo() {
+      entrada.querySelectorAll('.mem-modos button').forEach((b) => b.classList.toggle('activo', b.dataset.m === modo));
+      regla.innerHTML = REGLAS[modo];
+    }
+    function pintaSalida() {
+      const dentro = (i) => R.est[i].entra !== null && R.est[i].entra < paso;
+      tbOut.innerHTML = procs.map((p, i) => `<tr class="${dentro(i) ? 'hecho' : ''}"><td class="nombre" style="color:${color(i)}">${nombre(i)}</td>
+        <td>${dentro(i) ? R.est[i].entra - p.ll : '·'}</td><td>${dentro(i) ? R.est[i].perdido + ' KiB' : '·'}</td></tr>`).join('');
+    }
+    entrada.querySelector('.mem-modos').addEventListener('click', (e) => {
+      const b = e.target.closest('button'); if (!b || b.dataset.m === modo) return;
+      modo = b.dataset.m; pintaModo(); recalcula();
+    });
+    entrada.querySelector('.sim-botones').addEventListener('click', (e) => {
+      const b = e.target.closest('button'); if (!b) return;
+      const a = b.dataset.a;
+      if (a === 'azar') procs = procs.map((p, i) => ({ tam: rnd(3, 13), ll: i === 0 ? 0 : rnd(i, i + 2), du: rnd(2, 5) }));
+      else if (a === 'ejemplo') procs = MEM_EJEMPLO.map(([tam, ll, du]) => ({ tam, ll, du }));
+      else if (a === 'mas' && procs.length < MAX) procs.push({ tam: rnd(3, 10), ll: rnd(1, procs.length + 2), du: rnd(2, 5) });
+      else if (a === 'menos' && procs.length > MIN) procs.pop();
+      else return;
+      pintaEntrada(); recalcula();
+    });
+
+    /* ----- salida: la memoria en el tiempo ----- */
+    el.innerHTML = `
+      <div class="sim-cab"><div class="sim-t">t = <b>0</b></div>
+        <div class="sim-acciones"><button type="button" class="btn btn-ghost" data-a="ant">Anterior</button><button type="button" class="btn btn-primary" data-a="sig">Siguiente paso</button><button type="button" class="btn btn-ghost" data-a="fin">Hasta el final</button><button type="button" class="btn btn-ghost" data-a="ini">Reiniciar</button></div></div>
+      <div class="mem-mapa"></div>
+      <p class="sim-leyenda"><span><i class="run"></i>proceso</span><span><i class="mem-so"></i>sistema operativo</span><span><i class="mem-libre"></i>libre</span><span class="solo-pag"><i class="mem-perdido"></i>se pierde (fragmentación interna)</span><span class="solo-var"><i class="mem-hueco"></i>huecos donde no cabe (fragmentación externa)</span><span><i class="ahora"></i>instante actual</span></p>
+      <div class="sim-estado"><div><span class="lbl">Esperan sitio</span><div class="sim-chips" data-z="esp"></div></div><div><span class="lbl">En memoria</span><div class="sim-chips" data-z="mem"></div></div><div><span class="lbl">Han salido</span><div class="sim-chips" data-z="fin"></div></div></div>
+      <div class="sim-msg"></div>`;
+    const tEl = el.querySelector('.sim-t b');
+    const mapa = el.querySelector('.mem-mapa');
+    const zonas = { esp: el.querySelector('[data-z="esp"]'), mem: el.querySelector('[data-z="mem"]'), fin: el.querySelector('[data-z="fin"]') };
+    const msg = el.querySelector('.sim-msg');
+    const botones = {};
+    el.querySelectorAll('.sim-acciones button').forEach((b) => { botones[b.dataset.a] = b; });
+    el.querySelector('.sim-acciones').addEventListener('click', (e) => {
+      const b = e.target.closest('button'); if (!b) return;
+      const a = b.dataset.a;
+      if (a === 'sig') paso = Math.min(R.T, paso + 1);
+      else if (a === 'ant') paso = Math.max(0, paso - 1);
+      else if (a === 'fin') paso = R.T;
+      else paso = 0;
+      pinta();
+    });
+    function chips(zona, ids) {
+      zona.innerHTML = ids.length ? ids.map((i) => `<span class="sim-chip" style="background:${color(i)}">${nombre(i)}</span>`).join('') : '<span class="sim-chip vacio">ninguno</span>';
+    }
+
+    function pintaMapa() {
+      const W = 1020, LBL = modo === 'pag' ? 118 : 92, top = 8, KH = 12, H = MEM_TOTAL * KH, T = Math.max(R.T, 1);
+      const cw = Math.min(118, Math.floor((W - LBL - 8) / T));
+      const gap = Math.max(6, Math.round(cw * 0.12));
+      const x = (k) => LBL + k * cw;
+      const y = (kib) => top + kib * KH;
+      let s = `<svg viewBox="0 0 ${W} ${top + H + 44}" xmlns="http://www.w3.org/2000/svg" font-family="Plus Jakarta Sans, system-ui, sans-serif">
+        <defs><pattern id="mem-rayas" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="10" height="10" fill="#FBEAEA"/><rect width="4" height="10" fill="#E8A3A3"/></pattern></defs>`;
+      // eje: KiB en las rayas; en páginas, el número de marco en cada franja
+      for (let k = 0; k <= MEM_TOTAL; k += MEM_PAG) {
+        s += `<line x1="${LBL - 8}" y1="${y(k)}" x2="${x(T) - gap}" y2="${y(k)}" stroke="#E3E7EF" stroke-width="1"/>`;
+        if (modo === 'var') s += `<text x="${LBL - 14}" y="${y(k) + 7}" text-anchor="end" font-size="19" font-weight="600" fill="#485168" font-family="JetBrains Mono, Consolas, monospace">${k}</text>`;
+        if (modo === 'pag' && k < MEM_TOTAL) s += `<text x="${LBL - 14}" y="${y(k + MEM_PAG / 2) + 7}" text-anchor="end" font-size="18" font-weight="700" fill="#0B4AB5">marco ${k / MEM_PAG}</text>`;
+      }
+      if (modo === 'var') s += `<text x="${LBL - 14}" y="${y(MEM_TOTAL) + 30}" text-anchor="end" font-size="17" font-weight="700" fill="#485168">KiB</text>`;
+      for (let k = 0; k < T; k++) {
+        const x0 = x(k), w = cw - gap;
+        s += `<rect x="${x0}" y="${y(0)}" width="${w}" height="${H}" fill="#FFFFFF" stroke="#D7DCE6" stroke-width="2"/>`;
+        if (k < paso) {
+          const f = R.fotos[k];
+          s += `<rect x="${x0}" y="${y(0)}" width="${w}" height="${MEM_SO * KH}" fill="#15356B"/><text x="${x0 + w / 2}" y="${y(MEM_SO / 2) + 7}" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">SO</text>`;
+          if (modo === 'var' && f.noCaben.length) f.huecos.forEach((h) => { s += `<rect x="${x0 + 3}" y="${y(h.ini) + 3}" width="${w - 6}" height="${(h.fin - h.ini) * KH - 6}" fill="#FFF6D1" stroke="#F4C20D" stroke-width="4" stroke-dasharray="8 5"/>`; });
+          f.ocup.forEach((o) => {
+            const usadoH = o.usado * KH, alto = (o.fin - o.ini) * KH;
+            s += `<rect x="${x0}" y="${y(o.ini)}" width="${w}" height="${usadoH}" fill="${color(o.i)}"/>`;
+            if (alto > usadoH) s += `<rect x="${x0}" y="${y(o.ini) + usadoH}" width="${w}" height="${alto - usadoH}" fill="url(#mem-rayas)"/>`;
+            s += `<line x1="${x0}" y1="${y(o.ini)}" x2="${x0 + w}" y2="${y(o.ini)}" stroke="#fff" stroke-width="2"/>`;
+            const etiqueta = modo === 'pag' ? `${nombre(o.i)}·${o.pag}` : nombre(o.i);
+            if (usadoH >= 22) s += `<text x="${x0 + w / 2}" y="${y(o.ini) + Math.min(usadoH, alto) / 2 + 7}" text-anchor="middle" font-size="${w < 70 ? 15 : 18}" font-weight="800" fill="#fff">${etiqueta}</text>`;
+          });
+          if (modo === 'var') f.huecos.forEach((h) => {
+            const alto = (h.fin - h.ini) * KH;
+            if (alto >= 26) s += `<text x="${x0 + w / 2}" y="${y(h.ini) + alto / 2 + 7}" text-anchor="middle" font-size="17" font-weight="700" fill="#485168">${h.fin - h.ini}</text>`;
+          });
+        }
+        if (k === paso - 1) s += `<rect x="${x0 - 4}" y="${y(0) - 4}" width="${w + 8}" height="${H + 8}" fill="none" stroke="#F4C20D" stroke-width="5" rx="4"/>`;
+        s += `<text x="${x0 + w / 2}" y="${y(MEM_TOTAL) + 32}" text-anchor="middle" font-size="20" font-weight="600" fill="#485168" font-family="JetBrains Mono, Consolas, monospace">${k}</text>`;
+      }
+      s += '</svg>';
+      mapa.innerHTML = s;
+      el.querySelectorAll('.solo-pag').forEach((n) => { n.hidden = modo !== 'pag'; });
+      el.querySelectorAll('.solo-var').forEach((n) => { n.hidden = modo !== 'var'; });
+    }
+
+    function texto() {
+      if (paso === 0) return `La memoria tiene 32 KiB y el sistema operativo ocupa los 4 primeros. Cada columna es la memoria en un instante. Pulsa <b>Siguiente paso</b> para ver quién entra, dónde se coloca y quién tiene que esperar.`;
+      const f = R.fotos[paso - 1];
+      const partes = [];
+      if (f.salen.length) partes.push(`${f.salen.length > 1 ? 'Salen' : 'Sale'} ${lista(f.salen)} y ${f.salen.length > 1 ? 'dejan' : 'deja'} libre su memoria.`);
+      f.entran.forEach((i) => {
+        const p = procs[i], e = R.est[i];
+        if (modo === 'var') partes.push(`${P(i)} (${p.tam} KiB) entra en el primer hueco donde cabe: de ${e.trozo.ini} a ${e.trozo.fin} KiB.${e.entra > p.ll ? ` Ha esperado ${e.entra - p.ll}.` : ''}`);
+        else {
+          const n = e.marcos.length;
+          partes.push(`${P(i)} (${p.tam} KiB) necesita ${n} página${n > 1 ? 's' : ''} (${p.tam} ÷ 4, redondeando hacia arriba) y ${n > 1 ? 'entran en los marcos' : 'entra en el marco'} ${y_(e.marcos)}${n > 1 && e.marcos.some((m, k) => k && m !== e.marcos[k - 1] + 1) ? ', aunque no estén seguidos' : ''}.${e.perdido ? ` En la última página sobran <b>${e.perdido} KiB</b>: fragmentación interna.` : ''}${e.entra > p.ll ? ` Ha esperado ${e.entra - p.ll}.` : ''}`);
+        }
+      });
+      f.noCaben.forEach((n) => {
+        const p = procs[n.i];
+        if (modo === 'var' && n.libre >= p.tam) partes.push(`${P(n.i)} (${p.tam} KiB) <b>no cabe</b>: hay ${n.libre} KiB libres en total, pero el hueco más grande es de ${n.mayor}. Es <b>fragmentación externa</b>: espera.`);
+        else if (modo === 'var') partes.push(`${P(n.i)} (${p.tam} KiB) no cabe: solo quedan ${n.libre} KiB libres. Espera a que salga otro.`);
+        else partes.push(`${P(n.i)} necesita ${Math.ceil(p.tam / MEM_PAG)} marcos y ${n.marcos === 1 ? 'solo queda 1 libre' : `solo quedan ${n.marcos} libres`}: la memoria está llena y espera.`);
+      });
+      if (!partes.length) partes.push('No entra ni sale nadie.');
+      if (paso >= R.T) {
+        const esp = procs.reduce((s, p, i) => s + R.est[i].entra - p.ll, 0);
+        const per = R.est.reduce((s, e) => s + e.perdido, 0);
+        partes.push(modo === 'var'
+          ? `<b>Fin.</b> Dentro de los procesos no se pierde nada${esp ? `, pero entre todos han esperado <b>${esp}</b> por falta de un hueco grande` : ''}. Pulsa <b>Páginas de 4 KiB</b> para comparar.`
+          : `<b>Fin.</b> Cualquier marco libre vale, así que no hay fragmentación externa. A cambio se pierden <b>${per} KiB</b> en las últimas páginas. Pulsa <b>Tamaño variable</b> para comparar.`);
+      }
+      return partes.join(' ');
+    }
+
+    function pinta() {
+      tEl.textContent = paso === 0 ? 0 : R.fotos[paso - 1].t;
+      pintaMapa();
+      const f = paso > 0 ? R.fotos[paso - 1] : null;
+      chips(zonas.esp, f ? f.esperan : []);
+      chips(zonas.mem, f ? [...new Set(f.ocup.map((o) => o.i))].sort((a, b) => a - b) : []);
+      chips(zonas.fin, f ? procs.map((p, i) => i).filter((i) => R.est[i].sale !== null && R.est[i].sale <= f.t) : []);
+      msg.innerHTML = texto();
+      botones.ant.disabled = paso === 0; botones.ini.disabled = paso === 0;
+      botones.sig.disabled = paso >= R.T; botones.fin.disabled = paso >= R.T;
+      pintaSalida();
+    }
+    function recalcula() { R = simulaMem(procs, modo); paso = 0; pinta(); }
+
+    pintaModo();
+    pintaEntrada();
+    recalcula();
+  }
+
+  /* ---------- simulador de un programa de trampas (UT2, 2.7) ----------
+   *   <div class="trampas"></div>, y en la misma diapositiva una lista <li data-paso="1…6"> con los pasos
+   *   (se resalta el paso en el que va el alumno).
+   *   Repite la demostración de clase con un juego de galletas en el navegador y Cheat Engine. El buscador
+   *   imita la ventana de Cheat Engine, en inglés como el programa real; el juego es de diseño propio (la
+   *   galleta es una imagen de IA aportada por el profesor). Pasos: Mayús+Esc da el PID de la pestaña en
+   *   decimal (al azar en cada partida); la lista de procesos lo da en hexadecimal; Value Type Double (los
+   *   números de JavaScript son coma flotante de 64 bits); First Scan (miles de direcciones), Next Scan
+   *   (9 y luego 4: las copias del marcador); seleccionarlas, flecha roja a la lista y doble clic en Value
+   *   para cambiarlas. Si se cambian menos de las cuatro, el juego vuelve a poner su valor.
+   */
+  function montaTrampas(el) {
+    const sec = el.closest('section');
+    const pasos = sec ? [...sec.querySelectorAll('[data-paso]')] : [];
+    const hex = (n, d) => n.toString(16).toUpperCase().padStart(d, '0');
+    const es = (n) => { const s = String(Math.round(n)); return s.length > 4 ? s.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : s; };
+    const en = (n) => Math.round(n).toLocaleString('en-US');
+    const dirAzar = () => { const n = rnd(0x1C0000000, 0x3FFFFFFFF0); return hex(n - (n % 4), 11); };
+    const TIPOS = ['Binary', 'Byte', '2 Bytes', '4 Bytes', '8 Bytes', 'Float', 'Double', 'String', 'Array of byte', 'All'];
+    const caja = (txt, marcada, cuadro) => `<span class="ce-check"><i class="${marcada ? 'si' : ''}${cuadro ? ' cuadro' : ''}"></i>${txt}</span>`;
+    let S;
+
+    el.innerHTML = `
+      <div class="tr-izq">
+        <div class="tr-ventana tr-juego">
+          <div class="tr-barra"><span>Galletas · navegador</span><button type="button" class="tr-shift" data-a="tm" title="Administrador de tareas del navegador">Mayús + Esc</button></div>
+          <div class="tr-juego-cuerpo">
+            <div class="tr-marcador"><b>3 cookies</b></div>
+            <div class="tr-escena">
+              <div class="tr-halo tr-halo1"></div><div class="tr-halo tr-halo2"></div><div class="tr-brillo"></div>
+              <button type="button" class="tr-galleta" data-a="galleta" aria-label="Pulsar la galleta"><img src="img/ia/galleta.webp" alt="" draggable="false"></button>
+            </div>
+            <p class="tr-pista">Pulsa la galleta</p>
+          </div>
+        </div>
+        <div class="sim-msg tr-msg"></div>
+      </div>
+      <div class="ce">
+        <div class="ce-titulo"><span class="ce-icono"></span>Cheat Engine <small>(simulador)</small></div>
+        <div class="ce-menu"><span>File</span><span>Edit</span><span>Table</span><span>D3D</span><span>Help</span></div>
+        <div class="ce-herr">
+          <button type="button" class="ce-abrir" data-a="procesos" title="Select a process to open"><svg viewBox="0 0 32 32" width="30" height="30"><rect x="3" y="5" width="26" height="17" rx="2" fill="#2E86DE" stroke="#BFD9F5" stroke-width="2"/><rect x="12" y="23" width="8" height="3" fill="#BFD9F5"/><rect x="8" y="26" width="16" height="2" fill="#BFD9F5"/><circle cx="15" cy="13" r="4.5" fill="none" stroke="#fff" stroke-width="2.2"/><path d="M18.5 16.5 L22 20" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></button>
+          <span class="ce-ic"><svg viewBox="0 0 32 32" width="26" height="26"><path d="M4 9 h9 l3 3 h12 v13 h-24 z" fill="#E8B830"/><path d="M15 6 l4 -4 l4 4 h-2.5 v5 h-3 v-5 z" fill="#3CC46A"/></svg></span>
+          <span class="ce-ic"><svg viewBox="0 0 32 32" width="26" height="26"><rect x="4" y="4" width="24" height="24" rx="2" fill="#2BB3B1"/><rect x="9" y="4" width="14" height="9" fill="#E6F7F7"/><rect x="9" y="18" width="14" height="10" fill="#1A7F7D"/></svg></span>
+          <div class="ce-progreso"><span class="ce-proc">No Process Selected</span><div class="ce-barra-prog"></div></div>
+          <span class="ce-ajustes">Settings</span>
+        </div>
+        <div class="ce-found">Found: <b>0</b></div>
+        <div class="ce-medio">
+          <div class="ce-lista ce-cand"><table><thead><tr><th>Address</th><th>Value</th><th>Previous</th></tr></thead><tbody></tbody></table></div>
+          <div class="ce-ctrl">
+            <div class="ce-fila"><button type="button" class="ce-b" data-a="primera">First Scan</button><button type="button" class="ce-b" data-a="siguiente">Next Scan</button><span class="ce-hueco"></span><button type="button" class="ce-b" disabled>Undo Scan</button></div>
+            <div class="ce-fila ce-valor-fila"><span class="ce-et">Value:</span></div>
+            <div class="ce-fila">${caja('Hex', false, false)}<input type="text" class="ce-valor" autocomplete="off"></div>
+            <div class="ce-fila"><span class="ce-et ce-der">Scan Type</span><select class="ce-sel" disabled><option>Exact Value</option></select></div>
+            <div class="ce-fila"><span class="ce-et ce-der">Value Type</span><select class="ce-sel ce-tipo">${TIPOS.map((t) => `<option${t === '4 Bytes' ? ' selected' : ''}>${t}</option>`).join('')}</select></div>
+            <div class="ce-opciones-fila">
+              <fieldset class="ce-opciones"><legend>Memory Scan Options</legend>
+                <select class="ce-sel" disabled><option>All</option></select>
+                <div class="ce-fila"><span class="ce-et">Start</span><span class="ce-num">0000000000000000</span></div>
+                <div class="ce-fila"><span class="ce-et">Stop</span><span class="ce-num">00007fffffffffff</span></div>
+                <div class="ce-fila">${caja('Writable', true)}${caja('Executable', true, true)}</div>
+                ${caja('CopyOnWrite')}${caja('Active memory only')}
+                <div class="ce-fila">${caja('Fast Scan', true)}<span class="ce-num ce-corto">4</span><span class="ce-radios">${caja('Alignment', true)}${caja('Last Digits')}</span></div>
+                ${caja('Pause the game while scanning')}
+              </fieldset>
+              <div class="ce-extra">${caja('Lua formula')}${caja('Not')}<span class="ce-sep"></span>${caja('Unrandomizer')}${caja('Enable Speedhack')}</div>
+            </div>
+          </div>
+        </div>
+        <div class="ce-botones2"><button type="button" class="ce-b">Memory View</button><button type="button" class="ce-flecha" data-a="anadir" title="Add the selected addresses to the address list"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M5 5 L16 16" stroke="#E53935" stroke-width="3.5" stroke-linecap="round"/><path d="M19 19 L8 17 L17 8 Z" fill="#E53935"/></svg></button><span class="ce-prohibido"></span><button type="button" class="ce-b">Add Address Manually</button></div>
+        <div class="ce-lista ce-tabla"><table><thead><tr><th>Active</th><th>Description</th><th>Address</th><th>Type</th><th>Value</th></tr></thead><tbody></tbody></table></div>
+        <div class="ce-pie"><span>Advanced Options</span><span>Table Extras</span></div>
+        <div class="ce-ctx" hidden></div>
+
+        <div class="tr-modal" data-m="procesos" hidden><div class="ce-dialogo">
+          <div class="ce-titulo"><span class="ce-icono"></span>Process List<button type="button" class="ce-x" data-a="cerrar">✕</button></div>
+          <div class="ce-menu"><span>File</span></div>
+          <div class="ce-pestanas"><span>Applications</span><span class="sel">Processes</span><span>Windows</span></div>
+          <div class="ce-procesos"></div>
+          <div class="ce-dlg-botones"><div class="ce-fila"><button type="button" class="ce-b ce-ok" data-a="abrir">Open</button><button type="button" class="ce-b" data-a="cerrar">Cancel</button></div><button type="button" class="ce-b" disabled>Attach debugger to process</button><button type="button" class="ce-b" disabled>Network</button></div>
+        </div></div>
+        <div class="tr-modal" data-m="cambiar" hidden><div class="ce-dialogo ce-cambio">
+          <div class="ce-titulo">Change Value<button type="button" class="ce-x" data-a="cerrar">✕</button></div>
+          <p>what value to change this to?</p>
+          <input type="text" class="ce-nuevo" value="15" autocomplete="off">
+          <div class="ce-fila ce-fin"><button type="button" class="ce-b ce-ok" data-a="aceptar">OK</button><button type="button" class="ce-b" data-a="cerrar">Cancel</button></div>
+        </div></div>
+      </div>
+      <div class="tr-modal tr-modal-tm" data-m="tm" hidden><div class="tm">
+        <div class="tm-titulo"><span class="tm-icono"></span>Administrador de tareas del navegador<button type="button" class="ce-x" data-a="cerrar">✕</button></div>
+        <div class="tm-pestanas"><span class="sel">Pestañas y extensiones</span><span>Navegador</span><span>Todas las tareas</span></div>
+        <div class="tm-caja"><table><thead><tr><th>Tarea</th><th>Uso de memoria</th><th>CPU</th><th>Red</th><th>ID de proceso</th></tr></thead><tbody class="tr-tm"></tbody></table></div>
+        <div class="tm-pie"><button type="button" disabled>Finalizar tarea</button></div>
+      </div></div>
+      <button type="button" class="btn btn-ghost tr-reinicia" data-a="reinicia">Empezar de nuevo</button>`;
+
+    const $ = (s) => el.querySelector(s);
+    const modal = (m) => el.querySelector(`.tr-modal[data-m="${m}"]`);
+    const msg = $('.tr-msg'), valor = $('.ce-valor'), tipo = $('.ce-tipo');
+
+    function empieza() {
+      const pid = rnd(4000, 60000) - (rnd(4000, 60000) % 4);
+      const otros = [];
+      while (otros.length < 4) { const x = rnd(1000, 60000); const y = x - (x % 4); if (y !== pid && !otros.includes(y)) otros.push(y); }
+      S = {
+        galletas: 3, pid, otros, vistoPid: false, proceso: null, elegido: null,
+        busquedas: 0, total: 0, cand: [], selCand: new Set(), ancla: null,
+        reales: [dirAzar(), dirAzar(), dirAzar(), dirAzar()],
+        lista: [], selLista: new Set(), anclaL: null, editando: null, clics: 0,
+      };
+      valor.value = ''; tipo.value = '4 Bytes';
+      el.querySelectorAll('.tr-modal').forEach((m) => { m.hidden = true; });
+      pinta('Esto imita la demostración de clase. <b>1.</b> Pulsa la galleta un par de veces: el juego guarda el número de galletas en su memoria.');
+    }
+
+    // primer resultado: las cuatro copias reales mezcladas con otras direcciones que también valían eso
+    function primera(v) {
+      S.busquedas = 1;
+      S.total = rnd(9000, 12000);
+      const señuelos = Array.from({ length: 16 }, (x, k) => ({ dir: dirAzar(), real: false, v, ant: v, queda: k < 5 }));
+      S.cand = señuelos.concat(S.reales.map((d) => ({ dir: d, real: true, v, ant: v })));
+      S.cand.sort(() => Math.random() - 0.5);
+      S.selCand.clear();
+    }
+    function siguiente(v) {
+      S.busquedas++;
+      if (S.busquedas === 2) { S.cand = S.cand.filter((c) => c.real || c.queda); S.cand.forEach((c) => { if (!c.real) { c.v = v; c.queda = false; } }); }
+      else S.cand = S.cand.filter((c) => c.real);
+      S.cand.forEach((c) => { c.ant = c.v; });
+      S.total = S.cand.length;
+      S.selCand.clear();
+    }
+    function galleta() {
+      S.galletas += 1; S.clics++;
+      S.cand.forEach((c) => { if (c.real) c.v = S.galletas; else if (Math.random() < 0.7) c.v = rnd(0, 40); });
+      S.lista.forEach((r) => { r.v = S.galletas; });
+      const g = $('.tr-galleta'); g.classList.remove('tr-golpe'); void g.offsetWidth; g.classList.add('tr-golpe');
+      let t = null;
+      if (!S.vistoPid && S.clics >= 2) t = '<b>2.</b> Pulsa <b>Mayús + Esc</b> en la ventana del juego: el administrador de tareas del navegador da el <b>ID de proceso</b> de la pestaña.';
+      else if (S.busquedas >= 1 && S.cand.length > 4) t = `Ahora hay <b>${es(S.galletas)}</b> galletas. Escribe ese número en <b>Value</b> y pulsa <b>Next Scan</b>: solo se miran las ${es(S.total)} direcciones que quedaban.`;
+      pinta(t);
+    }
+
+    function busca(esPrimera) {
+      if (!S.proceso) return pinta('Primero hay que abrir el proceso del juego con el botón del <b>monitor</b>, arriba a la izquierda.');
+      if (esPrimera && S.busquedas) {   // New Scan: empezar otra vez
+        S.busquedas = 0; S.total = 0; S.cand = []; S.selCand.clear();
+        return pinta('Búsqueda borrada. Elige el <b>Value Type</b>, escribe las galletas que ves y pulsa <b>First Scan</b>.');
+      }
+      const v = parseFloat(String(valor.value).replace(',', '.'));
+      if (isNaN(v)) return pinta('Escribe en <b>Value</b> las galletas que ves en el juego.');
+      if (tipo.value !== 'Double') {
+        S.busquedas = 1; S.total = 0; S.cand = [];
+        return pinta(`Con <b>${tipo.value}</b> no aparece: el juego es una página web y JavaScript guarda los números como <b>Double</b>, coma flotante de 64 bits (el IEEE 754 de la UT1). Pulsa <b>New Scan</b> y cambia el <b>Value Type</b>.`);
+      }
+      if (v !== S.galletas) {
+        if (S.busquedas) { S.busquedas++; S.total = 0; S.cand = []; }
+        return pinta(`Ninguna dirección vale ${es(v)}. Hay que buscar exactamente las galletas que se ven: <b>${es(S.galletas)}</b>. Pulsa <b>New Scan</b> y vuelve a empezar.`);
+      }
+      if (esPrimera) {
+        primera(v);
+        return pinta(`El ${es(v)} está en <b>${es(S.total)}</b> direcciones de la memoria del juego. <b>5.</b> Pulsa la galleta para que cambie, escribe el valor nuevo y pulsa <b>Next Scan</b>.`);
+      }
+      siguiente(v);
+      if (S.cand.length > 4) return pinta(`Quedan <b>${S.cand.length}</b>. Pulsa otra vez la galleta y repite <b>Next Scan</b>.`);
+      pinta('Quedan <b>4</b> y ya no bajan: el juego guarda el marcador en <b>cuatro copias</b>. <b>6.</b> Selecciona las cuatro (clic en la primera y <b>Mayús + clic</b> en la última) y pulsa la <b>flecha roja</b>, o <b>clic derecho › Add selected addresses</b>, para pasarlas a la lista de abajo.');
+    }
+
+    function abrirProceso() {
+      if (S.elegido === null) return pinta('Elige un proceso de la lista y pulsa <b>Open</b>.');
+      modal('procesos').hidden = true;
+      if (S.elegido !== S.pid) return pinta(`El ${hex(S.elegido, 8)} es otro proceso del navegador, no la pestaña del juego. Mira su <b>ID de proceso</b> con <b>Mayús + Esc</b> y pásalo bien a hexadecimal.`);
+      S.proceso = `${hex(S.pid, 8)}-chrome.exe`;
+      pinta(`Abierto <b>${S.proceso}</b>: ${S.pid} en decimal es ${hex(S.pid, 4)} en hexadecimal. <b>4.</b> Elige el <b>Value Type</b>, escribe en <b>Value</b> las galletas que ves y pulsa <b>First Scan</b>.`);
+    }
+
+    function aceptarCambio() {
+      const v = parseFloat(String($('.ce-nuevo').value).replace(',', '.'));
+      modal('cambiar').hidden = true;
+      if (isNaN(v) || v < 0) return pinta('Escribe un número.');
+      const filas = S.origen === 'cand' ? S.cand : S.lista;
+      const conj = S.origen === 'cand' ? S.selCand : S.selLista;
+      const cuales = (conj.size ? [...conj] : [S.editando]).filter((k) => filas[k]);
+      const reales = cuales.filter((k) => filas[k].real).length;
+      if (reales < 4) {
+        cuales.forEach((k) => { filas[k].v = v; });
+        pinta(reales === 0
+          ? 'Esa dirección no es la del marcador: el juego no ha cambiado. Hay que acotar hasta que queden las <b>cuatro copias</b>.'
+          : `Has cambiado ${reales === 1 ? 'una' : reales} de las 4 copias y el juego ha vuelto a poner su valor con las otras. Selecciona <b>las cuatro</b> (clic y <b>Mayús + clic</b>) y vuelve a cambiarlas.`);
+        setTimeout(() => { S.lista.forEach((x) => { if (x.real) x.v = S.galletas; }); S.cand.forEach((x) => { if (x.real) x.v = S.galletas; }); pinta(null); }, 900);
+        return pinta(null);
+      }
+      S.galletas = v;
+      S.lista.forEach((r) => { r.v = v; });
+      S.cand.forEach((c) => { if (c.real) c.v = v; });
+      const m = $('.tr-marcador'); m.classList.remove('tr-flash'); void m.offsetWidth; m.classList.add('tr-flash');
+      pinta(`El juego enseña ahora <b>${marcador(v)}</b>: has escrito en la memoria de otro proceso. El sistema operativo lo ha permitido porque el programa tiene <b>permisos de administrador</b>. Prueba con un número enorme, como 15000000.`);
+    }
+
+    function marcador(n) {
+      if (n >= 1e6) return `${(n / 1e6).toLocaleString('en-US', { maximumFractionDigits: 3 })} million cookies`;
+      return `${en(n)} cookie${n === 1 ? '' : 's'}`;
+    }
+
+    // selección como en las listas de Windows: clic, Ctrl+clic y Mayús+clic
+    function selecciona(conj, k, e, anclaKey) {
+      if (e.shiftKey && S[anclaKey] !== null) {
+        const [a, b] = [Math.min(S[anclaKey], k), Math.max(S[anclaKey], k)];
+        if (!e.ctrlKey) conj.clear();
+        for (let i = a; i <= b; i++) conj.add(i);
+      } else if (e.ctrlKey) { if (conj.has(k)) conj.delete(k); else conj.add(k); S[anclaKey] = k; }
+      else { conj.clear(); conj.add(k); S[anclaKey] = k; }
+    }
+
+    function anadir(indices) {
+      const nuevos = indices.map((k) => S.cand[k]).filter((c) => c && !S.lista.some((r) => r.dir === c.dir));
+      nuevos.forEach((c) => S.lista.push({ dir: c.dir, v: c.v, real: c.real }));
+      if (!nuevos.length) return pinta('Selecciona primero direcciones de la lista de arriba (clic, y <b>Mayús + clic</b> para un rango).');
+      if (S.lista.length < 4) return pinta(`Hay ${S.lista.length} en la lista. Añade también las demás: el juego tiene <b>cuatro copias</b> del marcador.`);
+      pinta('Las cuatro copias están en la lista de abajo. Selecciónalas (clic y <b>Mayús + clic</b>) y haz <b>doble clic en su Value</b>, o <b>clic derecho › Change record › Value</b>.');
+    }
+
+    el.addEventListener('mousedown', (e) => { if (e.shiftKey && e.target.closest('.ce-lista')) e.preventDefault(); });
+    el.addEventListener('click', (e) => {
+      const pr = e.target.closest('[data-pid]');
+      if (pr) { S.elegido = +pr.dataset.pid; return pinta(null); }
+      const fc = e.target.closest('.ce-cand tr[data-k]');
+      if (fc) { selecciona(S.selCand, +fc.dataset.k, e, 'ancla'); return pinta(null); }
+      const fl = e.target.closest('.ce-tabla tr[data-k]');
+      if (fl) { selecciona(S.selLista, +fl.dataset.k, e, 'anclaL'); return pinta(null); }
+      const b = e.target.closest('[data-a]'); if (!b) return;
+      const a = b.dataset.a;
+      if (a === 'galleta') galleta();
+      else if (a === 'tm') { modal('tm').hidden = false; S.vistoPid = true; pinta(`La pestaña del juego tiene el ID de proceso <b>${S.pid}</b>, en decimal. <b>3.</b> Cheat Engine da los procesos en <b>hexadecimal</b>: pásalo a mano (UT1), cierra esa ventana y pulsa en Cheat Engine el botón del <b>monitor</b>.`); }
+      else if (a === 'cerrar') { const m = b.closest('.tr-modal'); if (m) m.hidden = true; }
+      else if (a === 'procesos') { S.elegido = null; modal('tm').hidden = true; modal('procesos').hidden = false; pinta(S.vistoPid ? null : 'Antes necesitas el ID de proceso de la pestaña: pulsa <b>Mayús + Esc</b> en la ventana del juego.'); }
+      else if (a === 'abrir') abrirProceso();
+      else if (a === 'primera') busca(true);
+      else if (a === 'siguiente') busca(false);
+      else if (a === 'anadir') anadir([...S.selCand].sort((x, y) => x - y));
+      else if (a === 'aceptar') aceptarCambio();
+      else if (a === 'reinicia') empieza();
+    });
+    const ctx = $('.ce-ctx');
+    function abreCambio(origen, k) {
+      S.origen = origen; S.editando = k;
+      ctx.hidden = true;
+      $('.ce-nuevo').value = '15';
+      modal('cambiar').hidden = false;
+      setTimeout(() => { $('.ce-nuevo').select(); }, 0);
+    }
+    function menu(e, items) {
+      const caja = el.querySelector('.ce').getBoundingClientRect();
+      const esc = caja.width / el.querySelector('.ce').offsetWidth || 1;   // la diapositiva está escalada
+      ctx.innerHTML = items.map((it) => (it === '-' ? '<hr>' : `<div class="ce-ctx-item${it.a ? '' : ' off'}"${it.a ? ` data-ctx="${it.a}"` : ''}>${it.t}${it.k ? `<span>${it.k}</span>` : ''}</div>`)).join('');
+      ctx.hidden = false;
+      const x = (e.clientX - caja.left) / esc, y = (e.clientY - caja.top) / esc;
+      const w = ctx.offsetWidth, h = ctx.offsetHeight, W = el.querySelector('.ce').offsetWidth, H = el.querySelector('.ce').offsetHeight;
+      ctx.style.left = Math.max(0, Math.min(x, W - w - 4)) + 'px';
+      ctx.style.top = Math.max(0, Math.min(y, H - h - 4)) + 'px';
+    }
+    el.addEventListener('contextmenu', (e) => {
+      if (!e.target.closest('.ce')) return;
+      e.preventDefault();
+      const fc = e.target.closest('.ce-cand tr[data-k]');
+      const fl = e.target.closest('.ce-tabla tr[data-k]');
+      if (fc) {
+        const k = +fc.dataset.k;
+        if (!S.selCand.has(k)) { S.selCand.clear(); S.selCand.add(k); S.ancla = k; pinta(null); }
+        S.ctxK = k;
+        return menu(e, [{ t: 'Add selected addresses to the addresslist', a: 'anadir' }, { t: 'Change value of selected addresses', k: 'Ctrl+E', a: 'cambiarCand' },
+          { t: 'Browse this memory region', k: 'Ctrl+B' }, { t: 'Disassemble this memory region', k: 'Ctrl+D' }, { t: 'Remove selected addresses', k: 'Ctrl+Del' }, '-',
+          { t: 'Find out what accesses this address', k: 'Ctrl+F5' }, { t: 'Find out what writes to this address', k: 'Ctrl+F6' }]);
+      }
+      if (fl) {
+        const k = +fl.dataset.k;
+        if (!S.selLista.has(k)) { S.selLista.clear(); S.selLista.add(k); S.anclaL = k; pinta(null); }
+        S.ctxK = k;
+        return menu(e, [{ t: 'Delete this record', k: 'Del' }, { t: 'Change record › Value', k: 'Enter', a: 'cambiarLista' }, { t: 'Change record › Description', k: 'Ctrl+Enter' },
+          '-', { t: 'Browse this memory region', k: 'Ctrl+B' }, { t: 'Disassemble this memory region', k: 'Ctrl+D' }, { t: 'Show as signed' }, { t: 'Show as hexadecimal', k: 'Ctrl+Alt+H' }]);
+      }
+      ctx.hidden = true;
+    });
+    ctx.addEventListener('click', (e) => {
+      const it = e.target.closest('[data-ctx]'); if (!it) return;
+      e.stopPropagation();
+      ctx.hidden = true;
+      const a = it.dataset.ctx;
+      if (a === 'anadir') anadir([...S.selCand].sort((x, y) => x - y));
+      else if (a === 'cambiarCand') abreCambio('cand', S.ctxK);
+      else if (a === 'cambiarLista') abreCambio('lista', S.ctxK);
+    });
+    document.addEventListener('mousedown', (e) => { if (!ctx.hidden && !e.target.closest('.ce-ctx')) ctx.hidden = true; });
+    el.addEventListener('dblclick', (e) => {
+      const fc = e.target.closest('.ce-cand tr[data-k]');
+      if (fc) { anadir([+fc.dataset.k]); return; }
+      const fl = e.target.closest('.ce-tabla tr[data-k]');
+      if (fl) {
+        const k = +fl.dataset.k;
+        if (!S.selLista.has(k)) { S.selLista.clear(); S.selLista.add(k); }
+        pinta(null);
+        abreCambio('lista', k);
+      }
+    });
+    valor.addEventListener('keydown', (e) => { if (e.key === 'Enter') busca(!S.busquedas); });
+    $('.ce-nuevo').addEventListener('keydown', (e) => { if (e.key === 'Enter') aceptarCambio(); });
+
+    let ultimo = '';
+    function pinta(texto) {
+      if (texto) ultimo = texto;
+      $('.tr-marcador b').textContent = marcador(S.galletas);
+      $('.tr-pista').hidden = S.clics > 0;
+      $('.ce-proc').textContent = S.proceso || 'No Process Selected';
+      $('.ce-found b').textContent = en(S.total);
+      const sinProc = !S.proceso;
+      el.querySelector('[data-a="primera"]').textContent = S.busquedas ? 'New Scan' : 'First Scan';
+      el.querySelector('[data-a="primera"]').disabled = sinProc;
+      el.querySelector('[data-a="siguiente"]').disabled = sinProc || !S.busquedas;
+      valor.disabled = sinProc; tipo.disabled = sinProc || S.busquedas > 0;
+      $('.ce-abrir').classList.toggle('ce-aviso', !S.proceso);
+      $('.tr-tm').innerHTML = `<tr class="sel"><td><span class="tm-fav"></span>Pestaña: ${es(S.galletas)} galletas</td><td>99.780 K</td><td>9,2</td><td>0</td><td>${S.pid}</td></tr>`
+        + `<tr><td><span class="tm-fav gris"></span>Pestaña: correo</td><td>87.204 K</td><td>0,0</td><td>0</td><td>${S.otros[0]}</td></tr>`
+        + `<tr><td><span class="tm-fav gris"></span>Extensión: traductor</td><td>41.020 K</td><td>0,1</td><td>0</td><td>${S.otros[1]}</td></tr>`;
+      const lista = [S.pid, ...S.otros].sort((x, y) => x - y);
+      $('.ce-procesos').innerHTML = lista.map((p) => `<div class="ce-proceso${p === S.elegido ? ' sel' : ''}" data-pid="${p}"><span class="ce-chrome"></span>${hex(p, 8)}-chrome.exe</div>`).join('');
+      const filas = S.cand.slice(0, 18);
+      $('.ce-cand tbody').innerHTML = filas.map((c, k) => `<tr data-k="${k}" class="${S.selCand.has(k) ? 'sel' : ''}"><td>${c.dir}</td><td class="${c.v !== c.ant ? 'cambia' : ''}">${Math.round(c.v)}</td><td>${Math.round(c.ant)}</td></tr>`).join('');
+      $('.ce-tabla tbody').innerHTML = S.lista.map((r, k) => `<tr data-k="${k}" class="${S.selLista.has(k) ? 'sel' : ''}"><td><span class="ce-act"></span></td><td>No description</td><td>${r.dir}</td><td>Double</td><td class="ce-v">${Math.round(r.v)}</td></tr>`).join('');
+      msg.innerHTML = ultimo;
+      const paso = S.clics < 2 && !S.vistoPid ? 1 : !S.vistoPid ? 2 : !S.proceso ? 3 : !S.cand.length ? 4 : S.cand.length > 4 ? 5 : 6;
+      pasos.forEach((li) => li.classList.toggle('activo', +li.dataset.paso === paso));
+    }
+    empieza();
+  }
+
   /* ---------- teorema fundamental de la numeración, paso a paso ----------
    * <div class="sumatorio" data-numero="52318" data-base="10"> <div class="sum-cuerpo">…</div> </div>
    * El número en grande, con su posición i debajo de cada cifra y la base de subíndice. Cada
@@ -3117,6 +3714,8 @@
     numera(stage);
     document.querySelectorAll('.ej[data-tipo]').forEach(montaEjercicio);
     document.querySelectorAll('.sim').forEach(montaSimulador);
+    document.querySelectorAll('.mem-sim').forEach(montaMemoria);
+    document.querySelectorAll('.trampas').forEach(montaTrampas);
     document.querySelectorAll('.sumatorio').forEach(montaSumatorio);
     document.querySelectorAll('.quiz').forEach(montaQuiz);
     document.querySelectorAll('.revela').forEach(montaRevela);

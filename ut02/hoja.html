@@ -159,11 +159,7 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
     { k: 'srtf', gen: 'planificacion', modo: 'srtf', t: 'Cronograma SRTF', n: 0, ancho: true },
     { k: 'pne', gen: 'planificacion', modo: 'pne', t: 'Prioridades no expulsivo', n: 0, ancho: true },
     { k: 'pe', gen: 'planificacion', modo: 'pe', t: 'Prioridades expulsivo', n: 1, ancho: true },
-    { k: 'rr', gen: 'planificacion', modo: 'rr', t: 'Round Robin (q = 2)', n: 1, ancho: true },
-    { k: 'estados', gen: 'estados', t: 'Estados de un proceso', n: 0 },
-    { k: 'paginacion', gen: 'paginacion', t: 'Paginación y fragmentación', n: 0 },
-    { k: 'arranque', gen: 'arranque', t: 'Ordena el arranque', n: 0 },
-    { k: 'sistemas-archivos', gen: 'sistemas-archivos', t: 'Qué sistema de archivos', n: 0 }
+    { k: 'rr', gen: 'planificacion', modo: 'rr', t: 'Round Robin (q = 2)', n: 1, ancho: true }
   ];
   const $ = (s) => document.querySelector(s);
 
@@ -342,7 +338,6 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
       'Respuesta = fin − llegada. Espera = respuesta − ejecución. Luego, las medias.',
       'Empates: entra el que llegó antes (FIFO). En SRTF y en prioridades expulsivo sigue el que está. En Round Robin, el que llega entra en la cola antes que el que agota su quantum.',
       'La prioridad 1 es la más alta.');
-    if (ejs.some((e) => e.tipo.gen !== 'planificacion')) n.push('Si una casilla trae varias opciones, rodea la correcta.');
     return n;
   }
 
