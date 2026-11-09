@@ -1255,6 +1255,33 @@ section [data-paso].activo { background: #FFF6D1; border-radius: 12px; box-shado
 .tm-pie { display: flex; justify-content: flex-end; padding: 0 14px 12px; }
 .tm-pie button { font: 600 13px/1 'Segoe UI', system-ui, sans-serif; background: #3C4043; color: #80868B; border: 0; border-radius: 16px; padding: 9px 16px; }
 
+/* ---------- Planificación del disco a cámara lenta (.ascensor, UT2 2.8) ---------- */
+.ascensor { background: var(--white); border-radius: 24px; padding: 24px 28px 22px; box-shadow: 0 2px 0 var(--line); display: flex; flex-direction: column; gap: 14px; }
+.asc-tabs { display: flex; gap: 8px; }
+.asc-tabs button { font: 800 21px/1 'Plus Jakarta Sans', system-ui, sans-serif; padding: 12px 26px; border-radius: 12px; border: 3px solid var(--line); background: #EEF1F6; color: #8A93A6; cursor: pointer; }
+.asc-tabs button.activo { background: var(--navy); border-color: var(--navy); color: var(--white); }
+.asc-tabs button:not(.activo):hover { border-color: var(--sky); color: var(--navy); }
+.asc-discos { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.asc-caso { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.asc-tit { font-size: 22px; font-weight: 800; color: var(--c); }
+.asc-svg { width: 100%; height: auto; display: block; }
+.asc-cola { font: 700 20px/1 'Plus Jakarta Sans', system-ui, sans-serif; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.asc-cola span { width: 34px; height: 34px; border-radius: 8px; border: 3px solid var(--c); background: var(--white); display: grid; place-items: center; font: 800 19px/1 'Plus Jakarta Sans', system-ui, sans-serif; color: var(--c); }
+.asc-cola span.hecha, .asc-cola span.ahora { color: #fff; }
+.asc-cola span.ahora { color: var(--navy); }
+.asc-cola span.ahora { background: #F4C20D; border-color: #F4C20D; }
+.asc-cola span.hecha { background: var(--c); }
+.asc-camino { width: 100%; display: flex; flex-direction: column; gap: 6px; font-size: 19px; font-weight: 700; color: var(--muted); }
+.asc-barra { position: relative; height: 26px; border-radius: 13px; background: #E7EBF3; overflow: hidden; }
+.asc-real { position: absolute; top: 0; bottom: 0; display: flex; align-items: center; white-space: nowrap; font: 700 16px/1 'Plus Jakarta Sans', system-ui, sans-serif; color: #485168; }
+.asc-real.dentro { color: rgba(255,255,255,.92); }
+.asc-real[hidden] { display: none; }
+.asc-barra i { display: block; height: 100%; width: 0; background: var(--c); border-radius: 13px; }
+.asc-camino.fin .asc-barra { box-shadow: 0 0 0 3px #F4C20D; }
+.asc-pie { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.asc-pie .btn { padding: 12px 22px; font-size: 20px; border-radius: 12px; }
+.asc-msg { font-size: 19px; color: var(--ink); flex: 1; min-width: 260px; }
+
 /* ---------- Teorema fundamental de la numeración paso a paso (.sumatorio) ---------- */
 .sumatorio { display: flex; flex-direction: column; }
 .sum-cuerpo { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 56px; }

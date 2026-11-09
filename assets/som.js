@@ -2081,6 +2081,13 @@
     { p: '¿Por qué un .exe de Windows no arranca en Linux?', o: ['Es código máquina para un sistema operativo concreto', 'Linux no admite archivos con extensión', 'Está comprimido en un formato que Linux no sabe abrir', 'Es texto plano con órdenes que solo entiende Windows'], c: 0, exp: 'Los ejecutables dependen del sistema: .exe para Windows, deb o rpm para Linux, apk para Android.' }
   ];
 
+  /* UT2 · 2.8: las otras tres técnicas de E/S, con las mismas cuatro opciones que el quiz del spooling */
+  SOM.preguntas['tecnicas-es'] = [
+    { p: '¿Qué técnica hace que la segunda vez que abres una web sus imágenes carguen al instante?', o: ['Caching', 'Buffering', 'Spooling', 'DMA'], c: 0, exp: 'El navegador guardó las imágenes en su caché la primera vez: no tiene que volver a descargarlas.' },
+    { p: '¿Qué técnica deja que un vídeo siga sin cortes aunque la conexión dé un bache?', o: ['Caching', 'Buffering', 'Spooling', 'DMA'], c: 1, exp: 'El buffer descarga por delante de lo que ves (la barra gris): si la red se para un momento, se sigue reproduciendo lo que ya está en el buffer.' },
+    { p: '¿Qué técnica deja que el disco copie datos a la memoria sin pasar por el procesador?', o: ['Caching', 'Buffering', 'Spooling', 'DMA'], c: 3, exp: 'Con el acceso directo a memoria (DMA), el controlador del disco lee y escribe la memoria por su cuenta y solo avisa al procesador cuando termina.' },
+  ];
+
   /* ---------- quiz de opción múltiple ---------- */
   function montaQuiz(q) {
     const opts = [...q.querySelectorAll('.quiz-opt')];
@@ -3161,6 +3168,191 @@
     empieza();
   }
 
+  /* ---------- planificación del disco a cámara lenta (UT2, 2.8) ----------
+   *   <div class="ascensor"></div>
+   *   Dos discos vistos desde arriba, con sus pistas en anillos (la 0 fuera, la 100 dentro) y el brazo del
+   *   cabezal. Los dos atienden las mismas peticiones a la misma velocidad: uno por orden de llegada y otro
+   *   con el algoritmo del ascensor. Las pistas pedidas se pintan como anillos; al leerse se apagan.
+   *   Pestañas HDD y SSD: en el SSD no hay brazo, cada petición está en un chip y se lee en el mismo tiempo,
+   *   así que los dos órdenes terminan a la vez. La barra Tiempo usa la misma escala en las dos pestañas.
+   */
+  function montaAscensor(el) {
+    const INICIO = 50, PIDEN = [90, 10, 80, 20];
+    const LETRA = { 90: 'A', 10: 'B', 80: 'C', 20: 'D' };   // por orden de llegada
+    const CASOS = [
+      // real: tiempo orientativo de las cuatro lecturas en un aparato de verdad (HDD de 7200 rpm; SSD NVMe)
+      { t: 'Por orden de llegada', c: '#C0392B', orden: [90, 10, 80, 20], real: { hdd: '≈ 45 ms', ssd: '< 0,5 ms' } },
+      { t: 'Algoritmo del ascensor', c: '#1E8E5A', orden: [80, 90, 20, 10], real: { hdd: '≈ 30 ms', ssd: '< 0,5 ms' } },
+    ];
+    const VEL = 32, LEE = 450;          // pistas por segundo y milisegundos leyendo cada petición
+    const CX = 170, CY = 165, R = 140, R0 = 34;
+    // el brazo gira sobre un eje fuera del disco (abajo a la derecha), como en un disco duro de verdad
+    const PX = 345, PY = 282, DPC = Math.hypot(PX - CX, PY - CY), L = DPC - 18;
+    function cabeza(radio) {          // punto del brazo que cae en la pista de ese radio (cruce de dos circunferencias)
+      const ux = (CX - PX) / DPC, uy = (CY - PY) / DPC;
+      const a = (L * L - radio * radio + DPC * DPC) / (2 * DPC), hh = Math.sqrt(Math.max(0, L * L - a * a));
+      return { x: PX + a * ux - hh * uy, y: PY + a * uy + hh * ux };   // el cruce de arriba a la derecha: el brazo barre el lado derecho del plato
+    }
+    const rad = (t) => R - (t / 100) * (R - R0);
+    let modo = 'hdd';
+    el.innerHTML = `<div class="asc-tabs"><button type="button" data-m="hdd" class="activo">HDD · disco duro</button><button type="button" data-m="ssd">SSD</button></div>
+      <div class="asc-discos">${CASOS.map((k, n) => `
+      <div class="asc-caso" style="--c:${k.c}">
+        <p class="asc-tit">${k.t}</p>
+        <svg viewBox="0 0 400 340" class="asc-svg" data-n="${n}"></svg>
+        <div class="asc-cola"></div>
+        <div class="asc-camino"><span>Tiempo</span><div class="asc-barra"><i></i><b class="asc-real"></b></div></div>
+      </div>`).join('')}</div>
+      <div class="asc-pie"><button type="button" class="btn btn-primary" data-a="play">▶ Ver a cámara lenta</button><button type="button" class="btn btn-ghost" data-a="ini">Reiniciar</button><span class="asc-msg"></span></div>`;
+    const casos = CASOS.map((k, n) => ({ ...k, svg: el.querySelectorAll('.asc-svg')[n], cola: el.querySelectorAll('.asc-cola')[n], barra: el.querySelectorAll('.asc-barra i')[n], camino: el.querySelectorAll('.asc-camino')[n], realEl: el.querySelectorAll('.asc-real')[n] }));
+    const msg = el.querySelector('.asc-msg');
+    let raf = null, t0 = null;
+
+    // la línea de tiempo de cada caso: tramos de movimiento y de lectura
+    casos.forEach((k) => {
+      k.lin = {};
+      ['hdd', 'ssd'].forEach((m) => {
+        let pos = INICIO, t = 0; const tramos = [];
+        k.orden.forEach((d, i) => {
+          const dur = m === 'hdd' ? Math.abs(d - pos) / VEL * 1000 : 20;   // el SSD no mueve nada: solo un instante para pasar al chip
+          const lee = m === 'hdd' ? LEE : 70;                               // y lee mucho más deprisa
+          tramos.push({ de: pos, a: d, t0: t, t1: t + dur, i }); t += dur;
+          tramos.push({ lee: i, t0: t, t1: t + lee }); t += lee;
+          pos = d;
+        });
+        k.lin[m] = { tramos, fin: t };
+      });
+    });
+    const ESCALA = Math.max(...casos.map((k) => k.lin.hdd.fin));      // la barra Tiempo, igual en las dos pestañas
+    const total = () => Math.max(...casos.map((k) => k.lin[modo].fin));
+
+    function estado(k, ms) {
+      let pos = INICIO, rec = 0, hechas = 0, actual = null, leyendo = false;
+      for (const tr of k.lin[modo].tramos) {
+        if (ms < tr.t0) break;
+        if (tr.lee !== undefined) { if (ms >= tr.t1) hechas = tr.lee + 1; else { leyendo = true; actual = tr.lee; } continue; }
+        const f = Math.min(1, (ms - tr.t0) / (tr.t1 - tr.t0));
+        pos = tr.de + (tr.a - tr.de) * f;
+        rec += Math.abs(tr.a - tr.de) * f;
+        if (f < 1) actual = tr.i;
+      }
+      return { pos, rec, hechas, actual, leyendo, fin: ms >= k.lin[modo].fin };
+    }
+
+    // un SSD visto desde arriba: placa, conector, controlador y cuatro chips de memoria (uno por petición)
+    const CHIP = { A: [196, 70], B: [290, 70], C: [196, 178], D: [290, 178] };
+    function dibujaSSD(k, e) {
+      let s = `<rect x="6" y="8" width="388" height="316" rx="18" fill="#E3E7EF"/>`;
+      s += `<rect x="30" y="44" width="350" height="240" rx="12" fill="#2C4A3A"/>`;
+      for (let y = 64; y <= 262; y += 14) s += `<rect x="16" y="${y}" width="16" height="9" rx="2" fill="#D9B44A"/>`;
+      s += `<text x="12" y="304" text-anchor="start" font-size="13" font-weight="700" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">conector</text>`;
+      s += `<rect x="62" y="128" width="96" height="74" rx="8" fill="#1B1F27" stroke="#5A6375" stroke-width="2"/>`;
+      s += `<text x="110" y="171" text-anchor="middle" font-size="14" font-weight="700" fill="#C9D0DC" font-family="Plus Jakarta Sans, system-ui, sans-serif">controlador</text>`;
+      // primero todos los cables (por debajo de los chips) y luego los chips
+      const ch = PIDEN.map((tp) => { const L2 = LETRA[tp], i = k.orden.indexOf(tp); return { L2, xy: CHIP[L2], leida: i < e.hechas, ahora: i === e.actual && e.leyendo }; });
+      // pistas de la placa: un bus vertical junto al controlador; A y C, en horizontal; B por arriba y D por abajo, sin cruzar otros chips
+      const PISTA = { A: 'M158 165 H180 V110 H196', C: 'M158 165 H180 V218 H196', B: 'M158 165 H180 V58 H331 V70', D: 'M158 165 H180 V272 H331 V258' };
+      ch.forEach(({ L2, ahora }) => { if (!ahora) s += `<path d="${PISTA[L2]}" fill="none" stroke="#5E8A6E" stroke-width="4" stroke-linejoin="round"/>`; });
+      ch.forEach(({ L2, ahora }) => { if (ahora) s += `<path d="${PISTA[L2]}" fill="none" stroke="#F4C20D" stroke-width="6" stroke-linejoin="round"/>`; });
+      ch.forEach(({ L2, xy: [x, y], leida, ahora }) => {
+        const col = ahora ? '#F4C20D' : leida ? '#8A93A6' : k.c;
+        s += `<rect x="${x}" y="${y}" width="82" height="80" rx="6" fill="#1B1F27" stroke="${col}" stroke-width="${ahora ? 6 : 4}"/>`;
+        s += `<circle cx="${x + 41}" cy="${y + 40}" r="17" fill="${col}"/><text x="${x + 41}" y="${y + 47}" text-anchor="middle" font-size="19" font-weight="800" fill="${ahora ? '#15356B' : '#fff'}" font-family="Plus Jakarta Sans, system-ui, sans-serif">${L2}</text>`;
+      });
+      s += `<text x="285" y="304" text-anchor="middle" font-size="13" font-weight="700" fill="#485168" font-family="Plus Jakarta Sans, system-ui, sans-serif">chips de memoria</text>`;
+      return s;
+    }
+
+    function etiqueta(k, e) {
+      const L = k.realEl, f = k.lin[modo].fin / ESCALA * 100;
+      L.textContent = k.real[modo];
+      L.hidden = !e.fin;
+      const dentro = f > 55;
+      L.classList.toggle('dentro', dentro);
+      L.style.left = dentro ? '' : `calc(${f}% + 10px)`;
+      L.style.right = dentro ? `calc(${100 - f}% + 12px)` : '';
+    }
+
+    function pinta(ms) {
+      casos.forEach((k) => {
+        const e = estado(k, ms);
+        if (modo === 'ssd') {
+          k.svg.innerHTML = dibujaSSD(k, e);
+          k.cola.innerHTML = 'Lee: ' + k.orden.map((t, i) => `<span class="${i < e.hechas ? 'hecha' : i === e.actual && e.leyendo ? 'ahora' : ''}">${LETRA[t]}</span>`).join('');
+          k.barra.style.width = (Math.min(ms, k.lin.ssd.fin) / ESCALA * 100) + '%';
+          k.camino.classList.toggle('fin', e.fin);
+          etiqueta(k, e);
+          return;
+        }
+        let s = `<rect x="6" y="8" width="388" height="316" rx="18" fill="#E3E7EF"/><circle cx="${CX}" cy="${CY}" r="${R + 6}" fill="#C9D0DC"/><circle cx="${CX}" cy="${CY}" r="${R}" fill="#F5F6F9" stroke="#B7C2D6" stroke-width="2"/>`;
+        // el plato gira: un reflejo que da vueltas mientras dura la animación
+        s += `<path d="M${CX} ${CY} L${CX + R} ${CY} A${R} ${R} 0 0 1 ${CX + R * Math.cos(0.5)} ${CY + R * Math.sin(0.5)} Z" fill="#fff" opacity=".55" transform="rotate(${(ms * 0.36) % 360} ${CX} ${CY})"/>`;
+        for (let t = 0; t <= 100; t += 10) s += `<circle cx="${CX}" cy="${CY}" r="${rad(t)}" fill="none" stroke="#DCE1EA" stroke-width="1.5"/>`;
+        s += `<circle cx="${CX}" cy="${CY}" r="${R0 - 6}" fill="#B7C2D6"/><circle cx="${CX}" cy="${CY}" r="7" fill="#fff"/>`;
+        PIDEN.forEach((t) => {
+          const i = k.orden.indexOf(t), leida = i < e.hechas, ahora = i === e.actual;
+          s += `<circle cx="${CX}" cy="${CY}" r="${rad(t)}" fill="none" stroke="${leida ? '#C9D0DC' : k.c}" stroke-width="${ahora ? 9 : 6}" opacity="${leida ? 0.7 : 1}"/>`;
+          // la letra, en su anillo y junto al camino del cabezal (del lado contrario al brazo): el cabezal llega a ella sin cruzar el plato.
+          // Las de anillos vecinos, a distinta distancia del camino para que no se pisen
+          // de cada pareja de anillos vecinos, la del anillo de fuera se desplaza hacia fuera y la del de dentro hacia dentro: tocan su línea y no se pisan
+          const fuera = t === 10 || t === 80;                       // B y C: un poco más arriba y a la izquierda que A y D
+          const rl = rad(t) + (fuera ? 12 : -10);
+          const P = cabeza(rad(t)), a0 = Math.atan2(P.y - CY, P.x - CX), ang = a0 - (fuera ? 66 : 52) / rad(t);
+          const lx = CX + rl * Math.cos(ang), ly = CY + rl * Math.sin(ang);
+          s += `<circle cx="${lx}" cy="${ly}" r="13" fill="${leida ? '#C9D0DC' : k.c}" stroke="#F5F6F9" stroke-width="3"/><text x="${lx}" y="${ly + 6}" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" font-family="Plus Jakarta Sans, system-ui, sans-serif">${LETRA[t]}</text>`;
+        });
+        // brazo: triangular, ancho en el eje y fino en la punta, donde va el cabezal
+        const H = cabeza(rad(e.pos));
+        const ang = Math.atan2(H.y - PY, H.x - PX), nx = -Math.sin(ang), ny = Math.cos(ang);
+        const W0 = 20, W1 = 4;
+        s += `<path d="M${PX + nx * W0} ${PY + ny * W0} L${H.x + nx * W1} ${H.y + ny * W1} L${H.x - nx * W1} ${H.y - ny * W1} L${PX - nx * W0} ${PY - ny * W0} Z" fill="#15356B" stroke="#0B1F44" stroke-width="1.5" stroke-linejoin="round"/>`;
+        s += `<path d="M${PX} ${PY} L${H.x} ${H.y}" stroke="#4F8AE0" stroke-width="2" opacity=".6"/>`;
+        s += `<rect x="${H.x - 8}" y="${H.y - 5}" width="16" height="10" rx="2" fill="${e.leyendo ? '#F4C20D' : '#0B4AB5'}" stroke="#fff" stroke-width="2" transform="rotate(${ang * 180 / Math.PI} ${H.x} ${H.y})"/>`;
+        s += `<circle cx="${PX}" cy="${PY}" r="24" fill="#485168"/><circle cx="${PX}" cy="${PY}" r="15" fill="#15356B"/><circle cx="${PX}" cy="${PY}" r="5" fill="#9FB4D9"/>`;
+        s += `<text x="${PX - 4}" y="${PY + 42}" text-anchor="middle" font-size="14" font-weight="700" fill="#15356B" font-family="Plus Jakarta Sans, system-ui, sans-serif">brazo</text>`;
+        s += `<text x="${H.x + 14}" y="${H.y - 12}" font-size="14" font-weight="800" fill="#15356B" stroke="#F5F6F9" stroke-width="4" paint-order="stroke" font-family="Plus Jakarta Sans, system-ui, sans-serif">cabezal</text>`;
+        k.svg.innerHTML = s;
+        k.cola.innerHTML = 'Lee: ' + k.orden.map((t, i) => `<span class="${i < e.hechas ? 'hecha' : i === e.actual && e.leyendo ? 'ahora' : ''}">${LETRA[t]}</span>`).join('');
+        k.barra.style.width = (Math.min(ms, k.lin.hdd.fin) / ESCALA * 100) + '%';
+        k.camino.classList.toggle('fin', e.fin);
+        etiqueta(k, e);
+      });
+      const [a, b] = casos.map((k) => estado(k, ms));
+      if (modo === 'ssd') {
+        msg.innerHTML = ms <= 0 ? 'Un SSD no tiene brazo: los datos están en <b>chips de memoria</b>.'
+          : a.fin ? '<b>¡Ya está!</b> Sin brazo, el orden da igual: las dos terminan a la vez, muchísimo antes que el disco duro.'
+            : 'Las dos, a la misma velocidad.';
+        return;
+      }
+      msg.innerHTML = ms <= 0 ? 'Llegan cuatro peticiones, por este orden: <b>A, B, C y D</b>.'
+        : b.fin && !a.fin ? '<b>El ascensor ha terminado.</b> El otro sigue yendo y viniendo.'
+          : a.fin ? 'Las dos leen lo mismo. <b>El ascensor mueve menos el brazo.</b>'
+            : 'Las dos, a la misma velocidad.';
+    }
+
+    function paso(now) {
+      if (t0 === null) t0 = now;
+      const ms = Math.min(total() + 10, now - t0);
+      pinta(ms);
+      if (ms < total() + 10) raf = requestAnimationFrame(paso); else raf = null;
+    }
+    el.addEventListener('click', (e) => {
+      const tab = e.target.closest('[data-m]');
+      if (tab) {
+        modo = tab.dataset.m;
+        el.querySelectorAll('.asc-tabs button').forEach((x) => x.classList.toggle('activo', x === tab));
+        if (raf) cancelAnimationFrame(raf);
+        raf = null; t0 = null; pinta(0); return;
+      }
+      const b = e.target.closest('[data-a]'); if (!b) return;
+      if (raf) cancelAnimationFrame(raf);
+      raf = null; t0 = null;
+      if (b.dataset.a === 'play') raf = requestAnimationFrame(paso); else pinta(0);
+    });
+    el.ascensorEn = (ms, m) => { if (m) { modo = m; el.querySelectorAll('.asc-tabs button').forEach((x) => x.classList.toggle('activo', x.dataset.m === m)); } if (raf) cancelAnimationFrame(raf); raf = null; pinta(ms); };   // para capturas
+    pinta(0);
+  }
+
   /* ---------- teorema fundamental de la numeración, paso a paso ----------
    * <div class="sumatorio" data-numero="52318" data-base="10"> <div class="sum-cuerpo">…</div> </div>
    * El número en grande, con su posición i debajo de cada cifra y la base de subíndice. Cada
@@ -3716,6 +3908,7 @@
     document.querySelectorAll('.sim').forEach(montaSimulador);
     document.querySelectorAll('.mem-sim').forEach(montaMemoria);
     document.querySelectorAll('.trampas').forEach(montaTrampas);
+    document.querySelectorAll('.ascensor').forEach(montaAscensor);
     document.querySelectorAll('.sumatorio').forEach(montaSumatorio);
     document.querySelectorAll('.quiz').forEach(montaQuiz);
     document.querySelectorAll('.revela').forEach(montaRevela);

@@ -25,9 +25,11 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
 .panel input[type=text] { width: 360px; }
 .panel #semilla { width: 130px; }
 /* los tipos de ejercicio, en una franja algo más clara que la cabecera y de lado a lado (de ahí los márgenes negativos) */
-.panel .tipos { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px 18px; width: calc(100% + 64px); margin: 4px -32px 0; padding: 18px 32px 22px; box-sizing: border-box; background: #2A4C86; }
+.panel .tipos { display: grid; grid-template-columns: repeat(6, max-content); justify-content: space-between; gap: 10px 18px; width: calc(100% + 64px); margin: 4px -32px 0; padding: 18px 32px 22px; box-sizing: border-box; background: #2A4C86; }
 .panel .tipos label { flex-direction: row; align-items: center; gap: 8px; font-weight: 500; }
 .panel .tipos input { width: 54px; padding: 5px 6px; flex: none; }   /* flex: none, para que no encoja cuando el rótulo ocupa dos líneas */
+/* los seis algoritmos en una fila; si no caben, en dos filas de tres */
+@media (max-width: 1150px) { .panel .tipos { grid-template-columns: repeat(3, max-content); justify-content: start; column-gap: 56px; } }
 .panel #titulo, .panel #semilla { height: 42px; box-sizing: border-box; }
 .panel .opciones { display: flex; flex-direction: column; gap: 10px; }
 .panel .check { flex-direction: row; align-items: center; gap: 10px; font-weight: 500; cursor: pointer; }
@@ -154,9 +156,9 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
 (function () {
   'use strict';
   const TIPOS = [
-    { k: 'fifo', gen: 'planificacion', modo: 'fifo', t: 'Cronograma FIFO', n: 1, ancho: true },
-    { k: 'sjf', gen: 'planificacion', modo: 'sjf', t: 'Cronograma SJF', n: 1, ancho: true },
-    { k: 'srtf', gen: 'planificacion', modo: 'srtf', t: 'Cronograma SRTF', n: 0, ancho: true },
+    { k: 'fifo', gen: 'planificacion', modo: 'fifo', t: 'Cronograma FIFO', p: 'FIFO', n: 1, ancho: true },
+    { k: 'sjf', gen: 'planificacion', modo: 'sjf', t: 'Cronograma SJF', p: 'SJF', n: 1, ancho: true },
+    { k: 'srtf', gen: 'planificacion', modo: 'srtf', t: 'Cronograma SRTF', p: 'SRTF', n: 0, ancho: true },
     { k: 'pne', gen: 'planificacion', modo: 'pne', t: 'Prioridades no expulsivo', n: 0, ancho: true },
     { k: 'pe', gen: 'planificacion', modo: 'pe', t: 'Prioridades expulsivo', n: 1, ancho: true },
     { k: 'rr', gen: 'planificacion', modo: 'rr', t: 'Round Robin (q = 2)', n: 1, ancho: true }
@@ -330,14 +332,17 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
     sv.style.zoom = Math.min(plan ? ZOOM_PLAN : ZOOM, ancho / total).toFixed(3);
   }
 
-  /* Normas de la primera página, una por línea; las de los cronogramas, solo si la hoja los lleva */
+  /* Normas de la primera página, una por línea; las de los cronogramas, solo si la hoja los lleva.
+     En la hoja de examen no van las fórmulas, las reglas de empate ni lo del material: eso hay que saberlo. */
   function normas(ejs) {
-    const n = ['No se puede usar ningún material.'];
-    if (ejs.some((e) => e.tipo.gen === 'planificacion')) n.push(
-      'En cada cronograma, colorea la casilla del proceso que está en la CPU en cada unidad de tiempo y haz una raya (—) en las de los procesos que esperan en la cola.',
-      'Respuesta = fin − llegada. Espera = respuesta − ejecución. Luego, las medias.',
-      'Empates: entra el que llegó antes (FIFO). En SRTF y en prioridades expulsivo sigue el que está. En Round Robin, el que llega entra en la cola antes que el que agota su quantum.',
-      'La prioridad 1 es la más alta.');
+    const n = examen ? [] : ['No se puede usar ningún material.'];
+    if (ejs.some((e) => e.tipo.gen === 'planificacion')) {
+      n.push('Cronograma: colorea la casilla del proceso que está en la CPU y raya (—) las de los que esperan.');
+      if (!examen) n.push(
+        'Respuesta = fin − llegada. Espera = respuesta − ejecución. Luego, las medias.',
+        'Empates: entra el que llegó antes (FIFO). En SRTF y en prioridades expulsivo sigue el que está. En Round Robin, el que llega entra en la cola antes que el que agota su quantum.');
+      n.push('La prioridad 1 es la más alta.');
+    }
     return n;
   }
 
@@ -416,7 +421,7 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
 
   TIPOS.forEach((t) => {
     const l = document.createElement('label');
-    l.innerHTML = '<input type="number" min="0" max="6" id="n_' + t.k + '" value="' + t.n + '"> ' + t.t;
+    l.innerHTML = '<input type="number" min="0" max="6" id="n_' + t.k + '" value="' + t.n + '"> ' + (t.p || t.t);   // en el panel, el rótulo corto (p); en la hoja, el título entero (t)
     $('#tipos').appendChild(l);
   });
   const q = new URLSearchParams(location.search);
