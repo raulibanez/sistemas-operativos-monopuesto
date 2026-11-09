@@ -1590,7 +1590,7 @@
       <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Lo normal en un Windows 11 con el navegador abierto</p>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px">
         <div style="background:var(--bg);border-radius:16px;padding:18px 22px;text-align:center"><p style="font-size:52px;font-weight:800;color:var(--blue);line-height:1">150-300</p><p style="font-size:19px;color:var(--muted);margin-top:6px">procesos</p></div>
-        <div style="background:var(--bg);border-radius:16px;padding:18px 22px;text-align:center"><p style="font-size:52px;font-weight:800;color:var(--blue);line-height:1">2.000-5.000</p><p style="font-size:19px;color:var(--muted);margin-top:6px">subprocesos (hilos)</p></div>
+        <div style="background:var(--bg);border-radius:16px;padding:18px 22px;text-align:center"><p style="font-size:52px;font-weight:800;color:var(--blue);line-height:1">2000-5000</p><p style="font-size:19px;color:var(--muted);margin-top:6px">subprocesos (hilos)</p></div>
         <div style="background:var(--bg);border-radius:16px;padding:18px 22px;text-align:center"><p style="font-size:52px;font-weight:800;color:var(--blue);line-height:1">1-5 %</p><p style="font-size:19px;color:var(--muted);margin-top:6px">de CPU en reposo</p></div>
       </div>
       <ul style="list-style:none;padding:0;margin-top:20px;display:flex;flex-direction:column;gap:10px;font-size:21px;line-height:1.4">
@@ -1936,7 +1936,7 @@
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;margin-top:var(--gap-item);flex:1">
     <div style="background:var(--white);border-radius:24px;padding:32px 36px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;gap:14px">
       <img src="img/ia/es-sondeo.webp" alt="" style="height:100px;width:auto;align-self:flex-start">
-      <h3 style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy);line-height:1.15">Por programa <span style="font-size:20px;color:var(--muted);font-weight:600">· sondeo, PIO</span></h3>
+      <h3 style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy);line-height:1.15">Por programa <span style="font-size:20px;color:var(--muted);font-weight:600">· sondeo</span></h3>
       <p style="font-size:21px;line-height:1.45;color:var(--muted)">El procesador <b style="color:var(--ink)">pregunta</b> una y otra vez al controlador: "¿has terminado?". Mientras, no hace otra cosa.</p>
       <div style="background:var(--bg);border-radius:12px;padding:14px 18px;font-size:19px;line-height:1.4;color:var(--muted)">Sencillo de programar. Desperdicia CPU esperando a un dispositivo lento. Solo en aparatos muy simples.</div>
     </div>
@@ -1944,39 +1944,43 @@
       <img src="img/ia/es-interrupciones.webp" alt="" style="height:100px;width:auto;align-self:flex-start">
       <h3 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.15">Por interrupciones <span style="font-size:20px;color:#9FB4D9;font-weight:600">· IRQ</span></h3>
       <p style="font-size:21px;line-height:1.45;color:#E3EBF8">El procesador se olvida del dispositivo. Cuando este tiene algo, envía una señal, la <b>petición de interrupción</b> (IRQ). El procesador para, ejecuta la <b>rutina de atención</b> del driver y vuelve a lo suyo.</p>
-      <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:14px 18px;font-size:19px;line-height:1.4;color:#E3EBF8">Teclado, ratón, red: cada tecla es una interrupción. El procesador atiende miles por segundo sin despeinarse.</div>
+      <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:14px 18px;font-size:19px;line-height:1.4;color:#E3EBF8">Teclado, ratón, red: cada tecla es una interrupción. El procesador atiende miles por segundo sin problema.</div>
     </div>
     <div style="background:var(--white);border-radius:24px;padding:32px 36px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;gap:14px">
       <img src="img/ia/es-dma.webp" alt="" style="height:100px;width:auto;align-self:flex-start">
       <h3 style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy);line-height:1.15">Acceso directo a memoria <span style="font-size:20px;color:var(--muted);font-weight:600">· DMA</span></h3>
-      <p style="font-size:21px;line-height:1.45;color:var(--muted)">Para transferir mucho: el controlador <b style="color:var(--ink)">lee y escribe la memoria por su cuenta</b> por unas líneas especiales (DRQ), sin pasar por el procesador, y solo interrumpe al terminar.</p>
+      <p style="font-size:21px;line-height:1.45;color:var(--muted)">Para transferir mucho: el controlador <b style="color:var(--ink)">lee y escribe la memoria por su cuenta</b>, sin pasar por el procesador, y solo interrumpe al terminar.</p>
       <div style="background:var(--bg);border-radius:12px;padding:14px 18px;font-size:19px;line-height:1.4;color:var(--muted)">Discos, tarjeta gráfica, sonido, red: los que más datos mueven. Hoy lo usan todos; el procesador queda libre.</div>
     </div>
   </div>
-  <div style="background:var(--yellow);border-radius:16px;padding:16px 24px;margin-top:20px"><p style="font-size:20px;line-height:1.4;color:var(--navy)"><b>Verlo en tu equipo.</b> Administrador de dispositivos › Ver › Recursos por tipo › Petición de interrupción (IRQ): la lista de dispositivos y el número de interrupción de cada uno. Es el apartado 6 de la práctica 2.12.</p></div>
+  <div style="background:var(--yellow);border-radius:16px;padding:16px 24px;margin-top:20px"><p style="font-size:20px;line-height:1.4;color:var(--navy)"><b>Verlo en tu equipo.</b> Administrador de dispositivos › Ver › Recursos por tipo › Petición de interrupción (IRQ): la lista de dispositivos y el número de interrupción de cada uno.</p></div>
 </section>
 
 <!-- 68 Tabla: caching, buffering y spooling -->
 <section data-label="Caching, buffering y spooling" data-seccion="2.8" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas">Tres técnicas para que los dispositivos lentos no frenen al equipo, con los tres ejemplos de la guía. Caching: guardar en memoria rápida lo que se usa mucho o lo que acaba de usarse; el marcador de un videojuego está en memoria y no se lee del disco cada vez; la caché del navegador guarda las imágenes de las webs que visitas. Buffering: una zona intermedia de memoria para que el productor y el consumidor no tengan que ir al mismo ritmo; el vídeo de YouTube descarga por delante de lo que ves (la barra gris) y así un bache de la red no corta la reproducción. Spooling (simultaneous peripheral operation on-line): lo que va a un dispositivo lento se escribe primero en disco, en una cola, y la aplicación sigue; la cola de impresión es el ejemplo clásico: Word no se queda bloqueado mientras la impresora escupe páginas, y se pueden encolar diez documentos. La cola de impresión se administra en la UT7 y la UT10.</aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Gestión de entrada/salida</p>
-  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Que lo lento no frene lo rápido: caché, buffer y spool</h2>
-  <table style="width:100%;border-collapse:collapse;margin-top:var(--gap-item);font-size:var(--type-caption);background:var(--white);border-radius:20px;overflow:hidden">
-    <thead>
-      <tr style="background:var(--navy);color:var(--white);text-align:left">
-        <th style="padding:18px 28px;font-weight:700">Técnica</th>
-        <th style="padding:18px 28px;font-weight:700">Qué hace</th>
-        <th style="padding:18px 28px;font-weight:700">Ejemplo que ves cada día</th>
-        <th style="padding:18px 28px;font-weight:700">Dónde</th>
-      </tr>
-    </thead>
-    <tbody style="line-height:1.35">
-      <tr style="border-bottom:2px solid var(--line)"><td style="padding:18px 28px;font-weight:700;color:var(--navy)"><div style="display:flex;align-items:center;gap:16px"><img src="img/ia/caching.webp" alt="" style="width:64px;height:64px;object-fit:contain;flex:none"><div>Caching<br><span style="font-size:19px;color:var(--muted);font-weight:400">caché</span></div></div></td><td style="padding:18px 28px">Guardar en una memoria rápida lo que se usa mucho o se acaba de usar, para no ir a buscarlo al dispositivo lento cada vez. Es la idea de la jerarquía de almacenamiento (2.7).</td><td style="padding:18px 28px">El marcador de un videojuego está en la RAM, no se lee del disco en cada fotograma. El navegador guarda las imágenes de las webs que visitas.</td><td style="padding:18px 28px">En la RAM (caché de disco), en el procesador (L1-L3), en el navegador.</td></tr>
-      <tr style="border-bottom:2px solid var(--line)"><td style="padding:18px 28px;font-weight:700;color:var(--navy)"><div style="display:flex;align-items:center;gap:16px"><img src="img/ia/buffering.webp" alt="" style="width:64px;height:64px;object-fit:contain;flex:none"><div>Buffering<br><span style="font-size:19px;color:var(--muted);font-weight:400">buffer</span></div></div></td><td style="padding:18px 28px">Una zona de memoria intermedia entre quien produce y quien consume, para que no tengan que ir al mismo ritmo.</td><td style="padding:18px 28px">Un vídeo de YouTube descarga por delante de lo que ves: la barra gris. Un bache de la red no corta la reproducción.</td><td style="padding:18px 28px">Vídeo y audio, teclado, red, cualquier lectura o escritura de disco.</td></tr>
-      <tr><td style="padding:18px 28px;font-weight:700;color:var(--navy)"><div style="display:flex;align-items:center;gap:16px"><img src="img/ia/spooling.webp" alt="" style="width:64px;height:64px;object-fit:contain;flex:none"><div>Spooling<br><span style="font-size:19px;color:var(--muted);font-weight:400">cola en disco</span></div></div></td><td style="padding:18px 28px">Lo que va a un dispositivo lento se escribe primero en disco, en una cola, y la aplicación sigue con lo suyo. Un proceso del sistema va vaciando la cola.</td><td style="padding:18px 28px">La cola de impresión: Word no se queda bloqueado mientras la impresora saca las páginas, y puedes mandar diez documentos seguidos.</td><td style="padding:18px 28px">Impresión (el servicio "Cola de impresión"), correo saliente, trabajos por lotes.</td></tr>
-    </tbody>
-  </table>
-  <p style="font-size:20px;color:var(--muted);margin-top:20px;line-height:1.4">Tabla 2.10. Tres técnicas para mejorar el rendimiento de la entrada/salida. Las tres usan memoria como intermediaria; cambia quién espera a quién.</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Que lo lento no frene lo rápido</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;margin-top:var(--gap-title);flex:1">
+    <div style="background:var(--white);box-shadow:0 2px 0 var(--line);border-radius:24px;padding:30px 34px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:center;gap:18px"><img src="img/ia/caching.webp" alt="" style="width:84px;height:84px;object-fit:contain;flex:none"><h3 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.1;color:var(--navy)">Caching<br><span style="font-size:20px;font-weight:600;color:var(--muted)">caché</span></h3></div>
+      <p style="font-size:var(--type-caption);line-height:1.4;color:var(--ink)">Guarda <b>cerca</b> lo que se usa mucho, para no ir a buscarlo cada vez.</p>
+      <p style="font-size:19px;line-height:1.45;color:#8A93A6">El ordenador guarda una copia de lo que acabas de usar en un sitio más rápido: la memoria RAM, la caché del procesador o una carpeta del navegador. Si lo vuelves a pedir, lo coge de ahí y no espera al disco ni a internet. Funciona porque repetimos mucho: las mismas webs, los mismos programas, los mismos archivos.</p>
+      <div style="margin-top:auto;background:var(--bg);border-radius:14px;padding:14px 18px;font-size:20px;line-height:1.4;color:var(--muted)"><b style="color:var(--navy)">Ejemplo.</b> Una web carga al momento la segunda vez: el navegador guardó sus imágenes.</div>
+    </div>
+    <div style="background:var(--navy);color:var(--white);border-radius:24px;padding:30px 34px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:center;gap:18px"><img src="img/ia/buffering.webp" alt="" style="width:84px;height:84px;object-fit:contain;flex:none"><h3 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.1;">Buffering<br><span style="font-size:20px;font-weight:600;color:#9FB4D9">buffer</span></h3></div>
+      <p style="font-size:var(--type-caption);line-height:1.4;color:#E3EBF8">Una <b>reserva</b> entre quien envía y quien recibe, para que no tengan que ir al mismo ritmo.</p>
+      <p style="font-size:19px;line-height:1.45;color:#9FB4D9">La red no llega siempre igual: a ratos va rápida y a ratos se para. El vídeo, en cambio, necesita imágenes sin pausas. El buffer es una zona de memoria donde se van juntando los datos que llegan, y de ahí el reproductor los va sacando a su ritmo. Si la red se para un momento, tira de lo que ya tiene guardado.</p>
+      <div style="margin-top:auto;background:rgba(255,255,255,.08);border-radius:14px;padding:14px 18px;font-size:20px;line-height:1.4;color:#E3EBF8"><b style="color:var(--yellow)">Ejemplo.</b> YouTube descarga por delante (la barra gris): si la red da un bache, el vídeo no se corta.</div>
+    </div>
+    <div style="background:var(--white);box-shadow:0 2px 0 var(--line);border-radius:24px;padding:30px 34px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:center;gap:18px"><img src="img/ia/spooling.webp" alt="" style="width:84px;height:84px;object-fit:contain;flex:none"><h3 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.1;color:var(--navy)">Spooling<br><span style="font-size:20px;font-weight:600;color:var(--muted)">cola en el disco</span></h3></div>
+      <p style="font-size:var(--type-caption);line-height:1.4;color:var(--ink)">Pone el trabajo en una <b>cola</b> y el programa sigue: no espera al aparato lento.</p>
+      <p style="font-size:19px;line-height:1.45;color:#8A93A6">La impresora es lentísima comparada con el ordenador. En vez de esperarla, el documento se guarda en una cola en el disco, y un servicio del sistema se lo va pasando a la impresora poco a poco. Así sigues trabajando, y puedes mandar varios documentos seguidos: se imprimen por orden de llegada.</p>
+      <div style="margin-top:auto;background:var(--bg);border-radius:14px;padding:14px 18px;font-size:20px;line-height:1.4;color:var(--muted)"><b style="color:var(--navy)">Ejemplo.</b> Mandas imprimir y sigues usando Word mientras la impresora saca las hojas.</div>
+    </div>
+  </div>
 </section>
 
 <!-- 69 Texto: planificación del disco (algoritmo del ascensor) -->
@@ -2011,7 +2015,7 @@
     <div class="revela-cuerpo">
       <p style="font-size:var(--type-caption);font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Porque funciona por interrupciones</p>
       <ul style="list-style:none;padding:0;margin-top:16px;display:flex;flex-direction:column;gap:12px;font-size:21px;line-height:1.4">
-        <li style="display:flex;gap:14px"><span style="color:var(--yellow);font-weight:800">●</span><span>El sensor del ratón envía su posición entre <b>125 y 1.000 veces por segundo</b>. Cada envío es una interrupción.</span></li>
+        <li style="display:flex;gap:14px"><span style="color:var(--yellow);font-weight:800">●</span><span>El sensor del ratón envía su posición entre <b>125 y 1000 veces por segundo</b>. Cada envío es una interrupción.</span></li>
         <li style="display:flex;gap:14px"><span style="color:var(--yellow);font-weight:800">●</span><span>El procesador la atiende en <b>microsegundos</b>: lee dos números, actualiza el puntero y vuelve a lo que estaba haciendo. El resto del tiempo ni se acuerda del ratón.</span></li>
         <li style="display:flex;gap:14px"><span style="color:var(--yellow);font-weight:800">●</span><span>Si funcionara por <b>sondeo</b>, un núcleo entero estaría preguntando "¿te has movido?" millones de veces por segundo.</span></li>
       </ul>
@@ -2140,11 +2144,10 @@
         <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 22px;font-weight:700;color:var(--navy)">Fechas</td><td style="padding:11px 22px">Creación, última modificación y último acceso.</td></tr>
         <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 22px;font-weight:700;color:var(--navy)">Propietario</td><td style="padding:11px 22px">El usuario dueño del archivo; en Linux, también un grupo.</td></tr>
         <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 22px;font-weight:700;color:var(--navy)">Permisos</td><td style="padding:11px 22px">Quién puede leer, escribir y ejecutar (siguiente diapositiva).</td></tr>
-        <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 22px;font-weight:700;color:var(--navy)">Atributos de Windows</td><td style="padding:11px 22px"><b>R</b> solo lectura, <b>H</b> oculto, <b>S</b> de sistema, <b>A</b> modificado desde la última copia. Orden <span style="font-family:var(--mono);font-size:19px">attrib</span>.</td></tr>
-        <tr><td style="padding:11px 22px;font-weight:700;color:var(--navy)">Ubicación física</td><td style="padding:11px 22px">En qué bloques del disco está: no tienen por qué ser contiguos.</td></tr>
+        <tr><td style="padding:11px 22px;font-weight:700;color:var(--navy)">Atributos de Windows</td><td style="padding:11px 22px"><b>R</b> solo lectura, <b>H</b> oculto, <b>S</b> de sistema, <b>A</b> modificado desde la última copia. Orden <span style="font-family:var(--mono);font-size:19px">attrib</span>.</td></tr>
       </tbody>
     </table>
-    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Tabla 2.11. Atributos de un archivo. Un directorio tiene los mismos, salvo que su "contenido" es la lista de lo que hay dentro.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.35;margin-top:12px">Tabla 2.10. Atributos de un archivo. Un directorio tiene los mismos, salvo que su "contenido" es la lista de lo que hay dentro.</p>
   </div>
   <div style="display:flex;flex-direction:column;justify-content:center;gap:16px;min-width:0">
     <div style="background:var(--white);border:2px solid var(--line);border-radius:14px;overflow:hidden;font-size:19px;box-shadow:0 8px 24px rgba(21,53,107,.12)">
@@ -2153,8 +2156,8 @@
         <span style="color:var(--muted)">Tipo de archivo:</span><span>Documento de Microsoft Word (.docx)</span>
         <span style="color:var(--muted)">Se abre con:</span><span>Word</span>
         <span style="color:var(--muted)">Ubicación:</span><span style="font-family:var(--mono);font-size:17px">C:\Users\ana\Documentos</span>
-        <span style="color:var(--muted)">Tamaño:</span><span>47,0 KB (48.120 bytes)</span>
-        <span style="color:var(--muted)">Tamaño en disco:</span><span>48,0 KB (49.152 bytes)</span>
+        <span style="color:var(--muted)">Tamaño:</span><span>47,0 KB (48120 bytes)</span>
+        <span style="color:var(--muted)">Tamaño en disco:</span><span>48,0 KB (49152 bytes)</span>
         <span style="color:var(--muted)">Creado:</span><span>viernes, 12 de septiembre de 2026, 10:04</span>
         <span style="color:var(--muted)">Modificado:</span><span>viernes, 12 de septiembre de 2026, 11:37</span>
         <span style="color:var(--muted)">Último acceso:</span><span>hoy, 8:52</span>
@@ -2162,7 +2165,7 @@
       </div>
     </div>
     <div style="background:#0B1F44;border-radius:12px;padding:14px 18px;font-family:var(--mono);font-size:18px;color:#E3EBF8;line-height:1.5"><span style="color:#1E8E5A">ana@aula:~$</span> ls -l Documentos/examen.docx<br>-rw-r--r-- 1 ana ana 48120 sep 12 11:37 Documentos/examen.docx</div>
-    <p style="font-size:19px;color:var(--muted);line-height:1.4">Maquetas de elaboración propia. Fíjate: 48.120 bytes de tamaño, 49.152 en disco (12 bloques de 4.096). En Linux, la misma información en una línea: permisos, propietario, grupo, tamaño y fecha.</p>
+    <p style="font-size:19px;color:var(--muted);line-height:1.4">Maquetas de elaboración propia. Fíjate: el tamaño en disco es algo mayor que el tamaño. En Linux, todo en una línea.</p>
   </div>
 </section>
 
@@ -2213,26 +2216,26 @@
   <aside class="notas">Las operaciones más comunes, que son las llamadas al sistema que ofrece cualquier sistema operativo. Con archivos: crear, abrir, leer, escribir, cerrar, borrar, renombrar, copiar, mover y consultar atributos. Con directorios: crear, entrar (cambiar el directorio actual), salir, listar el contenido, borrar (solo si está vacío, o con todo lo de dentro), y añadir o quitar entradas, que es lo que pasa cuando creas o borras un archivo dentro. Dos matices importantes para un técnico: enviar a la papelera no es borrar, el archivo solo se mueve a una carpeta especial y sigue ocupando sitio; y borrar de verdad tampoco destruye el contenido, solo marca sus bloques como libres, hasta que otro archivo los sobrescriba; por eso se puede recuperar y por eso, para destruir de verdad, hay que sobrescribir o cifrar. En la terminal, cada operación es una orden: se ven en la UT5 y la UT9.</aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Archivos y sistemas de archivos</p>
   <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Operaciones con archivos y directorios</h2>
-  <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:40px;margin-top:var(--gap-item);flex:1;align-items:start">
-    <table style="width:100%;border-collapse:collapse;font-size:21px;background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 2px 0 var(--line)">
-      <thead><tr style="background:var(--navy);color:var(--white);text-align:left"><th style="padding:14px 22px;font-weight:700">Operación</th><th style="padding:14px 22px;font-weight:700">Con archivos</th><th style="padding:14px 22px;font-weight:700">Con directorios</th><th style="padding:14px 22px;font-weight:700">Terminal (Windows · Linux)</th></tr></thead>
+  <div style="display:grid;grid-template-columns:1.25fr 1fr;gap:48px;margin-top:var(--gap-item);flex:1;align-items:start">
+    <table style="width:100%;border-collapse:collapse;font-size:22px;background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 2px 0 var(--line)">
+      <thead><tr style="background:var(--navy);color:var(--white);text-align:left"><th style="padding:14px 24px;font-weight:700">Operación</th><th style="padding:14px 24px;font-weight:700">Qué hace</th></tr></thead>
       <tbody style="line-height:1.35">
-        <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 22px;font-weight:700;color:var(--navy)">Crear</td><td style="padding:11px 22px">Un archivo nuevo, vacío o con contenido</td><td style="padding:11px 22px">Un directorio nuevo</td><td style="padding:11px 22px;font-family:var(--mono);font-size:18px">mkdir · mkdir</td></tr>
-        <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 22px;font-weight:700;color:var(--navy)">Abrir y cerrar</td><td style="padding:11px 22px">Antes y después de usarlo; el sistema comprueba permisos al abrir</td><td style="padding:11px 22px">Entrar y salir (cambiar el directorio actual)</td><td style="padding:11px 22px;font-family:var(--mono);font-size:18px">cd · cd</td></tr>
-        <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 22px;font-weight:700;color:var(--navy)">Leer</td><td style="padding:11px 22px">Traer su contenido a memoria</td><td style="padding:11px 22px">Listar lo que contiene</td><td style="padding:11px 22px;font-family:var(--mono);font-size:18px">type, dir · cat, ls</td></tr>
-        <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 22px;font-weight:700;color:var(--navy)">Escribir</td><td style="padding:11px 22px">Cambiar o añadir contenido</td><td style="padding:11px 22px">Añadir o quitar entradas (crear o borrar cosas dentro)</td><td style="padding:11px 22px;font-family:var(--mono);font-size:18px">echo &gt; · echo &gt;</td></tr>
-        <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 22px;font-weight:700;color:var(--navy)">Copiar y mover</td><td style="padding:11px 22px">Duplicar; cambiar de sitio o de nombre</td><td style="padding:11px 22px">Con todo su contenido</td><td style="padding:11px 22px;font-family:var(--mono);font-size:18px">copy, move · cp, mv</td></tr>
-        <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 22px;font-weight:700;color:var(--navy)">Borrar</td><td style="padding:11px 22px">Marcar sus bloques como libres</td><td style="padding:11px 22px">Solo si está vacío, o con todo lo de dentro</td><td style="padding:11px 22px;font-family:var(--mono);font-size:18px">del, rmdir · rm, rmdir</td></tr>
-        <tr><td style="padding:11px 22px;font-weight:700;color:var(--navy)">Consultar atributos</td><td style="padding:11px 22px">Tamaño, fechas, permisos</td><td style="padding:11px 22px">Igual</td><td style="padding:11px 22px;font-family:var(--mono);font-size:18px">attrib · ls -l, stat</td></tr>
-      </tbody>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:13px 24px;font-weight:800;color:var(--navy);white-space:nowrap">Crear</td><td style="padding:13px 24px">Hacer un archivo o una carpeta nuevos.</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:13px 24px;font-weight:800;color:var(--navy);white-space:nowrap">Abrir y cerrar</td><td style="padding:13px 24px">Antes y después de usarlo. Al abrir, se miran los permisos.</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:13px 24px;font-weight:800;color:var(--navy);white-space:nowrap">Leer</td><td style="padding:13px 24px">Traer su contenido a la memoria.</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:13px 24px;font-weight:800;color:var(--navy);white-space:nowrap">Escribir</td><td style="padding:13px 24px">Cambiar o añadir contenido.</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:13px 24px;font-weight:800;color:var(--navy);white-space:nowrap">Copiar y mover</td><td style="padding:13px 24px">Duplicarlo, o cambiarlo de sitio o de nombre.</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:13px 24px;font-weight:800;color:var(--navy);white-space:nowrap">Borrar</td><td style="padding:13px 24px">Quitarlo de la tabla: sus bloques quedan libres.</td></tr>
+        <tr><td style="padding:13px 24px;font-weight:800;color:var(--navy);white-space:nowrap">Consultar atributos</td><td style="padding:13px 24px">Ver su tamaño, sus fechas y sus permisos.</td></tr>
+        </tbody>
     </table>
     <div style="display:flex;flex-direction:column;gap:16px">
-      <div style="background:var(--navy);color:var(--white);border-radius:20px;padding:26px 30px">
+      <div style="background:var(--navy);color:var(--white);border-radius:20px;padding:28px 32px">
         <p style="font-size:var(--type-caption);font-weight:800;color:var(--yellow)">Dos cosas que un técnico tiene claras</p>
-        <p style="font-size:20px;line-height:1.45;color:#E3EBF8;margin-top:10px"><b>Enviar a la papelera no es borrar.</b> El archivo solo se mueve a una carpeta especial y sigue ocupando sitio hasta que la vacías.</p>
-        <p style="font-size:20px;line-height:1.45;color:#E3EBF8;margin-top:10px"><b>Borrar no destruye.</b> Solo se marcan sus bloques como libres; el contenido sigue en el disco hasta que otro archivo lo sobrescribe. Por eso se puede recuperar. Para destruir de verdad: sobrescribir o cifrar.</p>
+        <p style="font-size:21px;line-height:1.45;color:#E3EBF8;margin-top:12px"><b>Enviar a la papelera no es borrar.</b> El archivo solo cambia de carpeta y sigue ocupando sitio hasta que la vacías.</p>
+        <p style="font-size:21px;line-height:1.45;color:#E3EBF8;margin-top:12px"><b>Borrar no destruye.</b> El contenido sigue en el disco hasta que otro archivo se escribe encima. Por eso se puede recuperar.</p>
       </div>
-      <p style="font-size:19px;color:var(--muted);line-height:1.35">Tabla 2.12. Operaciones más comunes. Cada una es una llamada al sistema; en la terminal, una orden.</p>
+      <p style="font-size:19px;color:var(--muted);line-height:1.35">Tabla 2.11. Operaciones más comunes. Valen igual para archivos y para directorios.</p>
     </div>
   </div>
 </section>
@@ -2266,7 +2269,7 @@
       <tr><td style="background:var(--bg);border:hidden"></td><td style="padding:11px 22px;font-weight:700;color:var(--navy)">ISO 9660 · UDF</td><td style="padding:11px 22px">Norma ISO</td><td style="padding:11px 22px">4 GiB · sin límite</td><td style="padding:11px 22px;text-align:center;color:var(--ko)">✗</td><td style="padding:11px 22px;text-align:center;color:var(--ko)">✗</td><td style="padding:11px 22px">CD, DVD y Blu-ray</td></tr>
     </tbody>
   </table>
-  <p style="font-size:20px;color:var(--muted);margin-top:16px;line-height:1.4">Tabla 2.13. Sistemas de archivos actuales. Un pendrive "de 64 GB" en FAT32 no admite un archivo de 5 GiB: no es el espacio, es el sistema de archivos.</p>
+  <p style="font-size:20px;color:var(--muted);margin-top:16px;line-height:1.4">Tabla 2.12. Sistemas de archivos actuales. Un pendrive "de 64 GB" en FAT32 no admite un archivo de 5 GiB: no es el espacio, es el sistema de archivos.</p>
 </section>
 
 <!-- 79 Tabla: quién lee qué -->
@@ -2293,70 +2296,44 @@
     </tbody>
   </table>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:20px">
-    <p style="font-size:20px;color:var(--muted);line-height:1.4">Tabla 2.14. Compatibilidad sin instalar nada extra. Linux lee NTFS con su propio driver desde 2021; macOS lo lee pero no lo escribe; Windows no ve una partición ext4 salvo que uses el subsistema de Linux (WSL).</p>
+    <p style="font-size:20px;color:var(--muted);line-height:1.4">Tabla 2.13. Compatibilidad sin instalar nada extra. Linux lee NTFS con su propio driver desde 2021; macOS lo lee pero no lo escribe; Windows no ve una partición ext4 salvo que uses el subsistema de Linux (WSL).</p>
     <div style="background:var(--yellow);border-radius:16px;padding:16px 24px;font-size:20px;line-height:1.4;color:var(--navy)"><b>Regla práctica.</b> Para el disco del sistema, el nativo de cada uno: NTFS, ext4, APFS. Para un disco o pendrive que va a viajar entre sistemas y aparatos, <b>exFAT</b> (o FAT32 si son archivos pequeños y aparatos antiguos).</div>
   </div>
 </section>
 
 <!-- 80 Texto: transacciones y journaling -->
-<section data-label="Transacciones y journaling" data-seccion="2.9" style="display:grid;grid-template-columns:1fr 1.1fr;gap:72px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
-  <aside class="notas">Criterio j del BOCYL: sistemas transaccionales. El problema: escribir un archivo son varias operaciones (reservar bloques, escribir el contenido, actualizar la tabla, el directorio, las fechas). Además, el sistema no escribe al instante: guarda en la RAM y escribe después, agrupando (caché de escritura); por eso apagar del botón puede dejar un archivo a medias, y por eso existe Quitar hardware con seguridad, que vacía esa caché antes de desconectar. Windows 11 ya configura los pendrives con quitado rápido (sin caché de escritura), pero un disco externo de copias sí la usa. Si se va la luz a mitad, el sistema de archivos queda incoherente: bloques ocupados que no son de nadie, directorios que apuntan a nada; hay que revisarlo entero al arrancar (chkdsk en Windows, fsck en Linux), que en un disco grande tarda mucho. Una transacción es un grupo de operaciones que o se hacen todas o no se hace ninguna. El journaling lo consigue apuntando primero en un diario (journal) lo que se va a hacer; luego se hace; y al terminar se marca como hecho. Al arrancar tras un corte, el sistema lee el diario: lo que estaba a medias se repite o se deshace, en segundos. Lo tienen NTFS, ext3 y ext4, APFS; no lo tienen FAT y exFAT. Copia al escribir (Btrfs, APFS, ReFS): nunca se sobrescribe un bloque en uso, se escribe uno nuevo y se cambia el puntero; permite instantáneas. Criterio de selección: el disco del sistema y el de trabajo, siempre con journaling; un pendrive puede ir sin él, pero por eso conviene quitarlo con seguridad.</aside>
+<section data-label="Transacciones y journaling" data-seccion="2.9" style="display:grid;grid-template-columns:1fr 1.3fr;gap:64px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:center">
+  <aside class="notas">Animación: pulsar el botón. Los dos discos guardan foto.jpg (bloques 2, 5 y 9, como en Cómo se organiza el disco) y se va la luz antes de apuntarla en la tabla. Sin diario: al encender no sabe qué pasó, revisa el disco entero (chkdsk, fsck) y los bloques de la foto se quedan sin dueño hasta que la revisión los libera: la foto se pierde. Con diario: lee la entrada a medias y la deshace en un momento. Criterio j del BOCYL: sistemas transaccionales. El problema: escribir un archivo son varias operaciones (reservar bloques, escribir el contenido, actualizar la tabla, el directorio, las fechas). Además, el sistema no escribe al instante: guarda en la RAM y escribe después, agrupando (caché de escritura); por eso apagar del botón puede dejar un archivo a medias, y por eso existe Quitar hardware con seguridad, que vacía esa caché antes de desconectar. Windows 11 ya configura los pendrives con quitado rápido (sin caché de escritura), pero un disco externo de copias sí la usa. Si se va la luz a mitad, el sistema de archivos queda incoherente: bloques ocupados que no son de nadie, directorios que apuntan a nada; hay que revisarlo entero al arrancar (chkdsk en Windows, fsck en Linux), que en un disco grande tarda mucho. Una transacción es un grupo de operaciones que o se hacen todas o no se hace ninguna. El journaling lo consigue apuntando primero en un diario (journal) lo que se va a hacer; luego se hace; y al terminar se marca como hecho. Al arrancar tras un corte, el sistema lee el diario: lo que estaba a medias se repite o se deshace, en segundos. Lo tienen NTFS, ext3 y ext4, APFS; no lo tienen FAT y exFAT. Copia al escribir (Btrfs, APFS, ReFS): nunca se sobrescribe un bloque en uso, se escribe uno nuevo y se cambia el puntero; permite instantáneas. Criterio de selección: el disco del sistema y el de trabajo, siempre con journaling; un pendrive puede ir sin él, pero por eso conviene quitarlo con seguridad.</aside>
   <div>
     <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Archivos y sistemas de archivos</p>
-    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Transacciones y journaling: si se va la luz</h2>
-    <p style="font-size:22px;line-height:1.45;color:var(--muted);margin-top:var(--gap-item)">Guardar un archivo son varias operaciones: reservar bloques, escribir el contenido, actualizar la tabla y el directorio. Y el sistema no las hace al instante: las apunta en la RAM y las escribe un poco después, todas juntas (<b style="color:var(--navy)">caché de escritura</b>). Si se va la luz o apagas con el botón, lo que estaba en la caché no llega al disco y el sistema de archivos queda <b style="color:var(--navy)">incoherente</b>: bloques ocupados que no son de nadie, entradas que apuntan a nada.</p>
-    <ul style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:12px;font-size:21px;line-height:1.4">
-      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Sin diario</b> (FAT, exFAT): al arrancar hay que revisar el disco entero (<span style="font-family:var(--mono);font-size:19px">chkdsk</span>, <span style="font-family:var(--mono);font-size:19px">fsck</span>). En un disco grande, mucho rato, y lo que estaba a medias se pierde.</span></li>
-      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Transacción</b>: un grupo de operaciones que se hacen todas o ninguna. Es lo que garantiza un sistema <b>transaccional</b>.</span></li>
-      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Journaling</b>: antes de tocar nada se apunta en un diario lo que se va a hacer; se hace; se marca como hecho. Tras un corte, el diario dice qué estaba a medias y se repite o se deshace <b>en segundos</b>. NTFS, ext3 y ext4, APFS.</span></li>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Journaling: si se va la luz</h2>
+    <ul style="list-style:none;padding:0;margin-top:var(--gap-item);display:flex;flex-direction:column;gap:18px;font-size:var(--type-caption);line-height:1.4">
+      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span>Guardar un archivo son <b>varios pasos</b>: escribir sus bloques y apuntarlos en la tabla.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span>Si se va la luz a mitad, el disco queda <b>a medias</b>: bloques que no son de nadie.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Transacción</b>: los pasos se hacen todos o ninguno.</span></li>
+      <li style="display:flex;gap:16px"><span style="color:var(--yellow);font-weight:800">●</span><span><b>Journaling</b> (diario): antes de empezar, el sistema apunta lo que va a hacer. Si se corta, el diario dice qué quedó a medias.</span></li>
     </ul>
+    <div style="background:var(--yellow);border-radius:16px;padding:14px 22px;margin-top:var(--gap-item)"><p style="font-size:20px;line-height:1.4;color:var(--navy)">El sistema tampoco escribe al instante: por eso, con un pendrive, usa <b>«Quitar hardware con seguridad»</b>.</p></div>
   </div>
-  <div style="display:flex;flex-direction:column;gap:18px">
-    <div style="background:var(--white);border-radius:20px;padding:24px 30px;box-shadow:0 2px 0 var(--line)">
-      <p style="font-size:var(--type-caption);font-weight:800;color:var(--navy)">Cómo funciona el diario</p>
-      <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-top:14px;font-size:19px;line-height:1.3;text-align:center">
-        <div style="background:var(--navy);color:var(--white);border-radius:12px;padding:14px 12px"><b>1. Apuntar</b><br><span style="color:#C9D6EE">en el diario: "voy a escribir los bloques 2, 3 y 10 de foto.jpg"</span></div><span style="font-size:28px;color:var(--yellow);font-weight:800">→</span>
-        <div style="background:var(--blue);color:var(--white);border-radius:12px;padding:14px 12px"><b>2. Hacer</b><br><span style="color:#E3EBF8">escribir de verdad bloques, tabla y directorio</span></div><span style="font-size:28px;color:var(--yellow);font-weight:800">→</span>
-        <div style="background:var(--ok);color:var(--white);border-radius:12px;padding:14px 12px"><b>3. Cerrar</b><br><span style="color:#E3EBF8">marcar la transacción como completada</span></div>
-      </div>
-      <p style="font-size:19px;line-height:1.4;color:var(--muted);margin-top:12px">Si se va la luz entre 1 y 3, al arrancar el diario dice qué quedó a medias: se repite (si estaba apuntado) o se deshace. El disco vuelve a estar coherente sin revisarlo entero.</p>
-    </div>
-    <div style="background:var(--navy);color:var(--white);border-radius:20px;padding:22px 30px">
-      <p style="font-size:20px;line-height:1.45;color:#E3EBF8"><b style="color:var(--yellow)">Copia al escribir</b> (Btrfs, APFS, ReFS) va un paso más allá: nunca sobrescribe un bloque en uso, escribe uno nuevo y cambia el puntero. Permite <b>instantáneas</b>: volver al estado de ayer en un segundo.</p>
-    </div>
-    <div style="background:var(--yellow);border-radius:16px;padding:14px 22px"><p style="font-size:20px;line-height:1.4;color:var(--navy)"><b>Al elegir:</b> el disco del sistema y el de trabajo, siempre con journaling. Un pendrive puede ir sin él; por eso hay que quitarlo con seguridad: <b>«Quitar hardware con seguridad»</b> escribe antes en el disco lo que quedaba en la caché.</p></div>
-  </div>
+  <div class="diario"></div>
 </section>
 
 <!-- 81 Pasos: elegir un sistema de archivos -->
-<section data-label="Elegir un sistema de archivos" data-seccion="2.9" style="display:grid;grid-template-columns:1fr 1.2fr;gap:64px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+<section data-label="Elegir un sistema de archivos" data-seccion="2.9" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
   <aside class="notas">Selección de un sistema de archivos (BOCYL). Cuatro preguntas en orden: qué sistemas y aparatos lo van a leer (si son varios, FAT32 o exFAT); si habrá archivos mayores de 4 GiB (descarta FAT32); si hacen falta permisos y seguridad (NTFS, ext4, APFS); si es el disco del sistema o de trabajo (journaling obligatorio). Casos: disco de Windows, NTFS; disco de Ubuntu, ext4; pendrive para la tele y el coche, FAT32 o exFAT según el aparato; tarjeta de una cámara, lo que pida la cámara, normalmente FAT32 hasta 32 GB y exFAT a partir de 64; disco externo entre Windows y Mac, exFAT; disco de copias de seguridad para Windows, NTFS; DVD, UDF; instalar Windows en una partición y Linux en otra, cada uno con el suyo y una partición exFAT o NTFS para compartir datos. Es el ejercicio interactivo siguiente.</aside>
-  <div style="display:flex;flex-direction:column;min-width:0">
-    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Archivos y sistemas de archivos</p>
-    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Cómo elegir el sistema de archivos</h2>
-    <p style="font-size:var(--type-caption);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Cuatro preguntas, en este orden:</p>
-    <div style="display:flex;flex-direction:column;gap:14px;margin-top:18px">
-      <div style="display:flex;gap:18px;align-items:flex-start"><span style="width:48px;height:48px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">1</span><div><p style="font-size:21px;font-weight:700;color:var(--navy)">¿Qué sistemas y aparatos lo van a leer?</p><p style="font-size:19px;color:var(--muted);line-height:1.4;margin-top:2px">Si son varios (Windows, Mac, la tele, el coche), FAT32 o exFAT. Si es uno solo, su nativo.</p></div></div>
-      <div style="display:flex;gap:18px;align-items:flex-start"><span style="width:48px;height:48px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">2</span><div><p style="font-size:21px;font-weight:700;color:var(--navy)">¿Habrá archivos de más de 4 GiB?</p><p style="font-size:19px;color:var(--muted);line-height:1.4;margin-top:2px">Un vídeo largo, una imagen de disco. Entonces FAT32 queda descartado: exFAT.</p></div></div>
-      <div style="display:flex;gap:18px;align-items:flex-start"><span style="width:48px;height:48px;border-radius:50%;background:var(--blue);color:var(--white);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">3</span><div><p style="font-size:21px;font-weight:700;color:var(--navy)">¿Hacen falta permisos y seguridad?</p><p style="font-size:19px;color:var(--muted);line-height:1.4;margin-top:2px">Varios usuarios, datos personales, cifrado: NTFS, ext4 o APFS.</p></div></div>
-      <div style="display:flex;gap:18px;align-items:flex-start"><span style="width:48px;height:48px;border-radius:50%;background:var(--yellow);color:var(--navy);display:grid;place-items:center;font-size:20px;font-weight:800;flex:none">4</span><div><p style="font-size:21px;font-weight:700;color:var(--navy)">¿Es el disco del sistema o de trabajo?</p><p style="font-size:19px;color:var(--muted);line-height:1.4;margin-top:2px">Entonces journaling obligatorio: NTFS, ext4, APFS. Nunca FAT.</p></div></div>
-    </div>
-  </div>
-  <div style="display:flex;flex-direction:column;justify-content:center;min-width:0">
-    <table style="width:100%;border-collapse:collapse;font-size:21px;background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 2px 0 var(--line)">
-      <thead><tr style="background:var(--navy);color:var(--white);text-align:left"><th style="padding:14px 24px;font-weight:700">Caso</th><th style="padding:14px 24px;font-weight:700">Elección</th><th style="padding:14px 24px;font-weight:700">Por qué</th></tr></thead>
-      <tbody style="line-height:1.3">
-        <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 24px">Disco donde se instala Windows</td><td style="padding:11px 24px;font-weight:800;color:var(--navy)">NTFS</td><td style="padding:11px 24px;color:var(--muted)">Nativo, permisos, journaling</td></tr>
-        <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 24px">Disco donde se instala Ubuntu</td><td style="padding:11px 24px;font-weight:800;color:var(--navy)">ext4</td><td style="padding:11px 24px;color:var(--muted)">Nativo, permisos, journaling</td></tr>
-        <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 24px">Pendrive para la tele, el coche o el aula</td><td style="padding:11px 24px;font-weight:800;color:var(--navy)">FAT32 o exFAT</td><td style="padding:11px 24px;color:var(--muted)">Lo lee todo; exFAT si hay archivos grandes</td></tr>
-        <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 24px">Tarjeta de una cámara o una consola</td><td style="padding:11px 24px;font-weight:800;color:var(--navy)">Lo que pida el aparato</td><td style="padding:11px 24px;color:var(--muted)">Suele ser FAT32 hasta 32 GB y exFAT desde 64 GB</td></tr>
-        <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 24px">Disco externo entre un Windows y un Mac</td><td style="padding:11px 24px;font-weight:800;color:var(--navy)">exFAT</td><td style="padding:11px 24px;color:var(--muted)">Los dos escriben; NTFS en Mac es solo lectura</td></tr>
-        <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 24px">Disco externo de copias de un Windows</td><td style="padding:11px 24px;font-weight:800;color:var(--navy)">NTFS</td><td style="padding:11px 24px;color:var(--muted)">Conserva permisos, archivos grandes, journaling</td></tr>
-        <tr style="border-bottom:2px solid var(--line)"><td style="padding:11px 24px">Windows y Linux en el mismo equipo</td><td style="padding:11px 24px;font-weight:800;color:var(--navy)">NTFS + ext4 (+ exFAT)</td><td style="padding:11px 24px;color:var(--muted)">Cada sistema con el suyo; una partición común para datos</td></tr>
-        <tr><td style="padding:11px 24px">DVD o Blu-ray grabado</td><td style="padding:11px 24px;font-weight:800;color:var(--navy)">UDF</td><td style="padding:11px 24px;color:var(--muted)">La norma de los discos ópticos</td></tr>
-      </tbody>
-    </table>
-  </div>
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Archivos y sistemas de archivos</p>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Cómo elegir el sistema de archivos</h2>
+  <p style="font-size:var(--type-small);line-height:1.5;color:var(--muted);margin-top:var(--gap-item)">Pregúntate <b style="color:var(--navy)">quién lo va a leer</b> y <b style="color:var(--navy)">qué vas a guardar</b>.</p>
+  <table style="width:100%;border-collapse:collapse;margin-top:var(--gap-item);font-size:var(--type-caption);background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 2px 0 var(--line)">
+    <thead><tr style="background:var(--navy);color:var(--white);text-align:left"><th style="padding:15px 28px;font-weight:700">Para…</th><th style="padding:15px 28px;font-weight:700">Elige</th><th style="padding:15px 28px;font-weight:700">Por qué</th></tr></thead>
+    <tbody style="line-height:1.3">
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:16px 28px">El disco donde se instala Windows</td><td style="padding:16px 28px;font-weight:800;color:var(--navy);font-size:26px">NTFS</td><td style="padding:16px 28px;color:var(--muted)">Su sistema nativo</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:16px 28px">El disco donde se instala Ubuntu</td><td style="padding:16px 28px;font-weight:800;color:var(--navy);font-size:26px">ext4</td><td style="padding:16px 28px;color:var(--muted)">Su sistema nativo</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:16px 28px">Un pendrive para la tele o el coche</td><td style="padding:16px 28px;font-weight:800;color:var(--navy);font-size:26px">FAT32</td><td style="padding:16px 28px;color:var(--muted)">Lo lee todo</td></tr>
+        <tr style="border-bottom:2px solid var(--line)"><td style="padding:16px 28px">Un pendrive o disco con archivos de más de 4 GiB</td><td style="padding:16px 28px;font-weight:800;color:var(--navy);font-size:26px">exFAT</td><td style="padding:16px 28px;color:var(--muted)">FAT32 no los admite</td></tr>
+        <tr><td style="padding:16px 28px">Un disco externo entre Windows y Mac</td><td style="padding:16px 28px;font-weight:800;color:var(--navy);font-size:26px">exFAT</td><td style="padding:16px 28px;color:var(--muted)">Los dos pueden escribir</td></tr>
+        </tbody>
+  </table>
 </section>
 
 <!-- 83 Pregunta: qué sistemas de archivos tiene tu ordenador -->
@@ -2436,7 +2413,7 @@
 
 <!-- 86 Comparativa: seguridad lógica y física -->
 <section data-label="Seguridad lógica y física" data-seccion="2.10" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
-  <aside class="notas">Seguridad lógica: los mecanismos software para proteger el sistema y la información: contraseñas, cifrado (BitLocker en Windows, LUKS en Linux: si roban el portátil no leen el disco), antivirus (Defender viene con Windows), cortafuegos, actualizaciones (por eso importa que Windows 10 no tenga soporte) y copias de seguridad. Amenazas: virus (se copia en otros programas), gusano (se propaga solo por la red), troyano (parece útil y no lo es), spyware (espía), ransomware (cifra tus archivos y pide rescate), phishing (engaño para robar contraseñas). Curiosidad: Creeper (1971) fue el primer programa que se propagaba entre ordenadores, mostraba I'm the creeper, catch me if you can, y Reaper, el primer antivirus, se escribió para borrarlo. Seguridad física: proteger el hardware y el acceso al edificio: SAI (sistema de alimentación ininterrumpida, una batería que aguanta los cortes y filtra las subidas), cámaras, control de acceso, extinción de incendios, y en el extremo un centro de datos en un búnker, como el de Pionen en Estocolmo, un antiguo refugio antiaéreo a 30 metros bajo la roca. Sin seguridad física no hay seguridad lógica: con el disco en la mano, se salta todo lo demás salvo el cifrado.</aside>
+  <aside class="notas">Curiosidad para contar: Creeper (1971) fue el primer programa que se propagaba entre ordenadores; mostraba "I'm the creeper, catch me if you can!". Reaper, el primer antivirus, se escribió para borrarlo. Seguridad lógica: los mecanismos software para proteger el sistema y la información: contraseñas, cifrado (BitLocker en Windows, LUKS en Linux: si roban el portátil no leen el disco), antivirus (Defender viene con Windows), cortafuegos, actualizaciones (por eso importa que Windows 10 no tenga soporte) y copias de seguridad. Amenazas: virus (se copia en otros programas), gusano (se propaga solo por la red), troyano (parece útil y no lo es), spyware (espía), ransomware (cifra tus archivos y pide rescate), phishing (engaño para robar contraseñas). Curiosidad: Creeper (1971) fue el primer programa que se propagaba entre ordenadores, mostraba I'm the creeper, catch me if you can, y Reaper, el primer antivirus, se escribió para borrarlo. Seguridad física: proteger el hardware y el acceso al edificio: SAI (sistema de alimentación ininterrumpida, una batería que aguanta los cortes y filtra las subidas), cámaras, control de acceso, extinción de incendios, y en el extremo un centro de datos en un búnker, como el de Pionen en Estocolmo, un antiguo refugio antiaéreo a 30 metros bajo la roca. Sin seguridad física no hay seguridad lógica: con el disco en la mano, se salta todo lo demás salvo el cifrado.</aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Seguridad</p>
   <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Seguridad lógica y seguridad física</h2>
   <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:40px;margin-top:var(--gap-item);flex:1;min-height:0">
@@ -2451,7 +2428,6 @@
         <div><b>Troyano</b>: parece útil y no lo es.</div><div><b>Spyware</b>: espía lo que haces.</div>
         <div><b>Ransomware</b>: cifra tus archivos y pide rescate.</div><div><b>Phishing</b>: te engaña para que des tu contraseña.</div>
       </div>
-      <p style="font-size:18px;line-height:1.4;color:#C9D6EE;margin-top:auto;border-top:2px solid rgba(255,255,255,.18);padding-top:12px"><b style="color:var(--white)">Curiosidad.</b> Creeper (1971) fue el primer programa que se propagaba entre ordenadores: mostraba "I'm the creeper, catch me if you can!". Reaper, el primer antivirus, se escribió para borrarlo.</p>
     </div>
     <div style="display:flex;flex-direction:column;gap:14px;min-height:0">
       <div style="background:var(--white);border-radius:24px;padding:26px 30px;box-shadow:0 2px 0 var(--line)">
@@ -2461,14 +2437,14 @@
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;min-height:0">
         <figure class="foto">
           <img src="img/pionen.jpg" alt="Puerta enrejada en la roca, con el rótulo de Bahnhof, que da acceso al centro de datos de Pionen en Estocolmo" title="Foto: Holger.Ellgaard · Wikimedia Commons · CC BY-SA 3.0">
-          <figcaption class="credito"><b>Pionen</b>, centro de datos de Bahnhof en un antiguo refugio bajo la roca (Estocolmo). Foto: Holger.Ellgaard, <a href="https://commons.wikimedia.org/wiki/File:Pionen_2012_02.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/deed.es" target="_blank" rel="noopener">CC BY-SA 3.0</a>. Reducida.</figcaption>
+          <figcaption class="credito"><b>Centro de datos</b> bajo la roca (Estocolmo). Foto: Holger.Ellgaard, <a href="https://commons.wikimedia.org/wiki/File:Pionen_2012_02.jpg" target="_blank" rel="noopener">CC BY-SA 3.0</a>.</figcaption>
         </figure>
         <figure class="foto">
           <img src="img/sai.jpg" alt="Armarios de un sistema de alimentación ininterrumpida MGE en un centro de cálculo" title="Foto: Derrick Coetzee · Wikimedia Commons · CC0">
-          <figcaption class="credito"><b>SAI</b> de un centro de cálculo (NERSC, Berkeley). Foto: Derrick Coetzee, <a href="https://commons.wikimedia.org/wiki/File:MGE_Uninterruptible_Power_Supply_at_NERSC.jpg" target="_blank" rel="noopener">Wikimedia Commons</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.es" target="_blank" rel="noopener">CC0</a>. Reducida.</figcaption>
+          <figcaption class="credito"><b>SAI</b> de una sala de ordenadores. Foto: Derrick Coetzee, <a href="https://commons.wikimedia.org/wiki/File:MGE_Uninterruptible_Power_Supply_at_NERSC.jpg" target="_blank" rel="noopener">CC0</a>.</figcaption>
         </figure>
       </div>
-      <p style="font-size:18px;color:var(--muted);line-height:1.35">Figura 2.17. La entrada del centro de datos de Pionen, un refugio antiaéreo a 30 metros bajo la roca, y un SAI de sala. Clic para ampliar.</p>
+      <p style="font-size:18px;color:var(--muted);line-height:1.35">Figura 2.17. Seguridad física: un centro de datos protegido y un SAI. Clic para ampliar.</p>
     </div>
   </div>
 </section>
@@ -2550,12 +2526,12 @@
       <tr><td style="padding:20px 30px;font-weight:800;color:var(--navy)">Seguridad</td><td style="padding:20px 30px">Ninguna: arranca lo que encuentre, también un virus.</td><td style="padding:20px 30px"><b>Arranque seguro</b>: solo arranca programas firmados. Windows 11 lo exige.</td></tr>
     </tbody>
   </table>
-  <p style="font-size:20px;color:var(--muted);margin-top:18px;line-height:1.4">Tabla 2.15. Los dos modos de arranque. Los ordenadores actuales usan UEFI con GPT. Elaboración propia.</p>
+  <p style="font-size:20px;color:var(--muted);margin-top:18px;line-height:1.4">Tabla 2.14. Los dos modos de arranque. Los ordenadores actuales usan UEFI con GPT. Elaboración propia.</p>
 </section>
 
 <!-- 90 Texto: entrar en el firmware, orden de arranque, inicio rápido, parada -->
 <section data-label="Entrar en el firmware y apagar bien" data-seccion="2.11" style="padding:var(--pad-top) var(--pad-x) var(--pad-bottom);display:flex;flex-direction:column">
-  <aside class="notas">Cómo entrar en el firmware: pulsando una tecla nada más encender, Supr, F2, F10, F12 o Esc según la placa; el mensaje del arranque lo dice, aunque con el inicio rápido y los SSD casi no da tiempo a verlo. Desde Windows 11: Configuración, Sistema, Recuperación, Inicio avanzado, Reiniciar ahora, Solucionar problemas, Opciones avanzadas, Configuración de firmware UEFI. El orden de arranque se cambia ahí, o con el menú de arranque de una vez (F12, F8, Esc): es lo que hay que hacer para arrancar desde un USB e instalar Ubuntu (UT4) o Windows (UT8). Inicio rápido: Windows no se apaga del todo, guarda el estado del núcleo en hiberfil.sys y lo restaura al encender, más rápido; por eso a veces Reiniciar arregla lo que Apagar no, porque Reiniciar sí carga el núcleo de cero. Parada ordenada: el servicio de parada cierra los procesos, vacía las cachés de disco (2.8) y desmonta los sistemas de archivos, para que puedan volver a arrancar sin problemas; apagar del botón se salta todo eso y el journaling es lo que salva los muebles.</aside>
+  <aside class="notas">Inicio rápido (fuera de la diapositiva): Windows no se apaga del todo, guarda el estado del núcleo en hiberfil.sys; por eso Reiniciar arregla a veces lo que Apagar no, porque Reiniciar sí carga el núcleo de cero. Cómo entrar en el firmware: pulsando una tecla nada más encender, Supr, F2, F10, F12 o Esc según la placa; el mensaje del arranque lo dice, aunque con el inicio rápido y los SSD casi no da tiempo a verlo. Desde Windows 11: Configuración, Sistema, Recuperación, Inicio avanzado, Reiniciar ahora, Solucionar problemas, Opciones avanzadas, Configuración de firmware UEFI. El orden de arranque se cambia ahí, o con el menú de arranque de una vez (F12, F8, Esc): es lo que hay que hacer para arrancar desde un USB e instalar Ubuntu (UT4) o Windows (UT8). Inicio rápido: Windows no se apaga del todo, guarda el estado del núcleo en hiberfil.sys y lo restaura al encender, más rápido; por eso a veces Reiniciar arregla lo que Apagar no, porque Reiniciar sí carga el núcleo de cero. Parada ordenada: el servicio de parada cierra los procesos, vacía las cachés de disco (2.8) y desmonta los sistemas de archivos, para que puedan volver a arrancar sin problemas; apagar del botón se salta todo eso y el journaling es lo que salva los muebles.</aside>
   <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Arranque del ordenador</p>
   <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy)">Entrar en el firmware, arrancar desde USB y apagar bien</h2>
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;margin-top:var(--gap-title);flex:1">
@@ -2574,8 +2550,8 @@
     <div style="background:var(--white);border-radius:24px;padding:32px 36px;box-shadow:0 2px 0 var(--line);display:flex;flex-direction:column;gap:14px">
       <img src="img/ia/apagar-bien.webp" alt="" style="height:100px;width:auto;align-self:flex-start">
       <h3 style="font-size:var(--type-subtitle);font-weight:800;color:var(--navy);line-height:1.15">Apagar bien</h3>
-      <p style="font-size:20px;line-height:1.45;color:var(--muted)"><b style="color:var(--ink)">Parada ordenada</b>: el sistema cierra los procesos, vacía las cachés de disco y desmonta los sistemas de archivos. Apagar del botón se salta todo eso; el journaling salva los muebles.</p>
-      <p style="font-size:20px;line-height:1.45;color:var(--muted)"><b style="color:var(--ink)">Inicio rápido</b>: Windows no se apaga del todo, guarda el estado del núcleo en <span style="font-family:var(--mono);font-size:18px">hiberfil.sys</span>. Por eso a veces <b style="color:var(--ink)">Reiniciar</b> arregla lo que Apagar no: Reiniciar sí carga el núcleo de cero.</p>
+      <p style="font-size:20px;line-height:1.45;color:var(--muted)"><b style="color:var(--ink)">Parada ordenada</b>: el sistema cierra los procesos, vacía las cachés de disco y desmonta los sistemas de archivos. Apagar del botón se salta todo eso, y algún archivo puede quedar a medias.</p>
+      <p style="font-size:20px;line-height:1.45;color:var(--muted)">Si algo va raro, mejor <b style="color:var(--ink)">Reiniciar</b> que Apagar y encender: Reiniciar arranca el sistema de cero.</p>
     </div>
   </div>
 </section>
@@ -2785,7 +2761,7 @@
     <div style="display:flex;gap:24px;padding:22px 0;border-top:2px solid rgba(255,255,255,.18)"><span style="font-size:var(--type-small);font-weight:800;color:var(--yellow)">14</span><p style="font-size:25px;line-height:1.35">El disco va en bloques; FAT, la MFT de NTFS y los inodos de ext4 apuntan dónde está cada archivo. Borrar solo libera bloques. NTFS, ext4 y APFS tienen journaling; FAT32 y exFAT no.</p></div>
     <div style="display:flex;gap:24px;padding:22px 0;border-top:2px solid rgba(255,255,255,.18)"><span style="font-size:var(--type-small);font-weight:800;color:var(--yellow)">11</span><p style="font-size:25px;line-height:1.35">Jerarquía: registros, caché, RAM, caché de disco, memoria auxiliar, red. Más arriba, más rápido, más caro y más pequeño.</p></div>
     <div style="display:flex;gap:24px;padding:22px 0;border-top:2px solid rgba(255,255,255,.18)"><span style="font-size:var(--type-small);font-weight:800;color:var(--yellow)">15</span><p style="font-size:25px;line-height:1.35">Elegir el sistema de archivos: quién lo lee, archivos de más de 4 GiB, permisos, journaling. Nativo para el sistema (NTFS, ext4, APFS); exFAT o FAT32 para lo que viaja.</p></div>
-    <div style="display:flex;gap:24px;padding:22px 0;border-top:2px solid rgba(255,255,255,.18)"><span style="font-size:var(--type-small);font-weight:800;color:var(--yellow)">12</span><p style="font-size:25px;line-height:1.35">E/S por programa (sondeo), por interrupciones (IRQ y rutina de atención) o por DMA (el controlador escribe la memoria solo). Caché, buffer y spool para que lo lento no frene lo rápido.</p></div>
+    <div style="display:flex;gap:24px;padding:22px 0;border-top:2px solid rgba(255,255,255,.18)"><span style="font-size:var(--type-small);font-weight:800;color:var(--yellow)">12</span><p style="font-size:25px;line-height:1.35">E/S por programa (sondeo), por interrupciones (IRQ y rutina de atención) o por DMA (el controlador escribe la memoria solo). Caché, buffer y spool para que lo lento no frene lo rápido. El disco duro ordena las lecturas (ascensor); un SSD no lo necesita.</p></div>
     <div style="display:flex;gap:24px;padding:22px 0;border-top:2px solid rgba(255,255,255,.18)"><span style="font-size:var(--type-small);font-weight:800;color:var(--yellow)">16</span><p style="font-size:25px;line-height:1.35">Seguridad lógica (contraseñas, cifrado, antivirus, cortafuegos) y física (SAI, acceso). Arranque: firmware, POST, dispositivo, cargador (MBR o EFI), núcleo, servicios, sesión. UEFI + GPT + arranque seguro.</p></div>
   </div>
 </section>

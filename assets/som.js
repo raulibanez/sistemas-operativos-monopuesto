@@ -3353,6 +3353,107 @@
     pinta(0);
   }
 
+  /* ---------- corte de luz con y sin diario (UT2, 2.9) ----------
+   *   <div class="diario"></div>
+   *   Dos discos guardan foto.jpg y se va la luz a mitad. Sin diario (FAT32, exFAT): al encender hay que
+   *   revisar el disco entero y la foto se pierde. Con diario (NTFS, ext4, APFS): el diario dice qué quedó
+   *   a medias y se deshace en un momento. Bloques de la foto: 2, 5 y 9, como en «Cómo se organiza el disco».
+   */
+  function montaDiario(el) {
+    const FOTO = [2, 5, 9], OTROS = [0, 7, 12, 13];
+    const CORTE = 2000, LUZ = 2900, FIN_SIN = 8400, FIN_CON = 4400;
+    const CASOS = [
+      { t: 'Sin diario', s: 'FAT32, exFAT', c: '#C0392B', diario: false },
+      { t: 'Con diario', s: 'NTFS, ext4, APFS', c: '#1E8E5A', diario: true },
+    ];
+    el.innerHTML = `<div class="dia-casos">${CASOS.map((k) => `
+      <div class="dia-caso" style="--c:${k.c}"><p class="dia-tit">${k.t} <span>${k.s}</span></p><svg viewBox="0 0 400 300" class="dia-svg"></svg><p class="dia-estado"></p></div>`).join('')}</div>
+      <div class="asc-pie"><button type="button" class="btn btn-primary" data-a="play">▶ Guardar foto.jpg… y se va la luz</button><button type="button" class="btn btn-ghost" data-a="ini">Reiniciar</button></div>`;
+    const svgs = el.querySelectorAll('.dia-svg'), estados = el.querySelectorAll('.dia-estado');
+    let raf = null, t0 = null;
+    const F = 'font-family="Plus Jakarta Sans, system-ui, sans-serif"';
+
+    function pinta(ms) {
+      CASOS.forEach((k, n) => {
+        const inicio = k.diario ? 700 : 0;                         // con diario, primero se apunta
+        const escritos = ms < CORTE ? Math.max(0, Math.min(3, Math.floor((ms - inicio) / 450) + (ms >= inicio ? 1 : 0))) : (k.diario ? 3 : 3);
+        const sinLuz = ms >= CORTE && ms < LUZ;
+        const fin = k.diario ? FIN_CON : FIN_SIN;
+        const revision = ms >= LUZ ? Math.min(1, (ms - LUZ) / (fin - LUZ)) : 0;
+        const acabado = ms >= fin;
+        let s = '';
+        // el diario (o su falta)
+        if (k.diario) {
+          const linea = ms >= 300 ? 'Voy a guardar foto.jpg en 2, 5 y 9' : '';
+          const marca = ms < LUZ ? '' : acabado ? 'deshecho ✓' : 'a medias';
+          s += `<rect x="20" y="10" width="360" height="62" rx="10" fill="#FFF6D1" stroke="${ms >= LUZ && !acabado ? '#F4C20D' : '#E5D38A'}" stroke-width="${ms >= LUZ && !acabado ? 4 : 2}"/>`;
+          s += `<text x="34" y="32" font-size="14" font-weight="800" fill="#8A6D00" ${F}>DIARIO</text>`;
+          s += `<text x="34" y="56" font-size="16" font-weight="700" fill="#15356B" ${F}>${linea}</text>`;
+          if (marca) s += `<text x="368" y="32" text-anchor="end" font-size="15" font-weight="800" fill="${acabado ? '#1E8E5A' : '#C0392B'}" ${F}>${marca}</text>`;
+        } else {
+          s += `<rect x="20" y="10" width="360" height="62" rx="10" fill="#F5F6F9" stroke="#D7DCE6" stroke-width="2" stroke-dasharray="7 5"/>`;
+          s += `<text x="200" y="47" text-anchor="middle" font-size="16" font-weight="700" fill="#8A93A6" ${F}>No apunta nada antes de empezar</text>`;
+        }
+        // los bloques del disco
+        s += `<text x="20" y="100" font-size="14" font-weight="800" fill="#485168" ${F}>DISCO</text>`;
+        for (let b = 0; b < 16; b++) {
+          const x = 20 + (b % 8) * 45, y = 110 + Math.floor(b / 8) * 50;
+          let fill = '#FFFFFF', st = '#D7DCE6', txt = '', tc = '#fff', dash = '';
+          if (OTROS.includes(b)) fill = '#B7C2D6';
+          const i = FOTO.indexOf(b);
+          if (i >= 0 && i < escritos) {
+            fill = '#4F8AE0'; txt = 'foto';
+            if (ms >= LUZ) {
+              if (k.diario) { if (acabado) { fill = '#FFFFFF'; txt = ''; } }
+              else if (acabado) { fill = '#FFFFFF'; txt = ''; }
+              else { fill = '#FBEAEA'; st = '#C0392B'; dash = ' stroke-dasharray="5 4"'; txt = '?'; tc = '#C0392B'; }
+            }
+          }
+          s += `<rect x="${x}" y="${y}" width="40" height="44" rx="5" fill="${fill}" stroke="${st}" stroke-width="2"${dash}/>`;
+          if (txt) s += `<text x="${x + 20}" y="${y + 28}" text-anchor="middle" font-size="${txt === '?' ? 20 : 12}" font-weight="800" fill="${tc}" ${F}>${txt}</text>`;
+        }
+        // la revisión del disco entero (sin diario): un marco que lo recorre bloque a bloque
+        if (!k.diario && ms >= LUZ && !acabado) {
+          const b = Math.min(15, Math.floor(revision * 16)), x = 20 + (b % 8) * 45, y = 110 + Math.floor(b / 8) * 50;
+          s += `<rect x="${x - 4}" y="${y - 4}" width="48" height="52" rx="7" fill="none" stroke="#F4C20D" stroke-width="5"/>`;
+        }
+        // la tabla: nunca llega a apuntar la foto, porque la luz se va antes
+        s += `<rect x="20" y="222" width="360" height="52" rx="10" fill="#15356B"/>`;
+        s += `<text x="34" y="244" font-size="13" font-weight="800" fill="#F4C20D" ${F}>TABLA</text>`;
+        s += `<text x="34" y="264" font-size="16" font-weight="700" fill="#E3EBF8" ${F}>foto.jpg → ${ms >= LUZ && acabado ? 'no está' : '(aún sin apuntar)'}</text>`;
+        // revisión: barra de progreso
+        if (ms >= LUZ) {
+          s += `<rect x="20" y="282" width="360" height="12" rx="6" fill="#E7EBF3"/><rect x="20" y="282" width="${360 * revision}" height="12" rx="6" fill="${k.c}"/>`;
+        }
+        // sin corriente
+        if (sinLuz) {
+          s += `<rect x="0" y="0" width="400" height="300" rx="14" fill="#0B1F44" opacity=".88"/>`;
+          s += `<text x="200" y="150" text-anchor="middle" font-size="52" ${F}>⚡</text><text x="200" y="196" text-anchor="middle" font-size="22" font-weight="800" fill="#fff" ${F}>Se va la luz</text>`;
+        }
+        svgs[n].innerHTML = s;
+        estados[n].innerHTML = ms <= 0 ? (k.diario ? 'Primero apunta en el diario, luego guarda.' : 'Empieza a guardar directamente.')
+          : ms < CORTE ? 'Guardando foto.jpg…'
+            : sinLuz ? 'Sin corriente.'
+              : !acabado ? (k.diario ? 'Al encender, lee el diario: estaba a medias, lo deshace.' : 'Al encender, no sabe qué pasó: revisa <b>todo</b> el disco…')
+                : (k.diario ? '<b>Listo en un momento.</b> El disco está bien.' : '<b>Por fin.</b> Ha tardado mucho y la foto se ha perdido.');
+      });
+    }
+    function paso(now) {
+      if (t0 === null) t0 = now;
+      const ms = Math.min(FIN_SIN + 10, now - t0);
+      pinta(ms);
+      raf = ms < FIN_SIN + 10 ? requestAnimationFrame(paso) : null;
+    }
+    el.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-a]'); if (!b) return;
+      if (raf) cancelAnimationFrame(raf);
+      raf = null; t0 = null;
+      if (b.dataset.a === 'play') raf = requestAnimationFrame(paso); else pinta(0);
+    });
+    el.diarioEn = (ms) => { if (raf) cancelAnimationFrame(raf); raf = null; pinta(ms); };   // para capturas
+    pinta(0);
+  }
+
   /* ---------- teorema fundamental de la numeración, paso a paso ----------
    * <div class="sumatorio" data-numero="52318" data-base="10"> <div class="sum-cuerpo">…</div> </div>
    * El número en grande, con su posición i debajo de cada cifra y la base de subíndice. Cada
@@ -3909,6 +4010,7 @@
     document.querySelectorAll('.mem-sim').forEach(montaMemoria);
     document.querySelectorAll('.trampas').forEach(montaTrampas);
     document.querySelectorAll('.ascensor').forEach(montaAscensor);
+    document.querySelectorAll('.diario').forEach(montaDiario);
     document.querySelectorAll('.sumatorio').forEach(montaSumatorio);
     document.querySelectorAll('.quiz').forEach(montaQuiz);
     document.querySelectorAll('.revela').forEach(montaRevela);

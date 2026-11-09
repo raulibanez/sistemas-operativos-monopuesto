@@ -1282,6 +1282,14 @@ section [data-paso].activo { background: #FFF6D1; border-radius: 12px; box-shado
 .asc-pie .btn { padding: 12px 22px; font-size: 20px; border-radius: 12px; }
 .asc-msg { font-size: 19px; color: var(--ink); flex: 1; min-width: 260px; }
 
+/* ---------- Corte de luz con y sin diario (.diario, UT2 2.9) ---------- */
+.diario { background: var(--white); border-radius: 24px; padding: 22px 26px 20px; box-shadow: 0 2px 0 var(--line); display: flex; flex-direction: column; gap: 14px; }
+.dia-casos { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.dia-caso { display: flex; flex-direction: column; gap: 6px; }
+.dia-tit { font-size: 22px; font-weight: 800; color: var(--c); text-align: center; }
+.dia-tit span { font-size: 17px; font-weight: 600; color: var(--muted); }
+.dia-svg { width: 100%; height: auto; display: block; }
+.dia-estado { font-size: 18px; line-height: 1.35; color: var(--ink); min-height: 50px; text-align: center; }
 /* ---------- Teorema fundamental de la numeración paso a paso (.sumatorio) ---------- */
 .sumatorio { display: flex; flex-direction: column; }
 .sum-cuerpo { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 56px; }
