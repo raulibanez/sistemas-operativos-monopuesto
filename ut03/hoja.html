@@ -124,7 +124,7 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
   </div>
   <div class="tipos" id="tipos"></div>
 </div>
-<p class="aviso">La <b>semilla</b> (<i>seed</i>) es el número del que salen los ejercicios: la misma semilla con el mismo título da siempre la misma hoja, y cualquier otro número, o cualquier otro título, da otra distinta. Genera las que quieras para practicar y compruébalas con el solucionario. En las dos hojas, cada ejercicio empieza por la tarea, con el verbo subrayado y los datos en negrita; la de práctica añade cómo se hace y pistas, y la de examen deja solo la tarea. En clase, el profesor reparte a todos una hoja con una semilla que no se ha usado antes; el examen se genera igual. La ficha de máquina virtual es la del examen práctico: se hace en VMware y se enseña en la pantalla. La dirección de la página guarda la configuración: <code id="url"></code></p>
+<p class="aviso">La <b>semilla</b> (<i>seed</i>) es el número del que salen los ejercicios: la misma semilla con el mismo título da siempre la misma hoja, y cualquier otro número, o cualquier otro título, da otra distinta. Genera las que quieras para practicar y compruébalas con el solucionario. En las dos hojas, cada ejercicio empieza por la tarea, con el verbo subrayado y los datos en negrita; la de práctica añade cómo se hace y pistas, y la de examen deja solo la tarea. En clase, el profesor reparte a todos una hoja con una semilla que no se ha usado antes; el examen se genera igual. La ficha de máquina virtual es la del examen práctico: se hace en VirtualBox y se enseña en la pantalla. La dirección de la página guarda la configuración: <code id="url"></code></p>
 <div id="hojas"><p class="vacio">Pulsa Generar.</p></div>
 
 <script src="../assets/som.js"></script>
@@ -292,8 +292,8 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
     if (ejs.some((e) => e.tipo.gen === 'recursos')) n.push(
       'Al anfitrión con Windows 11 se le dejan al menos 4 GB de RAM, y a cada máquina, como mucho la mitad de los hilos.',
       'Un disco dinámico ocupa lo que tiene escrito; uno fijo ocupa todo su tamaño.');
-    n.push('Los modos de red son los de VMware Workstation Pro, salvo donde se dice otra cosa.',
-      'Si una casilla trae varias opciones, rodea la correcta.');
+    if (ejs.some((e) => e.tipo.gen === 'modos-red')) n.push('Los modos de red son los de VirtualBox, con los nombres de su lista «Conectar a».');
+    n.push('Si una casilla trae varias opciones, rodea la correcta.');
     return n;
   }
 

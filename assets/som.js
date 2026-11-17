@@ -1401,37 +1401,35 @@
       }
     },
 
-    /* ---------- UT3 · ¿qué es este archivo? ---------- */
+    /* ---------- UT3 · ¿qué es este archivo? ----------
+       Pregunta exactamente por lo que lista la diapositiva «Una máquina virtual es una carpeta de archivos»:
+       .vbox, .vbox-prev, .vdi, Snapshots y Logs (VirtualBox); .vmdk (VMware) y .vhdx (Hyper-V); .iso, .ova y .ovf (cualquiera). */
     'archivos-vm': {
       titulo: '¿Qué es este archivo?',
       rejilla: true,
       generar() {
-        const Q = ['?', 'configuración', 'disco virtual', 'firmware', 'instantánea', 'memoria', 'máquina exportada', 'imagen de instalación'];
-        const P = ['?', 'VMware', 'VirtualBox', 'Hyper-V', 'QEMU y KVM', 'cualquiera'];
+        const Q = ['?', 'configuración', 'configuración anterior', 'disco virtual', 'instantáneas', 'registro', 'máquina exportada', 'imagen de instalación'];
+        const P = ['?', 'VirtualBox', 'VMware', 'Hyper-V', 'cualquiera'];
         const A = [
-          { e: 'Ubuntu 64-bit.vmx', q: 'configuración', p: 'VMware', x: 'El .vmx es un archivo de texto con la configuración de la máquina de VMware: memoria, núcleos, discos, red.' },
-          { e: 'Ubuntu 64-bit.vmdk', q: 'disco virtual', p: 'VMware', x: 'VMDK es el formato de disco virtual de VMware (VirtualBox también sabe abrirlo).' },
-          { e: 'Ubuntu 64-bit-s003.vmdk', q: 'disco virtual', p: 'VMware', x: 'Es un trozo del disco virtual de VMware: el disco se dividió en varios archivos (-s001, -s002…).' },
-          { e: 'Ubuntu 64-bit.nvram', q: 'firmware', p: 'VMware', x: 'El .nvram guarda la configuración del firmware (BIOS o UEFI) de la máquina de VMware.' },
-          { e: 'Ubuntu 64-bit-Snapshot1.vmsn', q: 'instantánea', p: 'VMware', x: 'Cada .vmsn guarda el estado de una instantánea de VMware.' },
-          { e: 'Ubuntu 64-bit-Snapshot1.vmem', q: 'memoria', p: 'VMware', x: 'El .vmem es la memoria RAM de la máquina guardada en el disco (de una instantánea tomada con la máquina encendida).' },
-          { e: 'Ubuntu.vbox', q: 'configuración', p: 'VirtualBox', x: 'El .vbox es la configuración de la máquina de VirtualBox, en XML.' },
+          { e: 'Ubuntu.vbox', q: 'configuración', p: 'VirtualBox', x: 'El .vbox guarda la configuración de la máquina de VirtualBox: memoria, procesadores, discos y red. Es un archivo de texto.' },
+          { e: 'Ubuntu.vbox-prev', q: 'configuración anterior', p: 'VirtualBox', x: 'El .vbox-prev es la configuración anterior de la máquina. VirtualBox la guarda de reserva al cambiar la configuración.' },
           { e: 'Ubuntu.vdi', q: 'disco virtual', p: 'VirtualBox', x: 'VDI (Virtual Disk Image) es el formato nativo de disco de VirtualBox.' },
-          { e: 'Ubuntu.vhdx', q: 'disco virtual', p: 'Hyper-V', x: 'VHDX es el formato de disco virtual de Hyper-V (el antiguo era VHD).' },
-          { e: 'ubuntu.qcow2', q: 'disco virtual', p: 'QEMU y KVM', x: 'QCOW2 es el disco virtual de QEMU y KVM, los hipervisores libres de Linux.' },
-          { e: 'Alpine.ova', q: 'máquina exportada', p: 'cualquiera', x: 'OVA es una máquina exportada en un solo archivo, en formato abierto: la importan VMware, VirtualBox y otros.' },
-          { e: 'Alpine.ovf', q: 'máquina exportada', p: 'cualquiera', x: 'OVF es el formato abierto de exportación: un archivo que describe la máquina, con sus discos al lado.' },
-          { e: 'ubuntu-24.04-desktop-amd64.iso', q: 'imagen de instalación', p: 'cualquiera', x: 'Una ISO es la imagen de un disco: se pone en la unidad de CD/DVD virtual para instalar. Sirve en cualquier programa.' },
-          { e: 'Win11_Spanish_x64.iso', q: 'imagen de instalación', p: 'cualquiera', x: 'La ISO de instalación de Windows 11: se pone en la unidad de CD/DVD virtual. Sirve en cualquier programa.' }
+          { e: 'Snapshots (carpeta)', q: 'instantáneas', p: 'VirtualBox', x: 'La carpeta Snapshots guarda las instantáneas de la máquina de VirtualBox.' },
+          { e: 'Logs\\VBox.log', q: 'registro', p: 'VirtualBox', x: 'La carpeta Logs guarda los registros de VirtualBox: lo que ha pasado cada vez que se encendió la máquina.' },
+          { e: 'Ubuntu.vmdk', q: 'disco virtual', p: 'VMware', x: 'VMDK es el formato de disco virtual de VMware. VirtualBox también sabe abrirlo.' },
+          { e: 'Ubuntu.vhdx', q: 'disco virtual', p: 'Hyper-V', x: 'VHDX es el formato de disco virtual de Hyper-V.' },
+          { e: 'Ubuntu.ova', q: 'máquina exportada', p: 'cualquiera', x: 'OVA es una máquina exportada en un solo archivo, en formato abierto: la importan VirtualBox, VMware y otros.' },
+          { e: 'Ubuntu.ovf', q: 'máquina exportada', p: 'cualquiera', x: 'OVF es el formato abierto de exportación: un archivo que describe la máquina, con sus discos al lado.' },
+          { e: 'ubuntu-24.04-desktop-amd64.iso', q: 'imagen de instalación', p: 'cualquiera', x: 'Una ISO es la imagen de un disco: se pone en la unidad de CD/DVD virtual para instalar. Sirve en cualquier programa.' }
         ];
         const a = A[rnd(0, A.length - 1)];
         return {
           ...variante(a.e, A.length),
-          enunciado: 'Lee el nombre del archivo de la carpeta de una máquina virtual y elige qué guarda y a qué programa pertenece ese formato.',
-          tarea: `⟪Rodea⟫ qué guarda el archivo ⟦${a.e}⟧ y de qué programa es el formato.`,
+          enunciado: 'Lee el nombre del archivo o de la carpeta de una máquina virtual y elige qué guarda y de qué programa es el formato.',
+          tarea: `⟪Rodea⟫ qué guarda ⟦${a.e}⟧ y de qué programa es el formato.`,
           columnas: '230px 620px', clase: 'texto',
           filas: [
-            [{ lbl: 'archivo' }, { d: a.e, clase: 'texto' }],
+            [{ lbl: 'archivo o carpeta' }, { d: a.e, clase: 'texto' }],
             [{ lbl: 'qué guarda' }, { sel: Q, c: a.q, clase: 'txt', n: 0, expl: a.x }],
             [{ lbl: 'formato de' }, { sel: P, c: a.p, clase: 'txt', n: 1, expl: a.x }]
           ],
@@ -1440,7 +1438,9 @@
       }
     },
 
-    /* ---------- UT3 · modos de red (VMware salvo donde se dice) ---------- */
+    /* ---------- UT3 · modos de red de VirtualBox ----------
+       La matriz es la tabla «Quién ve a quién» de ut03 celda a celda (manual de VirtualBox 7.2,
+       «Overview of Networking Modes»; donde el manual pone «Port forward», aquí es «no»). */
     'modos-red': {
       titulo: 'Modos de red',
       rejilla: true,
@@ -1449,27 +1449,29 @@
         const modo = cfg.modo || ['caso', 'matriz', 'ip'][rnd(0, 2)];
         const v = (clave, total) => (cfg.modo ? variante(clave, total) : variante(modo, 3));   // con el modo fijo, rota el caso
         const SN = ['?', 'sí', 'no'];
+        const NAT = 'NAT', RNAT = 'Red NAT', PUENTE = 'Adaptador puente', SOLO = 'Adaptador sólo anfitrión', INT = 'Red interna', NC = 'No conectado';
         if (modo === 'caso') {
-          const MOD = ['?', 'NAT', 'puente', 'solo anfitrión', 'segmento LAN', 'sin red'];
+          const MOD = ['?', NAT, RNAT, PUENTE, SOLO, INT, NC];
           const C = [
-            { t: 'Solo quieres navegar por internet y descargar actualizaciones desde la máquina virtual.', m: ['NAT'], e: 'NAT: sale a internet a través del anfitrión y nadie de fuera la ve. Es el modo por defecto.' },
-            { t: 'Montas una web en la máquina virtual y tiene que verla toda la clase desde sus PC.', m: ['puente'], e: 'Puente: la máquina es un equipo más de la red del aula, con su propia IP, y los demás PC llegan a ella.' },
-            { t: 'Dos máquinas virtuales tienen que hablar entre ellas y con nadie más: ni internet ni el anfitrión.', m: ['segmento LAN'], e: 'Segmento LAN (red interna en VirtualBox): una red que solo existe entre esas máquinas.' },
-            { t: 'Vas a probar un programa sospechoso y no quieres que tenga ninguna conexión.', m: ['sin red'], e: 'Sin red (adaptador desconectado): el programa no puede comunicarse con nada. Antes, una instantánea.' },
-            { t: 'La máquina virtual tiene que recibir su IP del router de casa, como el móvil o el portátil.', m: ['puente'], e: 'Puente: se conecta a la red física como un equipo más y el router le da su IP.' },
-            { t: 'Quieres entrar desde tu Windows (el anfitrión) a una web de la máquina virtual, sin internet y sin que la vea nadie más.', m: ['solo anfitrión'], e: 'Solo anfitrión: una red privada entre el anfitrión y las máquinas virtuales, sin salida a internet.' },
-            { t: 'La red del centro no deja conectar equipos nuevos, pero la máquina virtual necesita internet.', m: ['NAT'], e: 'NAT: hacia fuera solo se ve la IP del anfitrión, que sí está autorizado.' },
-            { t: 'Un compañero tiene que hacer ping a tu máquina virtual desde su PC.', m: ['puente'], e: 'Puente: es el único modo en el que los demás PC del aula llegan a la máquina virtual sin configurar nada más.' },
-            { t: 'Tres máquinas virtuales forman su propia red de laboratorio, sin salir de tu ordenador ni tocar el anfitrión.', m: ['segmento LAN'], e: 'Segmento LAN: las tres comparten una red aislada que no llega ni al anfitrión ni a internet.' },
-            { t: 'Dos máquinas virtuales de VMware tienen que verse entre ellas y tener internet, sin que las vea el resto del aula.', m: ['NAT'], e: 'NAT de VMware: todas las máquinas en NAT comparten la red VMnet8, se ven entre ellas y salen a internet por el anfitrión.' },
-            { t: 'Un servidor y un cliente virtuales que controlas desde el anfitrión, aislados de la red del aula y de internet.', m: ['solo anfitrión'], e: 'Solo anfitrión: las máquinas y el anfitrión se ven; internet y el aula, no.' },
-            { t: 'Instalas Ubuntu en una máquina recién creada y quieres que descargue los paquetes sin complicarte.', m: ['NAT'], e: 'NAT: funciona sin configurar nada, con la conexión del anfitrión.' }
+            { t: 'Solo quieres navegar por internet y descargar actualizaciones desde la máquina virtual, sin configurar nada.', m: [NAT], e: 'NAT: es el modo que trae cada máquina nueva. Sale a internet por el anfitrión y nadie de fuera llega a ella.' },
+            { t: 'Montas una web en la máquina virtual y tiene que verla toda la clase desde sus PC.', m: [PUENTE], e: 'Adaptador puente: la máquina es un equipo más de la red del aula, con su propia IP, y los demás PC llegan a ella.' },
+            { t: 'Dos máquinas virtuales tienen que hablar entre ellas y con nadie más: ni internet ni el anfitrión.', m: [INT], e: 'Red interna: una red que solo existe entre las máquinas que se conectan a ella. Ni el anfitrión está dentro.' },
+            { t: 'Vas a probar un programa sospechoso y no quieres que tenga ninguna conexión.', m: [NC], e: 'No conectado: es como quitar el cable, así que el programa no puede comunicarse con nada. Antes, una instantánea.' },
+            { t: 'La máquina virtual tiene que recibir su IP del router de casa, como el móvil o el portátil.', m: [PUENTE], e: 'Adaptador puente: se conecta a la red física como un equipo más y el router le da su IP.' },
+            { t: 'Quieres entrar desde tu Windows (el anfitrión) a una web de la máquina virtual, sin internet y sin que la vea nadie más.', m: [SOLO], e: 'Adaptador sólo anfitrión: una red privada entre el anfitrión y las máquinas, sin salida a internet. El anfitrión llega a la máquina.' },
+            { t: 'La red del centro no deja conectar equipos nuevos, pero la máquina virtual necesita internet.', m: [NAT, RNAT], e: 'NAT o Red NAT: hacia fuera solo se ve la IP del anfitrión, que sí está autorizado.' },
+            { t: 'Un compañero tiene que hacer ping a tu máquina virtual desde su PC.', m: [PUENTE], e: 'Adaptador puente: es el único modo en el que los demás PC del aula llegan a la máquina sin configurar nada más.' },
+            { t: 'Tres máquinas virtuales forman su propia red de laboratorio, sin salir de tu ordenador ni tocar el anfitrión.', m: [INT], e: 'Red interna: las tres comparten una red aislada que no llega ni al anfitrión ni a internet.' },
+            { t: 'Dos máquinas virtuales tienen que verse entre ellas y tener internet, sin que las vea el resto del aula.', m: [RNAT], e: 'Red NAT: las máquinas de la misma Red NAT comparten el router virtual, se ven entre ellas y salen a internet; los de fuera no llegan a ellas.' },
+            { t: 'Un servidor y un cliente virtuales que controlas desde el anfitrión, aislados de la red del aula y de internet.', m: [SOLO], e: 'Adaptador sólo anfitrión: las máquinas y el anfitrión se ven; internet y el aula, no.' },
+            { t: 'Instalas Ubuntu en una máquina recién creada y quieres que descargue los paquetes sin complicarte.', m: [NAT], e: 'NAT: funciona sin configurar nada, con la conexión del anfitrión.' },
+            { t: 'Dos máquinas en NAT tienen las dos la IP 10.0.2.15 y no se ven. Quieres que se vean y que sigan teniendo internet.', m: [RNAT], e: 'Red NAT: en NAT cada máquina está sola detrás de su router virtual. En la Red NAT comparten el router, tienen IP distintas y se ven.' }
           ];
           const i = rnd(0, C.length - 1), c = C[i];
           return {
             ...v(i, C.length),
-            enunciado: 'Lee el caso y elige el modo de red del adaptador de la máquina virtual.',
-            tarea: '⟪Lee⟫ el caso y ⟪rodea⟫ el modo de red del adaptador de la máquina virtual.',
+            enunciado: 'Lee el caso y elige el modo de red del adaptador de la máquina virtual en VirtualBox.',
+            tarea: '⟪Lee⟫ el caso y ⟪rodea⟫ el modo de red del adaptador de la máquina virtual en VirtualBox.',
             columnas: '230px 620px', clase: 'texto',
             filas: [
               [{ lbl: 'caso' }, { d: c.t, clase: 'texto' }],
@@ -1479,51 +1481,54 @@
           };
         }
         if (modo === 'matriz') {
+          // columnas: sale a internet · la máquina llega al anfitrión · el anfitrión llega a la máquina · se ve con otra máquina en el mismo modo · los PC del aula llegan a ella
+          const NO_NC = ['no', 'El adaptador no tiene el cable puesto: la máquina no se comunica con nada.'];
           const T = {
-            'NAT': [['sí', 'Sale a internet por el anfitrión, que hace de router.'], ['sí', 'El anfitrión tiene un adaptador (VMnet8) en esa misma red.'], ['sí', 'Todas las máquinas en NAT de VMware comparten la red VMnet8.'], ['no', 'Desde fuera solo se ve la IP del anfitrión: el resto del aula no llega a la máquina.']],
-            'puente': [['sí', 'Es un equipo más de la red: sale por el router como los demás.'], ['sí', 'Anfitrión y máquina están en la misma red física.'], ['sí', 'Si las dos están en puente, están en la misma red.'], ['sí', 'Tiene su propia IP en la red del aula: los demás PC la ven.']],
-            'solo anfitrión': [['no', 'Es una red privada sin router: no hay salida a internet.'], ['sí', 'El anfitrión tiene un adaptador (VMnet1) en esa red.'], ['sí', 'Las máquinas en solo anfitrión comparten la red VMnet1.'], ['no', 'La red solo existe dentro del anfitrión.']],
-            'segmento LAN': [['no', 'Es una red aislada: no hay salida.'], ['no', 'El anfitrión no tiene adaptador en un segmento LAN.'], ['sí', 'Las máquinas del mismo segmento se ven entre ellas, y solo ellas.'], ['no', 'La red solo existe entre esas máquinas virtuales.']],
-            'sin red': [['no', 'El adaptador está desconectado.'], ['no', 'El adaptador está desconectado.'], ['no', 'El adaptador está desconectado.'], ['no', 'El adaptador está desconectado.']]
+            [NAT]: [['sí', 'Sale a internet por el router virtual de VirtualBox, con la IP del anfitrión.'], ['sí', 'La máquina puede empezar la comunicación con el anfitrión: el router virtual la deja salir.'], ['no', 'La red de la máquina es privada y el anfitrión no la ve: sin reenvío de puertos, no llega a ella.'], ['no', 'Cada máquina está sola detrás de su router virtual, todas con la 10.0.2.15: no se ven.'], ['no', 'Desde fuera solo se ve la IP del anfitrión: los PC del aula no llegan a la máquina.']],
+            [RNAT]: [['sí', 'Sale a internet por el router virtual de la Red NAT.'], ['sí', 'La máquina puede empezar la comunicación con el anfitrión, igual que en NAT.'], ['no', 'Como en NAT, el anfitrión no llega a las máquinas de la Red NAT sin reenvío de puertos.'], ['sí', 'Las máquinas de la misma Red NAT comparten el router virtual y se ven entre ellas.'], ['no', 'Desde fuera solo se ve la IP del anfitrión: los PC del aula no llegan a la máquina.']],
+            [PUENTE]: [['sí', 'Es un equipo más de la red: sale por el router del aula como los demás.'], ['sí', 'Anfitrión y máquina están en la misma red física.'], ['sí', 'Anfitrión y máquina están en la misma red física, en los dos sentidos.'], ['sí', 'Si las dos están en puente, están en la misma red del aula.'], ['sí', 'Tiene su propia IP en la red del aula: los demás PC llegan a ella.']],
+            [SOLO]: [['no', 'Es una red privada sin router: no hay salida a internet.'], ['sí', 'El anfitrión tiene un adaptador en esa red, la 192.168.56.1.'], ['sí', 'El anfitrión está dentro de la red solo anfitrión: llega a la máquina.'], ['sí', 'Las máquinas en solo anfitrión comparten la red 192.168.56.0.'], ['no', 'La red solo existe dentro del anfitrión: el aula no llega.']],
+            [INT]: [['no', 'Es una red aislada: no tiene salida.'], ['no', 'El anfitrión no tiene adaptador en la red interna.'], ['no', 'El anfitrión no está dentro de la red interna.'], ['sí', 'Las máquinas de la misma red interna se ven entre ellas, y solo ellas.'], ['no', 'La red solo existe entre esas máquinas virtuales.']],
+            [NC]: [NO_NC, NO_NC, NO_NC, NO_NC, NO_NC]
           };
           const nombres = Object.keys(T);
           const m = nombres[rnd(0, nombres.length - 1)];
-          const PR = ['¿sale a internet?', '¿se comunica con el anfitrión?', '¿se comunica con otra máquina en el mismo modo?', '¿la ven los demás PC del aula?'];
+          const PR = ['¿sale a internet?', '¿llega la máquina al anfitrión?', '¿llega el anfitrión a la máquina?', '¿se ve con otra máquina en el mismo modo?', '¿llegan los PC del aula a la máquina?'];
           return {
             ...v(m, nombres.length),
-            enunciado: `En VMware Workstation Pro, una máquina virtual tiene el adaptador de red en modo ${m}. Contesta sí o no a cada pregunta.`,
-            tarea: `El adaptador de red de la máquina virtual está en modo ⟦${m}⟧ (VMware Workstation Pro). ⟪Rodea⟫ sí o no en cada pregunta.`,
-            columnas: '460px 220px', clase: 'texto',
+            enunciado: `En VirtualBox, una máquina virtual tiene el adaptador de red en modo ${m}. Contesta sí o no a cada pregunta.`,
+            tarea: `El adaptador de red de la máquina virtual está en modo ⟦${m}⟧ (VirtualBox). ⟪Rodea⟫ sí o no en cada pregunta.`,
+            columnas: '500px 330px', clase: 'texto',
             filas: [[{ lbl: 'modo de red' }, { d: m, clase: 'dato' }]].concat(PR.map((q, i) => [{ lbl: q }, { sel: SN, c: T[m][i][0], clase: 'txt', n: i, expl: T[m][i][1] }])),
-            correcto: `Correcto. En ${m}: internet ${T[m][0][0]}, anfitrión ${T[m][1][0]}, otra máquina ${T[m][2][0]}, aula ${T[m][3][0]}.`
+            correcto: `Correcto. En ${m}: internet ${T[m][0][0]}, la máquina llega al anfitrión ${T[m][1][0]}, el anfitrión llega a la máquina ${T[m][2][0]}, otra máquina ${T[m][3][0]}, aula ${T[m][4][0]}.`
           };
         }
         const aula = [['192.168.1', rnd(20, 90)], ['10.20.5', rnd(20, 90)], ['192.168.0', rnd(20, 90)]][rnd(0, 2)];
-        const A = rnd(100, 250); let B = rnd(100, 250); if (B === A) B = A === 250 ? 100 : A + 1;
+        const mano = ['10.0.0', '192.168.100', '172.16.0'][rnd(0, 2)];
+        const DHCP = 'recibida por DHCP', MANO = 'puesta a mano';
         const CASOS = [
-          { ip: `${aula[0]}.${rnd(100, 200)}`, m: 'puente', p: 'cualquiera', e: 'Está en la misma red que la tarjeta Ethernet del anfitrión: la máquina es un equipo más del aula. Modo puente, en cualquiera de los dos programas.' },
-          { ip: `192.168.${A}.${rnd(128, 254)}`, m: 'NAT', p: 'VMware', e: `Está en la red de VMnet8 (192.168.${A}.0), que es la del NAT de VMware.` },
-          { ip: `192.168.${B}.${rnd(128, 254)}`, m: 'solo anfitrión', p: 'VMware', e: `Está en la red de VMnet1 (192.168.${B}.0), que es la de solo anfitrión de VMware.` },
-          { ip: '10.0.2.15', m: 'NAT', p: 'VirtualBox', e: 'Es la dirección que da siempre el NAT de VirtualBox: cada máquina tiene su propia red 10.0.2.0 y por eso no se ven entre ellas.' },
-          { ip: `192.168.56.${rnd(101, 150)}`, m: 'solo anfitrión', p: 'VirtualBox', e: 'Está en la red del adaptador VirtualBox Host-Only (192.168.56.1): solo anfitrión de VirtualBox.' }
+          { ip: '10.0.2.15', como: DHCP, m: NAT, a: 'no', e: 'La 10.0.2.15 es la IP que da el NAT de VirtualBox a cada máquina. El anfitrión no llega a ella.' },
+          { ip: `10.0.2.${rnd(3, 12)}`, como: DHCP, m: RNAT, a: 'no', e: 'Está en la red 10.0.2.0, pero no es la 10.0.2.15: es la Red NAT, que reparte de la 10.0.2.3 en adelante. El anfitrión no llega a ella.' },
+          { ip: `${aula[0]}.${rnd(100, 200)}`, como: DHCP, m: PUENTE, a: 'sí', e: `Coincide en los tres primeros números con la tarjeta Ethernet del anfitrión (${aula[0]}): la máquina es un equipo más del aula. El anfitrión llega a ella.` },
+          { ip: `192.168.56.${rnd(101, 150)}`, como: DHCP, m: SOLO, a: 'sí', e: 'Está en la red del adaptador VirtualBox Host-Only (192.168.56.1): es la red solo anfitrión. El anfitrión llega a ella.' },
+          { ip: `${mano}.${rnd(1, 20)}`, como: MANO, m: INT, a: 'no', e: 'La IP está puesta a mano y no coincide con ninguna red del anfitrión: en la red interna nadie reparte IP. El anfitrión no está en esa red.' }
         ];
         const i = rnd(0, CASOS.length - 1), c = CASOS[i];
         return {
           ...v(i, CASOS.length),
-          enunciado: 'El ipconfig del anfitrión y la IP de la máquina virtual: ¿en qué modo de red está y con qué programa?',
-          tarea: `⟪Mira⟫ el ipconfig del anfitrión y la IP de la máquina virtual, ⟦${c.ip}⟧, y ⟪rodea⟫ el modo de red y el programa.`,
-          columnas: '400px 290px', clase: 'texto mini',
+          enunciado: 'Compara la IP de la máquina con las del anfitrión: si coinciden los tres primeros números, están en la misma red. Fíjate también en cómo ha recibido la IP. Luego busca el modo en la tabla de quién ve a quién.',
+          tarea: `⟪Mira⟫ el ipconfig del anfitrión y la IP de la máquina virtual (⟦${c.ip}⟧, ⟦${c.como}⟧), y ⟪rodea⟫ el modo de red y si el anfitrión llega a la máquina.`,
+          columnas: '470px 340px', clase: 'texto mini',
           filas: [
             [{ lbl: 'Ethernet (red del aula)' }, { d: `${aula[0]}.${aula[1]}`, clase: 'dato' }],
-            [{ lbl: 'VMware Network Adapter VMnet1' }, { d: `192.168.${B}.1`, clase: 'dato' }],
-            [{ lbl: 'VMware Network Adapter VMnet8' }, { d: `192.168.${A}.1`, clase: 'dato' }],
-            [{ lbl: 'VirtualBox Host-Only Network' }, { d: '192.168.56.1', clase: 'dato' }],
+            [{ lbl: 'VirtualBox Host-Only Ethernet Adapter' }, { d: '192.168.56.1', clase: 'dato' }],
             { linea: true, clase: 'suave', desde: 1 },
             [{ lbl: 'IP de la máquina virtual' }, { d: c.ip, clase: 'dato' }],
-            [{ lbl: 'modo de red' }, { sel: ['?', 'NAT', 'puente', 'solo anfitrión'], c: c.m, clase: 'txt', n: 0, expl: c.e }],
-            [{ lbl: 'programa' }, { sel: ['?', 'VMware', 'VirtualBox', 'cualquiera'], c: c.p, clase: 'txt', n: 1, expl: c.e }]
+            [{ lbl: 'cómo la tiene' }, { d: c.como, clase: 'texto' }],
+            [{ lbl: 'modo de red' }, { sel: ['?', NAT, RNAT, PUENTE, SOLO, INT], c: c.m, clase: 'txt', n: 0, expl: c.e }],
+            [{ lbl: '¿llega el anfitrión a la máquina?' }, { sel: SN, c: c.a, clase: 'txt', n: 1, expl: c.e }]
           ],
-          correcto: `Correcto: ${c.m}${c.p === 'cualquiera' ? '' : ' de ' + c.p}. ${c.e}`
+          correcto: `Correcto: ${c.m}. ${c.e}`
         };
       }
     },
@@ -1540,28 +1545,31 @@
         ];
         const s = SO[rnd(0, SO.length - 1)];
         const nombre = ['examen', 'som', 'lab', 'prueba'][rnd(0, 3)] + '-' + rnd(10, 99);
-        const red = ['NAT', 'solo anfitrión', 'segmento LAN «lab' + rnd(1, 9) + '»'][rnd(0, 2)];
+        const red = ['NAT', 'Adaptador sólo anfitrión', 'Red interna, con el nombre «lab' + rnd(1, 9) + '»'][rnd(0, 2)];
         const insta = ['Recién creada', 'Antes de tocar', 'Base', 'Inicio'][rnd(0, 3)];
-        const dividido = Math.random() < 0.5 ? 'sí, en varios archivos' : 'no, un solo archivo';
+        const win = s.so.startsWith('Windows');
         const filas = [
           [{ lbl: 'nombre' }, { d: nombre, clase: 'texto' }],
+          [{ lbl: 'carpeta' }, { d: 'C:\\VM\\apellido-nombre (con tus apellidos y tu nombre)', clase: 'texto' }],
           [{ lbl: 'sistema invitado' }, { d: s.so, clase: 'texto' }],
           [{ lbl: 'memoria' }, { d: s.ram[rnd(0, s.ram.length - 1)], clase: 'texto' }],
-          [{ lbl: 'núcleos' }, { d: String(s.nuc[rnd(0, s.nuc.length - 1)]), clase: 'texto' }],
-          [{ lbl: 'disco' }, { d: `${s.disco[rnd(0, s.disco.length - 1)]} GB, dinámico, ${dividido}`, clase: 'texto' }],
+          [{ lbl: 'procesadores' }, { d: String(s.nuc[rnd(0, s.nuc.length - 1)]), clase: 'texto' }],
+          [{ lbl: 'disco' }, { d: `${s.disco[rnd(0, s.disco.length - 1)]} GB, VDI, dinámico (sin marcar «Reservar completamente»)`, clase: 'texto' }],
           [{ lbl: 'red' }, { d: red, clase: 'texto' }],
           [{ lbl: 'instantánea' }, { d: `«${insta}», con la máquina apagada`, clase: 'texto' }],
-          [{ lbl: 'clon enlazado' }, { d: `${nombre}-clon, a partir de esa instantánea`, clase: 'texto' }],
-          [{ lbl: 'comprobación' }, { d: s.so.startsWith('Windows') ? 'arrancar hasta la primera pantalla del instalador' : 'arrancar las dos y anotar la IP de cada una (ip a)', clase: 'texto' }]
+          [{ lbl: 'clon enlazado' }, { d: `${nombre}-clon, con «Clonación enlazada» desde esa instantánea y direcciones MAC nuevas`, clase: 'texto' }],
+          [{ lbl: 'comprobación' }, { d: win ? 'arrancar hasta la primera pantalla del instalador'
+            : red.startsWith('Red interna') ? 'arrancar las dos, poner a cada una una IP a mano y hacer ping de una a otra'
+              : 'arrancar las dos y anotar la IP de cada una (ip a)', clase: 'texto' }]
         ];
-        if (s.so.startsWith('Windows')) filas.splice(5, 0, [{ lbl: 'seguridad' }, { d: 'UEFI, arranque seguro y TPM (anota la contraseña)', clase: 'texto' }]);
+        if (win) filas.splice(6, 0, [{ lbl: 'seguridad' }, { d: 'UEFI, arranque seguro y TPM 2.0', clase: 'texto' }]);
         return {
           ...variante(s.so, SO.length),
-          enunciado: 'Crea en VMware Workstation Pro una máquina virtual con esta ficha y enseña el resultado al profesor en tu pantalla.',
-          tarea: '⟪Crea⟫ en VMware Workstation Pro la máquina virtual de la ficha y ⟪enséñasela⟫ al profesor en tu pantalla.',
+          enunciado: 'Crea la máquina en VirtualBox con los datos de la ficha. Después haz la instantánea, el clon y la comprobación, por ese orden, y enseña el resultado al profesor en tu pantalla.',
+          tarea: '⟪Crea⟫ en VirtualBox la máquina virtual de la ficha y ⟪enséñasela⟫ al profesor en tu pantalla.',
           columnas: '230px 620px', clase: 'texto',
           filas,
-          correcto: 'Se comprueba en la pantalla de cada uno: configuración de la máquina, árbol de instantáneas, clon y red.'
+          correcto: 'Se comprueba en la pantalla de cada uno: configuración de la máquina, carpeta, instantáneas, clon y red.'
         };
       }
     },
