@@ -1,0 +1,2872 @@
+{
+ "maquina": {
+  "nucleo": "7.0.0-43-generic",
+  "sistema": "Ubuntu 24.04.5 LTS",
+  "fecha": "2026-11-21T10:00:03+01:00",
+  "usuario": "lucia",
+  "equipo": "ubuntu-lucia"
+ },
+ "fixture": [
+  "mkdir -p empresa/datos empresa/backups empresa/scripts",
+  "sleep 0.02",
+  "printf 'Mes,Vendedor,Ventas,Beneficio\\nEnero,ana,1200,300\\nEnero,luis,950,180\\nFebrero,ana,1100,260\\nFebrero,marta,1300,350\\nMarzo,luis,800,120\\nMarzo,marta,1250,330\\n' > empresa/datos/resumen.csv",
+  "printf 'ana\\nluis\\nmarta\\n' > empresa/datos/vendedores.txt",
+  "printf '#!/bin/bash\\necho \"Informe de ventas\"\\nwc -l datos/resumen.csv\\n' > empresa/scripts/informe.sh",
+  "echo 'Notas de la reunión' > notas.txt",
+  "echo hola > a.txt",
+  "echo adiós > b.txt",
+  "touch vacio.txt",
+  "sleep 0.02",
+  "mkdir vacia",
+  "sleep 0.02",
+  "mkdir -m 700 privada",
+  "sleep 0.02",
+  "ln -s notas.txt enlace",
+  "sleep 0.02",
+  "ln -s noexiste roto",
+  "touch -d '2026-11-01 10:00' empresa/datos/vendedores.txt",
+  "touch -d '2026-10-15 09:00' notas.txt",
+  "touch -d '2026-11-10 12:30' a.txt",
+  "touch -d '2025-05-20 08:00' b.txt",
+  "touch -d '2026-11-20 18:00' vacio.txt"
+ ],
+ "casos": [
+  {
+   "ordenar": false,
+   "orden": "ls",
+   "stdout": "a.txt\nb.txt\nempresa\nenlace\nnotas.txt\nprivada\nroto\nvacia\nvacio.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -a",
+   "stdout": ".\n..\na.txt\nb.txt\nempresa\nenlace\nnotas.txt\nprivada\nroto\nvacia\nvacio.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -A",
+   "stdout": "a.txt\nb.txt\nempresa\nenlace\nnotas.txt\nprivada\nroto\nvacia\nvacio.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -l",
+   "stdout": "total 24\n-rw-rw-r-- 1 lucia lucia    5 nov 10 12:30 a.txt\n-rw-rw-r-- 1 lucia lucia    7 may 20  2025 b.txt\ndrwxrwxr-x 5 lucia lucia 4096 nov 21 09:59 empresa\nlrwxrwxrwx 1 lucia lucia    9 nov 21 09:59 enlace -> notas.txt\n-rw-rw-r-- 1 lucia lucia   21 oct 15 09:00 notas.txt\ndrwx------ 2 lucia lucia 4096 nov 21 09:59 privada\nlrwxrwxrwx 1 lucia lucia    8 nov 21 09:59 roto -> noexiste\ndrwxrwxr-x 2 lucia lucia 4096 nov 21 09:59 vacia\n-rw-rw-r-- 1 lucia lucia    0 nov 20 18:00 vacio.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cd empresa; ls -la",
+   "stdout": "total 20\ndrwxrwxr-x 5 lucia lucia 4096 nov 21 09:59 .\ndrwxrwxr-x 5 lucia lucia 4096 nov 21 09:59 ..\ndrwxrwxr-x 2 lucia lucia 4096 nov 21 09:59 backups\ndrwxrwxr-x 2 lucia lucia 4096 nov 21 09:59 datos\ndrwxrwxr-x 2 lucia lucia 4096 nov 21 09:59 scripts\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -lh empresa/datos",
+   "stdout": "total 8,0K\n-rw-rw-r-- 1 lucia lucia 152 nov 21 09:59 resumen.csv\n-rw-rw-r-- 1 lucia lucia  15 nov  1 10:00 vendedores.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -lt",
+   "stdout": "total 24\nlrwxrwxrwx 1 lucia lucia    8 nov 21 09:59 roto -> noexiste\nlrwxrwxrwx 1 lucia lucia    9 nov 21 09:59 enlace -> notas.txt\ndrwx------ 2 lucia lucia 4096 nov 21 09:59 privada\ndrwxrwxr-x 2 lucia lucia 4096 nov 21 09:59 vacia\ndrwxrwxr-x 5 lucia lucia 4096 nov 21 09:59 empresa\n-rw-rw-r-- 1 lucia lucia    0 nov 20 18:00 vacio.txt\n-rw-rw-r-- 1 lucia lucia    5 nov 10 12:30 a.txt\n-rw-rw-r-- 1 lucia lucia   21 oct 15 09:00 notas.txt\n-rw-rw-r-- 1 lucia lucia    7 may 20  2025 b.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -ltr",
+   "stdout": "total 24\n-rw-rw-r-- 1 lucia lucia    7 may 20  2025 b.txt\n-rw-rw-r-- 1 lucia lucia   21 oct 15 09:00 notas.txt\n-rw-rw-r-- 1 lucia lucia    5 nov 10 12:30 a.txt\n-rw-rw-r-- 1 lucia lucia    0 nov 20 18:00 vacio.txt\ndrwxrwxr-x 5 lucia lucia 4096 nov 21 09:59 empresa\ndrwxrwxr-x 2 lucia lucia 4096 nov 21 09:59 vacia\ndrwx------ 2 lucia lucia 4096 nov 21 09:59 privada\nlrwxrwxrwx 1 lucia lucia    9 nov 21 09:59 enlace -> notas.txt\nlrwxrwxrwx 1 lucia lucia    8 nov 21 09:59 roto -> noexiste\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -r",
+   "stdout": "vacio.txt\nvacia\nroto\nprivada\nnotas.txt\nenlace\nempresa\nb.txt\na.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -d empresa",
+   "stdout": "empresa\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -ld empresa vacia",
+   "stdout": "drwxrwxr-x 5 lucia lucia 4096 nov 21 09:59 empresa\ndrwxrwxr-x 2 lucia lucia 4096 nov 21 09:59 vacia\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -R empresa",
+   "stdout": "empresa:\nbackups\ndatos\nscripts\n\nempresa/backups:\n\nempresa/datos:\nresumen.csv\nvendedores.txt\n\nempresa/scripts:\ninforme.sh\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -1",
+   "stdout": "a.txt\nb.txt\nempresa\nenlace\nnotas.txt\nprivada\nroto\nvacia\nvacio.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -C",
+   "stdout": "a.txt  b.txt  empresa  enlace  notas.txt  privada  roto  vacia\tvacio.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -F",
+   "stdout": "a.txt\nb.txt\nempresa/\nenlace@\nnotas.txt\nprivada/\nroto@\nvacia/\nvacio.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -l enlace roto",
+   "stdout": "lrwxrwxrwx 1 lucia lucia 9 nov 21 09:59 enlace -> notas.txt\nlrwxrwxrwx 1 lucia lucia 8 nov 21 09:59 roto -> noexiste\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -lA empresa",
+   "stdout": "total 12\ndrwxrwxr-x 2 lucia lucia 4096 nov 21 09:59 backups\ndrwxrwxr-x 2 lucia lucia 4096 nov 21 09:59 datos\ndrwxrwxr-x 2 lucia lucia 4096 nov 21 09:59 scripts\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls noexiste",
+   "stdout": "",
+   "stderr": "ls: no se puede acceder a 'noexiste': No existe el archivo o el directorio\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -l noexiste a.txt",
+   "stdout": "-rw-rw-r-- 1 lucia lucia 5 nov 10 12:30 a.txt\n",
+   "stderr": "ls: no se puede acceder a 'noexiste': No existe el archivo o el directorio\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -z",
+   "stdout": "",
+   "stderr": "ls: opción incorrecta -- «z»\nPruebe 'ls --help' para más información.\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "ls --foo",
+   "stdout": "",
+   "stderr": "ls: unrecognized option '--foo'\nPruebe 'ls --help' para más información.\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "ls empresa vacia",
+   "stdout": "empresa:\nbackups\ndatos\nscripts\n\nvacia:\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -l /dev/null /dev/sda",
+   "stdout": "crw-rw-rw- 1 root root 1, 3 nov 21 09:07 /dev/null\nbrw-rw---- 1 root disk 8, 0 nov 21 09:07 /dev/sda\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -ld /tmp /root | cut -c1-10",
+   "stdout": "drwx------\ndrwxrwxrwt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls /root",
+   "stdout": "",
+   "stderr": "ls: no se puede abrir el directorio '/root': Permiso denegado\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -lS",
+   "stdout": "total 24\ndrwxrwxr-x 5 lucia lucia 4096 nov 21 09:59 empresa\ndrwx------ 2 lucia lucia 4096 nov 21 09:59 privada\ndrwxrwxr-x 2 lucia lucia 4096 nov 21 09:59 vacia\n-rw-rw-r-- 1 lucia lucia   21 oct 15 09:00 notas.txt\nlrwxrwxrwx 1 lucia lucia    9 nov 21 09:59 enlace -> notas.txt\nlrwxrwxrwx 1 lucia lucia    8 nov 21 09:59 roto -> noexiste\n-rw-rw-r-- 1 lucia lucia    7 may 20  2025 b.txt\n-rw-rw-r-- 1 lucia lucia    5 nov 10 12:30 a.txt\n-rw-rw-r-- 1 lucia lucia    0 nov 20 18:00 vacio.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls *.txt",
+   "stdout": "a.txt\nb.txt\nnotas.txt\nvacio.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -d */",
+   "stdout": "empresa/\nprivada/\nvacia/\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls empresa/*/",
+   "stdout": "empresa/backups/:\n\nempresa/datos/:\nresumen.csv\nvendedores.txt\n\nempresa/scripts/:\ninforme.sh\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls -l empresa/scripts/informe.sh",
+   "stdout": "-rw-rw-r-- 1 lucia lucia 61 nov 21 09:59 empresa/scripts/informe.sh\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cd empresa; pwd",
+   "stdout": "/tmp/simprueba/w/empresa\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cd empresa/datos; cd ..; pwd",
+   "stdout": "/tmp/simprueba/w/empresa\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cd /; pwd",
+   "stdout": "/\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cd; pwd",
+   "stdout": "/home/lucia\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cd ~; pwd",
+   "stdout": "/home/lucia\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cd /tmp; cd -",
+   "stdout": "/tmp/simprueba/w\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cd noexiste",
+   "stdout": "",
+   "stderr": "bash: línea 1: cd: noexiste: No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cd a.txt",
+   "stdout": "",
+   "stderr": "bash: línea 1: cd: a.txt: No es un directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cd a b",
+   "stdout": "",
+   "stderr": "bash: línea 1: cd: demasiados argumentos\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cd /root",
+   "stdout": "",
+   "stderr": "bash: línea 1: cd: /root: Permiso denegado\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cd enlace",
+   "stdout": "",
+   "stderr": "bash: línea 1: cd: enlace: No es un directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cd /bin; pwd; pwd -P",
+   "stdout": "/bin\n/usr/bin\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cd empresa; cd -; pwd",
+   "stdout": "/tmp/simprueba/w\n/tmp/simprueba/w\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "mkdir nueva; ls -ld nueva",
+   "stdout": "drwxrwxr-x 2 lucia lucia 4096 nov 21 09:59 nueva\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "mkdir empresa",
+   "stdout": "",
+   "stderr": "mkdir: no se puede crear el directorio «empresa»: El archivo ya existe\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "mkdir x/y/z",
+   "stdout": "",
+   "stderr": "mkdir: no se puede crear el directorio «x/y/z»: No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "mkdir -p x/y/z; ls -R x",
+   "stdout": "x:\ny\n\nx/y:\nz\n\nx/y/z:\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "mkdir",
+   "stdout": "",
+   "stderr": "mkdir: falta un operando\nPruebe 'mkdir --help' para más información.\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "mkdir -v otra",
+   "stdout": "mkdir: se ha creado el directorio 'otra'\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "mkdir -pv p1/p2",
+   "stdout": "mkdir: se ha creado el directorio 'p1'\nmkdir: se ha creado el directorio 'p1/p2'\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "mkdir /root/x",
+   "stdout": "",
+   "stderr": "mkdir: no se puede crear el directorio «/root/x»: Permiso denegado\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "mkdir -p empresa/{datos,backups,scripts,informes}; ls empresa",
+   "stdout": "backups\ndatos\ninformes\nscripts\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "mkdir -m 750 m; ls -ld m",
+   "stdout": "drwxr-x--- 2 lucia lucia 4096 nov 21 09:59 m\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "rmdir vacia; ls",
+   "stdout": "a.txt\nb.txt\nempresa\nenlace\nnotas.txt\nprivada\nroto\nvacio.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "rmdir empresa",
+   "stdout": "",
+   "stderr": "rmdir: fallo al borrar 'empresa': El directorio no está vacío\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "rmdir noexiste",
+   "stdout": "",
+   "stderr": "rmdir: fallo al borrar 'noexiste': No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "rmdir a.txt",
+   "stdout": "",
+   "stderr": "rmdir: fallo al borrar 'a.txt': No es un directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "rmdir",
+   "stdout": "",
+   "stderr": "rmdir: falta un operando\nPruebe 'rmdir --help' para más información.\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "mkdir -p q/w; rmdir -p q/w; ls",
+   "stdout": "a.txt\nb.txt\nempresa\nenlace\nnotas.txt\nprivada\nroto\nvacia\nvacio.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "rmdir -p empresa/datos",
+   "stdout": "",
+   "stderr": "rmdir: fallo al borrar 'empresa/datos': El directorio no está vacío\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "touch nuevo.txt; ls -l nuevo.txt",
+   "stdout": "-rw-rw-r-- 1 lucia lucia 0 nov 21 09:59 nuevo.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "touch /root/x",
+   "stdout": "",
+   "stderr": "touch: no se puede efectuar `touch' sobre '/root/x': Permiso denegado\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "touch noexiste/x",
+   "stdout": "",
+   "stderr": "touch: no se puede efectuar `touch' sobre 'noexiste/x': No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "touch",
+   "stdout": "",
+   "stderr": "touch: falta un archivo como argumento\nPruebe 'touch --help' para más información.\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "touch -d '2026-01-15 10:30' f; ls -l f",
+   "stdout": "-rw-rw-r-- 1 lucia lucia 0 ene 15  2026 f\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "touch -t 202601151030 f2; ls -l --full-time f2",
+   "stdout": "-rw-rw-r-- 1 lucia lucia 0 2026-01-15 10:30:00.000000000 +0100 f2\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cp a.txt c.txt; cat c.txt",
+   "stdout": "hola\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cp a.txt",
+   "stdout": "",
+   "stderr": "cp: falta el operando archivo de destino después de 'a.txt'\nPruebe 'cp --help' para más información.\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cp",
+   "stdout": "",
+   "stderr": "cp: falta un archivo como argumento\nPruebe 'cp --help' para más información.\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cp noexiste z",
+   "stdout": "",
+   "stderr": "cp: no se puede efectuar `stat' sobre 'noexiste': No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cp vacia z",
+   "stdout": "",
+   "stderr": "cp: -r not specified; omitting directory 'vacia'\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cp -r vacia z; ls -d z",
+   "stdout": "z\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cp a.txt b.txt empresa/noexiste",
+   "stdout": "",
+   "stderr": "cp: target 'empresa/noexiste': No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cp a.txt a.txt",
+   "stdout": "",
+   "stderr": "cp: 'a.txt' y 'a.txt' son el mismo fichero\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cp -v a.txt c.txt",
+   "stdout": "'a.txt' -> 'c.txt'\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cp a.txt b.txt empresa; ls empresa",
+   "stdout": "a.txt\nbackups\nb.txt\ndatos\nscripts\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cp -r empresa copia; ls -R copia",
+   "stdout": "copia:\nbackups\ndatos\nscripts\n\ncopia/backups:\n\ncopia/datos:\nresumen.csv\nvendedores.txt\n\ncopia/scripts:\ninforme.sh\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cp a.txt notas.txt vacio.txt",
+   "stdout": "",
+   "stderr": "cp: target 'vacio.txt': No es un directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cp -r empresa empresa/datos",
+   "stdout": "",
+   "stderr": "cp: no se puede copiar un directorio, 'empresa', dentro de sí mismo, 'empresa/datos/empresa'\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cp /etc/shadow s",
+   "stdout": "",
+   "stderr": "cp: no se puede abrir '/etc/shadow' para lectura: Permiso denegado\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cp a.txt /root/",
+   "stdout": "",
+   "stderr": "cp: no se puede efectuar `stat' sobre '/root/a.txt': Permiso denegado\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "mv a.txt c.txt; ls",
+   "stdout": "b.txt\nc.txt\nempresa\nenlace\nnotas.txt\nprivada\nroto\nvacia\nvacio.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "mv noexiste z",
+   "stdout": "",
+   "stderr": "mv: no se puede efectuar `stat' sobre 'noexiste': No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "mv a.txt",
+   "stdout": "",
+   "stderr": "mv: falta el operando archivo de destino después de 'a.txt'\nPruebe 'mv --help' para más información.\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "mv a.txt a.txt",
+   "stdout": "",
+   "stderr": "mv: 'a.txt' y 'a.txt' son el mismo fichero\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "mv empresa empresa/datos",
+   "stdout": "",
+   "stderr": "mv: no se puede mover 'empresa' a un directorio de sí mismo, 'empresa/datos/empresa'\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "mv a.txt b.txt vacia; ls vacia",
+   "stdout": "a.txt\nb.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "mv vacia vacia2; ls -d vacia2",
+   "stdout": "vacia2\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "mv a.txt b.txt noexiste",
+   "stdout": "",
+   "stderr": "mv: target 'noexiste': No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "mv /etc/hostname x",
+   "stdout": "",
+   "stderr": "mv: no se puede mover '/etc/hostname' a 'x': Permiso denegado\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "rm a.txt; ls",
+   "stdout": "b.txt\nempresa\nenlace\nnotas.txt\nprivada\nroto\nvacia\nvacio.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "rm noexiste",
+   "stdout": "",
+   "stderr": "rm: no se puede borrar 'noexiste': No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "rm vacia",
+   "stdout": "",
+   "stderr": "rm: no se puede borrar 'vacia': Es un directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "rm -r vacia; ls",
+   "stdout": "a.txt\nb.txt\nempresa\nenlace\nnotas.txt\nprivada\nroto\nvacio.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "rm -f noexiste",
+   "stdout": "",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "rm",
+   "stdout": "",
+   "stderr": "rm: falta un operando\nPruebe 'rm --help' para más información.\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "rm -v a.txt",
+   "stdout": "'a.txt' borrado\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": true,
+   "orden": "rm -rv empresa",
+   "stdout": "'empresa/datos/vendedores.txt' borrado\n'empresa/datos/resumen.csv' borrado\nremoved directory 'empresa/datos'\nremoved directory 'empresa/backups'\n'empresa/scripts/informe.sh' borrado\nremoved directory 'empresa/scripts'\nremoved directory 'empresa'\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "rm /etc/passwd",
+   "stdout": "",
+   "stderr": "rm: no se puede borrar '/etc/passwd': Permiso denegado\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "rm -r noexiste",
+   "stdout": "",
+   "stderr": "rm: no se puede borrar 'noexiste': No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "rm -d vacia; ls -d vacia",
+   "stdout": "",
+   "stderr": "ls: no se puede acceder a 'vacia': No existe el archivo o el directorio\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "rm -r /root",
+   "stdout": "",
+   "stderr": "rm: no se puede borrar '/root': Permiso denegado\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "ln a.txt duro; ls -l a.txt duro | cut -c1-12",
+   "stdout": "-rw-rw-r-- 2\n-rw-rw-r-- 2\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ln a.txt duro; ln a.txt duro",
+   "stdout": "",
+   "stderr": "ln: fallo al crear el enlace duro 'duro': El archivo ya existe\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "ln vacia dd",
+   "stdout": "",
+   "stderr": "ln: vacia: no se permiten enlaces fuertes para directorios\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "ln noexiste z",
+   "stdout": "",
+   "stderr": "ln: fallo al acceder a 'noexiste': No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "ln -s a.txt s1; ls -l s1; cat s1",
+   "stdout": "lrwxrwxrwx 1 lucia lucia 5 nov 21 09:59 s1 -> a.txt\nhola\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ln -s a.txt enlace",
+   "stdout": "",
+   "stderr": "ln: fallo al crear el enlace simbólico 'enlace': El archivo ya existe\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cat roto",
+   "stdout": "",
+   "stderr": "cat: roto: No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "file a.txt vacia noexiste",
+   "stdout": "a.txt:    ASCII text\nvacia:    directory\nnoexiste: cannot open `noexiste' (No such file or directory)\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "file vacio.txt enlace roto",
+   "stdout": "vacio.txt: empty\nenlace:    symbolic link to notas.txt\nroto:      broken symbolic link to noexiste\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "file empresa/scripts/informe.sh",
+   "stdout": "empresa/scripts/informe.sh: Bourne-Again shell script, ASCII text executable\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "file empresa/datos/resumen.csv",
+   "stdout": "empresa/datos/resumen.csv: CSV ASCII text\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "file /dev/null /dev/sda /tmp",
+   "stdout": "/dev/null: character special (1/3)\n/dev/sda:  block special (8/0)\n/tmp:      sticky, directory\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "printf \"sin fin\" > s; file s",
+   "stdout": "s: ASCII text, with no line terminators\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "stat noexiste",
+   "stdout": "",
+   "stderr": "stat: cannot statx 'noexiste': No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "stat -f . | head -1",
+   "stdout": "  Fichero: \".\"\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cat a.txt b.txt",
+   "stdout": "hola\nadiós\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cat -n empresa/datos/resumen.csv",
+   "stdout": "     1\tMes,Vendedor,Ventas,Beneficio\n     2\tEnero,ana,1200,300\n     3\tEnero,luis,950,180\n     4\tFebrero,ana,1100,260\n     5\tFebrero,marta,1300,350\n     6\tMarzo,luis,800,120\n     7\tMarzo,marta,1250,330\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cat noexiste",
+   "stdout": "",
+   "stderr": "cat: noexiste: No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cat vacia",
+   "stdout": "",
+   "stderr": "cat: vacia: Es un directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cat -z",
+   "stdout": "",
+   "stderr": "cat: opción incorrecta -- «z»\nPruebe 'cat --help' para más información.\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cat /etc/shadow",
+   "stdout": "",
+   "stderr": "cat: /etc/shadow: Permiso denegado\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cat a.txt noexiste b.txt",
+   "stdout": "hola\nadiós\n",
+   "stderr": "cat: noexiste: No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "head -n 3 empresa/datos/resumen.csv",
+   "stdout": "Mes,Vendedor,Ventas,Beneficio\nEnero,ana,1200,300\nEnero,luis,950,180\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "head -3 empresa/datos/resumen.csv",
+   "stdout": "Mes,Vendedor,Ventas,Beneficio\nEnero,ana,1200,300\nEnero,luis,950,180\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "head -c 5 empresa/datos/resumen.csv",
+   "stdout": "Mes,V",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "head noexiste",
+   "stdout": "",
+   "stderr": "head: no se puede abrir 'noexiste' para lectura: No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "head -n x a.txt",
+   "stdout": "",
+   "stderr": "head: el número de líneas no es válido: «x»\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "head a.txt b.txt",
+   "stdout": "==> a.txt <==\nhola\n\n==> b.txt <==\nadiós\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "head -n -2 empresa/datos/resumen.csv",
+   "stdout": "Mes,Vendedor,Ventas,Beneficio\nEnero,ana,1200,300\nEnero,luis,950,180\nFebrero,ana,1100,260\nFebrero,marta,1300,350\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "tail -n 2 empresa/datos/resumen.csv",
+   "stdout": "Marzo,luis,800,120\nMarzo,marta,1250,330\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "tail -2 empresa/datos/resumen.csv",
+   "stdout": "Marzo,luis,800,120\nMarzo,marta,1250,330\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "tail -n +2 empresa/datos/resumen.csv",
+   "stdout": "Enero,ana,1200,300\nEnero,luis,950,180\nFebrero,ana,1100,260\nFebrero,marta,1300,350\nMarzo,luis,800,120\nMarzo,marta,1250,330\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "tail noexiste",
+   "stdout": "",
+   "stderr": "tail: no se puede abrir 'noexiste' para lectura: No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "tail -c 4 a.txt",
+   "stdout": "ola\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "wc empresa/datos/resumen.csv",
+   "stdout": "  7   7 152 empresa/datos/resumen.csv\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "wc -l empresa/datos/resumen.csv empresa/datos/vendedores.txt",
+   "stdout": "  7 empresa/datos/resumen.csv\n  3 empresa/datos/vendedores.txt\n 10 total\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "wc -w notas.txt",
+   "stdout": "4 notas.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "wc -c b.txt",
+   "stdout": "7 b.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "wc -m b.txt",
+   "stdout": "6 b.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "wc -L empresa/datos/resumen.csv",
+   "stdout": "29 empresa/datos/resumen.csv\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "wc noexiste",
+   "stdout": "",
+   "stderr": "wc: noexiste: No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "echo hola | wc",
+   "stdout": "      1       1       5\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "wc -l < empresa/datos/resumen.csv",
+   "stdout": "7\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo \"ñandú\" | wc -c -m",
+   "stdout": "      6       8\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "wc vacia",
+   "stdout": "      0       0       0 vacia\n",
+   "stderr": "wc: vacia: Es un directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "sort empresa/datos/vendedores.txt",
+   "stdout": "ana\nluis\nmarta\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "sort -r empresa/datos/vendedores.txt",
+   "stdout": "marta\nluis\nana\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cut -d, -f2 empresa/datos/resumen.csv | sort -u",
+   "stdout": "ana\nluis\nmarta\nVendedor\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "printf \"10\\n9\\n100\\n\" | sort",
+   "stdout": "10\n100\n9\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "printf \"10\\n9\\n100\\n\" | sort -n",
+   "stdout": "9\n10\n100\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "sort -t, -k3 -n empresa/datos/resumen.csv",
+   "stdout": "Mes,Vendedor,Ventas,Beneficio\nMarzo,luis,800,120\nEnero,luis,950,180\nFebrero,ana,1100,260\nEnero,ana,1200,300\nMarzo,marta,1250,330\nFebrero,marta,1300,350\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "sort -t, -k3 -nr empresa/datos/resumen.csv | head -1",
+   "stdout": "Febrero,marta,1300,350\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "printf \"b\\na\\n\" | sort -c",
+   "stdout": "",
+   "stderr": "sort: -:2: fuera de secuencia: a\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "sort -c empresa/datos/vendedores.txt",
+   "stdout": "",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "sort noexiste",
+   "stdout": "",
+   "stderr": "sort: no se puede leer: noexiste: No existe el archivo o el directorio\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "printf \"Ana\\nana\\nÁlvaro\\nbeto\\nBeto\\n_x\\n1\\n\" | sort",
+   "stdout": "1\nÁlvaro\nana\nAna\nbeto\nBeto\n_x\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "tail -n +2 empresa/datos/resumen.csv | sort -t, -k2,2 -k3,3n",
+   "stdout": "Febrero,ana,1100,260\nEnero,ana,1200,300\nMarzo,luis,800,120\nEnero,luis,950,180\nMarzo,marta,1250,330\nFebrero,marta,1300,350\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cut -d, -f1 empresa/datos/resumen.csv",
+   "stdout": "Mes\nEnero\nEnero\nFebrero\nFebrero\nMarzo\nMarzo\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cut -d, -f2,4 empresa/datos/resumen.csv",
+   "stdout": "Vendedor,Beneficio\nana,300\nluis,180\nana,260\nmarta,350\nluis,120\nmarta,330\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cut -c1-3 empresa/datos/vendedores.txt",
+   "stdout": "ana\nlui\nmar\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cut -d, -f3- empresa/datos/resumen.csv",
+   "stdout": "Ventas,Beneficio\n1200,300\n950,180\n1100,260\n1300,350\n800,120\n1250,330\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cut empresa/datos/resumen.csv",
+   "stdout": "",
+   "stderr": "cut: se debe indicar una lista de bytes, caracteres o campos\nPruebe 'cut --help' para más información.\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cut -d: a.txt",
+   "stdout": "",
+   "stderr": "cut: se debe indicar una lista de bytes, caracteres o campos\nPruebe 'cut --help' para más información.\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cut -f 2 -d , noexiste",
+   "stdout": "",
+   "stderr": "cut: noexiste: No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "echo \"ñandú\" | cut -c1-2",
+   "stdout": "ñ\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cut -d, -f5 empresa/datos/resumen.csv | head -2",
+   "stdout": "\n\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo hola | tee t1.txt; cat t1.txt",
+   "stdout": "hola\nhola\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo uno | tee t; echo dos | tee -a t; cat t",
+   "stdout": "uno\ndos\nuno\ndos\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo x | tee /root/x",
+   "stdout": "x\n",
+   "stderr": "tee: /root/x: Permiso denegado\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "grep ana empresa/datos/resumen.csv",
+   "stdout": "Enero,ana,1200,300\nFebrero,ana,1100,260\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "grep -n ana empresa/datos/resumen.csv",
+   "stdout": "2:Enero,ana,1200,300\n4:Febrero,ana,1100,260\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "grep -c Enero empresa/datos/resumen.csv",
+   "stdout": "2\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "grep -i ENERO empresa/datos/resumen.csv",
+   "stdout": "Enero,ana,1200,300\nEnero,luis,950,180\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "grep -v ana empresa/datos/resumen.csv",
+   "stdout": "Mes,Vendedor,Ventas,Beneficio\nEnero,luis,950,180\nFebrero,marta,1300,350\nMarzo,luis,800,120\nMarzo,marta,1250,330\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "grep -w an empresa/datos/resumen.csv",
+   "stdout": "",
+   "stderr": "",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "grep zzz empresa/datos/resumen.csv",
+   "stdout": "",
+   "stderr": "",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "grep ana noexiste",
+   "stdout": "",
+   "stderr": "grep: noexiste: No existe el archivo o el directorio\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "grep",
+   "stdout": "",
+   "stderr": "Modo de empleo: grep [OPCIÓN]... PATRONES [FICHERO]...\nPruebe 'grep --help' para más información.\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "grep ana empresa",
+   "stdout": "",
+   "stderr": "grep: empresa: Es un directorio\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": true,
+   "orden": "grep -r ana empresa",
+   "stdout": "empresa/datos/vendedores.txt:ana\nempresa/datos/resumen.csv:Enero,ana,1200,300\nempresa/datos/resumen.csv:Febrero,ana,1100,260\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": true,
+   "orden": "grep -rl ana .",
+   "stdout": "./empresa/datos/vendedores.txt\n./empresa/datos/resumen.csv\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "grep ^M empresa/datos/resumen.csv",
+   "stdout": "Mes,Vendedor,Ventas,Beneficio\nMarzo,luis,800,120\nMarzo,marta,1250,330\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "grep 0$ empresa/datos/resumen.csv",
+   "stdout": "Enero,ana,1200,300\nEnero,luis,950,180\nFebrero,ana,1100,260\nFebrero,marta,1300,350\nMarzo,luis,800,120\nMarzo,marta,1250,330\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "grep -A1 luis empresa/datos/resumen.csv",
+   "stdout": "Enero,luis,950,180\nFebrero,ana,1100,260\n--\nMarzo,luis,800,120\nMarzo,marta,1250,330\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "grep -B1 marta empresa/datos/resumen.csv",
+   "stdout": "Febrero,ana,1100,260\nFebrero,marta,1300,350\nMarzo,luis,800,120\nMarzo,marta,1250,330\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "grep -C1 Febrero empresa/datos/resumen.csv",
+   "stdout": "Enero,luis,950,180\nFebrero,ana,1100,260\nFebrero,marta,1300,350\nMarzo,luis,800,120\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "grep -E 'ana|marta' empresa/datos/resumen.csv",
+   "stdout": "Enero,ana,1200,300\nFebrero,ana,1100,260\nFebrero,marta,1300,350\nMarzo,marta,1250,330\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "grep -e luis -e marta empresa/datos/resumen.csv",
+   "stdout": "Enero,luis,950,180\nFebrero,marta,1300,350\nMarzo,luis,800,120\nMarzo,marta,1250,330\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "grep ana *",
+   "stdout": "",
+   "stderr": "grep: empresa: Es un directorio\ngrep: privada: Es un directorio\ngrep: roto: No existe el archivo o el directorio\ngrep: vacia: Es un directorio\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "grep -l ana *",
+   "stdout": "",
+   "stderr": "grep: empresa: Es un directorio\ngrep: privada: Es un directorio\ngrep: roto: No existe el archivo o el directorio\ngrep: vacia: Es un directorio\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "grep -o \"[0-9]*00\" empresa/datos/resumen.csv",
+   "stdout": "1200\n300\n1100\n1300\n800\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "grep -x ana empresa/datos/vendedores.txt",
+   "stdout": "ana\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cat empresa/datos/resumen.csv | grep -c a",
+   "stdout": "6\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "grep \"Ma.zo\" empresa/datos/resumen.csv",
+   "stdout": "Marzo,luis,800,120\nMarzo,marta,1250,330\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "grep -h ana empresa/datos/resumen.csv empresa/datos/vendedores.txt",
+   "stdout": "Enero,ana,1200,300\nFebrero,ana,1100,260\nana\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "grep \"[[:digit:]]\\{4\\}\" empresa/datos/resumen.csv",
+   "stdout": "Enero,ana,1200,300\nFebrero,ana,1100,260\nFebrero,marta,1300,350\nMarzo,marta,1250,330\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": true,
+   "orden": "find . -name \"*.txt\"",
+   "stdout": "./vacio.txt\n./empresa/datos/vendedores.txt\n./notas.txt\n./a.txt\n./b.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": true,
+   "orden": "find . -type d",
+   "stdout": ".\n./empresa\n./empresa/datos\n./empresa/backups\n./empresa/scripts\n./vacia\n./privada\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "find noexiste",
+   "stdout": "",
+   "stderr": "find: ‘noexiste’: No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": true,
+   "orden": "find . -empty",
+   "stdout": "./vacio.txt\n./empresa/backups\n./vacia\n./privada\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": true,
+   "orden": "find . -maxdepth 1 -type f",
+   "stdout": "./vacio.txt\n./notas.txt\n./a.txt\n./b.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": true,
+   "orden": "find . -iname \"A*\"",
+   "stdout": "./a.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "find empresa -name \"*.csv\"",
+   "stdout": "empresa/datos/resumen.csv\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": true,
+   "orden": "find . -not -name \"*.txt\" -type f",
+   "stdout": "./empresa/datos/resumen.csv\n./empresa/scripts/informe.sh\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": true,
+   "orden": "find . -size -1k",
+   "stdout": "./vacio.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "find . -name a.txt -exec cat {} \\;",
+   "stdout": "hola\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "find . -foo",
+   "stdout": "",
+   "stderr": "find: predicado desconocido `-foo'\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "find /root",
+   "stdout": "/root\n",
+   "stderr": "find: ‘/root’: Permiso denegado\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "find . -name",
+   "stdout": "",
+   "stderr": "find: falta un parámetro para «-name»\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": true,
+   "orden": "find . -type l",
+   "stdout": "./enlace\n./roto\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "find empresa -type f -name \"*.sh\"",
+   "stdout": "empresa/scripts/informe.sh\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": true,
+   "orden": "find . -name \"*.txt\" -o -type d",
+   "stdout": ".\n./vacio.txt\n./empresa\n./empresa/datos\n./empresa/datos/vendedores.txt\n./empresa/backups\n./empresa/scripts\n./notas.txt\n./a.txt\n./vacia\n./privada\n./b.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": true,
+   "orden": "find . -mtime +5 -type f",
+   "stdout": "./empresa/datos/vendedores.txt\n./notas.txt\n./a.txt\n./b.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": true,
+   "orden": "find . -newer notas.txt -type f",
+   "stdout": "./vacio.txt\n./empresa/datos/vendedores.txt\n./empresa/datos/resumen.csv\n./empresa/scripts/informe.sh\n./a.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "find . -type x",
+   "stdout": "",
+   "stderr": "find: Argumento desconocido para -type: x\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": true,
+   "orden": "du empresa",
+   "stdout": "12\tempresa/datos\n4\tempresa/backups\n8\tempresa/scripts\n28\tempresa\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": true,
+   "orden": "du -h empresa",
+   "stdout": "12K\tempresa/datos\n4,0K\tempresa/backups\n8,0K\tempresa/scripts\n28K\tempresa\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "du -s empresa",
+   "stdout": "28\tempresa\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "du -sh empresa a.txt",
+   "stdout": "28K\tempresa\n4,0K\ta.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "du noexiste",
+   "stdout": "",
+   "stderr": "du: no se puede acceder a 'noexiste': No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": true,
+   "orden": "du -a empresa/datos",
+   "stdout": "4\tempresa/datos/vendedores.txt\n4\tempresa/datos/resumen.csv\n12\tempresa/datos\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo $HOME $USER $SHELL",
+   "stdout": "/home/lucia lucia /bin/bash\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo '$HOME' \"$HOME\" \\$HOME",
+   "stdout": "$HOME /home/lucia $HOME\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo a\\ \\ b \"c  d\" e",
+   "stdout": "a  b c  d e\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo $((3+4*2)) $((10/3)) $((10%3)) $((2**10))",
+   "stdout": "11 3 1 1024\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo $((1/0))",
+   "stdout": "",
+   "stderr": "bash: línea 1: 1/0: división por 0 (el elemento de error es \"0\")\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "echo $((5 > 3)) $((-7/2))",
+   "stdout": "1 -3\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo {a,b,c}.txt x{1..3} {5..1} {a..e}",
+   "stdout": "a.txt b.txt c.txt x1 x2 x3 5 4 3 2 1 a b c d e\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo {1..10..3} {01..03}",
+   "stdout": "1 4 7 10 01 02 03\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo *.txt",
+   "stdout": "a.txt b.txt notas.txt vacio.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo *.zzz",
+   "stdout": "*.zzz\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo ?.txt [ab].txt [!a].txt",
+   "stdout": "a.txt b.txt a.txt b.txt b.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo ~ ~/x ~root ~noexiste",
+   "stdout": "/home/lucia /home/lucia/x /root ~noexiste\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo $(echo uno) `echo dos`",
+   "stdout": "uno dos\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo -n hola; echo",
+   "stdout": "hola\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo -e \"a\\tb\\nc\"",
+   "stdout": "a\tb\nc\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo \"a\\tb\"",
+   "stdout": "a\\tb\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "false; echo $?; true; echo $?",
+   "stdout": "1\n0\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls noexiste 2>/dev/null; echo $?",
+   "stdout": "2\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls noexiste > /dev/null 2>&1; echo $?",
+   "stdout": "2\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo uno > f1; echo dos >> f1; cat f1",
+   "stdout": "uno\ndos\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls noexiste 2> err.txt; cat err.txt",
+   "stdout": "ls: no se puede acceder a 'noexiste': No existe el archivo o el directorio\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "ls a.txt noexiste > out.txt 2>&1; cat out.txt",
+   "stdout": "ls: no se puede acceder a 'noexiste': No existe el archivo o el directorio\na.txt\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cat < noexiste",
+   "stdout": "",
+   "stderr": "bash: línea 1: noexiste: No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "echo x > /root/y",
+   "stdout": "",
+   "stderr": "bash: línea 1: /root/y: Permiso denegado\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "echo x > vacia",
+   "stdout": "",
+   "stderr": "bash: línea 1: vacia: Es un directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "echo x > noexiste/f",
+   "stdout": "",
+   "stderr": "bash: línea 1: noexiste/f: No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "true && echo si || echo no; false && echo si || echo no",
+   "stdout": "si\nno\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo \"sin cerrar",
+   "stdout": "",
+   "stderr": "bash: -c: línea 1: EOF inesperado mientras se buscaba un «\"» coincidente\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "echo a |",
+   "stdout": "",
+   "stderr": "bash: -c: línea 2: error sintáctico: no se esperaba el final del archivo\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "echo a ;; echo b",
+   "stdout": "",
+   "stderr": "bash: -c: línea 1: error de sintaxis cerca del elemento inesperado `;;'\nbash: -c: línea 1: `echo a ;; echo b'\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "echo a | | echo b",
+   "stdout": "",
+   "stderr": "bash: -c: línea 1: error de sintaxis cerca del elemento inesperado `|'\nbash: -c: línea 1: `echo a | | echo b'\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "| echo",
+   "stdout": "",
+   "stderr": "bash: -c: línea 1: error de sintaxis cerca del elemento inesperado `|'\nbash: -c: línea 1: `| echo'\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "x=5; echo $x; echo ${x}y; echo \"$x\"",
+   "stdout": "5\n5y\n5\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo $noexiste.x",
+   "stdout": ".x\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "unset x; echo ${x:-def}",
+   "stdout": "def\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "f=resumen.csv; echo ${f%.csv} ${f#res}",
+   "stdout": "resumen umen.csv\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo $(( (2+3)*4 ))",
+   "stdout": "20\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo \"Hoy hay $(ls | wc -l) cosas\"",
+   "stdout": "Hoy hay 9 cosas\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "cat a.txt | cat | cat",
+   "stdout": "hola\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo a; echo b; echo c",
+   "stdout": "a\nb\nc\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo uno && ls noexiste && echo dos",
+   "stdout": "uno\n",
+   "stderr": "ls: no se puede acceder a 'noexiste': No existe el archivo o el directorio\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "ls noexiste || echo fallo",
+   "stdout": "fallo\n",
+   "stderr": "ls: no se puede acceder a 'noexiste': No existe el archivo o el directorio\n",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo \"$(cat a.txt)\"",
+   "stdout": "hola\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "n=3; echo $((n * 2))",
+   "stdout": "6\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo 'una \"comilla\"'",
+   "stdout": "una \"comilla\"\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo \"dos 'comillas'\"",
+   "stdout": "dos 'comillas'\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "echo $((3+))",
+   "stdout": "",
+   "stderr": "bash: línea 1: 3+: error sintáctico: se esperaba un operando (el elemento de error es \"+\")\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "whoami",
+   "stdout": "lucia\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "whoami x",
+   "stdout": "",
+   "stderr": "whoami: operando extra «x»\nPruebe 'whoami --help' para más información.\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "id -un",
+   "stdout": "lucia\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "id -u; id -g; id -G; id -gn",
+   "stdout": "1000\n1000\n1000 4 24 27 30 46 100 114\nlucia\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "id root",
+   "stdout": "uid=0(root) gid=0(root) grupos=0(root)\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "id noexiste",
+   "stdout": "",
+   "stderr": "id: «noexiste»: no existe ese usuario\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "groups",
+   "stdout": "lucia adm cdrom sudo dip plugdev users lpadmin\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "uname -s",
+   "stdout": "Linux\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "uname -r",
+   "stdout": "7.0.0-43-generic\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "uname -m",
+   "stdout": "x86_64\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "uname -o",
+   "stdout": "GNU/Linux\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "uname -srm",
+   "stdout": "Linux 7.0.0-43-generic x86_64\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "uname -x",
+   "stdout": "",
+   "stderr": "uname: opción incorrecta -- «x»\nPruebe 'uname --help' para más información.\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "date +%Y",
+   "stdout": "2026\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "date +%j %U",
+   "stdout": "",
+   "stderr": "date: operando extra «%U»\nPruebe 'date --help' para más información.\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "date --foo",
+   "stdout": "",
+   "stderr": "date: unrecognized option '--foo'\nPruebe 'date --help' para más información.\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "date -d 2026-01-01",
+   "stdout": "jue 01 ene 2026 00:00:00 CET\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "date -d 2026-01-01 +%A",
+   "stdout": "jueves\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "date \"+%d/%m/%Y\" -d 2026-03-05",
+   "stdout": "05/03/2026\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "pwd x",
+   "stdout": "/tmp/simprueba/w\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "pwd -P",
+   "stdout": "/tmp/simprueba/w\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "which ls grep",
+   "stdout": "/usr/bin/ls\n/usr/bin/grep\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "which noexiste; echo $?",
+   "stdout": "1\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "which cd; echo $?",
+   "stdout": "1\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "whereis ls",
+   "stdout": "ls: /usr/bin/ls /usr/share/man/man1/ls.1.gz\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "whereis cd",
+   "stdout": "cd:\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "whereis noexiste",
+   "stdout": "noexiste:\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "printenv HOME",
+   "stdout": "/home/lucia\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "printenv NOEXISTE; echo $?",
+   "stdout": "1\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "type cd",
+   "stdout": "cd es una orden interna del intérprete de ordenes\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "type noexiste",
+   "stdout": "",
+   "stderr": "bash: línea 1: type: noexiste: no encontrado\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "exit 3",
+   "stdout": "",
+   "stderr": "",
+   "codigo": 3
+  },
+  {
+   "ordenar": false,
+   "orden": "exit abc",
+   "stdout": "",
+   "stderr": "bash: línea 1: exit: abc: se requiere un argumento numérico\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "exit 1 2",
+   "stdout": "",
+   "stderr": "bash: línea 1: exit: demasiados argumentos\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "true; echo $?",
+   "stdout": "0\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "tree",
+   "stdout": "",
+   "stderr": "bash: línea 1: tree: orden no encontrada\n",
+   "codigo": 127
+  },
+  {
+   "ordenar": false,
+   "orden": "cal",
+   "stdout": "",
+   "stderr": "bash: línea 1: cal: orden no encontrada\n",
+   "codigo": 127
+  },
+  {
+   "ordenar": false,
+   "orden": "locate x",
+   "stdout": "",
+   "stderr": "bash: línea 1: locate: orden no encontrada\n",
+   "codigo": 127
+  },
+  {
+   "ordenar": false,
+   "orden": "man",
+   "stdout": "",
+   "stderr": "¿Qué página de manual quiere?\nPor ejemplo, pruebe 'man man'.\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "man noexiste",
+   "stdout": "",
+   "stderr": "Ninguna entrada del manual para noexiste\n",
+   "codigo": 16
+  },
+  {
+   "ordenar": false,
+   "orden": "more a.txt",
+   "stdout": "::::::::::::::\na.txt\n::::::::::::::\nhola\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "less a.txt",
+   "stdout": "hola\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "history",
+   "stdout": "",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "alias",
+   "stdout": "",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "unalias noexiste",
+   "stdout": "",
+   "stderr": "bash: línea 1: unalias: noexiste: no encontrado\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "unalias",
+   "stdout": "",
+   "stderr": "unalias: modo de empleo: unalias [-a] nombre [nombre ...]\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "lsblk -d | head -1",
+   "stdout": "NAME  MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "df noexiste",
+   "stdout": "",
+   "stderr": "df: noexiste: No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "umount /mnt",
+   "stdout": "",
+   "stderr": "umount: /mnt: no montado.\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "mount /dev/sdb1 /mnt",
+   "stdout": "",
+   "stderr": "mount: /mnt: debe ser superusuario para utilizar mount.\n       dmesg(1) puede ser que tenga más información tras el fallo de la llamada al sistema de montaje.\n",
+   "codigo": 32
+  },
+  {
+   "ordenar": false,
+   "orden": "ip x",
+   "stdout": "",
+   "stderr": "Usage: ip xfrm XFRM-OBJECT { COMMAND | help }\nwhere  XFRM-OBJECT := state | policy | monitor\n",
+   "codigo": 255
+  },
+  {
+   "ordenar": false,
+   "orden": "ping",
+   "stdout": "",
+   "stderr": "ping: usage error: Se debe especificar la dirección de destino\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "ping -c 1 noexiste.invalid",
+   "stdout": "",
+   "stderr": "ping: noexiste.invalid: Nombre o servicio desconocido\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "nslookup noexiste.invalid",
+   "stdout": "Server:\t\t127.0.0.53\nAddress:\t127.0.0.53#53\n\n** server can't find noexiste.invalid: NXDOMAIN\n\n",
+   "stderr": "",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "apt install tree",
+   "stdout": "",
+   "stderr": "\nWARNING: apt does not have a stable CLI interface. Use with caution in scripts.\n\nE: No se pudo abrir el fichero de bloqueo «/var/lib/dpkg/lock-frontend» - open (13: Permiso denegado)\nE: No se pudo obtener el bloqueo de la interfaz dpkg (/var/lib/dpkg/lock-frontend). ¿Es usted superusuario?\n",
+   "codigo": 100
+  },
+  {
+   "ordenar": false,
+   "orden": "sudo ls",
+   "stdout": "",
+   "stderr": "sudo: a terminal is required to read the password; either use the -S option to read from standard input or configure an askpass helper\nsudo: se requiere una contraseña\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "lsmod x",
+   "stdout": "",
+   "stderr": "Usage: lsmod\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "top -n 1 -b | head -1 | cut -c1-5",
+   "stdout": "top -\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "hostnamectl hostname",
+   "stdout": "ubuntu-lucia\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "bash empresa/scripts/informe.sh",
+   "stdout": "Informe de ventas\n",
+   "stderr": "wc: datos/resumen.csv: No existe el archivo o el directorio\n",
+   "codigo": 1
+  },
+  {
+   "ordenar": false,
+   "orden": "cd empresa; bash scripts/informe.sh",
+   "stdout": "Informe de ventas\n7 datos/resumen.csv\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "bash noexiste.sh",
+   "stdout": "",
+   "stderr": "bash: noexiste.sh: No existe el archivo o el directorio\n",
+   "codigo": 127
+  },
+  {
+   "ordenar": false,
+   "orden": "printf 'echo uno\\nls noexiste\\necho dos\\n' > s.sh; bash s.sh",
+   "stdout": "uno\ndos\n",
+   "stderr": "ls: no se puede acceder a 'noexiste': No existe el archivo o el directorio\n",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "printf 'echo \"sin cerrar\\n' > s.sh; bash s.sh",
+   "stdout": "",
+   "stderr": "s.sh: línea 1: EOF inesperado mientras se buscaba un «\"» coincidente\n",
+   "codigo": 2
+  },
+  {
+   "ordenar": false,
+   "orden": "bash -c \"echo dentro; exit 4\"; echo $?",
+   "stdout": "dentro\n4\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "x=1; bash -c 'echo \"[$x]\"'",
+   "stdout": "[]\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "export x=1; bash -c 'echo \"[$x]\"'",
+   "stdout": "[1]\n",
+   "stderr": "",
+   "codigo": 0
+  },
+  {
+   "ordenar": false,
+   "orden": "./a.txt",
+   "stdout": "",
+   "stderr": "bash: línea 1: ./a.txt: Permiso denegado\n",
+   "codigo": 126
+  },
+  {
+   "ordenar": false,
+   "orden": "empresa/scripts/informe.sh",
+   "stdout": "",
+   "stderr": "bash: línea 1: empresa/scripts/informe.sh: Permiso denegado\n",
+   "codigo": 126
+  },
+  {
+   "ordenar": false,
+   "orden": "cd empresa; ./scripts/informe.sh",
+   "stdout": "",
+   "stderr": "bash: línea 1: ./scripts/informe.sh: Permiso denegado\n",
+   "codigo": 126
+  },
+  {
+   "ordenar": false,
+   "orden": "noexiste",
+   "stdout": "",
+   "stderr": "bash: línea 1: noexiste: orden no encontrada\n",
+   "codigo": 127
+  },
+  {
+   "ordenar": false,
+   "orden": "cd..",
+   "stdout": "",
+   "stderr": "bash: línea 1: cd..: orden no encontrada\n",
+   "codigo": 127
+  },
+  {
+   "ordenar": false,
+   "orden": "Ls",
+   "stdout": "",
+   "stderr": "bash: línea 1: Ls: orden no encontrada\n",
+   "codigo": 127
+  }
+ ],
+ "ubuntuSom": {
+  "maquina": {
+   "origen": "máquina Ubuntu-SOM con UEFI, 21-11-2026 (capturas de Misc/capturas-ut04/txt/ubuntu-som)",
+   "nucleo": "7.0.0-43-generic",
+   "sistema": "Ubuntu 24.04.5 LTS",
+   "fecha": "2026-11-21T14:00:00+01:00",
+   "usuario": "alumno",
+   "equipo": "som-apellido"
+  },
+  "nota": "Solo la salida estándar (stderr: null = no se grabó). Las órdenes con sudo se ejecutan en una terminal con la contraseña ya dada.",
+  "casos": [
+   {
+    "orden": "lsblk",
+    "archivo": "lsblk.txt",
+    "stdout": "NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS\nloop0    7:0    0     4K  1 loop /snap/bare/5\nloop1    7:1    0 260,8M  1 loop /snap/firefox/8863\nloop2    7:2    0 614,5M  1 loop /snap/gnome-46-2404/164\nloop3    7:3    0  66,8M  1 loop /snap/core24/2124\nloop4    7:4    0  16,5M  1 loop /snap/firmware-updater/226\nloop5    7:5    0  91,7M  1 loop /snap/gtk-common-themes/1535\nloop6    7:6    0   402M  1 loop /snap/mesa-2404/1839\nloop7    7:7    0  11,8M  1 loop /snap/snap-store/1390\nloop8    7:8    0  50,3M  1 loop /snap/snapd/27738\nloop9    7:9    0   828K  1 loop /snap/snapd-desktop-integration/391\nsda      8:0    0    40G  0 disk \n├─sda1   8:1    0     1G  0 part /boot/efi\n├─sda2   8:2    0  23,3G  0 part /\n├─sda3   8:3    0   1,9G  0 part [SWAP]\n└─sda4   8:4    0  13,8G  0 part /home\nsr0     11:0    1  1024M  1 rom  \n",
+    "stderr": null,
+    "codigo": 0
+   },
+   {
+    "orden": "lsblk -f",
+    "archivo": "lsblk-f.txt",
+    "stdout": "NAME   FSTYPE   FSVER LABEL UUID                                 FSAVAIL FSUSE% MOUNTPOINTS\nloop0  squashfs 4.0                                                    0   100% /snap/bare/5\nloop1  squashfs 4.0                                                    0   100% /snap/firefox/8863\nloop2  squashfs 4.0                                                    0   100% /snap/gnome-46-2404/164\nloop3  squashfs 4.0                                                    0   100% /snap/core24/2124\nloop4  squashfs 4.0                                                    0   100% /snap/firmware-updater/226\nloop5  squashfs 4.0                                                    0   100% /snap/gtk-common-themes/1535\nloop6  squashfs 4.0                                                    0   100% /snap/mesa-2404/1839\nloop7  squashfs 4.0                                                    0   100% /snap/snap-store/1390\nloop8  squashfs 4.0                                                    0   100% /snap/snapd/27738\nloop9  squashfs 4.0                                                    0   100% /snap/snapd-desktop-integration/391\nsda                                                                             \n├─sda1 vfat     FAT32       0BEE-FF4B                                 1G     1% /boot/efi\n├─sda2 ext4     1.0         b6f132c6-2aeb-46b0-854f-f47854e6191f   15,4G    27% /\n├─sda3 swap     1           df6c895f-c130-401a-a6a8-dac038c493e0                [SWAP]\n└─sda4 ext4     1.0         a8ad98f6-f1c3-40f4-be2c-2696957c0ae7   12,8G     0% /home\nsr0                                                                             \n",
+    "stderr": null,
+    "codigo": 0
+   },
+   {
+    "orden": "df -h",
+    "archivo": "df.txt",
+    "stdout": "S.ficheros     Tamaño Usados  Disp Uso% Montado en\ntmpfs            390M   2,7M  387M   1% /run\n/dev/sda2         23G   6,2G   16G  29% /\ntmpfs            2,0G      0  2,0G   0% /dev/shm\ntmpfs            5,0M   8,0K  5,0M   1% /run/lock\nefivarfs         256K    12K  240K   5% /sys/firmware/efi/efivars\n/dev/sda4         14G    16M   13G   1% /home\n/dev/sda1        1,1G   6,2M  1,1G   1% /boot/efi\ntmpfs            390M   152K  390M   1% /run/user/1000\n",
+    "stderr": null,
+    "codigo": 0
+   },
+   {
+    "orden": "free -h",
+    "archivo": "free.txt",
+    "stdout": "               total       usado       libre  compartido   búf/caché  disponible\nMem:           3,8Gi       1,1Gi       1,3Gi        35Mi       1,7Gi       2,7Gi\nInter:         1,9Gi          0B       1,9Gi\n",
+    "stderr": null,
+    "codigo": 0
+   },
+   {
+    "orden": "cat /etc/fstab",
+    "archivo": "fstab.txt",
+    "stdout": "# /etc/fstab: static file system information.\n#\n# Use 'blkid' to print the universally unique identifier for a\n# device; this may be used with UUID= as a more robust way to name devices\n# that works even if disks are added and removed. See fstab(5).\n#\n# <file system> <mount point>   <type>  <options>       <dump>  <pass>\n# / was on /dev/sda2 during curtin installation\n/dev/disk/by-uuid/b6f132c6-2aeb-46b0-854f-f47854e6191f / ext4 defaults 0 1\n/dev/disk/by-uuid/df6c895f-c130-401a-a6a8-dac038c493e0 none swap sw 0 0\n# /home was on /dev/sda4 during curtin installation\n/dev/disk/by-uuid/a8ad98f6-f1c3-40f4-be2c-2696957c0ae7 /home ext4 defaults 0 1\n# /boot/efi was on /dev/sda1 during curtin installation\n/dev/disk/by-uuid/0BEE-FF4B /boot/efi vfat defaults 0 1\n",
+    "stderr": null,
+    "codigo": 0
+   },
+   {
+    "orden": "cat /etc/default/grub",
+    "archivo": "grub.txt",
+    "stdout": "# If you change this file, run 'update-grub' afterwards to update\n# /boot/grub/grub.cfg.\n# For full documentation of the options in this file, see:\n#   info -f grub -n 'Simple configuration'\n\nGRUB_DEFAULT=0\nGRUB_TIMEOUT_STYLE=hidden\nGRUB_TIMEOUT=0\nGRUB_DISTRIBUTOR=`( . /etc/os-release; echo ${NAME:-Ubuntu} ) 2>/dev/null || echo Ubuntu`\nGRUB_CMDLINE_LINUX_DEFAULT=\"quiet splash\"\nGRUB_CMDLINE_LINUX=\"\"\n\n# If your computer has multiple operating systems installed, then you\n# probably want to run os-prober. However, if your computer is a host\n# for guest OSes installed via LVM or raw disk devices, running\n# os-prober can cause damage to those guest OSes as it mounts\n# filesystems to look for things.\n#GRUB_DISABLE_OS_PROBER=false\n\n# Uncomment to enable BadRAM filtering, modify to suit your needs\n# This works with Linux (no patch required) and with any kernel that obtains\n# the memory map information from GRUB (GNU Mach, kernel of FreeBSD ...)\n#GRUB_BADRAM=\"0x01234567,0xfefefefe,0x89abcdef,0xefefefef\"\n\n# Uncomment to disable graphical terminal\n#GRUB_TERMINAL=console\n\n# The resolution used on graphical terminal\n# note that you can use only modes which your graphic card supports via VBE\n# you can see them in real GRUB with the command `vbeinfo'\n#GRUB_GFXMODE=640x480\n\n# Uncomment if you don't want GRUB to pass \"root=UUID=xxx\" parameter to Linux\n#GRUB_DISABLE_LINUX_UUID=true\n\n# Uncomment to disable generation of recovery mode menu entries\n#GRUB_DISABLE_RECOVERY=\"true\"\n\n# Uncomment to get a beep at grub start\n#GRUB_INIT_TUNE=\"480 440 1\"\n",
+    "stderr": null,
+    "codigo": 0
+   },
+   {
+    "orden": "sudo cat /boot/grub/grub.cfg",
+    "archivo": "grub.cfg.txt",
+    "stdout": "#\n# DO NOT EDIT THIS FILE\n#\n# It is automatically generated by grub-mkconfig using templates\n# from /etc/grub.d and settings from /etc/default/grub\n#\n\n### BEGIN /etc/grub.d/00_header ###\nif [ -s $prefix/grubenv ]; then\n  set have_grubenv=true\n  load_env\nfi\nif [ \"${initrdfail}\" = 2 ]; then\n   set initrdfail=\nelif [ \"${initrdfail}\" = 1 ]; then\n   set next_entry=\"${prev_entry}\"\n   set prev_entry=\n   save_env prev_entry\n   if [ \"${next_entry}\" ]; then\n      set initrdfail=2\n   fi\nfi\nif [ \"${next_entry}\" ] ; then\n   set default=\"${next_entry}\"\n   set next_entry=\n   save_env next_entry\n   set boot_once=true\nelse\n   set default=\"0\"\nfi\n\nif [ x\"${feature_menuentry_id}\" = xy ]; then\n  menuentry_id_option=\"--id\"\nelse\n  menuentry_id_option=\"\"\nfi\n\nexport menuentry_id_option\n\nif [ \"${prev_saved_entry}\" ]; then\n  set saved_entry=\"${prev_saved_entry}\"\n  save_env saved_entry\n  set prev_saved_entry=\n  save_env prev_saved_entry\n  set boot_once=true\nfi\n\nfunction savedefault {\n  if [ -z \"${boot_once}\" ]; then\n    saved_entry=\"${chosen}\"\n    save_env saved_entry\n  fi\n}\nfunction initrdfail {\n    if [ -n \"${have_grubenv}\" ]; then if [ -n \"${partuuid}\" ]; then\n      if [ -z \"${initrdfail}\" ]; then\n        set initrdfail=1\n        if [ -n \"${boot_once}\" ]; then\n          set prev_entry=\"${default}\"\n          save_env prev_entry\n        fi\n      fi\n      save_env initrdfail\n    fi; fi\n}\nfunction recordfail {\n  set recordfail=1\n  if [ -n \"${have_grubenv}\" ]; then if [ -z \"${boot_once}\" ]; then save_env recordfail; fi; fi\n}\nfunction load_video {\n  if [ x$feature_all_video_module = xy ]; then\n    insmod all_video\n  else\n    insmod efi_gop\n    insmod efi_uga\n    insmod ieee1275_fb\n    insmod vbe\n    insmod vga\n    insmod video_bochs\n    insmod video_cirrus\n  fi\n}\n\nif [ x$feature_default_font_path = xy ] ; then\n   font=unicode\nelse\ninsmod part_gpt\ninsmod ext2\nset root='hd0,gpt2'\nif [ x$feature_platform_search_hint = xy ]; then\n  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  b6f132c6-2aeb-46b0-854f-f47854e6191f\nelse\n  search --no-floppy --fs-uuid --set=root b6f132c6-2aeb-46b0-854f-f47854e6191f\nfi\n    font=\"/usr/share/grub/unicode.pf2\"\nfi\n\nif loadfont $font ; then\n  set gfxmode=auto\n  load_video\n  insmod gfxterm\n  set locale_dir=$prefix/locale\n  set lang=es_ES\n  insmod gettext\nfi\nterminal_output gfxterm\nif [ \"${recordfail}\" = 1 ] ; then\n  set timeout=30\nelse\n  if [ x$feature_timeout_style = xy ] ; then\n    set timeout_style=hidden\n    set timeout=0\n  # Fallback hidden-timeout code in case the timeout_style feature is\n  # unavailable.\n  elif sleep --interruptible 0 ; then\n    set timeout=0\n  fi\nfi\n### END /etc/grub.d/00_header ###\n\n### BEGIN /etc/grub.d/05_debian_theme ###\nset menu_color_normal=white/black\nset menu_color_highlight=black/light-gray\n### END /etc/grub.d/05_debian_theme ###\n\n### BEGIN /etc/grub.d/10_linux ###\nfunction gfxmode {\n\tset gfxpayload=\"${1}\"\n\tif [ \"${1}\" = \"keep\" ]; then\n\t\tset vt_handoff=vt.handoff=7\n\telse\n\t\tset vt_handoff=\n\tfi\n}\nif [ \"${recordfail}\" != 1 ]; then\n  if [ -e ${prefix}/gfxblacklist.txt ]; then\n    if [ ${grub_platform} != pc ]; then\n      set linux_gfx_mode=keep\n    elif hwmatch ${prefix}/gfxblacklist.txt 3; then\n      if [ ${match} = 0 ]; then\n        set linux_gfx_mode=keep\n      else\n        set linux_gfx_mode=text\n      fi\n    else\n      set linux_gfx_mode=text\n    fi\n  else\n    set linux_gfx_mode=keep\n  fi\nelse\n  set linux_gfx_mode=text\nfi\nexport linux_gfx_mode\nmenuentry 'Ubuntu' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-b6f132c6-2aeb-46b0-854f-f47854e6191f' {\n\trecordfail\n\tload_video\n\tgfxmode $linux_gfx_mode\n\tinsmod gzio\n\tif [ x$grub_platform = xxen ]; then insmod xzio; insmod lzopio; fi\n\tinsmod part_gpt\n\tinsmod ext2\n\tset root='hd0,gpt2'\n\tif [ x$feature_platform_search_hint = xy ]; then\n\t  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  b6f132c6-2aeb-46b0-854f-f47854e6191f\n\telse\n\t  search --no-floppy --fs-uuid --set=root b6f132c6-2aeb-46b0-854f-f47854e6191f\n\tfi\n\tlinux\t/boot/vmlinuz-7.0.0-43-generic root=UUID=b6f132c6-2aeb-46b0-854f-f47854e6191f ro  quiet splash $vt_handoff\n\tinitrd\t/boot/initrd.img-7.0.0-43-generic\n}\nsubmenu 'Advanced options for Ubuntu' $menuentry_id_option 'gnulinux-advanced-b6f132c6-2aeb-46b0-854f-f47854e6191f' {\n\tmenuentry 'Ubuntu, with Linux 7.0.0-43-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-7.0.0-43-generic-advanced-b6f132c6-2aeb-46b0-854f-f47854e6191f' {\n\t\trecordfail\n\t\tload_video\n\t\tgfxmode $linux_gfx_mode\n\t\tinsmod gzio\n\t\tif [ x$grub_platform = xxen ]; then insmod xzio; insmod lzopio; fi\n\t\tinsmod part_gpt\n\t\tinsmod ext2\n\t\tset root='hd0,gpt2'\n\t\tif [ x$feature_platform_search_hint = xy ]; then\n\t\t  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  b6f132c6-2aeb-46b0-854f-f47854e6191f\n\t\telse\n\t\t  search --no-floppy --fs-uuid --set=root b6f132c6-2aeb-46b0-854f-f47854e6191f\n\t\tfi\n\t\techo\t'Loading Linux 7.0.0-43-generic ...'\n\t\tlinux\t/boot/vmlinuz-7.0.0-43-generic root=UUID=b6f132c6-2aeb-46b0-854f-f47854e6191f ro  quiet splash $vt_handoff\n\t\techo\t'Loading initial ramdisk ...'\n\t\tinitrd\t/boot/initrd.img-7.0.0-43-generic\n\t}\n\tmenuentry 'Ubuntu, with Linux 7.0.0-43-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-7.0.0-43-generic-recovery-b6f132c6-2aeb-46b0-854f-f47854e6191f' {\n\t\trecordfail\n\t\tload_video\n\t\tinsmod gzio\n\t\tif [ x$grub_platform = xxen ]; then insmod xzio; insmod lzopio; fi\n\t\tinsmod part_gpt\n\t\tinsmod ext2\n\t\tset root='hd0,gpt2'\n\t\tif [ x$feature_platform_search_hint = xy ]; then\n\t\t  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  b6f132c6-2aeb-46b0-854f-f47854e6191f\n\t\telse\n\t\t  search --no-floppy --fs-uuid --set=root b6f132c6-2aeb-46b0-854f-f47854e6191f\n\t\tfi\n\t\techo\t'Loading Linux 7.0.0-43-generic ...'\n\t\tlinux\t/boot/vmlinuz-7.0.0-43-generic root=UUID=b6f132c6-2aeb-46b0-854f-f47854e6191f ro recovery nomodeset dis_ucode_ldr \n\t\techo\t'Loading initial ramdisk ...'\n\t\tinitrd\t/boot/initrd.img-7.0.0-43-generic\n\t}\n}\n\n### END /etc/grub.d/10_linux ###\n\n### BEGIN /etc/grub.d/10_linux_zfs ###\n### END /etc/grub.d/10_linux_zfs ###\n\n### BEGIN /etc/grub.d/20_linux_xen ###\n\n### END /etc/grub.d/20_linux_xen ###\n\n### BEGIN /etc/grub.d/20_memtest86+ ###\nmenuentry \"Memory test (memtest86+x64.efi)\" --class memtest $menuentry_id_option 'memtest86+' {\n\tinsmod part_gpt\n\tinsmod ext2\n\tset root='hd0,gpt2'\n\tif [ x$feature_platform_search_hint = xy ]; then\n\t  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  b6f132c6-2aeb-46b0-854f-f47854e6191f\n\telse\n\t  search --no-floppy --fs-uuid --set=root b6f132c6-2aeb-46b0-854f-f47854e6191f\n\tfi\n        linux    /boot/memtest86+x64.efi\n}\nmenuentry 'Memory test (memtest86+x64.efi, serial console)' --class memtest $menuentry_id_option 'memtest86+-serial' {\n\tinsmod part_gpt\n\tinsmod ext2\n\tset root='hd0,gpt2'\n\tif [ x$feature_platform_search_hint = xy ]; then\n\t  search --no-floppy --fs-uuid --set=root --hint-bios=hd0,gpt2 --hint-efi=hd0,gpt2 --hint-baremetal=ahci0,gpt2  b6f132c6-2aeb-46b0-854f-f47854e6191f\n\telse\n\t  search --no-floppy --fs-uuid --set=root b6f132c6-2aeb-46b0-854f-f47854e6191f\n\tfi\n        linux   /boot/memtest86+x64.efi console=ttyS0,115200\n}\n### END /etc/grub.d/20_memtest86+ ###\n\n### BEGIN /etc/grub.d/25_bli ###\nif [ \"$grub_platform\" = \"efi\" ]; then\n  insmod bli\nfi\n### END /etc/grub.d/25_bli ###\n\n### BEGIN /etc/grub.d/30_os-prober ###\n### END /etc/grub.d/30_os-prober ###\n\n### BEGIN /etc/grub.d/30_uefi-firmware ###\nif [ \"$grub_platform\" = \"efi\" ]; then\n\tfwsetup --is-supported\n\tif [ \"$?\" = 0 ]; then\n\t\tmenuentry 'UEFI Firmware Settings' $menuentry_id_option 'uefi-firmware' {\n\t\t\tfwsetup\n\t\t}\n\tfi\nfi\n### END /etc/grub.d/30_uefi-firmware ###\n\n### BEGIN /etc/grub.d/35_fwupd ###\n### END /etc/grub.d/35_fwupd ###\n\n### BEGIN /etc/grub.d/40_custom ###\n# This file provides an easy way to add custom menu entries.  Simply type the\n# menu entries you want to add after this comment.  Be careful not to change\n# the 'exec tail' line above.\n### END /etc/grub.d/40_custom ###\n\n### BEGIN /etc/grub.d/41_custom ###\nif [ -f  ${config_directory}/custom.cfg ]; then\n  source ${config_directory}/custom.cfg\nelif [ -z \"${config_directory}\" -a -f  $prefix/custom.cfg ]; then\n  source $prefix/custom.cfg\nfi\n### END /etc/grub.d/41_custom ###\n",
+    "stderr": null,
+    "codigo": 0
+   },
+   {
+    "orden": "ls /boot",
+    "archivo": "boot.txt",
+    "stdout": "config-7.0.0-43-generic\nefi\ngrub\ninitrd.img\ninitrd.img-7.0.0-43-generic\ninitrd.img.old\nmemtest86+ia32.bin\nmemtest86+ia32.efi\nmemtest86+x64.bin\nmemtest86+x64.efi\nSystem.map-7.0.0-43-generic\nvmlinuz\nvmlinuz-7.0.0-43-generic\nvmlinuz.old\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "ls -1 /boot",
+    "nota": "salida sin terminal: un nombre por línea"
+   },
+   {
+    "orden": "ls -laR /boot/efi",
+    "archivo": "esp.txt",
+    "stdout": "/boot/efi:\ntotal 12\ndrwxr-xr-x 3 root root 4096 ene  1  1970 .\ndrwxr-xr-x 4 root root 4096 nov 21 12:39 ..\ndrwxr-xr-x 4 root root 4096 nov 21  2026 EFI\n\n/boot/efi/EFI:\ntotal 16\ndrwxr-xr-x 4 root root 4096 nov 21  2026 .\ndrwxr-xr-x 3 root root 4096 ene  1  1970 ..\ndrwxr-xr-x 2 root root 4096 nov 21  2026 BOOT\ndrwxr-xr-x 2 root root 4096 nov 21  2026 ubuntu\n\n/boot/efi/EFI/BOOT:\ntotal 1884\ndrwxr-xr-x 2 root root   4096 nov 21  2026 .\ndrwxr-xr-x 4 root root   4096 nov 21  2026 ..\n-rwxr-xr-x 1 root root 966664 nov 21  2026 BOOTX64.EFI\n-rwxr-xr-x 1 root root  88344 nov 21  2026 fbx64.efi\n-rwxr-xr-x 1 root root 856280 nov 21  2026 mmx64.efi\n\n/boot/efi/EFI/ubuntu:\ntotal 4404\ndrwxr-xr-x 2 root root    4096 nov 21  2026 .\ndrwxr-xr-x 4 root root    4096 nov 21  2026 ..\n-rwxr-xr-x 1 root root     108 nov 21  2026 BOOTX64.CSV\n-rwxr-xr-x 1 root root     126 nov 21  2026 grub.cfg\n-rwxr-xr-x 1 root root 2660232 nov 21  2026 grubx64.efi\n-rwxr-xr-x 1 root root  856280 nov 21  2026 mmx64.efi\n-rwxr-xr-x 1 root root  966664 nov 21  2026 shimx64.efi\n",
+    "stderr": null,
+    "codigo": 0
+   },
+   {
+    "orden": "uname -a",
+    "archivo": "uname.txt",
+    "stdout": "Linux som-apellido 7.0.0-43-generic #43~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Sat Oct 31 06:52:47 UTC 2 x86_64 x86_64 x86_64 GNU/Linux\n",
+    "stderr": null,
+    "codigo": 0
+   },
+   {
+    "orden": "efibootmgr -v",
+    "archivo": "efibootmgr.txt",
+    "stdout": "BootCurrent: 0003\nTimeout: 0 seconds\nBootOrder: 0003,0000,0002\nBoot0000* UiApp\tFvVol(7cb8bdc9-f8eb-4f34-aaea-3ee4af6516a1)/FvFile(462caa21-7614-4503-836e-8ab6f4662331)\n      dp: 04 07 14 00 c9 bd b8 7c eb f8 34 4f aa ea 3e e4 af 65 16 a1 / 04 06 14 00 21 aa 2c 46 14 76 03 45 83 6e 8a b6 f4 66 23 31 / 7f ff 04 00\nBoot0002* UEFI VBOX HARDDISK VB0bb8ad46-cad9bc4b \tPciRoot(0x0)/Pci(0xd,0x0)/Sata(0,65535,0){auto_created_boot_option}\n      dp: 02 01 0c 00 d0 41 03 0a 00 00 00 00 / 01 01 06 00 00 0d / 03 12 0a 00 00 00 ff ff 00 00 / 7f ff 04 00\n    data: 4e ac 08 81 11 9f 59 4d 85 0e e2 1a 52 2c 59 b2\nBoot0003* Ubuntu\tHD(1,GPT,33063dc8-9cac-4a1a-841b-490e50c9e0ef,0x800,0x219800)/File(\\EFI\\ubuntu\\shimx64.efi)\n      dp: 04 01 2a 00 01 00 00 00 00 08 00 00 00 00 00 00 00 98 21 00 00 00 00 00 c8 3d 06 33 ac 9c 1a 4a 84 1b 49 0e 50 c9 e0 ef 02 02 / 04 04 34 00 5c 00 45 00 46 00 49 00 5c 00 75 00 62 00 75 00 6e 00 74 00 75 00 5c 00 73 00 68 00 69 00 6d 00 78 00 36 00 34 00 2e 00 65 00 66 00 69 00 00 00 / 7f ff 04 00\n",
+    "stderr": null,
+    "codigo": 0
+   },
+   {
+    "orden": "sudo fdisk -l /dev/sda",
+    "archivo": "fdisk.txt",
+    "stdout": "Disco /dev/sda: 40 GiB, 42949672960 bytes, 83886080 sectores\nModelo de disco: VBOX HARDDISK   \nUnidades: sectores de 1 * 512 = 512 bytes\nTamaño de sector (lógico/físico): 512 bytes / 512 bytes\nTamaño de E/S (mínimo/óptimo): 512 bytes / 512 bytes\nTipo de etiqueta de disco: gpt\nIdentificador del disco: 3770D813-B779-4233-925E-511F93D337FB\n\nDisposit.  Comienzo    Final Sectores Tamaño Tipo\n/dev/sda1      2048  2203647  2201600     1G Sistema EFI\n/dev/sda2   2203648 51032063 48828416  23,3G Sistema de ficheros de Linux\n/dev/sda3  51032064 54939647  3907584   1,9G Linux swap\n/dev/sda4  54939648 83884031 28944384  13,8G Sistema de ficheros de Linux\n",
+    "stderr": null,
+    "codigo": 0
+   }
+  ]
+ },
+ "manpagesEs": {
+  "maquina": {
+   "origen": "copia temporal (clon enlazado, ya borrado) de la máquina «Ubuntu» con manpages-es 4.21.0-2 instalado, 21-11-2026",
+   "nucleo": "7.0.0-43-generic",
+   "sistema": "Ubuntu 24.04.5 LTS",
+   "fecha": "2026-11-21T15:14:00+01:00",
+   "usuario": "lucia",
+   "equipo": "ubuntu-lucia"
+  },
+  "nota": "Salidas sin terminal (subprocess con LANG=es_ES.UTF-8 y MANWIDTH=80) salvo las marcadas con tty. stderr: null = no se grabó o se tiró. sinManpagesEs: grabadas antes de instalar el paquete.",
+  "casos": [
+   {
+    "orden": "whatis ls",
+    "stdout": "ls (1)               - lista el contenido de un directorio\n",
+    "stderr": "",
+    "codigo": 0
+   },
+   {
+    "orden": "whatis cat",
+    "stdout": "cat (1)              - concatena archivos y los muestra por la salida estándar\n",
+    "stderr": "",
+    "codigo": 0
+   },
+   {
+    "orden": "whatis lsblk",
+    "stdout": "lsblk (8)            - list block devices\n",
+    "stderr": "",
+    "codigo": 0
+   },
+   {
+    "orden": "whatis man",
+    "stdout": "man (1)              - interfaz de los manuales de referencia del sistema\nman (7)              - macros para formatear páginas de manual\n",
+    "stderr": "",
+    "codigo": 0
+   },
+   {
+    "orden": "whatis free",
+    "stdout": "free (1)             - Display amount of free and used memory in the system\nfree (3)             - allocate and free dynamic memory\n",
+    "stderr": "",
+    "codigo": 0
+   },
+   {
+    "orden": "man -k directorio",
+    "stdout": "basename (1)         - elimina la parte de directorios y sufijos de los nombr...\nchgrp (1)            - cambia el grupo de pertenencia de archivos y directorios\nchroot (8)           - ejecuta una orden o una shell interactiva con un direc...\ncp (1)               - copia archivos y directorios\ndir (1)              - muestra el contenido de un directorio\nls (1)               - lista el contenido de un directorio\nmcd (1)              - cambio de directorio MSDOS\nmdeltree (1)         - Borra ficheros o subdirectorios enteros de MS-DOS\nmdir (1)             - Lista un directorio de MS-DOS\nmkdir (1)            - crea directorios\nmktemp (1)           - crea un archivo o directorio temporal\nmrd (1)              - Borra un subdirectorio MS-DOS\npwd (1)              - imprime el nombre del directorio de trabajo actual (pr...\nrm (1)               - borra archivos o directorios\nrmdir (1)            - borra directorios vacíos\nrun-parts (8)        - Ejecuta scripts o programas en un directorio\nvdir (1)             - muestra el contenido de un directorio\n",
+    "stderr": "",
+    "codigo": 0
+   },
+   {
+    "orden": "man -k memoria",
+    "stdout": "kmem (4)             - memoria del sistema, memoria del núcleo y puertos del...\nmem (4)              - memoria del sistema, memoria del núcleo y puertos del...\nport (4)             - memoria del sistema, memoria del núcleo y puertos del...\nvcs (4)              - memoria de la consola virtual\nvcsa (4)             - memoria de la consola virtual\n",
+    "stderr": "",
+    "codigo": 0
+   },
+   {
+    "orden": "man -k listar",
+    "stdout": "",
+    "stderr": "listar: nada apropiado.\n",
+    "codigo": 16
+   },
+   {
+    "orden": "man -k contenido",
+    "stdout": "accessdb (8)         - vuelca el contenido de una base de datos man-db en un ...\ndir (1)              - muestra el contenido de un directorio\nls (1)               - lista el contenido de un directorio\nmtype (1)            - muestra el contenido de un fichero MSDOS\nptx (1)              - crea un índice permutado del contenido de un archivo\nshred (1)            - sobreescribe (y borra, opcionalmente) un archivo para ...\nvdir (1)             - muestra el contenido de un directorio\n",
+    "stderr": "",
+    "codigo": 0
+   },
+   {
+    "orden": "man -k fecha",
+    "stdout": "date (1)             - muestra o define la fecha y hora del sistema\ntouch (1)            - cambia la fecha de un archivo\n",
+    "stderr": "",
+    "codigo": 0
+   },
+   {
+    "orden": "man -k memory",
+    "stdout": "aligned_alloc (3)    - allocate aligned memory\nalloca (3)           - allocate memory that is automatically freed\ncalloc (3)           - allocate and free dynamic memory\ncfree (3)            - free allocated memory\nchmem (8)            - configure memory\ncpuset (7)           - confine processes to processor and memory node subsets\nfmemopen (3)         - open memory as stream\nfree (1)             - Display amount of free and used memory in the system\nfree (3)             - allocate and free dynamic memory\nget_mempolicy (2)    - retrieve NUMA memory policy for a thread\ngetpagesize (2)      - get memory page size\nglob (3)             - find pathnames matching a pattern, free memory from gl...\nglobfree (3)         - find pathnames matching a pattern, free memory from gl...\nkmem (4)             - system memory, kernel memory and system ports\nlsmem (1)            - list the ranges of available memory with their online ...\nmadvise (2)          - give advice about use of memory\nmallinfo (3)         - obtain memory allocation information\nmallinfo2 (3)        - obtain memory allocation information\nmalloc (3)           - allocate and free dynamic memory\nmalloc_stats (3)     - print memory allocation statistics\nmalloc_trim (3)      - release free memory from the heap\nmalloc_usable_size (3) - obtain size of block of memory allocated from heap\nmallopt (3)          - set memory allocation parameters\nmbind (2)            - set memory policy for a memory range\nmem (4)              - system memory, kernel memory and system ports\nmemalign (3)         - allocate aligned memory\nmembarrier (2)       - issue memory barriers on a set of threads\nmemccpy (3)          - copy memory area\nmemchr (3)           - scan memory for a character\nmemcmp (3)           - compare memory areas\nmemcpy (3)           - copy memory area\nmemfd_secret (2)     - create an anonymous RAM-based file to access secret me...\nmemfrob (3)          - frobnicate (obfuscate) a memory area\nmemhog (8)           - Allocates memory with policy for testing\nmemleak-bpfcc (8)    - Print a summary of outstanding allocations and their c...\nmemmove (3)          - copy memory area\nmempcpy (3)          - copy memory area\nmemrchr (3)          - scan memory for a character\nmemset (3)           - fill memory with a constant byte\nmemusage (1)         - profile memory usage of a program\nmemusagestat (1)     - generate graphic from memory profiling data\nmincore (2)          - determine whether pages are resident in memory\nmlock (2)            - lock and unlock memory\nmlock2 (2)           - lock and unlock memory\nmlockall (2)         - lock and unlock memory\nmmap (2)             - map or unmap files or devices into memory\nmmap2 (2)            - map files or devices into memory\nmmap64 (3)           - map or unmap files or devices into memory\nmpool (3)            - shared memory buffer pool\nmprotect (2)         - set protection on a region of memory\nmremap (2)           - remap a virtual memory address\nmsync (2)            - synchronize a file with a memory map\nmunlock (2)          - lock and unlock memory\nmunlockall (2)       - lock and unlock memory\nmunmap (2)           - map or unmap files or devices into memory\nnuma (7)             - overview of Non-Uniform Memory Architecture\nnumactl (8)          - Control NUMA policy for processes or shared memory\nnumastat (8)         - Show per-NUMA-node memory statistics for processes and...\nopen_memstream (3)   - open a dynamic memory buffer stream\nopen_wmemstream (3)  - open a dynamic memory buffer stream\nperf-kmem (1)        - Tool to trace/measure kernel memory properties\nperf-mem (1)         - Profile memory accesses\npkey_mprotect (2)    - set protection on a region of memory\npkeys (7)            - overview of Memory Protection Keys\npmap (1)             - report memory map of a process\nport (4)             - system memory, kernel memory and system ports\nposix_madvise (3)    - give advice about patterns of memory usage\nposix_memalign (3)   - allocate aligned memory\nproc_buddyinfo (5)   - memory fragmentation\nproc_iomem (5)       - I/O memory map\nproc_kcore (5)       - physical memory\nproc_kpagecgroup (5) - memory cgroups\nproc_meminfo (5)     - memory usage\nproc_mtrr (5)        - memory type range registers\nproc_pid_map_files (5) - memory-mapped files\nproc_pid_maps (5)    - mapped memory regions\nproc_pid_mem (5)     - memory\nproc_pid_numa_maps (5) - NUMA memory policy and allocation\nproc_pid_statm (5)   - memory usage information\nproc_pid_status (5)  - memory usage and status information\nproc_sys_vm (5)      - virtual memory subsystem\nproc_vmstat (5)      - virtual memory statistics\nproc_zoneinfo (5)    - memory zones\nprocess_madvise (2)  - give advice about use of memory to a process\npvalloc (3)          - allocate aligned memory\nrawmemchr (3)        - scan memory for a character\nrealloc (3)          - allocate and free dynamic memory\nreallocarray (3)     - allocate and free dynamic memory\ns390_pci_mmio_read (2) - transfer data to/from PCI MMIO memory page\ns390_pci_mmio_write (2) - transfer data to/from PCI MMIO memory page\nset_mempolicy (2)    - set default NUMA memory policy for a thread and its ch...\nshm_open (3)         - create/open or unlink POSIX shared memory objects\nshm_overview (7)     - overview of POSIX shared memory\nshm_unlink (3)       - create/open or unlink POSIX shared memory objects\nshmat (2)            - System V shared memory operations\nshmctl (2)           - System V shared memory control\nshmdt (2)            - System V shared memory operations\nshmget (2)           - allocates a System V shared memory segment\nshmop (2)            - System V shared memory operations\nshmsnoop-bpfcc (8)   - Trace System V shared memory syscalls. Uses Linux eBPF...\nslabratetop-bpfcc (8) - Kernel SLAB/SLUB memory cache allocation rate top. Us...\nsystemd-oomd (8)     - A userspace out-of-memory (OOM) killer\nsystemd-oomd.service (8) - A userspace out-of-memory (OOM) killer\ntmpfs (5)            - a virtual memory filesystem\ntrace-cmd-mem (1)    - show memory usage of certain kmem events\nvalloc (3)           - allocate aligned memory\nvcs (4)              - virtual console memory\nvcsa (4)             - virtual console memory\nvmstat (8)           - Report virtual memory statistics\nwmempcpy (3)         - copy memory area\n",
+    "stderr": "",
+    "codigo": 0
+   },
+   {
+    "orden": "man -k disk",
+    "stdout": "proc_diskstats (5)   - disk I/O statistics\narm_sync_file_range (2) - sync a file segment with disk\nbaobab (1)           - A graphical disk usage analyzer for the GNOME desktop\nbiopattern-bpfcc (8) - Identify random/sequential disk access patterns.\nbiostacks.bt (8)     - Show disk I/O latency with initialization stacks. Uses...\nbiotop-bpfcc (8)     - Block device (disk) I/O by process top.\nbitesize.bt (8)      - Show disk I/O size as a histogram. Uses bpftrace/eBPF.\ncfdisk (8)           - display or manipulate a disk partition table\ncgdisk (8)           - Curses-based GUID partition table (GPT) manipulator\neatmydata (1)        - transparently disable fsync() and other data-to-disk s...\nfdisk (8)            - manipulate disk partition table\ngdisk (8)            - Interactive GUID partition table (GPT) manipulator\ngnome-disk-image-mounter (1) - Attach and mount disk images\ngnome-disks (1)      - the GNOME Disks application\ngrub-mkstandalone (1) - make a memdisk-based GRUB image\ngrub-render-label (1) - generate a .disk_label for Apple Macs.\nhd (4)               - MFM/IDE hard disk devices\ninitrd (4)           - boot loader initialized RAM disk\npam_setquota (8)     - PAM module to set or modify disk quotas on session start\npartx (8)            - tell the kernel about the presence and numbering of on...\nquotactl (2)         - manipulate disk quotas\nram (4)              - ram disk device\nsd (4)               - driver for SCSI disk drives\nsfdisk (8)           - display or manipulate a disk partition table\nsgdisk (8)           - Command-line GUID partition table (GPT) manipulator fo...\nsync (2)             - commit filesystem caches to disk\nsync_file_range (2)  - sync a file segment with disk\nsync_file_range2 (2) - sync a file segment with disk\nsyncfs (2)           - commit filesystem caches to disk\nsystemd-cryptsetup (8) - Full disk decryption logic\nsystemd-cryptsetup@.service (8) - Full disk decryption logic\nsystemd-integritysetup (8) - Disk integrity protection logic\nsystemd-integritysetup@.service (8) - Disk integrity protection logic\nsystemd-machine-id-commit.service (8) - Commit a transient machine ID to disk\nsystemd-veritysetup (8) - Disk verity protection logic\nsystemd-veritysetup@.service (8) - Disk verity protection logic\nsystemd.image-policy (7) - Disk Image Dissection Policy\nudisks (8)           - Disk Manager\nudisks2.conf (5)     - The udisks2 configuration file\nudisksctl (1)        - The udisks command line tool\nudisksd (8)          - The udisks system daemon\numount.udisks2 (8)   - unmount file systems that have been mounted by UDisks2\n",
+    "stderr": "",
+    "codigo": 0
+   },
+   {
+    "orden": "man -k \"list directory\"",
+    "stdout": "dir (1)              - list directory contents\nls (1)               - list directory contents\nntfsls (8)           - list directory contents on an NTFS filesystem\nvdir (1)             - list directory contents\n",
+    "stderr": "",
+    "codigo": 0
+   },
+   {
+    "orden": "man -k archivos",
+    "stdout": "basename (1)         - elimina la parte de directorios y sufijos de los nombr...\nbunzip2 (1)          - un compresor de archivos por ordenación de bloques, v...\nbzcat (1)            - descomprime archivos hacia la salida estándar\nbzip2 (1)            - un compresor de archivos por ordenación de bloques, v...\nbzip2recover (1)     - recupera datos desde archivos bzip2 dañados\ncat (1)              - concatena archivos y los muestra por la salida estándar\nchgrp (1)            - cambia el grupo de pertenencia de archivos y directorios\nchmod (1)            - modifica los permisos de archivos\ncksum (1)            - calcula y verifica sumas de comprobación de archivos\ncomm (1)             - compara línea por línea dos archivos ordenados\ncp (1)               - copia archivos y directorios\nglob (7)             - Generación de nombres de rutas de archivos\ngzexe (1)            - comprime archivos ejecutables dejándoles el mismo nombre\nhier (7)             - descripción de la jerarquía del sistema de archivos\nintro (4)            - introducción a los archivos especiales\nintro (5)            - introducción a formatos de archivos\njoin (1)             - une líneas de dos archivos en base a un campo común\nln (1)               - crea enlaces entre archivos\nlogrotate (8)        - rota, comprime y envía por correo electrónico archiv...\nlogrotate.conf (5)   - rota, comprime y envía por correo electrónico archiv...\nmknod (1)            - crea archivos especiales de bloques o caracteres\nmv (1)               - mueve (renombra) archivos\nod (1)               - volcado de archivos en octal y otros formatos\nreadlink (1)         - muestra el destino de enlaces simbólicos o nombres ca...\nrm (1)               - borra archivos o directorios\nsize (1)             - lista tamaños de las secciones y total de archivos bi...\nstat (1)             - muestra el estado de un archivo o sistema de archivos\ntac (1)              - encadena y muestra archivos en orden inverso\nzegrep (1)           - busca una expresión regular en archivos posiblemente ...\nzfgrep (1)           - busca una expresión regular en archivos posiblemente ...\nzgrep (1)            - busca una expresión regular en archivos posiblemente ...\nzmore (1)            - Filtro para la visualización detallada de archivos de...\n",
+    "stderr": "",
+    "codigo": 0
+   },
+   {
+    "orden": "apt list --installed manpages-es 2>/dev/null",
+    "stdout": "Listando...\nmanpages-es/noble,now 4.21.0-2 all [instalado]\n",
+    "stderr": null,
+    "codigo": 0
+   },
+   {
+    "orden": "apt show manpages-es 2>/dev/null",
+    "stdout": "Package: manpages-es\nVersion: 4.21.0-2\nPriority: optional\nSection: universe/doc\nSource: manpages-l10n\nOrigin: Ubuntu\nMaintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>\nOriginal-Maintainer: Dr. Helge Kreutzmann <debian@helgefjell.de>\nBugs: https://bugs.launchpad.net/ubuntu/+filebug\nInstalled-Size: 1.653 kB\nSuggests: man-browser, manpages\nConflicts: manpages-es-extra\nBreaks: util-linux-locales (<< 2.39.1-3)\nHomepage: https://manpages-l10n-team.pages.debian.net/manpages-l10n/\nDownload-Size: 980 kB\nAPT-Manual-Installed: yes\nAPT-Sources: http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages\nDescription: páginas de manual en español\n This package contains manual pages translated into Spanish, originating\n from a large number of projects which do not ship translated man pages\n themselves, including the traditional Linux manpages. The exact projects\n and man pages might change from release to release, so please look at the\n actually shipped files for the current set.\n .\n The following sections are included:\n  * 1 = User programs (e.g. ls, ln)\n  * 4 = Devices (e.g. hd, sd).\n  * 5 = File formats and protocols, syntaxes of several system\n        files (e.g. wtmp, /etc/passwd, nfs).\n  * 6 = Games etc.\n  * 7 = Conventions and standards, macro packages, etc.\n        (e.g. nroff, ascii).\n  * 8 = System administration commands.\n .\n The original (software) packages contain additional manual pages which\n have not been translated yet.\n\n",
+    "stderr": null,
+    "codigo": 0
+   },
+   {
+    "orden": "dpkg -l manpages-es",
+    "stdout": "Deseado=desconocido(U)/Instalar/eliminaR/Purgar/retener(H)\n| Estado=No/Inst/ficheros-Conf/desempaqUetado/medio-conF/medio-inst(H)/espera-disparo(W)/pendienTe-disparo\n|/ Err?=(ninguno)/requiere-Reinst (Estado,Err: mayúsc.=malo)\n||/ Nombre         Versión      Arquitectura Descripción\n+++-==============-============-============-=================================\nii  manpages-es    4.21.0-2     all          Spanish man pages\n",
+    "stderr": "",
+    "codigo": 0
+   },
+   {
+    "orden": "man ls",
+    "stdout": "LS(1)                         Órdenes de usuario                         LS(1)\n\nNOMBRE\n       ls - lista el contenido de un directorio\n\nSINOPSIS\n       ls [OPCIÓN]... [ARCHIVO]...\n\nDESCRIPCIÓN\n       Por  defecto,  muestra  información  de  los  ARCHIVO (pueden ser uno o\n       varios) del directorio actual. Ordena alfabéticamente la salida  si  no\n       se especifica ninguna de las opciones -cftuvSUX ni --sort.\n\n       Los  argumentos  obligatorios  para  las  opciones  largas  son también\n       obligatorios para las opciones cortas.\n\n       -a, --all\n              no oculta las entradas que comienzan con .\n\n       -A, --almost-all\n              no muestra las entradas implícitas . ni ..\n\n       --author\n              con -l, imprime el autor de cada archivo\n\n       -b, --escape\n              imprime escapes en estilo C para los caracteres no gráficos\n\n       --block-size=TAMAÑO\n              con -l, escale  los  tamaños  por  TAMAÑO  al  imprimirlos;  por\n              ejemplo,   '--block-size  =  M';  consulte  formato  TAMAÑO  más\n              adelante\n\n       -B, --ignore-backups\n              no muestra la entradas que terminan con ~\n\n       -c     con -lt: ordena por ctime  y  muestra  ctime  (fecha  de  última\n              modificación  del  archivo);  con -l: muestra ctime y ordena por\n              nombre; en  cualquier  otro  caso:  ordena  por  ctime,  el  más\n              reciente primero\n\n       -C     muestra las entradas por columnas\n\n       --color[=CUÁNDO]\n              colorea  la  salida  como  se  indique  en 'CUANDO';consulte más\n              adelante\n\n       -d, --directory\n              muestra los propios directorios, no el contenido\n\n       -D, --dired\n              genera el resultado para el modo 'dired' de Emacs\n\n       -f     muestra todas las entradas según el orden en el directorio\n\n       -F, --classify[=CUANDO]\n              añade un indicador (uno de */=@|) a las entradas CUANDO\n\n       --file-type\n              similar, pero no añade '*'\n\n       --format=PALABRA\n              across -x, commas -m, horizontal -x, long -l, single-column  -1,\n              verbose -l, vertical -C\n\n       --full-time\n              como -l --time-style=full-iso\n\n       -g     como -l, pero no lista el propietario\n\n       --group-directories-first\n              pueden  aumentarse  la  agrupación  de directorios con la opción\n              --sort, pero cualquier uso de --sort=none (-U)  desactiva  dicha\n              agrupación\n\n       -G, --no-group\n              en un listado largo, no muestra los nombres de los grupos\n\n       -h, --human-readable\n              con -l y -s, muestra los tamaños como 1K 234M 2G etc.\n\n       --si   análogo, pero utiliza potencias de 1000 y no de 1024\n\n       -H, --dereference-command-line\n              sigue los enlaces simbólicos en la línea de órdenes\n\n       --dereference-command-line-symlink-to-dir\n              sigue  cada enlace simbólico en la línea de órdenes que apunte a\n              un directorio\n\n       --hide=PATRÓN\n              no lista las entradas implícitas que coinciden con el patrón  de\n              shell PATRÓN (las opciones -a o -A tienen prioridad)\n\n       --hyperlink[=CUÁNDO]\n              crea  hiperenlaces con los nombres de archivo como se indique en\n              'CUANDO'\n\n       --indicator-style=PALABRA\n              anexa el indicador con estilo  PALABRA  a  los  nombres  de  las\n              entradas:  ninguno  (por  defecto),  barra (-p), tipo de archivo\n              (--file-type), clasificar (-F)\n\n       -i, --inode\n              muestra el número de índice de cada archivo\n\n       -I, --ignore=PATRÓN\n              no lista las entradas implícitas que coinciden con el patrón  de\n              shell PATRÓN\n\n       -k, --kibibytes\n              usa por defecto bloques de 1024 bytes para el uso del sistema de\n              archivos;  solo  se  emplea  con  -s  y para la totalización por\n              directorio\n\n       -l     utiliza un formato de listado largo\n\n       -L, --dereference\n              al  mostrar  la  información  de  un  archivo  para  un   enlace\n              simbólico,  muestra  la información del archivo al que apunta el\n              enlace en lugar de la del propio enlace\n\n       -m     rellena el ancho con una lista de entradas separadas por comas\n\n       -n, --numeric-uid-gid\n              como -l, pero muestra los IDs de usuario y grupo numéricos\n\n       -N, --literal\n              muestra los nombres de las entradas tal cual sin entrecomillar\n\n       -o     como -l, pero no muestra el grupo\n\n       -p, --indicator-style=slash\n              añade el indicador / a los directorios\n\n       -q, --hide-control-chars\n              imprime ? en lugar de los caracteres no gráficos\n\n       --show-control-chars\n              muestra  los   caracteres   no   gráficos   tal   y   como   son\n              (predeterminado a menos que el programa sea 'ls' y la salida sea\n              un terminal)\n\n       -Q, --quote-name\n              encierra los nombres de las entradas entre comillas\n\n       --quoting-style=ESTILO\n              usa  ESTILO  como  estilo  de entrecomillado para los nombres de\n              entrada: literal,  locale,  shell,  shell-always,  shell-escape,\n              shell-escape-always,  c,  escape  (anula  la variable de entorno\n              QUOTING_STYLE)\n\n       -r, --reverse\n              invierte el orden, en su caso\n\n       -R, --recursive\n              muestra los subdirectorios recursivamente\n\n       -s, --size\n              muestra el tamaño de cada archivo, en bloques\n\n       -S     ordena según el  tamaño  del  archivo  poniendo  el  más  grande\n              primero\n\n       --sort=PALABRA\n              ordena  por  PALABRA en vez de por nombre: none (-U), size (-S),\n              time (-t), version (-v), extension (-X),ancho\n\n       --time=PALABRA\n              selecciona la marca temporal para mostrar  u  ordenar;  hora  de\n              acceso  (-u):  atime,  access,  use; hora de cambio (-c): ctime,\n              status; hora de creación: birth, creation;\n\n              con -l, PALABRA determina qué hora mostrar;  con  --sort=tiempo,\n              lo ordena según PALABRA (la más reciente primero)\n\n       --time-style=TIME_STYLE\n              formato de fecha y hora con -l; vea TIME_STYLE a continuación\n\n       -t     ordena según el tiempo, primero el más reciente; consulte --time\n\n       -T, --tabsize=COLUMNAS\n              supone que la tabulación abarca COLUMNAS columnas en lugar de 8\n\n       -u     con  -lt: ordena y muestra la hora de acceso; con -l: muestra la\n              hora de acceso y ordena por nombre; de  lo  contrario,  ordenará\n              por hora de acceso poniendo el más nuevo primero\n\n       -U     no ordena, muestra las entradas según el orden en el directorio\n\n       -v     ordena de modo natural los número de versión según el texto\n\n       -w, --width=COLS\n              no impone restricciones al número de columnas de la salida\n\n       -x     muestra las entradas en filas en lugar de hacerlo en columnas\n\n       -X     ordena alfabéticamente según la extensión\n\n       -Z, --context\n              muestra todos los contextos de seguridad de cada archivo\n\n       --zero termina cada línea con NULL, no con nueva línea\n\n       -1     muestra un archivo en cada línea\n\n       --help muestra la ayuda y finaliza\n\n       --version\n              muestra la versión del programa y finaliza\n\n       El argumento TAMAÑO es un entero y una unidad opcional (ejemplo: 10K es\n       10  *  1024). Las unidades son K, M, G, T, P, E, Z, Y, R y Q (potencias\n       de 1024) o KB, MB, ... (potencias de  1000).  También  se  pueden  usar\n       prefijos binarios: KiB = K, MiB = M, etc.\n\n       El  argumento  TIME_STYLE puede ser full-iso, long-iso, iso, locale o +\n       FORMAT.  FORMATO  se  interpreta  como  en  date(1).   Si   FORMAT   es\n       FORMAT1<newline>  FORMAT2, entonces FORMAT1 se aplica a los archivos no\n       recientes y FORMAT2 a los archivos recientes. TIME_STYLE con el prefijo\n       'posix-' tiene efecto solo fuera de la  configuración  regional  POSIX.\n       Además, la variable de entorno TIME_STYLE establece el estilo a emplear\n       por defecto.\n\n       El argumento CUANDO equivale, por defecto, a 'always' (siempre); aunque\n       también puede ser 'auto' o bien 'never' (nunca).\n\n       El  uso de color para distinguir los tipos de archivos está desactivado\n       por omisión y cuando se usa --color=never. Con --color=auto, ls produce\n       códigos de color solamente cuando la salida estándar está  conectada  a\n       una  terminal.  La  variable  de  entorno  LS_COLORS  puede cambiar las\n       opciones. Utilice la orden dircolors(1) para establecerla.\n\n   Estado de salida:\n       0      si todo fue bien,\n\n       1      si hubo problemas  menores  (p.  ej.,  no  poder  acceder  a  un\n              subdirectorio),\n\n       2      si  hubo  un  serio  problema  (p.  ej.,  no se puede acceder al\n              argumento de la línea de órdenes)\n\nAUTOR\n       Escrito por Richard M. Stallman y David MacKenzie.\n\nINFORMAR DE ERRORES\n       Ayuda        en         línea         de         GNU         Coreutils:\n       <https://www.gnu.org/software/coreutils/>\n       Informe        cualquier        error       de       traducción       a\n       <https://translationproject.org/team/es.html>\n\nCOPYRIGHT\n       Copyright © 2023 Free Software Foundation, Inc.  Licencia  GPLv3+:  GNU\n       GPL versión 3 o posterior <https://gnu.org/licenses/gpl.html>.\n       Esto  es  software libre: usted es libre de cambiarlo y redistribuirlo.\n       NO HAY GARANTÍA, en la medida permitida por la legislación.\n\nVÉASE TAMBIÉN\n       dircolors(1)\n\n       Documentación completa: <https://www.gnu.org/software/coreutils/ls>\n       también puede acceder de forma local ejecutando:  info '(coreutils)  ls\n       invocation'\n\nTRADUCCIÓN\n       La  traducción  al  español  de  esta  página del manual fue creada por\n       Gerardo Aburruzaga  García  <gerardo.aburruzaga@uca.es>,  Juan  Piernas\n       <piernas@ditec.um.es> y Marcos Fouces <marcos@debian.org>\n\n       Esta  traducción  es  documentación  libre;  lea  la GNU General Public\n       License Version 3  o  posterior  con  respecto  a  las  condiciones  de\n       copyright.  No existe NINGUNA RESPONSABILIDAD.\n\n       Si  encuentra  algún  error en la traducción de esta página del manual,\n       envíe un correo electrónico a debian-l10n-spanish@lists.debian.org.\n\nGNU coreutils 9.4              Noviembre de 2023                         LS(1)\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man ls",
+    "nota": "grabada con «man ls | col -bx»"
+   },
+   {
+    "orden": "man cp",
+    "stdout": "CP(1)                         Órdenes de usuario                         CP(1)\n\nNOMBRE\n       cp - copia archivos y directorios\n\nSINOPSIS\n       cp [OPCIÓN]... [-T] ORIGEN DEST\n       cp [OPCIÓN]... ORIGEN... DIRECTORIO\n       cp [OPCIÓN]... -t DIRECTORIO ORIGEN...\n\nDESCRIPCIÓN\n       Copia ORIGEN en DESTINO, o diversos ORÍGEN(es) a un directorio.\n\n       Los  argumentos  obligatorios  para  las  opciones  largas  son también\n       obligatorios para las opciones cortas.\n\n       -a, --archive\n              igual que -dR --preserve=todo\n\n       --attributes-only\n              no copia los datos de los archivos, solo sus atributos\n\n       --backup[=CONTROL]\n              crea una copia de seguridad de cada archivo de  destino  que  ya\n              exista\n\n       -b     como --backup pero no acepta ningún argumento\n\n       --copy-contents\n              en  modo  recursivo,  copia  también  el  contenido  de archivos\n              especiales\n\n       -d     igual que --no-dereference --preserve=enlaces\n\n       --debug\n              explica el modo en que se copia un archivo. Implica -v\n\n       -f, --force\n              Si no puede abrirse un archivo  de  destino,  lo  elimina  y  lo\n              reintenta (esta opción se anula si también está definida -n).\n\n       -i, --interactive\n              avisa antes de sobreescribir (anula la opcion -n)\n\n       -H     sigue los enlaces simbólicos en ORIGEN\n\n       -l, --link\n              crea enlaces duros en lugar de copiar\n\n       -L, --dereference\n              sigue siempre los enlaces simbólicos en FUENTE\n\n       -n, --no-clobber\n              no sobreescribe un archivo existente (anula la opción -u o la -i\n              previamente definida.\n\n       -P, --no-dereference\n              nunca sigue enlaces simbólicos en ORIGEN\n\n       -p     igual que --preserve=modo,propietario, marca de tiempo\n\n       --preserve[=ATTR_LIST]\n              mantiene los atributos indicados\n\n       --no-preserve=ATTR_LIST\n              no mantiene los atributos indicados\n\n       --parents\n              emplea el nombre completo de la ruta en DIRECTORIO\n\n       -R, -r, --recursive\n              copia directorios de forma recursiva\n\n       --reflink[=CUANDO]\n              controla un clonado (Copy on write) optimizado. Vea más adelante\n\n       --remove-destination\n              elimina  los  archivos de destino antes de intentar abrirlos (al\n              contrario que --force)).\n\n       --sparse=CUANDO\n              controla la creación de archivos con 'huecos'. Vea más adelante\n\n       --strip-trailing-slashes\n              elimina la barra al final de cada argumento de ORIGEN\n\n       -s, --symbolic-link\n              crea enlaces simbólicos en lugar de copiar\n\n       -S, --suffix=SUFIJO\n              reemplaza el sufijo de respaldo habitual\n\n       -t, --target-directory=DIRECTORIO\n              copia todos los argumentos ORIGEN al DIRECTORIO\n\n       -T, --no-target-directory\n              trata DESTINO como archivo normal\n\n       --update=ACTUALIZACIÓN\n              controla  cuales  de  los   archivos   existentes   va   a   ser\n              actualizados; ACTUALIZACIÓN={all, non, older(por defecto)}.\n\n       -u     Equivale a --update[=más_antiguo].\n\n       -v, --verbose\n              explica lo que va haciendo\n\n       -x, --one-file-system\n              permanece en ese sistema de archivos\n\n       -Z     define  el  contexto  de  seguridad  de  SELinux  del archivo de\n              destino con el tipo por defecto\n\n       --context[=CTX]\n              como -Z, o si se especifica CTX entonces establece  el  contexto\n              de seguridad SELinux o SMACK a CTX\n\n       --help muestra la ayuda y finaliza\n\n       --version\n              muestra la versión del programa y finaliza\n\n       ATRR_LIST  es  una lista de atributos separados entre si por comas. Los\n       atributos son 'mode' para permisos (incluyendo ACL y  permisos  xattr),\n       'ownership'  para usuarios y grupos, 'timestamp' para marcas temporales\n       en archivos, 'links' para enlaces duros, 'context'  para  contextos  de\n       seguridad,  'xattr'  para  atributos adicionales y 'all' para todos los\n       atributos.\n\n       Por defecto, los archivos con huecos ('sparse files') se  detectan  con\n       un mecanismo heurístico muy básico creándose el archivo DESTINO también\n       con  esa  característica  si  se  define  --sparse=auto.  Si  se define\n       --sparse=always se creará un archivo con huecos  siempre  y  cuando  el\n       ORIGEN  contenga  una  secuencia  de  ceros  los suficientemente larga.\n       Emplee --sparse=never para evitar la creación de dichos archivos.\n\n       UPDATE controla cuales de los archivos existentes en  el  destino  será\n       reemplazados.  'all'  es  la  opción  por  defecto  cuando no se define\n       ninguna opción --update, hará que se reemplacen todos los  archivos  en\n       el destino. 'none' es similar a la opcion --no-clobber en la cual no se\n       modifica  ningún  archivo  en  el destino ni los archivos que se salten\n       producen ningún error. 'older' es la operación por  defecto  cuando  se\n       define  --update,  hará que se reemplacen los archivos más antiguos que\n       el origen.\n\n       Cuando se  define  --reflink[=always],  se  hará  un  copia  optimizada\n       únicamente  de los bloques de datos que hayan sido modificados. Si esto\n       no fuese posible, se produjese un error o si se define  --reflink=auto,\n       se  hará  una  copia  estándar. Emplee --reflink=never si quiere que se\n       haga siempre una copia estándar.\n\n       El sufijo de respaldo es '~', a menos que se establezca con --suffix  o\n       con  SIMPLE_BACKUP_SUFFIX.  El  método  de  control de versión se puede\n       seleccionar con la opción --backup o a través de la variable de entorno\n       VERSION_CONTROL. Estos son los valores:\n\n       none, off\n              nunca realiza copias de seguridad (incluso si se  da  la  opción\n              --backup)\n\n       numbered, t\n              crea copias de seguridad numeradas\n\n       existing, nil\n              numeradas  si  existen copias de seguridad numeradas, simples en\n              caso contrario\n\n       simple, never\n              siempre crea copias de seguridad simples\n\n       como excepción, cp crea una copia de  seguridad  de  ORIGEN  cuando  se\n       indican  las  opciones '--force' y '--backup' y ORIGEN y DESTINO tienen\n       el mismo nombre para un archivo regular.\n\nAUTOR\n       Escrito por Torbjorn Granlund, David MacKenzie y Jim Meyering.\n\nINFORMAR DE ERRORES\n       Ayuda        en         línea         de         GNU         Coreutils:\n       <https://www.gnu.org/software/coreutils/>\n       Informe        cualquier        error       de       traducción       a\n       <https://translationproject.org/team/es.html>\n\nCOPYRIGHT\n       Copyright © 2023 Free Software Foundation, Inc.  Licencia  GPLv3+:  GNU\n       GPL versión 3 o posterior <https://gnu.org/licenses/gpl.html>.\n       Esto  es  software libre: usted es libre de cambiarlo y redistribuirlo.\n       NO HAY GARANTÍA, en la medida permitida por la legislación.\n\nVÉASE TAMBIÉN\n       install(1)\n\n       Documentación completa en <https://www.gnu.org/software/coreutils/cp>\n       también  disponible  localmente  ejecutando:   info   '(coreutils)   cp\n       invocation'\n\nTRADUCCIÓN\n       La  traducción  al  español  de  esta  página del manual fue creada por\n       Marcos Fouces <marcos@debian.org>\n\n       Esta traducción  es  documentación  libre;  lea  la  GNU General Public\n       License Version 3  o  posterior  con  respecto  a  las  condiciones  de\n       copyright.  No existe NINGUNA RESPONSABILIDAD.\n\n       Si encuentra algún error en la traducción de esta  página  del  manual,\n       envíe un correo electrónico a debian-l10n-spanish@lists.debian.org.\n\nGNU coreutils 9.4              Noviembre de 2023                         CP(1)\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man cp",
+    "nota": "grabada con «man cp | col -bx»"
+   },
+   {
+    "orden": "man df",
+    "stdout": "DF(1)                         Órdenes de usuario                         DF(1)\n\nNOMBRE\n       df  -  informa  de  la  utilización del espacio de disco en sistemas de\n       archivo\n\nSINOPSIS\n       df [OPCIÓN]... [FICHERO]...\n\nDESCRIPCIÓN\n       Esta página de manual documenta la versión GNU de df.   df  muestra  el\n       nivel de uso del sistema de archivos que contiene a cada archivo que se\n       especifica  como  argumento.  Si  no  se  proporciona  ningún nombre de\n       archivo, se muestra el nivel de uso del espacio en todos  los  sistemas\n       de  archivos  montados.  Por defecto, el espacio en disco se muestra en\n       bloques de 1K, a  menos  que  se  establezca  la  variable  de  entorno\n       POSIXLY_CORRECT, en cuyo caso se hará en bloques de 512 bytes.\n\n       Si  un  argumento  es  el  nombre  de  archivo  absoluto  de un nodo de\n       dispositivo que contiene un sistema de archivos montado, df mostrará el\n       espacio disponible en ese sistema de archivos en lugar de en el sistema\n       de archivos que contiene el nodo de dispositivo. Esta versión de df  no\n       puede  mostrar  el  espacio  disponible en los sistemas de archivos sin\n       montar,  porque  sería  necesario  un  profundo  conocimiento   de   la\n       estructura de ese sistema de archivo, algo muy difícil de portar.\n\nOPCIONES\n       Muestra  información  acerca  del sistema de archivos en donde se aloja\n       cada archivo o, por defecto, de todos ellos.\n\n       Los argumentos  obligatorios  para  las  opciones  largas  son  también\n       obligatorios para las opciones cortas.\n\n       -a, --all\n              Incluye  también  duplicados,  inaccesibles y pseudo-sistemas de\n              archivo.\n\n       -B, --block-size=TAMAÑO\n              escale los tamaños por TAMAÑO antes de imprimirlos; por ejemplo,\n               & '- BM'  imprime  tamaños  en  unidades  de  1.048.576  bytes;\n              consulte a continuación el formato TAMAÑO\n\n       -h, --human-readable\n              muestra los tamaños en potencias de 1024 (p.e. 1023M)\n\n       -H, --si\n              muestra los tamaños en potencias de 1000 (p.e. 1.1G)\n\n       -i, --inodes\n              muestra la información de nodos-i en lugar del uso de bloques\n\n       -k     como --block-size=1K\n\n       -l, --local\n              limita el listado a los sistemas de ficheros locales\n\n       --no-sync\n              no llama a sync antes de obtener el modo de empleo (por defecto)\n\n       --output[=LISTA_DE_CAMPOS]\n              usa el formato de salida definido por LISTA_DE_CAMPOS, o muestra\n              todos los campos si se omite LISTA_DE_CAMPOS.\n\n       -P, --portability\n              utiliza el formato POSIX para el resultado\n\n       --sync llama a sync antes de obtener el modo de empleo\n\n       --total\n              omite  todas  las  entradas insignificantes respecto del espacio\n              total disponible y las totaliza\n\n       -t, --type=TIPO\n              restringe el listado a sistemas de ficheros de tipo TIPO\n\n       -T, --print-type\n              muestra el tipo del sistema de ficheros\n\n       -x, --exclude-type=TIPO\n              restringe el listado a los sistemas de ficheros que no  son  del\n              tipo TIPO\n\n       -v     (no tiene efecto)\n\n       --help muestra la ayuda y finaliza\n\n       --version\n              muestra la versión del programa y finaliza\n\n       Los  valores  de  visualización están en las mismas unidades del primer\n       TAMAÑO  disponible  de  --block-size  y  las   variables   de   entorno\n       DF_BLOCK_SIZE,  BLOCK_SIZE  y  BLOCKSIZE. De lo contrario, las unidades\n       tienen un valor predeterminado de 1024 bytes (o  512  si  se  establece\n       POSIXLY_CORRECT).\n\n       El argumento TAMAÑO es un entero y una unidad opcional (ejemplo: 10K es\n       10  *  1024). Las unidades son K, M, G, T, P, E, Z, Y, R y Q (potencias\n       de 1024) o KB, MB, ... (potencias de  1000).  También  se  pueden  usar\n       prefijos binarios: KiB = K, MiB = M, etc.\n\n       LISTA_DE_CAMPOS  es  una  lista  separada  por comas de columnas que se\n       incluirán. Los nombres  de  campos  válidos  son:  'source',  'fstype',\n       'itotal',   'iused',   'iavail',  'ipcent',  'size',  'used',  'avail',\n       'pcent', 'file' y 'target' (véase la página info).\n\nAUTOR\n       Escrito por Torbjorn Granlund, David MacKenzie y Paul Eggert.\n\nINFORMAR DE ERRORES\n       Ayuda        en         línea         de         GNU         Coreutils:\n       <https://www.gnu.org/software/coreutils/>\n       Informe        cualquier        error       de       traducción       a\n       <https://translationproject.org/team/es.html>\n\nCOPYRIGHT\n       Copyright © 2023 Free Software Foundation, Inc.  Licencia  GPLv3+:  GNU\n       GPL versión 3 o posterior <https://gnu.org/licenses/gpl.html>.\n       Esto  es  software libre: usted es libre de cambiarlo y redistribuirlo.\n       NO HAY GARANTÍA, en la medida permitida por la legislación.\n\nVÉASE TAMBIÉN\n       Ayuda en línea: <https://www.gnu.org/software/coreutils/df>\n       también disponible en  modo  local  ejecutando:  info  '(coreutils)  df\n       invocation'\n\nTRADUCCIÓN\n       La  traducción  al  español  de  esta  página del manual fue creada por\n       Gerardo Aburruzaga  García  <gerardo.aburruzaga@uca.es>,  Juan  Piernas\n       <piernas@ditec.um.es> y Marcos Fouces <marcos@debian.org>\n\n       Esta  traducción  es  documentación  libre;  lea  la GNU General Public\n       License Version 3  o  posterior  con  respecto  a  las  condiciones  de\n       copyright.  No existe NINGUNA RESPONSABILIDAD.\n\n       Si  encuentra  algún  error en la traducción de esta página del manual,\n       envíe un correo electrónico a debian-l10n-spanish@lists.debian.org.\n\nGNU coreutils 9.4              Noviembre de 2023                         DF(1)\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man df",
+    "nota": "grabada con «man df | col -bx»"
+   },
+   {
+    "orden": "man date",
+    "stdout": "DATE(1)                       Órdenes de usuario                       DATE(1)\n\nNOMBRE\n       date - muestra o define la fecha y hora del sistema\n\nSINOPSIS\n       date [OPCIÓN]... [+FORMATO]\n       date [-u|--utc|--universal] [MMDDhhmm[[CC]YY][.ss]]\n\nDESCRIPCIÓN\n       Muestra la fecha y hora actual en el FORMATO indicado. Con la opción -s\n       o con [MMDDhhmm[[CC]YY][.ss]] define la fecha y la hora.\n\n       Los  argumentos  obligatorios  para  las  opciones  largas  son también\n       obligatorios para las opciones cortas.\n\n       -d, --date=CADENA\n              muestra la fecha y hora según  se  indique  en  la  CADENA,  por\n              ejemplo \"now\"\n\n       --debug\n              muestra  la fecha solicitada dando cuenta por la salida de error\n              estándar de cualquier uso cuestionable\n\n       -f, --file=ARCHIVO\n              igual que --date; pero ejecutando una  vez  por  cada  línea  de\n              ARCHIVO\n\n       -I[FMT], --iso-8601[=FMT]\n              muestra  la  fecha  y  hora  en  formato  ISO 8601. Puede usarse\n              FMT=\"date\" si se desea ver solo la fecha (por defecto), \"hours\",\n              \"minutes\", \"seconds\" o \"ns\" para obtener otros formatos de fecha\n              y hora. Por ejemplo: 2006-08-14T02:34:56-06:00\n\n       --resolution\n              muestra la exactitud disponible para las marcas  de  tiempo,  p.\n              ej: 0.000000001\n\n       -R, --rfc-email\n              muestra  la  fecha y hora en el formato definido en el RFC 5322.\n              Por ejemplo: Mon, 14 Aug 2006 02:34:56 -0600\n\n       --rfc-3339=FMT\n              muestra la fecha/hora con formato  RFC  3339.  \"FMT\"  puede  ser\n              \"date\",  \"seconds\"  o  \"ns\"  según  la  precisión  deseada.  Por\n              ejemplo: 2021-05-30 14:54:04+02:00\n\n       -r, --reference=ARCHIVO\n              muestra la fecha y hora de la última modificación de ARCHIVO\n\n       -s, --set=CADENA\n              define la fecha y hora tal como se especifica en CADENA\n\n       -u, --utc, --universal\n              muestra o define  fecha  y  hora  en  formato  UTC  (Coordinated\n              Universal Time)\n\n       --help muestra la ayuda y finaliza\n\n       --version\n              muestra la versión del programa y finaliza\n\n       Las  opciones  que  definen la forma de mostrar la fecha son mutuamente\n       exclusivas. Por ejemplo: --date, --file, --reference, --resolution.\n\n       FORMATO controla la salida. Las secuencias que se interpretan  son  las\n       siguientes:\n\n       %%     símbolo \"%\" literal\n\n       %a     nombre del día de la semana localizado y abreviado (p.ej. Dom)\n\n       %A     nombre del día de la semana localizado completo (p.ej. Domingo)\n\n       %b     nombre del mes localizado y abreviado (p.ej. ene)\n\n       %B     nombre del mes localizado y completo (p.ej. agosto)\n\n       %c     fecha y hora localizadas (por ejemplo: dom 30 may 2021 15:09:59)\n\n       %C     siglo,  al  igual  que %Y pero omitiendo los dos últimos dígitos\n              (p.ej: 21)\n\n       %d     día del mes (p.ej:05)\n\n       %D     fecha; igual que %m/%d/%y\n\n       %e     día del mes, con separación; igual que %_d\n\n       %F     fecha completa, igual que %+4Y-%m-%d\n\n       %g     últimos dos dígitos del año correspondiente al número de  semana\n              ISO (consulte %G)\n\n       %G     año  correspondiente  al  número de semana ISO (consulte %V); en\n              general solo es útil combinado con %V\n\n       %h     idéntico a %b\n\n       %H     hora (00..23)\n\n       %I     hora (01..12)\n\n       %j     día del año (001..366)\n\n       %k     hora, espaciada ( 0..23); igual que %_H\n\n       %l     hora, espaciada ( 1..12; igual que %_I\n\n       %m     mes (01..12)\n\n       %M     minuto (00..59)\n\n       %n     nueva línea\n\n       %N     nanosegundos (000000000..999999999)\n\n       %p     equivalente localizado de AM o PM; en blanco si es desconocido\n\n       %P     igual que %p, pero en mayúsculas\n\n       %q     cuatrimestre (1..4)\n\n       %r     hora localizada en el sistema horario de 12 horas (por  ejemplo:\n              04:30:42)\n\n       %R     hora y minuto en el sistema horario de 24 horas; igual que %H:%M\n\n       %s     segundos desde el Inicio (Epoch) 1970-01-01 00:00:00 UTC\n\n       %S     segundo (00..60)\n\n       %t     tabulación\n\n       %T     hora; igual que %H:%M:%S\n\n       %u     día de la semana (1..7); 1 corresponde a lunes\n\n       %U     número  de  semana  dentro del año, considerando el domingo como\n              primer día de la semana (00..53)\n\n       %V     Número de semana ISO, considera el lunes como primer día  de  la\n              semana (01..53)\n\n       %w     día de la semana(00..6); 0el 0 correspondería al domingo\n\n       %W     número  de  semana en el año, considera el lunes como primer día\n              de la semana (00..53)\n\n       %x     representación localizada de la fecha (p.ej: 30/05/21)\n\n       %X     representación de la hora en formato localizado (p.ej: 16:41:56)\n\n       %y     últimos dos dígitos del año (00..99)\n\n       %Y     año\n\n       %z     +hhmm representación numérica de la zona horaria (p.ej: +0200)\n\n       %:z    +hh:mm representación numérica de la zona horaria (p.ej: +02:00)\n\n       %::z   +hh:mm:ss representación numérica  de  la  zona  horaria  (p.ej:\n              +02:00:00)\n\n       %:::z  representación  numérica  de  la  zona  horaria con la precisión\n              requerida (p.ej: +02, +02:10)\n\n       %Z     Abreviatura alfabética de la zona horaria (p.ej: CEST)\n\n       Por defecto, se rellenarán con ceros los huecos en  las  fechas.  Estas\n       opciones pueden ir a continuación de '%':\n\n       -      (guión) no rellena\n\n       _      (guión bajo) rellena con espacios\n\n       0      (zero) rellena con ceros\n\n       +      separa  con  ceros y añade un '+' antes de un año con >4 dígitos\n              si corresponde al futuro.\n\n       ^      emplea mayúsculas si posible\n\n       #      emplea minúsculas si es posible\n\n       Después de cualquier opción viene un ancho de campo opcional, en  forma\n       de  número  decimal;  luego un modificador opcional, que es E para usar\n       las representaciones alternativas de la configuración regional si están\n       disponibles, o O para usar los símbolos numéricos  alternativos  de  la\n       configuración regional si están disponibles.\n\nEJEMPLOS\n       convierte  los  segundos  desde el Inicio (Epoch: 01-01-1970 UTC) a una\n       determinada fecha\n\n              $ date --date='@2147483647'\n\n       muestra la hora en la costa oeste  de  EEUU  (emplea  tzselect(1)  para\n       averiguar la zona horaria)\n\n              $ TZ='America/Los_Angeles' date\n\n       Muestra  la  hora  local para las 9AM del próximo miércoles en la costa\n       oeste de EEUU\n\n              $ date --date='TZ=\"America/Los_Angeles\" 09:00 next Fri'\n\nCADENA DE FECHA\n       --date=CADENA es una cadena de texto con un formato más o  menos  libre\n       para  indicar  una  fecha, por ejemplo \"lun 02 nov 2020 22:38:49 CET\" o\n       bien \"2020-02-29 16:21:42\", incluso  podría  ser  \"next  Thursday\".  El\n       texto de fecha puede incluir la fecha, la hora, la zona horaria, el día\n       de la semana, fechas y horas relativas así como otros datos. Una cadena\n       vacía  hace  referencia  al inicio del día. La cadena de fecha tiene un\n       formato más complejo que el descrito aquí, puede  consultar  la  página\n       info para una descripción más detallada.\n\nAUTOR\n       Escrito por David MacKenzie.\n\nINFORMAR DE ERRORES\n       Ayuda         en         línea         de         GNU        Coreutils:\n       <https://www.gnu.org/software/coreutils/>\n       Informe       cualquier       error       de        traducción        a\n       <https://translationproject.org/team/es.html>\n\nCOPYRIGHT\n       Copyright  ©  2023  Free Software Foundation, Inc. Licencia GPLv3+: GNU\n       GPL versión 3 o posterior <https://gnu.org/licenses/gpl.html>.\n       Esto es software libre: usted es libre de cambiarlo  y  redistribuirlo.\n       NO HAY GARANTÍA, en la medida permitida por la legislación.\n\nVÉASE TAMBIÉN\n       Documentación completa <https://www.gnu.org/software/coreutils/date>\n       también  disponible  localemente  ejecutando:  info  '(coreutils)  date\n       invocation'\n\nTRADUCCIÓN\n       La traducción al español de esta  página  del  manual  fue  creada  por\n       Marcos Fouces <marcos@debian.org>\n\n       Esta  traducción  es  documentación  libre;  lea  la GNU General Public\n       License Version 3  o  posterior  con  respecto  a  las  condiciones  de\n       copyright.  No existe NINGUNA RESPONSABILIDAD.\n\n       Si  encuentra  algún  error en la traducción de esta página del manual,\n       envíe un correo electrónico a debian-l10n-spanish@lists.debian.org.\n\nGNU coreutils 9.4              Noviembre de 2023                       DATE(1)\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man date",
+    "nota": "grabada con «man date | col -bx»"
+   },
+   {
+    "orden": "man mkdir",
+    "stdout": "MKDIR(1)                      Órdenes de usuario                      MKDIR(1)\n\nNOMBRE\n       mkdir - crea directorios\n\nSINOPSIS\n       mkdir [OPCIÓN]... DIRECTORIO...\n\nDESCRIPCIÓN\n       Crea los DIRECTORIO(s), si no existen ya.\n\n       Los  argumentos  obligatorios  para  las  opciones  largas  son también\n       obligatorios para las opciones cortas.\n\n       -m, --mode=MODO\n              establece los permisos (como en chmod),  en  lugar  de  a=rwx  -\n              umask\n\n       -p, --parents\n              no  hay  error  si  existen, crea los directorios padres en caso\n              necesario, no influye en su modo la opción -m.\n\n       -v, --verbose\n              muestra un mensaje por cada directorio creado\n\n       -Z     establece el contexto de seguridad SELinux  de  cada  directorio\n              creado al tipo predeterminado\n\n       --context[=CTX]\n              como  -Z,  o si se especifica CTX entonces establece el contexto\n              de seguridad SELinux o SMACK a CTX\n\n       --help muestra la ayuda y finaliza\n\n       --version\n              muestra la versión del programa y finaliza\n\nAUTOR\n       Escrito por David MacKenzie.\n\nINFORMAR DE ERRORES\n       Ayuda        en         línea         de         GNU         Coreutils:\n       <https://www.gnu.org/software/coreutils/>\n       Informe        cualquier        error       de       traducción       a\n       <https://translationproject.org/team/es.html>\n\nCOPYRIGHT\n       Copyright © 2023 Free Software Foundation, Inc.  Licencia  GPLv3+:  GNU\n       GPL versión 3 o posterior <https://gnu.org/licenses/gpl.html>.\n       Esto  es  software libre: usted es libre de cambiarlo y redistribuirlo.\n       NO HAY GARANTÍA, en la medida permitida por la legislación.\n\nVÉASE TAMBIÉN\n       mkdir(2)\n\n       Ayuda        en         línea         de         GNU         Coreutils:\n       <https://www.gnu.org/software/coreutils/mkdir>\n       también  disponible  localmente  ejecutando:  info  '(coreutils)  mkdir\n       invocation'\n\nTRADUCCIÓN\n       La traducción al español de esta  página  del  manual  fue  creada  por\n       Gerardo  Aburruzaga  García  <gerardo.aburruzaga@uca.es>,  Juan Piernas\n       <piernas@ditec.um.es> y Marcos Fouces <marcos@debian.org>\n\n       Esta traducción  es  documentación  libre;  lea  la  GNU General Public\n       License Version 3  o  posterior  con  respecto  a  las  condiciones  de\n       copyright.  No existe NINGUNA RESPONSABILIDAD.\n\n       Si encuentra algún error en la traducción de esta  página  del  manual,\n       envíe un correo electrónico a debian-l10n-spanish@lists.debian.org.\n\nGNU coreutils 9.4              Noviembre de 2023                      MKDIR(1)\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man mkdir",
+    "nota": "grabada con «man mkdir | col -bx»"
+   },
+   {
+    "orden": "man uname",
+    "stdout": "UNAME(1)                      Órdenes de usuario                      UNAME(1)\n\nNOMBRE\n       uname - imprime información del sistema\n\nSINOPSIS\n       uname [OPCIÓN]...\n\nDESCRIPCIÓN\n       Muestra  cierta  información del sistema. Sin ninguna OPCIÓN, igual que\n       -s.\n\n       -a, --all\n              muestra toda la información, en el  siguiente  orden,  salvo  la\n              omisión de -p y -i si son desconocidos:\n\n       -s, --kernel-name\n              muestra el nombre del núcleo\n\n       -n, --nodename\n              muestra el nombre de `host' del nodo de red\n\n       -r, --kernel-release\n              muestra la versión del núcleo\n\n       -v, --kernel-version\n              muestra la versión del núcleo\n\n       -m, --machine\n              muestra el tipo de máquina (hardware)\n\n       -p, --processor\n              muestra el tipo de procesador (no es portable).\n\n       -i, --hardware-platform\n              muestra la plataforma de hardware (no es portable)\n\n       -o, --operating-system\n              muestra el sistema operativo\n\n       --help muestra la ayuda y finaliza\n\n       --version\n              muestra la versión del programa y finaliza\n\nAUTOR\n       Escrito por David MacKenzie.\n\nINFORMAR DE ERRORES\n       Ayuda         en         línea         de         GNU        Coreutils:\n       <https://www.gnu.org/software/coreutils/>\n       Informe       cualquier       error       de        traducción        a\n       <https://translationproject.org/team/es.html>\n\nCOPYRIGHT\n       Copyright  ©  2023  Free Software Foundation, Inc. Licencia GPLv3+: GNU\n       GPL versión 3 o posterior <https://gnu.org/licenses/gpl.html>.\n       Esto es software libre: usted es libre de cambiarlo  y  redistribuirlo.\n       NO HAY GARANTÍA, en la medida permitida por la legislación.\n\nVÉASE TAMBIÉN\n       arch(1), uname(2)\n\n       Ayuda en línea: <https://www.gnu.org/software/coreutils/uname>\n       también  disponible  localmente  ejecutando:  info  '(coreutils)  uname\n       invocation'\n\nTRADUCCIÓN\n       La traducción al español de esta página del manual fue creada por  Juan\n       José    López    Mellado   <laveneno@hotmail.com>   y   Marcos   Fouces\n       <marcos@debian.org>\n\n       Esta traducción  es  documentación  libre;  lea  la  GNU General Public\n       License Version 3  o  posterior  con  respecto  a  las  condiciones  de\n       copyright.  No existe NINGUNA RESPONSABILIDAD.\n\n       Si encuentra algún error en la traducción de esta  página  del  manual,\n       envíe un correo electrónico a debian-l10n-spanish@lists.debian.org.\n\nGNU coreutils 9.4              Noviembre de 2023                      UNAME(1)\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man uname",
+    "nota": "grabada con «man uname | col -bx»"
+   },
+   {
+    "orden": "man who",
+    "stdout": "WHO(1)                        Órdenes de usuario                        WHO(1)\n\nNOMBRE\n       who - muestra quién está conectado al sistema\n\nSINOPSIS\n       who [OPCIÓN]... [ FICHERO | ARG1 ARG2 ]\n\nDESCRIPCIÓN\n       Muestra   información   sobre   los   usuarios  que  están  actualmente\n       conectados.\n\n       -a, --all\n              lo mismo que -b -d --login -p -r -t -T -u\n\n       -b, --boot\n              tiempo del último inicio del sistema\n\n       -d, --dead\n              muestra los procesos muertos\n\n       -H, --heading\n              muestra la línea de encabezados de columnas\n\n       -l, --login\n              muestra los procesos de login del sistema\n\n       --lookup\n              intenta canonicalizar los nombres de `host' a través del DNS\n\n       -m     solo el nombre del `host' y de usuario asociado con\n\n       -p, --process\n              muestra los procesos activos lanzados por init\n\n       -q, --count\n              todos los nombres de entrada y número de usuarios conectados\n\n       -r, --runlevel\n              muestra el `runlevel' actual\n\n       -s, --short\n              muestra solo el nombre, línea y tiempo (predeterminado)\n\n       -t, --time\n              muestra el último cambio en el reloj del sistema\n\n       -T, -w, --mesg\n              añade el estado de mensajes del usuario como +, - ó ?\n\n       -u, --users\n              muestra los usuarios conectados\n\n       --message\n              igual que -T\n\n       --writable\n              igual que -T\n\n       --help muestra la ayuda y finaliza\n\n       --version\n              muestra la versión del programa y finaliza\n\n       Si  no  se  especifica  ningún  FICHERO,  se   utiliza   /var/run/utmp.\n       Habitualmente,  FICHERO  es  /var/log/wtmp.  Si  se dan ARG1 y ARG2, se\n       supone -m: habitualmente 'am i' o 'mom likes'.\n\nAUTOR\n       Escrito por Joseph Arceneaux, David MacKenzie y Michael Stone.\n\nINFORMAR DE ERRORES\n       Ayuda        en         línea         de         GNU         Coreutils:\n       <https://www.gnu.org/software/coreutils/>\n       Informe        cualquier        error       de       traducción       a\n       <https://translationproject.org/team/es.html>\n\nCOPYRIGHT\n       Copyright © 2023 Free Software Foundation, Inc.  Licencia  GPLv3+:  GNU\n       GPL versión 3 o posterior <https://gnu.org/licenses/gpl.html>.\n       Esto  es  software libre: usted es libre de cambiarlo y redistribuirlo.\n       NO HAY GARANTÍA, en la medida permitida por la legislación.\n\nVÉASE TAMBIÉN\n       Ayuda en línea: <https://www.gnu.org/software/coreutils/who>\n       también  disponible  localmente  ejecutando:  info   '(coreutils)   who\n       invocation'\n\nTRADUCCIÓN\n       La  traducción al español de esta página del manual fue creada por Juan\n       José   López   Mellado   <laveneno@hotmail.com>   y    Marcos    Fouces\n       <marcos@debian.org>\n\n       Esta  traducción  es  documentación  libre;  lea  la GNU General Public\n       License Version 3  o  posterior  con  respecto  a  las  condiciones  de\n       copyright.  No existe NINGUNA RESPONSABILIDAD.\n\n       Si  encuentra  algún  error en la traducción de esta página del manual,\n       envíe un correo electrónico a debian-l10n-spanish@lists.debian.org.\n\nGNU coreutils 9.4              Noviembre de 2023                        WHO(1)\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man who",
+    "nota": "grabada con «man who | col -bx»"
+   },
+   {
+    "orden": "man id",
+    "stdout": "ID(1)                         Órdenes de usuario                         ID(1)\n\nNOMBRE\n       id - muestra los UID y GID reales y efectivos\n\nSINOPSIS\n       id [OPCIÓN]... [USUARIO]...\n\nDESCRIPCIÓN\n       Muestra la información de usuario y grupo para el USUARIO especificado,\n       o (cuando se omite USUARIO) para el proceso actual.\n\n       -a     sin efecto, para compatibilidad con otras versiones\n\n       -Z, --context\n              muestra solo el contexto de seguridad del proceso\n\n       -g, --group\n              muestra solo el ID de grupo\n\n       -G, --groups\n              muestra todos ID de grupo\n\n       -n, --name\n              muestra un nombre en lugar de un número, para -ugG\n\n       -r, --real\n              muestra el ID real en lugar del ID efectivo, para -ugG\n\n       -u, --user\n              muestra solo el ID efectivo del usuario\n\n       -z, --zero\n              delimita  las  entradas entre sí con caracteres NUL, en lugar de\n              hacerlo mediante espacios.\n\n              No se permite con el formato predeterminado.\n\n       --help muestra la ayuda y finaliza\n\n       --version\n              muestra la versión del programa y finaliza\n\n       Si no se especifica ninguna OPCIÓN, se muestra alguna información  útil\n       sobre la identidad.\n\nAUTOR\n       Escrito por Arnold Robbins y David MacKenzie.\n\nINFORMAR DE ERRORES\n       Ayuda         en         línea         de         GNU        Coreutils:\n       <https://www.gnu.org/software/coreutils/>\n       Informe       cualquier       error       de        traducción        a\n       <https://translationproject.org/team/es.html>\n\nCOPYRIGHT\n       Copyright  ©  2023  Free Software Foundation, Inc. Licencia GPLv3+: GNU\n       GPL versión 3 o posterior <https://gnu.org/licenses/gpl.html>.\n       Esto es software libre: usted es libre de cambiarlo  y  redistribuirlo.\n       NO HAY GARANTÍA, en la medida permitida por la legislación.\n\nVÉASE TAMBIÉN\n       Ayuda en línea: <https://www.gnu.org/software/coreutils/id>\n       también   disponible   localmente   ejecutando:  info  '(coreutils)  id\n       invocation'\n\nTRADUCCIÓN\n       La traducción al español de esta página del manual fue creada por Pedro\n       Pablo Fábrega <pfabrega@arrakis.es> y Marcos Fouces <marcos@debian.org>\n\n       Esta traducción  es  documentación  libre;  lea  la  GNU General Public\n       License Version 3  o  posterior  con  respecto  a  las  condiciones  de\n       copyright.  No existe NINGUNA RESPONSABILIDAD.\n\n       Si encuentra algún error en la traducción de esta  página  del  manual,\n       envíe un correo electrónico a debian-l10n-spanish@lists.debian.org.\n\nGNU coreutils 9.4              Noviembre de 2023                         ID(1)\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man id",
+    "nota": "grabada con «man id | col -bx»"
+   },
+   {
+    "orden": "man cat",
+    "stdout": "CAT(1)                        Órdenes de usuario                        CAT(1)\n\nNOMBRE\n       cat - concatena archivos y los muestra por la salida estándar\n\nSINOPSIS\n       cat [OPCIÓN]... [ARCHIVO]...\n\nDESCRIPCIÓN\n       Encadena ARCHIVO(s) y los envía a la salida estándar\n\n       Si  no se define ningún ARCHIVO o bien se indica '-', se lee la entrada\n       estándar.\n\n       -A, --show-all\n              equivale a -vET\n\n       -b, --number-nonblank\n              Numer las líneas no vacías, anula la opción -n\n\n       -e     equivale a -vE\n\n       -E, --show-ends\n              añade el símbolo '$' al final de cada línea\n\n       -n, --number\n              numera todas las líneas emitidas\n\n       -s, --squeeze-blank\n              elimina las líneas vacías repetidas\n\n       -t     equivale a -vT\n\n       -T, --show-tabs\n              Muestra las tabulaciones como ^I\n\n       -u     (no tiene efecto)\n\n       -v, --show-nonprinting\n              utiliza ^ y M-, salvo para tabulaciones y nuevas líneas\n\n       --help muestra la ayuda y finaliza\n\n       --version\n              muestra la versión del programa y finaliza\n\nEJEMPLOS\n       cat f - g\n              emite la salida de 'f', luego la entrada estándar y  finalmente,\n              el contenido de 'g'.\n\n       cat    Copy la entrada a la salida estándar.\n\nAUTOR\n       Escrito por Torbjorn Granlund y Richard M. Stallman.\n\nINFORMAR DE ERRORES\n       Ayuda         en         línea         de         GNU        Coreutils:\n       <https://www.gnu.org/software/coreutils/>\n       Informe       cualquier       error       de        traducción        a\n       <https://translationproject.org/team/es.html>\n\nCOPYRIGHT\n       Copyright  ©  2023  Free Software Foundation, Inc. Licencia GPLv3+: GNU\n       GPL versión 3 o posterior <https://gnu.org/licenses/gpl.html>.\n       Esto es software libre: usted es libre de cambiarlo  y  redistribuirlo.\n       NO HAY GARANTÍA, en la medida permitida por la legislación.\n\nVÉASE TAMBIÉN\n       tac(1)\n\n       Documentación completa en: <https://www.gnu.org/software/coreutils/cat>\n       también disponible localmenteinfo '(coreutils) cat invocation'\n\nTRADUCCIÓN\n       La  traducción  al  español  de  esta  página del manual fue creada por\n       Marcos Fouces <marcos@debian.org>\n\n       Esta traducción  es  documentación  libre;  lea  la  GNU General Public\n       License Version 3  o  posterior  con  respecto  a  las  condiciones  de\n       copyright.  No existe NINGUNA RESPONSABILIDAD.\n\n       Si encuentra algún error en la traducción de esta  página  del  manual,\n       envíe un correo electrónico a debian-l10n-spanish@lists.debian.org.\n\nGNU coreutils 9.4              Noviembre de 2023                        CAT(1)\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man cat",
+    "nota": "grabada con «man cat | col -bx»"
+   },
+   {
+    "orden": "man lsblk | head -12",
+    "stdout": "troff:<standard input>:189: warning [p 3, 5.7i]: cannot break line\nLSBLK(8)                     System Administration                    LSBLK(8)\n\nNAME\n       lsblk - list block devices\n\nSYNOPSIS\n       lsblk [options] [device...]\n\nDESCRIPTION\n       lsblk lists information about all available or the specified block\n       devices. The lsblk command reads the sysfs filesystem and udev db to\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man lsblk | head -12",
+    "nota": "grabada con «man lsblk 2>&1 | col -bx | head -12»: sin traducir, en inglés"
+   },
+   {
+    "orden": "man find | head -12",
+    "stdout": "FIND(1)                     General Commands Manual                    FIND(1)\n\nNAME\n       find - search for files in a directory hierarchy\n\nSYNOPSIS\n       find  [-H]  [-L] [-P] [-D debugopts] [-Olevel] [starting-point...] [ex‐\n       pression]\n\nDESCRIPTION\n       This manual page documents the GNU version of find.  GNU find  searches\n       the  directory  tree  rooted at each given starting-point by evaluating\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man find | head -12",
+    "nota": "grabada con «man find 2>&1 | col -bx | head -12»: sin traducir, en inglés"
+   },
+   {
+    "orden": "man top | head -12",
+    "stdout": "TOP(1)                           User Commands                          TOP(1)\n\nNAME\n       top - display Linux processes\n\nSYNOPSIS\n       top [options]\n\nDESCRIPTION\n       The  top program provides a dynamic real-time view of a running system.\n       It can display  system  summary  information  as  well  as  a  list  of\n       processes  or threads currently being managed by the Linux kernel.  The\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man top | head -12",
+    "nota": "grabada con «man top 2>&1 | col -bx | head -12»: sin traducir, en inglés"
+   },
+   {
+    "orden": "man less | head -12",
+    "stdout": "LESS(1)                     General Commands Manual                    LESS(1)\n\nNAME\n       less - opposite of more\n\nSYNOPSIS\n       less -?\n       less --help\n       less -V\n       less --version\n       less [-[+]aABcCdeEfFgGiIJKLmMnNqQrRsSuUVwWX~]\n            [-b space] [-h lines] [-j line] [-k keyfile]\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man less | head -12",
+    "nota": "grabada con «man less 2>&1 | col -bx | head -12»: sin traducir, en inglés"
+   },
+   {
+    "orden": "man sudo | head -12",
+    "stdout": "SUDO(8)                     System Manager's Manual                    SUDO(8)\n\nNAME\n       sudo, sudoedit — execute a command as another user\n\nSYNOPSIS\n       sudo -h | -K | -k | -V\n       sudo -v [-ABkNnS] [-g group] [-h host] [-p prompt] [-u user]\n       sudo  -l [-ABkNnS] [-g group] [-h host] [-p prompt] [-U user] [-u user]\n            [command [arg ...]]\n       sudo  [-ABbEHnPS]  [-C  num]  [-D  directory]  [-g  group]  [-h   host]\n            [-p  prompt]  [-R  directory]  [-r  role]  [-t  type] [-T timeout]\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man sudo | head -12",
+    "nota": "grabada con «man sudo 2>&1 | col -bx | head -12»: sin traducir, en inglés"
+   },
+   {
+    "orden": "man apt | head -12",
+    "stdout": "APT(8)                                APT                               APT(8)\n\nNAME\n       apt - command-line interface\n\nSYNOPSIS\n\n       apt [-h] [-o=config_string] [-c=config_file] [-t=target_release]\n           [-a=architecture] {list | search | show | update |\n           install pkg [{=pkg_version_number | /target_release}]...  |\n           remove pkg...  | upgrade | full-upgrade | edit-sources |\n           {-v | --version} | {-h | --help}}\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man apt | head -12",
+    "nota": "grabada con «man apt 2>&1 | col -bx | head -12»: sin traducir, en inglés"
+   },
+   {
+    "orden": "man ps | head -12",
+    "stdout": "PS(1)                            User Commands                           PS(1)\n\nNAME\n       ps - report a snapshot of the current processes.\n\nSYNOPSIS\n       ps [options]\n\nDESCRIPTION\n       ps displays information about a selection of the active processes.  If\n       you want a repetitive update of the selection and the displayed\n       information, use top instead.\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man ps | head -12",
+    "nota": "grabada con «man ps 2>&1 | col -bx | head -12»: sin traducir, en inglés"
+   },
+   {
+    "orden": "man kill | head -12",
+    "stdout": "KILL(1)                          User Commands                         KILL(1)\n\nNAME\n       kill - send a signal to a process\n\nSYNOPSIS\n       kill [options] <pid> [...]\n\nDESCRIPTION\n       The  default  signal  for kill is TERM.  Use -l or -L to list available\n       signals.  Particularly useful signals include  HUP,  INT,  KILL,  STOP,\n       CONT,  and  0.   Alternate  signals may be specified in three ways: -9,\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man kill | head -12",
+    "nota": "grabada con «man kill 2>&1 | col -bx | head -12»: sin traducir, en inglés"
+   },
+   {
+    "orden": "man nano | head -12",
+    "stdout": "NANO(1)                     General Commands Manual                    NANO(1)\n\nNAME\n       nano - Nano's ANOther editor, inspired by Pico\n\nSYNOPSIS\n       nano [options] [[+line[,column]] file]...\n\n       nano [options] [[+[crCR](/|?)string] file]...\n\nDESCRIPTION\n       nano  is  a  small and friendly editor.  It copies the look and feel of\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man nano | head -12",
+    "nota": "grabada con «man nano 2>&1 | col -bx | head -12»: sin traducir, en inglés"
+   },
+   {
+    "orden": "man crontab | head -12",
+    "stdout": "CRONTAB(1)                  General Commands Manual                 CRONTAB(1)\n\nNAME\n       crontab - maintain crontab files for individual users (Vixie Cron)\n\nSYNOPSIS\n       crontab [ -h]\n       crontab [ -u user ] [-n] file\n       crontab [ -u user ] [ -i ] { -e | -l | -r }\n\nDESCRIPTION\n       crontab  is  the  program used to install, deinstall or list the tables\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man crontab | head -12",
+    "nota": "grabada con «man crontab 2>&1 | col -bx | head -12»: sin traducir, en inglés"
+   },
+   {
+    "orden": "man ping | head -12",
+    "stdout": "PING(8)                             iputils                            PING(8)\n\nNAME\n       ping - send ICMP ECHO_REQUEST to network hosts\n\nSYNOPSIS\n\n       ping [-aAbBdCDfhHLnOqrRUvV46] [-c count] [-e identifier] [-F flowlabel]\n            [-i interval] [-I interface] [-l preload] [-m mark]\n            [-M pmtudisc_option] [-N nodeinfo_option] [-w deadline]\n            [-W timeout] [-p pattern] [-Q tos] [-s packetsize] [-S sndbuf]\n            [-t ttl] [-T timestamp option] [hop...] {destination}\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man ping | head -12",
+    "nota": "grabada con «man ping 2>&1 | col -bx | head -12»: sin traducir, en inglés"
+   },
+   {
+    "orden": "man passwd | head -12",
+    "stdout": "PASSWD(1)                        User Commands                       PASSWD(1)\n\nNAME\n       passwd - change user password\n\nSYNOPSIS\n\n       passwd [options] [LOGIN]\n\nDESCRIPTION\n       The passwd command changes passwords for user accounts. A normal user\n       may only change the password for their own account, while the superuser\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man passwd | head -12",
+    "nota": "grabada con «man passwd 2>&1 | col -bx | head -12»: sin traducir, en inglés"
+   },
+   {
+    "orden": "man free | head -12",
+    "stdout": "FREE(1)                          User Commands                         FREE(1)\n\nNAME\n       free - Display amount of free and used memory in the system\n\nSYNOPSIS\n       free [options]\n\nDESCRIPTION\n       free  displays the total amount of free and used physical and swap mem‐\n       ory in the system, as well as the buffers and caches used by  the  ker‐\n       nel.  The  information  is  gathered by parsing /proc/meminfo. The dis‐\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man free | head -12",
+    "nota": "grabada con «man free 2>&1 | col -bx | head -12»: sin traducir, en inglés"
+   },
+   {
+    "orden": "man w | head -12",
+    "stdout": "W(1)                             User Commands                            W(1)\n\nNAME\n       w - Show who is logged on and what they are doing.\n\nSYNOPSIS\n       w [options] [user]\n\nDESCRIPTION\n       w  displays  information  about the users currently on the machine, and\n       their processes.  The header shows, in this order,  the  current  time,\n       how  long  the  system  has  been running, how many users are currently\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man w | head -12",
+    "nota": "grabada con «man w 2>&1 | col -bx | head -12»: sin traducir, en inglés"
+   },
+   {
+    "orden": "man -k directorio",
+    "stdout": "run-parts (8)        - Ejecuta scripts o programas en un directorio\n",
+    "stderr": "",
+    "codigo": 0,
+    "sinManpagesEs": true
+   },
+   {
+    "orden": "whatis ls",
+    "stdout": "ls (1)               - list directory contents\n",
+    "stderr": "",
+    "codigo": 0,
+    "sinManpagesEs": true
+   },
+   {
+    "orden": "man ls | head -40",
+    "stdout": "LS(1)                            User Commands                           LS(1)\n\nNAME\n       ls - list directory contents\n\nSYNOPSIS\n       ls [OPTION]... [FILE]...\n\nDESCRIPTION\n       List  information  about  the FILEs (the current directory by default).\n       Sort entries alphabetically if none of -cftuvSUX nor --sort  is  speci‐\n       fied.\n\n       Mandatory  arguments  to  long  options are mandatory for short options\n       too.\n\n       -a, --all\n              do not ignore entries starting with .\n\n       -A, --almost-all\n              do not list implied . and ..\n\n       --author\n              with -l, print the author of each file\n\n       -b, --escape\n              print C-style escapes for nongraphic characters\n\n       --block-size=SIZE\n              with  -l,  scale  sizes  by  SIZE  when  printing  them;   e.g.,\n              '--block-size=M'; see SIZE format below\n\n       -B, --ignore-backups\n              do not list implied entries ending with ~\n\n       -c     with  -lt: sort by, and show, ctime (time of last change of file\n              status information); with -l: show ctime and sort by name;  oth‐\n              erwise: sort by ctime, newest first\n\n       -C     list entries by columns\n",
+    "stderr": null,
+    "codigo": 0,
+    "simulador": "man ls | head -40",
+    "nota": "grabada con «man ls | col -bx | head -40»",
+    "sinManpagesEs": true
+   },
+   {
+    "orden": "dpkg -l manpages-es",
+    "stdout": "",
+    "stderr": "dpkg-query: no se ha encontrado ningún paquete que corresponda con manpages-es.\n",
+    "codigo": 1,
+    "sinManpagesEs": true
+   },
+   {
+    "orden": "sudo apt install manpages-es",
+    "stdout": "Leyendo lista de paquetes... Hecho\nCreando árbol de dependencias... Hecho\nLeyendo la información de estado... Hecho\nmanpages-es ya está en su versión más reciente (4.21.0-2).\n0 actualizados, 0 nuevos se instalarán, 0 para eliminar y 36 no actualizados.\n",
+    "stderr": null,
+    "codigo": 0,
+    "tty": true,
+    "nota": "en una terminal, ya instalado; sin las líneas de progreso (cada una se queda con lo último que escribe); el número de «no actualizados» depende de apt update"
+   }
+  ]
+ }
+}

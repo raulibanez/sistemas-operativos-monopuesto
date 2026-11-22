@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulador de Linux · Sistemas Operativos Monopuesto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/som.css">
+<link rel="stylesheet" href="../assets/linux.css">
+<link rel="stylesheet" href="../assets/linux-vis.css">
+</head>
+<body>
+<deck-stage width="1920" height="1080">
+
+<!-- 01 Portada -->
+<section class="dark" data-label="Portada simulador" style="background:var(--navy);color:var(--white);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);position:relative;overflow:hidden">
+  <aside class="notas"><b>Página de prueba del simulador de Linux.</b> Siete diapositivas: terminal libre, demostración con guion y teclas, demostración con nano, misión con el árbol de carpetas, misión con casillas de respuesta, misión con la vista del arranque y la terminal a media anchura junto a texto.</aside>
+  <div style="position:absolute;right:-120px;top:-160px;width:760px;height:760px;border-radius:50%;background:var(--blue);opacity:.45"></div>
+  <p style="position:relative;font-size:var(--type-small);font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">Plantilla · UT4 a UT7</p>
+  <h1 style="position:relative;font-size:var(--type-hero);font-weight:800;line-height:1.02;letter-spacing:-.02em;margin-top:24px">Simulador de Linux</h1>
+  <p style="position:relative;font-size:var(--type-body);color:#D4E1F7;margin-top:32px;max-width:1200px;line-height:1.4">La terminal de Ubuntu 24.04 en la diapositiva: libre, en demostración paso a paso y en misiones que se corrigen solas.</p>
+  <p class="pista-teclas" style="position:relative;margin-top:72px"><kbd>←</kbd><kbd>→</kbd> para moverte <span class="sep">·</span> pulsa en la terminal para escribir <span class="sep">·</span> <kbd>Esc</kbd> devuelve el teclado a las diapositivas</p>
+</section>
+
+<!-- 02 Terminal libre -->
+<section data-label="Terminal libre" data-seccion="5.3" data-deck-id="libre" data-deck-section="Libre" style="padding:72px var(--pad-x) 80px;display:flex;flex-direction:column">
+  <aside class="notas"><b>Demo libre: pide a la clase una orden y escríbela.</b><ul><li>Escenario «empresa»: <code>~/empresa</code> con <code>datos/resumen.csv</code>.</li><li>Prueba <code>ls -l empresa</code>, <code>cat empresa/datos/resumen.csv</code>, <code>man ls</code> (q para salir).</li><li>Reiniciar vuelve al escenario de partida.</li></ul></aside>
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Terminal libre</p>
+  <h2 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.1;margin-top:12px;color:var(--navy)">Prueba cualquier orden</h2>
+  <div style="flex:1;min-height:0;margin-top:28px">
+    <div class="term" data-escenario="empresa"></div>
+  </div>
+</section>
+
+<!-- 03 Demostración con guion y teclas -->
+<section data-label="Demostración" data-seccion="4.8" data-deck-id="demostracion" data-deck-section="Demo" style="padding:72px var(--pad-x) 80px;display:flex;flex-direction:column">
+  <aside class="notas"><b>Demo paso a paso: pulsa «Siguiente orden», deja que la lean y pulsa Intro.</b><ul><li>Cada paso escribe la orden letra a letra y espera.</li><li>Las teclas especiales (↑, Tab, Ctrl+C) salen en grande arriba a la derecha.</li><li>Se puede escribir a mano en cualquier momento.</li></ul></aside>
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Demostración</p>
+  <h2 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.1;margin-top:12px;color:var(--navy)">Moverse por las carpetas</h2>
+  <div style="flex:1;min-height:0;margin-top:28px">
+    <div class="term" data-guion data-teclas data-escenario="empresa">
+      <ol class="term-guion" hidden>
+        <li data-orden="pwd"><code>pwd</code> escribe la carpeta en la que estás: al abrir la terminal, tu carpeta personal.</li>
+        <li data-orden="ls">Con <code>ls</code> ves lo que hay dentro. Las carpetas salen en azul.</li>
+        <li data-orden="cd empresa">Con <code>cd</code> entras en una carpeta. Fíjate en cómo cambia la ruta del prompt: ahora pone <code>~/empresa</code>.</li>
+        <li data-orden="ls -l">La opción <code>-l</code> da la lista larga: permisos, dueño, tamaño y fecha de cada archivo.</li>
+        <li data-orden="cat datos/resumen.csv | grep ana">La tubería <code>|</code> pasa la salida de <code>cat</code> a <code>grep</code>, que deja solo las líneas con «ana».</li>
+        <li data-orden="cd ..">Con <code>..</code> subes a la carpeta de arriba. Ahora prueba la flecha <b>↑</b>: vuelve a salir la orden anterior.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 04 Demostración con nano: data-escribe y data-tecla -->
+<section data-label="Demostración: nano" data-seccion="4.9" data-deck-id="nano" data-deck-section="nano" style="padding:72px var(--pad-x) 80px;display:flex;flex-direction:column">
+  <aside class="notas"><b>Pasos que escriben sin Intro y pasos que pulsan una tecla.</b><ul><li><code>data-escribe</code> escribe en la contraseña o dentro de nano; <code>data-tecla</code> pulsa Ctrl+W, Ctrl+O, Intro, Ctrl+X…</li><li>Av Pág hace lo mismo que el botón (sirve el mando de presentaciones).</li></ul></aside>
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Demostración</p>
+  <h2 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.1;margin-top:12px;color:var(--navy)">Cambiar la espera de GRUB con nano</h2>
+  <div style="flex:1;min-height:0;margin-top:28px">
+    <div class="term" data-guion data-teclas data-vista="arranque" data-escenario="ubuntu-som">
+      <ol class="term-guion" hidden>
+        <li data-orden="sudo nano /etc/default/grub"><code>sudo</code> delante: el archivo es de root.</li>
+        <li data-escribe="alumno">La contraseña no se ve al escribir.</li>
+        <li data-tecla="Enter">Intro y se abre nano.</li>
+        <li data-tecla="Ctrl+W"><code>Ctrl+W</code> busca (en el navegador, también F6 o el botón de la barra).</li>
+        <li data-escribe="TIMEOUT=0">Lo que se busca.</li>
+        <li data-tecla="Enter">El cursor salta allí.</li>
+        <li data-tecla="Ctrl+K"><code>Ctrl+K</code> corta la línea entera.</li>
+        <li data-escribe="GRUB_TIMEOUT=5">Se escribe la línea nueva.</li>
+        <li data-tecla="Enter">Intro: la línea queda en su sitio.</li>
+        <li data-tecla="Ctrl+O"><code>Ctrl+O</code> guarda: pregunta el nombre.</li>
+        <li data-tecla="Enter">Intro acepta el mismo nombre.</li>
+        <li data-tecla="Ctrl+X"><code>Ctrl+X</code> sale de nano.</li>
+        <li data-orden="sudo update-grub">Hasta que no se ejecuta <code>update-grub</code>, el menú no cambia.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- 05 Misión con el árbol de carpetas -->
+<section data-label="Misión: estructura" data-seccion="5.4" data-deck-id="mision" data-deck-section="Misión" style="padding:72px var(--pad-x) 80px;display:flex;flex-direction:column">
+  <aside class="notas"><b>Ejercicio que se corrige solo: cada tarea se pone en verde cuando la carpeta existe.</b><ul><li>Se mira el estado del disco, no la orden: vale cualquier forma de llegar.</li><li>El árbol de la derecha enseña lo que se crea, en verde un momento.</li><li>Otro ejercicio cambia los nombres (semilla nueva).</li></ul></aside>
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Misión</p>
+  <h2 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.1;margin-top:12px;color:var(--navy)">Crea la estructura de carpetas</h2>
+  <div style="flex:1;min-height:0;margin-top:28px">
+    <div class="term" data-mision="estructura" data-vista="arbol" data-teclas></div>
+  </div>
+</section>
+
+<!-- 06 Misión con casillas de respuesta -->
+<section data-label="Misión: primeros pasos" data-seccion="4.12" data-deck-id="mision-respuestas" data-deck-section="Respuestas" style="padding:72px var(--pad-x) 80px;display:flex;flex-direction:column">
+  <aside class="notas"><b>Tareas de respuesta: se escribe el dato en la casilla y se comprueba con Intro o con el botón.</b> Las de estado y las de teclas (Ctrl+C) se ponen en verde solas.</aside>
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Misión</p>
+  <h2 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.1;margin-top:12px;color:var(--navy)">Primeros pasos</h2>
+  <div style="flex:1;min-height:0;margin-top:28px">
+    <div class="term" data-mision="ut4-m1" data-teclas data-titulo-mision="no"></div>
+  </div>
+</section>
+
+<!-- 07 Misión con la vista del arranque -->
+<section data-label="Misión: el arranque" data-seccion="4.9" data-deck-id="mision-arranque" data-deck-section="Arranque" style="padding:72px var(--pad-x) 80px;display:flex;flex-direction:column">
+  <aside class="notas"><b>Misión con la vista enchufable «arranque» (linux-vis.js) debajo de las tareas.</b> La contraseña del simulador sale en la cabecera.</aside>
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Misión</p>
+  <h2 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.1;margin-top:12px;color:var(--navy)">Prepara el arranque</h2>
+  <div style="flex:1;min-height:0;margin-top:28px">
+    <div class="term" data-mision="ut4-m5" data-vista="arranque" data-titulo-mision="no"></div>
+  </div>
+</section>
+
+<!-- 08 Media anchura junto a texto -->
+<section data-label="Rutas: terminal a media anchura" data-seccion="5.2" data-deck-id="rutas" data-deck-section="Rutas" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:72px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom)">
+  <aside class="notas"><b>Pregunta: ¿qué pasa si escribo <code>cd ../..</code> desde <code>~/empresa/datos</code>?</b> Que lo prueben en la terminal de la derecha. Luego <code>pwd</code> para comprobarlo.</aside>
+  <div style="display:flex;flex-direction:column">
+    <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Rutas</p>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:20px;color:var(--navy);text-wrap:balance">Absolutas y relativas</h2>
+    <p style="font-size:var(--type-body);line-height:1.5;margin-top:var(--gap-title)">Una ruta <b>absoluta</b> empieza en la raíz, <code style="font-family:var(--mono)">/</code>, y vale desde cualquier carpeta. Una ruta <b>relativa</b> empieza en la carpeta en la que estás.</p>
+    <ul style="padding:0;list-style:none;display:flex;flex-direction:column;gap:var(--gap-item);margin-top:var(--gap-item);font-size:var(--type-small);line-height:1.4">
+      <li style="display:flex;gap:24px"><span style="color:var(--yellow);font-weight:800">—</span><span><code style="font-family:var(--mono)">.</code> es la carpeta en la que estás y <code style="font-family:var(--mono)">..</code> la de arriba.</span></li>
+      <li style="display:flex;gap:24px"><span style="color:var(--yellow);font-weight:800">—</span><span><code style="font-family:var(--mono)">~</code> es tu carpeta personal: <code style="font-family:var(--mono)">/home/alumno</code>.</span></li>
+      <li style="display:flex;gap:24px"><span style="color:var(--yellow);font-weight:800">—</span><span><code style="font-family:var(--mono)">pwd</code> te dice dónde estás.</span></li>
+    </ul>
+  </div>
+  <div class="term" data-escenario="empresa" data-cwd="~/empresa/datos"></div>
+</section>
+
+</deck-stage>
+<script src="../assets/deck-stage.js"></script>
+<script src="../assets/som.js"></script>
+<script src="../assets/linux-datos.js"></script>
+<script src="../assets/linux.js"></script>
+<script src="../assets/linux-bash.js"></script>
+<script src="../assets/linux-ordenes.js"></script>
+<script src="../assets/linux-sistema.js"></script>
+<script src="../assets/linux-ut4.js"></script>
+<script src="../assets/linux-misiones.js"></script>
+<script src="../assets/linux-misiones-ut4.js"></script>
+<script src="../assets/linux-vis.js"></script>
+<script src="../assets/linux-term.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Practica Linux · Sistemas Operativos Monopuesto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/linux.css">
+<link rel="stylesheet" href="../assets/linux-vis.css">
+<link rel="stylesheet" href="../assets/linux-practica.css">
+<style>
+  :root { --navy:#15356B; --blue:#0B4AB5; --sky:#4F8AE0; --yellow:#F4C20D; --bg:#F5F6F9; --ink:#1F2937; --muted:#485168; --line:#D7DCE6; --white:#FFFFFF; --ok:#1E8E5A; --ko:#C0392B; --mono:'JetBrains Mono', Consolas, monospace; --type-caption:16px; --type-small:18px; }
+  * { box-sizing: border-box; }
+  html, body { height:100%; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:'Plus Jakarta Sans',system-ui,sans-serif; display:flex; flex-direction:column; }
+  header { flex:none; background:var(--navy); color:#fff; padding:10px 20px; display:flex; align-items:center; gap:16px; }
+  header h1 { margin:0; font-size:22px; font-weight:800; letter-spacing:-.01em; }
+  header p { margin:0; color:#C9D6EE; font-size:15px; flex:1; min-width:0; }
+  .inicio { color:#fff; text-decoration:none; font-weight:700; font-size:15px; padding:6px 14px; border:2px solid rgba(255,255,255,.35); border-radius:10px; white-space:nowrap; margin-left:auto; }
+  .inicio:hover { background:rgba(255,255,255,.12); }
+  main { flex:1; min-height:0; padding:12px 20px 14px; max-width:1700px; width:100%; margin:0 auto; }
+  .btn { border:0; border-radius:10px; padding:8px 14px; font:inherit; font-weight:700; cursor:pointer; }
+  .btn-primary { background:var(--blue); color:#fff; } .btn-primary:hover { background:var(--navy); }
+  .btn-ghost { background:transparent; color:var(--navy); border:2px solid var(--line); } .btn-ghost:hover { border-color:var(--sky); }
+  /* en una página, letra de página (el componente está pensado para la diapositiva de 1920 px) */
+  .practica-linux { gap:10px; }
+  .practica-linux .term { --term-letra:18px; gap:16px; }
+  .practica-linux .term.term-con-lado { grid-template-columns:minmax(0,1fr) 300px; }
+  .practica-linux .term-barra { height:44px; font-size:16px; }
+  .practica-linux .term-programa, .practica-linux .term-cerrada { top:44px; }
+  .practica-linux .term-ventanas > i, .practica-linux .term-ventanas > button { width:24px; height:24px; }
+  .practica-linux .term-ventanas svg { width:16px; height:16px; }
+  .practica-linux .term-pantalla { padding:10px 14px 12px; }
+  .practica-linux .term-programa-texto { padding:10px 14px 0; }
+  .practica-linux .term-foco { font-size:14px; padding:5px 12px; }
+  .practica-linux .term-acciones .btn { font-size:15px; padding:6px 12px; }
+  .practica-linux .term-aviso { font-size:15px; padding:6px 12px; border-left-width:6px; }
+  .practica-linux .term-aviso b { font-size:12px; }
+  .practica-linux .term-programa-teclas button { font-size:14px; padding:3px 9px; }
+  .practica-linux .term-programa-nota { font-size:13px; }
+  .practica-linux .term-tecla b { font-size:34px; } .practica-linux .term-tecla span { font-size:16px; } .practica-linux .term-tecla { min-width:150px; padding:8px 16px; top:56px; }
+  .practica-linux .term-cerrada p { font-size:17px; } .practica-linux .term-cerrada p b { font-size:21px; } .practica-linux .term-cerrada .btn { font-size:16px; padding:8px 16px; }
+  .practica-linux .term-arbol { padding:12px 14px; }
+  .practica-linux .term-arbol-titulo { font-size:14px; } .practica-linux .term-nodo { font-size:15px; } .practica-linux .term-nodo.actual::after { font-size:13px; }
+  .pl-pill, .pl-bloque, .pl-donde, .practica-linux .pl-cab .btn, .practica-linux .pl-botones .btn, .practica-linux .pl-resp .btn { font-size:15px; }
+  .practica-linux .pl-cab .btn, .practica-linux .pl-botones .btn, .practica-linux .pl-resp .btn { padding:6px 12px; }
+  .pl-pill { padding:4px 12px; } .pl-bloque { padding:4px 8px; border-width:2px; }
+  .pl-puntos button { width:18px; height:18px; border-width:2px; }
+  .pl-pide { padding:10px 16px; gap:12px; border-radius:14px; }
+  .pl-num { width:36px; height:36px; font-size:18px; }
+  .pl-texto { font-size:22px; }
+  .pl-casilla { font-size:16px; border-width:2px; }
+  .pl-fb { font-size:16px; }
+  /* portátil bajo: el encargo y la terminal, sin desplazarse */
+  @media (max-height: 800px) and (min-width: 901px) { .pl-texto { font-size:19px; } .practica-linux .term { --term-letra:16px; } header p { display:none; } }
+  /* móvil: el encargo arriba, siempre a la vista, y la terminal debajo; sin el árbol */
+  @media (max-width: 900px) {
+    header { padding:8px 12px; } header p { display:none; }
+    main { padding:8px 10px 10px; }
+    .pl-cab { gap:8px; } .pl-donde, .pl-ant, .pl-pill { display:none; }   /* la pastilla ya está en la cabecera: el bloque se lee entero */
+    .pl-bloque { flex:1 1 100%; }   /* el desplegable, en su propia línea y entero; los puntos, debajo */
+    .pl-pide { position:sticky; top:0; z-index:5; }
+    .pl-texto { font-size:17px; }
+    .pl-num { width:30px; height:30px; font-size:15px; }
+    .practica-linux .term.term-con-lado { grid-template-columns:minmax(0,1fr); }
+    .practica-linux .term > .term-lado { display:none; }
+    .practica-linux .term { --term-letra:clamp(11px, calc((100vw - 44px) / 24.6), 18px); }
+    .practica-linux .term-barra { height:36px; font-size:13px; padding:0 8px; }
+    .practica-linux .term-programa, .practica-linux .term-cerrada { top:36px; }
+    .practica-linux .term-ventanas > i, .practica-linux .term-ventanas > .max, .practica-linux .term-ventanas > .cerrar { display:none; }
+    .practica-linux .term-pie { display:none; }
+    .pl-pie { flex-direction:column; gap:6px; } .pl-fb { min-height:0; font-size:14px; } .pl-botones { justify-content:flex-start; }
+    .practica-linux .pl-botones .btn { font-size:14px; padding:5px 10px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Practica Linux</h1>
+  <p>Encargos de una frase en una terminal de Ubuntu: escribe las órdenes y, cuando lo consigas, sale aquí.</p>
+  <a class="inicio" href="../index.html">Inicio</a>
+</header>
+<main>
+  <div class="practica-linux" id="practica"></div>
+</main>
+<script src="../assets/linux-datos.js"></script>
+<script src="../assets/linux.js"></script>
+<script src="../assets/linux-bash.js"></script>
+<script src="../assets/linux-ordenes.js"></script>
+<script src="../assets/linux-sistema.js"></script>
+<script src="../assets/linux-ut4.js"></script>
+<script src="../assets/linux-misiones.js"></script>
+<script src="../assets/linux-misiones-ut4.js"></script>
+<script src="../assets/linux-vis.js"></script>
+<script src="../assets/linux-term.js"></script>
+<script>
+/* La unidad sale de la dirección: practica.html?ut=4 */
+(function () {
+  const ut = new URLSearchParams(location.search).get('ut') || '4';
+  document.getElementById('practica').dataset.ut = /^\d+$/.test(ut) ? ut : '4';
+})();
+</script>
+<script src="../assets/linux-practica.js"></script>
+</body>
+</html>

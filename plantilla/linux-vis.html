@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simuladores visuales de Linux · Sistemas Operativos Monopuesto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/som.css">
+<link rel="stylesheet" href="../assets/linux.css">
+<link rel="stylesheet" href="../assets/linux-vis.css">
+</head>
+<body>
+<deck-stage width="1920" height="1080">
+
+<!-- 01 Portada -->
+<section class="dark" data-label="Portada simuladores visuales" style="background:var(--navy);color:var(--white);display:flex;flex-direction:column;justify-content:flex-end;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);position:relative;overflow:hidden">
+  <aside class="notas"><b>Página de prueba de los simuladores visuales de la UT4.</b> Una diapositiva por simulador: partes de una orden, reparto del disco, cadena de arranque, vista del arranque junto a la terminal, línea de ls -l y los ejercicios de la versión del núcleo y de las distribuciones.</aside>
+  <div style="position:absolute;right:-120px;top:-160px;width:760px;height:760px;border-radius:50%;background:var(--blue);opacity:.45"></div>
+  <p style="position:relative;font-size:var(--type-small);font-weight:600;color:var(--yellow);text-transform:uppercase;letter-spacing:.06em">Plantilla · UT4</p>
+  <h1 style="position:relative;font-size:var(--type-hero);font-weight:800;line-height:1.02;letter-spacing:-.02em;margin-top:24px">Simuladores visuales de Linux</h1>
+  <p style="position:relative;font-size:var(--type-body);color:#D4E1F7;margin-top:32px;max-width:1260px;line-height:1.4">Lo que la máquina real no enseña: las partes de una orden, el reparto del disco, el camino del arranque y cada campo de una línea.</p>
+</section>
+
+<!-- 02 orden (diapositiva 15). <div class="lvis" data-tipo="orden"> monta la línea, sus papeles y una terminal
+     pequeña a la derecha. Líneas propias: <ol class="lvis-lineas" hidden><li>…</li></ol> dentro del div.
+     data-terminal="no" quita la terminal; --lvis-term-ancho cambia su anchura (600px). -->
+<section data-label="Las partes de una orden" data-seccion="4.2" data-deck-id="orden" data-deck-section="4.2" style="padding:64px var(--pad-x) 72px;display:flex;flex-direction:column">
+  <aside class="notas"><b>Pide a la clase que diga qué es cada trozo antes de pulsarlo.</b><ul><li>Es la forma de la guía: comando [-o | --opcion] [argumentos].</li><li>Prueba a escribir <code>ls-l</code> y <code>ls -all</code>: el simulador explica qué pasa.</li><li>«Ejecutar en la terminal» la lanza a la derecha.</li></ul></aside>
+  <span class="pill" style="align-self:flex-start">Simulador</span>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:16px;color:var(--navy)">Las partes de una orden</h2>
+  <div style="flex:1;min-height:0;margin-top:28px">
+    <div class="lvis" data-tipo="orden"></div>
+  </div>
+</section>
+
+<!-- 03 particiones (diapositiva 43). Modo exploración, sin corrección. data-disco (GB), data-ram (GB),
+     data-firmware (uefi | bios), data-plan (vacio | defecto | som: el reparto de partida). -->
+<section data-label="Reparte el disco" data-seccion="4.5" data-deck-id="particiones" data-deck-section="4.5" style="padding:56px var(--pad-x) 64px;display:flex;flex-direction:column">
+  <aside class="notas"><b>Compara los dos botones: Ubuntu por defecto frente al plan del curso.</b><ul><li>Pregunta qué cambiaría con un disco de 120 GB o con 16 GB de RAM.</li><li>No hay un reparto único bueno: cada plan se justifica.</li><li>El borde de cada partición se arrastra; también con − / + o escribiendo el tamaño.</li></ul></aside>
+  <div style="display:flex;align-items:baseline;gap:40px;flex-wrap:wrap">
+    <h2 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.1;color:var(--navy)">Reparte el disco</h2>
+    <p style="font-size:var(--type-small);color:var(--muted);line-height:1.35">Arrastra los bordes para cambiar el tamaño de cada partición. Pulsa una partición para ver para qué sirve y qué pasa si falta.</p>
+  </div>
+  <div style="flex:1;min-height:0;margin-top:22px">
+    <div class="lvis" data-tipo="particiones" data-disco="40" data-ram="4" data-firmware="uefi" data-plan="som"></div>
+  </div>
+</section>
+
+<!-- 04 arranque en modo cadena (diapositiva 61): Encender, Pulsar Esc y la frase de cada caja. -->
+<section data-label="Del firmware al escritorio" data-seccion="4.9" data-deck-id="cadena" data-deck-section="4.9" style="padding:64px var(--pad-x) 72px;display:flex;flex-direction:column">
+  <aside class="notas"><b>Pulsa Encender y deja que lo vean entero; después, Pulsar Esc.</b><ul><li>Pregunta dónde se quedaría el arranque si se borra la ESP (en el firmware) o si falta el núcleo (en GRUB).</li><li>En la ESP están shimx64.efi y grubx64.efi.</li></ul></aside>
+  <span class="pill" style="align-self:flex-start">Simulador</span>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:16px;color:var(--navy)">Del firmware al escritorio</h2>
+  <div style="flex:1;min-height:0;margin-top:28px">
+    <div class="lvis" data-tipo="arranque" data-modo="cadena"></div>
+  </div>
+</section>
+
+<!-- 05 terminal con la vista arranque (diapositivas 63 y 64): la vista lee /boot/grub/grub.cfg del sistema simulado
+     y avisa si /etc/default/grub es más reciente. -->
+<section data-label="Terminal con la vista arranque" data-seccion="4.9" data-deck-id="vista-arranque" data-deck-section="GRUB" style="padding:64px var(--pad-x) 72px;display:flex;flex-direction:column">
+  <aside class="notas"><b>Cambia /etc/default/grub con nano y mira la vista: no cambia hasta update-grub.</b><ul><li><code>sudo nano /etc/default/grub</code> (contraseña: alumno).</li><li>Cambia hidden por menu y 0 por 5, Ctrl+O, Intro, Ctrl+X.</li><li><code>sudo update-grub</code> y «Reiniciar la máquina».</li></ul></aside>
+  <p style="font-size:var(--type-small);font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:.06em">Terminal con vista</p>
+  <h2 style="font-size:var(--type-subtitle);font-weight:800;line-height:1.1;margin-top:12px;color:var(--navy)">Cambiar la configuración: nano y update-grub</h2>
+  <div style="flex:1;min-height:0;margin-top:24px">
+    <div class="term" data-escenario="inicio" data-vista="arranque"></div>
+  </div>
+</section>
+
+<!-- 06 linea con ls -l (diapositiva 81). data-formato="ls-l"; líneas propias con
+     <ol class="lvis-lineas" hidden><li data-nombre="…" data-orden="ls -l">…</li></ol>. -->
+<section data-label="Leer una línea de ls -l" data-seccion="4.12" data-deck-id="linea" data-deck-section="4.12" style="padding:64px var(--pad-x) 72px;display:flex;flex-direction:column">
+  <aside class="notas"><b>Solo leer la línea.</b> Los permisos se quedan en «quién puede leer, escribir y ejecutar». Pregunta qué campo cambia al hacer touch.</aside>
+  <span class="pill" style="align-self:flex-start">Simulador</span>
+  <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:16px;color:var(--navy)">Leer una línea de ls -l</h2>
+  <div style="flex:1;min-height:0;margin-top:28px">
+    <div class="lvis" data-tipo="linea" data-formato="ls-l"></div>
+  </div>
+</section>
+
+<!-- 07 generador version-nucleo (diapositiva 29). data-modo="uname | proc" fija la salida. -->
+<section data-label="Practica: versión del núcleo" data-seccion="4.3" data-deck-id="version" data-deck-section="4.3" style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:72px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <aside class="notas"><b>Ubuntu toma la versión de kernel.org y le pone su revisión.</b> Antes, la segunda cifra par significaba estable; esa regla ya no vale.</aside>
+  <div>
+    <span class="pill">Ejercicio interactivo</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Cómo se lee la versión del núcleo</h2>
+    <p style="font-family:var(--mono);font-size:56px;font-weight:700;color:var(--navy);margin-top:40px">7.0.0-43-generic</p>
+    <ul style="padding:0;list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:24px;font-size:var(--type-small);line-height:1.35">
+      <li><b style="font-family:var(--mono)">7</b> versión principal · <b style="font-family:var(--mono)">0</b> versión secundaria · <b style="font-family:var(--mono)">0</b> corrección</li>
+      <li><b style="font-family:var(--mono)">43</b> revisión de Ubuntu · <b style="font-family:var(--mono)">generic</b> variante para ordenadores normales</li>
+    </ul>
+  </div>
+  <div class="ej" data-tipo="version-nucleo"></div>
+</section>
+
+<!-- 08 generador distro (diapositiva 35). data-modo="datos | caso" fija el modo. -->
+<section data-label="Practica: ¿qué distribución?" data-seccion="4.4" data-deck-id="distro" data-deck-section="4.4" style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:72px;padding:var(--pad-top) var(--pad-x) var(--pad-bottom);align-items:stretch">
+  <aside class="notas"><b>Haz tres del modo 1 en voz alta y deja el modo 2 para parejas, que discutan por qué.</b></aside>
+  <div>
+    <span class="pill">Ejercicio interactivo</span>
+    <h2 style="font-size:var(--type-title);font-weight:800;line-height:1.1;margin-top:32px;color:var(--navy);text-wrap:balance">Practica: ¿qué distribución?</h2>
+    <p style="font-size:var(--type-body);line-height:1.5;margin-top:var(--gap-title);color:var(--muted)">Modo 1: di su familia, su formato de paquete y quién la mantiene. Modo 2: elige la distribución que encaja con el caso.</p>
+  </div>
+  <div class="ej" data-tipo="distro"></div>
+</section>
+
+</deck-stage>
+<script src="../assets/deck-stage.js"></script>
+<script src="../assets/som.js"></script>
+<script src="../assets/linux-datos.js"></script>
+<script src="../assets/linux.js"></script>
+<script src="../assets/linux-bash.js"></script>
+<script src="../assets/linux-ordenes.js"></script>
+<script src="../assets/linux-sistema.js"></script>
+<script src="../assets/linux-misiones.js"></script>
+<script src="../assets/linux-term.js"></script>
+<script src="../assets/linux-vis.js"></script>
+</body>
+</html>

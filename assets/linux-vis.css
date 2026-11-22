@@ -1,0 +1,467 @@
+/* Simulador de Linux · simuladores visuales de la UT4 (linux-vis.js): orden, particiones, arranque (cadena y vista
+   de la terminal), linea y la salida de los generadores version-nucleo y distro.
+   Medidas en píxeles de la diapositiva de 1920 × 1080 (deck-stage la escala entera). Ninguna regla depende de
+   ancestros de fuera de la sección: el carril de miniaturas clona las secciones en un shadow DOM. */
+
+/* Colores fijos de las particiones (también para la tabla y el SVG de las diapositivas):
+   var(--part-esp) …, fondo con .part-esp …, relleno de SVG con .part-fill-esp … */
+:root {
+  --part-esp: #F4C20D;
+  --part-raiz: #0B4AB5;
+  --part-swap: #7C8799;
+  --part-home: #1E9E62;
+  --part-otra: #7A4FC9;
+}
+.part-esp { background: var(--part-esp); color: var(--navy, #15356B); }
+.part-raiz { background: var(--part-raiz); color: #FFFFFF; }
+.part-swap { background: var(--part-swap); color: #FFFFFF; }
+.part-home { background: var(--part-home); color: #FFFFFF; }
+.part-otra { background: var(--part-otra); color: #FFFFFF; }
+.part-fill-esp { fill: var(--part-esp); }
+.part-fill-raiz { fill: var(--part-raiz); }
+.part-fill-swap { fill: var(--part-swap); }
+.part-fill-home { fill: var(--part-home); }
+.part-fill-otra { fill: var(--part-otra); }
+
+section:has(> .lvis) { grid-template-rows: minmax(0, 1fr); }
+
+/* ---------- piezas comunes ---------- */
+.lvis { min-height: 0; min-width: 0; height: 100%; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: var(--ink, #1F2937); }
+.lvis-tarjeta {
+  background: var(--white, #FFFFFF);
+  border-radius: 24px;
+  padding: 28px 36px 30px;
+  box-shadow: 0 2px 0 var(--line, #D7DCE6);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+.lvis-tarjeta .btn, .lvis-vista-arranque .btn { padding: 14px 26px; font-size: 24px; border-radius: 12px; }
+.lvis-tarjeta .btn:disabled, .lvis-vista-arranque .btn:disabled { opacity: .45; cursor: default; transform: none; }
+.lvis-tarjeta .btn-primary:disabled:hover, .lvis-vista-arranque .btn-primary:disabled:hover { background: var(--blue, #0B4AB5); }
+.lvis-tarjeta .btn-ghost.activo { background: var(--navy, #15356B); border-color: var(--navy, #15356B); color: #FFFFFF; }
+.lvis-tarjeta .btn[hidden], .lvis-vista-arranque .btn[hidden] { display: none; }
+.lvis-botones { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.lvis-cab { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; justify-content: space-between; }
+.lvis-sel, .lvis-leyenda, .lvis-planes { display: flex; flex-wrap: wrap; gap: 10px; }
+.lvis-chip {
+  font: 700 22px/1.15 'Plus Jakarta Sans', system-ui, sans-serif;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 2px solid var(--line, #D7DCE6);
+  background: #FFFFFF;
+  color: var(--navy, #15356B);
+  cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.lvis-chip:hover { border-color: var(--sky, #4F8AE0); }
+.lvis-chip.activo { background: var(--navy, #15356B); border-color: var(--navy, #15356B); color: #FFFFFF; }
+.lvis-chip.mono { font-family: var(--mono, 'JetBrains Mono', Consolas, monospace); font-weight: 600; }
+.lvis-chip i { display: inline-block; width: 18px; height: 18px; border-radius: 50%; background: var(--f, var(--muted, #485168)); margin-right: 10px; vertical-align: -2px; }
+.lvis-msg {
+  font-size: 26px;
+  line-height: 1.45;
+  color: var(--ink, #1F2937);
+  background: #FFF6D1;
+  border-left: 8px solid var(--yellow, #F4C20D);
+  border-radius: 12px;
+  padding: 14px 22px;
+  min-height: 0;
+  overflow: auto;
+}
+.lvis-msg.aviso { background: #F1F3F7; border-left-color: var(--muted, #485168); }
+.lvis-msg code, .lvis-hechos code, .lvis-subt code { font-family: var(--mono, 'JetBrains Mono', Consolas, monospace); font-size: .92em; background: rgba(21, 53, 107, .08); padding: 0 8px; border-radius: 6px; white-space: nowrap; }
+.lvis-etq {
+  display: inline-block;
+  font: 800 19px/1.3 'Plus Jakarta Sans', system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: 3px 14px;
+  border-radius: 999px;
+  background: var(--f, var(--navy, #15356B));
+  color: var(--ft, #FFFFFF);
+  margin-right: 10px;
+  vertical-align: 3px;
+}
+.lvis-campo {
+  font-family: var(--mono, 'JetBrains Mono', Consolas, monospace);
+  font-size: 26px;
+  padding: 10px 18px;
+  border: 3px solid var(--line, #D7DCE6);
+  border-radius: 12px;
+  color: var(--navy, #15356B);
+  background: var(--bg, #F5F6F9);
+  outline: none;
+  min-width: 0;
+}
+.lvis-campo:focus { border-color: var(--sky, #4F8AE0); }
+.lvis-recien { animation: lvis-destello 1.4s ease-out; }
+@keyframes lvis-destello { 0% { box-shadow: 0 0 0 6px rgba(244, 194, 13, .9); background-color: #FFF1B8; } 100% { box-shadow: 0 0 0 0 rgba(244, 194, 13, 0); } }
+@media (prefers-reduced-motion: reduce) { .lvis-recien { animation: none; outline: 4px solid var(--yellow, #F4C20D); } }
+
+/* papeles de la orden y campos de la línea: --c borde y texto, --t fondo suave, --f relleno del rótulo, --ft su letra */
+.papel-orden { --c: #0B4AB5; --t: #E3ECFB; --f: #0B4AB5; --ft: #FFFFFF; }
+.papel-opcion { --c: #B88A00; --t: #FFF3C4; --f: #F4C20D; --ft: #15356B; }
+.papel-argumento { --c: #7A4FC9; --t: #EFE8FB; --f: #7A4FC9; --ft: #FFFFFF; }
+.papel-separador, .papel-tuberia, .papel-condicion, .papel-fondo { --c: #485168; --t: #ECEEF3; --f: #485168; --ft: #FFFFFF; }
+.papel-redireccion, .papel-destino, .papel-asignacion { --c: #0E7C86; --t: #DDF2F3; --f: #0E7C86; --ft: #FFFFFF; }
+.papel-otro { --c: #8792A8; --t: #F1F3F7; --f: #8792A8; --ft: #FFFFFF; }
+.campo-tipo { --c: #15356B; --t: #E2E7F0; --f: #15356B; --ft: #FFFFFF; }
+.campo-permisos { --c: #0B4AB5; --t: #E3ECFB; --f: #0B4AB5; --ft: #FFFFFF; }
+.campo-enlaces { --c: #2F6FD0; --t: #E6EFFC; --f: #4F8AE0; --ft: #FFFFFF; }
+.campo-dueno { --c: #7A4FC9; --t: #EFE8FB; --f: #7A4FC9; --ft: #FFFFFF; }
+.campo-grupo { --c: #A0479E; --t: #F7E6F6; --f: #A0479E; --ft: #FFFFFF; }
+.campo-tamano { --c: #0E7C86; --t: #DDF2F3; --f: #0E7C86; --ft: #FFFFFF; }
+.campo-fecha { --c: #B88A00; --t: #FFF3C4; --f: #F4C20D; --ft: #15356B; }
+.campo-nombre { --c: #1E7F52; --t: #E1F4EA; --f: #1E8E5A; --ft: #FFFFFF; }
+
+/* la línea grande con sus trozos y los rótulos debajo */
+.lvis-escena { position: relative; padding: 6px 0 0; }
+.lvis-trozos {
+  font-family: var(--mono, 'JetBrains Mono', Consolas, monospace);
+  font-weight: 600;
+  font-size: 76px;
+  line-height: 1.3;
+  color: var(--navy, #15356B);
+  white-space: pre;
+  text-align: center;
+  overflow: hidden;
+}
+.lvis-trozo {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-bottom: 5px dotted #B8C2D6;
+  border-radius: 10px 10px 4px 4px;
+  padding: 0 .06em;
+  margin: 0;
+  cursor: pointer;
+  transition: background .15s, box-shadow .15s;
+}
+.lvis-trozo:hover, .lvis-trozo.encima { background: #EEF3FB; }
+.lvis-trozo.visto { background: var(--t); border-bottom: 5px solid var(--c); }
+.lvis-trozo.elegido { background: var(--t); border-bottom: 5px solid var(--c); box-shadow: 0 0 0 4px var(--c); }
+.lvis-trozo:focus-visible { outline: 4px solid var(--sky, #4F8AE0); outline-offset: 2px; }
+.lvis-rotulos { position: relative; height: 46px; margin-top: 12px; }
+.lvis-rotulo {
+  position: absolute;
+  white-space: nowrap;
+  font: 800 22px/1 'Plus Jakarta Sans', system-ui, sans-serif;
+  padding: 7px 14px 8px;
+  border-radius: 999px;
+  background: var(--f);
+  color: var(--ft);
+}
+.lvis-rotulo::before {
+  content: '';
+  position: absolute;
+  left: var(--centro, 50%);
+  top: -9px;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom: 5px solid var(--f);
+  border-top: 0;
+}
+
+/* ---------- 1. orden ---------- */
+.lvis-orden.lvis-con-term { display: grid; grid-template-columns: minmax(0, 1fr) var(--lvis-term-ancho, 540px); gap: 28px; }
+.lvis-term-col { min-height: 0; min-width: 0; display: flex; flex-direction: column; }
+.lvis-term-col > .term { --term-letra: 22px; }
+.lvis-orden .lvis-escribe { display: flex; gap: 12px; }
+.lvis-orden .lvis-escribe .lvis-campo { flex: 1; }
+.lvis-orden .lvis-escribe .btn { padding: 10px 24px; }
+.lvis-orden .lvis-escena { flex: none; }
+.lvis-orden .lvis-msg { flex: 1; }
+.lvis-orden .lvis-leyenda .lvis-chip b { font-weight: 800; }
+.lvis-orden .lvis-leyenda .lvis-chip { font-weight: 600; font-size: 21px; padding: 8px 16px; }
+.lvis-orden .lvis-sel .lvis-chip { font-size: 21px; padding: 8px 14px; }
+.lvis-orden .lvis-sel, .lvis-orden .lvis-leyenda { gap: 8px; }
+.lvis-orden .lvis-leyenda .lvis-chip.activo { background: var(--t); border-color: var(--c); color: var(--navy, #15356B); }
+
+/* ---------- 2. particiones ---------- */
+.lvis-particiones .lvis-disco { font-size: 24px; color: var(--muted, #485168); }
+.lvis-particiones .lvis-disco b { color: var(--navy, #15356B); }
+.lvis-particiones .lvis-planes .btn { padding: 12px 22px; font-size: 22px; }
+.lvis-barra-caja { padding-top: 22px; }
+.lvis-barra {
+  display: flex;
+  height: 136px;
+  border: 3px solid var(--navy, #15356B);
+  border-radius: 16px;
+  background: var(--bg, #F5F6F9);
+  position: relative;
+}
+.lvis-part {
+  flex: 1 1 0;
+  min-width: 120px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 8px 6px;
+  text-align: center;
+  line-height: 1.15;
+  border-right: 3px solid #FFFFFF;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+}
+.lvis-part:first-child { border-radius: 13px 0 0 13px; }
+.lvis-part:last-child { border-radius: 0 13px 13px 0; border-right: 0; }
+.lvis-part:only-child { border-radius: 13px; }
+.lvis-part .n { font: 600 20px/1.1 var(--mono, 'JetBrains Mono', Consolas, monospace); opacity: .85; }
+.lvis-part b { font-size: 28px; font-weight: 800; }
+.lvis-part > * { max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lvis-part .corto { display: none; }
+.lvis-part.mini .largo { display: none; }
+.lvis-part.mini .corto { display: block; }
+.lvis-part .t { font-size: 24px; font-weight: 700; }
+.lvis-part .swapimg { margin-top: 6px; font: 600 18px/1.2 var(--mono, 'JetBrains Mono', Consolas, monospace); padding: 3px 12px; border-radius: 999px; background: rgba(255, 255, 255, .2); }
+.lvis-part.estrecha .n, .lvis-part.estrecha .swapimg { display: none; }
+.lvis-part.mini b { font-size: 24px; }
+.lvis-part.mini { padding: 8px 16px; }
+.lvis-part.mini .t { font-size: 22px; }
+.lvis-part.part-libre { background: repeating-linear-gradient(45deg, #F5F6F9 0 12px, #E6EAF1 12px 24px); color: var(--muted, #485168); }
+.lvis-part.elegida { box-shadow: inset 0 0 0 5px var(--navy, #15356B), inset 0 0 0 9px #FFFFFF; z-index: 1; }
+.lvis-part.elegida::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -24px;
+  transform: translateX(-50%);
+  border: 13px solid transparent;
+  border-top: 14px solid var(--navy, #15356B);
+  border-bottom: 0;
+}
+.lvis-part:focus-visible { box-shadow: inset 0 0 0 5px var(--sky, #4F8AE0); }
+.lvis-part.lvis-recien { animation: lvis-destello-part 1.2s ease-out; }
+@keyframes lvis-destello-part { 0% { filter: brightness(1.35); } 100% { filter: none; } }
+.lvis-tirador {
+  position: absolute;
+  right: -19px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 92px;
+  padding: 0;
+  border-radius: 10px;
+  border: 3px solid var(--navy, #15356B);
+  background: #FFFFFF;
+  z-index: 3;
+  cursor: ew-resize;
+  touch-action: none;
+  display: grid;
+  place-items: center;
+}
+.lvis-tirador i { width: 14px; height: 44px; background: repeating-linear-gradient(90deg, var(--navy, #15356B) 0 3px, transparent 3px 6px); }
+.lvis-tirador:hover, .lvis-tirador:focus-visible { background: #EEF3FB; outline: none; box-shadow: 0 0 0 4px rgba(79, 138, 224, .35); }
+.lvis-particiones.arrastrando, .lvis-particiones.arrastrando * { cursor: ew-resize; }
+.lvis-escala { display: flex; justify-content: space-between; margin-top: 8px; font: 600 20px/1 var(--mono, 'JetBrains Mono', Consolas, monospace); color: var(--muted, #485168); }
+.lvis-particiones .lvis-abajo { display: grid; grid-template-columns: minmax(0, 1.22fr) minmax(0, 1fr); gap: 26px; flex: 1; min-height: 0; }
+.lvis-ficha { background: var(--bg, #F5F6F9); border-radius: 16px; padding: 16px 22px; display: flex; flex-direction: column; gap: 10px; min-height: 0; overflow: hidden; }
+.lvis-ficha-tit { font-size: 28px; font-weight: 800; color: var(--navy, #15356B); line-height: 1.2; }
+.muestra { display: inline-block; width: 26px; height: 26px; border-radius: 7px; margin-right: 12px; vertical-align: -3px; box-shadow: inset 0 0 0 2px rgba(0, 0, 0, .12); }
+.muestra.part-libre { background: repeating-linear-gradient(45deg, #F5F6F9 0 5px, #D7DCE6 5px 10px); }
+.lvis-grupo { display: grid; grid-template-columns: 172px minmax(0, 1fr); gap: 10px; align-items: center; }
+.lvis-gt { font-size: 22px; font-weight: 700; color: var(--muted, #485168); line-height: 1.15; }
+.lvis-pastillas { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.lvis-ficha .lvis-chip { padding: 7px 13px; font-size: 22px; }
+.lvis-ficha .lvis-pastillas { gap: 7px; }
+.lvis-chip.tipo-esp { --f: var(--part-esp); }
+.lvis-chip.tipo-raiz { --f: var(--part-raiz); }
+.lvis-chip.tipo-swap { --f: var(--part-swap); }
+.lvis-chip.tipo-home { --f: var(--part-home); }
+.lvis-chip.tipo-otra { --f: var(--part-otra); }
+.lvis-chip[class*="tipo-"]::before { content: ''; display: inline-block; width: 14px; height: 14px; border-radius: 4px; background: var(--f); margin-right: 7px; vertical-align: 0; }
+.lvis-chip[class*="tipo-"].activo { background: var(--navy, #15356B); }
+.lvis-tam .lvis-campo.num { width: 110px; text-align: center; padding: 6px 8px; }
+.lvis-tam .lvis-unidad { font-size: 24px; font-weight: 700; color: var(--muted, #485168); margin-right: 4px; }
+.lvis-tam .btn.lvis-mas { padding: 2px 18px 6px; font-size: 34px; line-height: 1.1; }
+.lvis-tam .btn-ghost:not(.lvis-mas) { padding: 8px 18px; font-size: 21px; margin-left: 8px; }
+.lvis-hechos { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.lvis-hechos li { position: relative; padding-left: 30px; font-size: 24px; line-height: 1.35; }
+.lvis-hechos li::before { content: ''; position: absolute; left: 6px; top: .52em; width: 12px; height: 12px; border-radius: 50%; background: var(--sky, #4F8AE0); }
+.lvis-particiones .lvis-lado { display: flex; flex-direction: column; gap: 10px; min-height: 0; min-width: 0; overflow: hidden; }
+.lvis-subt { font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--muted, #485168); }
+.lvis-subt code { text-transform: none; letter-spacing: 0; }
+.lvis-lsblk {
+  margin: 0;
+  font: 500 23px/1.38 var(--mono, 'JetBrains Mono', Consolas, monospace);
+  background: #300A24;
+  color: #FFFFFF;
+  border-radius: 12px;
+  padding: 12px 18px;
+  white-space: pre;
+  overflow: hidden;
+  flex: none;
+}
+.lvis-lado .lvis-hechos li { font-size: 23px; }
+
+/* ---------- 3. arranque: pantalla simulada ---------- */
+.lvis-monitor { background: #1F2937; border-radius: 18px; padding: 14px; box-shadow: 0 10px 28px rgba(13, 31, 63, .25); }
+.lvis-monitor.peq { padding: 10px; border-radius: 14px; }
+.lvis-pantalla { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 6px; background: #000000; font-size: 26px; }
+.lvis-monitor.peq .lvis-pantalla { font-size: 21px; }
+.lvis-scr { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #FFFFFF; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+.lvis-scr.apagado { background: #0B0B0C; }
+.lvis-scr-nota { font-size: .72em; font-style: italic; color: rgba(255, 255, 255, .5); border: 2px dashed rgba(255, 255, 255, .25); padding: .25em .7em; border-radius: 8px; }
+.lvis-scr.negro { background: #000000; }
+.lvis-scr.negro .lvis-scr-nota { position: absolute; bottom: 8%; }
+.lvis-scr.uefi { background: #000000; }
+.lvis-fabricante { font-size: .72em; color: rgba(255, 255, 255, .62); border: 2px dashed rgba(255, 255, 255, .35); border-radius: 10px; padding: .8em 1.1em; }
+.lvis-scr.grub { background: #000000; justify-content: flex-start; align-items: stretch; padding: 3.4% 2.2% 2% 2.2%; font-family: var(--mono, 'JetBrains Mono', Consolas, monospace); color: #CCCCCC; }
+.lvis-scr.grub .g-cab { font-size: .62em; text-align: center; margin: 0 0 2.6%; white-space: pre; }
+.lvis-scr.grub .g-caja { list-style: none; margin: 0; padding: 1.2% .2%; flex: 1; min-height: 0; border: 2px solid #CCCCCC; overflow: hidden; }
+.lvis-scr.grub .g-caja li { font-size: .62em; line-height: 1.3; padding: 0 .15em; white-space: pre; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
+.lvis-scr.grub .g-caja li.sel { background: #AAAAAA; color: #000000; }
+.lvis-scr.grub .g-ayuda { font-size: .5em; margin: 2.4% 0 0; padding: 0 9% 0 3.5%; line-height: 1.3; white-space: normal; }
+.lvis-scr.grub .g-pie { font-size: .5em; margin: 0; padding-left: 1.2%; line-height: 1.3; min-height: 1.3em; text-align: left; }
+.lvis-scr.splash { background: #000000; }
+.lvis-giro { position: absolute; top: 56%; width: 1.7em; height: 1.7em; border-radius: 50%; border: .22em solid rgba(255, 255, 255, .22); border-top-color: #FFFFFF; animation: lvis-gira 1s linear infinite; }
+.lvis-marca { position: absolute; bottom: 9%; font: 700 1.2em/1 Ubuntu, 'Plus Jakarta Sans', system-ui, sans-serif; letter-spacing: .01em; }
+@keyframes lvis-gira { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .lvis-giro { animation: none; } }
+.lvis-cursor { position: absolute; left: 3%; top: 3%; font: 700 .8em/1 var(--mono, 'JetBrains Mono', Consolas, monospace); }
+.lvis-scr.mensajes { background: #000000; display: block; padding: 3% 4%; font: 500 .5em/1.2 var(--mono, 'JetBrains Mono', Consolas, monospace); }
+.lvis-scr.mensajes p { display: flex; gap: .6em; align-items: center; margin: 0 0 .42em; white-space: pre; }
+.lvis-scr.mensajes .ts { color: #CFCFCF; }
+.lvis-scr.mensajes .ok { color: #FFFFFF; }
+.lvis-scr.mensajes .ok::first-line { color: inherit; }
+.lvis-scr.mensajes i { display: inline-block; height: .62em; background: rgba(255, 255, 255, .5); border-radius: 2px; }
+.lvis-scr.gdm { background: radial-gradient(circle at 50% 40%, #3A3A3A, #1E1E1E 70%); }
+.lvis-scr.gdm .hora { position: absolute; top: 3%; font-size: .6em; font-weight: 700; }
+.lvis-scr.gdm .avatar { width: 3em; height: 3em; border-radius: 50%; background: radial-gradient(circle at 50% 38%, #D9D9D9 0 22%, transparent 23%), radial-gradient(ellipse at 50% 100%, #D9D9D9 0 45%, transparent 46%), #8A8A8A; }
+.lvis-scr.gdm .nombre { margin-top: .45em; font-size: .9em; font-weight: 700; }
+.lvis-scr.gdm .clave { margin-top: .5em; width: 8em; height: 1.5em; border-radius: .75em; background: rgba(255, 255, 255, .12); color: rgba(255, 255, 255, .6); font-size: .62em; display: flex; align-items: center; justify-content: center; }
+.lvis-scr.escritorio { background: linear-gradient(135deg, #E95420 0%, #9B2D5C 45%, #3B0B2E 100%); }
+.lvis-scr.escritorio .barra-sup { position: absolute; left: 0; right: 0; top: 0; height: 1.25em; background: #000000; font-size: .5em; display: flex; justify-content: space-between; align-items: center; padding: 0 .9em; }
+.lvis-scr.escritorio .dock { position: absolute; left: 0; top: .62em; bottom: 0; width: 1.75em; background: rgba(0, 0, 0, .45); display: flex; flex-direction: column; align-items: center; gap: .3em; padding-top: .35em; }
+.lvis-scr.escritorio .dock i { width: 1.05em; height: 1.05em; border-radius: .25em; background: rgba(255, 255, 255, .78); }
+.lvis-scr.escritorio .dock i:nth-child(2) { background: #F29B38; }
+.lvis-scr.escritorio .dock i:nth-child(3) { background: #4F8AE0; }
+.lvis-scr.escritorio .ventana { position: absolute; left: 30%; top: 22%; width: 50%; height: 52%; background: #FAFAFA; border-radius: .3em; box-shadow: 0 .3em 1em rgba(0, 0, 0, .35); }
+
+/* ---------- 3a. cadena ---------- */
+.lvis-cadena .lvis-estado { font-size: 26px; color: var(--muted, #485168); }
+.lvis-cadena .lvis-estado b { color: var(--navy, #15356B); }
+.lvis-cajas { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 40px; }
+.lvis-caja { position: relative; min-width: 0; }
+.lvis-caja + .lvis-caja::before { content: '→'; position: absolute; left: -34px; top: 50%; transform: translateY(-50%); font: 800 32px/1 'Plus Jakarta Sans', system-ui, sans-serif; color: #B8C2D6; }
+.lvis-caja.hecha + .lvis-caja::before, .lvis-caja.hecha + .lvis-caja.actual::before { color: var(--blue, #0B4AB5); }
+.lvis-caja button {
+  width: 100%;
+  height: 96px;
+  border: 3px solid var(--line, #D7DCE6);
+  border-radius: 16px;
+  background: #FFFFFF;
+  color: var(--navy, #15356B);
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px 8px;
+  cursor: pointer;
+  transition: background .25s, border-color .25s, color .25s, box-shadow .25s;
+}
+.lvis-caja button:hover { border-color: var(--sky, #4F8AE0); }
+.lvis-caja .num { font-size: 18px; font-weight: 700; color: var(--muted, #485168); }
+.lvis-caja b { font-size: 26px; font-weight: 800; line-height: 1.12; text-align: center; }
+.lvis-caja.hecha button { background: var(--navy, #15356B); border-color: var(--navy, #15356B); color: #FFFFFF; }
+.lvis-caja.hecha .num { color: #C9D6EE; }
+.lvis-caja.actual button { background: #FFF6D1; border: 4px solid var(--yellow, #F4C20D); box-shadow: 0 0 0 7px rgba(244, 194, 13, .28); }
+.lvis-caja.vista button { outline: 4px solid var(--sky, #4F8AE0); outline-offset: 4px; }
+/* la pantalla ocupa todo el alto que queda (16:10) y la explicación va en la columna de al lado */
+.lvis-cadena .lvis-abajo { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); gap: 32px; flex: 1; min-height: 0; }
+.lvis-cadena .lvis-monitor { height: 100%; min-height: 0; display: flex; }
+.lvis-cadena .lvis-pantalla { height: 100%; width: auto; aspect-ratio: 4 / 3; font-size: 30px; }
+.lvis-cadena .lvis-lado { display: flex; flex-direction: column; gap: 18px; min-width: 0; min-height: 0; }
+.lvis-cadena .lvis-msg { font-size: 30px; }
+.lvis-pie-pantalla { font-size: 26px; line-height: 1.35; color: var(--muted, #485168); padding-left: 30px; }
+
+/* ---------- 3b. vista arranque junto a la terminal ---------- */
+.lvis-vista-arranque {
+  display: flex; flex-direction: column; gap: 10px;
+  background: #FFFFFF; border-radius: 16px; padding: 14px 16px 16px; box-shadow: 0 2px 0 var(--line, #D7DCE6);
+  height: 100%; min-height: 0; min-width: 0; overflow: hidden; box-sizing: border-box;
+}
+/* columna que nunca se solapa: rótulo, pantalla, datos, aviso y botones. Si falta alto, encoge primero la
+   pantalla (hasta su mínimo) y después los datos se desplazan por dentro; los botones siempre se ven al pie */
+.lvis-vista-arranque > * { flex: none; margin: 0; min-width: 0; }
+.lvis-vista-arranque .lvis-vt { font-size: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--muted, #485168); }
+.lvis-vista-arranque .lvis-monitor.peq {
+  flex: 0 100 auto; min-height: 104px; aspect-ratio: 4 / 3;
+  display: flex; justify-content: center; align-items: stretch;
+  padding: 0; background: transparent; box-shadow: none; border-radius: 0;
+}
+.lvis-vista-arranque .lvis-monitor.peq .lvis-pantalla {
+  height: 100%; width: auto; max-width: 100%; aspect-ratio: 4 / 3; box-sizing: border-box;
+  border: 8px solid #1F2937; border-radius: 12px; font-size: 19px;
+}
+.lvis-vista-arranque .lvis-dl { flex: 0 1 auto; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; }
+.lvis-vista-arranque .lvis-dl > div { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 8px; padding: 2px 6px; border-radius: 8px; font-size: 21px; line-height: 1.28; }
+.lvis-vista-arranque .lvis-dl dt { font-weight: 700; color: var(--muted, #485168); }
+.lvis-vista-arranque .lvis-dl dd { margin: 0; font-weight: 700; color: var(--navy, #15356B); min-width: 0; }
+.lvis-vista-arranque .lvis-dl > div[data-k="entradas"] dd { font-weight: 600; font-size: 19px; }
+.lvis-vista-arranque .lvis-dl > div[data-k="entradas"] dd span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lvis-vista-arranque .lvis-franja { font-size: 20px; line-height: 1.3; background: #FFF6D1; border-left: 6px solid var(--yellow, #F4C20D); border-radius: 8px; padding: 7px 12px; color: #3D2E00; }
+.lvis-vista-arranque .lvis-franja[hidden], .lvis-vista-arranque .lvis-nota[hidden] { display: none; }
+.lvis-vista-arranque .lvis-nota { font-size: 17px; font-style: italic; color: var(--muted, #485168); line-height: 1.3; }
+.lvis-vista-arranque .lvis-botones { margin-top: auto; flex-wrap: wrap; gap: 8px; }
+.lvis-vista-arranque .btn { padding: 10px 18px; font-size: 22px; }
+/* en una misión, las entradas del menú se leen enteras (en varias líneas si hace falta) */
+.term-modo-mision .lvis-vista-arranque .lvis-dl > div[data-k="entradas"] dd span { white-space: normal; overflow: visible; }
+/* debajo del panel de tareas de una misión (linux-term.js, .term-vista-abajo): la pantalla y los botones a la
+   izquierda y los datos a la derecha, para que quepa en poco alto; el rótulo y el aviso, a lo ancho. Si falta alto,
+   los datos se desplazan por dentro: nada se monta encima de nada */
+.term-vista-abajo .lvis-vista-arranque { display: grid; grid-template-columns: 248px minmax(0, 1fr); grid-template-rows: auto auto minmax(0, 1fr) auto auto; column-gap: 16px; row-gap: 8px; align-content: start; }
+.term-vista-abajo .lvis-vista-arranque > * { grid-column: 1 / -1; }
+.term-vista-abajo .lvis-vista-arranque .lvis-monitor.peq { grid-column: 1; grid-row: 2; align-self: start; height: auto; min-height: 0; aspect-ratio: auto; display: block; }
+.term-vista-abajo .lvis-vista-arranque .lvis-monitor.peq .lvis-pantalla { width: 100%; height: auto; font-size: 13px; border-width: 6px; border-radius: 10px; }
+.term-vista-abajo .lvis-vista-arranque .lvis-botones { grid-column: 1; grid-row: 3; align-self: start; margin-top: 0; }
+.term-vista-abajo .lvis-vista-arranque .lvis-botones { gap: 6px; }
+.term-vista-abajo .lvis-vista-arranque .btn { padding: 6px 10px; font-size: 18px; }
+.term-vista-abajo .lvis-vista-arranque .lvis-dl { grid-column: 2; grid-row: 2 / span 2; min-height: 0; overflow-y: auto; }
+.term-vista-abajo .lvis-vista-arranque .lvis-dl > div { grid-template-columns: 92px minmax(0, 1fr); padding: 1px 4px; font-size: 20px; line-height: 1.22; }
+.term-vista-abajo .lvis-vista-arranque .lvis-dl > div[data-k="entradas"] dd { font-size: 18px; }
+.term-vista-abajo .lvis-vista-arranque .lvis-franja { grid-row: 4; }
+.term-vista-abajo .lvis-vista-arranque .lvis-nota { grid-row: 5; }
+
+/* ---------- 4. linea ---------- */
+.lvis-linea .lvis-prompt { font: 600 26px/1.3 var(--mono, 'JetBrains Mono', Consolas, monospace); color: var(--muted, #485168); text-align: center; margin-bottom: 6px; }
+.lvis-linea .lvis-prompt .pr { color: #26A269; font-weight: 700; }
+.lvis-linea .lvis-prompt .ru { color: #2A7BDE; font-weight: 700; }
+.lvis-linea .lvis-rotulos { height: 92px; }
+.lvis-linea .lvis-escena { flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 0; }
+.lvis-linea .lvis-msg { flex: none; min-height: 150px; font-size: 28px; }
+.lvis-linea .lvis-leyenda .lvis-chip.activo { background: var(--t); border-color: var(--c); color: var(--navy, #15356B); }
+
+/* ---------- generadores (rejilla de som.js) ---------- */
+.sv .d.texto.lvis-salida {
+  font-family: var(--mono, 'JetBrains Mono', Consolas, monospace);
+  font-size: 26px;
+  font-weight: 600;
+  color: #FFFFFF;
+  background: #300A24;
+  border-radius: 10px;
+  padding: 8px 16px;
+  text-align: left;
+  white-space: pre-wrap;
+  word-break: break-all;
+  line-height: 1.35;
+}
+.sv .d.texto.lvis-salida.larga { font-size: 19px; font-weight: 500; }
+.sv.lvis-version { column-gap: 6px; row-gap: 8px; }
+.sv.lvis-version .d.texto.lvis-salida.larga { font-size: 18px; line-height: 1.3; }
+.sv .d.peq.lvis-pie { white-space: normal; height: auto; line-height: 1.15; font-size: 20px; text-align: center; margin: 0 -14px; align-self: start; }
+.sv .d.texto.lvis-opciones { font-weight: 700; color: var(--navy, #15356B); }
+.lvis-nota-lsblk { font-size: 20px; line-height: 1.3; color: var(--muted, #485168); }
+.lvis-nota-lsblk code { font-family: var(--mono, 'JetBrains Mono', Consolas, monospace); font-size: .95em; }

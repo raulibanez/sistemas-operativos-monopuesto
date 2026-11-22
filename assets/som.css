@@ -263,9 +263,55 @@ section > .seccion-pill:hover { background: var(--white); transform: translateY(
 }
 .quiz-opt:hover { border-color: rgba(255,255,255,.5); }
 .quiz[data-answered] .quiz-opt { cursor: default; }
+/* Las marcas de acierto y fallo salen de golpe, sin la transición del hover: con la transición, una captura sin
+   tiempo real (Chrome headless) se quedaba en el estado de partida y no se veía qué opción se había fallado */
+.quiz-opt.correct, .quiz-opt.wrong { transition: none; }
 .quiz-opt.correct { background: var(--yellow); border-color: var(--yellow); color: var(--navy); }
 .quiz-opt.correct .letra { background: rgba(21,53,107,.15); }
-.quiz-opt.wrong { border-color: var(--sky); background: rgba(255,255,255,.06); color: #9FB4D9; }
+/* La que ya se ha fallado: no se puede volver a elegir y se reconoce sin depender del color, desde el fondo
+   del aula: borde discontinuo y sin relleno, texto atenuado y tachado, y un aspa en el círculo de la letra */
+.quiz-opt.wrong,
+.quiz-opt.wrong:hover {
+  cursor: default;
+  background: transparent;
+  border: 3px dashed rgba(255,255,255,.6);
+  color: rgba(255,255,255,.55);
+}
+.quiz-opt.wrong > span:not(.letra) { text-decoration: line-through; text-decoration-thickness: 3px; }
+.quiz-opt.wrong .letra { position: relative; background: var(--ko); color: transparent; }
+.quiz-opt.wrong .letra::before,
+.quiz-opt.wrong .letra::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 30px;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--white);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.quiz-opt.wrong .letra::after { transform: translate(-50%, -50%) rotate(-45deg); }
+/* «, incorrecta» / «, correcta»: solo para el lector de pantalla */
+.quiz-opt .quiz-estado {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+/* Quiz sobre fondo claro (diapositiva sin .dark) */
+section:not(.dark) .quiz-opt { background: var(--white); border-color: var(--line); color: var(--navy); }
+section:not(.dark) .quiz-opt .letra { background: rgba(21,53,107,.1); }
+section:not(.dark) .quiz-opt:hover { border-color: var(--sky); }
+section:not(.dark) .quiz-opt.correct { background: var(--yellow); border-color: var(--yellow); color: var(--navy); }
+section:not(.dark) .quiz-opt.correct .letra { background: rgba(21,53,107,.15); }
+section:not(.dark) .quiz-opt.wrong,
+section:not(.dark) .quiz-opt.wrong:hover { background: transparent; border-color: #6B7488; color: #7A8296; }
+section:not(.dark) .quiz-opt.wrong .letra { background: var(--ko); color: transparent; }
+section:not(.dark) .quiz-fb { color: var(--muted); }
+section:not(.dark) .quiz code.en-linea { background: rgba(21,53,107,.08); }
 .quiz-fb {
   font-size: var(--type-small);
   line-height: 1.5;
@@ -692,6 +738,28 @@ section:has(> .ej) { grid-template-rows: minmax(0, 1fr); }
 }
 .foto:hover .credito, .foto:focus-within .credito { opacity: 1; transform: none; pointer-events: auto; }
 @media print { .foto .credito { opacity: 1; transform: none; } }
+/* Lupa junto al ©: la pone som.js en cada foto que se amplía. Se ve siempre, se usa con el teclado y no se imprime. */
+.foto-lupa {
+  position: absolute;
+  z-index: 3;
+  left: 72px; bottom: 16px;
+  width: 44px; height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(11,31,68,.75);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  cursor: zoom-in;
+  transition: background .2s;
+}
+.foto-lupa:hover { background: var(--blue); }
+.foto-lupa:focus-visible { outline: 4px solid var(--yellow); outline-offset: 3px; }
+.foto.con-lupa .credito { padding-left: 136px; }
+.foto.credito-dcha .foto-lupa { left: auto; right: 72px; }
+.foto.credito-dcha.con-lupa .credito { padding-left: 28px; padding-right: 136px; }
+@media print { .foto-lupa { display: none; } }
 
 /* Crédito y marca © a la derecha: para fotos a sangre cuya izquierda queda
    bajo el texto de la diapositiva (portadas con degradado). */
@@ -825,6 +893,8 @@ section:has(> .ej) { grid-template-rows: minmax(0, 1fr); }
   object-fit: contain;
   display: block;
 }
+/* captura ampliada un número entero de veces: píxeles nítidos, sin suavizar (som.js decide cuándo) */
+.visor img.visor-nitida { image-rendering: pixelated; }
 .visor .visor-pie {
   position: absolute;
   left: 0; right: 0; bottom: 0;
@@ -855,6 +925,7 @@ section:has(> .ej) { grid-template-rows: minmax(0, 1fr); }
   margin-top: auto;
 }
 .visor.visor-scroll .visor-cerrar { position: fixed; }
+.visor .visor-cerrar:focus-visible { outline: 4px solid var(--yellow); outline-offset: 3px; }
 .visor .visor-cerrar {
   position: absolute;
   top: 16px; right: 20px;

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hoja de comandos de Linux</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="comandos.css">
+<script src="comandos.js"></script>
+</head>
+<body>
+<header class="cab">
+  <div class="wrap">
+    <div class="kicker"><span><a href="../index.html">Sistemas Operativos Monopuesto</a> · Linux · Ubuntu 24.04</span></div>
+    <h1>Hoja de comandos de Linux</h1>
+    <p>Las órdenes de las unidades de Linux, con sus opciones y un ejemplo de cada una, <span class="hasta-txt">hasta la UT7</span>.</p>
+  </div>
+</header>
+
+<div class="barra">
+  <div class="wrap barra-in">
+    <div class="sel-caja"><span class="sel-rot">Hasta la</span><div class="sel" role="group" aria-label="Unidades que se enseñan"></div></div>
+    <label class="busca"><span class="vh">Buscar</span><input id="buscar" type="search" placeholder="Busca una orden o una palabra: copiar, permisos…" autocomplete="off"></label>
+    <span id="cuenta" class="cuenta" aria-live="polite"></span>
+    <button id="imprimir" type="button" class="btn-imp">Imprimir</button>
+  </div>
+</div>
+
+<main class="wrap">
+  <p class="titulo-imp">Hoja de comandos de Linux · <span class="hasta-txt">hasta la UT7</span></p>
+
+  <section class="guia" aria-label="Cómo se usa esta hoja">
+    <div class="guia-marcas">
+      <h2>De memoria y de consulta</h2>
+      <p><span class="marca m">de memoria</span> Las órdenes de uso diario: conviene saberlas sin mirar.</p>
+      <p><span class="marca c">de consulta</span> El resto: cuando hacen falta, se buscan en la ayuda del sistema.<span class="solo-imp"> En papel, son las fichas sin marca.</span></p>
+      <p id="leyenda-ut"><span class="utp">UT5</span> Lo que se añade a una orden en una unidad posterior.</p>
+      <p><span class="marca i">interna</span> Orden interna de bash: no es un programa aparte y su ayuda está en <code>help</code>.</p>
+    </div>
+    <div class="guia-ayuda">
+      <h2>Cuatro formas de pedir ayuda</h2>
+      <dl class="ops">
+        <dt><code>orden --help</code></dt><dd>Un resumen de sus opciones.</dd>
+        <dt><code>man orden</code></dt><dd>El manual completo. <code>/</code> busca, <code>n</code> salta a la siguiente y <code>q</code> sale.</dd>
+        <dt><code>man -k palabra</code></dt><dd>Busca una orden cuyo nombre no sabes.</dd>
+        <dt><code>help orden</code></dt><dd>La ayuda de las órdenes internas. <code>type orden</code> dice si lo es.</dd>
+      </dl>
+    </div>
+  </section>
+
+  <div id="hoja"></div>
+  <p id="vacio" class="vacio" hidden>No hay ninguna orden con esas palabras en las unidades elegidas. Prueba con otra palabra o elige una unidad posterior.</p>
+</main>
+
+<footer class="pie">© Raúl Ibáñez, 2026. Contenido bajo <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Las órdenes son las de Ubuntu 24.04 LTS.</footer>
+</body>
+</html>

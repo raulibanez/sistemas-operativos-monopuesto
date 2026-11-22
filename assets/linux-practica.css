@@ -1,0 +1,44 @@
+/* Simulador de Linux · «Practica Linux» (linux-practica.js). Medidas en píxeles de la diapositiva de 1920 × 1080
+   (deck-stage la escala entera); en linux/practica.html, la página ajusta la letra para portátil y móvil. */
+.practica-linux { display: flex; flex-direction: column; gap: 14px; height: 100%; min-height: 0; min-width: 0; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: var(--ink, #1F2937); }
+.pl-cargando { margin: 0; font-size: 24px; color: var(--muted, #485168); }
+
+/* cabecera: la pastilla, el bloque, por dónde vas, un punto por encargo y anterior / siguiente */
+.pl-cab { flex: none; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.pl-pill { flex: none; padding: 6px 18px; border-radius: 999px; background: var(--yellow, #F4C20D); color: var(--navy, #15356B); font-size: 24px; font-weight: 800; letter-spacing: .02em; }
+.pl-bloque { min-width: 0; max-width: 100%; padding: 6px 12px; border: 3px solid var(--line, #D7DCE6); border-radius: 12px; background: #FFFFFF; color: var(--navy, #15356B); font: 700 24px 'Plus Jakarta Sans', system-ui, sans-serif; }
+.pl-donde { font-size: 24px; color: var(--muted, #485168); white-space: nowrap; }
+.pl-puntos { display: flex; gap: 8px; flex-wrap: wrap; }
+.pl-puntos button { width: 24px; height: 24px; padding: 0; border-radius: 50%; border: 3px solid var(--line, #D7DCE6); background: #FFFFFF; cursor: pointer; }
+.pl-puntos button.ok { background: var(--ok, #1E8E5A); border-color: var(--ok, #1E8E5A); }
+.pl-puntos button.sol { background: #F29B38; border-color: #F29B38; }
+.pl-puntos button.aqui { outline: 3px solid var(--sky, #4F8AE0); outline-offset: 2px; }
+.practica-linux .pl-cab .btn, .practica-linux .pl-botones .btn, .practica-linux .pl-resp .btn { padding: 8px 18px; font-size: 24px; white-space: nowrap; }
+.practica-linux .btn:disabled { opacity: .45; cursor: default; }
+
+/* el encargo, en grande */
+.pl-pide { flex: none; display: flex; gap: 18px; align-items: flex-start; padding: 16px 24px; border-radius: 20px; background: #FFFFFF; box-shadow: 0 2px 0 var(--line, #D7DCE6); }
+.pl-num { flex: none; width: 52px; height: 52px; border-radius: 50%; background: var(--navy, #15356B); color: #FFFFFF; display: grid; place-items: center; font-size: 26px; font-weight: 800; }
+.pl-pide-txt { min-width: 0; flex: 1; }
+.pl-texto { margin: 0; font-size: 34px; font-weight: 700; line-height: 1.25; color: var(--navy, #15356B); text-wrap: pretty; }
+.pl-resp { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+.pl-resp[hidden] { display: none; }
+.pl-casilla { width: 14em; max-width: 100%; padding: 4px 12px; border: 3px solid var(--line, #D7DCE6); border-radius: 10px; background: #FFFFFF; color: var(--ink, #1F2937); font: 24px var(--mono, 'JetBrains Mono', Consolas, monospace); }
+.pl-selector { width: auto; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+.pl-casilla:focus { outline: none; border-color: var(--sky, #4F8AE0); box-shadow: 0 0 0 3px rgba(79, 138, 224, .25); }
+
+/* la terminal (y la vista del árbol, al lado) */
+.pl-cuerpo { flex: 1; min-height: 0; min-width: 0; display: flex; }
+.pl-cuerpo > .term { flex: 1; min-width: 0; height: 100%; }
+
+/* lo que dice la comprobación y los botones */
+.pl-pie { flex: none; display: flex; align-items: flex-start; gap: 16px; }
+.pl-fb { flex: 1; min-width: 0; margin: 0; min-height: calc(2 * 1.35em); font-size: 24px; line-height: 1.35; color: var(--muted, #485168); }
+.pl-fb.ok { color: var(--ok, #1E8E5A); }
+.pl-fb.ko { color: var(--ko, #C0392B); }
+.pl-fb.pista { color: var(--navy, #15356B); }
+.pl-fb b { font-weight: 800; }
+.pl-sigue { white-space: nowrap; }
+.pl-botones { flex: none; display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+.practica-linux code { font-family: var(--mono, 'JetBrains Mono', Consolas, monospace); font-size: 1em; background: #EEF1F6; padding: 0 6px; border-radius: 6px; white-space: nowrap; }
+.pl-fb.ok code { background: #E3F3EA; }

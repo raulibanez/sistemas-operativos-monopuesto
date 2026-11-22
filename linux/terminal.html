@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terminal de Linux · Sistemas Operativos Monopuesto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/linux.css">
+<link rel="stylesheet" href="../assets/linux-vis.css">
+<style>
+  :root { --navy:#15356B; --blue:#0B4AB5; --sky:#4F8AE0; --yellow:#F4C20D; --bg:#F5F6F9; --ink:#1F2937; --muted:#485168; --line:#D7DCE6; --white:#FFFFFF; --ok:#1E8E5A; --ko:#C0392B; --mono:'JetBrains Mono', Consolas, monospace; --type-caption:16px; --type-small:18px; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:'Plus Jakarta Sans',system-ui,sans-serif; }
+  a { color:var(--blue); }
+  header { background:var(--navy); color:#fff; padding:22px 24px 24px; }
+  .wrap { max-width:1680px; margin:0 auto; }
+  .arriba { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+  .kicker { display:flex; align-items:center; gap:12px; font-size:14px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#C9D6EE; }
+  .kicker::before { content:''; width:12px; height:12px; border-radius:50%; background:var(--yellow); flex:none; }
+  .inicio { color:#fff; text-decoration:none; font-weight:700; font-size:15px; padding:8px 16px; border:2px solid rgba(255,255,255,.35); border-radius:10px; white-space:nowrap; }
+  .inicio:hover { background:rgba(255,255,255,.12); color:#fff; }
+  header h1 { margin:12px 0 4px; font-size:clamp(26px,4vw,40px); font-weight:800; line-height:1.05; letter-spacing:-.02em; }
+  header p { margin:0; color:#C9D6EE; font-size:17px; }
+  main { padding:18px 24px 48px; }
+
+  /* unidad, misión y semilla */
+  .controles { display:flex; flex-direction:column; gap:10px; margin-bottom:14px; }
+  .fila { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .rotulo { font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-right:6px; }
+  .chip { font:inherit; font-size:15px; font-weight:700; padding:8px 14px; border-radius:999px; border:2px solid var(--line); background:#fff; color:var(--navy); cursor:pointer; }
+  .chip:hover { border-color:var(--sky); }
+  .chip[aria-pressed="true"] { background:var(--blue); border-color:var(--blue); color:#fff; }
+  .chip:disabled { cursor:default; color:var(--muted); background:transparent; border-style:dashed; }
+  .chip small { font-weight:600; font-size:12px; }
+  .semilla { display:flex; gap:8px; align-items:center; margin:0 0 0 auto; }
+  .semilla input { width:9em; font:inherit; font-family:var(--mono); font-size:16px; padding:7px 10px; border:2px solid var(--line); border-radius:10px; }
+  .semilla input:focus { outline:none; border-color:var(--sky); }
+  .semilla[hidden] { display:none; }
+  #modos-lista { display:none; flex:1; min-width:0; font:inherit; font-size:16px; font-weight:700; color:var(--navy); padding:8px 10px; border:2px solid var(--line); border-radius:10px; background:#fff; }
+
+  .btn { border:0; border-radius:10px; padding:9px 16px; font:inherit; font-size:15px; font-weight:700; cursor:pointer; transition:transform .1s, background .2s; }
+  .btn:active { transform:scale(.97); }
+  .btn-primary { background:var(--blue); color:#fff; }
+  .btn-primary:hover { background:var(--navy); }
+  .btn-ghost { background:transparent; color:var(--navy); border:2px solid var(--line); }
+  .btn-ghost:hover { border-color:var(--sky); }
+
+  .ej-racha { color:var(--muted); } .ej-racha b { color:var(--blue); }
+
+  /* la terminal: medidas para una página normal (linux.css está pensado para la diapositiva de 1920 px) */
+  .zona { height:max(480px, calc(100vh - 360px)); }
+  .zona .term { --term-letra:18px; gap:18px; }
+  .zona .term.term-con-lado, .zona .term.term-modo-mision.term-con-lado, .zona .term.term-modo-mision.term-vista-plegada.term-tres { grid-template-columns:minmax(0,1fr) 380px; }
+  .zona .term.term-modo-mision.term-tres { grid-template-columns:fit-content(250px) minmax(0,1fr) 380px; }
+  .zona .term.term-modo-mision.term-tres.term-tres-ancha { grid-template-columns:360px minmax(0,1fr) 380px; }
+  .zona .term-barra { height:46px; font-size:17px; }
+  .zona .term-ventanas > i, .zona .term-ventanas > button { width:26px; height:26px; }
+  .zona .term-ventanas svg { width:17px; height:17px; }
+  .zona .term-programa, .zona .term-cerrada { top:46px; }
+  .zona .term-pantalla { padding:12px 16px 14px; }
+  .zona .term-programa-texto { padding:12px 16px 0; }
+  .zona .term-foco { font-size:14px; padding:6px 14px; }
+  .zona .term-acciones .btn { padding:8px 16px; font-size:15px; }
+  .zona .term-aviso { font-size:16px; padding:8px 14px; border-left-width:6px; }
+  .zona .term-aviso b { font-size:12px; }
+  .zona .term-programa-teclas button { font-size:15px; padding:4px 10px; }
+  .zona .term-programa-nota { font-size:14px; }
+  .zona .term-tecla b { font-size:36px; } .zona .term-tecla span { font-size:18px; } .zona .term-tecla { min-width:160px; padding:10px 20px; top:62px; }
+  .zona .term-cerrada p { font-size:18px; } .zona .term-cerrada p b { font-size:22px; } .zona .term-cerrada .btn { font-size:17px; padding:10px 20px; }
+  .zona .term-mision { padding:18px 20px; gap:10px; border-radius:16px; }
+  .zona .term-mision-titulo { font-size:21px; }
+  .zona .term-mision-clave { font-size:15px; }
+  .zona .term-tareas li, .zona .term-tareas:has(li.con-resp) li { font-size:16px; line-height:1.35; grid-template-columns:28px minmax(0,1fr); gap:9px; }
+  .zona .term-check, .zona .term-tareas:has(li.con-resp) .term-check { width:26px; height:26px; font-size:14px; border-width:2px; }
+  .zona .term-tareas li.hecha .term-check::before { font-size:16px; }
+  .zona .term-casilla, .zona .term-selector { font-size:15px; }
+  .zona .term-comprobar { width:28px; height:28px; font-size:15px; }
+  .zona .term-mision-botones { gap:8px; }
+  .zona .term-mision-botones .btn { font-size:15px; padding:7px 8px; }
+  .zona .term-msj { font-size:16px; }
+  .zona .term-mision .ej-racha, .zona .term-mision:has(li.con-resp) .ej-racha { font-size:15px; }
+  .zona .term-arbol { padding:14px 16px; }
+  .zona .lvis-vista-arranque { padding:12px 14px; }
+
+  /* teclas que el móvil no tiene */
+  .teclas { display:flex; flex-wrap:wrap; gap:6px; margin-top:0; flex:none; }
+  .teclas button { font:inherit; font-family:var(--mono); font-size:15px; font-weight:700; padding:8px 12px; min-width:44px; border-radius:8px; border:2px solid var(--line); background:#fff; color:var(--navy); cursor:pointer; }
+  .teclas button:hover { border-color:var(--sky); }
+  .teclas .rotulo { align-self:center; font-family:'Plus Jakarta Sans',system-ui,sans-serif; }
+
+  /* ayuda */
+  .ayuda { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:24px; }
+  .ayuda section { background:#fff; border-radius:16px; padding:18px 22px; box-shadow:0 2px 0 var(--line); }
+  .ayuda h2 { margin:0 0 8px; font-size:18px; color:var(--navy); }
+  .ayuda p, .ayuda li { font-size:15.5px; line-height:1.5; margin:0 0 6px; }
+  .ayuda ul { margin:0; padding-left:18px; }
+  kbd { white-space:nowrap; font-family:var(--mono); font-size:.9em; background:#EEF1F6; border:1px solid var(--line); border-bottom-width:2px; border-radius:6px; padding:0 6px; }
+  code { white-space:nowrap; font-family:var(--mono); font-size:.92em; background:#EEF1F6; padding:0 5px; border-radius:5px; }
+  footer { color:var(--muted); font-size:13px; padding:0 24px 32px; text-align:center; }
+
+  /* con ratón y teclado de verdad, la fila de teclas sobra */
+  @media (min-width: 901px) and (hover: hover) and (pointer: fine) { .teclas { display:none; } }
+  @media (max-height: 820px) and (min-width: 901px) {
+    header { padding:10px 24px 12px; }
+    header h1 { font-size:26px; margin:4px 0 0; }
+    header p { display:none; }
+    main { padding-top:10px; }
+    .controles { gap:6px; margin-bottom:8px; }
+    .chip { padding:5px 12px; font-size:14px; }
+    .zona .term-mision { padding:12px 14px; gap:8px; }
+    .zona .term-tareas li, .zona .term-tareas:has(li.con-resp) li { font-size:15px; line-height:1.3; }
+    .zona .term-mision-botones .btn { padding:5px 8px; }
+  }
+  /* pantallas estrechas: las tareas debajo de la terminal y letra para que quepan 40 columnas o más */
+  @media (max-width: 900px) {
+    main { padding:12px 12px 40px; }
+    header { padding:16px 12px 18px; }
+    .semilla { margin-left:0; }
+    #modos .chip { display:none; }
+    #modos-lista { display:block; }
+    #unidades .chip { font-size:13px; padding:5px 10px; }
+    .controles { gap:8px; }
+    .zona { height:auto; }
+    .zona .term.term-con-lado, .zona .term.term-modo-mision.term-con-lado, .zona .term.term-modo-mision.term-tres, .zona .term.term-modo-mision.term-tres.term-tres-ancha, .zona .term.term-modo-mision.term-vista-plegada.term-tres { grid-template-columns:minmax(0,1fr); height:auto; }
+    /* la altura es de la ventana de la terminal, no de la columna: la contraseña, la fila de teclas y la franja de la
+       tarea van debajo y no le quitan líneas (nano necesita varias líneas del archivo y su barra de atajos) */
+    .zona .term-col { height:auto; }
+    .zona .term-ventana { flex:none; height:62vh; min-height:340px; }
+    .zona .term-programa-teclas { gap:6px; padding:6px 8px 8px; }
+    .zona .term-programa-teclas button { font-size:14px; padding:3px 8px; gap:6px; }
+    .zona .term-programa-nota { font-size:13px; line-height:1.3; }
+    .zona .term-tres .term-arbol-col { order:3; max-height:60vh; }
+    .zona .term-lado { overflow:visible; }
+    .zona .term-mision { max-height:none; }
+    .zona .term-mision > .term-tareas { overflow:visible; }
+    .zona .term { --term-letra:clamp(11px, calc((100vw - 52px) / 24.6), 18px); gap:12px; }
+    .zona .term-pantalla { padding:8px 8px 10px; }
+    .zona .term-programa-texto { padding:8px 8px 0; }
+    .zona .term-barra { height:40px; font-size:14px; gap:6px; padding:0 8px; }
+    /* en el móvil se quedan los botones de la letra; los de la ventana, no */
+    .zona .term-ventanas > i, .zona .term-ventanas > .max, .zona .term-ventanas > .cerrar { display:none; }
+    .zona .term-ventanas .letra-mas { margin-right:0; }
+    .zona .term-programa, .zona .term-cerrada { top:40px; }
+    .zona .term-pie { gap:8px; }
+    /* la tarea pendiente, junto a la terminal (las tareas van debajo) */
+    .zona .term-msj { height:auto; max-height:5.2em; font-size:15px; }
+    .zona .term-msj-texto:empty + .term-msj-pendiente { display:inline; color:var(--navy); }
+    .ayuda { grid-template-columns:minmax(0,1fr); }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="arriba">
+      <div class="kicker">Sistemas Operativos Monopuesto · Práctica</div>
+      <a class="inicio" href="../index.html">Inicio</a>
+    </div>
+    <h1>Terminal de Linux</h1>
+    <p>Un Ubuntu 24.04 en el navegador para practicar en casa, sin máquina virtual.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="controles">
+    <div class="fila" id="unidades" role="group" aria-label="Unidad">
+      <span class="rotulo">Unidad</span>
+      <button type="button" class="chip" data-ut="4" aria-pressed="true">UT4 · Instalación de Ubuntu</button>
+      <button type="button" class="chip" data-ut="5" disabled>UT5 <small>en preparación</small></button>
+      <button type="button" class="chip" data-ut="6" disabled>UT6 <small>en preparación</small></button>
+      <button type="button" class="chip" data-ut="7" disabled>UT7 <small>en preparación</small></button>
+      <form class="semilla" id="semilla" hidden>
+        <label class="rotulo" for="campo-semilla">Semilla</label>
+        <input id="campo-semilla" inputmode="numeric" autocomplete="off" pattern="[0-9]*" aria-describedby="ayuda-semilla">
+        <button type="submit" class="btn btn-ghost">Cargar</button>
+      </form>
+    </div>
+    <div class="fila" id="modos" role="group" aria-label="Qué quieres hacer">
+      <span class="rotulo">Practicar</span>
+      <select id="modos-lista" aria-label="Qué quieres hacer"></select>
+    </div>
+  </div>
+
+  <div class="zona" id="zona"></div>
+  <div class="teclas" id="teclas" role="group" aria-label="Teclas especiales">
+    <span class="rotulo">Teclas</span>
+    <button type="button" data-k="Tab">Tab</button>
+    <button type="button" data-k="ArrowUp" aria-label="Flecha arriba">↑</button>
+    <button type="button" data-k="ArrowDown" aria-label="Flecha abajo">↓</button>
+    <button type="button" data-k="Ctrl+C">Ctrl + C</button>
+    <button type="button" data-k="Ctrl+D">Ctrl + D</button>
+    <button type="button" data-k="Ctrl+L">Ctrl + L</button>
+    <button type="button" data-k="q">q</button>
+    <button type="button" data-k="Escape">Esc</button>
+  </div>
+
+  <div class="ayuda">
+    <section>
+      <h2>Qué es esto</h2>
+      <p>Es una terminal de Ubuntu 24.04 que funciona dentro de la página, también en el móvil. Las órdenes responden como en Ubuntu, con los mismos mensajes.</p>
+      <p>Lo que no sabe hacer, te lo dice con un aviso amarillo del simulador. Entonces pruébalo en tu máquina virtual.</p>
+      <p>Nada de lo que hagas aquí toca tu ordenador. Con Reiniciar vuelves al principio. Tu usuario es <code>alumno</code> y tu contraseña, <code>alumno</code>.</p>
+    </section>
+    <section>
+      <h2>Las teclas</h2>
+      <ul>
+        <li>Pulsa en la terminal para escribir; <kbd>Esc</kbd> deja de escribir en ella.</li>
+        <li><kbd>Tab</kbd> completa nombres de órdenes y archivos; dos veces, enseña las opciones.</li>
+        <li><kbd>↑</kbd> y <kbd>↓</kbd> recuperan las órdenes que ya escribiste.</li>
+        <li><kbd>Ctrl + C</kbd> corta una orden; <kbd>Ctrl + L</kbd> limpia la pantalla.</li>
+        <li><kbd>q</kbd> sale de <code>man</code>, <code>less</code> y <code>top</code>.</li>
+        <li>Las lupas de la barra de la ventana (o <kbd>Ctrl</kbd> con <kbd>+</kbd> o con <kbd>−</kbd>) cambian el tamaño de la letra; <kbd>Ctrl + 0</kbd> la deja como al principio.</li>
+        <li>Para copiar, selecciona con el ratón y pulsa <kbd>Ctrl + Mayús + C</kbd>; para pegar, <kbd>Ctrl + Mayús + V</kbd>.</li>
+        <li>En el móvil tienes las teclas que faltan en los botones de debajo de la terminal.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Las misiones</h2>
+      <p>Cada misión tiene tareas que se ponen en verde solas cuando las cumples. Si una tarea tiene casilla, escribe el dato y pulsa <kbd>Intro</kbd>.</p>
+      <p>Pista te da una ayuda y Resolver te enseña cómo se hace, pero la racha vuelve a cero. Otro ejercicio cambia los datos.</p>
+      <p id="ayuda-semilla">La semilla es el número del ejercicio. Si un compañero te dice la suya, escríbela y tendréis el mismo ejercicio. La dirección de la página también la guarda.</p>
+    </section>
+  </div>
+</main>
+<footer>© Raúl Ibáñez, 2026. Contenido bajo <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="noopener">CC BY-SA 4.0</a>; código bajo licencia MIT. Los textos copiados de Ubuntu conservan la licencia de cada programa.</footer>
+
+<script src="../assets/linux-datos.js"></script>
+<script src="../assets/linux.js"></script>
+<script src="../assets/linux-bash.js"></script>
+<script src="../assets/linux-ordenes.js"></script>
+<script src="../assets/linux-sistema.js"></script>
+<script src="../assets/linux-ut4.js"></script>
+<script src="../assets/linux-misiones.js"></script>
+<script src="../assets/linux-misiones-ut4.js"></script>
+<script src="../assets/linux-vis.js"></script>
+<script src="../assets/linux-term.js"></script>
+<script>
+/* Terminal de práctica libre: unidad, modo (libre o una misión) y semilla, guardados en la dirección
+   (?ut=4&m=ut4-m3&s=123456). */
+(function () {
+  'use strict';
+  const L = SOM.linux;
+  const UNIDADES = { 4: ['ut4-m1', 'ut4-m2', 'ut4-m3', 'ut4-m4', 'ut4-m5', 'ut4-m6', 'ut4-m7', 'ut4-m8', 'ut4-repaso'] };
+  const zona = document.getElementById('zona'), teclas = document.getElementById('teclas'), modos = document.getElementById('modos'), lista2 = document.getElementById('modos-lista');
+  lista2.addEventListener('change', () => { estado.m = lista2.value; estado.s = nueva(); monta(); });
+  const formSemilla = document.getElementById('semilla'), campo = document.getElementById('campo-semilla');
+  const q = new URLSearchParams(location.search);
+  const estado = { ut: UNIDADES[q.get('ut')] ? q.get('ut') : '4', m: q.get('m') || 'libre', s: /^\d{1,9}$/.test(q.get('s') || '') ? +q.get('s') : null };
+  let terminal = null;
+
+  const nueva = () => Math.floor(Math.random() * 1e9);
+  function guarda() {
+    const p = new URLSearchParams({ ut: estado.ut, m: estado.m });
+    if (estado.m !== 'libre') p.set('s', String(estado.s));
+    history.replaceState(null, '', '?' + p.toString());
+  }
+  function pintaModos() {
+    modos.querySelectorAll('.chip').forEach((b) => b.remove());
+    lista2.innerHTML = '';
+    const lista = [['libre', 'Libre: como tu Ubuntu']].concat(UNIDADES[estado.ut].map((id) => [id, (/-m(\d)$/.test(id) ? 'M' + id.slice(-1) + ' · ' : '') + L.misiones[id].titulo]));
+    lista.forEach(([id, texto]) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'chip'; b.dataset.m = id; b.textContent = texto;
+      b.setAttribute('aria-pressed', String(id === estado.m));
+      b.addEventListener('click', () => { estado.m = id; estado.s = nueva(); monta(); });
+      modos.appendChild(b);
+      const o = document.createElement('option'); o.value = id; o.textContent = texto; lista2.appendChild(o);
+    });
+  }
+  // monta la terminal de nuevo con el modo y la semilla del estado
+  function monta() {
+    if (estado.m !== 'libre' && !L.misiones[estado.m]) estado.m = 'libre';
+    if (estado.m !== 'libre' && estado.s === null) estado.s = nueva();
+    modos.querySelectorAll('.chip').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.m === estado.m)));
+    lista2.value = estado.m;
+    formSemilla.hidden = estado.m === 'libre';
+    campo.value = estado.s === null ? '' : String(estado.s);
+    zona.after(teclas);
+    zona.innerHTML = '';
+    const el = document.createElement('div');
+    el.className = 'term';
+    if (estado.m === 'libre') el.dataset.escenario = 'inicio';
+    else {
+      el.dataset.mision = estado.m;
+      el.dataset.semilla = String(estado.s);
+      if (estado.m === 'ut4-m5' && window.innerWidth > 1600) el.dataset.vista = 'arranque';
+    }
+    zona.appendChild(el);
+    terminal = new SOM.Terminal(el);
+    SOM.terminales.push(terminal);
+    // las teclas que el móvil no tiene, justo debajo de la terminal
+    const col = el.querySelector('.term-col');
+    if (col) col.insertBefore(teclas, col.querySelector('.term-pie').nextSibling);
+    // Otro ejercicio cambia la semilla: al campo y a la dirección
+    const original = terminal.nuevaSesion.bind(terminal);
+    terminal.nuevaSesion = function () { original(); if (estado.m !== 'libre') { estado.s = terminal.semilla; campo.value = String(estado.s); guarda(); } };
+    guarda();
+  }
+  formSemilla.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const v = campo.value.trim();
+    if (!/^\d{1,9}$/.test(v)) { campo.focus(); campo.select(); return; }
+    estado.s = +v; monta();
+  });
+  document.getElementById('teclas').addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-k]');
+    if (!b || !terminal) return;
+    if (b.dataset.k === 'Escape' && !terminal.programa) { terminal.entrada.blur(); return; }
+    terminal.enfoca();
+    terminal.pulsaTecla(b.dataset.k, true);
+  });
+  // los botones de teclas no se quedan con el foco (en el móvil se cerraría el teclado)
+  document.getElementById('teclas').addEventListener('mousedown', (e) => { if (e.target.closest('button')) e.preventDefault(); });
+  // en escritorio, la terminal ocupa lo que queda de la ventana (con la fila de teclas debajo)
+  function ajusta() {
+    if (window.innerWidth <= 900) { zona.style.height = ''; return; }
+    const arriba = zona.getBoundingClientRect().top + window.scrollY;
+    zona.style.height = Math.max(360, window.innerHeight - arriba - 16) + 'px';
+    if (terminal) { terminal.mide(); terminal.pinta(); }
+  }
+  window.addEventListener('resize', ajusta);
+  pintaModos();
+  monta();
+  ajusta();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajusta);
+})();
+</script>
+</body>
+</html>

@@ -2101,19 +2101,46 @@
     const opts = [...q.querySelectorAll('.quiz-opt')];
     const fb = q.querySelector('.quiz-fb');
     const inicial = fb ? fb.textContent : '';
+    let fallos = 0;
+    if (fb && !fb.hasAttribute('aria-live')) fb.setAttribute('aria-live', 'polite');
+    /* El estado también va en texto, para el lector de pantalla: «, incorrecta» o «, correcta» al final de la opción */
+    const marca = (o, clase, texto) => {
+      o.classList.add(clase);
+      const s = document.createElement('span');
+      s.className = 'quiz-estado';
+      s.textContent = ', ' + texto;
+      o.appendChild(s);
+    };
     const reset = () => {
       q.removeAttribute('data-answered');
-      opts.forEach((o) => o.classList.remove('correct', 'wrong'));
+      fallos = 0;
+      opts.forEach((o) => {
+        o.classList.remove('correct', 'wrong');
+        o.removeAttribute('aria-disabled');
+        o.querySelectorAll('.quiz-estado').forEach((s) => s.remove());
+      });
       if (fb) fb.textContent = inicial;
     };
+    /* Al primer fallo solo se marca la elegida (aspa, texto tachado y borde discontinuo), ya no se puede volver a
+       pulsar y se puede intentar con las otras; la correcta se descubre al acertar o al segundo fallo */
     opts.forEach((o, i) => o.addEventListener('click', () => {
-      if (q.hasAttribute('data-answered')) return;
+      if (q.hasAttribute('data-answered') || o.classList.contains('wrong')) return;
       // Se lee al pulsar: «Otra pregunta» cambia la correcta
       const correcta = parseInt(q.dataset.correct, 10);
+      if (i === correcta) {
+        q.setAttribute('data-answered', '');
+        marca(o, 'correct', 'correcta');
+        if (fb) fb.textContent = q.dataset.ok || 'Correcto.';
+        return;
+      }
+      fallos++;
+      marca(o, 'wrong', 'incorrecta');
+      o.setAttribute('aria-disabled', 'true');
+      const ko = q.dataset.ko || 'Incorrecto.';
+      if (fallos < 2) { if (fb) fb.textContent = ko + ' Prueba otra vez.'; return; }
       q.setAttribute('data-answered', '');
-      opts[correcta].classList.add('correct');
-      if (i !== correcta) o.classList.add('wrong');
-      if (fb) fb.textContent = i === correcta ? (q.dataset.ok || 'Correcto.') : (q.dataset.ko || 'Incorrecto.');
+      marca(opts[correcta], 'correct', 'correcta');
+      if (fb) fb.textContent = ko + ' La respuesta correcta es la marcada.';
     }));
     const r = q.querySelector('.quiz-reset');
     if (r) r.addEventListener('click', reset);
@@ -2126,7 +2153,7 @@
   const fmtQuiz = (s) => escapaHtml(s).replace(/`([^`]+)`/g, '<code class="en-linea">$1</code>');
   function montaOtraPregunta(q, r, opts, banco, reset) {
     const h2 = q.querySelector('h2');
-    const textos = opts.map((o) => o.querySelector(':scope > span:not(.letra)'));
+    const textos = opts.map((o) => o.querySelector(':scope > span:not(.letra):not(.quiz-estado)'));
     const original = { h: h2.innerHTML, o: textos.map((t) => t.innerHTML), c: q.dataset.correct, ok: q.dataset.ok, ko: q.dataset.ko };
     const pon = (p) => {
       if (p === original) {
@@ -2171,8 +2198,9 @@
 
 
   /* ---------- visor a pantalla completa para las fotos ---------- */
-  function abreVisor(fig) {
+  function abreVisor(fig, vuelta) {
     const img = fig.querySelector('img');
+    const antes = vuelta || document.activeElement;   // al cerrar, el foco vuelve aquí (la lupa, si se abrió con ella)
     const cred = fig.querySelector('.credito');
     const v = document.createElement('div');
     v.className = 'visor' + (fig.classList.contains('scroll') ? ' visor-scroll' : '');
@@ -2180,7 +2208,27 @@
     v.querySelector('img').src = img.currentSrc || img.src;
     v.querySelector('img').alt = img.alt;
     if (cred) v.querySelector('.visor-pie').innerHTML = cred.innerHTML; else v.querySelector('.visor-pie').remove();
-    const cierra = () => { v.remove(); document.removeEventListener('keydown', tecla, true); };
+    /* La imagen crece hasta llenar la pantalla sin deformarse, como mucho al triple de su tamaño natural (un recorte
+       pequeño saldría, si no, casi igual que en la diapositiva). En las capturas (.foto.captura), desde el doble se
+       amplía por un número entero de veces y sin suavizar, para que el texto se vea nítido. */
+    const vi = v.querySelector('img');
+    const ajusta = () => {
+      if (v.classList.contains('visor-scroll') || !vi.naturalWidth) return;
+      const pie = v.querySelector('.visor-pie');
+      const libreAlto = window.innerHeight - 2 * (pie ? pie.offsetHeight : 0) - 32;
+      let e = Math.min((window.innerWidth - 32) / vi.naturalWidth, libreAlto / vi.naturalHeight, 3);
+      const nitida = fig.classList.contains('captura') && e >= 2;
+      if (nitida) e = Math.floor(e);
+      vi.classList.toggle('visor-nitida', nitida);
+      if (e > 1) { vi.style.width = Math.round(vi.naturalWidth * e) + 'px'; vi.style.maxHeight = 'none'; }
+      else { vi.style.width = ''; vi.style.maxHeight = ''; }
+    };
+    vi.addEventListener('load', ajusta);
+    window.addEventListener('resize', ajusta);
+    const cierra = () => {
+      v.remove(); document.removeEventListener('keydown', tecla, true); window.removeEventListener('resize', ajusta);
+      if (antes && antes.isConnected && typeof antes.focus === 'function') antes.focus({ preventScroll: true });
+    };
     const tecla = (e) => {
       if (e.key === 'Escape') { e.stopPropagation(); cierra(); return; }
       // En el modo con scroll, las teclas de desplazamiento mueven la imagen, no la presentación
@@ -2193,11 +2241,27 @@
     v.addEventListener('click', (e) => { if (!e.target.closest('a')) cierra(); });
     document.addEventListener('keydown', tecla, true);
     document.body.appendChild(v);
+    if (vi.complete) ajusta();
+    v.querySelector('.visor-cerrar').focus({ preventScroll: true });
   }
+  /* Cada foto se amplía al pulsarla y con una lupa junto al ©, que también funciona con el teclado (Intro o
+     espacio; Esc cierra y devuelve el foco a la lupa). La lupa la pone este código: el marcado no cambia. */
+  const LUPA = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21M10.5 7.5v6M7.5 10.5h6"/></svg>';
   function montaFoto(fig) {
     const img = fig.querySelector('img');
     if (!img) return;
     img.addEventListener('click', (e) => { e.stopPropagation(); abreVisor(fig); });
+    if (fig.querySelector(':scope > .foto-lupa')) return;
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'foto-lupa';
+    b.setAttribute('aria-label', 'Ampliar la imagen');
+    b.title = 'Ampliar la imagen';
+    b.innerHTML = LUPA;
+    b.addEventListener('click', (e) => { e.stopPropagation(); abreVisor(fig, b); });
+    b.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') e.stopPropagation(); });   // que no pase de diapositiva
+    fig.classList.add('con-lupa');
+    fig.appendChild(b);
   }
 
   /* ---------- marcadores numerados sobre una foto ---------- */
@@ -4025,7 +4089,8 @@
     document.querySelectorAll('.galeria').forEach(montaGaleria);
     document.querySelectorAll('.foto').forEach(montaFoto);
     document.querySelectorAll('deck-stage > section').forEach(montaMarcas);
-    document.querySelectorAll('.letra').forEach(montaLetra);
+    // El círculo de la letra de los quiz también se llama .letra, pero no es un título animado
+    document.querySelectorAll('.letra:not(.quiz-opt .letra)').forEach(montaLetra);
     montaBuscador(stage);
     montaVentanas(stage);
     montaVolver(stage);

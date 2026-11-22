@@ -2059,7 +2059,9 @@
     _makeThumb(slide) {
       const thumb = document.createElement('div');
       thumb.className = 'thumb';
-      thumb.tabIndex = 0;
+      // Roving tabindex: the rail is a single Tab stop. Only the current
+      // slide's thumb gets tabIndex 0 (_syncRail); ↑/↓ move within the rail.
+      thumb.tabIndex = -1;
       const sec = document.createElement('div');
       sec.className = 'sec';
       const num = document.createElement('div');
@@ -2614,6 +2616,7 @@
     _syncRail(follow) {
       if (!this._thumbs) return;
       this._thumbs.forEach(({ thumb }, i) => {
+        thumb.tabIndex = i === this._index ? 0 : -1;
         if (i === this._index) {
           thumb.setAttribute('data-current', '');
           if (follow && typeof thumb.scrollIntoView === 'function') {
