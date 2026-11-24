@@ -104,7 +104,8 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
 .hoja .ej-hoja .sv.tabla .lbl.ph { font-size: 32px; }
 .hoja .ej-hoja .sv.tabla .lbl.medias { font-size: 28px; color: var(--ink); }
 .hoja .ej-hoja .sv.plan .d.eje, .hoja .ej-hoja .sv.plan .lbl.eje-t { font-size: 26px; color: var(--ink); }   /* el eje, en las rayas */
-.hoja .ej-hoja .sv.plan .d.eje::before { width: 3px; left: -1.5px; }   /* con el zoom del papel, la marca de 1 px no se ve */
+.hoja .ej-hoja .sv.plan .d.eje::before { box-sizing: border-box; width: 12px; left: -12px; background: none; border-right: 2px solid #9AA6BE; }   /* la marca es el borde derecho de su caja, como la raya de las casillas: mismo sitio y mismo grosor */
+.hoja .ej-hoja .sv.plan .lbl + .d.eje::before { left: 0; border-right: 0; border-left: 2px solid #9AA6BE; }   /* la del 0, con el borde izquierdo de la primera casilla */
 .hoja .ej-hoja .sv.plan .lbl.eje-t { padding-right: 44px; }
 .hoja .ej-hoja .sv.plan:not(.tabla) .lbl.ph { font-size: 28px; }
 .hoja .ej-hoja .sv.plan .c.gantt { border: 2px solid #9AA6BE; border-left-width: 0; }   /* una barra por proceso, con las unidades pegadas */
@@ -256,8 +257,28 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
     return sv;
   }
 
+  /* El cronograma en papel lleva siempre MIN_U unidades como mínimo (más, si el ejercicio las necesita) y casillas
+     del mismo ancho, para que el tamaño no diga cuándo termina el último proceso. Solo añade casillas vacías al
+     final: no toca el sorteo, así que las semillas siguen igual. */
+  const MIN_U = 20;
+  function alarga(g) {
+    if (!g.lado || g.alargado) return;
+    const cas = (f) => f.filter((it) => it.sel);
+    const T = cas(g.filas[0]).length, U = Math.max(MIN_U, T);
+    g.filas.forEach((f) => {
+      const c = cas(f);
+      for (let u = T; u < U; u++) {
+        if (c.length) f.splice(f.length - 1, 0, { sel: c[0].sel, c: c[0].sel[0], clase: c[0].clase });   // antes de la columna final, de 0 px
+        else f.push({ d: String(u + 1), clase: 'eje' });   // el eje: un instante más
+      }
+    });
+    g.columnas = `64px repeat(${U}, ${Math.floor(950 / U)}px) 0px`;
+    g.alargado = true;
+  }
+
   function pintaEjercicio(e, i, sol) {
     const g = e.g;
+    alarga(g);
     const d = document.createElement('div');
     d.className = 'ej-hoja' + (e.tipo.ancho ? ' ancho' : '');
     d.innerHTML = '<div class="cab"><span class="num"></span><span class="tit"></span></div><p class="tarea"></p>';
