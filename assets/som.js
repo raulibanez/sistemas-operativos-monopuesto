@@ -1067,9 +1067,13 @@
         };
         const algo = cfg.modo || ALGOS[rnd(0, 5)];
         const q = 2, N = 4;
-        const prs = [1, 2, 3, 4].sort(() => Math.random() - .5);
+        // con baraja y no con sort(() => Math.random() - .5): ese sort gasta más o menos números al azar según el
+        // navegador y su versión, y la misma semilla daba hojas distintas en cada uno
+        const prs = baraja([1, 2, 3, 4]);
         const procs = [];
-        for (let i = 0; i < N; i++) procs.push({ ll: i === 0 ? 0 : rnd(1, 6), ej: rnd(2, 5), pr: prs[i] });
+        // la ejecución, de 2 a 5 unidades; la hoja en papel pide hasta 6 (cfg.ejMax) y el cronograma llega entonces a 24
+        const ejMax = cfg.ejMax || 5;
+        for (let i = 0; i < N; i++) procs.push({ ll: i === 0 ? 0 : rnd(1, 6), ej: rnd(2, ejMax), pr: prs[i] });
         procs.sort((a, b) => a.ll - b.ll);
         procs[0].ll = 0;
         const R = simulaPlan(procs, algo, q);

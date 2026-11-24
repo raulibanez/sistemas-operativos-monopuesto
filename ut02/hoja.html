@@ -171,6 +171,9 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
   function conSemilla(seed, fn) { const orig = Math.random; Math.random = mulberry32(seed); try { return fn(); } finally { Math.random = orig; } }
   const hash = (s) => { let h = 7; for (const ch of s) h = (h * 31 + ch.charCodeAt(0)) | 0; return Math.abs(h) % 997; };
 
+  /* En la hoja, de práctica o de examen, cada proceso se ejecuta entre 2 y EJ_MAX unidades (en el ejercicio de las
+     diapositivas, entre 2 y 5): el cronograma puede llegar a 24. Cambiar EJ_MAX cambia las hojas de todas las semillas. */
+  const EJ_MAX = 6;
   function generaHoja(semilla, plan, titulo) {
     const ejs = [];
     const ht = hash(titulo || '');          // el título forma parte de la semilla: otro título, otra hoja
@@ -179,7 +182,7 @@ body { background: #E9ECF2; color: var(--ink); font-family: 'Plus Jakarta Sans',
       const seed = semilla * 1000003 + ht * 1009 + hash(p.k) * 101;
       // varios del mismo tipo rotan por sus subtipos o casos sin repetir (SOM.rota); k > 0 solo si el de siempre repite
       SOM.rota(p.n, (j, k) => conSemilla(seed + j + k * 7919, () => {
-        const g = SOM.generadores[tipo.gen].generar(tipo.modo ? { modo: tipo.modo } : {});
+        const g = SOM.generadores[tipo.gen].generar({ modo: tipo.modo, ejMax: EJ_MAX });
         return { g, clave: g.variante, total: g.variantes };
       })).forEach((g) => ejs.push({ tipo, g }));
     });
